@@ -34,7 +34,8 @@ namespace GVC.DALL
                 c.UsuarioCriacao,
                 c.UsuarioAtualizacao,
                 c.CidadeID,
-                ci.Nome AS NomeCidade,
+                c.IsVendedor,                
+                ci.Nome AS NomeCidade,                
                 e.Uf AS Estado
             FROM Clientes c
             LEFT JOIN Cidade ci ON ci.CidadeID = c.CidadeID
@@ -94,12 +95,12 @@ namespace GVC.DALL
                 INSERT INTO Clientes (
                   Nome, Cpf, RG, OrgaoExpedidorRG, Cnpj, IE, Telefone, Email, CidadeID,
                   Logradouro, Numero, Bairro, Cep, DataNascimento, TipoCliente, Status,
-                  Observacoes, LimiteCredito, DataCriacao, DataAtualizacao, UsuarioCriacao, UsuarioAtualizacao
+                  Observacoes, LimiteCredito, DataCriacao, DataAtualizacao, UsuarioCriacao, UsuarioAtualizacao, IsVendedor
                 )
                 VALUES (
                   @Nome, @Cpf, @RG, @OrgaoExpedidorRG, @Cnpj, @IE, @Telefone, @Email, @CidadeID,
                   @Logradouro, @Numero, @Bairro, @Cep, @DataNascimento, @TipoCliente, @Status,
-                  @Observacoes, @LimiteCredito, @DataCriacao, @DataAtualizacao, @UsuarioCriacao, @UsuarioAtualizacao
+                  @Observacoes, @LimiteCredito, @DataCriacao, @DataAtualizacao, @UsuarioCriacao, @UsuarioAtualizacao, @IsVendedor
                 );
                 SELECT SCOPE_IDENTITY();"; // SQL Server equivalente ao LAST_INSERT_ROWID()
 
@@ -128,7 +129,8 @@ namespace GVC.DALL
                 cmd.Parameters.AddWithValue("@DataAtualizacao", cliente.DataAtualizacao ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@UsuarioCriacao", cliente.UsuarioCriacao ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@UsuarioAtualizacao", cliente.UsuarioAtualizacao ?? (object)DBNull.Value);
-
+                cmd.Parameters.AddWithValue("@IsVendedor", cliente.IsVendedor ?? (object)DBNull.Value);
+                
                 conn.Open();
                 cliente.ClienteID = Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -158,6 +160,7 @@ namespace GVC.DALL
                     LimiteCredito = @LimiteCredito,
                     DataAtualizacao = @DataAtualizacao,
                     UsuarioAtualizacao = @UsuarioAtualizacao
+                    IsVendedor = @IsVendedor                    
                 WHERE ClienteID = @ClienteID";
 
             using (var conn = Helpers.Conexao.Conex())
@@ -184,7 +187,8 @@ namespace GVC.DALL
                 cmd.Parameters.AddWithValue("@LimiteCredito", cliente.LimiteCredito);
                 cmd.Parameters.AddWithValue("@DataAtualizacao", cliente.DataAtualizacao ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@UsuarioAtualizacao", cliente.UsuarioAtualizacao ?? (object)DBNull.Value);
-
+                cmd.Parameters.AddWithValue("@IsVendedor", cliente.IsVendedor ?? (object)DBNull.Value);
+                
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -359,11 +363,80 @@ namespace GVC.DALL
                 Status = reader["Status"] != DBNull.Value ? Convert.ToInt64(reader["Status"]) : 0,
                 Observacoes = reader["Observacoes"].ToString(),
                 UsuarioCriacao = reader["UsuarioCriacao"].ToString(),
-                UsuarioAtualizacao = reader["UsuarioAtualizacao"].ToString()
+                UsuarioAtualizacao = reader["UsuarioAtualizacao"].ToString(),
+                IsVendedor = reader["IsVendedor"] != DBNull.Value ? Convert.ToBoolean(reader["IsVendedor"]) : null,                
                 // Adicione os demais campos conforme sua classe ClienteMODEL
             };
             return cliente;
         }
+        public List<ClienteMODEL> ListarClienteDinamico(string filtro = "")
+        {
+            var lista = new List<ClienteMODEL>();
+
+            using (var conn = Helpers.Conexao.Conex())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+            SELECT ClienteID, Nome
+            FROM Clientes
+            WHERE IsVendedor = 0
+              AND Status = 1
+              AND Nome LIKE @filtro
+            ORDER BY Nome";
+
+                cmd.Parameters.AddWithValue("@filtro", $"%{filtro}%");
+
+                conn.Open();
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        lista.Add(new ClienteMODEL
+                        {
+                            ClienteID = dr.GetInt32(0),
+                            Nome = dr.GetString(1)
+                        });
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+        public List<ClienteMODEL> ListarVendedores(string filtro = "")
+        {
+            var lista = new List<ClienteMODEL>();
+
+            using (var conn = Helpers.Conexao.Conex())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+            SELECT ClienteID, Nome
+            FROM Clientes
+            WHERE IsVendedor = 1
+              AND Status = 1
+              AND Nome LIKE @filtro
+            ORDER BY Nome";
+
+                cmd.Parameters.AddWithValue("@filtro", $"%{filtro}%");
+
+                conn.Open();
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        lista.Add(new ClienteMODEL
+                        {
+                            ClienteID = dr.GetInt32(0),
+                            Nome = dr.GetString(1)
+                        });
+                    }
+                }
+            }
+
+            return lista;
+        }
+
     }
 
     // Classe simples para lista de vendas

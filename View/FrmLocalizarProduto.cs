@@ -261,7 +261,7 @@ namespace GVC.View
                 {
                     // Preenche os campos no formulário FrmPedido com os dados do produto
                     frmPDV.ProdutoID = ProdutoID;
-                    frmPDV.txtNomeProduto.Text = NomeProduto;
+                    frmPDV.txtProdutoBuscar.Text = NomeProduto;
                     frmPDV.txtPrecoUnitario.Text = PrecoUnitario.ToString();
                     frmPDV.txtQuantidade.Text = "1";
                     Utilitario.FormatarMoeda(frmPDV.txtPrecoUnitario);

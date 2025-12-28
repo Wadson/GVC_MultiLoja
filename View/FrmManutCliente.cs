@@ -68,6 +68,8 @@ namespace GVC.View
             if (dgvCliente.Columns["UsuarioAtualizacao"] != null) dgvCliente.Columns["UsuarioAtualizacao"].HeaderText = "Usuário Atualização";
             if (dgvCliente.Columns["NomeCidade"] != null) dgvCliente.Columns["NomeCidade"].HeaderText = "Cidade";
             if (dgvCliente.Columns["Estado"] != null) dgvCliente.Columns["Estado"].HeaderText = "UF";
+            if (dgvCliente.Columns["DataNascimento"] != null) dgvCliente.Columns["DataNascimento"].HeaderText = "Data Nasc.";
+            if (dgvCliente.Columns["IsVendedor"] != null) dgvCliente.Columns["IsVendedor"].HeaderText = "Vendedor";
 
             // Larguras fixas
             var largurasFixas = new (string nome, int largura)[]
@@ -96,7 +98,8 @@ namespace GVC.View
                 ("UsuarioCriacao",150),
                 ("UsuarioAtualizacao",150),
                 ("NomeCidade",    200),
-                ("Estado",         60)
+                ("Estado",         60),
+                ("IsVendedor", 70)
             };
 
             foreach (var (nome, largura) in largurasFixas)

@@ -26,6 +26,8 @@ namespace GVC.MODEL
         public string Numero { get; set; }
         public string Bairro { get; set; }
         public string Cep { get; set; }
+        public bool? IsVendedor { get; set; } 
+        // bit NULL
 
         // Dados adicionais do cliente
         public DateTime? DataNascimento { get; set; }   // datetime NULL

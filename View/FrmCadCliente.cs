@@ -28,6 +28,7 @@ namespace GVC.View
         private bool bloqueiaPesquisa = false;
         public int ClienteID { get; set; }
         public int CidadeID { get; set; }
+        private bool isVendedor { get; set; }
 
         public FrmCadCliente()
         {
@@ -191,10 +192,10 @@ namespace GVC.View
             string query = $"SELECT CidadeID FROM Cidade WHERE Nome = @NomeCidade";
             //string query, string nomeParametro, object parametro
             string cidadeIdStr = Utilitario.PesquisarPorCodigoRetornarNome(query, "NomeCidade", nomeCidade);
-           
+
             if (int.TryParse(cidadeIdStr, out int cidadeId))
             {
-                CidadeID = cidadeId;               
+                CidadeID = cidadeId;
             }
             else
             {
@@ -456,6 +457,8 @@ namespace GVC.View
                 this.CidadeID = int.TryParse(row.Cells["CidadeID"].Value?.ToString(), out int cid) ? cid : 0;
                 txtNomeCidade.Text = row.Cells["NomeCidade"].Value?.ToString() ?? "";
                 txtUF.Text = row.Cells["Estado"].Value?.ToString() ?? "";
+                chkIsVendedor.Checked = row.Cells["IsVendedor"].Value is bool b && b;
+
 
                 // ========== 4. DETERMINA E APLICA O TIPO DE CLIENTE ==========
                 string tipoCliente = row.Cells["TipoCliente"].Value?.ToString() ?? "";
@@ -1028,39 +1031,12 @@ namespace GVC.View
 
             // Para alteração (será sobrescrito no AlterarRegistro, mas mantemos aqui para consistência)
             cliente.DataAtualizacao = DateTime.Now;
-            cliente.UsuarioAtualizacao = FrmLogin.UsuarioConectado;
+            cliente.UsuarioAtualizacao = FrmLogin.UsuarioConectado;            
+            cliente.IsVendedor = chkIsVendedor.Checked;
 
             return cliente;
         }
-        //private ClienteMODEL MontarObjetoCliente()
-        //{
-        //    var cliente = new ClienteMODEL();
-
-        //    cliente.Nome = txtNomeCliente.Text.Trim();
-        //    cliente.Cpf = Utilitario.ApenasNumeros(txtCpf.Text);
-        //    cliente.RG = txtRg.Text.Trim();
-        //    cliente.OrgaoExpedidorRG = txtOrgaoExpedidorRG.Text.Trim();
-        //    cliente.Cnpj = Utilitario.ApenasNumeros(txtCnpj.Text);
-        //    cliente.IE = txtIE.Text.Trim();
-        //    cliente.Telefone = Utilitario.ApenasNumeros(txtTelefone.Text);
-        //    cliente.Email = txtEmail.Text.Trim();
-        //    if (int.TryParse(txtClienteID.Text, out int id)) cliente.ClienteID = id;
-        //    cliente.CidadeID = CidadeID;
-        //    cliente.Logradouro = txtLogradouro.Text.Trim();
-        //    cliente.Numero = txtNumero.Text.Trim();
-        //    cliente.Bairro = txtBairro.Text.Trim();
-        //    cliente.Cep = Utilitario.ApenasNumeros(txtCep.Text);
-        //    cliente.DataNascimento = dtpDataNascimento.Checked ? dtpDataNascimento.Value.Date : null;
-        //    cliente.TipoCliente = cmbTipoCliente.Text;
-        //    cliente.Status = cmbStatus.Text == "Ativo" ? 1 : 0;
-        //    cliente.Observacoes = txtObservacoes.Text.Trim();
-        //    if (decimal.TryParse(txtLimiteCredito.Text, out decimal limite))
-        //        cliente.LimiteCredito = limite;
-        //    cliente.DataCriacao = DateTime.Now;
-        //    cliente.UsuarioCriacao = FrmLogin.UsuarioConectado;
-        //    return cliente;
-        //}
-
+       
         private void AbrirFrmLocalizarCidadeDinamico()
         {
             // Desliga temporariamente o evento para evitar loop
@@ -1446,7 +1422,6 @@ namespace GVC.View
         private async void btnBuscarEnderecoPorCep_Click(object sender, EventArgs e)
         {
             await BuscarEnderecoPorCep();
-        }
-
+        }       
     }
 }

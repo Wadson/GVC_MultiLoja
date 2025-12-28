@@ -25,38 +25,50 @@ namespace GVC.View
 
         private void btnVisualizar_Click(object sender, EventArgs e)
         {
+            if (dgvVendas.CurrentRow == null)
+            {
+                MessageBox.Show("Selecione uma venda para visualizar.");
+                return;
+            }
+
+            long vendaId = Convert.ToInt64(
+                dgvVendas.CurrentRow.Cells["VendaID"].Value
+            );
+
+            var frm = new FrmPDV(vendaId);
+            frm.ShowDialog();
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
-            long vendaId = ObterVendaSelecionada();
-
-            var confirmacao = MessageBox.Show(
-                "Esta venda possui pagamentos recebidos.\n\n" +
-                "Ao cancelar:\n" +
-                "• O estoque será devolvido\n" +
-                "• Os valores recebidos serão ESTORNADOS\n\n" +
-                "Deseja continuar?",
-                "Cancelamento com estorno",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-            if (confirmacao != DialogResult.Yes)
-                return;
-
-            using (var frmMotivo = new FrmMotivoOperacao("Motivo da Alteração"))
+            if (dgvVendas.CurrentRow == null)
             {
-                if (frmMotivo.ShowDialog() != DialogResult.OK)
-                    return;
-
-                new VendaBLL().CancelarVenda(vendaId, frmMotivo.Motivo);
-
-                using (var frm = new FrmVendas(vendaId))
-                {
-                    frm.ShowDialog();
-                    CarregarVendas();
-                }
+                MessageBox.Show("Selecione uma venda para alterar.");
+                return;
             }
+
+            long vendaId = Convert.ToInt64(
+                dgvVendas.CurrentRow.Cells["VendaID"].Value
+            );
+
+            var frm = new FrmPDV(vendaId);
+            frm.btnCancelarParcelas.Enabled = false;
+            frm.btnCancelarVenda.Enabled = false;
+            frm.btnImprimir.Enabled = false;
+            frm.btnSalvarVenda.Enabled = false;
+            frm.btnCancelarParcelas.Enabled = false;            
+            frm.pnlCabecalhoVenda.Enabled = false;            
+            frm.pnlFormaPgto.Enabled = false;
+            frm.flowLayoutPanelTotais.Enabled = false;
+            frm.pnlObservacoes.Enabled = false;   
+            frm.txtClienteBuscar.Enabled = false;
+            frm.txtProdutoBuscar.Enabled = false;                       
+            frm.btnNovaVenda.Enabled = false;   
+            frm.ShowDialog();
+
+            // opcional e comum:
+            // Recarregar a lista após fechar
+            // CarregarVendas();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -179,7 +191,7 @@ namespace GVC.View
 
             // Larguras
             dgvVendas.Columns["VendaID"].Width = 100;
-            dgvVendas.Columns["Cliente"].Width = 550; // aumentada
+            dgvVendas.Columns["Cliente"].Width = 400; // aumentada
             dgvVendas.Columns["DataVenda"].DefaultCellStyle.Format = "dd/MM/yyyy";
             dgvVendas.Columns["ValorTotal"].DefaultCellStyle.Format = "C2";
             dgvVendas.Columns["Desconto"].DefaultCellStyle.Format = "C2";

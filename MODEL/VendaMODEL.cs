@@ -16,6 +16,7 @@ namespace GVC.MODEL
         public decimal? Desconto { get; set; } = 0;
         public string Observacoes { get; set; }
         public string StatusVenda { get; set; } = "Finalizada";
+        public int? VendedorID { get; set; }
 
 
         public List<ItemVendaModel> ItensVendidos { get; set; }

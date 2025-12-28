@@ -88,9 +88,12 @@
             lblRotuloCnpj = new Label();
             txtIE = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloIE = new Label();
+            groupBoxEVendedor = new GroupBox();
+            chkIsVendedor = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)cmbTipoCliente).BeginInit();
             kryptonStatusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbStatus).BeginInit();
+            groupBoxEVendedor.SuspendLayout();
             SuspendLayout();
             // 
             // txtLogradouro
@@ -134,7 +137,7 @@
             txtNomeCliente.CharacterCasing = CharacterCasing.Upper;
             txtNomeCliente.Location = new Point(250, 30);
             txtNomeCliente.Name = "txtNomeCliente";
-            txtNomeCliente.Size = new Size(531, 27);
+            txtNomeCliente.Size = new Size(632, 27);
             txtNomeCliente.StateCommon.Back.Color1 = Color.White;
             txtNomeCliente.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNomeCliente.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -920,9 +923,9 @@
             cmbStatus.DropDownWidth = 171;
             cmbStatus.IntegralHeight = false;
             cmbStatus.Items.AddRange(new object[] { "Ativo", "Inativo" });
-            cmbStatus.Location = new Point(788, 30);
+            cmbStatus.Location = new Point(526, 84);
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(95, 27);
+            cmbStatus.Size = new Size(147, 27);
             cmbStatus.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(8, 142, 254);
             cmbStatus.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(8, 142, 254);
             cmbStatus.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
@@ -937,7 +940,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Microsoft Sans Serif", 9.25F);
             label9.ForeColor = Color.FromArgb(0, 76, 172);
-            label9.Location = new Point(789, 9);
+            label9.Location = new Point(527, 63);
             label9.Name = "label9";
             label9.Size = new Size(44, 16);
             label9.TabIndex = 1036;
@@ -1063,11 +1066,33 @@
             lblRotuloIE.Text = "IE (Inscrição Estadual)";
             lblRotuloIE.Visible = false;
             // 
+            // groupBoxEVendedor
+            // 
+            groupBoxEVendedor.Controls.Add(chkIsVendedor);
+            groupBoxEVendedor.Location = new Point(679, 65);
+            groupBoxEVendedor.Name = "groupBoxEVendedor";
+            groupBoxEVendedor.Size = new Size(203, 46);
+            groupBoxEVendedor.TabIndex = 1042;
+            groupBoxEVendedor.TabStop = false;
+            groupBoxEVendedor.Text = "É Vendedor?";
+            // 
+            // chkIsVendedor
+            // 
+            chkIsVendedor.AutoSize = true;
+            chkIsVendedor.Font = new Font("Segoe UI", 10F);
+            chkIsVendedor.Location = new Point(82, 18);
+            chkIsVendedor.Name = "chkIsVendedor";
+            chkIsVendedor.Size = new Size(50, 23);
+            chkIsVendedor.TabIndex = 2;
+            chkIsVendedor.Text = "Sim";
+            chkIsVendedor.UseVisualStyleBackColor = true;
+            // 
             // FrmCadCliente
             // 
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(894, 448);
             ControlBox = false;
+            Controls.Add(groupBoxEVendedor);
             Controls.Add(txtIE);
             Controls.Add(lblRotuloIE);
             Controls.Add(txtCnpj);
@@ -1135,6 +1160,8 @@
             kryptonStatusStrip1.ResumeLayout(false);
             kryptonStatusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)cmbStatus).EndInit();
+            groupBoxEVendedor.ResumeLayout(false);
+            groupBoxEVendedor.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
 
@@ -1201,5 +1228,7 @@
         private Label lblRotuloCnpj;
         public Krypton.Toolkit.KryptonTextBox txtIE;
         private Label lblRotuloIE;
+        private GroupBox groupBoxEVendedor;
+        private CheckBox chkIsVendedor;
     }
 }

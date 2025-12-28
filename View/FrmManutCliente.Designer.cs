@@ -71,6 +71,7 @@
             dgvCliente.MultiSelect = false;
             dgvCliente.Name = "dgvCliente";
             dgvCliente.PaletteMode = Krypton.Toolkit.PaletteMode.SparkleBlueLightMode;
+            dgvCliente.ReadOnly = true;
             dgvCliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCliente.Size = new Size(901, 327);
             dgvCliente.TabIndex = 597;
@@ -435,7 +436,7 @@
             kryptonLabel1.StateCommon.ShortText.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel1.TabIndex = 0;
-            kryptonLabel1.Values.Text = "MANUTENÇÃO DE CIDADES";
+            kryptonLabel1.Values.Text = "MANUTENÇÃO DE CLIENTES";
             // 
             // kryptonPanel3
             // 

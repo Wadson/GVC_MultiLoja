@@ -36,8 +36,8 @@ namespace GVC.DALL
             }
 
             string sqlVenda = @"
-                INSERT INTO Venda (DataVenda, ClienteID, ValorTotal, FormaPgtoID, Desconto, Observacoes, StatusVenda)
-                VALUES (@DataVenda, @ClienteID, @ValorTotal, @FormaPgtoID, @Desconto, @Observacoes, @StatusVenda);
+                INSERT INTO Venda (DataVenda, ClienteID, ValorTotal, FormaPgtoID, Desconto, Observacoes, StatusVenda, VendedorID)
+                VALUES (@DataVenda, @ClienteID, @ValorTotal, @FormaPgtoID, @Desconto, @Observacoes, @StatusVenda, @VendedorID);
                 SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             string sqlItem = @" INSERT INTO ItemVenda (VendaID, ProdutoID, Quantidade, PrecoUnitario, Subtotal, DescontoItem)
@@ -70,6 +70,7 @@ namespace GVC.DALL
                     //cmdVenda.Parameters.AddWithValue("@Desconto", venda.Desconto ?? 0m);
                     cmdVenda.Parameters.AddWithValue("@Observacoes", (object)venda.Observacoes ?? DBNull.Value);
                     cmdVenda.Parameters.AddWithValue("@StatusVenda", (object)venda.StatusVenda ?? DBNull.Value);
+                    cmdVenda.Parameters.AddWithValue("@VendedorID", venda.VendedorID);
 
                     int vendaId = (int)cmdVenda.ExecuteScalar();
 
@@ -164,6 +165,7 @@ namespace GVC.DALL
                     Desconto = @Desconto,
                     Observacoes = @Observacoes,
                     StatusVenda = @StatusVenda
+                    VendedorID = @VendedorID
                 WHERE VendaID = @VendaID";
 
             using var conn = GVC.Helpers.Conexao.Conex();
@@ -177,6 +179,7 @@ namespace GVC.DALL
             cmd.Parameters.AddWithValue("@Desconto", venda.Desconto == 0 ? (object)DBNull.Value : venda.Desconto);
             cmd.Parameters.AddWithValue("@Observacoes", (object)venda.Observacoes ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@StatusVenda", (object)venda.StatusVenda ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@VendedorID",venda.VendedorID);
             cmd.ExecuteNonQuery();
         }
 
@@ -230,7 +233,8 @@ namespace GVC.DALL
                     FormaPgtoID = reader.GetInt32("FormaPgtoID"),
                     Desconto = (decimal)(reader.IsDBNull("Desconto") ? (decimal?)null : reader.GetDecimal("Desconto")),
                     Observacoes = reader.IsDBNull("Observacoes") ? null : reader.GetString("Observacoes") as string,
-                    StatusVenda = reader.IsDBNull("StatusVenda") ? null : reader.GetString("StatusVenda")
+                    StatusVenda = reader.IsDBNull("StatusVenda") ? null : reader.GetString("StatusVenda"),
+                    VendedorID = reader.GetInt32("VendedorID")
                 };
             }
             return null;
@@ -246,6 +250,7 @@ namespace GVC.DALL
                 v.Desconto,
                 v.Observacoes,
                 v.StatusVenda,
+                v.VendedorID
                 f.FormaPgto AS FormaPagamento
             FROM Venda v
             INNER JOIN Cliente c ON v.ClienteID = c.ClienteID
@@ -270,6 +275,7 @@ namespace GVC.DALL
                 v.Desconto,
                 v.Observacoes,
                 v.StatusVenda,
+                v.VendedorID
                 f.FormaPgto AS FormaPagamento
             FROM Venda v
             LEFT JOIN FormaPgto f ON v.FormaPgtoID = f.FormaPgtoID
@@ -296,6 +302,7 @@ namespace GVC.DALL
                 v.Desconto,
                 v.Observacoes,
                 v.StatusVenda,
+                v.VendedorID
                 f.FormaPgto AS FormaPagamento
             FROM Venda v
             INNER JOIN Cliente c ON v.ClienteID = c.ClienteID
@@ -379,6 +386,7 @@ namespace GVC.DALL
                                 v.Desconto,
                                 v.Observacoes,
                                 v.StatusVenda,
+                                v.VendedorID
                                 c.Nome AS NomeCliente
                             FROM Venda v
                             LEFT JOIN Clientes c ON c.ClienteID = v.ClienteID
@@ -401,7 +409,8 @@ namespace GVC.DALL
                     ValorTotal = reader.GetDecimal("ValorTotal"),
                     Desconto = (decimal)(reader.IsDBNull("Desconto") ? (decimal?)null : reader.GetDecimal("Desconto")),
                     Observacoes = reader.IsDBNull("Observacoes") ? null : reader.GetString("Observacoes") as string,
-                    StatusVenda = reader.IsDBNull("StatusVenda") ? null : reader.GetString("StatusVenda")
+                    StatusVenda = reader.IsDBNull("StatusVenda") ? null : reader.GetString("StatusVenda"),
+                    VendedorID = reader.GetInt32("VendedorID")
                 };
 
                 if (!reader.IsDBNull("NomeCliente"))

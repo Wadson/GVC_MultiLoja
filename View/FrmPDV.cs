@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using GVC.Helpers;
+using GVC.DAL;
 
 
 namespace GVC.View
@@ -78,7 +79,9 @@ namespace GVC.View
         private readonly ModoVenda _modo;
         private readonly long _vendaId;
         private bool _carregandoVenda = false;
-
+        private long _vendedorId;
+        private long _clienteId;
+        private long _produtoId;
 
         #region ===== CONSTRUTOR ==============================
 
@@ -138,8 +141,7 @@ namespace GVC.View
 
             // ===== CLIENTE =====
             ClienteID = vendaCompleta.ClienteID;
-            txtNomeCliente.Text = vendaCompleta.ClienteNome;
-            txtCpf.Text = vendaCompleta.CpfCliente;
+            txtClienteBuscar.Text = vendaCompleta.ClienteNome;
             txtDesconto.Text = vendaCompleta.Desconto.ToString("N2");
             txtObservacao.Text = vendaCompleta.Observacoes;
 
@@ -199,10 +201,13 @@ namespace GVC.View
         private void AtualizarContadorItens()
         {
             int totalItens = _itensBinding.Count;
-            txtTotalItens.Text = totalItens.ToString() ;
+            txtTotalItens.Text = totalItens.ToString();
         }
         private void FrmPDV_Load(object sender, EventArgs e)
         {
+            this.KeyPreview = true;
+            InicializarBuscaCliente();
+            InicializarBuscaVendedor();
             _itensBinding = new BindingList<ItemVendaModel>();
             _itensBinding.ListChanged += (sender, args) => AtualizarContadorItens();
             dgvItensVenda.DataSource = _itensBinding;
@@ -447,7 +452,7 @@ namespace GVC.View
                     PrecoUnitario = preco,
                     Subtotal = qtd * preco,
                     DescontoItem = 0m,
-                    ProdutoDescricao = txtNomeProduto.Text
+                    ProdutoDescricao = txtProdutoBuscar.Text
                 });
             }
 
@@ -464,7 +469,7 @@ namespace GVC.View
             LimparCamposProduto();
 
             // Foca no campo Nome do Produto
-            txtNomeProduto.Focus();
+            txtProdutoBuscar.Focus();
             // ✅ LIBERA GRID E PRÓXIMO PASSO
             EstadoItemAdicionado();
         }
@@ -640,7 +645,7 @@ namespace GVC.View
         private void LimparCamposProduto()
         {
             ProdutoID = 0;
-            txtNomeProduto.Clear();
+            txtProdutoBuscar.Clear();
             txtQuantidade.Text = "1";
             txtPrecoUnitario.Text = "0,00";
         }
@@ -652,8 +657,8 @@ namespace GVC.View
             _clienteFoiSelecionado = false;
 
             // ===== CLIENTE =====
-            txtNomeCliente.Clear();
-            txtCpf.Clear();
+            txtClienteBuscar.Clear();
+            txtVendedorBuscar.Clear();
 
             // ===== ITENS =====
             _itensBinding.Clear();
@@ -687,7 +692,7 @@ namespace GVC.View
             lblVendaID.Text = Utilitario.ZerosEsquerda(vendaID, 4);
 
             // ===== FOCO =====
-            txtNomeCliente.Focus();
+            txtClienteBuscar.Focus();
         }
 
         #endregion
@@ -725,6 +730,96 @@ namespace GVC.View
         }
 
         #region Helpers
+        private void ConfirmarCliente()
+        {
+            if (lstClientes.SelectedItem is ClienteMODEL vendedor)
+            {
+                _vendedorId = vendedor.ClienteID;
+                txtClienteBuscar.Text = vendedor.Nome;
+            }
+
+            lstClientes.Visible = false;
+
+            // Próximo campo do PDV
+            txtProdutoBuscar.Focus();
+        }
+        private void ConfirmarProduto()
+        {
+            if (lstProdutos.SelectedItem is ProdutosModel produto)
+            {
+                _produtoId = produto.ProdutoID;
+                txtProdutoBuscar.Text = produto.NomeProduto;
+            }
+
+            lstProdutos.Visible = false;
+
+            // Próximo campo do PDV
+            txtQuantidade.Focus();
+        }
+        private void ConfirmarVendedor()
+        {
+            if (lstVendedores.SelectedItem is ClienteMODEL vendedor)
+            {
+                _vendedorId = vendedor.ClienteID;
+                txtVendedorBuscar.Text = vendedor.Nome;
+            }
+
+            lstVendedores.Visible = false;
+
+            // Próximo campo do PDV
+            txtProdutoBuscar.Focus();
+        }
+        private void InicializarBuscaCliente()
+        {
+            lstClientes.Visible = false;
+            lstClientes.BringToFront();
+            lstClientes.TabStop = false;
+
+            txtClienteBuscar.TabIndex = 1; // ajuste conforme seu fluxo
+        }
+        private void SelecionarCliente()
+        {
+            if (lstClientes.SelectedItem is ClienteMODEL vendedor)
+            {
+                _clienteId = vendedor.ClienteID;
+                txtClienteBuscar.Text = vendedor.Nome;
+            }
+
+            lstClientes.Visible = false;
+            txtProdutoBuscar.Focus();
+        }
+        private void SelecionarProduto()
+        {
+            if (lstProdutos.SelectedItem is ProdutosModel vendedor)
+            {
+                _produtoId = vendedor.ProdutoID;
+                txtProdutoBuscar.Text = vendedor.NomeProduto;
+            }
+
+            lstProdutos.Visible = false;
+            txtQuantidade.Focus();
+        }
+        private void InicializarBuscaVendedor()
+        {
+            lstVendedores.Visible = false;
+            lstVendedores.BringToFront();
+            lstVendedores.TabStop = false;
+
+            txtVendedorBuscar.TabIndex = 1; // ajuste conforme seu fluxo
+        }
+
+        private void SelecionarVendedor()
+        {
+            if (lstVendedores.SelectedItem is ClienteMODEL vendedor)
+            {
+                _vendedorId = vendedor.ClienteID;
+                txtVendedorBuscar.Text = vendedor.Nome;
+            }
+
+            lstVendedores.Visible = false;
+            txtProdutoBuscar.Focus();
+        }
+
         private void HabilitarTodosOsKryptonPanels()
         {
             foreach (Control c in tableLayoutPanel2.Controls)
@@ -737,12 +832,11 @@ namespace GVC.View
         private void EstadoInicial()
         {
             // CLIENTE
-            txtNomeCliente.Enabled = true;
-            btnLocalizarCliente.Enabled = true;
+            txtClienteBuscar.Enabled = true;
 
             // PRODUTO
-            txtNomeProduto.Enabled = false;
-            btnLocalizarProduto.Enabled = false;
+            txtProdutoBuscar.Enabled = false;
+            txtProdutoBuscar.Enabled = false;
             txtQuantidade.Enabled = false;
             txtPrecoUnitario.Enabled = false;
             btnAdicionarItem.Enabled = false;
@@ -761,7 +855,7 @@ namespace GVC.View
             dtPrimeira.Enabled = false;
             dgvParcelas.Enabled = false;
 
-            txtNomeCliente.Focus();
+            txtClienteBuscar.Focus();
         }
 
 
@@ -784,13 +878,13 @@ namespace GVC.View
 
         private void EstadoClienteSelecionado()
         {
-            txtNomeProduto.Enabled = true;
-            btnLocalizarProduto.Enabled = true;
+            txtProdutoBuscar.Enabled = true;
+            txtProdutoBuscar.Enabled = true;
             txtQuantidade.Enabled = true;
             txtPrecoUnitario.Enabled = true;
             btnAdicionarItem.Enabled = true;
-
-            txtNomeProduto.Focus();
+            txtVendedorBuscar.Enabled = true;
+            txtProdutoBuscar.Enabled = true;
         }
 
         private void EstadoItemAdicionado()
@@ -840,16 +934,16 @@ namespace GVC.View
             }
         }
 
-        private void txtNomeProduto_TextChanged(object sender, EventArgs e)
-        {
-        }
+
 
         private void FrmPDV_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && lstVendedores.Visible && lstVendedores.Focused)
             {
+                e.Handled = true;
                 e.SuppressKeyPress = true;
-                SendKeys.Send("{TAB}");
+
+                ConfirmarVendedor();
             }
         }
         private void txtPrecoUnitario_KeyPress(object sender, KeyPressEventArgs e)
@@ -1131,49 +1225,6 @@ namespace GVC.View
             }
         }
 
-
-        private void btnLocalizarCliente_Click(object sender, EventArgs e)
-        {
-            string textoDigitado = txtNomeProduto.Text;
-            using (var pesquisaCliente = new FrmLocalizarCliente(this, textoDigitado))
-            {
-                pesquisaCliente.Owner = this;
-
-                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
-                {
-                    txtNomeCliente.Text = pesquisaCliente.ClienteSelecionado;
-                    ClienteID = pesquisaCliente.ClienteID;
-                    txtNomeCliente.SelectionStart = txtNomeCliente.Text.Length;
-                    txtCpf.Text = Utilitario.FormatarCPF2(pesquisaCliente.Cpf);
-                }
-            }
-            if (ClienteID > 0 && !string.IsNullOrWhiteSpace(txtNomeCliente.Text))
-            {
-                EstadoClienteSelecionado();
-            }
-
-        }
-
-        private void btnLocalizarProduto_Click(object sender, EventArgs e)
-        {
-            // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
-            string textoDigitado = txtNomeProduto.Text;
-
-            using (var pesquisaProduto = new FrmLocalizarProduto(this, textoDigitado))
-            {
-                pesquisaProduto.Owner = this;
-
-                if (pesquisaProduto.ShowDialog() == DialogResult.OK)
-                {
-                    txtNomeProduto.Text = pesquisaProduto.ProdutoSelecionado;
-                    txtPrecoUnitario.Text = pesquisaProduto.PrecoUnitario.ToString("N2");
-                    ProdutoID = pesquisaProduto.ProdutoID;
-                    txtNomeProduto.SelectionStart = txtNomeProduto.Text.Length;
-                }
-            }
-            txtQuantidade.Focus();
-        }
-
         private void txtObservacao_TextChanged(object sender, EventArgs e)
         {
         }
@@ -1214,10 +1265,185 @@ namespace GVC.View
                 }
             }
         }
-       
+
         private void FrmPDV_FormClosed(object sender, FormClosedEventArgs e)
         {
         }
+
+        private void txtVendedorBuscar_TextChanged(object sender, EventArgs e)
+        {
+            var texto = txtVendedorBuscar.Text.Trim();
+
+            if (texto.Length == 0)
+            {
+                lstVendedores.Visible = false;
+                return;
+            }
+
+            var dal = new ClienteDal();
+            var vendedores = dal.ListarVendedores(texto);
+
+            lstVendedores.DataSource = null;
+            lstVendedores.DataSource = vendedores;
+            lstVendedores.DisplayMember = "Nome";
+            lstVendedores.ValueMember = "ClienteID";
+            if (_vendedorId > 0 && !string.IsNullOrWhiteSpace(txtVendedorBuscar.Text))
+            {
+                txtProdutoBuscar.Enabled = true;
+                txtProdutoBuscar.Focus();
+            }
+            lstVendedores.Visible = vendedores.Count > 0;
+        }
+
+        private void txtVendedorBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down && lstVendedores.Visible)
+            {
+                lstVendedores.Focus();
+
+                if (lstVendedores.SelectedIndex < 0 && lstVendedores.Items.Count > 0)
+                    lstVendedores.SelectedIndex = 0;
+
+                e.Handled = true;
+            }
+        }
+
+        private void lstVendedores_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ConfirmarVendedor();
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                lstVendedores.Visible = false;
+                txtVendedorBuscar.Focus();
+            }
+        }
+
+        private void lstVendedores_DoubleClick(object sender, EventArgs e)
+        {
+            SelecionarVendedor();
+        }
+
+        private void lstVendedores_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                e.IsInputKey = true;
+        }
+
+        private void lstClientes_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                e.IsInputKey = true;
+        }
+
+        private void lstClientes_DoubleClick(object sender, EventArgs e)
+        {
+            SelecionarCliente();
+        }
+
+        private void lstClientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ConfirmarCliente();
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                lstClientes.Visible = false;
+                txtClienteBuscar.Focus();
+            }
+        }
+
+        private void txtClienteBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down && lstClientes.Visible)
+            {
+                lstClientes.Focus();
+
+                if (lstClientes.SelectedIndex < 0 && lstClientes.Items.Count > 0)
+                    lstClientes.SelectedIndex = 0;
+
+                e.Handled = true;
+            }
+        }
+
+        private void txtClienteBuscar_TextChanged(object sender, EventArgs e)
+        {
+            var texto = txtClienteBuscar.Text.Trim();
+
+            if (texto.Length == 0)
+            {
+                lstClientes.Visible = false;
+                return;
+            }
+
+            var dal = new ClienteDal();
+            var vendedores = dal.ListarClienteDinamico(texto);
+
+            lstClientes.DataSource = null;
+            lstClientes.DataSource = vendedores;
+            lstClientes.DisplayMember = "Nome";
+            lstClientes.ValueMember = "ClienteID";
+            if (_clienteId > 0 && !string.IsNullOrWhiteSpace(txtClienteBuscar.Text))
+            {
+                EstadoClienteSelecionado();
+                txtVendedorBuscar.Focus();
+            }
+
+            lstClientes.Visible = vendedores.Count > 0;
+        }
+        private void txtProdutoBuscar_TextChanged(object sender, EventArgs e)
+        {
+            var texto = txtProdutoBuscar.Text.Trim();
+
+            if (texto.Length == 0)
+            {
+                lstProdutos.Visible = false;
+                return;
+            }
+
+            var dal = new ProdutoDALL();
+            var vendedores = dal.ListarProdutoDinamico(texto);
+
+            lstProdutos.DataSource = null;
+            lstProdutos.DataSource = vendedores;
+            lstProdutos.DisplayMember = "NomeProduto";
+            lstProdutos.ValueMember = "ProdutoID";
+            if (_produtoId > 0 && !string.IsNullOrWhiteSpace(txtProdutoBuscar.Text))
+            {
+                txtQuantidade.Focus();
+            }
+            lstProdutos.Visible = vendedores.Count > 0;
+        }
+
+        private void lstProdutos_DoubleClick(object sender, EventArgs e)
+        {
+            SelecionarProduto();
+        }
+
+        private void lstProdutos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ConfirmarProduto();
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                lstProdutos.Visible = false;
+                txtProdutoBuscar.Focus();
+            }
+        }
+
+        private void lstProdutos_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                e.IsInputKey = true;
+        }       
     }
 }
 

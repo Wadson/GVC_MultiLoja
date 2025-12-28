@@ -64,8 +64,40 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
                 }
             }
             return lista;
-        }       
+        }
+        public List<ProdutosModel> ListarProdutoDinamico(string filtro = "")
+        {
+            var lista = new List<ProdutosModel>();
 
+            using (var conn = Helpers.Conexao.Conex())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+            SELECT ProdutoID, NomeProduto
+            FROM Produtos
+            WHERE NomeProduto LIKE @filtro           
+              AND Status = Ativo
+              AND NomeProduto LIKE @filtro
+            ORDER BY NomeProduto";
+
+                cmd.Parameters.AddWithValue("@filtro", $"%{filtro}%");
+
+                conn.Open();
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        lista.Add(new ProdutosModel
+                        {
+                            ProdutoID = dr.GetInt32(0),
+                            NomeProduto = dr.GetString(1)
+                        });
+                    }
+                }
+            }
+
+            return lista;
+        }
         // ==================== BUSCAR POR ID ====================
         public ProdutosModel? BuscarPorId(long id)
         {

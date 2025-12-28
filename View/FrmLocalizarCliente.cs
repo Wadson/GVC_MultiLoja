@@ -332,8 +332,7 @@ namespace GVC.View
                 {
                     frmPDV.ClienteID = ClienteID;
 
-                    frmPDV.txtNomeCliente.Text = ClienteSelecionado;
-                    frmPDV.txtCpf.Text = Utilitario.FormatarCPF(Cpf);
+                    frmPDV.txtClienteBuscar.Text = ClienteSelecionado;                    
                 }
                 else if (this.Owner is FrmGerenciarVendas frmGerVendas)
                 {
