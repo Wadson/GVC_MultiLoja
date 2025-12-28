@@ -129,8 +129,9 @@ namespace GVC.DALL
                 cmd.Parameters.AddWithValue("@DataAtualizacao", cliente.DataAtualizacao ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@UsuarioCriacao", cliente.UsuarioCriacao ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@UsuarioAtualizacao", cliente.UsuarioAtualizacao ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@IsVendedor", cliente.IsVendedor ?? (object)DBNull.Value);
-                
+                cmd.Parameters.AddWithValue("@IsVendedor", cliente.IsVendedor);
+
+
                 conn.Open();
                 cliente.ClienteID = Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -159,9 +160,8 @@ namespace GVC.DALL
                     Observacoes = @Observacoes,
                     LimiteCredito = @LimiteCredito,
                     DataAtualizacao = @DataAtualizacao,
-                    UsuarioAtualizacao = @UsuarioAtualizacao
-                    IsVendedor = @IsVendedor                    
-                WHERE ClienteID = @ClienteID";
+                    UsuarioAtualizacao = @UsuarioAtualizacao,
+                    IsVendedor = @IsVendedor WHERE ClienteID = @ClienteID";
 
             using (var conn = Helpers.Conexao.Conex())
             using (var cmd = new SqlCommand(sql, conn))
@@ -187,8 +187,9 @@ namespace GVC.DALL
                 cmd.Parameters.AddWithValue("@LimiteCredito", cliente.LimiteCredito);
                 cmd.Parameters.AddWithValue("@DataAtualizacao", cliente.DataAtualizacao ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@UsuarioAtualizacao", cliente.UsuarioAtualizacao ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@IsVendedor", cliente.IsVendedor ?? (object)DBNull.Value);
-                
+                cmd.Parameters.AddWithValue("@IsVendedor", cliente.IsVendedor);
+
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }

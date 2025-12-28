@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -56,7 +57,7 @@ namespace GVC.View
             if (dgvCliente.Columns["Numero"] != null) dgvCliente.Columns["Numero"].HeaderText = "Número";
             if (dgvCliente.Columns["Bairro"] != null) dgvCliente.Columns["Bairro"].HeaderText = "Bairro";
             if (dgvCliente.Columns["Cep"] != null) dgvCliente.Columns["Cep"].HeaderText = "CEP";
-            if (dgvCliente.Columns["DataNascimento"] != null) dgvCliente.Columns["DataNascimento"].HeaderText = "Dt. Nasc.";
+            if (dgvCliente.Columns["DataNascimento"] != null) dgvCliente.Columns["DataNascimento"].HeaderText = "Dt. Nasc.";            
             if (dgvCliente.Columns["TipoCliente"] != null) dgvCliente.Columns["TipoCliente"].HeaderText = "Tipo";
             if (dgvCliente.Columns["Status"] != null) dgvCliente.Columns["Status"].HeaderText = "Status";
             if (dgvCliente.Columns["Observacoes"] != null) dgvCliente.Columns["Observacoes"].HeaderText = "Obs.";
@@ -68,7 +69,7 @@ namespace GVC.View
             if (dgvCliente.Columns["UsuarioAtualizacao"] != null) dgvCliente.Columns["UsuarioAtualizacao"].HeaderText = "Usuário Atualização";
             if (dgvCliente.Columns["NomeCidade"] != null) dgvCliente.Columns["NomeCidade"].HeaderText = "Cidade";
             if (dgvCliente.Columns["Estado"] != null) dgvCliente.Columns["Estado"].HeaderText = "UF";
-            if (dgvCliente.Columns["DataNascimento"] != null) dgvCliente.Columns["DataNascimento"].HeaderText = "Data Nasc.";
+            
             if (dgvCliente.Columns["IsVendedor"] != null) dgvCliente.Columns["IsVendedor"].HeaderText = "Vendedor";
 
             // Larguras fixas
@@ -197,11 +198,19 @@ namespace GVC.View
                 return;
             }
 
+            if (controle is Krypton.Toolkit.KryptonTextBox ktxt)
+            {
+                ktxt.ReadOnly = true;
+                ktxt.StateCommon.Back.Color1 = SystemColors.Control;
+                return;
+            }
+
             foreach (Control filho in controle.Controls)
             {
                 BloquearTextBoxRecursivo(filho);
             }
         }
+
 
 
         private void btnNovo_Click(object sender, EventArgs e)
@@ -214,12 +223,7 @@ namespace GVC.View
             cad.Text = "Novo Cliente";
             cad.ForeColor = Color.FromArgb(8, 142, 254);
 
-            cad.ShowDialog();
-
-            if (cad.DialogResult == DialogResult.OK)
-                ListarCliente();
-
-
+            cad.ShowDialog();          
         }
         private void btnAlterar_Click(object sender, EventArgs e)
         {
@@ -237,11 +241,8 @@ namespace GVC.View
                 dgvCliente.CurrentRow.Cells["ClienteID"].Value);
 
             cadCliente.StatusOperacao = StatusOperacao;
-
-            CarregaDados(cadCliente);
-
-            if (cadCliente.DialogResult == DialogResult.OK)
-                ListarCliente();
+            CarregaDados(cadCliente);           
+            
         }
         private void btnExcluir_Click(object sender, EventArgs e)
         {
@@ -271,9 +272,6 @@ namespace GVC.View
             cadCliente.StatusOperacao = StatusOperacao;
 
             CarregaDados(cadCliente);
-
-            if (cadCliente.DialogResult == DialogResult.OK)
-                ListarCliente();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -315,7 +313,7 @@ namespace GVC.View
 
         private void FrmManutCliente_Load(object sender, EventArgs e)
         {
-
+            timer1.Enabled = false; // 🔴 IMPORTANTE
             ListarCliente();           
             dgvCliente.CellFormatting += dataGridPesquisar_CellFormatting;
         }
@@ -445,12 +443,13 @@ namespace GVC.View
             if ((columnName == "ValorTotal" || columnName == "Saldo" || columnName == "LimiteCredito" ||
                  columnName == "Valor" || columnName == "Preco" || columnName == "Total") && !string.IsNullOrWhiteSpace(raw))
             {
-                if (decimal.TryParse(raw, out decimal valor))
+                if (e.Value is decimal dec)
                 {
-                    e.Value = valor.ToString("N2");
+                    e.Value = dec.ToString("N2", CultureInfo.CurrentCulture);
                     e.FormattingApplied = true;
                     return;
                 }
+
             }
             // Verifica se a coluna é a de status (supondo que o nome seja "Ativo")
             if (dgvCliente.Columns[e.ColumnIndex].Name == "Status" && e.Value != null)

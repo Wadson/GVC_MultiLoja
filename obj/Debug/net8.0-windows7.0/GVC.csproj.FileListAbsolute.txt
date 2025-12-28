@@ -374,3 +374,4 @@ C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\refint\GVC.dll
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.pdb
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.genruntimeconfig.cache
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\ref\GVC.dll
+C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmCadEmpresa.resources

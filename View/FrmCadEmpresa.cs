@@ -17,7 +17,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GVC.View
 {
-    public partial class FrmCadCliente : KryptonForm
+    public partial class FrmCadEmpresa : KryptonForm
     {
         public bool CarregandoDados { get; set; }
 
@@ -30,7 +30,7 @@ namespace GVC.View
         public int CidadeID { get; set; }
         private bool isVendedor { get; set; }
 
-        public FrmCadCliente()
+        public FrmCadEmpresa()
         {
             InitializeComponent();
             ConfigurarEventosCep();

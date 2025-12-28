@@ -31,6 +31,15 @@ namespace GVC.MODEL
             PrecoCusto > 0 ? (PrecoDeVenda - PrecoCusto) / PrecoCusto * 100 : 0;
 
         public bool EstoqueBaixo => Estoque <= 10;
+
+        public string ProdutoExibicao
+        {
+            get
+            {
+                return $"{ProdutoID:000000} | {NomeProduto} | {Unidade} | R$ {PrecoDeVenda:N2}";
+            }
+        }
+
     }
 
 }

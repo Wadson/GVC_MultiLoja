@@ -1,6 +1,6 @@
 ﻿namespace GVC.View
 {
-    partial class FrmCadCliente
+    partial class FrmCadEmpresa
     {
         /// <summary>
         /// Variável de designer necessária.

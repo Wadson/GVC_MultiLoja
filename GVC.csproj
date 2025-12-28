@@ -36,6 +36,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\FrmCadEmpresa.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="View\FrmCadFornecedor.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

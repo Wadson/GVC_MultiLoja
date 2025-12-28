@@ -23,6 +23,62 @@ namespace GVC.View
 {
     public partial class FrmPDV : KryptonForm
     {
+        // ----------------------
+        // Estado da Venda (FrmPDV)
+        // ----------------------
+        private readonly ModoVenda _modo;
+        private readonly long _vendaId;
+        public long VendaID { get; private set; }
+
+        private bool _carregandoVenda = false;
+        private bool _clienteFoiSelecionado = false;
+        public string StatusVenda { get; set; }
+
+        // ----------------------
+        // Identificadores
+        // ----------------------
+        private long _vendedorId;
+        private long _clienteId;
+        private long _produtoId;
+
+        public int ClienteID { get; set; }
+        public int ProdutoID { get; set; }
+
+        // ----------------------
+        // Valores Financeiros
+        // ----------------------
+        private decimal _subtotal = 0m;
+        private decimal _desconto = 0m;
+        private decimal _valorTotal = 0m;
+
+        // ----------------------
+        // Itens e Parcelas
+        // ----------------------
+        private BindingList<ItemVendaModel> _itensBinding = new BindingList<ItemVendaModel>();
+        private BindingSource _itensBindingSource = new BindingSource();
+
+        private List<ParcelaModel> parcelasDaVenda = new List<ParcelaModel>();
+        private List<ParcelaModel> _parcelasGeradas = new List<ParcelaModel>(); // geradas pelo FrmGeraParcelas
+
+        // ----------------------
+        // Modelos e Serviços
+        // ----------------------
+        private VendaModel venda = new VendaModel();
+        private readonly VendaService _vendaService = new VendaService();
+
+        // ----------------------
+        // Interface
+        // ----------------------
+        private FrmLocalizarCliente frmPesquisaCliente;
+        private bool formularioPesquisaAberto = false;
+        private bool _ignorandoBuscaProduto = false;
+
+        // ----------------------
+        // Legado (compatibilidade)
+        // ----------------------
+        public string clienteSelecionado { get; set; } // apenas para preencher parâmetro do construtor
+        public string produtoSelecionado { get; set; } // apenas para preencher parâmetro do construtor
+        private readonly string QueryVenda = "SELECT MAX(VendaID) FROM Venda";
         public enum EnumStatusVendaPDV
         {
             Aberta,
@@ -45,45 +101,6 @@ namespace GVC.View
             Cancelada,
             Devolvida
         }
-
-
-        // Imcluído acima em 18/12/2025
-        #region ===== CAMPOS / ESTADO ======================================       
-        private bool _clienteFoiSelecionado = false;
-        private readonly string QueryVenda = "SELECT MAX(VendaID) FROM Venda";
-        public int ClienteID { get; set; }
-        public int ProdutoID { get; set; }
-        private decimal _subtotal = 0m;
-        private decimal _desconto = 0m;
-        private decimal _valorTotal = 0m;
-        public string StatusVenda { get; set; }
-
-        private BindingList<ItemVendaModel> _itensBinding = new BindingList<ItemVendaModel>();
-        private BindingSource _itensBindingSource = new BindingSource();
-
-        private List<ParcelaModel> parcelasDaVenda = new List<ParcelaModel>();
-        private VendaModel venda = new VendaModel();
-
-        #endregion
-
-        private readonly VendaService _vendaService = new VendaService();
-        public string clienteSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
-        public string produtoSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
-        public long VendaID { get; private set; }
-
-        // guarda as parcelas geradas pelo FrmGeraParcelas (mantém separadas até salvar)
-        private List<ParcelaModel> _parcelasGeradas = new List<ParcelaModel>();
-        private FrmLocalizarCliente frmPesquisaCliente;
-        private bool formularioPesquisaAberto = false;
-        // Fim ANTIGO
-        private readonly ModoVenda _modo;
-        private readonly long _vendaId;
-        private bool _carregandoVenda = false;
-        private long _vendedorId;
-        private long _clienteId;
-        private long _produtoId;
-
-        #region ===== CONSTRUTOR ==============================
 
         public FrmPDV()// NOVA VENDA
         {
@@ -111,8 +128,6 @@ namespace GVC.View
 
             InicializarFormulario();
         }
-        #endregion
-
         #region ===== INICIALIZAÇÃO =========================================
 
         private void InicializarFormulario()
@@ -140,7 +155,7 @@ namespace GVC.View
             var vendaCompleta = new VendaBLL().ObterVendaCompleta(_vendaId);
 
             // ===== CLIENTE =====
-            ClienteID = vendaCompleta.ClienteID;
+            _clienteId = vendaCompleta.ClienteID;
             txtClienteBuscar.Text = vendaCompleta.ClienteNome;
             txtDesconto.Text = vendaCompleta.Desconto.ToString("N2");
             txtObservacao.Text = vendaCompleta.Observacoes;
@@ -231,8 +246,8 @@ namespace GVC.View
             else
             {
                 int vendaID = Utilitario.ProximoId(QueryVenda);
-                lblVendaID.Text = Utilitario.ZerosEsquerda(vendaID, 4);
-                lblData.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                txtVendaID.Text = Utilitario.ZerosEsquerda(vendaID, 4);
+                txtDataVenda.Text = DateTime.Now.ToString("dd/MM/yyyy");
             }
             if (_modo == ModoVenda.Nova)
             {
@@ -246,13 +261,15 @@ namespace GVC.View
         {
             dgvParcelas.Columns.Clear();
 
-            dgvParcelas.Columns.Add("Parcela", "Parcela");
+            dgvParcelas.Columns.Add("Parcela", "Parc");
             dgvParcelas.Columns.Add("Vencimento", "Vencimento");
             dgvParcelas.Columns.Add("Valor", "Valor");
             dgvParcelas.Columns.Add("Status", "Status");
 
-            // Largura da coluna Parcela
-            dgvParcelas.Columns["Parcela"].Width = 60;
+            // Largura das colunas 
+            dgvParcelas.Columns["Parcela"].Width = 40;           
+            dgvParcelas.Columns["Vencimento"].Width = 80;
+            dgvParcelas.Columns["Valor"].Width = 90;
 
             // Centralizar Parcela
             dgvParcelas.Columns["Parcela"].DefaultCellStyle.Alignment =
@@ -268,7 +285,7 @@ namespace GVC.View
 
             // Alinhar Valor à direita
             dgvParcelas.Columns["Valor"].DefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleRight;
+                DataGridViewContentAlignment.MiddleLeft;
 
             // Configurações gerais
             dgvParcelas.AllowUserToAddRows = false;
@@ -282,9 +299,9 @@ namespace GVC.View
             // 🔹 Coluna Código
             dgvItensVenda.Columns.Add(new DataGridViewTextBoxColumn
             {
-                HeaderText = "Código",
+                HeaderText = "Cód",
                 DataPropertyName = nameof(ItemVendaModel.ProdutoID),
-                Width = 70, // 🔹 Largura reduzida
+                Width = 50, // 🔹 Largura reduzida
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
@@ -299,7 +316,7 @@ namespace GVC.View
             {
                 HeaderText = "Descrição",
                 DataPropertyName = nameof(ItemVendaModel.ProdutoDescricao),
-                Width = 400, // 🔹 Ajuste fino
+                Width = 300, // 🔹 Ajuste fino
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
@@ -314,7 +331,7 @@ namespace GVC.View
             {
                 HeaderText = "Qtde",
                 DataPropertyName = nameof(ItemVendaModel.Quantidade),
-                Width = 60,
+                Width = 50,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Alignment = DataGridViewContentAlignment.MiddleCenter, // 🔹 CENTRALIZADO
@@ -330,7 +347,7 @@ namespace GVC.View
             {
                 HeaderText = "Preço Unit.",
                 DataPropertyName = nameof(ItemVendaModel.PrecoUnitario),
-                Width = 90,
+                Width = 70,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "N2",
@@ -345,7 +362,7 @@ namespace GVC.View
             {
                 HeaderText = "Subtotal",
                 DataPropertyName = nameof(ItemVendaModel.Subtotal),
-                Width = 120,
+                Width = 90,
                 ReadOnly = true,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
@@ -419,35 +436,32 @@ namespace GVC.View
 
         private void btnAdicionarItem_Click(object sender, EventArgs e)
         {
-
-            if (ProdutoID <= 0)
+            if (_produtoId <= 0)
             {
-                MessageBox.Show("Produto inválido.");
+                MessageBox.Show("Ops! Esse produto não existe no cadastro. Deseja tentar outro?");
                 return;
             }
 
             if (!decimal.TryParse(txtPrecoUnitario.Text, out decimal preco))
                 return;
 
-            int qtd = Convert.ToInt32(txtQuantidade.Text);
+            if (!int.TryParse(txtQuantidade.Text, out int qtd) || qtd <= 0)
+                return;
 
-            // Busca o item na lista de itens
-            var item = _itensBinding.FirstOrDefault(i => i.ProdutoID == ProdutoID);
+            // Busca o item na lista
+            var item = _itensBinding.FirstOrDefault(i => i.ProdutoID == _produtoId);
 
-            // Se o item já existir, atualiza a quantidade
             if (item != null)
             {
                 item.Quantidade += qtd;
-                // 🔴 CORREÇÃO: Recalcular o Subtotal
                 item.Subtotal = item.Quantidade * item.PrecoUnitario;
             }
             else
             {
-                // Adiciona um novo item com o nome do produto
                 _itensBinding.Add(new ItemVendaModel
                 {
                     VendaID = venda.VendaID,
-                    ProdutoID = ProdutoID,
+                    ProdutoID = _produtoId,
                     Quantidade = qtd,
                     PrecoUnitario = preco,
                     Subtotal = qtd * preco,
@@ -456,23 +470,26 @@ namespace GVC.View
                 });
             }
 
-            // Atualiza o binding da lista de itens
+            // Atualizações visuais
             _itensBindingSource.ResetBindings(false);
-
-            // Força a atualização da grid
             dgvItensVenda.Refresh();
 
-            // Atualiza os totais da venda
             AtualizarTotais();
 
-            // Limpa os campos do produto
-            LimparCamposProduto();
+            // Limpeza controlada (SEM disparar busca)
+            _ignorandoBuscaProduto = true;
 
-            // Foca no campo Nome do Produto
-            txtProdutoBuscar.Focus();
-            // ✅ LIBERA GRID E PRÓXIMO PASSO
+            LimparCamposProduto(); // ← aqui deve limpar txtProdutoBuscar, txtQuantidade, txtPrecoUnitario
+            lstProdutos.Visible = false;
+            _produtoId = 0;
+
+            _ignorandoBuscaProduto = false;
+
             EstadoItemAdicionado();
+
+            txtProdutoBuscar.Focus();
         }
+
 
         #endregion
 
@@ -524,8 +541,14 @@ namespace GVC.View
 
         #region ===== EVENTOS DE TEXTO ====================
 
-        private void txtQuantidade_TextChanged(object sender, EventArgs e) => AtualizarSubtotalItem();
-        private void txtPrecoUnitario_TextChanged(object sender, EventArgs e) => AtualizarSubtotalItem();
+        private void txtQuantidade_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarSubtotalItem();
+        }
+        private void txtPrecoUnitario_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarSubtotalItem();
+        }
         private void cmbFormaPagamento_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
@@ -539,27 +562,58 @@ namespace GVC.View
         {
             try
             {
-                if (ClienteID <= 0)
-                    throw new Exception("Selecione um cliente.");
+                // ===============================
+                // 🔒 VALIDAÇÕES OBRIGATÓRIAS
+                // ===============================
+
+                if (_clienteId <= 0)
+                {
+                    MessageBox.Show("Selecione um cliente.", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 if (_itensBinding.Count == 0)
-                    throw new Exception("Adicione itens à venda.");
+                {
+                    MessageBox.Show("Adicione itens à venda.", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                if (cmbFormaPagamento.SelectedItem is not FormaPagamentoItem forma)
-                    throw new Exception("Selecione uma forma de pagamento válida.");
+                if (cmbFormaPagamento.SelectedItem == null)
+                {
+                    MessageBox.Show(
+                        "Selecione uma forma de pagamento para concluir a venda.",
+                        "Forma de pagamento obrigatória",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    cmbFormaPagamento.StateCommon.ComboBox.Back.Color1 = Color.MistyRose;
+                    cmbFormaPagamento.Focus();
+                    return;
+                }
+
+                // ⬇️ SÓ AQUI extrai o objeto
+                var forma = cmbFormaPagamento.SelectedItem as FormaPagamentoItem;
+
+                if (forma == null || forma.Id <= 0)
+                {
+                    MessageBox.Show("Forma de pagamento inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 // ===============================
                 // MONTAR VENDA
                 // ===============================
                 var vendaModel = new VendaModel
                 {
-                    ClienteID = ClienteID,
+                    ClienteID = _clienteId,
                     FormaPgtoID = forma.Id,
                     DataVenda = DateTime.Now,
                     ValorTotal = Convert.ToDecimal(txtTotalGeral.Text),
                     Desconto = Convert.ToDecimal(txtDesconto.Text),
                     Observacoes = txtObservacao.Text,
-                    StatusVenda = CalcularStatusVendaPorFormaPgto(forma.Descricao)
+                    StatusVenda = CalcularStatusVendaPorFormaPgto(forma.Descricao),
+                    VendedorID = _vendedorId > 0 ? (int?)_vendedorId : null
                 };
 
                 // ===============================
@@ -587,18 +641,32 @@ namespace GVC.View
                 if (_modo == ModoVenda.Nova)
                 {
                     bll.SalvarVendaCompleta(vendaModel, _itensBinding.ToList(), parcelas);
-                    MessageBox.Show(
-                                    "✅ VENDA CONCLUÍDA COM SUCESSO ✅\n\n" +
-                                    "Os dados foram registrados corretamente.\n\n" +
-                                    "Deseja continuar para impressão do recibo?",
-                                    "CONFIRMAÇÃO DE VENDA",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Information,
-                                    MessageBoxDefaultButton.Button1
-                                    );
+
+                    var resposta = MessageBox.Show(
+                        "✅ VENDA CONCLUÍDA COM SUCESSO ✅\n\n" +
+                        "Os dados foram registrados corretamente.\n\n" +
+                        "Deseja imprimir o cupom não fiscal?",
+                        "CONFIRMAÇÃO DE VENDA",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button1
+                    );
+
+                    if (resposta == DialogResult.Yes)
+                    {
+                        CupomNaoFiscalPdf.Gerar(
+                            vendaModel,
+                            _itensBinding.ToList(),
+                            "Yago Brandão dos Passos",
+                            "60.252.955/0001-68",
+                            "Rua Cinco, Nº 379 - Bela Vista - Xinguara",
+                            "(94) 9 3300-4134"
+                        );
+                    }
 
                     LimparFormulario();
                 }
+
                 else // EDIÇÃO
                 {
                     vendaModel.VendaID = _vendaId;
@@ -644,16 +712,17 @@ namespace GVC.View
 
         private void LimparCamposProduto()
         {
-            ProdutoID = 0;
+            _produtoId = 0;
             txtProdutoBuscar.Clear();
-            txtQuantidade.Text = "1";
-            txtPrecoUnitario.Text = "0,00";
+            txtQuantidade.Clear();
+            txtPrecoUnitario.Clear();
         }
+
         private void LimparFormulario()
         {
             // ===== ESTADO =====
-            ClienteID = 0;
-            ProdutoID = 0;
+            _clienteId = 0;
+            _produtoId = 0;
             _clienteFoiSelecionado = false;
 
             // ===== CLIENTE =====
@@ -680,6 +749,8 @@ namespace GVC.View
 
             // ===== FORMAS / PARCELAMENTO =====
             cmbFormaPagamento.SelectedIndex = -1;
+            cmbFormaPagamento.StateCommon.ComboBox.Back.Color1 = Color.White;
+            
             numParcelas.Value = 1;
             numIntervalo.Value = 30;
             dtPrimeira.Value = DateTime.Today;
@@ -689,10 +760,11 @@ namespace GVC.View
 
             // ===== NOVO ID DE VENDA =====
             int vendaID = Utilitario.ProximoId(QueryVenda);
-            lblVendaID.Text = Utilitario.ZerosEsquerda(vendaID, 4);
+            txtVendaID.Text = Utilitario.ZerosEsquerda(vendaID, 4);
 
             // ===== FOCO =====
             txtClienteBuscar.Focus();
+
         }
 
         #endregion
@@ -710,6 +782,7 @@ namespace GVC.View
             {
                 btnGerarParcelas.Enabled = false;
                 btnCancelarParcelas.Enabled = false;
+                cmbFormaPagamento.StateCommon.ComboBox.Back.Color1 = Color.White;
                 return;
             }
 
@@ -730,32 +803,106 @@ namespace GVC.View
         }
 
         #region Helpers
+        private void AbrirBuscaCliente()
+        {
+            txtClienteBuscar.Enabled = true;
+            txtClienteBuscar.Focus();
+            txtClienteBuscar.SelectAll();
+        }
+        private void AbrirBuscaVendedor()
+        {
+            txtVendedorBuscar.Enabled = true;
+            txtVendedorBuscar.Focus();
+            txtVendedorBuscar.SelectAll();
+        }
+        private void AbrirBuscaProduto()
+        {
+            txtProdutoBuscar.Enabled = true;
+            txtProdutoBuscar.Focus();
+            txtProdutoBuscar.SelectAll();
+        }
+        private void FecharListas()
+        {
+            lstClientes.Visible = false;
+            lstVendedores.Visible = false;
+            lstProdutos.Visible = false;
+        }
+        private void FinalizarVenda()
+        {
+            if (_itensBinding.Count == 0)
+            {
+                MessageBox.Show("Nenhum item na venda.");
+                return;
+            }
+
+            // Abre tela de pagamento, resumo, etc
+            MessageBox.Show("Finalizar venda...");
+        }
+        private ProdutoListaItem CriarCabecalhoProduto()
+        {
+            return new ProdutoListaItem
+            {
+                ProdutoID = 0,
+                Texto =
+                    "Código ".PadRight(8) +
+                    "Descrição".PadRight(70) +
+                    "Unid ".PadRight(10) +
+                    "PC Venda"
+            };
+        }
+        private ProdutoListaItem CriarLinhaProduto(ProdutosModel p)
+        {
+            return new ProdutoListaItem
+            {
+                ProdutoID = p.ProdutoID,
+                PrecoUnitario = p.PrecoDeVenda,
+                Texto =
+            p.ProdutoID.ToString("0000").PadRight(8) +
+            p.NomeProduto.PadRight(70).Substring(0, 70) +
+            p.Unidade.PadRight(10) +
+            p.PrecoDeVenda.ToString("C2")
+            };
+        }
+
+
+
+
         private void ConfirmarCliente()
         {
-            if (lstClientes.SelectedItem is ClienteMODEL vendedor)
+            if (lstClientes.SelectedItem is ClienteMODEL cliente)
             {
-                _vendedorId = vendedor.ClienteID;
-                txtClienteBuscar.Text = vendedor.Nome;
+                _clienteId = cliente.ClienteID;
+                txtClienteBuscar.Text = cliente.Nome;
             }
 
             lstClientes.Visible = false;
 
-            // Próximo campo do PDV
-            txtProdutoBuscar.Focus();
+            // ✅ Próximo campo do PDV            
+            if (_clienteId > 0 && !string.IsNullOrWhiteSpace(txtClienteBuscar.Text))
+            {
+                txtVendedorBuscar.Enabled = true;
+                txtVendedorBuscar.Focus();
+            }
         }
         private void ConfirmarProduto()
         {
-            if (lstProdutos.SelectedItem is ProdutosModel produto)
+            if (lstProdutos.SelectedItem is ProdutoListaItem item)
             {
-                _produtoId = produto.ProdutoID;
-                txtProdutoBuscar.Text = produto.NomeProduto;
+                if (item.ProdutoID == 0)
+                    return; // cabeçalho
+
+                _produtoId = item.ProdutoID;
+                txtProdutoBuscar.Text = item.Texto.Substring(8, 30).Trim();
+
+                // 👉 AQUI ESTÁ O FILÉ
+                txtPrecoUnitario.Text = item.PrecoUnitario.ToString("N2");
             }
 
             lstProdutos.Visible = false;
-
-            // Próximo campo do PDV
             txtQuantidade.Focus();
         }
+
+
         private void ConfirmarVendedor()
         {
             if (lstVendedores.SelectedItem is ClienteMODEL vendedor)
@@ -766,8 +913,12 @@ namespace GVC.View
 
             lstVendedores.Visible = false;
 
-            // Próximo campo do PDV
-            txtProdutoBuscar.Focus();
+            // ✅ Próximo campo do PDV            
+            if (_vendedorId > 0 && !string.IsNullOrWhiteSpace(txtVendedorBuscar.Text))
+            {
+                txtProdutoBuscar.Enabled = true;
+                txtProdutoBuscar.Focus();
+            }
         }
         private void InicializarBuscaCliente()
         {
@@ -786,7 +937,7 @@ namespace GVC.View
             }
 
             lstClientes.Visible = false;
-            txtProdutoBuscar.Focus();
+            txtVendedorBuscar.Focus();
         }
         private void SelecionarProduto()
         {
@@ -895,7 +1046,6 @@ namespace GVC.View
             txtValorRecebido.Enabled = true;
             txtDesconto.Enabled = true;
             btnGerarParcelas.Enabled = true;
-
             cmbFormaPagamento.Focus();
         }
 
@@ -920,7 +1070,7 @@ namespace GVC.View
                 decimal.TryParse(txtQuantidade.Text, out quantidade);
 
             if (!string.IsNullOrWhiteSpace(txtPrecoUnitario.Text))
-                decimal.TryParse(txtPrecoUnitario.Text, out preco);
+                decimal.TryParse(txtPrecoUnitario.Text, out preco);            
         }
 
         #endregion
@@ -933,17 +1083,39 @@ namespace GVC.View
                     Utilitario.AplicarCorFoco(kryptonTxt);
             }
         }
-
-
-
         private void FrmPDV_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && lstVendedores.Visible && lstVendedores.Focused)
+            switch (e.KeyCode)
             {
-                e.Handled = true;
-                e.SuppressKeyPress = true;
+                case Keys.F2:
+                    AbrirBuscaCliente();
+                    e.SuppressKeyPress = true;
+                    break;
 
-                ConfirmarVendedor();
+                case Keys.F3:
+                    AbrirBuscaVendedor();
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.F4:
+                    AbrirBuscaProduto();
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.F6:
+                    btnAdicionarItem.PerformClick();
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.F12:
+                    FinalizarVenda();
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Escape:
+                    FecharListas();
+                    e.SuppressKeyPress = true;
+                    break;
             }
         }
         private void txtPrecoUnitario_KeyPress(object sender, KeyPressEventArgs e)
@@ -1051,7 +1223,6 @@ namespace GVC.View
         {
             GerarParcelas();
         }
-
         private void numParcelas_ValueChanged(object sender, EventArgs e)
         {
             GerarParcelas();
@@ -1198,7 +1369,6 @@ namespace GVC.View
             AtualizarTotais();
             LimparFormulario();
             EstadoInicial();
-
         }
 
         private void txtFechar_Click(object sender, EventArgs e)
@@ -1220,22 +1390,12 @@ namespace GVC.View
                 txtDesconto.Enabled = false;
                 cmbFormaPagamento.Enabled = false;
 
-                //lblAviso.Text = "Venda possui pagamentos. Alteração bloqueada.";
-                //lblAviso.Visible = true;
+                MessageBox.Show("Atenção!", "Venda possui pagamentos. Alteração bloqueada");
             }
-        }
-
-        private void txtObservacao_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void kryptonPanel4_Paint(object sender, PaintEventArgs e)
-        {
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btnListarControles_Click(object sender, EventArgs e)
@@ -1266,9 +1426,6 @@ namespace GVC.View
             }
         }
 
-        private void FrmPDV_FormClosed(object sender, FormClosedEventArgs e)
-        {
-        }
 
         private void txtVendedorBuscar_TextChanged(object sender, EventArgs e)
         {
@@ -1287,11 +1444,6 @@ namespace GVC.View
             lstVendedores.DataSource = vendedores;
             lstVendedores.DisplayMember = "Nome";
             lstVendedores.ValueMember = "ClienteID";
-            if (_vendedorId > 0 && !string.IsNullOrWhiteSpace(txtVendedorBuscar.Text))
-            {
-                txtProdutoBuscar.Enabled = true;
-                txtProdutoBuscar.Focus();
-            }
             lstVendedores.Visible = vendedores.Count > 0;
         }
 
@@ -1312,8 +1464,9 @@ namespace GVC.View
         {
             if (e.KeyCode == Keys.Enter)
             {
-                ConfirmarVendedor();
                 e.Handled = true;
+                e.SuppressKeyPress = true;
+                ConfirmarVendedor();
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -1346,10 +1499,21 @@ namespace GVC.View
 
         private void lstClientes_KeyDown(object sender, KeyEventArgs e)
         {
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    ConfirmarCliente();
+            //    e.Handled = true;
+            //}
+            //else if (e.KeyCode == Keys.Escape)
+            //{
+            //    lstClientes.Visible = false;
+            //    txtClienteBuscar.Focus();
+            //}
             if (e.KeyCode == Keys.Enter)
             {
-                ConfirmarCliente();
                 e.Handled = true;
+                e.SuppressKeyPress = true;
+                ConfirmarCliente();
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -1396,8 +1560,12 @@ namespace GVC.View
 
             lstClientes.Visible = vendedores.Count > 0;
         }
+
         private void txtProdutoBuscar_TextChanged(object sender, EventArgs e)
         {
+            if (_ignorandoBuscaProduto)
+                return;
+
             var texto = txtProdutoBuscar.Text.Trim();
 
             if (texto.Length == 0)
@@ -1407,17 +1575,19 @@ namespace GVC.View
             }
 
             var dal = new ProdutoDALL();
-            var vendedores = dal.ListarProdutoDinamico(texto);
+            var produtos = dal.ListarProdutoDinamico(texto);
 
-            lstProdutos.DataSource = null;
-            lstProdutos.DataSource = vendedores;
-            lstProdutos.DisplayMember = "NomeProduto";
-            lstProdutos.ValueMember = "ProdutoID";
-            if (_produtoId > 0 && !string.IsNullOrWhiteSpace(txtProdutoBuscar.Text))
-            {
-                txtQuantidade.Focus();
-            }
-            lstProdutos.Visible = vendedores.Count > 0;
+            lstProdutos.Items.Clear();
+
+            lstProdutos.Items.Add(CriarCabecalhoProduto());
+
+            foreach (var p in produtos)
+                lstProdutos.Items.Add(CriarLinhaProduto(p));
+
+            lstProdutos.Visible = produtos.Count > 0;
+
+            if (lstProdutos.Items.Count > 1)
+                lstProdutos.SelectedIndex = 1;
         }
 
         private void lstProdutos_DoubleClick(object sender, EventArgs e)
@@ -1429,8 +1599,9 @@ namespace GVC.View
         {
             if (e.KeyCode == Keys.Enter)
             {
-                ConfirmarProduto();
                 e.Handled = true;
+                e.SuppressKeyPress = true;
+                ConfirmarProduto();
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -1439,11 +1610,133 @@ namespace GVC.View
             }
         }
 
-        private void lstProdutos_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void txtProdutoBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down && lstProdutos.Visible)
+            {
+                lstProdutos.Focus();
+
+                if (lstProdutos.SelectedIndex < 0 && lstProdutos.Items.Count > 0)
+                    lstProdutos.SelectedIndex = 0;
+
+                e.Handled = true;
+            }
+        }
+
+        private void lstProdutos_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            if (e.Index < 0) return;
+
+            var g = e.Graphics;
+
+            bool isHeader = lstProdutos.Items[e.Index] == null;
+            bool selecionado = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+
+            Color fundo = isHeader
+                ? Color.Gainsboro
+                : selecionado ? Color.FromArgb(0, 120, 215) : Color.White;
+
+            Color texto = selecionado && !isHeader ? Color.White : Color.Black;
+
+            using (var bg = new SolidBrush(fundo))
+                g.FillRectangle(bg, e.Bounds);
+
+            using (var brush = new SolidBrush(texto))
+            {
+                int xCodigo = e.Bounds.Left + 6;
+                int xDescricao = e.Bounds.Left + 70;
+                int xUnid = e.Bounds.Left + 340;
+                int xPreco = e.Bounds.Left + 380;
+
+                if (isHeader)
+                {
+                    var fontHeader = new Font(e.Font, FontStyle.Bold);
+
+                    g.DrawString("Código", fontHeader, brush, xCodigo, e.Bounds.Top + 6);
+                    g.DrawString("Descrição", fontHeader, brush, xDescricao, e.Bounds.Top + 6);
+                    g.DrawString("Unid", fontHeader, brush, xUnid, e.Bounds.Top + 6);
+                    g.DrawString("PC Venda", fontHeader, brush, xPreco, e.Bounds.Top + 6);
+
+                    return;
+                }
+
+                var produto = (ProdutosModel)lstProdutos.Items[e.Index];
+
+                g.DrawString(produto.ProdutoID.ToString("0000"), e.Font, brush, xCodigo, e.Bounds.Top + 6);
+                g.DrawString(produto.NomeProduto, e.Font, brush, xDescricao, e.Bounds.Top + 6);
+                g.DrawString(produto.Unidade, e.Font, brush, xUnid, e.Bounds.Top + 6);
+                g.DrawString(produto.PrecoDeVenda.ToString("C2"), e.Font, brush, xPreco, e.Bounds.Top + 6);
+            }
+
+            e.DrawFocusRectangle();
+        }
+        //6️ Impedir seleção do cabeçalho (CRÍTICO)
+        private void lstProdutos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstProdutos.SelectedIndex == 0)
+            {
+                lstProdutos.SelectedIndex = -1;
+            }
+        }
+
+        private void lstProdutos_KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                e.IsInputKey = true;
-        }       
+            {
+                e.Handled = true;
+                ConfirmarProduto();
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                lstProdutos.Visible = false;
+                txtProdutoBuscar.Focus();
+            }
+        }
+
+        private void lstProdutos_DoubleClick_1(object sender, EventArgs e)
+        {
+            ConfirmarProduto();
+        }
+
+        private void txtQuantidade_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                txtPrecoUnitario.Focus();
+            }
+        }
+
+        private void txtPrecoUnitario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnAdicionarItem.Focus();
+            }
+        }
+
+        private void btnAdicionarItem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnAdicionarItem.PerformClick();
+            }
+        }
+    }
+    class ProdutoListaItem
+    {
+        public long ProdutoID { get; set; }
+        public decimal PrecoUnitario { get; set; }
+        public string Texto { get; set; }
+
+        public override string ToString()
+        {
+            return Texto;
+        }
     }
 }
 

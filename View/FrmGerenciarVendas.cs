@@ -54,10 +54,9 @@ namespace GVC.View
             var frm = new FrmPDV(vendaId);
             frm.btnCancelarParcelas.Enabled = false;
             frm.btnCancelarVenda.Enabled = false;
-            frm.btnImprimir.Enabled = false;
+            frm.btnImprimirCupomNaoFiscal.Enabled = false;
             frm.btnSalvarVenda.Enabled = false;
-            frm.btnCancelarParcelas.Enabled = false;            
-            frm.pnlCabecalhoVenda.Enabled = false;            
+            frm.btnCancelarParcelas.Enabled = false;  
             frm.pnlFormaPgto.Enabled = false;
             frm.flowLayoutPanelTotais.Enabled = false;
             frm.pnlObservacoes.Enabled = false;   

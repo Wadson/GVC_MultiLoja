@@ -116,22 +116,19 @@ namespace GVC.View
             {
                 ProdutoID = produtoId,
                 NomeProduto = txtNomeProduto.Text,
+                Referencia = txtReferencia.Text,
                 PrecoCusto = precoCusto,
                 Lucro = lucro,
                 PrecoDeVenda = precoDeVenda,
                 Estoque = estoque,
                 DataDeEntrada = dtpDataDeEntrada?.Value.Date ?? DateTime.Today,
                 Status = cmbStatus.Text,
-                Referencia = txtReferencia.Text,
-                // 🔹 Novos campos
                 Situacao = cmbSituacao.Text,
                 Unidade = txtUnidade.Text,
                 Marca = txtMarca.Text,
                 DataValidade = DateTime.TryParseExact(txtDataValidade.Text, "dd/MM/yyyy",
-               CultureInfo.GetCultureInfo("pt-BR"),
-               DateTimeStyles.None, out DateTime dataValida)
-               ? (DateTime?)dataValida
-               : null,
+               CultureInfo.GetCultureInfo("pt-BR"), DateTimeStyles.None, out DateTime dataValida)
+               ? (DateTime?)dataValida : null,
                 GtinEan = txtGtinEan.Text,
                 Imagem = txtEnderecoImagem.Text,
                 FornecedorID = txtFornecedorID.Text != "" ? long.Parse(txtFornecedorID.Text) : 0,

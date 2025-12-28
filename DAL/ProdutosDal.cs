@@ -73,12 +73,17 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = @"
-            SELECT ProdutoID, NomeProduto
-            FROM Produtos
-            WHERE NomeProduto LIKE @filtro           
-              AND Status = Ativo
-              AND NomeProduto LIKE @filtro
-            ORDER BY NomeProduto";
+    SELECT 
+         ProdutoID,
+         NomeProduto,
+         Unidade,
+         PrecoDeVenda
+     FROM Produtos
+    WHERE Status = 'Disponível' 
+      AND Situacao = 'Ativo' 
+      AND NomeProduto COLLATE Latin1_General_CI_AI LIKE @filtro
+    ORDER BY NomeProduto";
+
 
                 cmd.Parameters.AddWithValue("@filtro", $"%{filtro}%");
 
@@ -90,7 +95,9 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
                         lista.Add(new ProdutosModel
                         {
                             ProdutoID = dr.GetInt32(0),
-                            NomeProduto = dr.GetString(1)
+                            NomeProduto = dr.GetString(1),
+                            Unidade = dr.IsDBNull(2) ? "" : dr.GetString(2),
+                            PrecoDeVenda = dr.GetDecimal(3)
                         });
                     }
                 }
@@ -148,7 +155,7 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
             {
                 string sql = @"UPDATE Produtos SET NomeProduto = @NomeProduto, Referencia = @Referencia, PrecoCusto = @Custo, Lucro = @Lucro,
                     PrecoDeVenda = @Venda, Estoque = @Estoque, 
-                    Status = @Status, Situacao = @Situacao, Unidade = @Unidade, Marca = @Marca,
+                    PrecoDeVenda = @PrecoDeVenda, Estoque = @Estoque, DataDeEntrada = @DataDeEntrada, Status = @Status, Situacao = @Situacao, Unidade = @Unidade, Marca = @Marca,
                     DataValidade = @Validade, GtinEan = @Gtin, Imagem = @Imagem, FornecedorID = @FornecedorID
                     WHERE ProdutoID = @Id";
 
