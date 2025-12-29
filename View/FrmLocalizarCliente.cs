@@ -311,7 +311,7 @@ namespace GVC.View
 
 
 
-                if (this.Owner is FrmContasAReceber frmContaReceberr)
+                if (this.Owner is FrmContasReceber frmContaReceberr)
                 {
                     frmContaReceberr.ClienteID = ClienteID;
                     frmContaReceberr.txtNomeCliente.Text = ClienteSelecionado;

@@ -56,9 +56,6 @@
     <Compile Update="View\FrmConsultaMovimentacaoEstoque.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="View\FrmContasAReceber.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="View\FrmDashboard.cs">
       <SubType>Form</SubType>
     </Compile>

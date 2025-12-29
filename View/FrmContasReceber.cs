@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using GVC.BLL;
+using GVC.DAL;
 using GVC.MODEL;
 using GVC.UTIL;
 using Krypton.Toolkit;
@@ -28,7 +29,7 @@ namespace GVC.View
 
         public FrmContasReceber()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         private void ConfigurarGridContasAReceber()
@@ -148,10 +149,15 @@ namespace GVC.View
             });
             dgvContasAReceber.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "Observacao",
-                HeaderText = "Observações",
-                Width = 200,
-                ValueType = typeof(string)
+                DataPropertyName = "Observacoes",
+                HeaderText = "Observações da Venda",
+                Width = 500, // ← AUMENTE a largura (200 é muito pouco para seu texto)
+                ValueType = typeof(string),
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    WrapMode = DataGridViewTriState.False,
+                    Alignment = DataGridViewContentAlignment.MiddleLeft // ← ESSENCIAL
+                }
             });
 
             // Opcional: estilo geral
@@ -168,7 +174,7 @@ namespace GVC.View
             {
                 if (col.Name != "Selecionar")
                     col.ReadOnly = true; // bloqueia todas as outras colunas
-            }
+            }          
         }
         private void ConfigurarGridItensVenda()
         {
@@ -267,126 +273,51 @@ namespace GVC.View
             dgvItensVenda.MultiSelect = false;
             dgvItensVenda.RowHeadersVisible = false;
         }
-        private List<dynamic> ObterParcelasSelecionadas()
+        private List<ContaAReceberDTO> ObterParcelasSelecionadas()
         {
-            var lista = new List<dynamic>();
-
+            var lista = new List<ContaAReceberDTO>();
             foreach (DataGridViewRow row in dgvContasAReceber.Rows)
             {
                 if (row.Cells["Selecionar"].Value is bool marcado && marcado)
                 {
-                    lista.Add(row.DataBoundItem);
+                    if (row.DataBoundItem is ContaAReceberDTO dto)
+                    {
+                        lista.Add(dto);
+                    }
                 }
             }
-
             return lista;
         }
+
         private void CarregarContasAReceber()
         {
-            var sql = new StringBuilder();
-            sql.Append(@"
-        SELECT 
-            p.ParcelaID       AS ParcelaID,
-            p.VendaID         AS VendaID,
-            p.NumeroParcela   AS NumeroParcela,
-            c.Nome            AS NomeCliente,
-            v.DataVenda       AS DataVenda,
-            p.DataVencimento  AS DataVencimento,
-            p.ValorParcela    AS ValorParcela,
-            p.ValorRecebido   AS ValorRecebido,
-            (p.ValorParcela + p.Juros + p.Multa - p.ValorRecebido) AS Saldo,
-            p.Status          AS StatusParcela,
-            fp.FormaPgto      AS FormaPgto
-        FROM Parcela p
-        JOIN Venda v   ON v.VendaID   = p.VendaID
-        JOIN Clientes c ON c.ClienteID = v.ClienteID
-        LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
-        WHERE 1 = 1
-    ");
+            var dal = new ContasAReceberDAL();
+            List<ContaAReceberDTO> lista = dal.ListarContasAReceber(
+                cmbTipoPesquisa.Text,
+                txtNomeCliente.Text,
+                txtNumeroVenda.Text,
+                dtpVencInicial.Value,
+                dtpVencFinal.Value,
+                cmbStatusParcela.Text
+            );
 
-            var param = new DynamicParameters();
-
-            switch (cmbTipoPesquisa.Text)
+            // DEBUG (opcional)
+            if (lista.Any())
             {
-                case "Nome do Cliente":
-                    if (!string.IsNullOrWhiteSpace(txtNomeCliente.Text))
-                    {
-                        sql.Append(" AND c.Nome LIKE @Nome ");
-                        param.Add("@Nome", $"%{txtNomeCliente.Text}%");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Informe o nome do cliente.");
-                        return;
-                    }
-                    break;
-
-                case "Número da Venda":
-                    if (!string.IsNullOrWhiteSpace(txtNumeroVenda.Text) && int.TryParse(txtNumeroVenda.Text, out int vendaId))
-                    {
-                        sql.Append(" AND v.VendaID = @VendaID ");
-                        param.Add("@VendaID", vendaId);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Informe um número de venda válido.");
-                        return;
-                    }
-                    break;
-
-                case "Data da Venda":
-                    sql.Append(" AND CAST(v.DataVenda AS DATE) = @DataVenda ");
-                    param.Add("@DataVenda", dtpVencInicial.Value.Date);
-                    break;
-
-                case "Período da Venda":
-                    sql.Append(" AND v.DataVenda >= @Ini AND v.DataVenda < @Fim ");
-                    param.Add("@Ini", dtpVencInicial.Value.Date);
-                    param.Add("@Fim", dtpVencFinal.Value.Date.AddDays(1));
-                    break;
-
-
-                case "Vencimento":
-                    sql.Append(" AND CAST(p.DataVencimento AS DATE) = @Venc ");
-                    param.Add("@Venc", dtpVencInicial.Value.Date);
-                    break;
-
-                case "Período de Vencimento":
-                    sql.Append(" AND p.DataVencimento >= @VencIni AND p.DataVencimento < @VencFim ");
-                    param.Add("@VencIni", dtpVencInicial.Value.Date);
-                    param.Add("@VencFim", dtpVencFinal.Value.Date.AddDays(1));
-                    break;
-
-
-                case "Status da Parcela":
-                    if (!string.IsNullOrWhiteSpace(cmbStatusParcela.Text))
-                    {
-                        sql.Append(" AND p.Status = @Status ");
-                        param.Add("@Status", cmbStatusParcela.Text);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Selecione um status da parcela.");
-                        return;
-                    }
-                    break;
+                var p = lista[0];
+                Debug.WriteLine($"[DEBUG] Observacoes = '{p.Observacoes}'");
             }
 
-            using var conn = Helpers.Conexao.Conex();
-
-            var lista = conn.Query(sql.ToString(), param).ToList();
-            dgvContasAReceber.DataSource = lista;
             ConfigurarGridContasAReceber();
-            AtualizarTotalSelecionado();
+            dgvContasAReceber.DataSource = lista;
 
             AtualizarResumo(lista);
-            AtualizarTotalSelecionado();
             AtualizarResumoGeral(lista);
+            AtualizarTotalSelecionado();
             AtualizarParcelasAtrasadasNoBanco();
         }
 
-
-        private void AtualizarResumo(IEnumerable<dynamic> dados)
+        private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
         {
             decimal totalAberto = 0m;
             decimal totalVencido = 0m;
@@ -394,16 +325,11 @@ namespace GVC.View
 
             foreach (var p in dados)
             {
-                decimal valorRecebido = Convert.ToDecimal(p.ValorRecebido);
-                decimal saldo = Convert.ToDecimal(p.Saldo);
-
-                totalRecebido += valorRecebido;
-
+                totalRecebido += p.ValorRecebido;
                 if (p.StatusParcela == "Pendente" || p.StatusParcela == "Parcialmente Paga")
-                    totalAberto += saldo;
-
+                    totalAberto += p.Saldo;
                 if (p.StatusParcela == "Atrasada")
-                    totalVencido += saldo;
+                    totalVencido += p.Saldo;
             }
 
             txtTotalVencido.Text = totalVencido.ToString("C2");
@@ -660,26 +586,13 @@ namespace GVC.View
                         e.CellStyle.ForeColor = Color.Black;
                         break;
                 }
-            }
-            else if (coluna == "Observacao" && e.Value != null)
-            {
-                e.Value = e.Value.ToString().Replace("\r\n", " | ");
-                e.CellStyle.WrapMode = DataGridViewTriState.True;
-            }
+            }          
         }
 
         private void AtualizarTotalSelecionado()
         {
             var selecionadas = ObterParcelasSelecionadas();
-
-            decimal totalSelecionado = 0m;
-
-            foreach (var p in selecionadas)
-            {
-                // aqui você decide o que somar: ValorParcela, Saldo ou outro campo
-                totalSelecionado += Convert.ToDecimal(p.Saldo);
-            }
-
+            decimal totalSelecionado = selecionadas.Sum(p => p.Saldo);
             lblTotalSelecionado.Text = totalSelecionado.ToString("C2");
         }
         private void dgvContasAReceber_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -691,9 +604,8 @@ namespace GVC.View
         {
             if (e.ColumnIndex >= 0 && dgvContasAReceber.Columns[e.ColumnIndex].Name == "Selecionar") { AtualizarTotalSelecionado(); }
         }
-        private void AtualizarResumoGeral(IEnumerable<dynamic> dados)
+        private void AtualizarResumoGeral(IEnumerable<ContaAReceberDTO> dados)
         {
-            // Contas a receber: pendentes, parciais, atrasadas, etc.
             var aReceber = dados.Where(p =>
                 p.StatusParcela == "Pendente" ||
                 p.StatusParcela == "Parcialmente Paga" ||
@@ -702,32 +614,20 @@ namespace GVC.View
                 p.StatusParcela == "Renegociada");
 
             int qtdAReceber = aReceber.Count();
-            decimal totalAReceber = aReceber.Sum(p =>
-            {
-                if (p.Saldo == null) return 0m;
-                return p.Saldo is decimal d ? d : Convert.ToDecimal(p.Saldo);
-            });
+            decimal totalAReceber = aReceber.Sum(p => p.Saldo);
 
-            // Contas pagas: pagas ou parcialmente pagas
             var pagas = dados.Where(p =>
                 p.StatusParcela == "Paga" ||
                 p.StatusParcela == "Parcialmente Paga");
 
             int qtdPagas = pagas.Count();
-            decimal totalPagas = pagas.Sum(p =>
-            {
-                if (p.ValorRecebido == null) return 0m;
-                return p.ValorRecebido is decimal d ? d : Convert.ToDecimal(p.ValorRecebido);
-            });
-            //// Atualiza os labels
+            decimal totalPagas = pagas.Sum(p => p.ValorRecebido);
 
             lblQtdContasPagas.Text = qtdPagas.ToString();
             lblTotalContasPagas.Text = totalPagas.ToString("C2");
-
             lblQtdeContasReceber.Text = qtdAReceber.ToString();
             lblTotalContasReceber.Text = totalAReceber.ToString("C2");
 
-            // Cores
             lblTotalContasReceber.ForeColor = totalAReceber > 0m ? Color.Red : Color.Gray;
             lblTotalContasPagas.ForeColor = Color.ForestGreen;
         }
@@ -829,32 +729,21 @@ namespace GVC.View
 
         private void dgvContasAReceber_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvContasAReceber.CurrentRow == null)
-                return;
-
-            var data = dgvContasAReceber.CurrentRow.DataBoundItem;
-            if (data == null)
-                return;
-
-            var row = (IDictionary<string, object>)data;
-
-            if (!row.ContainsKey("VendaID") || row["VendaID"] == null)
+            if (dgvContasAReceber.CurrentRow?.DataBoundItem is not ContaAReceberDTO data)
             {
                 LimparAreaVenda();
                 return;
             }
 
-            // Convertendo para long corretamente
-            long vendaId = Convert.ToInt64(row["VendaID"]);
-
+            long vendaId = data.VendaID;
             if (vendaId <= 0)
             {
                 LimparAreaVenda();
                 return;
             }
 
-            CarregarVenda(vendaId); // Já é long
-            CarregarItensVenda((int)vendaId); // Converte para int se necessário
+            CarregarVenda(vendaId);
+            CarregarItensVenda((int)vendaId);
         }
         private void LimparAreaVenda()
         {
@@ -1081,6 +970,137 @@ ORDER BY v.DataVenda DESC, p.NumeroParcela",
                 return null;
             }
         }
+
+
+        private ExtratoCliente ObterExtratoCliente()
+        {
+            try
+            {
+                if (dgvContasAReceber.CurrentRow == null)
+                {
+                    MessageBox.Show("Selecione uma linha para gerar o extrato.", "Atenção",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+
+                var data = dgvContasAReceber.CurrentRow.DataBoundItem as ContaAReceberDTO;
+                if (data == null)
+                {
+                    MessageBox.Show("Não foi possível obter dados da linha selecionada.", "Erro",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
+                long vendaId = data.VendaID;
+                if (vendaId <= 0)
+                {
+                    MessageBox.Show("A linha selecionada não possui ID de venda válido.", "Erro",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
+                long clienteId = 0;
+
+                // Busca o ClienteID a partir da VendaID (não há ClienteID direto no DTO)
+                using (var connTemp = Helpers.Conexao.Conex())
+                {
+                    var result = connTemp.ExecuteScalar<long?>(
+                        "SELECT ClienteID FROM Venda WHERE VendaID = @VendaID",
+                        new { VendaID = vendaId });
+                    if (result.HasValue)
+                        clienteId = result.Value;
+                    else
+                    {
+                        MessageBox.Show("Não foi possível identificar o cliente da venda.", "Erro",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
+                    }
+                }
+
+                // Buscar informações completas do cliente
+                using (var conn = Helpers.Conexao.Conex())
+                {
+                    var extrato = new ExtratoCliente();
+
+                    var cliente = conn.QueryFirstOrDefault(
+                        @"SELECT ClienteID, Nome, Cpf, Cnpj, Endereco, Telefone 
+                  FROM Clientes 
+                  WHERE ClienteID = @ClienteID",
+                        new { ClienteID = clienteId });
+
+                    if (cliente == null)
+                    {
+                        MessageBox.Show($"ClienteID {clienteId} não encontrado no banco de dados.", "Erro",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
+                    }
+
+                    extrato.ClienteID = cliente.ClienteID;
+                    extrato.NomeCliente = cliente.Nome;
+                    extrato.CPF_CNPJ = !string.IsNullOrEmpty(cliente.Cnpj) ? cliente.Cnpj : cliente.Cpf;
+                    extrato.Endereco = cliente.Endereco;
+                    extrato.Telefone = cliente.Telefone;
+
+                    // Buscar todas as parcelas do cliente
+                    var parcelas = conn.Query<ParcelaExtrato>(@"
+                SELECT
+                    p.ParcelaID,
+                    p.VendaID,
+                    p.NumeroParcela,
+                    CAST(v.DataVenda AS DATE) AS DataVenda,
+                    CAST(p.DataVencimento AS DATE) AS DataVencimento,
+                    CAST(p.DataPagamento AS DATE) AS DataPagamento,
+                    p.ValorParcela,
+                    p.ValorRecebido,
+                    p.Juros,
+                    p.Multa,
+                    (p.ValorParcela + p.Juros + p.Multa - ISNULL(p.ValorRecebido, 0)) AS Saldo,
+                    p.Status,
+                    fp.FormaPgto AS FormaPagamento
+                FROM Parcela p
+                JOIN Venda v ON v.VendaID = p.VendaID
+                LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
+                WHERE v.ClienteID = @ClienteID
+                ORDER BY v.DataVenda DESC, p.NumeroParcela",
+                        new { ClienteID = clienteId }).ToList();
+
+                    foreach (var parcela in parcelas)
+                    {
+                        var item = new ItemExtrato
+                        {
+                            VendaID = parcela.VendaID,
+                            NumeroParcela = parcela.NumeroParcela,
+                            DataVenda = parcela.DataVenda,
+                            DataVencimento = parcela.DataVencimento,
+                            DataPagamento = parcela.DataPagamento,
+                            ValorParcela = parcela.ValorParcela,
+                            ValorRecebido = parcela.ValorRecebido,
+                            Juros = parcela.Juros,
+                            Desconto = 0,
+                            Saldo = parcela.Saldo,
+                            Status = parcela.Status ?? "",
+                            FormaPagamento = parcela.FormaPagamento ?? "",
+                            Descricao = $"Venda {parcela.VendaID} - Parcela {parcela.NumeroParcela}"
+                        };
+                        extrato.ItensExtrato.Add(item);
+
+                        if (item.Status == "Paga")
+                            extrato.TotalPago += item.ValorRecebido;
+                        else if (item.Status != "Cancelada")
+                            extrato.TotalDevendo += item.Saldo;
+                    }
+
+                    extrato.SaldoAtual = extrato.TotalDevendo;
+                    return extrato;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao obter extrato: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
         private void GerarExtratoCompleto()
         {
             try
@@ -1221,85 +1241,41 @@ ORDER BY v.DataVenda DESC, p.NumeroParcela",
         }
         private void GerarReciboParcelas()
         {
-            try
+            var parcelasSelecionadas = ObterParcelasSelecionadas();
+            if (!parcelasSelecionadas.Any())
             {
-                var parcelasSelecionadas = ObterParcelasSelecionadas();
-
-                if (parcelasSelecionadas.Count == 0)
-                {
-                    MessageBox.Show("Selecione pelo menos uma parcela marcando o checkbox para gerar o recibo.",
-                                  "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Para recibo, obtém o extrato do cliente da primeira parcela selecionada
-                if (parcelasSelecionadas.Count > 0)
-                {
-                    var primeiraParcela = parcelasSelecionadas[0];
-                    var dict = (IDictionary<string, object>)primeiraParcela;
-
-                    if (!dict.ContainsKey("VendaID") || dict["VendaID"] == null)
-                    {
-                        MessageBox.Show("Não foi possível identificar a venda.", "Erro",
-                                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    long vendaId = Convert.ToInt64(dict["VendaID"]);
-
-                    // Busca o extrato do cliente
-                    var extrato = ObterExtratoCliente();
-
-                    if (extrato == null)
-                    {
-                        MessageBox.Show("Não foi possível obter dados do cliente.", "Erro",
-                                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    using (SaveFileDialog saveDialog = new SaveFileDialog())
-                    {
-                        saveDialog.Filter = "PDF Files|*.pdf";
-                        saveDialog.Title = "Salvar Recibo";
-
-                        string nomeClienteLimpo = RemoveCaracteresInvalidos(extrato.NomeCliente);
-                        saveDialog.FileName = $"Recibo_{nomeClienteLimpo}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-
-                        if (saveDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            GVC.UTIL.PDFGenerator.GerarReciboPDF(extrato, parcelasSelecionadas, saveDialog.FileName);
-
-                            // Mensagem de sucesso
-                            DialogResult resultado = MessageBox.Show(
-                                $"Recibo gerado com sucesso!\n\n" +
-                                $"Arquivo: {Path.GetFileName(saveDialog.FileName)}\n" +
-                                $"Pasta: {Path.GetDirectoryName(saveDialog.FileName)}\n\n" +
-                                $"Deseja abrir o arquivo agora?",
-                                "Sucesso",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Information);
-
-                            if (resultado == DialogResult.Yes)
-                            {
-                                // Tenta abrir o PDF
-                                if (AbrirPDF(saveDialog.FileName))
-                                {
-                                    // Sucesso ao abrir
-                                }
-                                else
-                                {
-                                    // Se não conseguiu abrir, mostra a pasta
-                                    AbrirPastaContendoArquivo(saveDialog.FileName);
-                                }
-                            }
-                        }
-                    }
-                }
+                MessageBox.Show("Selecione pelo menos uma parcela marcando o checkbox para gerar o recibo.",
+                    "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception ex)
+
+            // Extrato do cliente (usa CurrentRow, não as selecionadas)
+            var extrato = ObterExtratoCliente();
+            if (extrato == null) return;
+
+            // Converte para dynamic apenas para compatibilidade com PDFGenerator
+            var parcelasDynamic = parcelasSelecionadas.Cast<dynamic>().ToList();
+
+            using var saveDialog = new SaveFileDialog
             {
-                MessageBox.Show($"Erro ao gerar recibo: {ex.Message}",
-                               "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Filter = "PDF Files|*.pdf",
+                Title = "Salvar Recibo",
+                FileName = $"Recibo_{RemoveCaracteresInvalidos(extrato.NomeCliente)}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
+            };
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                GVC.UTIL.PDFGenerator.GerarReciboPDF(extrato, parcelasDynamic, saveDialog.FileName);
+
+                var resultado = MessageBox.Show(
+                    $"Recibo gerado com sucesso!\nArquivo: {Path.GetFileName(saveDialog.FileName)}\nPasta: {Path.GetDirectoryName(saveDialog.FileName)}\nDeseja abrir o arquivo agora?",
+                    "Sucesso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    if (!AbrirPDF(saveDialog.FileName))
+                        AbrirPastaContendoArquivo(saveDialog.FileName);
+                }
             }
         }
 
@@ -1370,8 +1346,7 @@ ORDER BY v.DataVenda DESC, p.NumeroParcela",
             using (var frm = new FrmEstornarPagamento())
             {
                 // 🔴 AJUSTE: Passa apenas o ID da única parcela
-                frm.CarregarDados(
-                    new List<long> { (long)parcela.ParcelaID },
+                frm.CarregarDados( new List<long> { (long)parcela.ParcelaID },
                     parcela.NomeCliente ?? "Cliente"
                 );
 
@@ -1408,39 +1383,30 @@ ORDER BY v.DataVenda DESC, p.NumeroParcela",
 
         private void btnBaixarParcela_Click(object sender, EventArgs e)
         {
-            using var frm = new FrmBaixarParcela();
             var selecionadas = ObterParcelasSelecionadas();
-
-            if (selecionadas.Count == 0)
+            if (!selecionadas.Any())
             {
                 MessageBox.Show("Selecione ao menos uma parcela.");
                 return;
             }
-            // 🔹 Soma geral
-            decimal totalParcelas = selecionadas.Select(p => (decimal)p.ValorParcela).Sum();
-            decimal totalRecebido = selecionadas.Select(p => (decimal)p.ValorRecebido).Sum();
-            decimal saldoTotal = selecionadas.Select(p => (decimal)p.Saldo).Sum();
 
-            // Nome do cliente (sempre único no seu fluxo)
-            var nomeCliente = Convert.ToString(selecionadas[0].NomeCliente) ?? string.Empty;
+            // Converte para List<dynamic> apenas para compatibilidade
+            var selecionadasDynamic = selecionadas.Cast<dynamic>().ToList();
 
-            // 🔹 Lista de IDs
-            var parcelasIds = selecionadas.Select(p => (long)Convert.ToInt64(p.ParcelaID)).ToList();
-            // 🔹 Nome cliente (se for 1)
-            // TextBox sempre mostra o nome do cliente
-            frm.txtClienteNome.Text = Convert.ToString(selecionadas[0].NomeCliente);
+            decimal totalParcelas = selecionadas.Sum(p => p.ValorParcela);
+            decimal totalRecebido = selecionadas.Sum(p => p.ValorRecebido);
+            decimal saldoTotal = selecionadas.Sum(p => p.Saldo);
+            string nomeCliente = selecionadas[0].NomeCliente ?? string.Empty;
 
-            // StatusStrip varia conforme a quantidade de parcelas
-            frm.lblInfo.Text = selecionadas.Count == 1 ? Convert.ToString(selecionadas[0].NomeCliente) : "Múltiplas parcelas selecionadas";
+            using var frm = new FrmBaixarParcela();
+            frm.txtClienteNome.Text = nomeCliente;
+            frm.lblInfo.Text = selecionadas.Count == 1
+                ? nomeCliente
+                : "Múltiplas parcelas selecionadas";
 
-            // Chamada corrigida (ordem igual à assinatura):
-            frm.CarregarDados(
-                selecionadas,   // List<dynamic> primeiro
-                nomeCliente,    // string depois
-                totalParcelas,
-                totalRecebido,
-                saldoTotal
-            );
+            // Passa a versão dynamic
+            frm.CarregarDados(selecionadasDynamic, nomeCliente, totalParcelas, totalRecebido, saldoTotal);
+
             if (frm.ShowDialog() == DialogResult.OK)
                 CarregarContasAReceber();
         }

@@ -1,15 +1,13 @@
 ﻿using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GVC.DAL
 {
     public class ContasAReceberDAL
     {
-        public List<dynamic> ListarContasAReceber(
+        public List<ContaAReceberDTO> ListarContasAReceber(
             string tipoPesquisa,
             string nomeCliente,
             string numeroVenda,
@@ -30,15 +28,11 @@ namespace GVC.DAL
             (p.ValorParcela + p.Juros + p.Multa - p.ValorRecebido) AS Saldo,
             p.Status          AS StatusParcela,
             fp.FormaPgto      AS FormaPgto,
-
-            -- 🔥 ISSO ESTÁ FALTANDO
             v.Observacoes     AS Observacoes
-
         FROM Parcela p
         JOIN Venda v        ON v.VendaID = p.VendaID
         JOIN Clientes c     ON c.ClienteID = v.ClienteID
         LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
-
         WHERE 1 = 1");
 
             var param = new DynamicParameters();
@@ -84,8 +78,7 @@ namespace GVC.DAL
             }
 
             using var conn = Helpers.Conexao.Conex();
-            return conn.Query(sql.ToString(), param).ToList();
+            return conn.Query<ContaAReceberDTO>(sql.ToString(), param).ToList();
         }
     }
-
 }
