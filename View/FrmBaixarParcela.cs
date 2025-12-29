@@ -1,17 +1,18 @@
 ﻿using Dapper;
 using GVC.BLL;
 using GVC.DALL;
+using GVC.MODEL;
 using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization; // Adicione no topo do arquivo
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization; // Adicione no topo do arquivo
 
 namespace GVC.View
 {
@@ -133,29 +134,37 @@ namespace GVC.View
             dgvParcelasBaixa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        // Assinatura atual:
         public void CarregarDados(
-            List<dynamic> parcelasSelecionadas,
-            string nomeCliente,
-            decimal totalParcelas,
-            decimal totalRecebido,
-            decimal saldoTotal)
+                 IEnumerable<ContaAReceberDTO> parcelas,
+                 string nomeCliente,
+                 decimal totalParcelas,
+                 decimal totalRecebido,
+                 decimal saldoTotal)
         {
-            _parcelasIds = parcelasSelecionadas.Select(p => (int)p.ParcelaID).ToList();
+            // Guarda os IDs das parcelas
+            _parcelasIds = parcelas.Select(p => p.ParcelaID).ToList();
             _saldoTotal = saldoTotal;
 
+            // Preenche campos
             txtClienteNome.Text = nomeCliente;
-            lblRotuloValorParcela.Text = _parcelasIds.Count > 1 ? "Valor Total das Parcelas" : "Valor da Parcela";
+            lblRotuloValorParcela.Text = _parcelasIds.Count > 1
+                ? "Valor Total das Parcelas"
+                : "Valor da Parcela";
+
             txtValorParcela.Text = totalParcelas.ToString("C2");
             txtValorRecebido.Text = totalRecebido.ToString("C2");
             txtSaldo.Text = saldoTotal.ToString("C2");
 
+            // Grid
             ConfigurarGridBaixa();
-            dgvParcelasBaixa.DataSource = parcelasSelecionadas.ToList();
+            dgvParcelasBaixa.DataSource = parcelas.ToList();
 
+            // Foco automático
             if (_parcelasIds.Count == 1)
                 txtValorRecebido.Focus();
         }
+
+
         private void btnConfirmarBaixa_Click(object sender, EventArgs e)
         {
             string texto = txtValorRecebido.Text.Replace("R$", "") .Replace(" ", "").Trim();

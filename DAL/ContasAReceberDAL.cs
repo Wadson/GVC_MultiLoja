@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using GVC.MODEL;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,14 +9,15 @@ namespace GVC.DAL
     public class ContasAReceberDAL
     {
         public List<ContaAReceberDTO> ListarContasAReceber(
-            string tipoPesquisa,
-            string nomeCliente,
-            string numeroVenda,
-            DateTime dtIni,
-            DateTime dtFim,
-            string statusParcela)
+    string tipoPesquisa,
+    string nomeCliente,
+    string numeroVenda,
+    DateTime dataInicial,
+    DateTime dataFinal,
+    string statusParcela)
         {
-            var sql = new StringBuilder(@"
+            var sql = new StringBuilder();
+            sql.Append(@"
         SELECT 
             p.ParcelaID       AS ParcelaID,
             p.VendaID         AS VendaID,
@@ -30,13 +32,15 @@ namespace GVC.DAL
             fp.FormaPgto      AS FormaPgto,
             v.Observacoes     AS Observacoes
         FROM Parcela p
-        JOIN Venda v        ON v.VendaID = p.VendaID
-        JOIN Clientes c     ON c.ClienteID = v.ClienteID
+        JOIN Venda v       ON v.VendaID = p.VendaID
+        JOIN Clientes c    ON c.ClienteID = v.ClienteID
         LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
-        WHERE 1 = 1");
+        WHERE 1 = 1
+    ");
 
             var param = new DynamicParameters();
 
+            // 🔎 filtros (exatamente como você já tinha)
             switch (tipoPesquisa)
             {
                 case "Nome do Cliente":
@@ -51,24 +55,24 @@ namespace GVC.DAL
 
                 case "Data da Venda":
                     sql.Append(" AND CAST(v.DataVenda AS DATE) = @DataVenda ");
-                    param.Add("@DataVenda", dtIni.Date);
+                    param.Add("@DataVenda", dataInicial.Date);
                     break;
 
                 case "Período da Venda":
                     sql.Append(" AND v.DataVenda >= @Ini AND v.DataVenda < @Fim ");
-                    param.Add("@Ini", dtIni.Date);
-                    param.Add("@Fim", dtFim.Date.AddDays(1));
+                    param.Add("@Ini", dataInicial.Date);
+                    param.Add("@Fim", dataFinal.Date.AddDays(1));
                     break;
 
                 case "Vencimento":
                     sql.Append(" AND CAST(p.DataVencimento AS DATE) = @Venc ");
-                    param.Add("@Venc", dtIni.Date);
+                    param.Add("@Venc", dataInicial.Date);
                     break;
 
                 case "Período de Vencimento":
                     sql.Append(" AND p.DataVencimento >= @VencIni AND p.DataVencimento < @VencFim ");
-                    param.Add("@VencIni", dtIni.Date);
-                    param.Add("@VencFim", dtFim.Date.AddDays(1));
+                    param.Add("@VencIni", dataInicial.Date);
+                    param.Add("@VencFim", dataFinal.Date.AddDays(1));
                     break;
 
                 case "Status da Parcela":
@@ -78,7 +82,16 @@ namespace GVC.DAL
             }
 
             using var conn = Helpers.Conexao.Conex();
-            return conn.Query<ContaAReceberDTO>(sql.ToString(), param).ToList();
+
+            // ✅ AQUI entra o código que você perguntou
+            var lista = conn.Query<ContaAReceberDTO>(
+                sql.ToString(),
+                param
+            ).ToList();
+
+            return lista;
         }
+
     }
+
 }

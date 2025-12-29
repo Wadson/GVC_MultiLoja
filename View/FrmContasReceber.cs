@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ParcelaExtratoModel = GVC.MODEL.ParcelaExtrato;
 
 namespace GVC.View
 {
@@ -292,7 +293,8 @@ namespace GVC.View
         private void CarregarContasAReceber()
         {
             var dal = new ContasAReceberDAL();
-            List<ContaAReceberDTO> lista = dal.ListarContasAReceber(
+
+            var lista = dal.ListarContasAReceber(
                 cmbTipoPesquisa.Text,
                 txtNomeCliente.Text,
                 txtNumeroVenda.Text,
@@ -301,21 +303,16 @@ namespace GVC.View
                 cmbStatusParcela.Text
             );
 
-            // DEBUG (opcional)
-            if (lista.Any())
-            {
-                var p = lista[0];
-                Debug.WriteLine($"[DEBUG] Observacoes = '{p.Observacoes}'");
-            }
-
-            ConfigurarGridContasAReceber();
             dgvContasAReceber.DataSource = lista;
 
+            ConfigurarGridContasAReceber();
             AtualizarResumo(lista);
             AtualizarResumoGeral(lista);
             AtualizarTotalSelecionado();
             AtualizarParcelasAtrasadasNoBanco();
         }
+
+
 
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
         {
@@ -821,286 +818,83 @@ namespace GVC.View
 
         private ExtratoCliente ObterExtratoCliente()
         {
-            try
+            var conta = dgvContasAReceber.CurrentRow?.DataBoundItem as ContaAReceberDTO;
+            if (conta == null)
             {
-                // Obter o cliente selecionado no grid (CurrentRow)
-                if (dgvContasAReceber.CurrentRow == null)
-                {
-                    MessageBox.Show("Selecione uma linha para gerar o extrato.", "Atenção",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return null;
-                }
-
-                var data = dgvContasAReceber.CurrentRow.DataBoundItem;
-                if (data == null)
-                {
-                    MessageBox.Show("Não foi possível obter dados da linha selecionada.", "Erro",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
-
-                var row = (IDictionary<string, object>)data;
-
-                if (!row.ContainsKey("VendaID") || row["VendaID"] == null)
-                {
-                    MessageBox.Show("A linha selecionada não possui ID de venda.", "Erro",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
-
-                long vendaId = Convert.ToInt64(row["VendaID"]);
-                long clienteId = 0;
-
-                // Método 1: Tenta pegar o ClienteID da linha
-                if (row.ContainsKey("ClienteID") && row["ClienteID"] != null)
-                {
-                    clienteId = Convert.ToInt64(row["ClienteID"]);
-                }
-                // Método 2: Tenta pegar de coluna alternativa
-                else if (row.ContainsKey("IDCliente") && row["IDCliente"] != null)
-                {
-                    clienteId = Convert.ToInt64(row["IDCliente"]);
-                }
-                else
-                {
-                    // Método 3: Busca no banco pela venda
-                    using (var connTemp = Helpers.Conexao.Conex())
-                    {
-                        var result = connTemp.ExecuteScalar<long?>(
-                            "SELECT ClienteID FROM Venda WHERE VendaID = @VendaID",
-                            new { VendaID = vendaId });
-
-                        if (result.HasValue)
-                            clienteId = result.Value;
-                        else
-                        {
-                            MessageBox.Show("Não foi possível identificar o cliente da venda.", "Erro",
-                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return null;
-                        }
-                    }
-                }
-
-                // Buscar informações completas do cliente
-                using (var conn = Helpers.Conexao.Conex())
-                {
-                    var extrato = new ExtratoCliente();
-
-                    // Buscar dados do cliente
-                    var cliente = conn.QueryFirstOrDefault(@" SELECT ClienteID, Nome, Cpf, Cnpj, Logradouro, Telefone, Email FROM Clientes WHERE ClienteID = @ClienteID", new { ClienteID = clienteId });
-
-                    if (cliente != null)
-                    {
-                        extrato.ClienteID = cliente.ClienteID;
-                        extrato.NomeCliente = cliente.Nome;
-
-                        // Cpf ou Cnpj (campos separados)
-                        extrato.CPF_CNPJ = !string.IsNullOrEmpty(cliente.Cnpj) ? cliente.Cnpj : cliente.Cpf;
-
-                        extrato.Endereco = cliente.Endereco;
-                        extrato.Telefone = cliente.Telefone;
-                    }
-                    else
-                    {
-                        MessageBox.Show($"ClienteID {clienteId} não encontrado no banco de dados.", "Erro",
-                                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return null;
-                    }
-
-                    // Buscar todas as parcelas do cliente
-                    var parcelas = conn.Query<ParcelaExtrato>(@"SELECT 
-    p.ParcelaID,
-    p.VendaID,
-    p.NumeroParcela,
-    CAST(v.DataVenda AS DATE)       AS DataVenda,
-    CAST(p.DataVencimento AS DATE)  AS DataVencimento,
-    CAST(p.DataPagamento AS DATE)   AS DataPagamento,
-    p.ValorParcela,
-    p.ValorRecebido,
-    p.Juros,
-    p.Multa,
-    (p.ValorParcela + p.Juros + p.Multa - ISNULL(p.ValorRecebido, 0)) AS Saldo,
-    p.Status,
-    fp.FormaPgto AS FormaPagamento
-FROM Parcela p
-JOIN Venda v ON v.VendaID = p.VendaID
-LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
-WHERE v.ClienteID = @ClienteID
-ORDER BY v.DataVenda DESC, p.NumeroParcela",
-
-                        new { ClienteID = clienteId }).ToList();
-
-                    foreach (var parcela in parcelas)
-                    {
-                        var item = new ItemExtrato
-                        {
-                            VendaID = parcela.VendaID,
-                            NumeroParcela = parcela.NumeroParcela,
-                            DataVenda = parcela.DataVenda,
-                            DataVencimento = parcela.DataVencimento,
-                            DataPagamento = parcela.DataPagamento,
-                            ValorParcela = parcela.ValorParcela,
-                            ValorRecebido = parcela.ValorRecebido,
-                            Juros = parcela.Juros,
-                            Desconto = 0,
-                            Saldo = parcela.Saldo,
-                            Status = parcela.Status ?? "",
-                            FormaPagamento = parcela.FormaPagamento ?? "",
-                            Descricao = $"Venda {parcela.VendaID} - Parcela {parcela.NumeroParcela}"
-                        };
-
-                        extrato.ItensExtrato.Add(item);
-
-                        // Calcular totais
-                        if (item.Status == "Paga")
-                            extrato.TotalPago += item.ValorRecebido;
-                        else if (item.Status != "Cancelada")
-                            extrato.TotalDevendo += item.Saldo;
-                    }
-
-                    extrato.SaldoAtual = extrato.TotalDevendo;
-
-                    return extrato;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao obter extrato: {ex.Message}", "Erro",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Selecione uma venda válida.", "Atenção",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return null;
+            }
+
+            long vendaId = conta.VendaID;
+            long clienteId;
+
+            using (var conn = Helpers.Conexao.Conex())
+            {
+                clienteId = conn.ExecuteScalar<long>(
+                    "SELECT ClienteID FROM Venda WHERE VendaID = @id",
+                    new { id = vendaId });
+            }
+
+            using (var conn = Helpers.Conexao.Conex())
+            {
+                var extrato = new ExtratoCliente();
+
+                var cliente = conn.QueryFirstOrDefault(@"
+            SELECT ClienteID, Nome, Cpf, Cnpj, Logradouro, Telefone
+            FROM Clientes
+            WHERE ClienteID = @ClienteID",
+                    new { ClienteID = clienteId });
+
+                extrato.ClienteID = cliente.ClienteID;
+                extrato.NomeCliente = cliente.Nome;
+                extrato.CPF_CNPJ = !string.IsNullOrEmpty(cliente.Cnpj) ? cliente.Cnpj : cliente.Cpf;
+                extrato.Endereco = cliente.Logradouro;
+                extrato.Telefone = cliente.Telefone;
+
+                var parcelas = conn.Query<ParcelaExtratoModel>(@"
+            SELECT p.ParcelaID, p.VendaID, p.NumeroParcela,
+                   v.DataVenda, p.DataVencimento, p.DataPagamento,
+                   p.ValorParcela, p.ValorRecebido, p.Juros, p.Multa,
+                   (p.ValorParcela + p.Juros + p.Multa - ISNULL(p.ValorRecebido,0)) AS Saldo,
+                   p.Status, fp.FormaPgto AS FormaPagamento
+            FROM Parcela p
+            JOIN Venda v ON v.VendaID = p.VendaID
+            LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
+            WHERE v.ClienteID = @ClienteID",
+                    new { ClienteID = clienteId }).ToList();
+
+                foreach (var p in parcelas)
+                {
+                    extrato.ItensExtrato.Add(new ItemExtrato
+                    {
+                        VendaID = p.VendaID,
+                        NumeroParcela = p.NumeroParcela,
+                        DataVenda = p.DataVenda,
+                        DataVencimento = p.DataVencimento,
+                        DataPagamento = p.DataPagamento,
+                        ValorParcela = p.ValorParcela,
+                        ValorRecebido = p.ValorRecebido,
+                        Juros = p.Juros,
+                        Saldo = p.Saldo,
+                        Status = p.Status,
+                        FormaPagamento = p.FormaPagamento,
+                        Descricao = $"Venda {p.VendaID} - Parcela {p.NumeroParcela}"
+                    });
+
+                    if (p.Status == "Paga")
+                        extrato.TotalPago += p.ValorRecebido;
+                    else
+                        extrato.TotalDevendo += p.Saldo;
+                }
+
+                extrato.SaldoAtual = extrato.TotalDevendo;
+                return extrato;
             }
         }
 
 
-        private ExtratoCliente ObterExtratoCliente()
-        {
-            try
-            {
-                if (dgvContasAReceber.CurrentRow == null)
-                {
-                    MessageBox.Show("Selecione uma linha para gerar o extrato.", "Atenção",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return null;
-                }
 
-                var data = dgvContasAReceber.CurrentRow.DataBoundItem as ContaAReceberDTO;
-                if (data == null)
-                {
-                    MessageBox.Show("Não foi possível obter dados da linha selecionada.", "Erro",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
-
-                long vendaId = data.VendaID;
-                if (vendaId <= 0)
-                {
-                    MessageBox.Show("A linha selecionada não possui ID de venda válido.", "Erro",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
-
-                long clienteId = 0;
-
-                // Busca o ClienteID a partir da VendaID (não há ClienteID direto no DTO)
-                using (var connTemp = Helpers.Conexao.Conex())
-                {
-                    var result = connTemp.ExecuteScalar<long?>(
-                        "SELECT ClienteID FROM Venda WHERE VendaID = @VendaID",
-                        new { VendaID = vendaId });
-                    if (result.HasValue)
-                        clienteId = result.Value;
-                    else
-                    {
-                        MessageBox.Show("Não foi possível identificar o cliente da venda.", "Erro",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return null;
-                    }
-                }
-
-                // Buscar informações completas do cliente
-                using (var conn = Helpers.Conexao.Conex())
-                {
-                    var extrato = new ExtratoCliente();
-
-                    var cliente = conn.QueryFirstOrDefault(
-                        @"SELECT ClienteID, Nome, Cpf, Cnpj, Endereco, Telefone 
-                  FROM Clientes 
-                  WHERE ClienteID = @ClienteID",
-                        new { ClienteID = clienteId });
-
-                    if (cliente == null)
-                    {
-                        MessageBox.Show($"ClienteID {clienteId} não encontrado no banco de dados.", "Erro",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return null;
-                    }
-
-                    extrato.ClienteID = cliente.ClienteID;
-                    extrato.NomeCliente = cliente.Nome;
-                    extrato.CPF_CNPJ = !string.IsNullOrEmpty(cliente.Cnpj) ? cliente.Cnpj : cliente.Cpf;
-                    extrato.Endereco = cliente.Endereco;
-                    extrato.Telefone = cliente.Telefone;
-
-                    // Buscar todas as parcelas do cliente
-                    var parcelas = conn.Query<ParcelaExtrato>(@"
-                SELECT
-                    p.ParcelaID,
-                    p.VendaID,
-                    p.NumeroParcela,
-                    CAST(v.DataVenda AS DATE) AS DataVenda,
-                    CAST(p.DataVencimento AS DATE) AS DataVencimento,
-                    CAST(p.DataPagamento AS DATE) AS DataPagamento,
-                    p.ValorParcela,
-                    p.ValorRecebido,
-                    p.Juros,
-                    p.Multa,
-                    (p.ValorParcela + p.Juros + p.Multa - ISNULL(p.ValorRecebido, 0)) AS Saldo,
-                    p.Status,
-                    fp.FormaPgto AS FormaPagamento
-                FROM Parcela p
-                JOIN Venda v ON v.VendaID = p.VendaID
-                LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
-                WHERE v.ClienteID = @ClienteID
-                ORDER BY v.DataVenda DESC, p.NumeroParcela",
-                        new { ClienteID = clienteId }).ToList();
-
-                    foreach (var parcela in parcelas)
-                    {
-                        var item = new ItemExtrato
-                        {
-                            VendaID = parcela.VendaID,
-                            NumeroParcela = parcela.NumeroParcela,
-                            DataVenda = parcela.DataVenda,
-                            DataVencimento = parcela.DataVencimento,
-                            DataPagamento = parcela.DataPagamento,
-                            ValorParcela = parcela.ValorParcela,
-                            ValorRecebido = parcela.ValorRecebido,
-                            Juros = parcela.Juros,
-                            Desconto = 0,
-                            Saldo = parcela.Saldo,
-                            Status = parcela.Status ?? "",
-                            FormaPagamento = parcela.FormaPagamento ?? "",
-                            Descricao = $"Venda {parcela.VendaID} - Parcela {parcela.NumeroParcela}"
-                        };
-                        extrato.ItensExtrato.Add(item);
-
-                        if (item.Status == "Paga")
-                            extrato.TotalPago += item.ValorRecebido;
-                        else if (item.Status != "Cancelada")
-                            extrato.TotalDevendo += item.Saldo;
-                    }
-
-                    extrato.SaldoAtual = extrato.TotalDevendo;
-                    return extrato;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao obter extrato: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-        }
         private void GerarExtratoCompleto()
         {
             try
@@ -1391,7 +1185,8 @@ ORDER BY v.DataVenda DESC, p.NumeroParcela",
             }
 
             // Converte para List<dynamic> apenas para compatibilidade
-            var selecionadasDynamic = selecionadas.Cast<dynamic>().ToList();
+            var selecionadasDto = selecionadas.ToList();
+
 
             decimal totalParcelas = selecionadas.Sum(p => p.ValorParcela);
             decimal totalRecebido = selecionadas.Sum(p => p.ValorRecebido);
@@ -1405,7 +1200,7 @@ ORDER BY v.DataVenda DESC, p.NumeroParcela",
                 : "Múltiplas parcelas selecionadas";
 
             // Passa a versão dynamic
-            frm.CarregarDados(selecionadasDynamic, nomeCliente, totalParcelas, totalRecebido, saldoTotal);
+            frm.CarregarDados(selecionadasDto, nomeCliente, totalParcelas, totalRecebido, saldoTotal);
 
             if (frm.ShowDialog() == DialogResult.OK)
                 CarregarContasAReceber();
