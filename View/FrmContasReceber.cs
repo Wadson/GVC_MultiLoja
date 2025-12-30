@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using GVC.BLL;
 using GVC.DAL;
+using GVC.DALL;
 using GVC.MODEL;
 using GVC.UTIL;
 using Krypton.Toolkit;
@@ -22,49 +23,10 @@ namespace GVC.View
 {
     public partial class FrmContasReceber : KryptonForm
     {
-        private const string SQL_EXTRATO_CTE = @"
-                                                WITH ParcelasCliente AS (
-                                                    SELECT
-                                                        p.ParcelaID,
-                                                        p.VendaID,
-                                                        p.NumeroParcela,
-                                                        v.DataVenda,
-                                                        p.DataVencimento,
-                                                        p.ValorParcela,
-                                                        v.ClienteID
-                                                    FROM Parcela p
-                                                    JOIN Venda v ON v.VendaID = p.VendaID
-                                                    WHERE v.ClienteID = @ClienteID
-                                                ),
-                                                Pagamentos AS (
-                                                    SELECT
-                                                        pp.PagamentoID,
-                                                        pp.ParcelaID,
-                                                        pp.DataPagamento,
-                                                        pp.ValorPago,
-                                                        fp.FormaPgto AS FormaPagamento,
-                                                        pp.Observacao
-                                                    FROM PagamentosParciais pp
-                                                    LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = pp.FormaPgtoID
-                                                )
-                                                SELECT
-                                                    pc.ParcelaID,
-                                                    pc.VendaID,
-                                                    pc.NumeroParcela,
-                                                    pc.DataVenda,
-                                                    pc.DataVencimento,
-                                                    pc.ValorParcela,
-                                                    pg.PagamentoID,
-                                                    pg.DataPagamento,
-                                                    pg.ValorPago,
-                                                    pg.FormaPagamento,
-                                                    pg.Observacao
-                                                FROM ParcelasCliente pc
-                                                LEFT JOIN Pagamentos pg ON pg.ParcelaID = pc.ParcelaID
-                                                ORDER BY pc.DataVenda, pc.NumeroParcela, pg.DataPagamento;
-                                                ";
+       
 
         private bool bloqueiaPesquisa = false;
+        private readonly PagamentoParcialDal _pagamentoDal = new PagamentoParcialDal();
         public int ClienteID { get; set; }
 
         private readonly VendaBLL _vendaBll = new VendaBLL();
@@ -72,7 +34,7 @@ namespace GVC.View
 
         public FrmContasReceber()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
         private void ConfigurarGridContasAReceber()
@@ -217,105 +179,9 @@ namespace GVC.View
             {
                 if (col.Name != "Selecionar")
                     col.ReadOnly = true; // bloqueia todas as outras colunas
-            }          
+            }
         }
-        private void ConfigurarGridItensVenda()
-        {
-            dgvItensVenda.AutoGenerateColumns = false;
-            dgvItensVenda.Columns.Clear();
 
-            // 🔹 Coluna ProdutoID (Cód. Prod.) - Centralizada
-            var colProdutoID = new DataGridViewTextBoxColumn
-            {
-                Name = "ProdutoID",
-                DataPropertyName = "ProdutoID",
-                HeaderText = "Cód. Prod.",
-                Width = 80,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
-                }
-            };
-            dgvItensVenda.Columns.Add(colProdutoID);
-
-            // 🔹 Coluna NomeProduto
-            var colNomeProduto = new DataGridViewTextBoxColumn
-            {
-                Name = "ProdutoDescricao",
-                DataPropertyName = "ProdutoDescricao",
-                HeaderText = "Produto",
-                Width = 250,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            };
-            dgvItensVenda.Columns.Add(colNomeProduto);
-
-            // 🔹 Coluna Quantidade - Centralizada
-            var colQuantidade = new DataGridViewTextBoxColumn
-            {
-                Name = "Quantidade",
-                DataPropertyName = "Quantidade",
-                HeaderText = "Qtd",
-                Width = 60,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Alignment = DataGridViewContentAlignment.MiddleCenter
-                }
-            };
-            dgvItensVenda.Columns.Add(colQuantidade);
-
-            // 🔹 Coluna PrecoUnitario (Preço Unitário) - Formato moeda
-            var colPrecoUnitario = new DataGridViewTextBoxColumn
-            {
-                Name = "PrecoUnitario",
-                DataPropertyName = "PrecoUnitario",
-                HeaderText = "Preço Unitário",
-                Width = 100,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "C2",
-                    Alignment = DataGridViewContentAlignment.MiddleRight
-                }
-            };
-            dgvItensVenda.Columns.Add(colPrecoUnitario);
-
-            // 🔹 Coluna DescontoItem (Desconto) - Formato moeda
-            var colDescontoItem = new DataGridViewTextBoxColumn
-            {
-                Name = "DescontoItem",
-                DataPropertyName = "DescontoItem",
-                HeaderText = "Desconto",
-                Width = 90,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "C2",
-                    Alignment = DataGridViewContentAlignment.MiddleRight
-                }
-            };
-            dgvItensVenda.Columns.Add(colDescontoItem);
-
-            // 🔹 Coluna Subtotal - Formato moeda
-            var colSubtotal = new DataGridViewTextBoxColumn
-            {
-                Name = "Subtotal",
-                DataPropertyName = "Subtotal",
-                HeaderText = "Subtotal",
-                Width = 100,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "C2",
-                    Alignment = DataGridViewContentAlignment.MiddleRight
-                }
-            };
-            dgvItensVenda.Columns.Add(colSubtotal);
-
-            // 🔹 Configurações gerais do grid
-            dgvItensVenda.AllowUserToAddRows = false;
-            dgvItensVenda.AllowUserToDeleteRows = false;
-            dgvItensVenda.ReadOnly = true;
-            dgvItensVenda.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvItensVenda.MultiSelect = false;
-            dgvItensVenda.RowHeadersVisible = false;
-        }
         private List<ContaAReceberDTO> ObterParcelasSelecionadas()
         {
             var lista = new List<ContaAReceberDTO>();
@@ -331,7 +197,6 @@ namespace GVC.View
             }
             return lista;
         }
-
         private void CarregarContasAReceber()
         {
             var dal = new ContasAReceberDAL();
@@ -354,8 +219,6 @@ namespace GVC.View
             AtualizarParcelasAtrasadasNoBanco();
         }
 
-
-
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
         {
             decimal totalAberto = 0m;
@@ -376,8 +239,6 @@ namespace GVC.View
         private void AtualizarCamposPorTipoPesquisa()
         {
             dgvContasAReceber.DataSource = null;
-            dgvItensVenda.DataSource = null;
-            // Esconde todos os controles
             lblNomeCliente.Visible = false;
             txtNomeCliente.Visible = false;
             lblNumeroVenda.Visible = false;
@@ -473,29 +334,37 @@ namespace GVC.View
                     break;
             }
         }
+        private List<PagamentoExtratoModel> ObterPagamentosDoGrid()
+        {
+            var lista = new List<PagamentoExtratoModel>();
 
+            foreach (DataGridViewRow row in dgvPagamentos.Rows)
+            {
+                if (row.DataBoundItem is PagamentoExtratoModel pagamento)
+                    lista.Add(pagamento);
+            }
+
+            return lista;
+        }
 
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
+            
             cmbTipoPesquisa.SelectedIndex = 0;
+            
+            
             ConfigurarGridContasAReceber();
-
-            // 🔹 CONFIGURA O GRID DE ITENS TAMBÉM
-            ConfigurarGridItensVenda();
-
-            AtualizarParcelasAtrasadasNoBanco();
+            ConfigurarGridPagamentos(); // 🔴 ESSENCIAL
+            AtualizarParcelasAtrasadasNoBanco(); // ← Atualiza ao abrir  
             txtNomeCliente.Visible = false;
             lblNomeCliente.Visible = false;
             txtNomeCliente.Enabled = false;
-            AtualizarParcelasAtrasadasNoBanco(); // ← Atualiza ao abrir          
         }
 
         private void cmbTipoPesquisa_SelectedIndexChanged(object sender, EventArgs e)
         {
             AtualizarCamposPorTipoPesquisa();
         }
-
-
 
         private void txtNomeCliente_TextChanged(object sender, EventArgs e)
         {
@@ -531,7 +400,6 @@ namespace GVC.View
                 }
             }));
         }
-
 
         private void dgvContasAReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -625,7 +493,7 @@ namespace GVC.View
                         e.CellStyle.ForeColor = Color.Black;
                         break;
                 }
-            }          
+            }
         }
 
         private void AtualizarTotalSelecionado()
@@ -703,104 +571,34 @@ namespace GVC.View
             if (venda == null)
             {
                 LimparAreaVenda();
-                lblCliente.Text = "Venda não encontrada";
                 return;
             }
-
-            // 🔴 CORREÇÃO: Sempre usa o vendaId que veio do grid
-            lblVendaID.Text = vendaId.ToString();
-
             // Busca nome do cliente se necessário
             if (string.IsNullOrEmpty(venda.NomeCliente) && venda.ClienteID > 0)
             {
                 string query = "SELECT Nome FROM Clientes WHERE ClienteID = @id";
                 venda.NomeCliente = Utilitario.PesquisarPorCodigoRetornarNome(query, "id", venda.ClienteID);
             }
-
-            lblCliente.Text = venda.NomeCliente ?? "Cliente não encontrado";
-            lblDataVenda.Text = venda.DataVenda.ToShortDateString();
-            lblTotalVenda.Text = venda.ValorTotal.ToString("C2");
         }
         private void BuscarNomeCliente(long clienteId)
         {
             string query = "SELECT Nome FROM Clientes WHERE ClienteID = @parametro";
-            lblCliente.Text = Utilitario.PesquisarPorCodigoRetornarNome(query, "parametro", clienteId);
         }
-        private void AplicarFormatacaoItensVenda()
-        {
-            // Garante que os valores monetários sejam formatados corretamente
-            foreach (DataGridViewRow row in dgvItensVenda.Rows)
-            {
-                // Formata PrecoUnitario
-                if (row.Cells["PrecoUnitario"].Value != null &&
-                    decimal.TryParse(row.Cells["PrecoUnitario"].Value.ToString(), out decimal preco))
-                {
-                    row.Cells["PrecoUnitario"].Value = preco;
-                }
-
-                // Formata Subtotal
-                if (row.Cells["Subtotal"].Value != null &&
-                    decimal.TryParse(row.Cells["Subtotal"].Value.ToString(), out decimal subtotal))
-                {
-                    row.Cells["Subtotal"].Value = subtotal;
-                }
-
-                // Formata DescontoItem
-                if (row.Cells["DescontoItem"].Value != null &&
-                    decimal.TryParse(row.Cells["DescontoItem"].Value.ToString(), out decimal desconto))
-                {
-                    row.Cells["DescontoItem"].Value = desconto;
-                }
-            }
-        }
-        private void CarregarItensVenda(int vendaId)
-        {
-            var itens = _itensVendaBll.ListarItensPorVenda(vendaId);
-
-            // Configura o grid antes de atribuir o DataSource
-            ConfigurarGridItensVenda();
-
-            dgvItensVenda.DataSource = itens;
-
-            // 🔹 Aplica formatação personalizada
-            AplicarFormatacaoItensVenda();
-        }
-
         private void dgvContasAReceber_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvContasAReceber.CurrentRow?.DataBoundItem is not ContaAReceberDTO data)
-            {
-                LimparAreaVenda();
-                return;
-            }
+            dgvPagamentos.DataSource = null;
 
-            long vendaId = data.VendaID;
-            if (vendaId <= 0)
-            {
-                LimparAreaVenda();
+            if (dgvContasAReceber.CurrentRow?.DataBoundItem is not ContaAReceberDTO parcela)
                 return;
-            }
 
-            CarregarVenda(vendaId);
-            CarregarItensVenda((int)vendaId);
+            var pagamentos = _pagamentoDal
+                .ListarPagamentosPorParcelaCompleto(parcela.ParcelaID);
+
+            dgvPagamentos.DataSource = pagamentos;
         }
         private void LimparAreaVenda()
         {
             lblNumeroVenda.Text = "-";
-            lblDataVenda.Text = "-";
-            lblCliente.Text = "-";
-            lblTotalVenda.Text = "R$ 0,00";
-
-            // Itens da venda
-            if (dgvItensVenda.DataSource != null)
-            {
-                dgvItensVenda.DataSource = null;
-            }
-            else
-            {
-                dgvItensVenda.Rows.Clear();
-                dgvItensVenda.Columns.Clear();
-            }
 
             // Contas a receber
             if (dgvContasAReceber.DataSource != null)
@@ -812,35 +610,8 @@ namespace GVC.View
                 dgvContasAReceber.Rows.Clear();
                 dgvContasAReceber.Columns.Clear();
             }
-
-            // 🔹 Opcional: reconfigura o grid quando limpo
-            ConfigurarGridItensVenda();
         }
 
-
-        private void dgvItensVenda_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
-            var coluna = dgvItensVenda.Columns[e.ColumnIndex].Name;
-
-            // Formata colunas monetárias
-            if (coluna == "PrecoUnitario" || coluna == "Subtotal" || coluna == "DescontoItem")
-            {
-                if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal valor))
-                {
-                    e.Value = valor.ToString("C2");
-                    e.FormattingApplied = true;
-
-                    // Destaque para descontos (opcional)
-                    if (coluna == "DescontoItem" && valor > 0)
-                    {
-                        e.CellStyle.ForeColor = Color.Red;
-                        e.CellStyle.Font = new Font(dgvItensVenda.Font, FontStyle.Regular);
-                    }
-                }
-            }
-        }
         private bool VerificarCheckboxesMarcados()
         {
             foreach (DataGridViewRow row in dgvContasAReceber.Rows)
@@ -860,78 +631,13 @@ namespace GVC.View
 
         private ExtratoCliente ObterExtratoCliente(bool detalhado)
         {
-            var conta = dgvContasAReceber.CurrentRow?.DataBoundItem as ContaAReceberDTO;
-            if (conta == null) return null;
+            if (dgvContasAReceber.CurrentRow?.DataBoundItem is not ContaAReceberDTO dto)
+                return null;
 
-            using var conn = Helpers.Conexao.Conex();
+            var bll = new ExtratoBLL();
 
-            long clienteId = conn.ExecuteScalar<long>(
-                "SELECT ClienteID FROM Venda WHERE VendaID = @id",
-                new { id = conta.VendaID });
-
-            var extrato = new ExtratoCliente();
-
-            var cliente = conn.QueryFirst(@"
-        SELECT ClienteID, Nome, Cpf, Cnpj, Logradouro, Telefone
-        FROM Clientes WHERE ClienteID = @id",
-                new { id = clienteId });
-
-            extrato.ClienteID = cliente.ClienteID;
-            extrato.NomeCliente = cliente.Nome;
-            extrato.CPF_CNPJ = !string.IsNullOrEmpty(cliente.Cnpj) ? cliente.Cnpj : cliente.Cpf;
-            extrato.Endereco = cliente.Logradouro;
-            extrato.Telefone = cliente.Telefone;
-
-            var lookup = new Dictionary<long, ItemExtrato>();
-
-            conn.Query<dynamic>(SQL_EXTRATO_CTE, new { ClienteID = clienteId })
-                .ToList()
-                .ForEach(r =>
-                {
-                    if (!lookup.TryGetValue((long)r.ParcelaID, out var item))
-                    {
-                        item = new ItemExtrato
-                        {
-                            VendaID = r.VendaID,
-                            NumeroParcela = r.NumeroParcela,
-                            DataVenda = r.DataVenda,
-                            DataVencimento = r.DataVencimento,
-                            ValorParcela = r.ValorParcela
-                        };
-                        lookup.Add(r.ParcelaID, item);
-                        extrato.ItensExtrato.Add(item);
-                    }
-
-                    if (r.PagamentoID != null && detalhado)
-                    {
-                        item.Pagamentos.Add(new PagamentoExtratoModel
-                        {
-                            PagamentoID = r.PagamentoID,
-                            ParcelaID = r.ParcelaID,
-                            DataPagamento = r.DataPagamento,
-                            ValorPago = r.ValorPago,
-                            FormaPagamento = r.FormaPagamento,
-                            Observacao = r.Observacao
-                        });
-                    }
-                });
-
-            foreach (var i in extrato.ItensExtrato)
-            {
-                i.TotalPago = i.Pagamentos.Sum(p => p.ValorPago);
-                i.Saldo = i.ValorParcela - i.TotalPago;
-                i.Status = i.Saldo <= 0 ? "Paga" :
-                           i.TotalPago > 0 ? "Parcialmente Paga" : "Em Aberto";
-
-                extrato.TotalPago += i.TotalPago;
-                extrato.TotalDevendo += i.Saldo;
-            }
-
-            extrato.SaldoAtual = extrato.TotalDevendo;
-            return extrato;
+            return bll.ObterExtratoClientePorVenda(dto.VendaID, detalhado);
         }
-
-
 
 
         private void GerarExtratoCompleto(bool detalhado)
@@ -1067,7 +773,7 @@ namespace GVC.View
                 Utilitario.Mensagens.Erro($"Não foi possível abrir a pasta: {ex.Message}");
             }
         }
-        private void GerarReciboParcelas()
+        private void GerarReciboPagamentos()
         {
             var parcelasSelecionadas = ObterParcelasSelecionadas();
             if (!parcelasSelecionadas.Any())
@@ -1107,25 +813,26 @@ namespace GVC.View
         }
         private List<PagamentoExtratoModel> ObterPagamentosSelecionados()
         {
-            var lista = new List<PagamentoExtratoModel>();
+            var parcelas = ObterParcelasSelecionadas();
+            if (!parcelas.Any()) return new List<PagamentoExtratoModel>();
 
-            foreach (DataGridViewRow row in dgvContasAReceber.Rows)
-            {
-                if (row.Cells["Selecionar"].Value is bool marcado && marcado)
-                {
-                    lista.Add(new PagamentoExtratoModel
-                    {
-                        PagamentoID = Convert.ToInt64(row.Cells["PagamentoID"].Value),
-                        ParcelaID = Convert.ToInt64(row.Cells["ParcelaID"].Value),
-                        DataPagamento = Convert.ToDateTime(row.Cells["DataPagamento"].Value),
-                        ValorPago = Convert.ToDecimal(row.Cells["ValorPago"].Value),
-                        FormaPagamento = row.Cells["FormaPagamento"].Value?.ToString(),
-                        Observacao = row.Cells["Observacao"].Value?.ToString()
-                    });
-                }
-            }
+            using var conn = Helpers.Conexao.Conex();
 
-            return lista;
+            var ids = parcelas.Select(p => p.ParcelaID).ToArray();
+
+            string sql = @"
+        SELECT
+            pp.PagamentoID,
+            pp.ParcelaID,
+            pp.DataPagamento,
+            pp.ValorPago,
+            fp.FormaPgto AS FormaPagamento,
+            pp.Observacao
+        FROM PagamentosParciais pp
+        LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = pp.FormaPgtoID
+        WHERE pp.ParcelaID IN @ids";
+
+            return conn.Query<PagamentoExtratoModel>(sql, new { ids }).ToList();
         }
 
         private void FrmContasAReceber_Shown(object sender, EventArgs e)
@@ -1192,7 +899,7 @@ namespace GVC.View
             using (var frm = new FrmEstornarPagamento())
             {
                 // 🔴 AJUSTE: Passa apenas o ID da única parcela
-                frm.CarregarDados( new List<long> { (long)parcela.ParcelaID },
+                frm.CarregarDados(new List<long> { (long)parcela.ParcelaID },
                     parcela.NomeCliente ?? "Cliente"
                 );
 
@@ -1231,7 +938,7 @@ namespace GVC.View
             if (!selecionadas.Any())
             {
                 Utilitario.Mensagens.Aviso("Por favor, marque a caixa de seleção ao lado para escolher ao menos uma parcela");
-                
+
                 return;
             }
 
@@ -1255,6 +962,59 @@ namespace GVC.View
 
             if (frm.ShowDialog() == DialogResult.OK)
                 CarregarContasAReceber();
+        }
+        private void ConfigurarGridPagamentos()
+        {
+            dgvPagamentos.AutoGenerateColumns = false;
+            dgvPagamentos.Columns.Clear();
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PagamentoID",
+                HeaderText = "ID",
+                Visible = false
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataPagamento",
+                HeaderText = "Data",
+                Width = 90,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "dd/MM/yyyy"
+                }
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FormaPagamento",
+                HeaderText = "Forma",
+                Width = 120
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ValorPago",
+                HeaderText = "Valor Pago",
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Observacao",
+                HeaderText = "Observação",
+                Width = 250
+            });
+
+            dgvPagamentos.ReadOnly = true;
+            dgvPagamentos.AllowUserToAddRows = false;
+            dgvPagamentos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void btnExtratoRecibo_Click(object sender, EventArgs e)
@@ -1331,7 +1091,7 @@ namespace GVC.View
 
                     else if (resultado == DialogResult.No && temCheckboxMarcado)
                     {
-                        GerarReciboParcelas();
+                        GerarReciboPagamentos();
                     }
                     else if ((resultado == DialogResult.Yes && !temLinhaSelecionada) ||
                              (resultado == DialogResult.No && !temCheckboxMarcado))
@@ -1346,24 +1106,7 @@ namespace GVC.View
                 Utilitario.Mensagens.Erro($"Erro: {ex.Message}");
             }
         }
-        private void GerarReciboPagamentos()
-        {
-            var pagamentos = ObterPagamentosSelecionados();
-            if (!pagamentos.Any()) return;
-
-            var extrato = ObterExtratoCliente(true);
-
-            using var save = new SaveFileDialog
-            {
-                Filter = "PDF|*.pdf",
-                FileName = $"Recibo_{extrato.NomeCliente}_{DateTime.Now:yyyyMMddHHmm}.pdf"
-            };
-
-            if (save.ShowDialog() == DialogResult.OK)
-                PDFGenerator.GerarReciboPagamentos(extrato, pagamentos, save.FileName);
-        }
-
-
+      
         private void btnLimparFiltro_Click(object sender, EventArgs e)
         {
             cmbTipoPesquisa.SelectedIndex = 0;
@@ -1371,6 +1114,74 @@ namespace GVC.View
             AtualizarCamposPorTipoPesquisa();
             CarregarContasAReceber(); // vai chamar AtualizarResumoGeral automaticamente
             AtualizarCamposPorTipoPesquisa();
+        }
+
+        private void btnVerItensVenda_Click(object sender, EventArgs e)
+        {
+            if (dgvContasAReceber.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione uma venda para visualizar os itens.");
+                return;
+            }
+
+            if (!(dgvContasAReceber.CurrentRow.DataBoundItem is ContaAReceberDTO dto))
+            {
+                Utilitario.Mensagens.Aviso("Não foi possível identificar a venda.");
+                return;
+            }
+
+            long vendaId = dto.VendaID;
+
+            using (var frm = new FrmItensVenda())
+            {
+                frm.CarregarItensVenda(vendaId);
+                frm.ShowDialog(this);
+            }
+        }
+
+        private void btnRecibo_Click(object sender, EventArgs e)
+        {
+            var pagamentos = ObterPagamentosDoGrid();
+
+            if (!pagamentos.Any())
+            {
+                Utilitario.Mensagens.Aviso("Nenhum pagamento encontrado para gerar recibo.");
+                return;
+            }
+
+            var extrato = ObterExtratoCliente(true);
+            if (extrato == null)
+                return;
+
+            using var saveDialog = new SaveFileDialog
+            {
+                Filter = "PDF Files|*.pdf",
+                Title = "Salvar Recibo",
+                FileName = $"Recibo_{RemoveCaracteresInvalidos(extrato.NomeCliente)}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
+            };
+
+            if (saveDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            // 🔹 Gera o PDF
+            PDFGenerator.GerarReciboPagamentos(extrato, pagamentos, saveDialog.FileName);
+
+            // 🔹 CONFIRMAÇÃO PARA ABRIR
+            var resultado = MessageBox.Show(
+                $"Recibo gerado com sucesso!\n\n" +
+                $"Arquivo: {Path.GetFileName(saveDialog.FileName)}\n" +
+                $"Pasta: {Path.GetDirectoryName(saveDialog.FileName)}\n\n" +
+                $"Deseja abrir o arquivo agora?",
+                "Sucesso",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Information
+            );
+
+            if (resultado == DialogResult.Yes)
+            {
+                if (!AbrirPDF(saveDialog.FileName))
+                    AbrirPastaContendoArquivo(saveDialog.FileName);
+            }
         }
     }
 }

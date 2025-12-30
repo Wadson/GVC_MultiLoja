@@ -14,9 +14,10 @@ namespace GVC.MODEL
         public decimal ValorPago { get; set; } // Valor pago na parcela
         public DateTime DataPagamento { get; set; } = DateTime.Now;
 
+        public string FormaPagamento { get; set; }
+        public long FormaPagamentoID { get; set; }
+        public string Observacao { get; set; }
         // Propriedade de navegação opcional para a Parcela
-       
-
         public static implicit operator PagamentoParcialModel(PagamentoParcialDal v)
         {
             throw new NotImplementedException();

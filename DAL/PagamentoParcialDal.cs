@@ -120,13 +120,92 @@ namespace GVC.DALL
                 throw;
             }
         }
+        public List<PagamentoExtratoModel> ListarPagamentosPorParcela(long parcelaId)
+        {
+            const string sql = @"
+                SELECT
+                    pp.PagamentoID,
+                    pp.ParcelaID,
+                    pp.DataPagamento,
+                    pp.ValorPago,
+                    fp.FormaPgto AS FormaPagamento,
+                    pp.Observacao
+                FROM PagamentosParciais pp
+                LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = pp.FormaPgtoID
+                WHERE pp.ParcelaID = @ParcelaID
+                ORDER BY pp.DataPagamento";
+
+            using var conn = Helpers.Conexao.Conex();
+            return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
+        }
+        public List<PagamentoExtratoModel> ListarPagamentosPorParcelaCompleto(long parcelaId)
+        {
+            const string sql = @"
+        -- 🔹 PAGAMENTOS PARCIAIS
+        SELECT
+            pp.PagamentoID,
+            pp.ParcelaID,
+            pp.DataPagamento,
+            pp.ValorPago,
+            fp.FormaPgto AS FormaPagamento,
+            pp.Observacao
+        FROM PagamentosParciais pp
+        LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = pp.FormaPgtoID
+        WHERE pp.ParcelaID = @ParcelaID
+
+        UNION ALL
+
+        -- 🔹 PAGAMENTO ÚNICO (BAIXA DIRETA)
+        SELECT
+            0 AS PagamentoID,
+            p.ParcelaID,
+            v.DataVenda AS DataPagamento,
+            p.ValorRecebido AS ValorPago,
+            fp.FormaPgto AS FormaPagamento,
+            'Pagamento Único' AS Observacao
+        FROM Parcela p
+        INNER JOIN Venda v ON v.VendaID = p.VendaID
+        LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
+        WHERE p.ParcelaID = @ParcelaID
+          AND p.ValorRecebido > 0
+          AND NOT EXISTS (
+              SELECT 1
+              FROM PagamentosParciais pp
+              WHERE pp.ParcelaID = p.ParcelaID
+          )
+
+        ORDER BY DataPagamento";
+
+            using var conn = Helpers.Conexao.Conex();
+            return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
+        }
+
+
 
         // 8. BUSCAR PAGAMENTO PARCIAL POR ID
-        public PagamentoParcialModel? BuscarPorId(long pagamentoParcialId)
+        public PagamentoParcialModel? BuscarPorId(long pagamentoId)
         {
-            const string sql = "SELECT * FROM PagamentosParciais WHERE PagamentoParcialID = @Id";
+            const string sql = "SELECT * FROM PagamentosParciais WHERE PagamentoID = @Id";
             using var conn = GVC.Helpers.Conexao.Conex();
-            return conn.QueryFirstOrDefault<PagamentoParcialModel>(sql, new { Id = pagamentoParcialId });
+            return conn.QueryFirstOrDefault<PagamentoParcialModel>(sql, new { Id = pagamentoId });
         }
+        public void ExcluirPorVenda(long vendaId)
+        {
+            string sql = @"
+                DELETE FROM PagamentosParciais
+                WHERE ParcelaID IN (
+                    SELECT ParcelaID 
+                    FROM Parcela 
+                    WHERE VendaID = @VendaID
+                )";
+
+            using var conn = GVC.Helpers.Conexao.Conex();
+            conn.Open();
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@VendaID", vendaId);
+            cmd.ExecuteNonQuery();
+        }
+
+
     }
 }

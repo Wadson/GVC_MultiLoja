@@ -130,7 +130,7 @@ namespace GVC.BLL
             if (ExistePagamento(vendaID))
                 throw new Exception("Não é possível excluir venda com pagamentos.");
 
-            new PagamentosParciaisDal().ExcluirPorVenda(vendaID);
+            new PagamentoParcialDal().ExcluirPorVenda(vendaID);
             new ParcelaDal().ExcluirPorVenda(vendaID);
             new ItemVendaDal().ExcluirPorVenda(vendaID);
             new VendaDal().Excluir(vendaID);
@@ -252,7 +252,7 @@ namespace GVC.BLL
                     "Esta venda possui pagamentos registrados.\n" +
                     "Remova os pagamentos antes de tentar excluir.");
 
-            new PagamentosParciaisDal().ExcluirPorVenda(vendaId);
+            new PagamentoParcialDal().ExcluirPorVenda(vendaId);
             new ParcelaDal().ExcluirPorVenda(vendaId);
             new ItemVendaDal().ExcluirPorVenda(vendaId);
             new VendaDal().Excluir(vendaId);

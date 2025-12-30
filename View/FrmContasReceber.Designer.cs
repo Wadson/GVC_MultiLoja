@@ -47,23 +47,14 @@
             btnPesquisar = new Krypton.Toolkit.KryptonButton();
             dgvContasAReceber = new Krypton.Toolkit.KryptonDataGridView();
             btnSair = new Krypton.Toolkit.KryptonButton();
-            btnExtratoRecibo = new Krypton.Toolkit.KryptonButton();
+            btnExtrato = new Krypton.Toolkit.KryptonButton();
             btnBaixarParcela = new Krypton.Toolkit.KryptonButton();
             btnEstornarPagamento = new Krypton.Toolkit.KryptonButton();
-            dgvItensVenda = new Krypton.Toolkit.KryptonDataGridView();
-            lblCliente = new Krypton.Toolkit.KryptonLabel();
-            lblRotuloCliente = new Krypton.Toolkit.KryptonLabel();
-            lblTotalVenda = new Krypton.Toolkit.KryptonLabel();
-            lblRotuloTotal = new Krypton.Toolkit.KryptonLabel();
-            lblDataVenda = new Krypton.Toolkit.KryptonLabel();
-            lblRotuloData = new Krypton.Toolkit.KryptonLabel();
-            lblVendaID = new Krypton.Toolkit.KryptonLabel();
-            lblRotuloVenda = new Krypton.Toolkit.KryptonLabel();
             tableLayoutPanel1 = new TableLayoutPanel();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel5 = new Krypton.Toolkit.KryptonLabel();
-            kryptonDataGridView1 = new Krypton.Toolkit.KryptonDataGridView();
+            dgvPagamentos = new Krypton.Toolkit.KryptonDataGridView();
             flowLayoutPanel3 = new FlowLayoutPanel();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
@@ -83,17 +74,18 @@
             toolStripStatusLabel9 = new ToolStripStatusLabel();
             txtTotalVencido = new ToolStripStatusLabel();
             flowLayoutPanel4 = new FlowLayoutPanel();
+            btnRecibo = new Krypton.Toolkit.KryptonButton();
+            btnVerItensVenda = new Krypton.Toolkit.KryptonButton();
+            toolTip1 = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)cmbStatusParcela).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbTipoPesquisa).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvContasAReceber).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvItensVenda).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
             kryptonPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonDataGridView1).BeginInit();
-            flowLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPagamentos).BeginInit();
             kryptonStatusStrip1.SuspendLayout();
             flowLayoutPanel4.SuspendLayout();
             SuspendLayout();
@@ -514,69 +506,71 @@
             btnSair.StateTracking.Border.Width = 1;
             btnSair.StateTracking.Content.ShortText.Color1 = Color.White;
             btnSair.TabIndex = 1068;
+            toolTip1.SetToolTip(btnSair, "Fechar tela");
             btnSair.Values.Text = "Sair";
             btnSair.Click += btnSair_Click;
             // 
-            // btnExtratoRecibo
+            // btnExtrato
             // 
-            btnExtratoRecibo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnExtratoRecibo.CornerRoundingRadius = 10F;
-            btnExtratoRecibo.Location = new Point(534, 3);
-            btnExtratoRecibo.Margin = new Padding(5, 3, 5, 3);
-            btnExtratoRecibo.Name = "btnExtratoRecibo";
-            btnExtratoRecibo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnExtratoRecibo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnExtratoRecibo.OverrideDefault.Back.ColorAngle = 45F;
-            btnExtratoRecibo.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
-            btnExtratoRecibo.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnExtratoRecibo.OverrideDefault.Border.ColorAngle = 45F;
-            btnExtratoRecibo.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnExtratoRecibo.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnExtratoRecibo.OverrideDefault.Border.Rounding = 20F;
-            btnExtratoRecibo.OverrideDefault.Border.Width = 1;
-            btnExtratoRecibo.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnExtratoRecibo.Size = new Size(118, 27);
-            btnExtratoRecibo.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnExtratoRecibo.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnExtratoRecibo.StateCommon.Back.ColorAngle = 45F;
-            btnExtratoRecibo.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnExtratoRecibo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnExtratoRecibo.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnExtratoRecibo.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnExtratoRecibo.StateCommon.Border.Rounding = 10F;
-            btnExtratoRecibo.StateCommon.Border.Width = 1;
-            btnExtratoRecibo.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            btnExtratoRecibo.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnExtratoRecibo.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 10F);
-            btnExtratoRecibo.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
-            btnExtratoRecibo.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
-            btnExtratoRecibo.StatePressed.Back.ColorAngle = 135F;
-            btnExtratoRecibo.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnExtratoRecibo.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnExtratoRecibo.StatePressed.Border.ColorAngle = 135F;
-            btnExtratoRecibo.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnExtratoRecibo.StatePressed.Border.Rounding = 20F;
-            btnExtratoRecibo.StatePressed.Border.Width = 1;
-            btnExtratoRecibo.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnExtratoRecibo.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
-            btnExtratoRecibo.StateTracking.Back.ColorAngle = 45F;
-            btnExtratoRecibo.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnExtratoRecibo.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnExtratoRecibo.StateTracking.Border.ColorAngle = 45F;
-            btnExtratoRecibo.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnExtratoRecibo.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnExtratoRecibo.StateTracking.Border.Rounding = 20F;
-            btnExtratoRecibo.StateTracking.Border.Width = 1;
-            btnExtratoRecibo.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnExtratoRecibo.TabIndex = 1069;
-            btnExtratoRecibo.Values.Text = "Extrato / Recibo";
-            btnExtratoRecibo.Click += btnExtratoRecibo_Click;
+            btnExtrato.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnExtrato.CornerRoundingRadius = 10F;
+            btnExtrato.Location = new Point(406, 3);
+            btnExtrato.Margin = new Padding(5, 3, 5, 3);
+            btnExtrato.Name = "btnExtrato";
+            btnExtrato.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnExtrato.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnExtrato.OverrideDefault.Back.ColorAngle = 45F;
+            btnExtrato.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
+            btnExtrato.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnExtrato.OverrideDefault.Border.ColorAngle = 45F;
+            btnExtrato.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnExtrato.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnExtrato.OverrideDefault.Border.Rounding = 20F;
+            btnExtrato.OverrideDefault.Border.Width = 1;
+            btnExtrato.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            btnExtrato.Size = new Size(118, 27);
+            btnExtrato.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnExtrato.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnExtrato.StateCommon.Back.ColorAngle = 45F;
+            btnExtrato.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnExtrato.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnExtrato.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnExtrato.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnExtrato.StateCommon.Border.Rounding = 10F;
+            btnExtrato.StateCommon.Border.Width = 1;
+            btnExtrato.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
+            btnExtrato.StateCommon.Content.ShortText.Color2 = Color.White;
+            btnExtrato.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 10F);
+            btnExtrato.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
+            btnExtrato.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
+            btnExtrato.StatePressed.Back.ColorAngle = 135F;
+            btnExtrato.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
+            btnExtrato.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
+            btnExtrato.StatePressed.Border.ColorAngle = 135F;
+            btnExtrato.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnExtrato.StatePressed.Border.Rounding = 20F;
+            btnExtrato.StatePressed.Border.Width = 1;
+            btnExtrato.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
+            btnExtrato.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
+            btnExtrato.StateTracking.Back.ColorAngle = 45F;
+            btnExtrato.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnExtrato.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnExtrato.StateTracking.Border.ColorAngle = 45F;
+            btnExtrato.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnExtrato.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnExtrato.StateTracking.Border.Rounding = 20F;
+            btnExtrato.StateTracking.Border.Width = 1;
+            btnExtrato.StateTracking.Content.ShortText.Color1 = Color.White;
+            btnExtrato.TabIndex = 1069;
+            toolTip1.SetToolTip(btnExtrato, "Emitir extrato da venda");
+            btnExtrato.Values.Text = "Extrato";
+            btnExtrato.Click += btnExtratoRecibo_Click;
             // 
             // btnBaixarParcela
             // 
             btnBaixarParcela.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBaixarParcela.CornerRoundingRadius = 10F;
-            btnBaixarParcela.Location = new Point(406, 3);
+            btnBaixarParcela.Location = new Point(278, 3);
             btnBaixarParcela.Margin = new Padding(5, 3, 5, 3);
             btnBaixarParcela.Name = "btnBaixarParcela";
             btnBaixarParcela.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -623,6 +617,7 @@
             btnBaixarParcela.StateTracking.Border.Rounding = 20F;
             btnBaixarParcela.StateTracking.Border.Width = 1;
             btnBaixarParcela.TabIndex = 1067;
+            toolTip1.SetToolTip(btnBaixarParcela, "Baixar parcela paga");
             btnBaixarParcela.Values.Text = "Baixar Parcela";
             btnBaixarParcela.Click += btnBaixarParcela_Click;
             // 
@@ -679,102 +674,9 @@
             btnEstornarPagamento.StateTracking.Border.Rounding = 20F;
             btnEstornarPagamento.StateTracking.Border.Width = 1;
             btnEstornarPagamento.TabIndex = 1063;
+            toolTip1.SetToolTip(btnEstornarPagamento, "Estornar pagamento");
             btnEstornarPagamento.Values.Text = "Estornar Pgto";
             btnEstornarPagamento.Click += btnEstornarPagamento_Click;
-            // 
-            // dgvItensVenda
-            // 
-            dgvItensVenda.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvItensVenda.Location = new Point(0, 400);
-            dgvItensVenda.Name = "dgvItensVenda";
-            dgvItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            dgvItensVenda.Size = new Size(913, 142);
-            dgvItensVenda.TabIndex = 1045;
-            dgvItensVenda.CellFormatting += dgvItensVenda_CellFormatting;
-            // 
-            // lblCliente
-            // 
-            lblCliente.Location = new Point(225, 3);
-            lblCliente.Name = "lblCliente";
-            lblCliente.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlackDarkMode;
-            lblCliente.Size = new Size(85, 20);
-            lblCliente.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            lblCliente.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
-            lblCliente.TabIndex = 7;
-            lblCliente.Values.Text = "Nome Cliente";
-            // 
-            // lblRotuloCliente
-            // 
-            lblRotuloCliente.Location = new Point(168, 3);
-            lblRotuloCliente.Name = "lblRotuloCliente";
-            lblRotuloCliente.Size = new Size(51, 20);
-            lblRotuloCliente.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            lblRotuloCliente.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
-            lblRotuloCliente.TabIndex = 6;
-            lblRotuloCliente.Values.Text = "Cliente:";
-            // 
-            // lblTotalVenda
-            // 
-            lblTotalVenda.Location = new Point(487, 3);
-            lblTotalVenda.Name = "lblTotalVenda";
-            lblTotalVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlackDarkMode;
-            lblTotalVenda.Size = new Size(70, 20);
-            lblTotalVenda.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            lblTotalVenda.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
-            lblTotalVenda.TabIndex = 5;
-            lblTotalVenda.Values.Text = "Valor Total";
-            // 
-            // lblRotuloTotal
-            // 
-            lblRotuloTotal.Location = new Point(441, 3);
-            lblRotuloTotal.Name = "lblRotuloTotal";
-            lblRotuloTotal.Size = new Size(40, 20);
-            lblRotuloTotal.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            lblRotuloTotal.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
-            lblRotuloTotal.TabIndex = 4;
-            lblRotuloTotal.Values.Text = "Total:";
-            // 
-            // lblDataVenda
-            // 
-            lblDataVenda.Location = new Point(361, 3);
-            lblDataVenda.Name = "lblDataVenda";
-            lblDataVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlackDarkMode;
-            lblDataVenda.Size = new Size(74, 20);
-            lblDataVenda.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            lblDataVenda.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
-            lblDataVenda.TabIndex = 3;
-            lblDataVenda.Values.Text = "Data Venda";
-            // 
-            // lblRotuloData
-            // 
-            lblRotuloData.Location = new Point(316, 3);
-            lblRotuloData.Name = "lblRotuloData";
-            lblRotuloData.Size = new Size(39, 20);
-            lblRotuloData.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            lblRotuloData.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
-            lblRotuloData.TabIndex = 2;
-            lblRotuloData.Values.Text = "Data:";
-            // 
-            // lblVendaID
-            // 
-            lblVendaID.Location = new Point(57, 3);
-            lblVendaID.Name = "lblVendaID";
-            lblVendaID.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlackDarkMode;
-            lblVendaID.Size = new Size(105, 20);
-            lblVendaID.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            lblVendaID.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
-            lblVendaID.TabIndex = 1;
-            lblVendaID.Values.Text = "Codigo da Venda";
-            // 
-            // lblRotuloVenda
-            // 
-            lblRotuloVenda.Location = new Point(3, 3);
-            lblRotuloVenda.Name = "lblRotuloVenda";
-            lblRotuloVenda.Size = new Size(48, 20);
-            lblRotuloVenda.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            lblRotuloVenda.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
-            lblRotuloVenda.TabIndex = 0;
-            lblRotuloVenda.Values.Text = "Venda:";
             // 
             // tableLayoutPanel1
             // 
@@ -785,7 +687,7 @@
             tableLayoutPanel1.Controls.Add(kryptonPanel1, 0, 1);
             tableLayoutPanel1.Controls.Add(kryptonPanel4, 0, 0);
             tableLayoutPanel1.Controls.Add(dgvContasAReceber, 0, 3);
-            tableLayoutPanel1.Controls.Add(kryptonDataGridView1, 0, 5);
+            tableLayoutPanel1.Controls.Add(dgvPagamentos, 0, 5);
             tableLayoutPanel1.Controls.Add(flowLayoutPanel3, 0, 2);
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -796,7 +698,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 130F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 23F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 130F));
-            tableLayoutPanel1.Size = new Size(917, 394);
+            tableLayoutPanel1.Size = new Size(917, 372);
             tableLayoutPanel1.TabIndex = 1069;
             // 
             // kryptonLabel2
@@ -836,25 +738,17 @@
             kryptonLabel5.TabIndex = 1;
             kryptonLabel5.Values.Text = "CONTAS A RECEBER";
             // 
-            // kryptonDataGridView1
+            // dgvPagamentos
             // 
-            kryptonDataGridView1.Dock = DockStyle.Fill;
-            kryptonDataGridView1.Location = new Point(3, 269);
-            kryptonDataGridView1.Name = "kryptonDataGridView1";
-            kryptonDataGridView1.Size = new Size(911, 124);
-            kryptonDataGridView1.TabIndex = 1053;
+            dgvPagamentos.Dock = DockStyle.Fill;
+            dgvPagamentos.Location = new Point(3, 269);
+            dgvPagamentos.Name = "dgvPagamentos";
+            dgvPagamentos.Size = new Size(911, 124);
+            dgvPagamentos.TabIndex = 1053;
             // 
             // flowLayoutPanel3
             // 
             flowLayoutPanel3.BackColor = Color.FromArgb(252, 252, 250);
-            flowLayoutPanel3.Controls.Add(lblRotuloVenda);
-            flowLayoutPanel3.Controls.Add(lblVendaID);
-            flowLayoutPanel3.Controls.Add(lblRotuloCliente);
-            flowLayoutPanel3.Controls.Add(lblCliente);
-            flowLayoutPanel3.Controls.Add(lblRotuloData);
-            flowLayoutPanel3.Controls.Add(lblDataVenda);
-            flowLayoutPanel3.Controls.Add(lblRotuloTotal);
-            flowLayoutPanel3.Controls.Add(lblTotalVenda);
             flowLayoutPanel3.Dock = DockStyle.Fill;
             flowLayoutPanel3.Location = new Point(3, 89);
             flowLayoutPanel3.Name = "flowLayoutPanel3";
@@ -973,14 +867,128 @@
             // 
             flowLayoutPanel4.Controls.Add(btnSair);
             flowLayoutPanel4.Controls.Add(btnEstornarPagamento);
-            flowLayoutPanel4.Controls.Add(btnExtratoRecibo);
+            flowLayoutPanel4.Controls.Add(btnRecibo);
+            flowLayoutPanel4.Controls.Add(btnExtrato);
             flowLayoutPanel4.Controls.Add(btnBaixarParcela);
+            flowLayoutPanel4.Controls.Add(btnVerItensVenda);
             flowLayoutPanel4.Dock = DockStyle.Bottom;
             flowLayoutPanel4.FlowDirection = FlowDirection.RightToLeft;
             flowLayoutPanel4.Location = new Point(0, 566);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
             flowLayoutPanel4.Size = new Size(913, 33);
             flowLayoutPanel4.TabIndex = 1072;
+            // 
+            // btnRecibo
+            // 
+            btnRecibo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRecibo.CornerRoundingRadius = 10F;
+            btnRecibo.Location = new Point(534, 3);
+            btnRecibo.Margin = new Padding(5, 3, 5, 3);
+            btnRecibo.Name = "btnRecibo";
+            btnRecibo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnRecibo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnRecibo.OverrideDefault.Back.ColorAngle = 45F;
+            btnRecibo.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
+            btnRecibo.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnRecibo.OverrideDefault.Border.ColorAngle = 45F;
+            btnRecibo.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnRecibo.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnRecibo.OverrideDefault.Border.Rounding = 20F;
+            btnRecibo.OverrideDefault.Border.Width = 1;
+            btnRecibo.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            btnRecibo.Size = new Size(118, 27);
+            btnRecibo.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnRecibo.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnRecibo.StateCommon.Back.ColorAngle = 45F;
+            btnRecibo.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnRecibo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnRecibo.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnRecibo.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnRecibo.StateCommon.Border.Rounding = 10F;
+            btnRecibo.StateCommon.Border.Width = 1;
+            btnRecibo.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
+            btnRecibo.StateCommon.Content.ShortText.Color2 = Color.White;
+            btnRecibo.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 10F);
+            btnRecibo.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
+            btnRecibo.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
+            btnRecibo.StatePressed.Back.ColorAngle = 135F;
+            btnRecibo.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
+            btnRecibo.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
+            btnRecibo.StatePressed.Border.ColorAngle = 135F;
+            btnRecibo.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnRecibo.StatePressed.Border.Rounding = 20F;
+            btnRecibo.StatePressed.Border.Width = 1;
+            btnRecibo.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
+            btnRecibo.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
+            btnRecibo.StateTracking.Back.ColorAngle = 45F;
+            btnRecibo.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnRecibo.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnRecibo.StateTracking.Border.ColorAngle = 45F;
+            btnRecibo.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnRecibo.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnRecibo.StateTracking.Border.Rounding = 20F;
+            btnRecibo.StateTracking.Border.Width = 1;
+            btnRecibo.StateTracking.Content.ShortText.Color1 = Color.White;
+            btnRecibo.TabIndex = 1071;
+            toolTip1.SetToolTip(btnRecibo, "Emitir recibo de pagamento");
+            btnRecibo.Values.Text = "Recibo";
+            btnRecibo.Click += btnRecibo_Click;
+            // 
+            // btnVerItensVenda
+            // 
+            btnVerItensVenda.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnVerItensVenda.CornerRoundingRadius = 10F;
+            btnVerItensVenda.Location = new Point(150, 3);
+            btnVerItensVenda.Margin = new Padding(5, 3, 5, 3);
+            btnVerItensVenda.Name = "btnVerItensVenda";
+            btnVerItensVenda.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnVerItensVenda.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnVerItensVenda.OverrideDefault.Back.ColorAngle = 45F;
+            btnVerItensVenda.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
+            btnVerItensVenda.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnVerItensVenda.OverrideDefault.Border.ColorAngle = 45F;
+            btnVerItensVenda.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnVerItensVenda.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnVerItensVenda.OverrideDefault.Border.Rounding = 20F;
+            btnVerItensVenda.OverrideDefault.Border.Width = 1;
+            btnVerItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            btnVerItensVenda.Size = new Size(118, 27);
+            btnVerItensVenda.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnVerItensVenda.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnVerItensVenda.StateCommon.Back.ColorAngle = 45F;
+            btnVerItensVenda.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnVerItensVenda.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnVerItensVenda.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnVerItensVenda.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnVerItensVenda.StateCommon.Border.Rounding = 10F;
+            btnVerItensVenda.StateCommon.Border.Width = 1;
+            btnVerItensVenda.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
+            btnVerItensVenda.StateCommon.Content.ShortText.Color2 = Color.White;
+            btnVerItensVenda.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 10F);
+            btnVerItensVenda.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
+            btnVerItensVenda.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
+            btnVerItensVenda.StatePressed.Back.ColorAngle = 135F;
+            btnVerItensVenda.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
+            btnVerItensVenda.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
+            btnVerItensVenda.StatePressed.Border.ColorAngle = 135F;
+            btnVerItensVenda.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnVerItensVenda.StatePressed.Border.Rounding = 20F;
+            btnVerItensVenda.StatePressed.Border.Width = 1;
+            btnVerItensVenda.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
+            btnVerItensVenda.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
+            btnVerItensVenda.StateTracking.Back.ColorAngle = 45F;
+            btnVerItensVenda.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnVerItensVenda.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnVerItensVenda.StateTracking.Border.ColorAngle = 45F;
+            btnVerItensVenda.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnVerItensVenda.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnVerItensVenda.StateTracking.Border.Rounding = 20F;
+            btnVerItensVenda.StateTracking.Border.Width = 1;
+            btnVerItensVenda.StateTracking.Content.ShortText.Color1 = Color.White;
+            btnVerItensVenda.TabIndex = 1070;
+            toolTip1.SetToolTip(btnVerItensVenda, "Visualizar Itens da Venda");
+            btnVerItensVenda.Values.Text = "Ver Itens";
+            btnVerItensVenda.Click += btnVerItensVenda_Click;
             // 
             // FrmContasReceber
             // 
@@ -991,7 +999,6 @@
             Controls.Add(flowLayoutPanel4);
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(tableLayoutPanel1);
-            Controls.Add(dgvItensVenda);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             KeyPreview = true;
             MaximizeBox = false;
@@ -1010,15 +1017,12 @@
             kryptonPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)cmbTipoPesquisa).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvContasAReceber).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvItensVenda).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
             kryptonPanel4.ResumeLayout(false);
             kryptonPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonDataGridView1).EndInit();
-            flowLayoutPanel3.ResumeLayout(false);
-            flowLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPagamentos).EndInit();
             kryptonStatusStrip1.ResumeLayout(false);
             kryptonStatusStrip1.PerformLayout();
             flowLayoutPanel4.ResumeLayout(false);
@@ -1044,18 +1048,6 @@
         private Krypton.Toolkit.KryptonButton btnEstornarPagamento;
         private Label label1;
         private Krypton.Toolkit.KryptonComboBox cmbTipoPesquisa;
-      
-       
-       
-        private Krypton.Toolkit.KryptonDataGridView dgvItensVenda;
-        private Krypton.Toolkit.KryptonLabel lblCliente;
-        private Krypton.Toolkit.KryptonLabel lblRotuloCliente;
-        private Krypton.Toolkit.KryptonLabel lblTotalVenda;
-        private Krypton.Toolkit.KryptonLabel lblRotuloTotal;
-        private Krypton.Toolkit.KryptonLabel lblDataVenda;
-        private Krypton.Toolkit.KryptonLabel lblRotuloData;
-        private Krypton.Toolkit.KryptonLabel lblVendaID;
-        private Krypton.Toolkit.KryptonLabel lblRotuloVenda;
         
         public Krypton.Toolkit.KryptonButton btnExcluir;
         public Krypton.Toolkit.KryptonButton btnAlterar;
@@ -1063,7 +1055,7 @@
         public Krypton.Toolkit.KryptonButton btnPesquisar;
         public Krypton.Toolkit.KryptonButton btnSair;
         public Krypton.Toolkit.KryptonButton btnBaixarParcela;
-        public Krypton.Toolkit.KryptonButton btnExtratoRecibo;
+        public Krypton.Toolkit.KryptonButton btnExtrato;
         public Krypton.Toolkit.KryptonButton btnLimparFiltro;
         private TableLayoutPanel tableLayoutPanel1;
         private FlowLayoutPanel flowLayoutPanel2;
@@ -1094,7 +1086,10 @@
         private ToolStripStatusLabel toolStripStatusLabel10;
         private ToolStripStatusLabel toolStripStatusLabel9;
         private ToolStripStatusLabel txtTotalVencido;
-        private Krypton.Toolkit.KryptonDataGridView kryptonDataGridView1;
+        private Krypton.Toolkit.KryptonDataGridView dgvPagamentos;
         private FlowLayoutPanel flowLayoutPanel4;
+        public Krypton.Toolkit.KryptonButton btnVerItensVenda;
+        private ToolTip toolTip1;
+        public Krypton.Toolkit.KryptonButton btnRecibo;
     }
 }
