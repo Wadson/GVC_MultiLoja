@@ -13,10 +13,13 @@ namespace GVC.MODEL
         public string CPF_CNPJ { get; set; }
         public string Endereco { get; set; }
         public string Telefone { get; set; }
+
         public DateTime DataEmissao { get; set; } = DateTime.Now;
-        public List<ItemExtrato> ItensExtrato { get; set; } = new List<ItemExtrato>();
-        public decimal TotalDevendo { get; set; }
+
+        public List<ItemExtrato> ItensExtrato { get; set; } = new();
+
         public decimal TotalPago { get; set; }
+        public decimal TotalDevendo { get; set; }
         public decimal SaldoAtual { get; set; }
     }
 
@@ -35,5 +38,10 @@ namespace GVC.MODEL
         public decimal Saldo { get; set; }
         public string Status { get; set; }
         public string FormaPagamento { get; set; }
+        public decimal TotalPago { get; set; }
+        // 🔥 NOVO
+        public List<PagamentoExtratoModel> Pagamentos { get; set; } = new();
+
+       
     }
 }

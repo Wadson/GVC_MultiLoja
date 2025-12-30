@@ -20,7 +20,7 @@ using ParcelaExtratoModel = GVC.MODEL.ParcelaExtrato;
 
 namespace GVC.View
 {
-    public partial class FrmContasReceber : KryptonForm
+    public partial class FrmFinanceiro : KryptonForm
     {
         private const string SQL_EXTRATO_CTE = @"
                                                 WITH ParcelasCliente AS (
@@ -70,7 +70,7 @@ namespace GVC.View
         private readonly VendaBLL _vendaBll = new VendaBLL();
         private readonly ItensVendaBLL _itensVendaBll = new ItensVendaBLL();
 
-        public FrmContasReceber()
+        public FrmFinanceiro()
         {
             InitializeComponent();           
         }
@@ -934,7 +934,7 @@ namespace GVC.View
 
 
 
-        private void GerarExtratoCompleto(bool detalhado)
+        private void GerarExtratoCompleto()
         {
             try
             {
@@ -1317,18 +1317,8 @@ namespace GVC.View
 
                     if (resultado == DialogResult.Yes && temLinhaSelecionada)
                     {
-                        // Pergunta se será detalhado
-                        var opcao = MessageBox.Show(
-                            "Deseja o extrato DETALHADO (com pagamentos)?\n\n" +
-                            "SIM = Detalhado\nNÃO = Resumido",
-                            "Tipo de Extrato",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question);
-
-                        bool detalhado = opcao == DialogResult.Yes;
-                        GerarExtratoCompleto(detalhado);
+                        GerarExtratoCompleto();
                     }
-
                     else if (resultado == DialogResult.No && temCheckboxMarcado)
                     {
                         GerarReciboParcelas();

@@ -210,5 +210,66 @@ namespace GVC.UTIL
 
             doc.Close();
         }
+        public static void GerarReciboPagamentos(
+    ExtratoCliente extrato,
+    List<PagamentoExtratoModel> pagamentos,
+    string caminhoArquivo)
+        {
+            Document doc = new Document(PageSize.A4);
+            doc.SetMargins(40, 40, 40, 40);
+
+            PdfWriter.GetInstance(doc, new FileStream(caminhoArquivo, FileMode.Create));
+            doc.Open();
+
+            BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            Font normal = new Font(baseFont, 10);
+            Font negrito = new Font(baseFont, 10, Font.BOLD);
+            Font titulo = new Font(baseFont, 16, Font.BOLD);
+
+            doc.Add(new Paragraph("RECIBO DE PAGAMENTO", titulo)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 20
+            });
+
+            doc.Add(new Paragraph($"Cliente: {extrato.NomeCliente}", negrito));
+            doc.Add(new Paragraph($"Data: {DateTime.Now:dd/MM/yyyy HH:mm}", normal));
+            doc.Add(new Paragraph(" "));
+
+            PdfPTable tabela = new PdfPTable(4);
+            tabela.WidthPercentage = 100;
+            tabela.SetWidths(new float[] { 20, 20, 20, 40 });
+
+            tabela.AddCell("Data");
+            tabela.AddCell("Valor");
+            tabela.AddCell("Forma");
+            tabela.AddCell("Observação");
+
+            decimal total = 0;
+
+            foreach (var p in pagamentos)
+            {
+                tabela.AddCell(p.DataPagamento.ToString("dd/MM/yyyy"));
+                tabela.AddCell(p.ValorPago.ToString("C2"));
+                tabela.AddCell(p.FormaPagamento);
+                tabela.AddCell(p.Observacao);
+
+                total += p.ValorPago;
+            }
+
+            doc.Add(tabela);
+
+            doc.Add(new Paragraph($"TOTAL RECEBIDO: {total:C2}", negrito)
+            {
+                Alignment = Element.ALIGN_RIGHT,
+                SpacingBefore = 20
+            });
+
+            doc.Add(new Paragraph("\n\n________________________________________"));
+            doc.Add(new Paragraph("Assinatura do Cliente"));
+
+            doc.Close();
+        }
+
     }
 }
