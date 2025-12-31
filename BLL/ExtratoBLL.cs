@@ -11,6 +11,9 @@ namespace GVC.BLL
 {
     public class ExtratoBLL
     {
+        private readonly ExtratoDal _dal = new();
+        private readonly PagamentoBLL _pagamentoBll = new();
+
         private readonly ExtratoDal _extratoDal = new ExtratoDal();
 
         public ExtratoCliente ObterExtratoClientePorVenda(long vendaId, bool detalhado)
@@ -83,5 +86,6 @@ namespace GVC.BLL
             extrato.SaldoAtual = extrato.TotalDevendo;
             return extrato;
         }
+       
     }
 }

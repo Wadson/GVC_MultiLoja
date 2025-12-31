@@ -14,13 +14,14 @@ namespace GVC.MODEL
         public string Endereco { get; set; }
         public string Telefone { get; set; }
 
-        public DateTime DataEmissao { get; set; } = DateTime.Now;
-
-        public List<ItemExtrato> ItensExtrato { get; set; } = new();
-
         public decimal TotalPago { get; set; }
         public decimal TotalDevendo { get; set; }
         public decimal SaldoAtual { get; set; }
+        public List<ItemExtrato> ItensExtrato { get; set; } = new();
+
+        public DateTime DataEmissao { get; set; } = DateTime.Now;
+
+       
     }
 
     public class ItemExtrato

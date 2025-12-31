@@ -529,8 +529,8 @@
             btnExtrato.OverrideDefault.Border.Width = 1;
             btnExtrato.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
             btnExtrato.Size = new Size(118, 27);
-            btnExtrato.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnExtrato.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnExtrato.StateCommon.Back.Color1 = Color.Blue;
+            btnExtrato.StateCommon.Back.Color2 = Color.Blue;
             btnExtrato.StateCommon.Back.ColorAngle = 45F;
             btnExtrato.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
             btnExtrato.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -538,8 +538,8 @@
             btnExtrato.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             btnExtrato.StateCommon.Border.Rounding = 10F;
             btnExtrato.StateCommon.Border.Width = 1;
-            btnExtrato.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            btnExtrato.StateCommon.Content.ShortText.Color2 = Color.White;
+            btnExtrato.StateCommon.Content.ShortText.Color1 = Color.FromArgb(252, 252, 250);
+            btnExtrato.StateCommon.Content.ShortText.Color2 = Color.FromArgb(252, 252, 250);
             btnExtrato.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 10F);
             btnExtrato.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
             btnExtrato.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
@@ -897,8 +897,8 @@
             btnRecibo.OverrideDefault.Border.Width = 1;
             btnRecibo.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
             btnRecibo.Size = new Size(118, 27);
-            btnRecibo.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnRecibo.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnRecibo.StateCommon.Back.Color1 = Color.DarkBlue;
+            btnRecibo.StateCommon.Back.Color2 = Color.DarkBlue;
             btnRecibo.StateCommon.Back.ColorAngle = 45F;
             btnRecibo.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
             btnRecibo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -906,8 +906,8 @@
             btnRecibo.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             btnRecibo.StateCommon.Border.Rounding = 10F;
             btnRecibo.StateCommon.Border.Width = 1;
-            btnRecibo.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            btnRecibo.StateCommon.Content.ShortText.Color2 = Color.White;
+            btnRecibo.StateCommon.Content.ShortText.Color1 = Color.FromArgb(252, 252, 250);
+            btnRecibo.StateCommon.Content.ShortText.Color2 = Color.FromArgb(252, 252, 250);
             btnRecibo.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 10F);
             btnRecibo.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
             btnRecibo.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
