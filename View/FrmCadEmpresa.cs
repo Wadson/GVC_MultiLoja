@@ -20,6 +20,8 @@ namespace GVC.View
 {
     public partial class FrmCadEmpresa : KryptonForm
     {
+        private bool _formatandoCNPJ = false;
+        private bool _formatandoTelefone = false;
         public bool CarregandoDados { get; set; }
         private readonly EmpresaBll _empresaBll = new EmpresaBll();
         private readonly string QueryMaxId = "SELECT MAX(EmpresaID) FROM Empresa";
@@ -31,21 +33,10 @@ namespace GVC.View
         public FrmCadEmpresa()
         {
             InitializeComponent();
+
+            ConfigurarCNPJ();
+            ConfigurarTelefone();   // ← ISTO É OBRIGATÓRIO
             ConfigurarEventosCep();
-            ConfigurarMascaras();
-        }
-
-        private void ConfigurarMascaras()
-        {
-            //Configura eventos de máscara diretamente
-            txtCnpj.KeyPress += txtCnpj_KeyPress;
-            txtCep.KeyPress += txtCep_KeyPress;
-            txtTelefone.KeyPress += txtTelefone_KeyPress;
-
-            // Eventos de validação ao sair do campo
-            txtCnpj.Leave += txtCnpj_Leave;
-            txtCep.Leave += txtCep_Leave;
-            txtTelefone.Leave += txtTelefone_Leave;
         }
 
         private void ConfigurarEventosCep()
@@ -54,51 +45,7 @@ namespace GVC.View
             txtCep.Multiline = false;
             toolTip.SetToolTip(txtCep, "Digite o CEP e pressione ENTER para buscar");
         }
-        private bool ValidarCNPJ(string cnpj)
-        {
-            if (string.IsNullOrWhiteSpace(cnpj) || cnpj.Length != 14)
-                return false;
 
-            // Remove caracteres não numéricos
-            cnpj = new string(cnpj.Where(char.IsDigit).ToArray());
-
-            // Verifica se todos os dígitos são iguais
-            if (cnpj.All(char.IsDigit) && cnpj.Distinct().Count() == 1)
-                return false;
-
-            try
-            {
-                // Algoritmo de validação do CNPJ
-                int[] multiplicadores1 = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-                int[] multiplicadores2 = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-
-                // Primeiro dígito verificador
-                int soma = 0;
-                for (int i = 0; i < 12; i++)
-                    soma += int.Parse(cnpj[i].ToString()) * multiplicadores1[i];
-
-                int resto = soma % 11;
-                int digito1 = (resto < 2) ? 0 : 11 - resto;
-                if (int.Parse(cnpj[12].ToString()) != digito1)
-                    return false;
-
-                // Segundo dígito verificador
-                soma = 0;
-                for (int i = 0; i < 13; i++)
-                    soma += int.Parse(cnpj[i].ToString()) * multiplicadores2[i];
-
-                resto = soma % 11;
-                int digito2 = (resto < 2) ? 0 : 11 - resto;
-                if (int.Parse(cnpj[13].ToString()) != digito2)
-                    return false;
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
 
         // =============================================
         // BUSCA POR CEP (igual ao cliente, adaptado)
@@ -373,7 +320,7 @@ namespace GVC.View
 
                 var empresa = MontarObjetoEmpresa();
                 _empresaBll.Inserir(empresa);
-                Utilitario.Mensagens.Aviso("Empresa cadastrada com sucesso!");
+                Utilitario.Mensagens.Info("Empresa cadastrada com sucesso!");
 
                 // Atualiza o formulário de manutenção se existir
                 AtualizarManutencao();
@@ -511,78 +458,7 @@ namespace GVC.View
             }
         }
 
-        private void txtCnpj_TextChanged(object sender, EventArgs e)
-        {
-            KryptonTextBox txt = (KryptonTextBox)sender;
 
-            // Aplica a formatação usando seu método utilitário
-            string textoFormatado = Utilitario.FormatarCNPJ(txt.Text);
-
-            // Atualiza o texto somente se necessário (evita loop infinito)
-            if (txt.Text != textoFormatado)
-            {
-                int posicao = txt.SelectionStart;
-                txt.Text = textoFormatado;
-
-                // Mantém o cursor no final ou na posição correta
-                txt.SelectionStart = posicao < txt.Text.Length ? posicao : txt.Text.Length;
-            }
-        }
-
-        private void txtCnpj_Leave(object sender, EventArgs e)
-        {
-            string cnpj = new string(txtCnpj.Text.Where(char.IsDigit).ToArray());
-            if (cnpj.Length == 14)
-            {
-                txtCnpj.Text = $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2, 3)}.{cnpj.Substring(5, 3)}/{cnpj.Substring(8, 4)}-{cnpj.Substring(12, 2)}";
-
-                // Valida CNPJ
-                if (!ValidarCNPJ(cnpj))
-                {
-                    Utilitario.Mensagens.Aviso("CNPJ inválido!");
-                    txtCnpj.Focus();
-                    txtCnpj.StateCommon.Border.Color1 = Color.Crimson;
-                    return;
-                }
-            }
-            else if (!string.IsNullOrWhiteSpace(cnpj))
-            {
-                Utilitario.Mensagens.Aviso("CNPJ deve conter 14 dígitos!");
-                txtCnpj.Focus();
-                txtCnpj.StateCommon.Border.Color1 = Color.Crimson;
-                return;
-            }
-
-            txtCnpj.StateCommon.Border.Color1 = Color.MediumSeaGreen;
-        }
-
-        private void txtTelefone_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtTelefone_Leave(object sender, EventArgs e)
-        {
-            string telefone = new string(txtTelefone.Text.Where(char.IsDigit).ToArray());
-            if (telefone.Length == 10)
-            {
-                txtTelefone.Text = $"({telefone.Substring(0, 2)}) {telefone.Substring(2, 4)}-{telefone.Substring(6, 4)}";
-            }
-            else if (telefone.Length == 11)
-            {
-                txtTelefone.Text = $"({telefone.Substring(0, 2)}) {telefone.Substring(2, 5)}-{telefone.Substring(7, 4)}";
-            }
-            else if (!string.IsNullOrEmpty(telefone))
-            {
-                Utilitario.Mensagens.Aviso("Telefone deve conter 10 ou 11 dígitos!");
-                txtTelefone.Focus();
-            }
-        }
-
-        private void txtCep_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void txtCep_Leave(object sender, EventArgs e)
         {
@@ -696,67 +572,6 @@ namespace GVC.View
                 e.Handled = true;
             }
         }
-
-        private void txtCnpj_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //Utilitario.MascaraCNPJ(sender, e);
-        }
-
-        private void txtCep_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Permite apenas números e backspace
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
-            {
-                e.Handled = true;
-            }
-            // Permite ENTER para buscar CEP
-            else if (e.KeyChar == (char)Keys.Enter)
-            {
-                e.Handled = true;
-                BuscarEnderecoPorCep();
-            }
-        }
-
-        private void txtTelefone_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //Permite apenas números e backspace
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            KryptonTextBox txt = (KryptonTextBox)sender;
-            string textoAtual = txt.Text;
-            int posicao = txt.SelectionStart;
-
-            // Remove tudo que não é número
-            string apenasNumeros = new string(textoAtual.Where(char.IsDigit).ToArray());
-
-            // Aplica máscara telefone: (00) 00000-0000 ou (00) 0000-0000
-            string textoFormatado = "";
-            if (apenasNumeros.Length <= 2)
-                textoFormatado = $"({apenasNumeros}";
-            else if (apenasNumeros.Length <= 6)
-                textoFormatado = $"({apenasNumeros.Substring(0, 2)}) {apenasNumeros.Substring(2)}";
-            else if (apenasNumeros.Length <= 10)
-            {
-                textoFormatado = $"({apenasNumeros.Substring(0, 2)}) {apenasNumeros.Substring(2, 4)}-{apenasNumeros.Substring(6)}";
-            }
-            else if (apenasNumeros.Length <= 11)
-            {
-                textoFormatado = $"({apenasNumeros.Substring(0, 2)}) {apenasNumeros.Substring(2, 5)}-{apenasNumeros.Substring(7)}";
-            }
-            else
-            {
-                textoFormatado = textoAtual; // Mantém como está se já está completo
-            }
-
-            txt.Text = textoFormatado;
-            txt.SelectionStart = Math.Min(posicao, textoFormatado.Length);
-            e.Handled = true;
-        }
-
         private void FrmCadEmpresa_Shown(object sender, EventArgs e)
         {
             foreach (Control ctrl in this.Controls)
@@ -766,9 +581,130 @@ namespace GVC.View
             }
         }
 
-        private void txtCnpj_KeyUp(object sender, KeyEventArgs e)
+
+
+
+
+        private void txtCnpj_Leave(object sender, EventArgs e)
         {
-            Utilitario.MascaraCNPJ(sender, new KeyPressEventArgs((char)Keys.None));
+            if (!string.IsNullOrWhiteSpace(txtCnpj.Text) && !Utilitario.ValidarCNPJ(txtCnpj.Text))
+            {
+                txtCnpj.StateCommon.Border.Color1 = Color.Crimson;
+                MessageBox.Show("CNPJ inválido.");
+                txtCnpj.Focus();
+            }
+        }
+
+        private void ConfigurarTelefone()
+        {
+            txtTelefone.TextChanged += (s, e) =>
+            {
+                if (_formatandoTelefone) return;
+
+                try
+                {
+                    _formatandoTelefone = true;
+
+                    var txt = (KryptonTextBox)s;
+
+                    int cursorOriginal = txt.SelectionStart;
+
+                    int numerosAntesCursor =
+                        txt.Text.Take(cursorOriginal).Count(char.IsDigit);
+
+                    string numeros = Utilitario.ApenasNumeros(txt.Text);
+                    if (numeros.Length > 11)
+                        numeros = numeros.Substring(0, 11);
+
+                    string formatado = Utilitario.FormatarTelefoneTexto(numeros);
+
+                    if (txt.Text != formatado)
+                    {
+                        txt.Text = formatado;
+                        txt.SelectionStart =
+                            CalcularPosicaoCursor(formatado, numerosAntesCursor);
+                    }
+                }
+                finally
+                {
+                    _formatandoTelefone = false;
+                }
+            };
+        }
+
+
+        private void ConfigurarCNPJ()
+        {
+            txtCnpj.TextChanged += (s, e) =>
+            {
+                if (_formatandoCNPJ || CarregandoDados) return;
+
+                try
+                {
+                    _formatandoCNPJ = true;
+
+                    var txt = (KryptonTextBox)s;
+
+                    int cursorOriginal = txt.SelectionStart;
+
+                    // Quantos números existem antes do cursor
+                    int numerosAntesCursor =
+                        txt.Text.Take(cursorOriginal).Count(char.IsDigit);
+
+                    string numeros = Utilitario.ApenasNumeros(txt.Text);
+                    if (numeros.Length > 14)
+                        numeros = numeros.Substring(0, 14);
+
+                    string formatado = Utilitario.FormatarCNPJ(numeros);
+
+                    if (txt.Text != formatado)
+                    {
+                        txt.Text = formatado;
+
+                        txt.SelectionStart =
+                            CalcularPosicaoCursor(formatado, numerosAntesCursor);
+                    }
+                }
+                finally
+                {
+                    _formatandoCNPJ = false;
+                }
+            };
+        }
+
+        private int CalcularPosicaoCursor(string textoFormatado, int quantidadeNumeros)
+        {
+            int contador = 0;
+
+            for (int i = 0; i < textoFormatado.Length; i++)
+            {
+                if (char.IsDigit(textoFormatado[i]))
+                    contador++;
+
+                if (contador == quantidadeNumeros)
+                    return i + 1;
+            }
+
+            return textoFormatado.Length;
+        }
+
+        private void txtTelefone_Leave(object sender, EventArgs e)
+        {
+            string numeros = Utilitario.ApenasNumeros(txtTelefone.Text);
+
+            if (string.IsNullOrWhiteSpace(numeros))
+                return;
+
+            if (numeros.Length != 10 && numeros.Length != 11)
+            {
+                txtTelefone.StateCommon.Border.Color1 = Color.Crimson;
+                MessageBox.Show("Telefone deve conter 10 ou 11 dígitos.", "Telefone inválido",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefone.Focus();
+                return;
+            }
+
+            txtTelefone.StateCommon.Border.Color1 = Color.MediumSeaGreen;
         }
     }
 }

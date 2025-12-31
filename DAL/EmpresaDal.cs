@@ -92,14 +92,14 @@ namespace GVC.DALL
                     Logradouro, Numero, Bairro, Cep, Cidade, UF,
                     Telefone, Email, Site,
                     Responsavel, CertificadoDigital,
-                    Status, DataCriacao, UsuarioCriacao, Logo
+                    DataCriacao, UsuarioCriacao, Logo
                 )
                 VALUES (
                     @RazaoSocial, @NomeFantasia, @CNPJ, @InscricaoEstadual, @InscricaoMunicipal, @CNAE,
                     @Logradouro, @Numero, @Bairro, @Cep, @Cidade, @UF,
                     @Telefone, @Email, @Site,
                     @Responsavel, @CertificadoDigital,
-                    @Status, @DataCriacao, @UsuarioCriacao, @Logo
+                    @DataCriacao, @UsuarioCriacao, @Logo
                 );
                 SELECT SCOPE_IDENTITY();";
 

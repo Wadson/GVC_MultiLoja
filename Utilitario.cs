@@ -765,76 +765,79 @@ namespace GVC{
             var max = conn.ExecuteScalar<int?>(query);
             return (max ?? 0) + 1;
         }
-        public static string FormatarTelefonesString(string telefone)
-        {
-            telefone = ApenasNumeros(telefone);
 
-            // Telefone com 10 dígitos (ex: fixo: 11 2345-6789)
-            if (telefone.Length == 10)
-            {
-                return $"({telefone.Substring(0, 2)}) {telefone.Substring(2, 4)}-{telefone.Substring(6, 4)}";
-            }
-            // Telefone com 11 dígitos (ex: celular: 11 91234-5678)
-            if (telefone.Length == 11)
-            {
-                return $"({telefone.Substring(0, 2)}) {telefone.Substring(2, 5)}-{telefone.Substring(7, 4)}";
-            }
-            // Se não tiver 10 ou 11 dígitos, retorna como está
-            return telefone;
+        public static string FormatarTelefoneTexto(string tel)
+        {
+            if (string.IsNullOrWhiteSpace(tel))
+                return string.Empty;
+
+            tel = ApenasNumeros(tel);
+
+            if (tel.Length <= 2)
+                return $"({tel}";
+
+            if (tel.Length <= 6)
+                return $"({tel.Substring(0, 2)}) {tel.Substring(2)}";
+
+            if (tel.Length <= 10)
+                return $"({tel.Substring(0, 2)}) {tel.Substring(2, 4)}-{tel.Substring(6)}";
+
+            return $"({tel.Substring(0, 2)}) {tel.Substring(2, 5)}-{tel.Substring(7, Math.Min(4, tel.Length - 7))}";
         }
 
-        public static void FormatarTelefone(KryptonTextBox txtTelefone)
-        {
-            txtTelefone.Leave += (sender, e) =>
-            {
-                string textoOriginal = txtTelefone.Text.Trim();
-                string apenasNumeros = Regex.Replace(textoOriginal, @"\D", ""); // remove tudo que não for número
 
-                // Se vazio → aceita
-                if (string.IsNullOrWhiteSpace(apenasNumeros))
-                {
-                    txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Gray;
-                    txtTelefone.Text = "";
-                    return;
-                }
-                // Celular com DDD deve ter exatamente 11 dígitos
-                if (apenasNumeros.Length != 11)
-                {
-                    txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Crimson;
-                    MessageBox.Show("Telefone deve conter 11 dígitos (DDD + número).", "Telefone Inválido",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtTelefone.Focus();
-                    return;
-                }
-                // Verifica se o DDD é válido (não começa com 0 e está entre 11 e 99)
-                string ddd = apenasNumeros.Substring(0, 2);
-                if (ddd == "00" || !int.TryParse(ddd, out int n) || n < 11 || n > 99)
-                {
-                    txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Crimson;
-                    MessageBox.Show("DDD inválido. Use um DDD válido (ex: 11, 21, 31...)", "Telefone Inválido",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtTelefone.Focus();
-                    return;
-                }
-                // Se já estiver perfeitamente formatado → mantém como o usuário digitou
-                if (Regex.IsMatch(textoOriginal, @"^\(\d{2}\) \d{5}-\d{4}$"))
-                {
-                    txtTelefone.Text = textoOriginal;
-                }
-                else
-                {
-                    // Formata automaticamente: (11) 98765-4321
-                    txtTelefone.Text = $"({apenasNumeros.Substring(0, 2)}) " +
-                                       $"{apenasNumeros.Substring(2, 5)}-" +
-                                       $"{apenasNumeros.Substring(7, 4)}";
-                }
-                // Telefone válido → borda verde
-                txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.MediumSeaGreen;
-            };
-            // Cor ao entrar no campo
-            txtTelefone.Enter += (s, e) => txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.DeepSkyBlue;
-        }
+        //public static void FormatarTelefone(KryptonTextBox txtTelefone)
+        //{
+        //    txtTelefone.Leave += (sender, e) =>
+        //    {
+        //        string textoOriginal = txtTelefone.Text.Trim();
+        //        string apenasNumeros = Regex.Replace(textoOriginal, @"\D", ""); // remove tudo que não for número
 
+        //        // Se vazio → aceita
+        //        if (string.IsNullOrWhiteSpace(apenasNumeros))
+        //        {
+        //            txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Gray;
+        //            txtTelefone.Text = "";
+        //            return;
+        //        }
+        //        // Celular com DDD deve ter exatamente 11 dígitos
+        //        if (apenasNumeros.Length != 11)
+        //        {
+        //            txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Crimson;
+        //            MessageBox.Show("Telefone deve conter 11 dígitos (DDD + número).", "Telefone Inválido",
+        //                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //            txtTelefone.Focus();
+        //            return;
+        //        }
+        //        // Verifica se o DDD é válido (não começa com 0 e está entre 11 e 99)
+        //        string ddd = apenasNumeros.Substring(0, 2);
+        //        if (ddd == "00" || !int.TryParse(ddd, out int n) || n < 11 || n > 99)
+        //        {
+        //            txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Crimson;
+        //            MessageBox.Show("DDD inválido. Use um DDD válido (ex: 11, 21, 31...)", "Telefone Inválido",
+        //                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //            txtTelefone.Focus();
+        //            return;
+        //        }
+        //        // Se já estiver perfeitamente formatado → mantém como o usuário digitou
+        //        if (Regex.IsMatch(textoOriginal, @"^\(\d{2}\) \d{5}-\d{4}$"))
+        //        {
+        //            txtTelefone.Text = textoOriginal;
+        //        }
+        //        else
+        //        {
+        //            // Formata automaticamente: (11) 98765-4321
+        //            txtTelefone.Text = $"({apenasNumeros.Substring(0, 2)}) " +
+        //                               $"{apenasNumeros.Substring(2, 5)}-" +
+        //                               $"{apenasNumeros.Substring(7, 4)}";
+        //        }
+        //        // Telefone válido → borda verde
+        //        txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.MediumSeaGreen;
+        //    };
+        //    // Cor ao entrar no campo
+        //    txtTelefone.Enter += (s, e) => txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.DeepSkyBlue;
+        //}
+     
         public static void LimparCampos(Control container)
         {
             foreach (Control c in container.Controls)
@@ -1038,10 +1041,30 @@ namespace GVC{
         }
         public static string FormatarCNPJ(string cnpj)
         {
-            cnpj = ApenasNumeros(cnpj);
-            if (cnpj.Length != 14) return cnpj;
-            return $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2, 3)}.{cnpj.Substring(5, 3)}/{cnpj.Substring(8, 4)}-{cnpj.Substring(12, 2)}";
+            if (string.IsNullOrEmpty(cnpj))
+                return "";
+
+            if (cnpj.Length <= 2)
+                return cnpj;
+
+            if (cnpj.Length <= 5)
+                return $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2)}";
+
+            if (cnpj.Length <= 8)
+                return $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2, 3)}.{cnpj.Substring(5)}";
+
+            if (cnpj.Length <= 12)
+                return $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2, 3)}.{cnpj.Substring(5, 3)}/{cnpj.Substring(8)}";
+
+            return $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2, 3)}.{cnpj.Substring(5, 3)}/{cnpj.Substring(8, 4)}-{cnpj.Substring(12, Math.Min(2, cnpj.Length - 12))}";
         }
+
+        //public static string FormatarCNPJ(string cnpj)
+        //{
+        //    cnpj = ApenasNumeros(cnpj);
+        //    if (cnpj.Length != 14) return cnpj;
+        //    return $"{cnpj.Substring(0, 2)}.{cnpj.Substring(2, 3)}.{cnpj.Substring(5, 3)}/{cnpj.Substring(8, 4)}-{cnpj.Substring(12, 2)}";
+        //}
 
         public static bool ValidarCNPJ(string cnpj)
         {
@@ -1254,18 +1277,7 @@ namespace GVC{
             return cep;
         }
 
-        public static string FormatarTelefoneTexto(string tel)
-        {
-            tel = ApenasNumeros(tel);
-
-            if (tel.Length == 10)
-                return Convert.ToUInt64(tel).ToString(@"(00)0000\-0000");
-
-            if (tel.Length == 11)
-                return Convert.ToUInt64(tel).ToString(@"(00)00000\-0000");
-
-            return tel;
-        }
+      
 
         public static string FormatarCepTexto(string cep)
         {

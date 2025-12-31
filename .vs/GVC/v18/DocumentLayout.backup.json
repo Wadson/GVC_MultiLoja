@@ -7,20 +7,12 @@
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcadempresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcadempresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmcadempresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcadempresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\utilitario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:utilitario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcadcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcadcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcadcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcadcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 24,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Bookmark",
@@ -124,35 +116,10 @@
               "RelativeDocumentMoniker": "Utilitario.cs",
               "ToolTip": "C:\\GVCSqlExpress\\Utilitario.cs",
               "RelativeToolTip": "Utilitario.cs",
-              "ViewState": "AgIAAP8DAAAAAAAAAAAvwBMEAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAEEDAAAAAAAAAAAEwEcDAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T13:26:44.555Z",
+              "WhenOpened": "2025-12-31T16:02:37.106Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmCadCliente.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmCadCliente.cs",
-              "RelativeDocumentMoniker": "View\\FrmCadCliente.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmCadCliente.cs",
-              "RelativeToolTip": "View\\FrmCadCliente.cs",
-              "ViewState": "AgIAAEYBAAAAAAAAAAAEwFMBAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T13:20:53.738Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FrmCadCliente.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmCadCliente.cs",
-              "RelativeDocumentMoniker": "View\\FrmCadCliente.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmCadCliente.cs [Projeto]",
-              "RelativeToolTip": "View\\FrmCadCliente.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T13:20:43.903Z",
-              "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
@@ -162,9 +129,9 @@
               "RelativeDocumentMoniker": "View\\FrmCadEmpresa.cs",
               "ToolTip": "C:\\GVCSqlExpress\\View\\FrmCadEmpresa.cs",
               "RelativeToolTip": "View\\FrmCadEmpresa.cs",
-              "ViewState": "AgIAAPQBAAAAAAAAAIA8wAYCAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAEUBAAAAAAAAAAAEwD4BAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T13:11:19.34Z",
+              "WhenOpened": "2025-12-31T14:51:02.864Z",
               "EditorCaption": ""
             },
             {

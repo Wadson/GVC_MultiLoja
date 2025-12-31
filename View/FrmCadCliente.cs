@@ -644,8 +644,8 @@ namespace GVC.View
 
                     // CPF sempre usa máscara de CPF
                     txtCpf.Tag = "CPF";
-                    //txtCpf.KeyPress -= Utilitario.MascaraCPF;
-                    //txtCpf.KeyPress += Utilitario.MascaraCPF;
+                    txtCpf.KeyPress -= Utilitario.MascaraCPF;
+                    txtCpf.KeyPress += Utilitario.MascaraCPF;
 
                     return;
                 }

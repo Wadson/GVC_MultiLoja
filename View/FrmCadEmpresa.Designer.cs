@@ -106,8 +106,6 @@
             txtTelefone.StateCommon.Content.Font = new Font("Segoe UI", 10.25F);
             txtTelefone.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
             txtTelefone.TabIndex = 6;
-            txtTelefone.TextChanged += txtTelefone_TextChanged;
-            txtTelefone.KeyPress += txtTelefone_KeyPress;
             txtTelefone.Leave += txtTelefone_Leave;
             // 
             // txtRazaoSocial
@@ -293,9 +291,6 @@
             txtCnpj.StateCommon.Content.Font = new Font("Segoe UI", 10.25F);
             txtCnpj.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
             txtCnpj.TabIndex = 2;
-            txtCnpj.TextChanged += txtCnpj_TextChanged;
-            txtCnpj.KeyPress += txtCnpj_KeyPress;
-            txtCnpj.KeyUp += txtCnpj_KeyUp;
             txtCnpj.Leave += txtCnpj_Leave;
             // 
             // lblRotuloCnpj
@@ -602,8 +597,6 @@
             txtCep.StateCommon.Content.Font = new Font("Segoe UI", 10.25F);
             txtCep.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
             txtCep.TabIndex = 7;
-            txtCep.TextChanged += txtCep_TextChanged;
-            txtCep.KeyPress += txtCep_KeyPress;
             txtCep.Leave += txtCep_Leave;
             // 
             // txtNumero
