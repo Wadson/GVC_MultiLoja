@@ -9,14 +9,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dal\\pagamentoparcialdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:dal\\pagamentoparcialdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\bll\\pagamentobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\pagamentobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 26,
+          "SelectedChildIndex": 24,
           "Children": [
             {
               "$type": "Bookmark",
@@ -122,32 +114,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PagamentoParcialDal.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\DAL\\PagamentoParcialDal.cs",
-              "RelativeDocumentMoniker": "DAL\\PagamentoParcialDal.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\DAL\\PagamentoParcialDal.cs",
-              "RelativeToolTip": "DAL\\PagamentoParcialDal.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAADwvz8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T22:08:28.714Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PagamentoBLL.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\BLL\\PagamentoBLL.cs",
-              "RelativeDocumentMoniker": "BLL\\PagamentoBLL.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\BLL\\PagamentoBLL.cs",
-              "RelativeToolTip": "BLL\\PagamentoBLL.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T22:08:05.847Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "FrmContasReceber.cs [Projeto]",
               "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
@@ -166,7 +132,7 @@
               "RelativeDocumentMoniker": "View\\FrmContasReceber.cs",
               "ToolTip": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
               "RelativeToolTip": "View\\FrmContasReceber.cs",
-              "ViewState": "AgIAACAEAAAAAAAAAAAuwDoEAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYBAAAAAAAAAAAuwCABAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-01T21:21:47.536Z",
               "EditorCaption": ""

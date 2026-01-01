@@ -77,6 +77,7 @@
             btnRecibo = new Krypton.Toolkit.KryptonButton();
             btnVerItensVenda = new Krypton.Toolkit.KryptonButton();
             toolTip1 = new ToolTip(components);
+            lblTotalSelect = new Label();
             ((System.ComponentModel.ISupportInitialize)cmbStatusParcela).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
@@ -745,6 +746,7 @@
             dgvPagamentos.Name = "dgvPagamentos";
             dgvPagamentos.Size = new Size(911, 159);
             dgvPagamentos.TabIndex = 1053;
+            dgvPagamentos.CellContentClick += dgvPagamentos_CellContentClick;
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
             // 
             // flowLayoutPanel3
@@ -991,12 +993,25 @@
             btnVerItensVenda.Values.Text = "Ver Itens";
             btnVerItensVenda.Click += btnVerItensVenda_Click;
             // 
+            // lblTotalSelect
+            // 
+            lblTotalSelect.AutoSize = true;
+            lblTotalSelect.BackColor = Color.Transparent;
+            lblTotalSelect.Font = new Font("Segoe UI", 9.75F);
+            lblTotalSelect.ForeColor = Color.FromArgb(44, 62, 80);
+            lblTotalSelect.Location = new Point(3, 508);
+            lblTotalSelect.Name = "lblTotalSelect";
+            lblTotalSelect.Size = new Size(111, 17);
+            lblTotalSelect.TabIndex = 1073;
+            lblTotalSelect.Text = "Total Selecionado";
+            // 
             // FrmContasReceber
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(913, 621);
+            Controls.Add(lblTotalSelect);
             Controls.Add(flowLayoutPanel4);
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(tableLayoutPanel1);
@@ -1092,5 +1107,6 @@
         public Krypton.Toolkit.KryptonButton btnVerItensVenda;
         private ToolTip toolTip1;
         public Krypton.Toolkit.KryptonButton btnRecibo;
+        private Label lblTotalSelect;
     }
 }

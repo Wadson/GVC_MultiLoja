@@ -29,6 +29,10 @@ namespace GVC.View
 
         private readonly VendaBLL _vendaBll = new VendaBLL();
         private readonly ItensVendaBLL _itensVendaBll = new ItensVendaBLL();
+        private long? _parcelaSelecionadaParaRecibo = null;
+        private readonly Color _corSelecionado = Color.FromArgb(220, 240, 255);
+
+
 
         public FrmContasReceber()
         {
@@ -179,6 +183,110 @@ namespace GVC.View
                     col.ReadOnly = true; // bloqueia todas as outras colunas
             }
         }
+        private void AtualizarCoresGridPagamentos()
+        {
+            foreach (DataGridViewRow row in dgvPagamentos.Rows)
+            {
+                bool marcado = Convert.ToBoolean(row.Cells["Selecionar"].Value);
+                row.DefaultCellStyle.BackColor =
+                    marcado ? _corSelecionado : Color.White;
+            }
+        }
+        private void ConfigurarGridPagamentos()
+        {
+            dgvPagamentos.AutoGenerateColumns = false;
+            dgvPagamentos.Columns.Clear();
+
+            // 🔹 MUITO IMPORTANTE
+            dgvPagamentos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // ======================================================
+            // 🔹 COLUNA CHECKBOX (SELEÇÃO)
+            // ======================================================
+            var chk = new DataGridViewCheckBoxColumn
+            {
+                Name = "Selecionar",
+                HeaderText = "",
+                Width = 30
+            };
+            dgvPagamentos.Columns.Add(chk);
+
+            // ======================================================
+            // 🔹 COLUNAS FIXAS
+            // ======================================================
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PagamentoID",
+                HeaderText = "ID",
+                Visible = false
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataPagamento",
+                HeaderText = "Data",
+                Width = 90,
+                ValueType = typeof(DateTime),
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "dd/MM/yyyy"
+                }
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FormaPagamento",
+                HeaderText = "Forma",
+                Width = 120
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ValorPago",
+                HeaderText = "Valor Pago",
+                Width = 100,
+                ValueType = typeof(decimal),
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
+            });
+
+            // ======================================================
+            // 🔥 COLUNA DINÂMICA (FILL)
+            // ======================================================
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Observacao",
+                HeaderText = "Observação",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, // 🔥 ocupa o resto
+                MinimumWidth = 200,                                 // segurança
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleLeft,
+                    WrapMode = DataGridViewTriState.False
+                }
+            });
+
+            // ======================================================
+            // 🔹 CONFIGURAÇÕES GERAIS
+            // ======================================================
+            dgvPagamentos.AllowUserToAddRows = false;
+            dgvPagamentos.AllowUserToDeleteRows = false;
+            dgvPagamentos.MultiSelect = false;
+            dgvPagamentos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dgvPagamentos.ReadOnly = false; // libera checkbox
+
+            // 🔒 Bloqueia todas as colunas exceto o checkbox
+            foreach (DataGridViewColumn col in dgvPagamentos.Columns)
+            {
+                if (col.Name != "Selecionar")
+                    col.ReadOnly = true;
+            }
+        }
+
 
         private List<ContaAReceberDTO> ObterParcelasSelecionadas()
         {
@@ -347,6 +455,7 @@ namespace GVC.View
 
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
+            lblTotalSelecionado.Text = "Total selecionado: R$ 0,00";
 
             cmbTipoPesquisa.SelectedIndex = 0;
 
@@ -998,88 +1107,7 @@ namespace GVC.View
             if (frm.ShowDialog() == DialogResult.OK)
                 CarregarContasAReceber();
         }
-        private void ConfigurarGridPagamentos()
-        {
-            dgvPagamentos.AutoGenerateColumns = false;
-            dgvPagamentos.Columns.Clear();
-
-            // ======================================================
-            // 🔹 COLUNA CHECKBOX (SELEÇÃO)
-            // ======================================================
-            var chk = new DataGridViewCheckBoxColumn
-            {
-                Name = "Selecionar",
-                HeaderText = "",
-                Width = 30
-            };
-            dgvPagamentos.Columns.Add(chk);
-
-            // ======================================================
-            // 🔹 COLUNAS DE DADOS
-            // ======================================================
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "PagamentoID",
-                HeaderText = "ID",
-                Visible = false
-            });
-
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataPagamento",
-                HeaderText = "Data",
-                Width = 90,
-                ValueType = typeof(DateTime),
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "dd/MM/yyyy"
-                }
-            });
-
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "FormaPagamento",
-                HeaderText = "Forma",
-                Width = 120
-            });
-
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "ValorPago",
-                HeaderText = "Valor Pago",
-                Width = 100,
-                ValueType = typeof(decimal),
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "C2",
-                    Alignment = DataGridViewContentAlignment.MiddleRight
-                }
-            });
-
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Observacao",
-                HeaderText = "Observação",
-                Width = 250
-            });
-
-            // ======================================================
-            // 🔹 CONFIGURAÇÕES GERAIS
-            // ======================================================
-            dgvPagamentos.AllowUserToAddRows = false;
-            dgvPagamentos.AllowUserToDeleteRows = false;
-            dgvPagamentos.MultiSelect = false;
-            dgvPagamentos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-            dgvPagamentos.ReadOnly = false; // 🔥 libera edição do checkbox
-
-            // 🔒 Bloqueia todas as colunas EXCETO o checkbox
-            foreach (DataGridViewColumn col in dgvPagamentos.Columns)
-            {
-                if (col.Name != "Selecionar")
-                    col.ReadOnly = true;
-            }
-        }
+       
 
 
         private void btnExtratoRecibo_Click(object sender, EventArgs e)
@@ -1142,28 +1170,14 @@ namespace GVC.View
 
                     if (resultado == DialogResult.Yes && temLinhaSelecionada)
                     {
-                        // Pergunta se será detalhado
-                        var opcao = MessageBox.Show(
-                            "Deseja o extrato DETALHADO (com pagamentos)?\n\n" +
-                            "SIM = Detalhado\nNÃO = Resumido",
-                            "Tipo de Extrato",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question);
+                    // Pergunta se será detalhado
+                    var opcao = MessageBox.Show("Deseja o extrato DETALHADO (com pagamentos)?\n\n" +
+                        "SIM = Detalhado\nNÃO = Resumido", "Tipo de Extrato",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         bool detalhado = opcao == DialogResult.Yes;
                         GerarExtratoCompleto(detalhado);
                     }
-
-                    else if (resultado == DialogResult.No && temCheckboxMarcado)
-                    {
-                        GerarReciboPagamentos();
-                    }
-                    else if ((resultado == DialogResult.Yes && !temLinhaSelecionada) ||
-                             (resultado == DialogResult.No && !temCheckboxMarcado))
-                    {
-                        Utilitario.Mensagens.Aviso("Esta opção não está disponível no momento.");
-                    }
-                    // Se for DialogResult.Cancel, não faz nada
                 }
             }
             catch (Exception ex)
@@ -1311,11 +1325,61 @@ namespace GVC.View
                 });
             }
         }
+       
 
         private void dgvPagamentos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dgvPagamentos.IsCurrentCellDirty)
                 dgvPagamentos.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
+
+        private void dgvPagamentos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            if (dgvPagamentos.Columns[e.ColumnIndex].Name != "Selecionar")
+                return;
+
+            dgvPagamentos.CommitEdit(DataGridViewDataErrorContexts.Commit);
+
+            var row = dgvPagamentos.Rows[e.RowIndex];
+            bool marcado = Convert.ToBoolean(row.Cells["Selecionar"].Value);
+
+            var pagamento = row.DataBoundItem as PagamentoExtratoModel;
+            if (pagamento == null)
+                return;
+
+            // 🔹 Se está marcando
+            if (marcado)
+            {
+                if (_parcelaSelecionadaParaRecibo == null)
+                {
+                    _parcelaSelecionadaParaRecibo = pagamento.ParcelaID;
+                }
+                else if (_parcelaSelecionadaParaRecibo != pagamento.ParcelaID)
+                {
+                    Utilitario.Mensagens.Aviso(
+                        "Você só pode selecionar pagamentos da mesma parcela.");
+
+                    row.Cells["Selecionar"].Value = false;
+                    return;
+                }
+            }
+            else
+            {
+                // 🔹 Se desmarcou tudo, libera novamente
+                bool aindaTemMarcado = dgvPagamentos.Rows
+                    .Cast<DataGridViewRow>()
+                    .Any(r => Convert.ToBoolean(r.Cells["Selecionar"].Value));
+
+                if (!aindaTemMarcado)
+                    _parcelaSelecionadaParaRecibo = null;
+            }
+            AtualizarCoresGridPagamentos();
+
+            AtualizarTotalSelecionado();
+        }
+
     }
 }

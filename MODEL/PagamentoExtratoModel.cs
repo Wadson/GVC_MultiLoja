@@ -9,6 +9,7 @@ namespace GVC.MODEL
     public class PagamentoExtratoModel
     {
         public long PagamentoID { get; set; }
+        public long ParcelaID { get; set; }
         public DateTime DataPagamento { get; set; }
         public decimal ValorPago { get; set; }
         public string FormaPagamento { get; set; }

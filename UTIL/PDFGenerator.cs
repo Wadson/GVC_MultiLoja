@@ -47,26 +47,60 @@ namespace GVC.UTIL
         // =========================
         // RECIBO COM HISTÓRICO
         // =========================
-        public static void GerarReciboPagamentos( ExtratoCliente extrato, List<PagamentoExtratoModel> pagamentos,
-            DadosEmpresaPdf empresa, string caminhoArquivo)
+        public static void GerarReciboPagamentos(
+    ExtratoCliente extrato,
+    List<PagamentoExtratoModel> pagamentos,
+    DadosEmpresaPdf empresa,
+    string caminhoArquivo)
         {
             Validar(extrato, empresa);
 
             if (pagamentos == null || pagamentos.Count == 0)
                 throw new Exception("Nenhum pagamento encontrado.");
 
-            using var fs = new FileStream(caminhoArquivo, FileMode.Create);
-            var doc = CriarDocumento(fs);
+            using (var fs = new FileStream(
+                caminhoArquivo,
+                FileMode.Create,
+                FileAccess.Write,
+                FileShare.Read)) // 🔒 evita lock agressivo
+            using (var doc = new Document(PageSize.A4))
+            {
+                doc.SetMargins(40, 40, 40, 40);
+                PdfWriter.GetInstance(doc, fs);
 
-            AdicionarCabecalho(doc, empresa, "RECIBO DE PAGAMENTO");
-            AdicionarDadosCliente(doc, extrato);
-            AdicionarTabelaPagamentos(doc, pagamentos);
-            AdicionarTotalPagamentos(doc, pagamentos);
-            AdicionarAssinatura(doc);
-            AdicionarRodape(doc);
+                doc.Open();
 
-            doc.Close();
+                AdicionarCabecalho(doc, empresa, "RECIBO DE PAGAMENTO");
+                AdicionarDadosCliente(doc, extrato);
+                AdicionarTabelaPagamentos(doc, pagamentos);
+                AdicionarTotalPagamentos(doc, pagamentos);
+                AdicionarAssinatura(doc);
+                AdicionarRodape(doc);
+
+                doc.Close(); // explícito
+            }
         }
+
+        //public static void GerarReciboPagamentos( ExtratoCliente extrato, List<PagamentoExtratoModel> pagamentos,
+        //    DadosEmpresaPdf empresa, string caminhoArquivo)
+        //{
+        //    Validar(extrato, empresa);
+
+        //    if (pagamentos == null || pagamentos.Count == 0)
+        //        throw new Exception("Nenhum pagamento encontrado.");
+
+        //    using var fs = new FileStream(caminhoArquivo, FileMode.Create);
+        //    var doc = CriarDocumento(fs);
+
+        //    AdicionarCabecalho(doc, empresa, "RECIBO DE PAGAMENTO");
+        //    AdicionarDadosCliente(doc, extrato);
+        //    AdicionarTabelaPagamentos(doc, pagamentos);
+        //    AdicionarTotalPagamentos(doc, pagamentos);
+        //    AdicionarAssinatura(doc);
+        //    AdicionarRodape(doc);
+
+        //    doc.Close();
+        //}
 
         // =========================
         // MÉTODOS PRIVADOS
