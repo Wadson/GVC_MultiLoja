@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Color = System.Drawing.Color;
+using Image = System.Drawing.Image;
 
 namespace GVC{
     public static class Utilitario
@@ -78,6 +79,36 @@ namespace GVC{
         //No seu código, em vez de escrever MessageBox.Show(...) toda vez, você chama:
         //Mensagens.Aviso("Por favor, marque a caixa de seleção ao lado para escolher ao menos uma parcela.");
 
+        public static string SalvarCertificado(string caminhoOrigem, int empresaId)
+        {
+            if (!File.Exists(caminhoOrigem))
+                throw new FileNotFoundException("Certificado não encontrado");
+
+            string pasta = @"C:\ERP\Certificados";
+            Directory.CreateDirectory(pasta);
+
+            string destino = Path.Combine(pasta, $"empresa_{empresaId}.pfx");
+            File.Copy(caminhoOrigem, destino, true);
+
+            return destino;
+        }
+        public static byte[] ImagemParaBytes(Image imagem)
+        {
+            if (imagem == null) return null;
+
+            using var ms = new MemoryStream();
+            imagem.Save(ms, imagem.RawFormat);
+            return ms.ToArray();
+        }
+
+        public static Image BytesParaImagem(byte[] bytes)
+        {
+            if (bytes == null || bytes.Length == 0)
+                return null;
+
+            using var ms = new MemoryStream(bytes);
+            return Image.FromStream(ms);
+        }
 
         // Remove todos os caracteres não numéricos de uma string     
         public static string ApenasNumeros(string texto)

@@ -79,6 +79,7 @@
             fornecedoresToolStripMenuItem1 = new ToolStripMenuItem();
             produtosToolStripMenuItem1 = new ToolStripMenuItem();
             usuáriosToolStripMenuItem1 = new ToolStripMenuItem();
+            empresaToolStripMenuItem = new ToolStripMenuItem();
             ferramentasToolStripMenuItem = new ToolStripMenuItem();
             cancelarVendaToolStripMenuItem = new ToolStripMenuItem();
             estoqueToolStripMenuItem = new ToolStripMenuItem();
@@ -87,7 +88,8 @@
             relatórioEstoqueToolStripMenuItem = new ToolStripMenuItem();
             dashbordToolStripMenuItem = new ToolStripMenuItem();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
-            empresaToolStripMenuItem = new ToolStripMenuItem();
+            configuraçãoDoSistemaToolStripMenuItem = new ToolStripMenuItem();
+            ToolStripMenuItemConfiguracoes = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
             kryptonPanel2.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -499,7 +501,7 @@
             // 
             menuStrip1.BackColor = Color.White;
             menuStrip1.Font = new Font("Segoe UI", 9F);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrosToolStripMenuItem1, ferramentasToolStripMenuItem, estoqueToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrosToolStripMenuItem1, ferramentasToolStripMenuItem, estoqueToolStripMenuItem, configuraçãoDoSistemaToolStripMenuItem });
             menuStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             menuStrip1.Location = new Point(0, 46);
             menuStrip1.Name = "menuStrip1";
@@ -518,43 +520,49 @@
             // cidadeToolStripMenuItem1
             // 
             cidadeToolStripMenuItem1.Name = "cidadeToolStripMenuItem1";
-            cidadeToolStripMenuItem1.Size = new Size(180, 22);
+            cidadeToolStripMenuItem1.Size = new Size(145, 22);
             cidadeToolStripMenuItem1.Text = "&Cidade";
             cidadeToolStripMenuItem1.Click += cidadeToolStripMenuItem1_Click;
             // 
             // clientesToolStripMenuItem1
             // 
             clientesToolStripMenuItem1.Name = "clientesToolStripMenuItem1";
-            clientesToolStripMenuItem1.Size = new Size(180, 22);
+            clientesToolStripMenuItem1.Size = new Size(145, 22);
             clientesToolStripMenuItem1.Text = "&Clientes";
             clientesToolStripMenuItem1.Click += clientesToolStripMenuItem1_Click;
             // 
             // estadoToolStripMenuItem
             // 
             estadoToolStripMenuItem.Name = "estadoToolStripMenuItem";
-            estadoToolStripMenuItem.Size = new Size(180, 22);
+            estadoToolStripMenuItem.Size = new Size(145, 22);
             estadoToolStripMenuItem.Text = "&Estado";
             estadoToolStripMenuItem.Click += estadoToolStripMenuItem_Click;
             // 
             // fornecedoresToolStripMenuItem1
             // 
             fornecedoresToolStripMenuItem1.Name = "fornecedoresToolStripMenuItem1";
-            fornecedoresToolStripMenuItem1.Size = new Size(180, 22);
+            fornecedoresToolStripMenuItem1.Size = new Size(145, 22);
             fornecedoresToolStripMenuItem1.Text = "&Fornecedores";
             fornecedoresToolStripMenuItem1.Click += fornecedoresToolStripMenuItem1_Click;
             // 
             // produtosToolStripMenuItem1
             // 
             produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
-            produtosToolStripMenuItem1.Size = new Size(180, 22);
+            produtosToolStripMenuItem1.Size = new Size(145, 22);
             produtosToolStripMenuItem1.Text = "&Produtos";
             produtosToolStripMenuItem1.Click += produtosToolStripMenuItem1_Click;
             // 
             // usuáriosToolStripMenuItem1
             // 
             usuáriosToolStripMenuItem1.Name = "usuáriosToolStripMenuItem1";
-            usuáriosToolStripMenuItem1.Size = new Size(180, 22);
+            usuáriosToolStripMenuItem1.Size = new Size(145, 22);
             usuáriosToolStripMenuItem1.Text = "&Usuários";
+            // 
+            // empresaToolStripMenuItem
+            // 
+            empresaToolStripMenuItem.Name = "empresaToolStripMenuItem";
+            empresaToolStripMenuItem.Size = new Size(145, 22);
+            empresaToolStripMenuItem.Text = "Empresa";           
             // 
             // ferramentasToolStripMenuItem
             // 
@@ -567,7 +575,7 @@
             // cancelarVendaToolStripMenuItem
             // 
             cancelarVendaToolStripMenuItem.Name = "cancelarVendaToolStripMenuItem";
-            cancelarVendaToolStripMenuItem.Size = new Size(155, 22);
+            cancelarVendaToolStripMenuItem.Size = new Size(180, 22);
             cancelarVendaToolStripMenuItem.Text = "&Cancelar Venda";
             cancelarVendaToolStripMenuItem.Click += cancelarVendaToolStripMenuItem_Click;
             // 
@@ -643,12 +651,19 @@
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
-            // empresaToolStripMenuItem
+            // configuraçãoDoSistemaToolStripMenuItem
             // 
-            empresaToolStripMenuItem.Name = "empresaToolStripMenuItem";
-            empresaToolStripMenuItem.Size = new Size(180, 22);
-            empresaToolStripMenuItem.Text = "Empresa";
-            empresaToolStripMenuItem.Click += empresaToolStripMenuItem_Click;
+            configuraçãoDoSistemaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemConfiguracoes });
+            configuraçãoDoSistemaToolStripMenuItem.Name = "configuraçãoDoSistemaToolStripMenuItem";
+            configuraçãoDoSistemaToolStripMenuItem.Size = new Size(60, 20);
+            configuraçãoDoSistemaToolStripMenuItem.Text = "Sistema";
+            // 
+            // ToolStripMenuItemConfiguracoes
+            // 
+            ToolStripMenuItemConfiguracoes.Name = "ToolStripMenuItemConfiguracoes";
+            ToolStripMenuItemConfiguracoes.Size = new Size(180, 22);
+            ToolStripMenuItemConfiguracoes.Text = "Configurações";
+            ToolStripMenuItemConfiguracoes.Click += ToolStripMenuItemConfiguracoes_Click;
             // 
             // FrmTelaPrincipal
             // 
@@ -738,5 +753,7 @@
         private ToolStripMenuItem relatórioEstoqueToolStripMenuItem;
         private ToolStripMenuItem dashbordToolStripMenuItem;
         private ToolStripMenuItem empresaToolStripMenuItem;
+        private ToolStripMenuItem configuraçãoDoSistemaToolStripMenuItem;
+        private ToolStripMenuItem ToolStripMenuItemConfiguracoes;
     }
 }

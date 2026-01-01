@@ -1,4 +1,5 @@
 ﻿using GVC.BLL;
+using GVC.DALL;
 using GVC.MODEL;
 using GVC.MUI;
 using GVC.UTIL;
@@ -20,15 +21,22 @@ namespace GVC.View
 {
     public partial class FrmCadEmpresa : KryptonForm
     {
+        private byte[] _imagemAtual;     // imagem vinda do banco
+        private byte[] _imagemNova;      // imagem selecionada pelo usuário
+
         private bool _formatandoCNPJ = false;
         private bool _formatandoTelefone = false;
         public bool CarregandoDados { get; set; }
         private readonly EmpresaBll _empresaBll = new EmpresaBll();
-        private readonly string QueryMaxId = "SELECT MAX(EmpresaID) FROM Empresa";
+        private EmpresaDal _empresaDal = new EmpresaDal();
+
         public string StatusOperacao { get; set; } // "NOVO", "ALTERAR", "EXCLUSAO"
         public int EmpresaID { get; set; }
         public int CidadeID { get; set; } // usado internamente na busca de cidade
         private bool bloqueiaPesquisa = false;
+        private readonly string QueryMaxId = "SELECT MAX(EmpresaID) FROM Empresa";
+        public bool HouveAlteracao { get; private set; } // indica se houve alteração nos dados atualiza o datagrid do FrmManutEmpresa
+
 
         public FrmCadEmpresa()
         {
@@ -38,14 +46,117 @@ namespace GVC.View
             ConfigurarTelefone();   // ← ISTO É OBRIGATÓRIO
             ConfigurarEventosCep();
         }
+        private void AplicarModoFormulario()
+        {
+            switch (StatusOperacao)
+            {
+                case "NOVO":
+                    Text = "Nova Empresa";
+                    btnSalvar.Text = "Salvar";
+                    AplicarHeader(Color.Green);
+                    HabilitarCampos(true);
+                    break;
 
+                case "ALTERAR":
+                    Text = "Alterar Empresa";
+                    btnSalvar.Text = "Alterar";
+                    AplicarHeader(Color.Orange);
+                    HabilitarCampos(true);
+                    btnSair.Enabled = true;
+                    break;
+
+                case "EXCLUSAO":
+                    Text = "Excluir Empresa";
+                    btnSalvar.Text = "Excluir";
+                    AplicarHeader(Color.Red);
+                    HabilitarCampos(false);
+                    btnSair.Enabled = true;
+                    break;
+            }
+        }
+
+        private void BloquearTextBoxRecursivo(Control ctrl, bool habilitar)
+        {
+            // TextBox
+            if (ctrl is KryptonTextBox txt)
+                txt.ReadOnly = !habilitar;
+
+            // MaskedTextBox
+            else if (ctrl is MaskedTextBox mtxt)
+                mtxt.ReadOnly = !habilitar;
+
+            // ComboBox
+            else if (ctrl is KryptonComboBox cbo)
+                cbo.Enabled = habilitar;
+
+            // DateTimePicker
+            else if (ctrl is DateTimePicker dtp)
+                dtp.Enabled = habilitar;
+
+            // CheckBox
+            else if (ctrl is CheckBox chk)
+                chk.Enabled = habilitar;
+
+            // Botões — exceção para Salvar/Cancelar
+            else if (ctrl is KryptonButton btn)
+            {
+                if (btn.Name != "btnSalvar" && btn.Name != "btnCancelar")
+                    btn.Enabled = habilitar;
+            }
+
+            // Recursão para controles filhos (Panel, GroupBox, etc.)
+            foreach (Control filho in ctrl.Controls)
+                BloquearTextBoxRecursivo(filho, habilitar);
+        }
+
+        private void AplicarHeader(Color cor)
+        {
+            StateCommon.Header.Content.ShortText.Color1 = cor;
+            StateCommon.Header.Content.ShortText.Color2 = Color.White;
+            StateCommon.Header.Content.ShortText.Font =
+                new Font("Segoe UI", 12, FontStyle.Bold);
+        }
+
+        private void HabilitarCampos(bool habilitar)
+        {
+            foreach (Control ctrl in Controls)
+                BloquearTextBoxRecursivo(ctrl, habilitar);
+        }
+
+        private void CarregarEmpresa(int empresaId)
+        {
+            var empresa = _empresaBll.BuscarPorId(empresaId);
+            if (empresa == null)
+                return;
+            txtEmpresaID.Text = Utilitario.ZerosEsquerda(empresa.EmpresaID, 4);
+            txtRazaoSocial.Text = empresa.RazaoSocial;
+            txtNomeFantasia.Text = empresa.NomeFantasia;
+            txtCnpj.Text = empresa.CNPJ;
+            txtTelefone.Text = empresa.Telefone;
+            txtEmail.Text = empresa.Email;
+            txtCep.Text = empresa.Cep;
+            txtLogradouro.Text = empresa.Logradouro;
+            txtNumero.Text = empresa.Numero;
+            txtBairro.Text = empresa.Bairro;
+            txtNomeCidade.Text = empresa.Cidade;
+            txtUF.Text = empresa.UF;
+            txtResponsavel.Text = empresa.Responsavel;
+            txtSite.Text = empresa.Site;
+            lblDataAtualizacao.Text = empresa.DataAtualizacao?.ToString("g") ?? "N/A";
+            lblDataCriacao.Text = empresa.DataCriacao.ToString("g");
+            lblUsuarioCriacao.Text = empresa.UsuarioCriacao ?? "N/A";
+            lblUsuarioAtualizacao.Text = empresa.UsuarioAtualizacao ?? "N/A";
+            txtInscricaoEstadual.Text = empresa.InscricaoEstadual;
+            txtInscricaoMunicipal.Text = empresa.InscricaoMunicipal;
+            txtCnae.Text = empresa.CNAE;
+            txtCertificadoDigital.Text = empresa.CertificadoDigital;
+        }
         private void ConfigurarEventosCep()
         {
             txtCep.AcceptsReturn = false;
             txtCep.Multiline = false;
             toolTip.SetToolTip(txtCep, "Digite o CEP e pressione ENTER para buscar");
         }
-
 
         // =============================================
         // BUSCA POR CEP (igual ao cliente, adaptado)
@@ -275,26 +386,23 @@ namespace GVC.View
             try
             {
                 int novoId = Utilitario.ProximoId(QueryMaxId);
+
                 EmpresaID = novoId;
-                txtEmpresaID.Text = Utilitario.ZerosEsquerda(novoId, 6);
+                txtEmpresaID.Text = Utilitario.ZerosEsquerda(novoId, 4);
             }
             catch (Exception ex)
             {
                 Utilitario.Mensagens.Erro($"Erro ao gerar código: {ex.Message}");
+
                 EmpresaID = 0;
-                txtEmpresaID.Text = "000000";
+                txtEmpresaID.Text = "00000";
             }
         }
+
 
         private void LimparCampos()
         {
             Utilitario.LimparCampos(this);
-            ptbLogo.Image?.Dispose();
-            ptbLogo.Image = null;
-            txtImagem.Text = "";
-
-            // Configura status padrão se existir
-            // cmbStatus.SelectedIndex = 0; // Ativo
 
             GerarNovoCodigo();
         }
@@ -302,8 +410,7 @@ namespace GVC.View
         private void SalvarRegistro()
         {
             try
-            {
-                // Validação básica
+            {             
                 if (string.IsNullOrWhiteSpace(txtRazaoSocial.Text))
                 {
                     Utilitario.Mensagens.Aviso("Razão Social é obrigatória!");
@@ -317,18 +424,13 @@ namespace GVC.View
                     txtCnpj.Focus();
                     return;
                 }
+               
 
                 var empresa = MontarObjetoEmpresa();
                 _empresaBll.Inserir(empresa);
                 Utilitario.Mensagens.Info("Empresa cadastrada com sucesso!");
+                HouveAlteracao = true;
 
-                // Atualiza o formulário de manutenção se existir
-                //AtualizarManutencao();
-
-                // Opção 1: Fechar formulário
-                // this.Close();
-
-                // Opção 2: Limpar para novo cadastro
                 LimparCampos();
                 txtRazaoSocial.Focus();
             }
@@ -360,7 +462,7 @@ namespace GVC.View
                 empresa.UsuarioAtualizacao = FrmLogin.UsuarioConectado;
                 _empresaBll.Atualizar(empresa);
                 Utilitario.Mensagens.Info("Empresa alterada com sucesso!");
-               
+                HouveAlteracao = true;
                 this.Close();
             }
             catch (Exception ex)
@@ -384,8 +486,9 @@ namespace GVC.View
                 try
                 {
                     _empresaBll.Excluir(EmpresaID);
-                    Utilitario.Mensagens.Aviso("Empresa excluída com sucesso!");                   
-                    LimparCampos();
+                    Utilitario.Mensagens.Aviso("Empresa excluída com sucesso!");
+                    HouveAlteracao = true;
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -416,33 +519,36 @@ namespace GVC.View
                 Site = txtSite.Text?.Trim(),
                 Responsavel = txtResponsavel.Text?.Trim(),
                 CertificadoDigital = txtCertificadoDigital.Text?.Trim(),
+
                 DataCriacao = DateTime.Now,
                 DataAtualizacao = null,
                 UsuarioCriacao = FrmLogin.UsuarioConectado ?? "Sistema",
                 UsuarioAtualizacao = null,
-                Logo = ptbLogo.Image != null ? ImageToByteArray(ptbLogo.Image) : null
             };
 
             if (StatusOperacao == "NOVO")
             {
                 empresa.DataCriacao = DateTime.Now;
                 empresa.UsuarioCriacao = FrmLogin.UsuarioConectado ?? "Sistema";
+                if (!string.IsNullOrWhiteSpace(txtCertificadoDigital.Text))
+                {
+                    empresa.CertificadoDigital = Utilitario.SalvarCertificado(txtCertificadoDigital.Text, empresa.EmpresaID);
+                }
+            }
+            if (StatusOperacao == "ALTERAR")
+            {
+                empresa.DataCriacao = DateTime.Now;
+                empresa.UsuarioCriacao = FrmLogin.UsuarioConectado ?? "Sistema";
+                if (File.Exists(txtCertificadoDigital.Text))
+                {
+                    empresa.CertificadoDigital = Utilitario.SalvarCertificado(txtCertificadoDigital.Text, empresa.EmpresaID);
+                }
+
             }
 
             return empresa;
         }
-
-        private byte[] ImageToByteArray(Image image)
-        {
-            if (image == null) return null;
-
-            using (var ms = new MemoryStream())
-            {
-                image.Save(ms, image.RawFormat);
-                return ms.ToArray();
-            }
-        }
-
+       
         private void txtCep_Leave(object sender, EventArgs e)
         {
             // Auto-formata ao sair do campo
@@ -460,32 +566,6 @@ namespace GVC.View
         {
             await BuscarEnderecoPorCep();
         }
-
-        private void btnLocalizarLogo_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog ofd = new OpenFileDialog())
-            {
-                ofd.Filter = "Imagens (*.jpg;*.jpeg;*.png;*.bmp;*.gif)|*.jpg;*.jpeg;*.png;*.bmp;*.gif|Todos os arquivos (*.*)|*.*";
-                ofd.Title = "Selecionar Logo da Empresa";
-                ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        ptbLogo.Image?.Dispose(); // Libera imagem anterior
-                        ptbLogo.Image = Image.FromFile(ofd.FileName);
-                        txtImagem.Text = Path.GetFileName(ofd.FileName);
-                        ptbLogo.SizeMode = PictureBoxSizeMode.Zoom;
-                    }
-                    catch (Exception ex)
-                    {
-                        Utilitario.Mensagens.Erro($"Erro ao carregar imagem: {ex.Message}");
-                    }
-                }
-            }
-        }
-
         private void btnNovo_Click_1(object sender, EventArgs e)
         {
             LimparCampos();
@@ -497,7 +577,6 @@ namespace GVC.View
         {
             this.Close();
         }
-
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (StatusOperacao == "NOVO")
@@ -510,9 +589,6 @@ namespace GVC.View
 
         private void FrmCadEmpresa_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Limpa memória da imagem
-            ptbLogo.Image?.Dispose();
-            ptbLogo.Image = null;
         }
 
         private void FrmCadEmpresa_KeyDown(object sender, KeyEventArgs e)
@@ -541,10 +617,6 @@ namespace GVC.View
                     Utilitario.AplicarCorFoco(kryptonTxt);
             }
         }
-
-
-
-
 
         private void txtCnpj_Leave(object sender, EventArgs e)
         {
@@ -666,6 +738,63 @@ namespace GVC.View
             }
 
             txtTelefone.StateCommon.Border.Color1 = Color.MediumSeaGreen;
+        }
+        public void ConfigurarMascaras()
+        {
+            txtCnpj.Text = Utilitario.FormatarCNPJ(txtCnpj.Text);
+            txtCep.Text = Utilitario.FormatarCEP(txtCep.Text);
+            txtTelefone.Text = Utilitario.FormatarTelefoneTexto(txtTelefone.Text);
+        }
+        private void FrmCadEmpresa_Load(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(StatusOperacao))
+                throw new InvalidOperationException("StatusOperacao não definido.");
+            if (StatusOperacao == "NOVO")
+            {
+                GerarNovoCodigo();
+                BloquearTextBoxRecursivo(this, true);
+            }
+
+            // 🔹 Sempre configurar máscaras e padrões
+            ConfigurarMascaras();
+
+            // 🔹 Se for ALTERAR ou EXCLUIR, carrega os dados
+            if (CarregandoDados)
+            {
+                CarregarEmpresa(EmpresaID);
+            }
+
+            // 🔹 Aplica o estado visual conforme operação
+            AplicarModoFormulario();
+
+            CarregandoDados = false;
+        }
+        public static string SalvarCertificado(string caminhoOrigem, int empresaId)
+        {
+            if (!File.Exists(caminhoOrigem))
+                throw new FileNotFoundException("Certificado não encontrado");
+
+            string pasta = @"C:\GVCSqlExpress\Certificados";
+            Directory.CreateDirectory(pasta);
+
+            string destino = Path.Combine(pasta, $"empresa_{empresaId}.pfx");
+            File.Copy(caminhoOrigem, destino, true);
+
+            return destino;
+        }
+
+        private void btnLocalizarCertificado_Click(object sender, EventArgs e)
+        {
+            using OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "Certificado Digital (*.pfx)|*.pfx",
+                Title = "Selecionar Certificado Digital"
+            };
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtCertificadoDigital.Text = ofd.FileName;
+            }
         }
     }
 }

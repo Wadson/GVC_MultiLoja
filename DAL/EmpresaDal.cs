@@ -3,11 +3,28 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
 
 namespace GVC.DALL
 {
     internal class EmpresaDal
     {
+        public static byte[] ObterImagem(int empresaId)
+        {
+            using var conn = Helpers.Conexao.Conex();
+            using var cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"
+        SELECT Logo 
+        FROM Empresa 
+        WHERE EmpresaID = @id";
+
+            cmd.Parameters.AddWithValue("@id", empresaId);
+
+            conn.Open();
+            return cmd.ExecuteScalar() as byte[];
+        }
+
         private const string SqlBase = @"
             SELECT
                 e.EmpresaID,
@@ -29,8 +46,7 @@ namespace GVC.DALL
                 e.DataCriacao,
                 e.DataAtualizacao,
                 e.UsuarioCriacao,
-                e.UsuarioAtualizacao,
-                e.Logo,
+                e.UsuarioAtualizacao,               
                 ci.Nome AS Cidade,
                 es.Uf AS UF
             FROM Empresa e
@@ -54,7 +70,6 @@ namespace GVC.DALL
             }
             return dt;
         }
-
         public DataTable ListarEmpresas()
         {
             // Consulta SQL completa
@@ -101,11 +116,8 @@ namespace GVC.DALL
                     }
                 }
             }
-
             return dt;
         }
-
-
         public bool EmpresaExiste(string? razaoSocial, string? cnpj)
         {
             const string sql = @"
@@ -137,14 +149,14 @@ namespace GVC.DALL
                     Logradouro, Numero, Bairro, Cep, Cidade, UF,
                     Telefone, Email, Site,
                     Responsavel, CertificadoDigital,
-                    DataCriacao, UsuarioCriacao, Logo
+                    DataCriacao, UsuarioCriacao
                 )
                 VALUES (
                     @RazaoSocial, @NomeFantasia, @CNPJ, @InscricaoEstadual, @InscricaoMunicipal, @CNAE,
                     @Logradouro, @Numero, @Bairro, @Cep, @Cidade, @UF,
                     @Telefone, @Email, @Site,
                     @Responsavel, @CertificadoDigital,
-                    @DataCriacao, @UsuarioCriacao, @Logo
+                    @DataCriacao, @UsuarioCriacao
                 );
                 SELECT SCOPE_IDENTITY();";
 
@@ -169,45 +181,55 @@ namespace GVC.DALL
                 cmd.Parameters.AddWithValue("@Responsavel", empresa.Responsavel ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@CertificadoDigital", empresa.CertificadoDigital ?? (object)DBNull.Value);              
                 cmd.Parameters.AddWithValue("@DataCriacao", empresa.DataCriacao);
-                cmd.Parameters.AddWithValue("@UsuarioCriacao", empresa.UsuarioCriacao ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Logo", empresa.Logo ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@UsuarioCriacao", empresa.UsuarioCriacao ?? (object)DBNull.Value);               
 
                 conn.Open();
                 empresa.EmpresaID = Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
-
+        // 🔹 Mantém compatibilidade com TODOS os forms antigos
         public void Atualizar(EmpresaModel empresa)
         {
-            if (empresa == null) throw new ArgumentNullException(nameof(empresa));
-            if (empresa.EmpresaID <= 0) throw new ArgumentException("ID da empresa inválido para atualização");
+            Atualizar(empresa, null);
+        }
+        public void Atualizar(EmpresaModel empresa, byte[]? imagemNova)
+        {
+            if (empresa == null)
+                throw new ArgumentNullException(nameof(empresa));
 
-            const string sql = @"
-                UPDATE Empresa SET
-                    RazaoSocial = @RazaoSocial,
-                    NomeFantasia = @NomeFantasia,
-                    CNPJ = @CNPJ,
-                    InscricaoEstadual = @InscricaoEstadual,
-                    InscricaoMunicipal = @InscricaoMunicipal,
-                    CNAE = @CNAE,
-                    Logradouro = @Logradouro,
-                    Numero = @Numero,
-                    Bairro = @Bairro,
-                    Cep = @Cep,
-                    Cidade = @Cidade,
-                    UF = @UF,
-                    Telefone = @Telefone,
-                    Email = @Email,
-                    Site = @Site,
-                    Responsavel = @Responsavel,
-                    CertificadoDigital = @CertificadoDigital,                   
-                    DataAtualizacao = GETDATE(),
-                    UsuarioAtualizacao = @UsuarioAtualizacao,
-                    Logo = @Logo
-                WHERE EmpresaID = @EmpresaID";
+            if (empresa.EmpresaID <= 0)
+                throw new ArgumentException("ID da empresa inválido para atualização");
+
+            var sql = new StringBuilder(@"
+        UPDATE Empresa SET
+            RazaoSocial = @RazaoSocial,
+            NomeFantasia = @NomeFantasia,
+            CNPJ = @CNPJ,
+            InscricaoEstadual = @InscricaoEstadual,
+            InscricaoMunicipal = @InscricaoMunicipal,
+            CNAE = @CNAE,
+            Logradouro = @Logradouro,
+            Numero = @Numero,
+            Bairro = @Bairro,
+            Cep = @Cep,
+            Cidade = @Cidade,
+            UF = @UF,
+            Telefone = @Telefone,
+            Email = @Email,
+            Site = @Site,
+            Responsavel = @Responsavel,
+            CertificadoDigital = @CertificadoDigital,
+            DataAtualizacao = GETDATE(),
+            UsuarioAtualizacao = @UsuarioAtualizacao");
+
+            // 🔒 só atualiza a imagem se uma nova for enviada
+            if (imagemNova != null && imagemNova.Length > 0)
+                sql.Append(", Logo = @Logo");
+
+            sql.Append(" WHERE EmpresaID = @EmpresaID");
 
             using (var conn = Helpers.Conexao.Conex())
-            using (var cmd = new SqlCommand(sql, conn))
+            using (var cmd = new SqlCommand(sql.ToString(), conn))
             {
                 cmd.Parameters.AddWithValue("@EmpresaID", empresa.EmpresaID);
                 cmd.Parameters.AddWithValue("@RazaoSocial", empresa.RazaoSocial ?? (object)DBNull.Value);
@@ -226,9 +248,8 @@ namespace GVC.DALL
                 cmd.Parameters.AddWithValue("@Email", empresa.Email ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Site", empresa.Site ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Responsavel", empresa.Responsavel ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@CertificadoDigital", empresa.CertificadoDigital ?? (object)DBNull.Value);              
+                cmd.Parameters.AddWithValue("@CertificadoDigital", empresa.CertificadoDigital ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@UsuarioAtualizacao", empresa.UsuarioAtualizacao ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Logo", empresa.Logo ?? (object)DBNull.Value);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -350,8 +371,7 @@ namespace GVC.DALL
                 DataCriacao = reader["DataCriacao"] != DBNull.Value ? reader.GetDateTime(reader.GetOrdinal("DataCriacao")) : DateTime.MinValue,
                 DataAtualizacao = reader["DataAtualizacao"] != DBNull.Value ? (DateTime?)reader.GetDateTime(reader.GetOrdinal("DataAtualizacao")) : null,
                 UsuarioCriacao = reader["UsuarioCriacao"]?.ToString() ?? "",
-                UsuarioAtualizacao = reader["UsuarioAtualizacao"]?.ToString() ?? "",
-                Logo = reader["Logo"] != DBNull.Value ? (byte[])reader["Logo"] : null
+                UsuarioAtualizacao = reader["UsuarioAtualizacao"]?.ToString() ?? "",               
             };
         }
     }

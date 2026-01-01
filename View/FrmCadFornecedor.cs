@@ -15,11 +15,13 @@ namespace GVC.View
 {
     public partial class FrmCadFornecedor : KryptonForm
     {
-        public bool CarregandoDados { get; set; }
+       
 
         private readonly FornecedorBll _fornecedorBll = new FornecedorBll();
         private readonly string QueryFornecedor = "SELECT MAX(FornecedorID) FROM Fornecedor";
         public string StatusOperacao { get; set; }
+        public bool CarregandoDados { get; set; }
+        public int EmpresaID { get; set; }
         public string cidadeSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
         private bool bloqueiaPesquisa = false;
         public int FornecedorID { get; set; }

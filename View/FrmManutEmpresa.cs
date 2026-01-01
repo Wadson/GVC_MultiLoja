@@ -16,12 +16,9 @@ namespace GVC.View
     public partial class FrmManutEmpresa : KryptonForm
     {
         private bool _gridConfigurado = false; //Faz parte da configuração do grid
-
-        private string StatusOperacao;
-
+        private readonly EmpresaBll _empresaBll = new EmpresaBll();
         public FrmManutEmpresa(string statusOperacao)
-        {
-            this.StatusOperacao = statusOperacao;
+        {           
             InitializeComponent();
             dgvEmpresa.CellFormatting += dgvEmpresa_CellFormatting;
 
@@ -119,147 +116,62 @@ namespace GVC.View
             dgvEmpresa.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10);
             dgvEmpresa.RowHeadersWidth = 28;
         }
-
-
-
-        private void CarregaDados(FrmCadEmpresa frmcadEmpresa)
+        private void CarregarEmpresas()
         {
-            // Blindagem de estado
-            if (string.IsNullOrWhiteSpace(StatusOperacao))
-                throw new InvalidOperationException("StatusOperacao não definido.");
-
-            frmcadEmpresa.StatusOperacao = StatusOperacao;
-
-            // MODO NOVO
-            if (StatusOperacao == "NOVO")
-            {
-
-                frmcadEmpresa.Text = "Novo Empresa";
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Color1 = Color.Green;
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
-
-                frmcadEmpresa.ShowDialog();
-                return;
-            }
-
-            DataGridViewRow row = dgvEmpresa.CurrentRow;
-
-            if (row == null)
-            {
-                Utilitario.Mensagens.Aviso("Selecione um empresa na lista!");
-                return;
-            }
-
-            frmcadEmpresa.CarregandoDados = true;
-            frmcadEmpresa.CarregarCampos(row);
-            frmcadEmpresa.CarregandoDados = false;
-
-            if (StatusOperacao == "ALTERAR")
-            {
-                frmcadEmpresa.Text = "Alterar Empresa";
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Color1 = Color.Orange;
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
-                //frmcadEmpresa.btnSalvar.Text = "Alterar";
-                //frmcadEmpresa.btnNovo.Enabled = false;                
-            }
-            else if (StatusOperacao == "EXCLUSAO")
-            {
-                frmcadEmpresa.Text = "Excluir Empresa";
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Color1 = Color.Red;
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadEmpresa.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
-                frmcadEmpresa.btnSalvar.Text = "Excluir";
-                frmcadEmpresa.btnNovo.Enabled = false;
-
-                // 🔒 BLOQUEIO ESPECÍFICO DOS TEXTBOX
-                foreach (Control ctrl in frmcadEmpresa.Controls)
-                {
-                    BloquearTextBoxRecursivo(ctrl);
-                }
-            }
-            frmcadEmpresa.ShowDialog();
-        }
-        private void BloquearTextBoxRecursivo(Control controle)
-        {
-            if (controle is TextBox txt)
-            {
-                txt.ReadOnly = true;
-                txt.BackColor = SystemColors.Control;
-                return;
-            }
-
-            if (controle is Krypton.Toolkit.KryptonTextBox ktxt)
-            {
-                ktxt.ReadOnly = true;
-                ktxt.StateCommon.Back.Color1 = SystemColors.Control;
-                return;
-            }
-
-            foreach (Control filho in controle.Controls)
-            {
-                BloquearTextBoxRecursivo(filho);
-            }
+            dgvEmpresa.DataSource = _empresaBll.Listar();
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            StatusOperacao = "NOVO";
-
-            FrmCadEmpresa cad = new FrmCadEmpresa();
-            cad.StatusOperacao = StatusOperacao;
-            cad.CarregandoDados = false;
-            cad.Text = "Nova Empresa";
-            cad.ForeColor = Color.FromArgb(8, 142, 254);
+            
+            FrmCadEmpresa cad = new FrmCadEmpresa
+            {
+                StatusOperacao = "NOVO",
+                CarregandoDados = false
+            };
 
             cad.ShowDialog();
+            if (cad.HouveAlteracao)
+                CarregarEmpresas(); // método que preenche o DataGrid
         }
         private void btnAlterar_Click(object sender, EventArgs e)
         {
             if (dgvEmpresa.CurrentRow == null)
             {
-                Utilitario.Mensagens.Aviso("Selecione um empresa na lista!");
+                Utilitario.Mensagens.Aviso("Selecione uma empresa!");
                 return;
             }
 
-            StatusOperacao = "ALTERAR";
+            FrmCadEmpresa cad = new FrmCadEmpresa
+            {
+                StatusOperacao = "ALTERAR",
+                EmpresaID = Convert.ToInt32(dgvEmpresa.CurrentRow.Cells["EmpresaID"].Value),
+                CarregandoDados = true
+            };
 
-            FrmCadEmpresa cadEmpresa = new FrmCadEmpresa();
-            cadEmpresa.EmpresaID = Convert.ToInt32(
-                dgvEmpresa.CurrentRow.Cells["EmpresaID"].Value);
-
-            cadEmpresa.StatusOperacao = StatusOperacao;
-            CarregaDados(cadEmpresa);
+            cad.ShowDialog();
+            if (cad.HouveAlteracao)
+                CarregarEmpresas(); // método que preenche o DataGrid
 
         }
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             if (dgvEmpresa.CurrentRow == null)
             {
-                Utilitario.Mensagens.Aviso("Selecione um empresa na lista!");
+                Utilitario.Mensagens.Aviso("Selecione uma empresa!");
                 return;
             }
 
-            DialogResult resposta = MessageBox.Show(
-                "Deseja realmente excluir este empresa?",
-                "Confirmação de Exclusão",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2);
+            FrmCadEmpresa cad = new FrmCadEmpresa
+            {
+                StatusOperacao = "EXCLUSAO",
+                EmpresaID = Convert.ToInt32(dgvEmpresa.CurrentRow.Cells["EmpresaID"].Value),
+                CarregandoDados = true
+            };
 
-            if (resposta != DialogResult.Yes)
-                return;
-
-            StatusOperacao = "EXCLUSAO";
-
-            FrmCadEmpresa cadEmpresa = new FrmCadEmpresa();
-            cadEmpresa.EmpresaID = Convert.ToInt32(
-                dgvEmpresa.CurrentRow.Cells["EmpresaID"].Value);
-
-            cadEmpresa.StatusOperacao = StatusOperacao;
-
-            CarregaDados(cadEmpresa);
+            cad.ShowDialog();
+            if (cad.HouveAlteracao)
+                CarregarEmpresas(); // método que preenche o DataGrid
         }
 
         private void rbtCodigo_CheckedChanged(object sender, EventArgs e)

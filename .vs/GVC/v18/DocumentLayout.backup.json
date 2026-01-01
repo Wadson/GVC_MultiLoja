@@ -1,7 +1,24 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmtelaprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmtelaprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmtelaprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmtelaprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmconfiguracoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmconfiguracoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmconfiguracoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmconfiguracoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -102,6 +119,56 @@
             {
               "$type": "Bookmark",
               "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FrmTelaPrincipal.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs",
+              "RelativeDocumentMoniker": "View\\FrmTelaPrincipal.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs*",
+              "RelativeToolTip": "View\\FrmTelaPrincipal.cs*",
+              "ViewState": "AgIAAAIBAAAAAAAAAAA2wBIBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T02:52:18.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FrmTelaPrincipal.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs",
+              "RelativeDocumentMoniker": "View\\FrmTelaPrincipal.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs [Projeto]*",
+              "RelativeToolTip": "View\\FrmTelaPrincipal.cs [Projeto]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T02:51:43.532Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FrmConfiguracoes.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmConfiguracoes.cs",
+              "RelativeDocumentMoniker": "UTIL\\FrmConfiguracoes.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmConfiguracoes.cs [Projeto]",
+              "RelativeToolTip": "UTIL\\FrmConfiguracoes.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T02:48:33.148Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FrmConfiguracoes.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmConfiguracoes.cs",
+              "RelativeDocumentMoniker": "UTIL\\FrmConfiguracoes.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmConfiguracoes.cs",
+              "RelativeToolTip": "UTIL\\FrmConfiguracoes.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAQwFAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T02:39:23.359Z",
+              "EditorCaption": ""
             }
           ]
         },

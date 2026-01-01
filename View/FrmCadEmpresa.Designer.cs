@@ -71,22 +71,20 @@
             label9 = new Label();
             btnSair = new Krypton.Toolkit.KryptonButton();
             btnNovo = new Krypton.Toolkit.KryptonButton();
-            ptbLogo = new PictureBox();
-            btnLocalizarLogo = new Krypton.Toolkit.KryptonButton();
             btnSalvar = new Krypton.Toolkit.KryptonButton();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
-            toolStripStatusLabelUsuarioCriacao = new ToolStripStatusLabel();
+            lblUsuarioCriacao = new ToolStripStatusLabel();
             toolStripStatusLabel2 = new ToolStripStatusLabel();
-            ToolStripLabelDataCriacao = new ToolStripStatusLabel();
+            lblDataCriacao = new ToolStripStatusLabel();
             toolStripStatusLabel4 = new ToolStripStatusLabel();
-            ToolStripLabelDataUtimaCompra = new ToolStripStatusLabel();
+            lblDataUtimaCompra = new ToolStripStatusLabel();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
-            toolStripStatusLabelUsuarioAtualizacao = new ToolStripStatusLabel();
+            lblUsuarioAtualizacao = new ToolStripStatusLabel();
             toolStripStatusLabel3 = new ToolStripStatusLabel();
-            toolStripStatusLabelDataAtualizacao = new ToolStripStatusLabel();
+            lblDataAtualizacao = new ToolStripStatusLabel();
             lblStatus = new ToolStripStatusLabel();
-            txtImagem = new Krypton.Toolkit.KryptonTextBox();
-            ((System.ComponentModel.ISupportInitialize)ptbLogo).BeginInit();
+            toolStripStatusLabel5 = new ToolStripStatusLabel();
+            btnLocalizarCertificado = new Krypton.Toolkit.KryptonButton();
             kryptonStatusStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -130,7 +128,6 @@
             // 
             txtEmpresaID.Location = new Point(6, 30);
             txtEmpresaID.Name = "txtEmpresaID";
-            txtEmpresaID.ReadOnly = true;
             txtEmpresaID.Size = new Size(90, 27);
             txtEmpresaID.StateCommon.Back.Color1 = Color.White;
             txtEmpresaID.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
@@ -148,7 +145,7 @@
             // txtEmail
             // 
             txtEmail.CharacterCasing = CharacterCasing.Lower;
-            txtEmail.Location = new Point(461, 244);
+            txtEmail.Location = new Point(6, 241);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(315, 27);
             txtEmail.StateCommon.Back.Color1 = Color.White;
@@ -201,7 +198,7 @@
             label18.AutoSize = true;
             label18.Font = new Font("Microsoft Sans Serif", 9.25F);
             label18.ForeColor = Color.FromArgb(0, 76, 172);
-            label18.Location = new Point(461, 225);
+            label18.Location = new Point(6, 222);
             label18.Name = "label18";
             label18.Size = new Size(45, 16);
             label18.TabIndex = 183;
@@ -394,7 +391,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 9.25F);
             label3.ForeColor = Color.FromArgb(0, 76, 172);
-            label3.Location = new Point(6, 271);
+            label3.Location = new Point(327, 222);
             label3.Name = "label3";
             label3.Size = new Size(30, 16);
             label3.TabIndex = 1048;
@@ -403,9 +400,9 @@
             // txtSite
             // 
             txtSite.CharacterCasing = CharacterCasing.Lower;
-            txtSite.Location = new Point(6, 290);
+            txtSite.Location = new Point(327, 241);
             txtSite.Name = "txtSite";
-            txtSite.Size = new Size(770, 27);
+            txtSite.Size = new Size(673, 27);
             txtSite.StateCommon.Back.Color1 = Color.White;
             txtSite.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtSite.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -421,9 +418,9 @@
             // txtResponsavel
             // 
             txtResponsavel.CharacterCasing = CharacterCasing.Upper;
-            txtResponsavel.Location = new Point(6, 341);
+            txtResponsavel.Location = new Point(6, 298);
             txtResponsavel.Name = "txtResponsavel";
-            txtResponsavel.Size = new Size(770, 27);
+            txtResponsavel.Size = new Size(992, 27);
             txtResponsavel.StateCommon.Back.Color1 = Color.White;
             txtResponsavel.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtResponsavel.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -441,7 +438,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 9.25F);
             label4.ForeColor = Color.FromArgb(0, 76, 172);
-            label4.Location = new Point(6, 320);
+            label4.Location = new Point(6, 277);
             label4.Name = "label4";
             label4.Size = new Size(88, 16);
             label4.TabIndex = 1050;
@@ -450,9 +447,9 @@
             // txtCertificadoDigital
             // 
             txtCertificadoDigital.CharacterCasing = CharacterCasing.Upper;
-            txtCertificadoDigital.Location = new Point(6, 394);
+            txtCertificadoDigital.Location = new Point(6, 353);
             txtCertificadoDigital.Name = "txtCertificadoDigital";
-            txtCertificadoDigital.Size = new Size(770, 27);
+            txtCertificadoDigital.Size = new Size(812, 27);
             txtCertificadoDigital.StateCommon.Back.Color1 = Color.White;
             txtCertificadoDigital.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtCertificadoDigital.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -471,7 +468,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 9.25F);
             label6.ForeColor = Color.FromArgb(0, 76, 172);
-            label6.Location = new Point(6, 373);
+            label6.Location = new Point(6, 332);
             label6.Name = "label6";
             label6.Size = new Size(112, 16);
             label6.TabIndex = 1052;
@@ -537,7 +534,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 9.25F);
             label5.ForeColor = Color.FromArgb(0, 76, 172);
-            label5.Location = new Point(10, 225);
+            label5.Location = new Point(557, 176);
             label5.Name = "label5";
             label5.Size = new Size(51, 16);
             label5.TabIndex = 1070;
@@ -546,7 +543,7 @@
             // txtUF
             // 
             txtUF.CharacterCasing = CharacterCasing.Upper;
-            txtUF.Location = new Point(355, 244);
+            txtUF.Location = new Point(898, 195);
             txtUF.Name = "txtUF";
             txtUF.Size = new Size(100, 27);
             txtUF.StateCommon.Back.Color1 = Color.White;
@@ -567,7 +564,7 @@
             txtLogradouro.CharacterCasing = CharacterCasing.Upper;
             txtLogradouro.Location = new Point(181, 140);
             txtLogradouro.Name = "txtLogradouro";
-            txtLogradouro.Size = new Size(598, 27);
+            txtLogradouro.Size = new Size(817, 27);
             txtLogradouro.StateCommon.Back.Color1 = Color.White;
             txtLogradouro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtLogradouro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -621,7 +618,7 @@
             txtBairro.CharacterCasing = CharacterCasing.Upper;
             txtBairro.Location = new Point(143, 195);
             txtBairro.Name = "txtBairro";
-            txtBairro.Size = new Size(633, 27);
+            txtBairro.Size = new Size(405, 27);
             txtBairro.StateCommon.Back.Color1 = Color.White;
             txtBairro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtBairro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -638,7 +635,7 @@
             // txtNomeCidade
             // 
             txtNomeCidade.CharacterCasing = CharacterCasing.Upper;
-            txtNomeCidade.Location = new Point(6, 244);
+            txtNomeCidade.Location = new Point(553, 195);
             txtNomeCidade.Name = "txtNomeCidade";
             txtNomeCidade.Size = new Size(339, 27);
             txtNomeCidade.StateCommon.Back.Color1 = Color.White;
@@ -692,7 +689,7 @@
             label20.AutoSize = true;
             label20.Font = new Font("Microsoft Sans Serif", 9.25F);
             label20.ForeColor = Color.FromArgb(0, 76, 172);
-            label20.Location = new Point(356, 229);
+            label20.Location = new Point(899, 180);
             label20.Name = "label20";
             label20.Size = new Size(25, 16);
             label20.TabIndex = 1066;
@@ -713,7 +710,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 10F;
-            btnSair.Location = new Point(920, 445);
+            btnSair.Location = new Point(918, 418);
             btnSair.Margin = new Padding(5, 3, 5, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -768,7 +765,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 10F;
-            btnNovo.Location = new Point(830, 445);
+            btnNovo.Location = new Point(828, 418);
             btnNovo.Margin = new Padding(5, 3, 5, 3);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -819,76 +816,11 @@
             btnNovo.Values.Text = "&Novo";
             btnNovo.Click += btnNovo_Click_1;
             // 
-            // ptbLogo
-            // 
-            ptbLogo.BackColor = SystemColors.ButtonShadow;
-            ptbLogo.Location = new Point(784, 173);
-            ptbLogo.Name = "ptbLogo";
-            ptbLogo.Size = new Size(216, 190);
-            ptbLogo.TabIndex = 1075;
-            ptbLogo.TabStop = false;
-            // 
-            // btnLocalizarLogo
-            // 
-            btnLocalizarLogo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnLocalizarLogo.CornerRoundingRadius = 10F;
-            btnLocalizarLogo.Location = new Point(784, 140);
-            btnLocalizarLogo.Margin = new Padding(5, 3, 5, 3);
-            btnLocalizarLogo.Name = "btnLocalizarLogo";
-            btnLocalizarLogo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnLocalizarLogo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnLocalizarLogo.OverrideDefault.Back.ColorAngle = 45F;
-            btnLocalizarLogo.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
-            btnLocalizarLogo.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizarLogo.OverrideDefault.Border.ColorAngle = 45F;
-            btnLocalizarLogo.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizarLogo.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizarLogo.OverrideDefault.Border.Rounding = 20F;
-            btnLocalizarLogo.OverrideDefault.Border.Width = 1;
-            btnLocalizarLogo.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnLocalizarLogo.Size = new Size(217, 27);
-            btnLocalizarLogo.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnLocalizarLogo.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnLocalizarLogo.StateCommon.Back.ColorAngle = 45F;
-            btnLocalizarLogo.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnLocalizarLogo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizarLogo.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizarLogo.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizarLogo.StateCommon.Border.Rounding = 10F;
-            btnLocalizarLogo.StateCommon.Border.Width = 1;
-            btnLocalizarLogo.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            btnLocalizarLogo.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnLocalizarLogo.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 10F);
-            btnLocalizarLogo.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
-            btnLocalizarLogo.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
-            btnLocalizarLogo.StatePressed.Back.ColorAngle = 135F;
-            btnLocalizarLogo.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnLocalizarLogo.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnLocalizarLogo.StatePressed.Border.ColorAngle = 135F;
-            btnLocalizarLogo.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizarLogo.StatePressed.Border.Rounding = 20F;
-            btnLocalizarLogo.StatePressed.Border.Width = 1;
-            btnLocalizarLogo.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnLocalizarLogo.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
-            btnLocalizarLogo.StateTracking.Back.ColorAngle = 45F;
-            btnLocalizarLogo.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnLocalizarLogo.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizarLogo.StateTracking.Border.ColorAngle = 45F;
-            btnLocalizarLogo.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizarLogo.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizarLogo.StateTracking.Border.Rounding = 20F;
-            btnLocalizarLogo.StateTracking.Border.Width = 1;
-            btnLocalizarLogo.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnLocalizarLogo.TabIndex = 1076;
-            btnLocalizarLogo.TabStop = false;
-            btnLocalizarLogo.Values.Text = "&Adicionar logo";
-            btnLocalizarLogo.Click += btnLocalizarLogo_Click;
-            // 
             // btnSalvar
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.CornerRoundingRadius = 10F;
-            btnSalvar.Location = new Point(740, 445);
+            btnSalvar.Location = new Point(738, 418);
             btnSalvar.Margin = new Padding(5, 3, 5, 3);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -941,7 +873,7 @@
             // kryptonStatusStrip1
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelUsuarioCriacao, toolStripStatusLabel2, ToolStripLabelDataCriacao, toolStripStatusLabel4, ToolStripLabelDataUtimaCompra, toolStripStatusLabel1, toolStripStatusLabelUsuarioAtualizacao, toolStripStatusLabel3, toolStripStatusLabelDataAtualizacao, lblStatus });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblUsuarioCriacao, toolStripStatusLabel2, lblDataCriacao, toolStripStatusLabel4, lblDataUtimaCompra, toolStripStatusLabel1, lblUsuarioAtualizacao, toolStripStatusLabel3, lblDataAtualizacao, lblStatus, toolStripStatusLabel5 });
             kryptonStatusStrip1.Location = new Point(0, 480);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
@@ -950,12 +882,12 @@
             kryptonStatusStrip1.TabIndex = 1079;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
-            // toolStripStatusLabelUsuarioCriacao
+            // lblUsuarioCriacao
             // 
-            toolStripStatusLabelUsuarioCriacao.ForeColor = Color.White;
-            toolStripStatusLabelUsuarioCriacao.Name = "toolStripStatusLabelUsuarioCriacao";
-            toolStripStatusLabelUsuarioCriacao.Size = new Size(99, 17);
-            toolStripStatusLabelUsuarioCriacao.Text = "Usuario Criação...";
+            lblUsuarioCriacao.ForeColor = Color.White;
+            lblUsuarioCriacao.Name = "lblUsuarioCriacao";
+            lblUsuarioCriacao.Size = new Size(99, 17);
+            lblUsuarioCriacao.Text = "Usuario Criação...";
             // 
             // toolStripStatusLabel2
             // 
@@ -963,12 +895,12 @@
             toolStripStatusLabel2.Size = new Size(16, 17);
             toolStripStatusLabel2.Text = " | ";
             // 
-            // ToolStripLabelDataCriacao
+            // lblDataCriacao
             // 
-            ToolStripLabelDataCriacao.ForeColor = Color.White;
-            ToolStripLabelDataCriacao.Name = "ToolStripLabelDataCriacao";
-            ToolStripLabelDataCriacao.Size = new Size(99, 17);
-            ToolStripLabelDataCriacao.Text = "Data da Criação...";
+            lblDataCriacao.ForeColor = Color.White;
+            lblDataCriacao.Name = "lblDataCriacao";
+            lblDataCriacao.Size = new Size(99, 17);
+            lblDataCriacao.Text = "Data da Criação...";
             // 
             // toolStripStatusLabel4
             // 
@@ -976,12 +908,12 @@
             toolStripStatusLabel4.Size = new Size(16, 17);
             toolStripStatusLabel4.Text = " | ";
             // 
-            // ToolStripLabelDataUtimaCompra
+            // lblDataUtimaCompra
             // 
-            ToolStripLabelDataUtimaCompra.ForeColor = Color.White;
-            ToolStripLabelDataUtimaCompra.Name = "ToolStripLabelDataUtimaCompra";
-            ToolStripLabelDataUtimaCompra.Size = new Size(131, 17);
-            ToolStripLabelDataUtimaCompra.Text = "Data da Ultima Compra";
+            lblDataUtimaCompra.ForeColor = Color.White;
+            lblDataUtimaCompra.Name = "lblDataUtimaCompra";
+            lblDataUtimaCompra.Size = new Size(131, 17);
+            lblDataUtimaCompra.Text = "Data da Ultima Compra";
             // 
             // toolStripStatusLabel1
             // 
@@ -989,11 +921,11 @@
             toolStripStatusLabel1.Size = new Size(16, 17);
             toolStripStatusLabel1.Text = " | ";
             // 
-            // toolStripStatusLabelUsuarioAtualizacao
+            // lblUsuarioAtualizacao
             // 
-            toolStripStatusLabelUsuarioAtualizacao.Name = "toolStripStatusLabelUsuarioAtualizacao";
-            toolStripStatusLabelUsuarioAtualizacao.Size = new Size(100, 17);
-            toolStripStatusLabelUsuarioAtualizacao.Text = "Usuário Alteração";
+            lblUsuarioAtualizacao.Name = "lblUsuarioAtualizacao";
+            lblUsuarioAtualizacao.Size = new Size(100, 17);
+            lblUsuarioAtualizacao.Text = "Usuário Alteração";
             // 
             // toolStripStatusLabel3
             // 
@@ -1001,11 +933,11 @@
             toolStripStatusLabel3.Size = new Size(16, 17);
             toolStripStatusLabel3.Text = " | ";
             // 
-            // toolStripStatusLabelDataAtualizacao
+            // lblDataAtualizacao
             // 
-            toolStripStatusLabelDataAtualizacao.Name = "toolStripStatusLabelDataAtualizacao";
-            toolStripStatusLabelDataAtualizacao.Size = new Size(95, 17);
-            toolStripStatusLabelDataAtualizacao.Text = "Data Atualização";
+            lblDataAtualizacao.Name = "lblDataAtualizacao";
+            lblDataAtualizacao.Size = new Size(95, 17);
+            lblDataAtualizacao.Text = "Data Atualização";
             // 
             // lblStatus
             // 
@@ -1014,35 +946,75 @@
             lblStatus.Size = new Size(39, 17);
             lblStatus.Text = "Status";
             // 
-            // txtImagem
+            // toolStripStatusLabel5
             // 
-            txtImagem.CharacterCasing = CharacterCasing.Upper;
-            txtImagem.Location = new Point(782, 394);
-            txtImagem.Name = "txtImagem";
-            txtImagem.Size = new Size(219, 27);
-            txtImagem.StateCommon.Back.Color1 = Color.White;
-            txtImagem.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
-            txtImagem.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            txtImagem.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            txtImagem.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtImagem.StateCommon.Border.Rounding = 8F;
-            txtImagem.StateCommon.Border.Width = 1;
-            txtImagem.StateCommon.Content.Color1 = Color.Gray;
-            txtImagem.StateCommon.Content.Font = new Font("Segoe UI", 10.25F);
-            txtImagem.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtImagem.TabIndex = 1080;
-            txtImagem.TabStop = false;
+            toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            toolStripStatusLabel5.Size = new Size(16, 17);
+            toolStripStatusLabel5.Text = " | ";
+            // 
+            // btnLocalizarCertificado
+            // 
+            btnLocalizarCertificado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnLocalizarCertificado.CornerRoundingRadius = 10F;
+            btnLocalizarCertificado.Location = new Point(819, 353);
+            btnLocalizarCertificado.Margin = new Padding(5, 3, 5, 3);
+            btnLocalizarCertificado.Name = "btnLocalizarCertificado";
+            btnLocalizarCertificado.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnLocalizarCertificado.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnLocalizarCertificado.OverrideDefault.Back.ColorAngle = 45F;
+            btnLocalizarCertificado.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
+            btnLocalizarCertificado.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnLocalizarCertificado.OverrideDefault.Border.ColorAngle = 45F;
+            btnLocalizarCertificado.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnLocalizarCertificado.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnLocalizarCertificado.OverrideDefault.Border.Rounding = 20F;
+            btnLocalizarCertificado.OverrideDefault.Border.Width = 1;
+            btnLocalizarCertificado.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            btnLocalizarCertificado.Size = new Size(179, 27);
+            btnLocalizarCertificado.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnLocalizarCertificado.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnLocalizarCertificado.StateCommon.Back.ColorAngle = 45F;
+            btnLocalizarCertificado.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnLocalizarCertificado.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnLocalizarCertificado.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnLocalizarCertificado.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnLocalizarCertificado.StateCommon.Border.Rounding = 10F;
+            btnLocalizarCertificado.StateCommon.Border.Width = 1;
+            btnLocalizarCertificado.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
+            btnLocalizarCertificado.StateCommon.Content.ShortText.Color2 = Color.White;
+            btnLocalizarCertificado.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 10F);
+            btnLocalizarCertificado.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
+            btnLocalizarCertificado.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
+            btnLocalizarCertificado.StatePressed.Back.ColorAngle = 135F;
+            btnLocalizarCertificado.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
+            btnLocalizarCertificado.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
+            btnLocalizarCertificado.StatePressed.Border.ColorAngle = 135F;
+            btnLocalizarCertificado.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnLocalizarCertificado.StatePressed.Border.Rounding = 20F;
+            btnLocalizarCertificado.StatePressed.Border.Width = 1;
+            btnLocalizarCertificado.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
+            btnLocalizarCertificado.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
+            btnLocalizarCertificado.StateTracking.Back.ColorAngle = 45F;
+            btnLocalizarCertificado.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnLocalizarCertificado.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnLocalizarCertificado.StateTracking.Border.ColorAngle = 45F;
+            btnLocalizarCertificado.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnLocalizarCertificado.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnLocalizarCertificado.StateTracking.Border.Rounding = 20F;
+            btnLocalizarCertificado.StateTracking.Border.Width = 1;
+            btnLocalizarCertificado.StateTracking.Content.ShortText.Color1 = Color.White;
+            btnLocalizarCertificado.TabIndex = 1080;
+            btnLocalizarCertificado.Values.Text = "Localizar certificado";
+            btnLocalizarCertificado.Click += btnLocalizarCertificado_Click;
             // 
             // FrmCadEmpresa
             // 
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(1020, 502);
             ControlBox = false;
-            Controls.Add(txtImagem);
+            Controls.Add(btnLocalizarCertificado);
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(btnSalvar);
-            Controls.Add(btnLocalizarLogo);
-            Controls.Add(ptbLogo);
             Controls.Add(btnSair);
             Controls.Add(btnNovo);
             Controls.Add(btnBuscarEnderecoPorCep);
@@ -1096,10 +1068,10 @@
             StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Text = "Cadastro da Empresa";
-            FormClosing += FrmCadEmpresa_FormClosing;            
+            FormClosing += FrmCadEmpresa_FormClosing;
+            Load += FrmCadEmpresa_Load;
             Shown += FrmCadEmpresa_Shown;
             KeyDown += FrmCadEmpresa_KeyDown;
-            ((System.ComponentModel.ISupportInitialize)ptbLogo).EndInit();
             kryptonStatusStrip1.ResumeLayout(false);
             kryptonStatusStrip1.PerformLayout();
             ResumeLayout(false);
@@ -1108,7 +1080,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox ptbLogo;
         public Krypton.Toolkit.KryptonTextBox txtInscricaoMunicipal;
         public Krypton.Toolkit.KryptonTextBox txtInscricaoEstadual; // ← ADICIONE ESTA LINHA
         public Krypton.Toolkit.KryptonTextBox txtTelefone;
@@ -1160,19 +1131,19 @@
         public Krypton.Toolkit.KryptonButton btnSair;
         public Krypton.Toolkit.KryptonButton btnNovo;
         private PictureBox pictureBox1;
-        public Krypton.Toolkit.KryptonButton btnLocalizarLogo;
         public Krypton.Toolkit.KryptonButton btnSalvar;
         private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
-        public ToolStripStatusLabel toolStripStatusLabelUsuarioCriacao;
+        public ToolStripStatusLabel lblUsuarioCriacao;
         private ToolStripStatusLabel toolStripStatusLabel2;
-        public ToolStripStatusLabel ToolStripLabelDataCriacao;
+        public ToolStripStatusLabel lblDataCriacao;
         private ToolStripStatusLabel toolStripStatusLabel4;
-        public ToolStripStatusLabel ToolStripLabelDataUtimaCompra;
+        public ToolStripStatusLabel lblDataUtimaCompra;
         private ToolStripStatusLabel toolStripStatusLabel1;
-        private ToolStripStatusLabel toolStripStatusLabelUsuarioAtualizacao;
+        private ToolStripStatusLabel lblUsuarioAtualizacao;
         private ToolStripStatusLabel toolStripStatusLabel3;
-        private ToolStripStatusLabel toolStripStatusLabelDataAtualizacao;
+        private ToolStripStatusLabel lblDataAtualizacao;
         private ToolStripStatusLabel lblStatus;
-        public Krypton.Toolkit.KryptonTextBox txtImagem;
+        private ToolStripStatusLabel toolStripStatusLabel5;
+        public Krypton.Toolkit.KryptonButton btnLocalizarCertificado;
     }
 }

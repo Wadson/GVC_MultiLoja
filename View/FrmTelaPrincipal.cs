@@ -1,4 +1,7 @@
-﻿using GVC.MUI;
+﻿using GVC.BLL;
+using GVC.MUI;
+using Krypton.Toolkit;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,8 +9,6 @@ using System.Drawing;
 using System.IO;
 using System.Timers;
 using System.Windows.Forms;
-using Krypton.Toolkit;
-using System;
 
 
 namespace GVC.View
@@ -267,10 +268,19 @@ namespace GVC.View
             AbrirFormEnPanel(frm);
         }
 
-        private void empresaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemConfiguracoes_Click(object sender, EventArgs e)
         {
-            FrmManutEmpresa frm = new FrmManutEmpresa(StatusOperacao);
-            AbrirFormEnPanel(frm);
+            var empresaBll = new EmpresaBll();
+            var empresa = empresaBll.ObterTodas().FirstOrDefault();
+
+            if (empresa == null)
+            {
+                MessageBox.Show("Nenhuma empresa cadastrada.");
+                return;
+            }
+
+            FrmConfiguracoes frm = new FrmConfiguracoes(empresa.EmpresaID);
+            frm.ShowDialog();
         }
     }
 }

@@ -377,3 +377,4 @@ C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmCadEmpresa.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmFinanceiro.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmItensVenda.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmManutEmpresa.resources
+C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmConfiguracoes.resources

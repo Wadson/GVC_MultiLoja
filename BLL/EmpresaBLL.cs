@@ -1,5 +1,6 @@
 ﻿using GVC.DALL;
 using GVC.MODEL;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,8 +10,44 @@ namespace GVC.BLL
 {
     public class EmpresaBll
     {
-        private readonly EmpresaDal _empresaDal;
+        private readonly EmpresaDal _empresaDal = new EmpresaDal();
 
+        // 🔽 COLOQUE AQUI
+        public List<EmpresaModel> ObterTodas()
+        {
+            var lista = new List<EmpresaModel>();
+
+            using var conn = Helpers.Conexao.Conex();
+            using var cmd = new SqlCommand("SELECT EmpresaID FROM Empresa", conn);
+            conn.Open();
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var empresa = _empresaDal.BuscarPorId(reader.GetInt32(0));
+                if (empresa != null)
+                    lista.Add(empresa);
+            }
+
+            return lista;
+        }
+        public List<EmpresaModel> ListarEmpresas()
+        {
+            try
+            {
+                DataTable dt = _empresaDal.ListarEmpresas();
+                return ConverterDataTableParaLista(dt);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao listar empresas: " + ex.Message, ex);
+            }
+        }
+
+        public EmpresaModel? BuscarPorId(int empresaId)
+        {
+            return _empresaDal.BuscarPorId(empresaId);
+        }
         public EmpresaBll()
         {
             _empresaDal = new EmpresaDal();
@@ -86,18 +123,6 @@ namespace GVC.BLL
             }
         }
 
-        public List<EmpresaModel> ObterTodas()
-        {
-            try
-            {
-                DataTable dt = _empresaDal.ListarEmpresas();
-                return ConverterDataTableParaLista(dt);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao listar empresas: " + ex.Message, ex);
-            }
-        }
 
         public EmpresaModel ObterPorId(int id)
         {
@@ -241,8 +266,6 @@ namespace GVC.BLL
                     DataAtualizacao = row["DataAtualizacao"] != DBNull.Value ? (DateTime?)Convert.ToDateTime(row["DataAtualizacao"]) : null,
                     UsuarioCriacao = row["UsuarioCriacao"]?.ToString(),
                     UsuarioAtualizacao = row["UsuarioAtualizacao"]?.ToString(),
-
-                    Logo = row["Logo"] != DBNull.Value ? (byte[])row["Logo"] : null
                 };
 
                 lista.Add(empresa);
