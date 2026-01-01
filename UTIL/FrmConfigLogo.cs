@@ -1,5 +1,7 @@
 ﻿using GVC.DALL;
 using GVC.MODEL;
+using iText.Kernel.Colors;
+using iText.StyledXmlParser.Jsoup.Nodes;
 using Krypton.Toolkit;
 using Org.BouncyCastle.Utilities;
 using System;
@@ -15,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Azure.Core.HttpHeader;
 using static GVC.Utilitario;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GVC.View
 {
@@ -25,7 +28,8 @@ namespace GVC.View
         private byte[] _logoBytesNovos = null;  // bytes da nova imagem selecionada
         private int _empresaId = 0;  // Agora começa em 0 (nenhuma selecionada)
 
-
+        // <--- ADICIONE ESTA LINHA AQUI
+        private bool _emModoEdicao = false;  // Controla se estamos editando a logo
         public FrmConfigLogo()
         {
             InitializeComponent();
@@ -34,21 +38,53 @@ namespace GVC.View
         {
             try
             {
-                // Você precisa de um método na DAL para listar empresas
-                // Crie esse método na EmpresaDal (vou mostrar abaixo)
                 var empresas = EmpresaDal.ListarEmpresasSimples();
 
-                cmbEmpresas.DataSource = empresas;
-                cmbEmpresas.DisplayMember = "NomeFantasia";  // Ou "RazaoSocial" se preferir
-                cmbEmpresas.ValueMember = "EmpresaID";
-                cmbEmpresas.SelectedIndex = -1;  // Nenhum selecionado inicialmente
+                if (empresas == null || empresas.Count == 0)
+                {
+                    Utilitario.Mensagens.Aviso("Nenhuma empresa cadastrada no sistema.");
+                    cmbEmpresas.Items.Clear();
+                    cmbEmpresas.Enabled = false;
+                    _empresaId = 0;
+                    btnSalvar.Enabled = false;
+                    btnSelecionarLogo.Enabled = false;
+                    lblInstrucao.Text = "Nenhuma empresa disponível.";
+                    picLogo.Image = Properties.Resources.UsuarioBlue24;
+                    return;
+                }
 
-                // Opcional: texto de ajuda
+                // Configura o ComboBox
+                cmbEmpresas.DataSource = null;
+                cmbEmpresas.DataSource = empresas;
+                cmbEmpresas.DisplayMember = "NomeFantasia";
+                cmbEmpresas.ValueMember = "EmpresaID";
                 cmbEmpresas.DropDownStyle = ComboBoxStyle.DropDownList;
+                cmbEmpresas.Enabled = true;
+
+                // === SELECIONA A PRIMEIRA EMPRESA DIRETAMENTE DA LISTA (SEM DEPENDER DO COMBOBOX) ===
+                var empresaSelecionada = empresas[0];  // Pega o primeiro item da lista (índice 0)
+                _empresaId = empresaSelecionada.EmpresaID;
+
+                cmbEmpresas.SelectedIndex = 0;  // Apenas para exibir visualmente
+
+                // === ATUALIZA TUDO MANUALMENTE ===
+                _emModoEdicao = false;
+                _logoAlterada = false;
+                _logoBytesNovos = null;
+
+                CarregarLogo();
+
+                btnSalvar.Text = "Alterar";
+                btnSalvar.Enabled = true;  // <--- HABILITA O BOTÃO ALTERAR
+                btnSelecionarLogo.Enabled = false;
+                lblInstrucao.Text = "Clique em 'Alterar' para modificar a logo da empresa selecionada";
+                // ================================================================
             }
             catch (Exception ex)
             {
                 Utilitario.Mensagens.Erro("Erro ao carregar empresas: " + ex.Message);
+                cmbEmpresas.Enabled = false;
+                btnSalvar.Enabled = false;
             }
         }
         private void FrmConfigLogo_Shown(object sender, EventArgs e)
@@ -62,13 +98,8 @@ namespace GVC.View
 
         private void FrmConfigLogo_Load(object sender, EventArgs e)
         {
-            // LINHA TEMPORÁRIA PARA DEBUG
-            MessageBox.Show($"EmpresaID recebido: {_empresaId}", "Debug ID");
-            btnSalvar.Text = "Alterar";
-            //picLogo.Enabled = false;
-            //btnSelecionarLogo.Enabled = false;
-
-            CarregarLogo();
+            btnSalvar.Text = "Alterar";            
+            CarregarComboEmpresas();     // <--- Essa linha chama o carregamento            
         }
         private void CarregarLogo()
         {
@@ -127,37 +158,52 @@ namespace GVC.View
                 }
             }
         }
-
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            // Modo "Alterar" → entra em edição
             if (btnSalvar.Text == "Alterar")
             {
-                btnSalvar.Text = "Salvar";
-                btnSelecionarLogo.Enabled = true;
+                if (_empresaId <= 0)
+                {
+                    Mensagens.Aviso("Selecione uma empresa primeiro.");
+                    return;
+                }
+
+                _emModoEdicao = true;
+                ConfigurarEstadoInicial();  // Agora vai habilitar o botão Selecionar Logo
                 return;
             }
 
-            // Modo Salvar
+            // Modo "Salvar"
             if (!_logoAlterada || _logoBytesNovos == null || _logoBytesNovos.Length == 0)
             {
-                Utilitario.Mensagens.Aviso("Selecione uma nova imagem antes de salvar.");
+                Mensagens.Aviso("Selecione uma nova imagem antes de salvar.");
                 return;
             }
 
+            this.Cursor = Cursors.WaitCursor;
             try
             {
                 EmpresaDal.AtualizarLogo(_empresaId, _logoBytesNovos);
-                Utilitario.Mensagens.Info("Logo atualizada com sucesso!");
+                Mensagens.Info("Logo atualizada com sucesso!");
 
                 _logoAlterada = false;
                 _logoBytesNovos = null;
-                ConfigurarEstadoInicial();
+                _emModoEdicao = false;  // Sai do modo edição
+
+                CarregarLogo(); // Recarrega para mostrar a nova
+                ConfigurarEstadoInicial(); // Volta ao estado inicial
             }
             catch (Exception ex)
             {
-                Utilitario.Mensagens.Erro("Erro ao salvar logo: " + ex.Message);
+                Mensagens.Erro("Erro ao salvar: " + ex.Message);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
             }
         }
+
 
         private void btnSair_Click(object sender, EventArgs e)
         {
@@ -165,31 +211,45 @@ namespace GVC.View
         }
         private void ConfigurarEstadoInicial()
         {
-            bool empresaSelecionada = _empresaId > 0;
+            bool temEmpresa = _empresaId > 0;
 
-            btnSalvar.Text = "Alterar";
-            btnSalvar.Enabled = empresaSelecionada;
-            btnSelecionarLogo.Enabled = false;
-            picLogo.Enabled = empresaSelecionada;
-            lblInstrucao.Text = empresaSelecionada ? "Clique em Alterar para mudar a logo" : "Selecione uma empresa acima";
+            if (_emModoEdicao)
+            {
+                btnSalvar.Text = "Salvar";
+                btnSelecionarLogo.Enabled = true;
+                lblInstrucao.Text = "Selecione uma nova imagem e clique em Salvar";
+            }
+            else
+            {
+                btnSalvar.Text = "Alterar";
+                btnSelecionarLogo.Enabled = false;
+                lblInstrucao.Text = temEmpresa
+                    ? "Clique em 'Alterar' para modificar a logo"
+                    : "Selecione uma empresa na lista acima";
+            }
+
+            btnSalvar.Enabled = temEmpresa || _emModoEdicao;  // Habilita se tem empresa OU está editando
         }
         private void cmbEmpresas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbEmpresas.SelectedIndex == -1)
+            if (cmbEmpresas.SelectedIndex < 0)
             {
                 _empresaId = 0;
-                ConfigurarEstadoInicial();
-                picLogo.Image?.Dispose();
-                picLogo.Image = Properties.Resources.UsuarioBlue24; // padrão
-                return;
+            }
+            else
+            {
+                // Pega direto da lista para garantir
+                var empresas = (List<EmpresaSimples>)cmbEmpresas.DataSource;
+                var empresaSelecionada = empresas[cmbEmpresas.SelectedIndex];
+                _empresaId = empresaSelecionada.EmpresaID;
             }
 
-            _empresaId = Convert.ToInt32(cmbEmpresas.SelectedValue);
+            _emModoEdicao = false;
             _logoAlterada = false;
             _logoBytesNovos = null;
 
-            CarregarLogo();  // Carrega a logo da empresa selecionada
-            ConfigurarEstadoInicial();  // Volta botão para "Alterar"
+            CarregarLogo();
+            ConfigurarEstadoInicial();  // Ou copie a lógica de habilitação aqui se preferir
         }
     }
 }

@@ -37,6 +37,7 @@
             label1 = new Label();
             cmbEmpresas = new Krypton.Toolkit.KryptonComboBox();
             lblInstrucao = new Label();
+            pgbSalvando = new Krypton.Toolkit.KryptonProgressBar();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbEmpresas).BeginInit();
             SuspendLayout();
@@ -80,7 +81,7 @@
             // btnSair
             // 
             btnSair.CornerRoundingRadius = 6F;
-            btnSair.Location = new Point(253, 335);
+            btnSair.Location = new Point(250, 330);
             btnSair.Margin = new Padding(4, 3, 4, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -135,7 +136,7 @@
             // btnSalvar
             // 
             btnSalvar.CornerRoundingRadius = 6F;
-            btnSalvar.Location = new Point(66, 335);
+            btnSalvar.Location = new Point(85, 330);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -190,16 +191,16 @@
             // 
             // picLogo
             // 
-            picLogo.Location = new Point(75, 115);
+            picLogo.Location = new Point(85, 86);
             picLogo.Name = "picLogo";
-            picLogo.Size = new Size(277, 214);
+            picLogo.Size = new Size(255, 238);
             picLogo.TabIndex = 1047;
             picLogo.TabStop = false;
             // 
             // btnSelecionarLogo
             // 
             btnSelecionarLogo.CornerRoundingRadius = 6F;
-            btnSelecionarLogo.Location = new Point(262, 82);
+            btnSelecionarLogo.Location = new Point(250, 53);
             btnSelecionarLogo.Margin = new Padding(4, 3, 4, 3);
             btnSelecionarLogo.Name = "btnSelecionarLogo";
             btnSelecionarLogo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -256,7 +257,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 9.25F);
             label1.ForeColor = Color.FromArgb(0, 76, 172);
-            label1.Location = new Point(75, 93);
+            label1.Location = new Point(85, 64);
             label1.Name = "label1";
             label1.Size = new Size(76, 16);
             label1.TabIndex = 1050;
@@ -267,9 +268,9 @@
             cmbEmpresas.CornerRoundingRadius = 10F;
             cmbEmpresas.DropDownWidth = 171;
             cmbEmpresas.IntegralHeight = false;
-            cmbEmpresas.Location = new Point(12, 38);
+            cmbEmpresas.Location = new Point(12, 26);
             cmbEmpresas.Name = "cmbEmpresas";
-            cmbEmpresas.Size = new Size(408, 27);
+            cmbEmpresas.Size = new Size(417, 27);
             cmbEmpresas.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(8, 142, 254);
             cmbEmpresas.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(8, 142, 254);
             cmbEmpresas.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
@@ -285,18 +286,30 @@
             lblInstrucao.AutoSize = true;
             lblInstrucao.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblInstrucao.ForeColor = Color.FromArgb(0, 76, 172);
-            lblInstrucao.Location = new Point(12, 18);
+            lblInstrucao.Location = new Point(12, 6);
             lblInstrucao.Name = "lblInstrucao";
             lblInstrucao.Size = new Size(268, 16);
             lblInstrucao.TabIndex = 1052;
             lblInstrucao.Text = "Selecione uma Empresa para alterar o logo";
+            // 
+            // pgbSalvando
+            // 
+            pgbSalvando.Dock = DockStyle.Bottom;
+            pgbSalvando.Location = new Point(0, 378);
+            pgbSalvando.Name = "pgbSalvando";
+            pgbSalvando.Size = new Size(441, 23);
+            pgbSalvando.Style = ProgressBarStyle.Continuous;
+            pgbSalvando.TabIndex = 1053;
+            pgbSalvando.UseKrypton = true;
+            pgbSalvando.Visible = false;
             // 
             // FrmConfigLogo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(432, 374);
+            ClientSize = new Size(441, 401);
+            Controls.Add(pgbSalvando);
             Controls.Add(cmbEmpresas);
             Controls.Add(lblInstrucao);
             Controls.Add(label1);
@@ -331,5 +344,6 @@
         private Krypton.Toolkit.KryptonButton btnSelecionarLogo;
         private Label label1;
         public Krypton.Toolkit.KryptonComboBox cmbEmpresas;
+        private Krypton.Toolkit.KryptonProgressBar pgbSalvando;
     }
 }

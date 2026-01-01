@@ -1,24 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmconfiguracoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmconfiguracoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dal\\empresadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:dal\\empresadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmconfiglogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmconfiglogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmconfiglogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmconfiglogo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 23,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -119,57 +102,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FrmConfiguracoes.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmConfiguracoes.cs",
-              "RelativeDocumentMoniker": "UTIL\\FrmConfiguracoes.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmConfiguracoes.cs",
-              "RelativeToolTip": "UTIL\\FrmConfiguracoes.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAjwCsAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T05:07:54.575Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EmpresaDal.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\DAL\\EmpresaDal.cs",
-              "RelativeDocumentMoniker": "DAL\\EmpresaDal.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\DAL\\EmpresaDal.cs",
-              "RelativeToolTip": "DAL\\EmpresaDal.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAswCkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T05:00:26.506Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FrmConfigLogo.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmConfigLogo.cs",
-              "RelativeDocumentMoniker": "UTIL\\FrmConfigLogo.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmConfigLogo.cs",
-              "RelativeToolTip": "UTIL\\FrmConfigLogo.cs",
-              "ViewState": "AgIAAIcAAAAAAAAAAAAswJ4AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T03:47:45.676Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmConfigLogo.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmConfigLogo.cs",
-              "RelativeDocumentMoniker": "UTIL\\FrmConfigLogo.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmConfigLogo.cs [Projeto]",
-              "RelativeToolTip": "UTIL\\FrmConfigLogo.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T03:45:57.664Z",
-              "EditorCaption": " [Projeto]"
             }
           ]
         },

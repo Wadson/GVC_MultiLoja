@@ -32,15 +32,6 @@ namespace GVC.DALL
 
             return lista;
         }
-
-        // Classe auxiliar simples
-        public class EmpresaSimples
-        {
-            public int EmpresaID { get; set; }
-            public string NomeFantasia { get; set; }
-        }
-
-      
         public static byte[] ObterImagem(int empresaId)
         {
             using var conn = Helpers.Conexao.Conex();

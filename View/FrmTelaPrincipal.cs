@@ -282,5 +282,11 @@ namespace GVC.View
             FrmConfiguracoes frm = new FrmConfiguracoes(empresa.EmpresaID);
             frm.ShowDialog();
         }
+
+        private void empresaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmManutEmpresa frm = new FrmManutEmpresa(StatusOperacao);
+            AbrirFormEnPanel(frm);
+        }
     }
 }
