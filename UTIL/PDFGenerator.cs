@@ -1,275 +1,239 @@
 ﻿using GVC.MODEL;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
-
-// ALIASES para evitar conflitos
-using Document = iTextSharp.text.Document;
-using PdfWriter = iTextSharp.text.pdf.PdfWriter;
-using PageSize = iTextSharp.text.PageSize;
-using BaseFont = iTextSharp.text.pdf.BaseFont;
-using Font = iTextSharp.text.Font;
-using Paragraph = iTextSharp.text.Paragraph;
-using Phrase = iTextSharp.text.Phrase;
-using PdfPTable = iTextSharp.text.pdf.PdfPTable;
-using PdfPCell = iTextSharp.text.pdf.PdfPCell;
-using BaseColor = iTextSharp.text.BaseColor;
-using Element = iTextSharp.text.Element;
+using System.Linq;
+using Image = iTextSharp.text.Image;
+using Rectangle = iTextSharp.text.Rectangle;
 
 namespace GVC.UTIL
 {
-    public class PDFGenerator
+    public static class PDFGenerator
     {
-        public static void GerarExtratoPDF(ExtratoCliente extrato, string caminhoArquivo)
+        // =========================
+        // CONFIGURAÇÕES GERAIS
+        // =========================
+        private static readonly BaseFont BaseFonte =
+            BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+
+        private static readonly iTextSharp.text.Font FonteNormal = new(BaseFonte, 10);
+        private static readonly iTextSharp.text.Font FonteNegrito = new(BaseFonte, 10, iTextSharp.text.Font.BOLD);
+        private static readonly iTextSharp.text.Font FonteTitulo = new(BaseFonte, 15, iTextSharp.text.Font.BOLD);
+        private static readonly iTextSharp.text.Font FonteRodape = new(BaseFonte, 8);
+
+        private static readonly BaseColor CorCabecalho = new(230, 230, 230);
+
+        // =========================
+        // EXTRATO FINANCEIRO
+        // =========================
+        public static void GerarExtratoPDF(ExtratoCliente extrato, DadosEmpresaPdf empresa, string caminhoArquivo)
         {
-            Document doc = new Document(PageSize.A4);
+            Validar(extrato, empresa);
+
+            using var fs = new FileStream(caminhoArquivo, FileMode.Create);
+            var doc = CriarDocumento(fs);
+
+            AdicionarCabecalho(doc, empresa, "EXTRATO FINANCEIRO");
+            AdicionarDadosCliente(doc, extrato);
+            AdicionarTabelaExtrato(doc, extrato);
+            AdicionarResumoExtrato(doc, extrato);
+            AdicionarRodape(doc);
+
+            doc.Close();
+        }
+
+        // =========================
+        // RECIBO COM HISTÓRICO
+        // =========================
+        public static void GerarReciboPagamentos( ExtratoCliente extrato, List<PagamentoExtratoModel> pagamentos,
+            DadosEmpresaPdf empresa, string caminhoArquivo)
+        {
+            Validar(extrato, empresa);
+
+            if (pagamentos == null || pagamentos.Count == 0)
+                throw new Exception("Nenhum pagamento encontrado.");
+
+            using var fs = new FileStream(caminhoArquivo, FileMode.Create);
+            var doc = CriarDocumento(fs);
+
+            AdicionarCabecalho(doc, empresa, "RECIBO DE PAGAMENTO");
+            AdicionarDadosCliente(doc, extrato);
+            AdicionarTabelaPagamentos(doc, pagamentos);
+            AdicionarTotalPagamentos(doc, pagamentos);
+            AdicionarAssinatura(doc);
+            AdicionarRodape(doc);
+
+            doc.Close();
+        }
+
+        // =========================
+        // MÉTODOS PRIVADOS
+        // =========================
+
+        private static Document CriarDocumento(FileStream fs)
+        {
+            var doc = new Document(PageSize.A4);
             doc.SetMargins(40, 40, 40, 40);
-
-            PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminhoArquivo, FileMode.Create));
+            PdfWriter.GetInstance(doc, fs);
             doc.Open();
+            return doc;
+        }
 
-            // Configurar fonte padrão
-            BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+        private static void Validar(ExtratoCliente extrato, DadosEmpresaPdf empresa)
+        {
+            if (extrato == null)
+                throw new ArgumentNullException(nameof(extrato));
 
-            Font fonteNormal = new Font(baseFont, 10);
-            Font fonteNegrito = new Font(baseFont, 10, Font.BOLD);
-            Font fonteTitulo = new Font(baseFont, 14, Font.BOLD);
-            Font fontePequena = new Font(baseFont, 8);
+            if (empresa == null)
+                throw new ArgumentNullException(nameof(empresa));
+        }
 
-            // Cabeçalho
-            Paragraph titulo = new Paragraph("EXTRATO FINANCEIRO", fonteTitulo);
-            titulo.Alignment = Element.ALIGN_CENTER;
-            titulo.SpacingAfter = 20;
-            doc.Add(titulo);
-
-            // Informações do Cliente
-            doc.Add(new Paragraph($"Cliente: {extrato.NomeCliente}", fonteNegrito));
-            if (!string.IsNullOrEmpty(extrato.CPF_CNPJ))
-                doc.Add(new Paragraph($"CPF/CNPJ: {extrato.CPF_CNPJ}", fonteNormal));
-            if (!string.IsNullOrEmpty(extrato.Endereco))
-                doc.Add(new Paragraph($"Endereço: {extrato.Endereco}", fonteNormal));
-            if (!string.IsNullOrEmpty(extrato.Telefone))
-                doc.Add(new Paragraph($"Telefone: {extrato.Telefone}", fonteNormal));
-
-            doc.Add(new Paragraph($"Data de Emissão: {extrato.DataEmissao:dd/MM/yyyy HH:mm}", fonteNormal));
-            doc.Add(new Paragraph(" "));
-
-            // Tabela de Itens
-            PdfPTable tabela = new PdfPTable(8);
+        private static void AdicionarCabecalho( Document doc,DadosEmpresaPdf empresa, string titulo)
+        {
+            PdfPTable tabela = new PdfPTable(2);
             tabela.WidthPercentage = 100;
-            tabela.SetWidths(new float[] { 12, 10, 10, 12, 12, 12, 12, 10 });
+            tabela.SetWidths(new float[] { 20, 80 });
 
-            // Cabeçalho da tabela
-            tabela.AddCell(new PdfPCell(new Phrase("Venda", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Parcela", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Vencimento", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Pagamento", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Valor", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Recebido", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Saldo", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Status", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-
-            // Adicionar itens
-            foreach (var item in extrato.ItensExtrato)
+            if (empresa.Logo != null && empresa.Logo.Length > 0)
             {
-                tabela.AddCell(new PdfPCell(new Phrase(item.VendaID.ToString(), fonteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                tabela.AddCell(new PdfPCell(new Phrase(item.NumeroParcela.ToString(), fonteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                tabela.AddCell(new PdfPCell(new Phrase(item.DataVencimento.ToString("dd/MM/yyyy"), fonteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                tabela.AddCell(new PdfPCell(new Phrase(item.DataPagamento?.ToString("dd/MM/yyyy") ?? "-", fonteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                tabela.AddCell(new PdfPCell(new Phrase(item.ValorParcela.ToString("C2"), fonteNormal)) { HorizontalAlignment = Element.ALIGN_RIGHT });
-                tabela.AddCell(new PdfPCell(new Phrase(item.ValorRecebido.ToString("C2"), fonteNormal)) { HorizontalAlignment = Element.ALIGN_RIGHT });
-                tabela.AddCell(new PdfPCell(new Phrase(item.Saldo.ToString("C2"), fonteNormal)) { HorizontalAlignment = Element.ALIGN_RIGHT });
-
-                // Cor do status
-                Phrase statusPhrase = new Phrase(item.Status, fonteNormal);
-                if (item.Status == "Paga")
-                    statusPhrase.Font.Color = BaseColor.GREEN;
-                else if (item.Status == "Atrasada")
-                    statusPhrase.Font.Color = BaseColor.RED;
-                else if (item.Status == "Parcialmente Paga")
-                    statusPhrase.Font.Color = BaseColor.BLUE;
-
-                tabela.AddCell(new PdfPCell(statusPhrase) { HorizontalAlignment = Element.ALIGN_CENTER });
+                Image logo = Image.GetInstance(empresa.Logo);
+                logo.ScaleToFit(80, 80);
+                tabela.AddCell(new PdfPCell(logo)
+                {
+                    Border = Rectangle.NO_BORDER
+                });
+            }
+            else
+            {
+                tabela.AddCell(new PdfPCell { Border = Rectangle.NO_BORDER });
             }
 
-            doc.Add(tabela);
-            doc.Add(new Paragraph(" "));
-
-            // Resumo
-            PdfPTable tabelaResumo = new PdfPTable(3);
-            tabelaResumo.WidthPercentage = 60;
-            tabelaResumo.HorizontalAlignment = Element.ALIGN_RIGHT;
-
-            tabelaResumo.AddCell(new PdfPCell(new Phrase("Total Pago:", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
-            tabelaResumo.AddCell(new PdfPCell(new Phrase(extrato.TotalPago.ToString("C2"), fonteNegrito)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
-            tabelaResumo.AddCell(new PdfPCell(new Phrase("")) { Border = 0 });
-
-            tabelaResumo.AddCell(new PdfPCell(new Phrase("Total Devendo:", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
-            tabelaResumo.AddCell(new PdfPCell(new Phrase(extrato.TotalDevendo.ToString("C2"), fonteNegrito)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
-            tabelaResumo.AddCell(new PdfPCell(new Phrase("")) { Border = 0 });
-
-            tabelaResumo.AddCell(new PdfPCell(new Phrase("SALDO ATUAL:", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
-            tabelaResumo.AddCell(new PdfPCell(new Phrase(extrato.SaldoAtual.ToString("C2"), fonteNegrito))
+            tabela.AddCell(new PdfPCell(new Phrase(empresa.NomeEmpresa, FonteTitulo))
             {
-                HorizontalAlignment = Element.ALIGN_RIGHT,
-                Border = 0,
-                BackgroundColor = extrato.SaldoAtual > 0 ? BaseColor.RED : BaseColor.GREEN
+                Border = iTextSharp.text.Rectangle.NO_BORDER,
+                VerticalAlignment = Element.ALIGN_MIDDLE
             });
-            tabelaResumo.AddCell(new PdfPCell(new Phrase("")) { Border = 0 });
-
-            doc.Add(tabelaResumo);
-            doc.Add(new Paragraph(" "));
-            doc.Add(new Paragraph(" "));
-
-            // Rodapé
-            Paragraph rodape = new Paragraph("Documento gerado automaticamente pelo sistema GVC", fontePequena);
-            rodape.Alignment = Element.ALIGN_CENTER;
-            rodape.SpacingBefore = 20;
-            doc.Add(rodape);
-
-            doc.Close();
-        }
-
-        public static void GerarReciboPDF(ExtratoCliente extrato, List<dynamic> parcelasSelecionadas, string caminhoArquivo)
-        {
-            Document doc = new Document(PageSize.A4);
-            doc.SetMargins(40, 40, 40, 40);
-
-            PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminhoArquivo, FileMode.Create));
-            doc.Open();
-
-            BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-
-            Font fonteNormal = new Font(baseFont, 10);
-            Font fonteNegrito = new Font(baseFont, 10, Font.BOLD);
-            Font fonteTitulo = new Font(baseFont, 16, Font.BOLD);
-
-            // Título
-            Paragraph titulo = new Paragraph("RECIBO DE PARCELAS", fonteTitulo);
-            titulo.Alignment = Element.ALIGN_CENTER;
-            titulo.SpacingAfter = 20;
-            doc.Add(titulo);
-
-            // Informações
-            doc.Add(new Paragraph($"Cliente: {extrato.NomeCliente}", fonteNegrito));
-            doc.Add(new Paragraph($"Data: {DateTime.Now:dd/MM/yyyy HH:mm}", fonteNormal));
-            doc.Add(new Paragraph(" "));
-
-            // Lista de parcelas incluídas
-            Paragraph subtitulo = new Paragraph("Parcelas incluídas:", fonteNegrito);
-            subtitulo.SpacingAfter = 10;
-            doc.Add(subtitulo);
-
-            PdfPTable tabela = new PdfPTable(4);
-            tabela.WidthPercentage = 100;
-            tabela.SetWidths(new float[] { 15, 20, 25, 20 });
-
-            tabela.AddCell(new PdfPCell(new Phrase("Venda", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Parcela", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Vencimento", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-            tabela.AddCell(new PdfPCell(new Phrase("Valor", fonteNegrito)) { HorizontalAlignment = Element.ALIGN_CENTER });
-
-            decimal totalRecibo = 0;
-            foreach (var parcela in parcelasSelecionadas)
-            {
-                tabela.AddCell(new PdfPCell(new Phrase(parcela.VendaID.ToString(), fonteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                tabela.AddCell(new PdfPCell(new Phrase(parcela.NumeroParcela.ToString(), fonteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                tabela.AddCell(new PdfPCell(new Phrase(((DateTime)parcela.DataVencimento).ToString("dd/MM/yyyy"), fonteNormal)) { HorizontalAlignment = Element.ALIGN_CENTER });
-                tabela.AddCell(new PdfPCell(new Phrase(((decimal)parcela.ValorParcela).ToString("C2"), fonteNormal)) { HorizontalAlignment = Element.ALIGN_RIGHT });
-
-                totalRecibo += (decimal)parcela.ValorParcela;
-            }
 
             doc.Add(tabela);
-            doc.Add(new Paragraph(" "));
 
-            // Total
-            Paragraph total = new Paragraph($"TOTAL: {totalRecibo.ToString("C2")}", new Font(baseFont, 14, Font.BOLD));
-            total.Alignment = Element.ALIGN_RIGHT;
-            total.SpacingBefore = 20;
-            doc.Add(total);
-
-            // Assinatura
-            doc.Add(new Paragraph(" "));
-            doc.Add(new Paragraph(" "));
-            doc.Add(new Paragraph(" "));
-
-            Paragraph linha = new Paragraph("________________________________________", fonteNormal);
-            linha.Alignment = Element.ALIGN_CENTER;
-            doc.Add(linha);
-
-            Paragraph assinatura = new Paragraph("Assinatura do Cliente", fonteNormal);
-            assinatura.Alignment = Element.ALIGN_CENTER;
-            doc.Add(assinatura);
-
-            // Rodapé
-            Paragraph rodape = new Paragraph("Recibo válido para fins de comprovação de pagamento", fonteNormal);
-            rodape.Alignment = Element.ALIGN_CENTER;
-            rodape.SpacingBefore = 30;
-            doc.Add(rodape);
-
-            doc.Close();
-        }
-        public static void GerarReciboPagamentos(
-    ExtratoCliente extrato,
-    List<PagamentoExtratoModel> pagamentos,
-    string caminhoArquivo)
-        {
-            Document doc = new Document(PageSize.A4);
-            doc.SetMargins(40, 40, 40, 40);
-
-            PdfWriter.GetInstance(doc, new FileStream(caminhoArquivo, FileMode.Create));
-            doc.Open();
-
-            BaseFont baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-            Font normal = new Font(baseFont, 10);
-            Font negrito = new Font(baseFont, 10, Font.BOLD);
-            Font titulo = new Font(baseFont, 16, Font.BOLD);
-
-            doc.Add(new Paragraph("RECIBO DE PAGAMENTO", titulo)
+            doc.Add(new Paragraph(titulo, FonteTitulo)
             {
                 Alignment = Element.ALIGN_CENTER,
-                SpacingAfter = 20
+                SpacingBefore = 10,
+                SpacingAfter = 15
             });
+        }
 
-            doc.Add(new Paragraph($"Cliente: {extrato.NomeCliente}", negrito));
-            doc.Add(new Paragraph($"Data: {DateTime.Now:dd/MM/yyyy HH:mm}", normal));
+        private static void AdicionarDadosCliente(Document doc, ExtratoCliente extrato)
+        {
+            doc.Add(new Paragraph($"Cliente: {extrato.NomeCliente}", FonteNegrito));
+            doc.Add(new Paragraph($"Data de emissão: {DateTime.Now:dd/MM/yyyy HH:mm}", FonteNormal));
             doc.Add(new Paragraph(" "));
+        }
 
+        private static void AdicionarTabelaExtrato(Document doc, ExtratoCliente extrato)
+        {
+            PdfPTable tabela = new PdfPTable(6);
+            tabela.WidthPercentage = 100;
+            tabela.SetWidths(new float[] { 10, 10, 15, 15, 15, 15 });
+
+            AddHeader(tabela, "Venda");
+            AddHeader(tabela, "Parcela");
+            AddHeader(tabela, "Vencimento");
+            AddHeader(tabela, "Valor");
+            AddHeader(tabela, "Recebido");
+            AddHeader(tabela, "Saldo");
+
+            foreach (var item in extrato.ItensExtrato)
+            {
+                tabela.AddCell(item.VendaID.ToString());
+                tabela.AddCell(item.NumeroParcela.ToString());
+                tabela.AddCell(item.DataVencimento.ToString("dd/MM/yyyy"));
+                tabela.AddCell(item.ValorParcela.ToString("C2"));
+                tabela.AddCell(item.ValorRecebido.ToString("C2"));
+                tabela.AddCell(item.Saldo.ToString("C2"));
+            }
+
+            doc.Add(tabela);
+        }
+
+        private static void AdicionarResumoExtrato(Document doc, ExtratoCliente extrato)
+        {
+            doc.Add(new Paragraph(" "));
+            doc.Add(new Paragraph($"Total pago: {extrato.TotalPago:C2}", FonteNegrito));
+            doc.Add(new Paragraph($"Total em aberto: {extrato.TotalDevendo:C2}", FonteNegrito));
+        }
+
+        private static void AdicionarTabelaPagamentos(
+            Document doc,
+            List<PagamentoExtratoModel> pagamentos)
+        {
             PdfPTable tabela = new PdfPTable(4);
             tabela.WidthPercentage = 100;
-            tabela.SetWidths(new float[] { 20, 20, 20, 40 });
+            tabela.SetWidths(new float[] { 20, 20, 25, 35 });
 
-            tabela.AddCell("Data");
-            tabela.AddCell("Valor");
-            tabela.AddCell("Forma");
-            tabela.AddCell("Observação");
-
-            decimal total = 0;
+            AddHeader(tabela, "Data");
+            AddHeader(tabela, "Valor");
+            AddHeader(tabela, "Forma");
+            AddHeader(tabela, "Observação");
 
             foreach (var p in pagamentos)
             {
                 tabela.AddCell(p.DataPagamento.ToString("dd/MM/yyyy"));
                 tabela.AddCell(p.ValorPago.ToString("C2"));
-                tabela.AddCell(p.FormaPagamento);
-                tabela.AddCell(p.Observacao);
-
-                total += p.ValorPago;
+                tabela.AddCell(p.FormaPagamento ?? "-");
+                tabela.AddCell(p.Observacao ?? "-");
             }
 
             doc.Add(tabela);
-
-            doc.Add(new Paragraph($"TOTAL RECEBIDO: {total:C2}", negrito)
-            {
-                Alignment = Element.ALIGN_RIGHT,
-                SpacingBefore = 20
-            });
-
-            doc.Add(new Paragraph("\n\n________________________________________"));
-            doc.Add(new Paragraph("Assinatura do Cliente"));
-
-            doc.Close();
         }
 
+        private static void AdicionarTotalPagamentos(
+            Document doc,
+            List<PagamentoExtratoModel> pagamentos)
+        {
+            decimal total = pagamentos.Sum(p => p.ValorPago);
+
+            doc.Add(new Paragraph($"TOTAL RECEBIDO: {total:C2}", FonteNegrito)
+            {
+                Alignment = Element.ALIGN_RIGHT,
+                SpacingBefore = 15
+            });
+        }
+
+        private static void AdicionarAssinatura(Document doc)
+        {
+            doc.Add(new Paragraph("\n\n"));
+            doc.Add(new Paragraph("________________________________________")
+            {
+                Alignment = Element.ALIGN_CENTER
+            });
+            doc.Add(new Paragraph("Assinatura do Cliente")
+            {
+                Alignment = Element.ALIGN_CENTER
+            });
+        }
+
+        private static void AdicionarRodape(Document doc)
+        {
+            doc.Add(new Paragraph("\n"));
+            doc.Add(new Paragraph(
+                "Documento gerado automaticamente pelo sistema GVC",
+                FonteRodape)
+            {
+                Alignment = Element.ALIGN_CENTER
+            });
+        }
+
+        private static void AddHeader(PdfPTable tabela, string texto)
+        {
+            tabela.AddCell(new PdfPCell(new Phrase(texto, FonteNegrito))
+            {
+                BackgroundColor = CorCabecalho,
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+        }
     }
 }

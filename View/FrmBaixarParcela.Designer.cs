@@ -239,7 +239,6 @@
             cmbFormaPagamento.StateCommon.ComboBox.Border.Width = 1;
             cmbFormaPagamento.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             cmbFormaPagamento.TabIndex = 0;
-            cmbFormaPagamento.SelectedIndexChanged += cmbFormaPagamento_SelectedIndexChanged;
             // 
             // txtSaldo
             // 

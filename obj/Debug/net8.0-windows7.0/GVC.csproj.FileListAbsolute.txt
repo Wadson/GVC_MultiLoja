@@ -344,7 +344,6 @@ C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmEntradaEstoque.resource
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmEntradaFiscal.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmEstornarPagamento.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmFerramentas.resources
-C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmFinanceiro.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmGerenciarVendas.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmItensVenda.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmLocalizarCidade.resources

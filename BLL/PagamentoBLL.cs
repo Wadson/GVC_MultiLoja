@@ -10,11 +10,11 @@ namespace GVC.BLL
 {
     public class PagamentoBLL
     {
-        private readonly PagamentoParcialDal _dal = new();
-
-        public List<PagamentoExtratoModel> ListarPagamentos(long parcelaId)
+        private readonly PagamentoParcialDal _pagamentoParcialDal = new();
+        public List<PagamentoExtratoModel> ListarPagamentosPorParcela(int parcelaId)
         {
-            return _dal.ListarPagamentosPorParcelaCompleto(parcelaId);
+            return _pagamentoParcialDal.ListarPagamentosPorParcelaCompleto(parcelaId);
         }
+
     }
 }

@@ -197,12 +197,13 @@ namespace GVC.View
                 Utilitario.Mensagens.Aviso("O valor pago não pode ser maior que o saldo devido.");
                 return;
             }
+            // 🔹 OBSERVAÇÃO VEM DO FORM
+            string? observacao = string.IsNullOrWhiteSpace(txtObservacao.Text)
+                ? null : txtObservacao.Text.Trim();
 
             if (_parcelasIds.Count == 1)
-            {
-                parcelaBLL.BaixarParcelaParcial(_parcelasIds[0],valorBaixa,
-                    FormaPgtoIDSelecionada.Value
-                );
+            {               
+                parcelaBLL.BaixarParcelaParcial(_parcelasIds[0],valorBaixa,FormaPgtoIDSelecionada.Value, observacao);
             }
             else
             {
@@ -359,19 +360,6 @@ namespace GVC.View
             cmbFormaPagamento.DataSource = formas;
 
             cmbFormaPagamento.SelectedIndex = -1; // força seleção manual
-        }
-
-        private void cmbFormaPagamento_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        //    if (cmbFormaPagamento.SelectedValue != null &&
-        //long.TryParse(cmbFormaPagamento.SelectedValue.ToString(), out long id))
-        //    {
-        //        _formaPgtoIdSelecionada = id; // guarda o ID para uso posterior                                              
-        //    }
-        //    else
-        //    {
-        //        _formaPgtoIdSelecionada = null; // nada selecionado
-        //    }
         }
 
         private void FrmBaixarParcela_Load(object sender, EventArgs e)

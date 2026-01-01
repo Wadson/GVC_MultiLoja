@@ -51,13 +51,13 @@ namespace GVC.BLL
         // 2. BAIXA PARCIAL DE UMA PARCELA (valor informado pelo usuário)
         // ==========================================================
         public void BaixarParcelaParcial(
-    int parcelaId,
-    decimal valorPago,
-    int? formaPgtoId,
-    string comprovante = null,
-    string observacao = null)
+      int parcelaId,
+      decimal valorPago,
+      int? formaPgtoId,
+      string? comprovante = null,
+      string? observacao = null)
         {
-            if (valorPago <= 0m)
+            if (valorPago <= 0)
                 throw new Exception("O valor pago deve ser maior que zero.");
 
             var parcela = _parcelaDal.BuscarPorId(parcelaId)
@@ -71,23 +71,24 @@ namespace GVC.BLL
             if (valorPago > saldoAtual)
                 throw new Exception("Valor pago maior que o saldo devido.");
 
-            // 1️⃣ Atualiza PARCELA (valor recebido e data)
-            _parcelaDal.BaixarParcela(parcelaId, valorPago, DateTime.Now);
+            // 🧠 OBSERVAÇÃO PADRÃO
+            string obsFinal = string.IsNullOrWhiteSpace(observacao)
+                ? "Baixa parcial"
+                : $"Baixa parcial – {observacao.Trim()}";
 
-            // 2️⃣ Registra PAGAMENTO PARCIAL (incluindo forma de pagamento, comprovante e observação)
             _pagamentoParcialDal.RegistrarPagamentoParcial(
                 parcelaId,
                 valorPago,
                 DateTime.Now,
-                formaPgtoId,               
-                observacao
+                formaPgtoId,
+                obsFinal
             );
 
-            // 🔁 status da venda permanece igual ao seu código atual
+            // 🔥 Trigger cuida de:
+            // - ValorRecebido
+            // - Status
+            // - DataPagamento
         }
-
-
-
 
 
         // ==========================================================
@@ -95,13 +96,17 @@ namespace GVC.BLL
         // ==========================================================
 
         public void BaixarParcelasEmLote(
-    List<long> parcelasIds,
-    DateTime dataPagamento,
-    long formaPgtoId
-)
+     List<long> parcelasIds,
+     DateTime dataPagamento,
+     long formaPgtoId,
+     string? observacao = null)
         {
             if (parcelasIds == null || parcelasIds.Count == 0)
                 throw new Exception("Nenhuma parcela selecionada.");
+
+            string obsFinal = string.IsNullOrWhiteSpace(observacao)
+                ? "Baixa total em lote"
+                : $"Baixa total em lote – {observacao.Trim()}";
 
             using var conn = Conexao.Conex();
             conn.Open();
@@ -109,23 +114,23 @@ namespace GVC.BLL
 
             try
             {
-                const string sqlBaixa = @"
-                    UPDATE Parcela
-                    SET ValorRecebido = ValorParcela + Juros + Multa,
-                        DataPagamento = @DataPagamento
-                    WHERE ParcelaID = @ParcelaID";
+                const string sqlHistorico = @"
+INSERT INTO PagamentosParciais
+    (ParcelaID, DataPagamento, FormaPgtoID, ValorPago, Observacao)
+SELECT
+    ParcelaID,
+    @DataPagamento,
+    @FormaPgtoID,
+    (ValorParcela + Juros + Multa - ValorRecebido),
+    @Observacao
+FROM Parcela
+WHERE ParcelaID = @ParcelaID";
 
-                                    const string sqlHistorico = @"
-                    INSERT INTO PagamentosParciais
-                        (ParcelaID, DataPagamento, FormaPgtoID, ValorPago, Observacao)
-                    SELECT
-                        ParcelaID,
-                        @DataPagamento,
-                        @FormaPgtoID,
-                        (ValorParcela + Juros + Multa - ValorRecebido),
-                        'Baixa total em lote'
-                    FROM Parcela
-                    WHERE ParcelaID = @ParcelaID";
+                const string sqlBaixa = @"
+UPDATE Parcela
+SET ValorRecebido = ValorParcela + Juros + Multa,
+    DataPagamento = @DataPagamento
+WHERE ParcelaID = @ParcelaID";
 
                 foreach (var parcelaId in parcelasIds)
                 {
@@ -139,7 +144,8 @@ namespace GVC.BLL
                     {
                         ParcelaID = parcelaId,
                         DataPagamento = dataPagamento,
-                        FormaPgtoID = formaPgtoId
+                        FormaPgtoID = formaPgtoId,
+                        Observacao = obsFinal
                     }, transaction);
                 }
 
@@ -151,10 +157,6 @@ namespace GVC.BLL
                 throw;
             }
         }
-
-
-
-
 
         // ==========================================================
         // ALTERAR STATUS MANUALMENTE

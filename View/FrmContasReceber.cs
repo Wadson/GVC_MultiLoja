@@ -23,8 +23,6 @@ namespace GVC.View
 {
     public partial class FrmContasReceber : KryptonForm
     {
-       
-
         private bool bloqueiaPesquisa = false;
         private readonly PagamentoParcialDal _pagamentoDal = new PagamentoParcialDal();
         public int ClienteID { get; set; }
@@ -36,7 +34,6 @@ namespace GVC.View
         {
             InitializeComponent();
         }
-
         private void ConfigurarGridContasAReceber()
         {
             dgvContasAReceber.AutoGenerateColumns = false;
@@ -350,8 +347,7 @@ namespace GVC.View
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
             
-            cmbTipoPesquisa.SelectedIndex = 0;
-            
+            cmbTipoPesquisa.SelectedIndex = 0;            
             
             ConfigurarGridContasAReceber();
             ConfigurarGridPagamentos(); // 🔴 ESSENCIAL
@@ -675,8 +671,17 @@ namespace GVC.View
 
                     if (saveDialog.ShowDialog() == DialogResult.OK)
                     {
-                        // Gerar o PDF
-                        GVC.UTIL.PDFGenerator.GerarExtratoPDF(extrato, saveDialog.FileName);
+                        // 🔹 Buscar dados da empresa para PDF
+                        var empresaBLL = new EmpresaBll();
+                        var empresa = empresaBLL.ObterDadosParaPdf();
+
+                        // 🔹 Gerar o PDF
+                        UTIL.PDFGenerator.GerarExtratoPDF(
+                            extrato,
+                            empresa,
+                            saveDialog.FileName
+                        );
+
 
                         // Mensagem de sucesso
                         DialogResult resultado = MessageBox.Show(
@@ -783,8 +788,8 @@ namespace GVC.View
             }
 
             // Extrato do cliente (usa CurrentRow, não as selecionadas)
-            var extrato = ObterExtratoCliente(true);
-            if (extrato == null) return;
+            var extratoCliente = ObterExtratoCliente(true);
+            if (extratoCliente == null) return;
 
             // Converte para dynamic apenas para compatibilidade com PDFGenerator
             var parcelasDynamic = parcelasSelecionadas.Cast<dynamic>().ToList();
@@ -793,16 +798,45 @@ namespace GVC.View
             {
                 Filter = "PDF Files|*.pdf",
                 Title = "Salvar Recibo",
-                FileName = $"Recibo_{RemoveCaracteresInvalidos(extrato.NomeCliente)}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
+                FileName = $"Recibo_{RemoveCaracteresInvalidos(extratoCliente.NomeCliente)}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
             };
 
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
-                GVC.UTIL.PDFGenerator.GerarReciboPDF(extrato, parcelasDynamic, saveDialog.FileName);
+                // 🔹 Extrato
+                var extratoBLL = new ExtratoBLL();
+                var primeiraParcela = parcelasSelecionadas.First();
+                var extrato = extratoBLL.ObterExtratoCliente(primeiraParcela.ClienteID, false);
+
+                // 🔹 Pagamentos da(s) parcela(s)
+                var pagamentoBLL = new PagamentoBLL();
+                var pagamentos = pagamentoBLL.ListarPagamentosPorParcela(primeiraParcela.ParcelaID);
+
+                if (pagamentos == null || pagamentos.Count == 0)
+                {
+                    MessageBox.Show("Nenhum pagamento encontrado para esta parcela.");
+                    return;
+                }
+
+                // 🔹 Empresa (logo + nome)
+                var empresaBLL = new EmpresaBll();
+                var empresa = empresaBLL.ObterDadosParaPdf();
+
+                // 🔹 Gerar PDF
+                PDFGenerator.GerarReciboPagamentos(
+                    extrato,
+                    pagamentos,
+                    empresa,
+                    saveDialog.FileName
+                );
 
                 var resultado = MessageBox.Show(
-                    $"Recibo gerado com sucesso!\nArquivo: {Path.GetFileName(saveDialog.FileName)}\nPasta: {Path.GetDirectoryName(saveDialog.FileName)}\nDeseja abrir o arquivo agora?",
-                    "Sucesso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    $"Recibo gerado com sucesso!\nArquivo: {Path.GetFileName(saveDialog.FileName)}\n" +
+                    $"Pasta: {Path.GetDirectoryName(saveDialog.FileName)}\nDeseja abrir o arquivo agora?",
+                    "Sucesso",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information
+                );
 
                 if (resultado == DialogResult.Yes)
                 {
@@ -1140,47 +1174,67 @@ namespace GVC.View
 
         private void btnRecibo_Click(object sender, EventArgs e)
         {
-            var pagamentos = ObterPagamentosDoGrid();
-
-            if (!pagamentos.Any())
+            if (dgvContasAReceber.CurrentRow == null)
             {
-                Utilitario.Mensagens.Aviso("Nenhum pagamento encontrado para gerar recibo.");
+                Utilitario.Mensagens.Aviso("Selecione uma parcela.");
                 return;
             }
 
-            var extrato = ObterExtratoCliente(true);
-            if (extrato == null)
-                return;
+            var parcela = dgvContasAReceber.CurrentRow.DataBoundItem as ContaAReceberDTO;
 
-            using var saveDialog = new SaveFileDialog
+            if (parcela == null)
             {
-                Filter = "PDF Files|*.pdf",
-                Title = "Salvar Recibo",
-                FileName = $"Recibo_{RemoveCaracteresInvalidos(extrato.NomeCliente)}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
+                Utilitario.Mensagens.Aviso("Parcela inválida.");
+                return;
+            }
+
+            // 🔹 1. Buscar extrato do cliente
+            var extratoBLL = new ExtratoBLL();
+            var extrato = extratoBLL.ObterExtratoCliente(parcela.ClienteID, false);
+
+            // 🔹 2. Buscar pagamentos da parcela
+            var pagamentoBLL = new PagamentoBLL();
+            var pagamentos = pagamentoBLL.ListarPagamentosPorParcela(parcela.ParcelaID);
+
+            if (pagamentos == null || pagamentos.Count == 0)
+            {
+                Utilitario.Mensagens.Aviso("Nenhum pagamento encontrado para esta parcela.");
+                return;
+            }
+
+            // 🔹 3. Escolher caminho do PDF
+            using SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "Arquivo PDF (*.pdf)|*.pdf",
+                FileName = $"Recibo_Parcela_{parcela.ParcelaID}.pdf"
             };
 
-            if (saveDialog.ShowDialog() != DialogResult.OK)
+            if (sfd.ShowDialog() != DialogResult.OK)
                 return;
 
-            // 🔹 Gera o PDF
-            PDFGenerator.GerarReciboPagamentos(extrato, pagamentos, saveDialog.FileName);
+            // 🔹 4. Gerar PDF            
+            // 🔹 Buscar empresa
+            var empresaBLL = new EmpresaBll();
+            var empresa = empresaBLL.ObterDadosParaPdf();
 
-            // 🔹 CONFIRMAÇÃO PARA ABRIR
-            var resultado = MessageBox.Show(
-                $"Recibo gerado com sucesso!\n\n" +
-                $"Arquivo: {Path.GetFileName(saveDialog.FileName)}\n" +
-                $"Pasta: {Path.GetDirectoryName(saveDialog.FileName)}\n\n" +
-                $"Deseja abrir o arquivo agora?",
-                "Sucesso",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Information
+            // 🔹 Gerar PDF
+            PDFGenerator.GerarReciboPagamentos(
+                extrato,
+                pagamentos,
+                empresa,
+                sfd.FileName
             );
 
-            if (resultado == DialogResult.Yes)
-            {
-                if (!AbrirPDF(saveDialog.FileName))
-                    AbrirPastaContendoArquivo(saveDialog.FileName);
-            }
+
+
+            // 🔹 5. Confirmar abertura
+            if (Utilitario.Mensagens.Confirmacao("Recibo gerado com sucesso. Deseja abrir agora?"))
+                System.Diagnostics.Process.Start(
+                    new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = sfd.FileName,
+                        UseShellExecute = true
+                    });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GVC.MODEL;
+﻿using Dapper;
+using GVC.MODEL;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -10,6 +11,27 @@ namespace GVC.DALL
 {
     internal class EmpresaDal
     {
+        public EmpresaModel BuscarEmpresaPrincipal()
+        {
+            const string sql = "SELECT TOP 1 * FROM Empresa";
+
+            using var conn = Conexao.Conex();
+            return conn.QueryFirstOrDefault<EmpresaModel>(sql);
+        }
+        public EmpresaModel ObterEmpresa()
+        {
+            const string sql = @"
+            SELECT TOP 1
+                EmpresaID,
+                RazaoSocial,
+                NomeFantasia,
+                Logo
+            FROM Empresa
+            ORDER BY EmpresaID";
+
+            using var conn = Conexao.Conex();
+            return conn.QueryFirstOrDefault<EmpresaModel>(sql);
+        }
         public static List<EmpresaSimples> ListarEmpresasSimples()
         {
             var lista = new List<EmpresaSimples>();

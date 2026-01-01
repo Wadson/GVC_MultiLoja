@@ -54,7 +54,7 @@ namespace GVC.DAL
         ";
 
         // 🔹 ESTE MÉTODO SÓ BUSCA DADOS
-        public List<ParcelaExtrato> ObterExtratoPorCliente(long clienteId)
+        public List<ParcelaExtrato> ObterExtratoPorCliente(int clienteId)
         {
             using var conn = Conexao.Conex();
 

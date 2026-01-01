@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using GVC.DAL;
+using GVC.DALL;
 using GVC.MODEL;
 using GVC.UTIL;
 using System;
@@ -14,16 +15,17 @@ namespace GVC.BLL
     {
         private readonly ExtratoDal _dal = new();
         private readonly PagamentoBLL _pagamentoBll = new();
-
+        private readonly ParcelaDal _parcelaDal = new ParcelaDal();
+        private readonly ClienteDal _clienteDal = new ClienteDal();
         private readonly ExtratoDal _extratoDal = new ExtratoDal();
+        
 
         public ExtratoCliente ObterExtratoClientePorVenda(long vendaId, bool detalhado)
         {
             using var conn = Conexao.Conex();
 
             // 🔹 BUSCA O CLIENTE DA VENDA
-            long clienteId = conn.ExecuteScalar<long>(
-                "SELECT ClienteID FROM Venda WHERE VendaID = @id",
+            int clienteId = conn.ExecuteScalar<int>( "SELECT ClienteID FROM Venda WHERE VendaID = @id",
                 new { id = vendaId });
 
             // 🔹 AGORA SIM BUSCA O EXTRATO
@@ -31,62 +33,39 @@ namespace GVC.BLL
         }
 
         // Método interno reaproveitável
-        private ExtratoCliente ObterExtratoCliente(long clienteId, bool detalhado)
+        public ExtratoCliente ObterExtratoCliente(int clienteId, bool detalhado)
         {
-            var dados = _extratoDal.ObterExtratoPorCliente(clienteId);
+            var cliente = _clienteDal.BuscarPorId(clienteId)
+                ?? throw new Exception("Cliente não encontrado.");
 
-            var extrato = new ExtratoCliente();
-            var lookup = new Dictionary<long, ItemExtrato>();
-
-            foreach (var r in dados)
+            // Conversão explícita de List<ParcelaExtrato> para List<ItemExtrato>
+            var parcelasExtrato = _extratoDal.ObterExtratoPorCliente(clienteId);
+            var itensExtrato = parcelasExtrato.Select(p => new ItemExtrato
             {
-                if (!lookup.TryGetValue(r.ParcelaID, out var item))
-                {
-                    item = new ItemExtrato
-                    {
-                        VendaID = r.VendaID,
-                        NumeroParcela = r.NumeroParcela,
-                        DataVenda = r.DataVenda,
-                        DataVencimento = r.DataVencimento,
-                        ValorParcela = r.ValorParcela
-                    };
+                VendaID = p.VendaID,
+                ParcelaID = p.ParcelaID,
+                NumeroParcela = p.NumeroParcela,
+                DataVencimento = p.DataVencimento,
+                DataPagamento = p.DataPagamento,
+                ValorParcela = p.ValorParcela,
+                ValorRecebido = p.ValorRecebido,
+                Saldo = p.Saldo,
+                Status = p.Status
+            }).ToList();
 
-                    lookup.Add(r.ParcelaID, item);
-                    extrato.ItensExtrato.Add(item);
-                }
-
-                if (r.PagamentoID.HasValue && detalhado)
-                {
-                    item.Pagamentos.Add(new PagamentoExtratoModel
-                    {
-                        PagamentoID = r.PagamentoID.Value,
-                        ParcelaID = r.ParcelaID,
-                        DataPagamento = r.DataPagamento.Value,
-                        ValorPago = r.ValorPago.Value,
-                        FormaPagamento = r.FormaPagamento,
-                        Observacao = r.Observacao
-                    });
-                }
-            }
-
-            foreach (var i in extrato.ItensExtrato)
+            var extrato = new ExtratoCliente
             {
-                i.TotalPago = i.Pagamentos.Sum(p => p.ValorPago);
-                i.Saldo = i.ValorParcela - i.TotalPago;
+                ClienteID = cliente.ClienteID,
+                NomeCliente = cliente.Nome,
+                DataEmissao = DateTime.Now,
+                ItensExtrato = itensExtrato
+            };
 
-                i.Status = i.Saldo <= 0
-                    ? "Paga"
-                    : i.TotalPago > 0
-                        ? "Parcialmente Paga"
-                        : "Em Aberto";
-
-                extrato.TotalPago += i.TotalPago;
-                extrato.TotalDevendo += i.Saldo;
-            }
-
+            extrato.TotalPago = extrato.ItensExtrato.Sum(x => x.ValorRecebido);
+            extrato.TotalDevendo = extrato.ItensExtrato.Sum(x => x.Saldo);
             extrato.SaldoAtual = extrato.TotalDevendo;
+
             return extrato;
         }
-       
     }
 }

@@ -12123,7 +12123,7 @@ namespace GVC.View
                     if (saveDialog.ShowDialog() == DialogResult.OK)
                     {
                         // Gerar o PDF
-                        GVC.UTIL.PDFGenerator.GerarExtratoPDF(extrato, saveDialog.FileName);
+                        GVC.UTIL.PDFGenerator.(extrato, saveDialog.FileName);
 
                         // Mensagem de sucesso
                         DialogResult resultado = MessageBox.Show(

@@ -86,12 +86,8 @@ namespace GVC.DALL
         }
 
         // 7. REGISTRAR PAGAMENTO PARCIAL + ATUALIZAR PARCELA AUTOMATICAMENTE       
-        public void RegistrarPagamentoParcial(
-                int parcelaId,
-                decimal valorPago,
-                DateTime dataPagamento,
-                int? formaPgtoId = null,              
-                string? observacao = null)
+        public void RegistrarPagamentoParcial(int parcelaId, decimal valorPago, DateTime dataPagamento,
+                int? formaPgtoId = null, string? observacao = null)
         {
             const string sql = @"INSERT INTO PagamentosParciais
         (ParcelaID, ValorPago, DataPagamento, FormaPgtoID, Observacao)
@@ -127,47 +123,23 @@ namespace GVC.DALL
             using var conn = Conexao.Conex();
             return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
         }
-        public List<PagamentoExtratoModel> ListarPagamentosPorParcelaCompleto(long parcelaId)
+        public List<PagamentoExtratoModel> ListarPagamentosPorParcelaCompleto(int parcelaId)
         {
             const string sql = @"
-        -- 🔹 PAGAMENTOS PARCIAIS
-        SELECT
-            pp.PagamentoID,
-            pp.ParcelaID,
+        SELECT 
             pp.DataPagamento,
             pp.ValorPago,
             fp.FormaPgto AS FormaPagamento,
-            pp.Observacao
+            ISNULL(pp.Observacao, 'Baixa parcial') AS Observacao
         FROM PagamentosParciais pp
         LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = pp.FormaPgtoID
         WHERE pp.ParcelaID = @ParcelaID
-
-        UNION ALL
-
-        -- 🔹 PAGAMENTO ÚNICO (BAIXA DIRETA)
-        SELECT
-            0 AS PagamentoID,
-            p.ParcelaID,
-            v.DataVenda AS DataPagamento,
-            p.ValorRecebido AS ValorPago,
-            fp.FormaPgto AS FormaPagamento,
-            'Pagamento Único' AS Observacao
-        FROM Parcela p
-        INNER JOIN Venda v ON v.VendaID = p.VendaID
-        LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = v.FormaPgtoID
-        WHERE p.ParcelaID = @ParcelaID
-          AND p.ValorRecebido > 0
-          AND NOT EXISTS (
-              SELECT 1
-              FROM PagamentosParciais pp
-              WHERE pp.ParcelaID = p.ParcelaID
-          )
-
-        ORDER BY DataPagamento";
+        ORDER BY pp.DataPagamento";
 
             using var conn = Conexao.Conex();
             return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
         }
+
 
 
 
@@ -195,6 +167,22 @@ namespace GVC.DALL
             cmd.ExecuteNonQuery();
         }
 
+        public List<PagamentoExtratoModel> ObterExtratoPorParcela(long parcelaId)
+        {
+            const string sql = @"
+SELECT
+    pp.DataPagamento,
+    pp.ValorPago,
+    fp.FormaPgto AS FormaPagamento,
+    pp.Observacao
+FROM PagamentosParciais pp
+LEFT JOIN FormaPgto fp ON fp.FormaPgtoID = pp.FormaPgtoID
+WHERE pp.ParcelaID = @ParcelaID
+ORDER BY pp.DataPagamento";
+
+            using var conn = Conexao.Conex();
+            return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
+        }
 
     }
 }

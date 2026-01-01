@@ -42,5 +42,10 @@ namespace GVC.BLL
             // Lógica de negócios antes de obter os pagamentos parciais, se necessário
             return _dal.ObterPagamentosParciaisPorParcela(parcelaID);
         }
+        public List<PagamentoExtratoModel> ObterExtratoRecibo(long parcelaId)
+        {
+            return _dal.ObterExtratoPorParcela(parcelaId);
+        }
+
     }
 }

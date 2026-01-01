@@ -35,6 +35,18 @@ namespace GVC.UTIL{
         //📌 Exemplo de classe utilitária
         public static class Mensagens
         {
+            public static bool Confirmacao(string mensagem)
+            {
+                var result = MessageBox.Show(
+                    mensagem,
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                return result == DialogResult.Yes;
+            }
+
             public static void Aviso(string mensagem)
             {
                 MessageBox.Show(

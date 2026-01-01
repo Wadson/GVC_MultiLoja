@@ -13,7 +13,22 @@ namespace GVC.BLL
     {
         private readonly EmpresaDal _empresaDal = new EmpresaDal();
 
-        // 🔽 COLOQUE AQUI
+        public DadosEmpresaPdf ObterDadosParaPdf()
+        {
+            var empresa = _empresaDal.BuscarEmpresaPrincipal();
+
+            if (empresa == null)
+                throw new Exception("Empresa não cadastrada.");
+
+            return new DadosEmpresaPdf
+            {
+                NomeEmpresa = string.IsNullOrWhiteSpace(empresa.NomeFantasia)
+                    ? empresa.RazaoSocial
+                    : empresa.NomeFantasia,
+
+                Logo = empresa.Logo
+            };
+        }       
         public List<EmpresaModel> ObterTodas()
         {
             var lista = new List<EmpresaModel>();

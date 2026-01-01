@@ -9,6 +9,7 @@ namespace GVC.MODEL
     public class ContaAReceberDTO
     {
         public int ParcelaID { get; set; }
+        public int ClienteID { get; set; }
         public int VendaID { get; set; }
         public int NumeroParcela { get; set; }
         public string NomeCliente { get; set; }
