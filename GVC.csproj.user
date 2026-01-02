@@ -68,6 +68,9 @@
     <Compile Update="View\FrmFerramentas.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="View\FrmFinalizarVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="View\FrmGerenciarVendas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,9 +114,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="View\FrmTelaPrincipal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="View\FrmVendas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="View\Sobre.cs">

@@ -207,7 +207,7 @@ namespace GVC.View
             }
             else
             {
-                var parcelasLong = _parcelasIds.Select(id => (int)id).ToList();
+                var parcelasLong = _parcelasIds.Select(id => (long)id).ToList();
 
                 parcelaBLL.BaixarParcelasEmLote(
                     parcelasLong,

@@ -1,15 +1,16 @@
-﻿using Krypton.Toolkit;
-using GVC.BLL;
+﻿using GVC.BLL;
+using GVC.DAL;
 using GVC.DALL;
+using GVC.UTIL;
+using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Windows.Forms;
-using GVC.DAL;
-using GVC.UTIL;
 
 namespace GVC.View
 {
@@ -24,6 +25,11 @@ namespace GVC.View
         public string Marca { get; set; }
         private String referencia;
         public string ProdutoSelecionado { get; set; }
+        public string Referencia
+        {
+            get { return referencia; }
+            set { referencia = value; }
+        }
         public Form FormChamador { get; set; }
 
         public FrmLocalizarProduto(Form formChamador, string textoDigitado)
@@ -199,12 +205,12 @@ namespace GVC.View
         }
         private void SelecionarProduto()
         {
-            decimal preco;
             if (isSelectingProduct) return;
             isSelectingProduct = true;
 
             try
             {
+                // Obtém a linha atual selecionada na grid
                 LinhaAtual = ObterLinhaAtual();
                 if (LinhaAtual < 0 || LinhaAtual >= dataGridPesquisar.Rows.Count)
                 {
@@ -212,33 +218,24 @@ namespace GVC.View
                     return;
                 }
 
-                if (dataGridPesquisar["NomeProduto", LinhaAtual]?.Value == null ||
-                    dataGridPesquisar["ProdutoID", LinhaAtual].Value == null ||
-                    dataGridPesquisar["PrecoDeVenda", LinhaAtual]?.Value == null ||
-                    !decimal.TryParse(dataGridPesquisar["PrecoDeVenda", LinhaAtual].Value.ToString(), out preco))
+                if (dataGridPesquisar["ProdutoID", LinhaAtual]?.Value == null ||
+                    dataGridPesquisar["NomeProduto", LinhaAtual]?.Value == null ||
+                    dataGridPesquisar["Referencia", LinhaAtual]?.Value == null ||
+                    dataGridPesquisar["Estoque", LinhaAtual]?.Value == null ||
+                    dataGridPesquisar["PrecoDeVenda", LinhaAtual]?.Value == null)
                 {
                     Utilitario.Mensagens.Aviso("Dados do produto inválidos.");
                     return;
                 }
 
                 // Preenche as propriedades públicas que o chamador vai ler
-                ProdutoID = int.Parse(dataGridPesquisar["ProdutoID", LinhaAtual].Value.ToString());
+                ProdutoID = Convert.ToInt32(dataGridPesquisar["ProdutoID", LinhaAtual].Value);
                 ProdutoSelecionado = dataGridPesquisar["NomeProduto", LinhaAtual].Value.ToString();
-                referencia = dataGridPesquisar["Referencia", LinhaAtual].Value.ToString();
-                Estoque = decimal.Parse(dataGridPesquisar["Estoque", LinhaAtual].Value.ToString());
-                PrecoUnitario = decimal.Parse(dataGridPesquisar["PrecoDeVenda", LinhaAtual].Value.ToString());
+                Referencia = dataGridPesquisar["Referencia", LinhaAtual].Value.ToString();
+                Estoque = Convert.ToDecimal(dataGridPesquisar["Estoque", LinhaAtual].Value);
+                PrecoUnitario = Convert.ToDecimal(dataGridPesquisar["PrecoDeVenda", LinhaAtual].Value);
 
-                // Se quiser manter preenchimento direto via Owner, tudo bem — mas o retorno via DialogResult é essencial
-                if (this.Owner is FrmPDV frmPDV)
-                {
-                    frmPDV.ProdutoID = ProdutoID;
-                    frmPDV.txtProdutoBuscar.Text = ProdutoSelecionado;
-                    frmPDV.txtPrecoUnitario.Text = PrecoUnitario.ToString();
-                    frmPDV.txtQuantidade.Text = "1";
-                    Utilitario.FormatarMoeda(frmPDV.txtPrecoUnitario);
-                }
-
-                // Sinaliza sucesso para o ShowDialog()
+                // Retorna sucesso para o ShowDialog()
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -247,6 +244,7 @@ namespace GVC.View
                 isSelectingProduct = false;
             }
         }
+
 
 
         private void dataGridPesquisar_KeyDown(object sender, KeyEventArgs e)

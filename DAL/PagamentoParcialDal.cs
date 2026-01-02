@@ -102,8 +102,8 @@ namespace GVC.DALL
         }
 
         // 7. REGISTRAR PAGAMENTO PARCIAL + ATUALIZAR PARCELA AUTOMATICAMENTE       
-        public void RegistrarPagamentoParcial(int parcelaId, decimal valorPago, DateTime dataPagamento,
-                int? formaPgtoId = null, string? observacao = null)
+        public void RegistrarPagamentoParcial(long parcelaId, decimal valorPago, DateTime dataPagamento,
+                long? formaPgtoId = null, string? observacao = null)
         {
             const string sql = @"INSERT INTO PagamentosParciais
         (ParcelaID, ValorPago, DataPagamento, FormaPgtoID, Observacao)
@@ -139,7 +139,7 @@ namespace GVC.DALL
             using var conn = Conexao.Conex();
             return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
         }
-        public List<PagamentoExtratoModel> ListarPagamentosPorParcelaCompleto(int parcelaId)
+        public List<PagamentoExtratoModel> ListarPagamentosPorParcelaCompleto(long parcelaId)
         {
             const string sql = @"
         SELECT 

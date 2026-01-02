@@ -25,7 +25,7 @@ namespace GVC.View
     {
         private bool bloqueiaPesquisa = false;
         private readonly PagamentoParcialDal _pagamentoDal = new PagamentoParcialDal();
-        public int ClienteID { get; set; }
+        public long ClienteID { get; set; }
 
         private readonly VendaBLL _vendaBll = new VendaBLL();
         private readonly ItensVendaBLL _itensVendaBll = new ItensVendaBLL();
@@ -1056,7 +1056,7 @@ namespace GVC.View
 
                         // 🔴 AGORA ESTORNA APENAS A PARCELA ÚNICA
                         bll.EstornarPagamento(
-                            (int)parcela.ParcelaID,
+                            (long)parcela.ParcelaID,
                             frm.ValorEstorno,
                             frm.Motivo
                         );

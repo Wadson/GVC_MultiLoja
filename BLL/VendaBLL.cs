@@ -1,14 +1,16 @@
 ﻿using GVC.DAL;
 using GVC.DALL;
+using GVC.DTO;
 using GVC.MODEL;
 using GVC.UTIL;
+using GVC.MODEL.Enums;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static GVC.View.FrmVendas;
+
 
 namespace GVC.BLL
 {
@@ -24,20 +26,24 @@ namespace GVC.BLL
         public string CalcularStatusVendaPorParcelas(List<ParcelaModel> parcelas)
         {
             if (parcelas == null || parcelas.Count == 0)
-                return EnumStatusVenda.Aberta.ToDb();
+                return EnumStatusVenda.Aberta.ToString();
 
             decimal total = parcelas.Sum(p => p.ValorParcela + p.Juros + p.Multa);
             decimal recebido = parcelas.Sum(p => p.ValorRecebido);
 
             if (recebido <= 0)
-                return EnumStatusVenda.Aberta.ToDb();
+                return EnumStatusVenda.Aberta.ToString();
 
             if (recebido >= total)
-                return EnumStatusVenda.Concluida.ToDb();
+                return EnumStatusVenda.Concluida.ToString();
 
-            return EnumStatusVenda.ParcialmentePago.ToDb();
-        }      
-        public int SalvarVendaCompleta(VendaModel venda, List<ItemVendaModel> itens, List<ParcelaModel>? parcelas = null)
+            return EnumStatusVenda.ParcialmentePago.ToString();
+        }
+        public int SalvarVendaCompleta(
+     VendaModel venda,
+     List<ItemVendaModel> itens,
+     List<ParcelaModel>? parcelas = null
+ )
         {
             if (venda == null)
                 throw new ArgumentNullException(nameof(venda));
@@ -46,85 +52,43 @@ namespace GVC.BLL
                 throw new Exception("Adicione pelo menos um item à venda.");
 
             // ====================
-            // REGRAS DE NEGÓCIO - TRATAMENTO SEGURO
+            // REGRAS COMERCIAIS
             // ====================
-
-            // Desconto da venda: se for nullable (decimal?), trata como 0
             decimal descontoVenda = venda.Desconto ?? 0m;
             if (descontoVenda < 0m) descontoVenda = 0m;
 
-            // ====================
-            // ITENS - TRATAMENTO DIFERENCIADO POR CAMPO
-            // ====================
             foreach (var item in itens)
             {
-                // PrecoUnitario é decimal (não nullable) → já tem valor
                 decimal preco = item.PrecoUnitario;
+                decimal descontoItem = item.DescontoItem ?? 0m;
 
-                // DescontoItem é decimal? → usa ?? 0m
-                decimal descontoItem = (decimal)item.DescontoItem;
                 if (descontoItem < 0m) descontoItem = 0m;
 
-                // Subtotal é decimal? → recalcula sempre com segurança
-                decimal subtotalCalculado = (item.Quantidade * preco) - descontoItem;
-                if (subtotalCalculado < 0m) subtotalCalculado = 0m;
-
-                // Atualiza os campos
-                item.DescontoItem = descontoItem;
-                item.Subtotal = subtotalCalculado;
+                item.Subtotal = Math.Max(
+                    0m,
+                    (item.Quantidade * preco) - descontoItem
+                );
             }
 
-            // ====================
-            // TOTAL DOS ITENS
-            // ====================
-            decimal totalDosItens = (decimal)itens.Sum(i => i.Subtotal);
-
-            // Valor esperado = total itens - desconto venda
-            decimal valorEsperado = Math.Max(0m, totalDosItens - descontoVenda);
-
-            // Se ValorTotal da venda for inconsistente, corrige
-            if (Math.Abs((venda.ValorTotal) - valorEsperado) > 0.01m)
-            {
-                venda.ValorTotal = valorEsperado;
-            }
-
-            // Atualiza o desconto da venda
+            decimal totalItens = itens.Sum(i => i.Subtotal ?? 0m);
+            venda.ValorTotal = Math.Max(0m, totalItens - descontoVenda);
             venda.Desconto = descontoVenda;
 
             // ====================
-            // PARCELAS
+            // FINANCEIRO (SERVIÇO)
             // ====================
             if (parcelas != null && parcelas.Any())
             {
-                decimal totalParcelas = 0m;
-
-                foreach (var p in parcelas)
-                {
-                    p.ValorParcela = Math.Max(0m, p.ValorParcela);
-                    p.ValorRecebido = Math.Max(0m, p.ValorRecebido);
-                    p.Juros        = Math.Max(0m, p.Juros);
-                    p.Multa        = Math.Max(0m, p.Multa);
-
-                    totalParcelas += p.ValorParcela + p.Juros + p.Multa;
-
-                    if (p.Status == "Paga" || p.Status == EnumStatusParcela.Paga.ToDb())
-                    {
-                        if (p.DataPagamento == null)
-                            p.DataPagamento = DateTime.Now;
-                    }
-                }
-
-                if (Math.Abs(totalParcelas - (venda.ValorTotal)) > 0.01m)
-                {
-                    throw new Exception($"Total parcelas (R$ {totalParcelas:N2}) não bate com valor da venda (R$ {venda.ValorTotal:N2}).");
-                }
+                var financeiro = new FinanceiroService();
+                financeiro.ProcessarFinanceiroVenda(venda, parcelas);
             }
-           
+
             // ====================
             // SALVA
             // ====================
             return vendaDAL.AddVendaCompleta(venda, itens, parcelas);
         }
+
         public void ExcluirVenda(int vendaID)
         {
             if (ExistePagamento(vendaID))
@@ -155,18 +119,18 @@ namespace GVC.BLL
         public string CalcularStatusVenda(List<ParcelaModel> parcelas)
         {
             if (parcelas == null || parcelas.Count == 0)
-                return EnumStatusVenda.Aberta.ToDb();
+                return EnumStatusVenda.Aberta.ToString();
 
             decimal total = parcelas.Sum(p => p.ValorParcela + p.Juros + p.Multa);
             decimal recebido = parcelas.Sum(p => p.ValorRecebido);
 
             if (recebido <= 0)
-                return EnumStatusVenda.Aberta.ToDb();
+                return EnumStatusVenda.Aberta.ToString();
 
             if (recebido >= total)
-                return EnumStatusVenda.Concluida.ToDb();
+                return EnumStatusVenda.Concluida.ToString();
 
-            return EnumStatusVenda.ParcialmentePago.ToDb();
+            return EnumStatusVenda.ParcialmentePago.ToString();
         }
         public void CancelarVenda(long vendaId, string motivo)
         {
@@ -226,7 +190,7 @@ namespace GVC.BLL
                 // ============================
                 // 4️⃣ CANCELAR VENDA + MOTIVO
                 // ============================
-                vendaDal.AtualizarStatusVenda(vendaId,  EnumStatusVenda.Cancelada.ToDb(), motivo );
+                vendaDal.AtualizarStatusVenda(vendaId,  EnumStatusVenda.Cancelada.ToString(), motivo );
 
                 tran.Commit();
             }
@@ -293,7 +257,7 @@ namespace GVC.BLL
                     "Existem pagamentos registrados.");
 
             // 🔹 Recalcula status da venda
-            venda.StatusVenda = CalcularStatusVenda(parcelas);
+            
 
             // 🔹 Chama DAL (igual salvar)
             new VendaAtualizacaoDal()

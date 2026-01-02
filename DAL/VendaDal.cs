@@ -1,40 +1,19 @@
 ﻿using GVC.MODEL;
+using GVC.MODEL.Enums;
+using GVC.MODEL.Extensions;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using static GVC.View.FrmVendas;
 
 namespace GVC.DALL
 {
     public class VendaDal
     {
-        private string CalcularStatusVendaPorParcelas(List<ParcelaModel> parcelas)
-        {
-            if (parcelas == null || !parcelas.Any())
-                return null;
-
-            decimal total = parcelas.Sum(p => p.ValorParcela + p.Juros + p.Multa);
-            decimal recebido = parcelas.Sum(p => p.ValorRecebido);
-
-            if (recebido <= 0)
-                return EnumStatusVenda.Aberta.ToDb();
-            if (recebido >= total)
-                return EnumStatusVenda.Concluida.ToDb();
-            return EnumStatusVenda.ParcialmentePago.ToDb();
-        }
-
         public int AddVendaCompleta(VendaModel venda, List<ItemVendaModel> itens, List<ParcelaModel> parcelas = null)
         {
-            if (parcelas != null && parcelas.Any())
-            {
-                var statusCalculado = CalcularStatusVendaPorParcelas(parcelas);
-                if (!string.IsNullOrWhiteSpace(statusCalculado))
-                    venda.StatusVenda = statusCalculado;
-            }
-
             string sqlVenda = @"
                 INSERT INTO Venda (DataVenda, ClienteID, ValorTotal, FormaPgtoID, Desconto, Observacoes, StatusVenda, VendedorID)
                 VALUES (@DataVenda, @ClienteID, @ValorTotal, @FormaPgtoID, @Desconto, @Observacoes, @StatusVenda, @VendedorID);
@@ -66,12 +45,11 @@ namespace GVC.DALL
                     cmdVenda.Parameters.AddWithValue("@DataVenda", venda.DataVenda);
                     cmdVenda.Parameters.AddWithValue("@ClienteID", venda.ClienteID);
                     cmdVenda.Parameters.AddWithValue("@ValorTotal", venda.ValorTotal);
-                    //cmdVenda.Parameters.AddWithValue("@FormaPgtoID", venda.FormaPgtoID);
-                    cmdVenda.Parameters.AddWithValue("@FormaPgtoID", venda.FormaPgtoID ?? (object)DBNull.Value); // este pode ser NULL
-                    cmdVenda.Parameters.AddWithValue("@Desconto", venda.Desconto);
-                    //cmdVenda.Parameters.AddWithValue("@Desconto", venda.Desconto ?? 0m);
+                    cmdVenda.Parameters.AddWithValue("@FormaPgtoID",venda.FormaPgtoID ?? (object)DBNull.Value);
+
+                    cmdVenda.Parameters.AddWithValue("@Desconto", venda.Desconto);                    
                     cmdVenda.Parameters.AddWithValue("@Observacoes", (object)venda.Observacoes ?? DBNull.Value);
-                    cmdVenda.Parameters.AddWithValue("@StatusVenda", (object)venda.StatusVenda ?? DBNull.Value);
+                    cmdVenda.Parameters.AddWithValue("@StatusVenda", venda.StatusVenda.ToDb());
                     cmdVenda.Parameters.AddWithValue("@VendedorID", venda.VendedorID);
 
                     int vendaId = (int)cmdVenda.ExecuteScalar();
@@ -124,9 +102,6 @@ namespace GVC.DALL
                         foreach (var p in parcelas)
                         {
                             p.VendaID = vendaId;
-                            if (p.Status == EnumStatusParcela.Paga.ToDb() && p.DataPagamento == null)
-                                p.DataPagamento = DateTime.Now;
-
                             using var cmdParcela = new SqlCommand(sqlParcela, conn, transaction);
                             cmdParcela.Parameters.AddWithValue("@VendaID", p.VendaID);
                             cmdParcela.Parameters.AddWithValue("@NumeroParcela", p.NumeroParcela);
@@ -134,7 +109,9 @@ namespace GVC.DALL
                             cmdParcela.Parameters.AddWithValue("@ValorParcela", p.ValorParcela);
                             cmdParcela.Parameters.AddWithValue("@ValorRecebido", p.ValorRecebido);
                             //cmdParcela.Parameters.AddWithValue("@ValorRecebido", p.ValorRecebido == 0 ? (object)DBNull.Value : p.ValorRecebido);                            
-                            cmdParcela.Parameters.AddWithValue("@Status", (object)p.Status ?? DBNull.Value);
+                            cmdParcela.Parameters.AddWithValue("@Status",p.Status.ToDb());
+
+
                             cmdParcela.Parameters.AddWithValue("@DataPagamento", (object)p.DataPagamento ?? DBNull.Value);
                             cmdParcela.Parameters.AddWithValue("@Juros", p.Juros);
                             cmdParcela.Parameters.AddWithValue("@Multa", p.Multa);
@@ -215,7 +192,7 @@ namespace GVC.DALL
 
         public void DeleteVenda(VendaModel venda) => DeleteVenda(venda.VendaID);
 
-        public VendaModel? GetVenda(int vendaId)
+        public VendaModel? GetVenda(long vendaId)
         {
             string sql = "SELECT * FROM Venda WHERE VendaID = @VendaID";
             using var conn = Conexao.Conex();
@@ -235,7 +212,8 @@ namespace GVC.DALL
                     FormaPgtoID = reader.GetInt32("FormaPgtoID"),
                     Desconto = (decimal)(reader.IsDBNull("Desconto") ? (decimal?)null : reader.GetDecimal("Desconto")),
                     Observacoes = reader.IsDBNull("Observacoes") ? null : reader.GetString("Observacoes") as string,
-                    StatusVenda = reader.IsDBNull("StatusVenda") ? null : reader.GetString("StatusVenda"),
+                    StatusVenda = reader.IsDBNull("StatusVenda")? EnumStatusVenda.Aberta : reader.GetString("StatusVenda").ToEnumStatusVenda(),
+
                     VendedorID = reader.GetInt32("VendedorID")
                 };
             }
@@ -378,7 +356,7 @@ namespace GVC.DALL
             cmd.ExecuteNonQuery();
         }
 
-        public VendaModel ObterVendaPorId(int vendaId)
+        public VendaModel ObterVendaPorId(long vendaId)
         {
             string sql = @" SELECT
     v.VendaID,
@@ -412,18 +390,18 @@ WHERE v.VendaID = @VendaID";
                     ValorTotal = reader.GetDecimal("ValorTotal"),
                     Desconto = (decimal)(reader.IsDBNull("Desconto") ? (decimal?)null : reader.GetDecimal("Desconto")),
                     Observacoes = reader.IsDBNull("Observacoes") ? null : reader.GetString("Observacoes") as string,
-                    StatusVenda = reader.IsDBNull("StatusVenda") ? null : reader.GetString("StatusVenda"),
+                    //StatusVenda Corrigido da Forma Correta em 02/01/2026 use Este MODELO
+                    StatusVenda = reader.IsDBNull("StatusVenda") ? EnumStatusVenda.Aberta
+                    : Enum.Parse<EnumStatusVenda>(reader.GetString("StatusVenda").Replace(" ", "")),
+
                     VendedorID = reader.GetInt32("VendedorID")
                 };
-
-                if (!reader.IsDBNull("NomeCliente"))
-                    venda.NomeCliente = reader.GetString("NomeCliente");
 
                 return venda;
             }
             return null;
         }
-        public void Excluir(int vendaID)
+        public void Excluir(long vendaID)
         {
             using var conn = Conexao.Conex();
             var cmd = conn.CreateCommand();
@@ -431,16 +409,5 @@ WHERE v.VendaID = @VendaID";
             cmd.Parameters.AddWithValue("@id", vendaID);
             cmd.ExecuteNonQuery();
         }
-        public void Excluir(long vendaId)
-        {
-            string sql = "DELETE FROM Venda WHERE VendaID = @VendaID";
-
-            using var conn = Conexao.Conex();
-            conn.Open();
-            using var cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@VendaID", vendaId);
-            cmd.ExecuteNonQuery();
-        }
-
     }
 }

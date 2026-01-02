@@ -36,7 +36,7 @@ namespace GVC.View
                 dgvVendas.CurrentRow.Cells["VendaID"].Value
             );
 
-            var frm = new FrmPDV(vendaId);
+            var frm = new FrmPDVendas(vendaId);
             frm.ShowDialog();
         }
 
@@ -52,15 +52,8 @@ namespace GVC.View
                 dgvVendas.CurrentRow.Cells["VendaID"].Value
             );
 
-            var frm = new FrmPDV(vendaId);
-            frm.btnCancelarParcelas.Enabled = false;
-            frm.btnCancelarVenda.Enabled = false;
-            frm.btnImprimirCupomNaoFiscal.Enabled = false;
-            frm.btnSalvarVenda.Enabled = false;
-            frm.btnCancelarParcelas.Enabled = false;  
-            frm.pnlFormaPgto.Enabled = false;
-            frm.flowLayoutPanelTotais.Enabled = false;
-            frm.pnlObservacoes.Enabled = false;   
+            var frm = new FrmPDVendas(vendaId);
+           //Falta implementação de mais botões e controles aqui
             frm.txtClienteBuscar.Enabled = false;
             frm.txtProdutoBuscar.Enabled = false;                       
             frm.btnNovaVenda.Enabled = false;   

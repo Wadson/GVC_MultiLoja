@@ -81,13 +81,6 @@
 	  <Compile Update="View\FrmPDVendas.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmPDV.cs">
-	    <SubType>Form</SubType>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="DTO\" />
 	</ItemGroup>
 
 </Project>

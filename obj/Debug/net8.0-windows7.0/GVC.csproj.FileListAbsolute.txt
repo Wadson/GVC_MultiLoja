@@ -362,11 +362,9 @@ C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.FrmManutUsuario.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.FrmModeloUI.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmMotivoOperacao.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmMovimentacaoEstoque.resources
-C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmPDV.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmRelatorioEstoque.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmRelatorios.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmTelaPrincipal.resources
-C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmVendas.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.Sobre.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.csproj.GenerateResource.cache
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.GeneratedMSBuildEditorConfig.editorconfig
@@ -382,3 +380,4 @@ C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.genruntimeconfig.cache
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\ref\GVC.dll
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmPDVendas.resources
 C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmLocalizarVendedor.resources
+C:\GVCSqlExpress\obj\Debug\net8.0-windows7.0\GVC.View.FrmFinalizarVenda.resources

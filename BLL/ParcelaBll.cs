@@ -1,13 +1,14 @@
 ﻿using Dapper;
 using GVC.DALL;
 using GVC.MODEL;
+using GVC.MODEL.Enums;
+using GVC.MODEL.Extensions;
 using GVC.UTIL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static GVC.View.FrmVendas;
 
 namespace GVC.BLL
 {
@@ -23,7 +24,7 @@ namespace GVC.BLL
             _vendaDal = new VendaDal();
             _vendaBLL = new VendaBLL();
         }
-        public void GerarReciboAutomatico(int parcelaId)
+        public void GerarReciboAutomatico(long parcelaId)
         {
             // 🔹 1. Buscar extrato da parcela
             var extratoBLL = new ExtratoBLL();
@@ -79,7 +80,7 @@ namespace GVC.BLL
         // ==========================================================
         // 1. BAIXA TOTAL DE UMA PARCELA (força pagamento completo)
         // ==========================================================
-        public void BaixarParcelaTotal(int parcelaId)
+        public void BaixarParcelaTotal(long parcelaId)
         {
             var parcela = _parcelaDal.BuscarPorId(parcelaId)
                 ?? throw new Exception("Parcela não encontrada.");
@@ -107,7 +108,7 @@ namespace GVC.BLL
         // 2. BAIXA PARCIAL DE UMA PARCELA (valor informado pelo usuário)
         // ==========================================================
         public void BaixarParcelaParcial(
-      int parcelaId,
+      long parcelaId,
       decimal valorPago,
       int? formaPgtoId,
       string? comprovante = null,
@@ -155,7 +156,7 @@ namespace GVC.BLL
         // ==========================================================
 
         public void BaixarParcelasEmLote(
-     List<int> parcelasIds,
+     List<long> parcelasIds,
      DateTime dataPagamento,
      long formaPgtoId,
      string? observacao = null)
@@ -225,17 +226,16 @@ WHERE ParcelaID = @ParcelaID";
         // ==========================================================
         // ALTERAR STATUS MANUALMENTE
         // ==========================================================
-        public void AlterarStatus(int parcelaId, string novoStatus)
+        public void AlterarStatus(long parcelaId, EnumStatusParcela novoStatus)
         {
-            if (string.IsNullOrWhiteSpace(novoStatus))
-                throw new Exception("Status inválido.");
-
             ParcelaModel parcela = _parcelaDal.BuscarPorId(parcelaId)
                 ?? throw new Exception("Parcela não encontrada.");
 
             parcela.Status = novoStatus;
+
             _parcelaDal.UpdateParcela(parcela);
         }
+
 
         // ==========================================================
         // EXCLUSÃO
@@ -254,7 +254,7 @@ WHERE ParcelaID = @ParcelaID";
         /// <param name="parcelaId">ID da parcela</param>
         /// <param name="valorEstorno">Valor a estornar (positivo)</param>
         /// <param name="motivo">Motivo do estorno (para auditoria)</param>
-        public void EstornarPagamento(int parcelaId, decimal valorEstorno, string motivo)
+        public void EstornarPagamento(long parcelaId, decimal valorEstorno, string motivo)
         {
             if (valorEstorno <= 0)
                 throw new Exception("Valor de estorno inválido.");
@@ -271,8 +271,7 @@ WHERE ParcelaID = @ParcelaID";
             var parcelasVenda = _parcelaDal.GetParcelas(parcela.VendaID);
             var statusVenda = _vendaBLL.CalcularStatusVendaPorParcelas(parcelasVenda);
 
-            if (statusVenda == EnumStatusVenda.ParcialmentePago.ToDb() &&
-                parcelasVenda.All(p => p.ValorRecebido == 0))
+            if (statusVenda == EnumStatusVenda.ParcialmentePago.ToDb() &&  parcelasVenda.All(p => p.ValorRecebido == 0))
             {
                 statusVenda = EnumStatusVenda.AguardandoPagamento.ToDb();
             }
@@ -306,7 +305,7 @@ WHERE ParcelaID = @ParcelaID";
                     continue;
 
                 _parcelaDal.EstornarPagamento(
-                    (int)parcelaId,
+                    (long)parcelaId,
                     estornoNestaParcela,
                     DateTime.Now,
                     motivo
@@ -317,7 +316,7 @@ WHERE ParcelaID = @ParcelaID";
 
             // 🔁 Recalcula status da venda UMA VEZ
             long vendaId = _parcelaDal.BuscarPorId(parcelasIds.First()).VendaID;
-            var parcelasVenda = _parcelaDal.GetParcelas((int)vendaId);
+            var parcelasVenda = _parcelaDal.GetParcelas((long)vendaId);
 
             string statusVenda =
                 _vendaBLL.CalcularStatusVendaPorParcelas(parcelasVenda);

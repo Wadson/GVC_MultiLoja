@@ -1,4 +1,5 @@
-﻿using GVC.MODEL;
+﻿using GVC.DALL;
+using GVC.MODEL;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -89,5 +90,35 @@ public static class CupomNaoFiscalPdf
             FileName = arquivo,
             UseShellExecute = true
         });
+    }
+    // 🔹 NOVA SOBRECARGA (ERP)
+    public static void Gerar(
+        VendaModel venda,
+        List<ItemVendaModel> itens
+    )
+    {
+        var empresaDal = new EmpresaDal();
+        var empresa = empresaDal.BuscarEmpresaPrincipal();
+
+        if (empresa == null)
+            throw new Exception("Empresa não cadastrada.");
+
+        string nomeEmpresa =
+            string.IsNullOrWhiteSpace(empresa.NomeFantasia)
+                ? empresa.RazaoSocial
+                : empresa.NomeFantasia;
+
+        string endereco =
+            $"{empresa.Logradouro}, Nº {empresa.Numero} - {empresa.Bairro} - {empresa.Cidade}/{empresa.UF}";
+
+        // 🔁 Reaproveita o método antigo
+        Gerar(
+            venda,
+            itens,
+            nomeEmpresa,
+            empresa.CNPJ,
+            endereco,
+            empresa.Telefone
+        );
     }
 }

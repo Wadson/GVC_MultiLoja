@@ -11,7 +11,7 @@ namespace GVC.BLL
     public class PagamentoBLL
     {
         private readonly PagamentoParcialDal _pagamentoParcialDal = new();
-        public List<PagamentoExtratoModel> ListarPagamentosPorParcela(int parcelaId)
+        public List<PagamentoExtratoModel> ListarPagamentosPorParcela(long parcelaId)
         {
             return _pagamentoParcialDal.ListarPagamentosPorParcelaCompleto(parcelaId);
         }

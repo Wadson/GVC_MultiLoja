@@ -1,4 +1,5 @@
 ﻿using GVC.MODEL;
+using GVC.MODEL.Extensions;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
@@ -47,9 +48,9 @@ WHERE v.VendaID = @VendaID";
                 using var dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    venda.VendaID = (int)dr["VendaID"];
+                    venda.VendaID = (long)dr["VendaID"];
                     venda.DataVenda = (DateTime)dr["DataVenda"];
-                    venda.ClienteID = (int)dr["ClienteID"];
+                    venda.ClienteID = (long)dr["ClienteID"];
                     venda.ClienteNome = dr["ClienteNome"].ToString();
                     venda.CpfCliente = dr["CpfCliente"]?.ToString();
                     venda.Desconto = (decimal)dr["Desconto"];
@@ -57,7 +58,7 @@ WHERE v.VendaID = @VendaID";
                     venda.FormaPgtoID = (int)dr["FormaPgtoID"];
 
                     // 🔹 Novos campos do vendedor
-                    venda.VendedorID = (int)dr["VendedorID"];
+                    venda.VendedorID = (long)dr["VendedorID"];
                     venda.VendedorNome = dr["VendedorNome"].ToString();
                 }
             }
@@ -86,7 +87,7 @@ WHERE v.VendaID = @VendaID";
                 {
                     venda.Itens.Add(new ItemVendaModel
                     {
-                        ProdutoID = (int)dr["ProdutoID"],
+                        ProdutoID = (long)dr["ProdutoID"],
                         ProdutoDescricao = dr["ProdutoDescricao"].ToString(),
                         Quantidade = (int)dr["Quantidade"],
                         PrecoUnitario = (decimal)dr["PrecoUnitario"],
@@ -104,6 +105,7 @@ WHERE v.VendaID = @VendaID";
             {
                 cmd.Parameters.AddWithValue("@VendaID", vendaId);
                 using var dr = cmd.ExecuteReader();
+
                 while (dr.Read())
                 {
                     venda.Parcelas.Add(new ParcelaModel
@@ -111,10 +113,13 @@ WHERE v.VendaID = @VendaID";
                         NumeroParcela = (int)dr["NumeroParcela"],
                         DataVencimento = (DateTime)dr["DataVencimento"],
                         ValorParcela = (decimal)dr["ValorParcela"],
-                        Status = dr["Status"].ToString()
+
+                        // ✅ CONVERSÃO CORRETA
+                        Status = dr["Status"].ToString().ToEnumStatusParcela()
                     });
                 }
             }
+
 
             return venda;
         }

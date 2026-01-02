@@ -133,7 +133,7 @@ namespace GVC.DALL
             return conn.QueryFirstOrDefault<ParcelaModel>(sql, new { Id = parcelaId });
         }
 
-        public List<ParcelaModel> GetParcelas(int vendaId)
+        public List<ParcelaModel> GetParcelas(long vendaId)
         {
             const string sql = @"SELECT * FROM Parcela WHERE VendaID = @VendaID ORDER BY NumeroParcela";
 
@@ -177,7 +177,7 @@ namespace GVC.DALL
             conn.Execute(sql, new { Id = parcela.ParcelaID });
         }
 
-        public void EstornarPagamento(int parcelaId, decimal valorEstorno, DateTime dataEstorno, string motivo = null)
+        public void EstornarPagamento(long parcelaId, decimal valorEstorno, DateTime dataEstorno, string motivo = null)
         {
             if (valorEstorno <= 0m)
                 throw new ArgumentException("Valor do estorno deve ser maior que zero.");
