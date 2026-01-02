@@ -23,12 +23,9 @@ namespace GVC.View
         private BindingList<ParcelaModel> _parcelasBinding;
 
         // FrmFinalizarVenda
-        public List<ParcelaModel> Parcelas { get; private set; }
+        public List<ParcelaModel> Parcelas { get; private set; }       
 
         private List<ParcelaModel> _parcelasGeradas;
-
-
-
         public VendaModel VendaFinal { get; private set; }
         public List<ItemVendaModel> Itens { get; private set; }
 
@@ -122,17 +119,31 @@ namespace GVC.View
                 return;
             }
 
+            // 🔥 Define forma de pagamento corretamente
+            _dto.Venda.FormaPgtoID = forma.Id;
 
-            _dto.Venda.FormaPgtoID = Convert.ToInt64(cmbFormaPagamento.SelectedValue);
+            // 🔒 Se for crediário, exige parcelas
+            bool ehCrediario = forma.Descricao.Contains("Crediário");
 
-            // 🔥 STATUS DA VENDA DEFINIDO AQUI
-            _dto.Venda.StatusVenda = EnumStatusVenda.Concluida;
+            if (ehCrediario)
+            {
+                if (_parcelasGeradas == null || !_parcelasGeradas.Any())
+                {
+                    Utilitario.Mensagens.Aviso("Gere as parcelas para o crediário.");
+                    return;
+                }
 
-            // expõe dados para o form chamador
+                _dto.Venda.StatusVenda = EnumStatusVenda.AguardandoPagamento;
+            }
+            else
+            {
+                _dto.Venda.StatusVenda = EnumStatusVenda.Concluida;
+            }
+
+            // 🔥 Expõe dados para o formulário chamador
             VendaFinal = _dto.Venda;
             Itens = _dto.Itens;
-            Parcelas = _parcelasGeradas;
-            _dto.Venda.FormaPgtoID = forma.Id;
+            Parcelas = ehCrediario ? _parcelasGeradas : null;
 
             DialogResult = DialogResult.OK;
             Close();

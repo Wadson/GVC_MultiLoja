@@ -243,17 +243,17 @@ namespace GVC.View
                     return;
                 }
 
-                var clienteIdValue = dataGridPesquisar["ClienteID", linhaAtual]?.Value;
+                var vendedorIdValue = dataGridPesquisar["ClienteID", linhaAtual]?.Value;
                 var nomeValue = dataGridPesquisar["Nome", linhaAtual]?.Value;
 
-                if (clienteIdValue == null || nomeValue == null)
+                if (vendedorIdValue == null || nomeValue == null)
                 {
                     Utilitario.Mensagens.Aviso("Dados do vendedor inválidos.");
                     return;
                 }
 
                 // Preenche as propriedades públicas que o chamador vai ler
-                VendedorID = int.TryParse(clienteIdValue.ToString(), out int id) ? id : 0;
+                VendedorID = int.TryParse(vendedorIdValue.ToString(), out int id) ? id : 0;
                 VendedorSelecionado = nomeValue?.ToString() ?? string.Empty;
 
                 // Sinaliza sucesso para o ShowDialog()

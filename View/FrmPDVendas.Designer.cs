@@ -363,7 +363,7 @@
             // 
             btnFinalizarVenda.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnFinalizarVenda.CornerRoundingRadius = 1F;
-            btnFinalizarVenda.Location = new Point(554, 3);
+            btnFinalizarVenda.Location = new Point(584, 3);
             btnFinalizarVenda.Name = "btnFinalizarVenda";
             btnFinalizarVenda.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnFinalizarVenda.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -375,7 +375,7 @@
             btnFinalizarVenda.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             btnFinalizarVenda.OverrideDefault.Border.Rounding = 20F;
             btnFinalizarVenda.OverrideDefault.Border.Width = 1;
-            btnFinalizarVenda.Size = new Size(70, 27);
+            btnFinalizarVenda.Size = new Size(110, 27);
             btnFinalizarVenda.StateCommon.Back.Color1 = Color.FromArgb(8, 142, 254);
             btnFinalizarVenda.StateCommon.Back.Color2 = Color.FromArgb(8, 142, 254);
             btnFinalizarVenda.StateCommon.Back.ColorAngle = 45F;
@@ -412,8 +412,8 @@
             btnFinalizarVenda.StateTracking.Content.ShortText.Color2 = Color.Black;
             btnFinalizarVenda.TabIndex = 1041;
             btnFinalizarVenda.TabStop = false;
-            btnFinalizarVenda.Values.Text = "Finalizar";
-            btnFinalizarVenda.Click += btnFinalizarVenda_Click;            
+            btnFinalizarVenda.Values.Text = "Finalizar Venda";
+            btnFinalizarVenda.Click += btnFinalizarVenda_Click;
             // 
             // kryptonLabel5
             // 
@@ -467,7 +467,7 @@
             btnNovaVenda.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             btnNovaVenda.OverrideDefault.Border.Rounding = 20F;
             btnNovaVenda.OverrideDefault.Border.Width = 1;
-            btnNovaVenda.Size = new Size(70, 27);
+            btnNovaVenda.Size = new Size(100, 27);
             btnNovaVenda.StateCommon.Back.Color1 = Color.FromArgb(252, 252, 250);
             btnNovaVenda.StateCommon.Back.Color2 = Color.FromArgb(252, 252, 250);
             btnNovaVenda.StateCommon.Back.ColorAngle = 45F;
@@ -831,7 +831,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 1F;
-            btnSair.Location = new Point(630, 3);
+            btnSair.Location = new Point(700, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -843,7 +843,7 @@
             btnSair.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             btnSair.OverrideDefault.Border.Rounding = 20F;
             btnSair.OverrideDefault.Border.Width = 1;
-            btnSair.Size = new Size(70, 27);
+            btnSair.Size = new Size(100, 27);
             btnSair.StateCommon.Back.Color1 = Color.FromArgb(252, 252, 250);
             btnSair.StateCommon.Back.Color2 = Color.FromArgb(252, 252, 250);
             btnSair.StateCommon.Back.ColorAngle = 45F;

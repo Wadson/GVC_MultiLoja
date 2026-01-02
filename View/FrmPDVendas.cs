@@ -529,7 +529,11 @@ namespace GVC.View
                 Utilitario.Mensagens.Aviso("Selecione um cliente.");
                 return;
             }
-
+            if (VendedorID <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Selecione um vendedor.");
+                return;
+            }
             if (_itensBinding.Count == 0)
             {
                 Utilitario.Mensagens.Aviso("Adicione itens à venda.");
@@ -752,7 +756,7 @@ namespace GVC.View
                     _ignorandoBuscar = true;
                     try
                     {
-                        ClienteID = pesquisaVendedor.VendedorID;
+                        VendedorID = pesquisaVendedor.VendedorID;
                         txtVendedorBuscar.Text = pesquisaVendedor.VendedorSelecionado;
                     }
                     finally

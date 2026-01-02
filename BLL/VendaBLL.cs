@@ -39,11 +39,7 @@ namespace GVC.BLL
 
             return EnumStatusVenda.ParcialmentePago.ToString();
         }
-        public int SalvarVendaCompleta(
-     VendaModel venda,
-     List<ItemVendaModel> itens,
-     List<ParcelaModel>? parcelas = null
- )
+        public int SalvarVendaCompleta( VendaModel venda, List<ItemVendaModel> itens, List<ParcelaModel>? parcelas = null )
         {
             if (venda == null)
                 throw new ArgumentNullException(nameof(venda));
@@ -62,12 +58,14 @@ namespace GVC.BLL
                 decimal preco = item.PrecoUnitario;
                 decimal descontoItem = item.DescontoItem ?? 0m;
 
-                if (descontoItem < 0m) descontoItem = 0m;
+                if (descontoItem < 0m) 
+                    descontoItem = 0m; item.Subtotal = Math.Max( 0m, (item.Quantidade * preco) - descontoItem);
 
-                item.Subtotal = Math.Max(
-                    0m,
-                    (item.Quantidade * preco) - descontoItem
-                );
+                if (item.Quantidade <= 0) 
+                    throw new Exception("Item com quantidade inválida.");
+
+                if (item.PrecoUnitario < 0)
+                    throw new Exception("Item com preço negativo não permitido.");
             }
 
             decimal totalItens = itens.Sum(i => i.Subtotal ?? 0m);
