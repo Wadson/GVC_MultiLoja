@@ -65,6 +65,38 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
             }
             return lista;
         }
+        public List<ProdutosModel> ListarProdutosVenda()
+        {
+            var lista = new List<ProdutosModel>();
+            using (var con = new SqlConnection(_connectionString)) // Alterado para SqlConnection
+            {
+                // SQL Server usa TOP para limitar resultados
+                string sql = @"
+                            SELECT TOP 100 
+                                ProdutoID, 
+                                NomeProduto, 
+                                Referencia,
+                                PrecoDeVenda, 
+                                Estoque, 
+                                Unidade, 
+                                Marca
+                            FROM Produtos
+                            ORDER BY NomeProduto;";
+
+                using (var cmd = new SqlCommand(sql, con))
+                {
+                    con.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(MapearPesquisaProdutoVenda(reader));
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
         public List<ProdutosModel> ListarProdutoDinamico(string filtro = "")
         {
             var lista = new List<ProdutosModel>();
@@ -243,16 +275,26 @@ WHERE ProdutoID = @Id";
                 Fornecedor = reader.HasColumn("NomeFornecedor") ? reader["NomeFornecedor"].ToString() ?? "" : ""
             };
         }
-
+        private ProdutosModel MapearPesquisaProdutoVenda(SqlDataReader reader)
+        {
+            return new ProdutosModel
+            {
+                ProdutoID = Convert.ToInt32(reader["ProdutoID"]),
+                NomeProduto = reader["NomeProduto"].ToString(),
+                Referencia = reader["Referencia"]?.ToString() ?? "",  
+                PrecoDeVenda = Convert.ToDecimal(reader["PrecoDeVenda"]),
+                Estoque = Convert.ToInt64(reader["Estoque"]),               
+                Unidade = reader["Unidade"]?.ToString() ?? "",
+                Marca = reader["Marca"]?.ToString() ?? "",
+            };
+        }
         // ==================== PESQUISAR POR NOME ====================
         public List<ProdutosModel> PesquisarProdutoPorNome(string nome)
         {
             var lista = new List<ProdutosModel>();
             // SqlServer usa TOP em vez de LIMIT
-            string sql = @"SELECT TOP 100 p.*, COALESCE(f.Nome, '') AS NomeFornecedor 
-                           FROM Produtos p LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID
-                           WHERE p.NomeProduto LIKE @nome 
-                           ORDER BY p.NomeProduto";
+            string sql = @"SELECT TOP 100 ProdutoID, NomeProduto, Referencia, PrecoDeVenda, Estoque, Unidade, Marca FROM Produtos
+                           WHERE NomeProduto LIKE @nome ORDER BY NomeProduto";
 
             using (var con = new SqlConnection(_connectionString))
             {
@@ -264,7 +306,7 @@ WHERE ProdutoID = @Id";
                     {
                         while (reader.Read())
                         {
-                            lista.Add(Mapear(reader));
+                            lista.Add(MapearPesquisaProdutoVenda(reader));
                         }
                     }
                 }
@@ -292,11 +334,10 @@ WHERE ProdutoID = @Id";
         public List<ProdutosModel> PesquisarProdutoPorCodigo(string codigo)
         {
             var lista = new List<ProdutosModel>();
-            string sql = @"SELECT TOP 100 p.*, COALESCE(f.Nome, '') AS NomeFornecedor 
-                           FROM Produtos p LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID
-                           WHERE CAST(p.ProdutoID AS VARCHAR) LIKE @codigo
-                              OR p.Referencia LIKE @codigo
-                           ORDER BY p.ProdutoID";
+            string sql = @"SELECT TOP 100 ProdutoID, NomeProduto, Referencia, PrecoDeVenda, Estoque, Unidade, Marca FROM Produtos
+                           WHERE NomeProduto CAST(ProdutoID AS VARCHAR) LIKE @codigo
+                              OR Referencia LIKE @codigo
+                           ORDER BY ProdutoID";
 
             using (var con = new SqlConnection(_connectionString))
             {
@@ -308,7 +349,7 @@ WHERE ProdutoID = @Id";
                     {
                         while (reader.Read())
                         {
-                            lista.Add(Mapear(reader));
+                            lista.Add(MapearPesquisaProdutoVenda(reader));
                         }
                     }
                 }

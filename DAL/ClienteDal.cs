@@ -1,9 +1,11 @@
-﻿using GVC.MODEL;
+﻿using GVC.BLL;
+using GVC.MODEL;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
 
 namespace GVC.DALL
 {
@@ -216,6 +218,18 @@ namespace GVC.DALL
             return ExecuteReaderToDataTable(sql,
                 new SqlParameter("@Nome", $"%{nome?.Trim()}%"));
         }
+        public DataTable PesquisarVendedorPorNome(string nome)
+        {
+            const string sql = @"
+        SELECT c.ClienteID, c.Nome
+        FROM Clientes c
+        WHERE c.IsVendedor = 1
+          AND c.Nome LIKE @Nome
+        ORDER BY c.Nome;";
+
+            return ExecuteReaderToDataTable(sql,
+                new SqlParameter("@Nome", $"%{nome?.Trim()}%"));
+        }
 
         public DataTable PesquisarPorCodigo(int codigo)
         {
@@ -233,17 +247,35 @@ namespace GVC.DALL
 
         public DataTable PesquisarGeral(string texto = "")
         {
-            const string sql = SqlBase + @"
-                WHERE c.Nome LIKE @Texto
-                   OR c.Cpf LIKE @Texto
-                   OR c.Cnpj LIKE @Texto
-                   OR c.Telefone LIKE @Texto
-                   OR c.Email LIKE @Texto
-                   OR c.Logradouro LIKE @Texto
-                   OR c.Bairro LIKE @Texto
-                   OR ci.Nome LIKE @Texto
-                ORDER BY c.Nome
-                OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY"; // LIMIT -> OFFSET/FETCH
+            const string sql = @"
+    SELECT
+        c.ClienteID,
+        c.Nome,              
+        c.Logradouro,
+        c.Numero,
+        c.Bairro
+    FROM Clientes c
+    WHERE c.Nome LIKE @Texto 
+       OR c.Logradouro LIKE @Texto
+       OR c.Numero LIKE @Texto
+       OR c.Bairro LIKE @Texto
+    ORDER BY c.Nome
+    OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY;";
+            // LIMIT -> OFFSET/FETCH
+
+            var filtro = $"%{texto?.Trim() ?? ""}%";
+            return ExecuteReaderToDataTable(sql,
+                new SqlParameter("@Texto", filtro));
+        }
+        public DataTable PesquisarVendedores(string texto = "")
+        {
+            const string sql = @"
+        SELECT c.ClienteID, c.Nome
+        FROM Clientes c
+        WHERE c.IsVendedor = 1
+          AND c.Nome LIKE @Texto
+        ORDER BY c.Nome
+        OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY;";
 
             var filtro = $"%{texto?.Trim() ?? ""}%";
             return ExecuteReaderToDataTable(sql,

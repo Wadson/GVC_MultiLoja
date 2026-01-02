@@ -17,17 +17,15 @@ namespace GVC.View
     {
         private string _ClienteID;
         protected int LinhaAtual = -1;
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int ProdutoID { get; set; }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int ProdutoID { get; set; }       
         public string NomeProduto { get; set; }
         public decimal EstoqueAtual { get; set; }
         public decimal PrecoUnitario { get; set; }
-        private String referencia;
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string ProdutoSelecionado { get; set; }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string Unidade { get; set; }
+        public decimal Estoque { get; set; }
+        public string Marca { get; set; }
+        private String referencia;       
+        public string ProdutoSelecionado { get; set; }       
         public Form FormChamador { get; set; }
 
         public FrmLocalizarProduto(Form formChamador, string textoDigitado)
@@ -41,12 +39,10 @@ namespace GVC.View
             this.Owner = formChamador;
 
             txtPesquisar.Text = textoDigitado; // Define a letra pressionada no campo de pesquisa
-
             txtPesquisar.SelectionStart = txtPesquisar.Text.Length; // Coloca o cursor no final
             txtPesquisar.Focus(); // Foca o campo para continuar digitando
 
             //Configurar o TextBox para capturar o evento KeyDown
-
             this.txtPesquisar.KeyDown += new KeyEventHandler(dataGridPesquisar_KeyDown);
             this.dataGridPesquisar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridPesquisar_KeyDown);
 
@@ -61,28 +57,22 @@ namespace GVC.View
             // 2. Cabeçalhos bonitos
             if (dataGridPesquisar.Columns["ProdutoID"] != null) dataGridPesquisar.Columns["ProdutoID"].HeaderText = "Código";
             if (dataGridPesquisar.Columns["NomeProduto"] != null) dataGridPesquisar.Columns["NomeProduto"].HeaderText = "Produto";
-            if (dataGridPesquisar.Columns["Referencia"] != null) dataGridPesquisar.Columns["Referencia"].HeaderText = "Referência";
-            if (dataGridPesquisar.Columns["PrecoCusto"] != null) dataGridPesquisar.Columns["PrecoCusto"].HeaderText = "Preço Custo";
-            if (dataGridPesquisar.Columns["Lucro"] != null) dataGridPesquisar.Columns["Lucro"].HeaderText = "Lucro";
+            if (dataGridPesquisar.Columns["Referencia"] != null) dataGridPesquisar.Columns["Referencia"].HeaderText = "Referência";            
             if (dataGridPesquisar.Columns["PrecoDeVenda"] != null) dataGridPesquisar.Columns["PrecoDeVenda"].HeaderText = "Preço Venda";
             if (dataGridPesquisar.Columns["Estoque"] != null) dataGridPesquisar.Columns["Estoque"].HeaderText = "Estoque";
-            if (dataGridPesquisar.Columns["DataDeEntrada"] != null) dataGridPesquisar.Columns["DataDeEntrada"].HeaderText = "Entrada";
-            if (dataGridPesquisar.Columns["DataValidade"] != null) dataGridPesquisar.Columns["DataValidade"].HeaderText = "Validade";
-            if (dataGridPesquisar.Columns["NomeFornecedor"] != null) dataGridPesquisar.Columns["NomeFornecedor"].HeaderText = "Fornecedor";
-            if (dataGridPesquisar.Columns["FornecedorID"] != null) dataGridPesquisar.Columns["FornecedorID"].HeaderText = "FornecedorID";
+            if (dataGridPesquisar.Columns["Unidade"] != null) dataGridPesquisar.Columns["Unidade"].HeaderText = "UN";
             if (dataGridPesquisar.Columns["Marca"] != null) dataGridPesquisar.Columns["Marca"].HeaderText = "Marca";
 
             // 3. Colunas fixas (largura definida e não mudam)
             var colunasFixas = new (string nome, int largura)[]
             {
         ("ProdutoID", 80),
-        ("NomeProduto", 550),          // 🔒 Fixa em 550
-        ("PrecoCusto", 80),
-        ("Lucro", 80),
+        ("NomeProduto", 550), 
+        ("Referencia", 120),
         ("PrecoDeVenda", 80),
         ("Estoque", 80),
-        ("DataDeEntrada", 100),
-        ("DataValidade", 100)
+        ("Unidade", 60),
+        ("Marca", 150)
             };
 
             foreach (var (nome, largura) in colunasFixas)
@@ -110,10 +100,6 @@ namespace GVC.View
                 }
             }
 
-            //// 5. Congela algumas colunas
-            //if (dataGridPesquisar.Columns["ProdutoID"] != null) dataGridPesquisar.Columns["ProdutoID"].Frozen = true;
-            //if (dataGridPesquisar.Columns["NomeProduto"] != null) dataGridPesquisar.Columns["NomeProduto"].Frozen = true;
-
             // 6. Estilo do cabeçalho
             dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridPesquisar.ColumnHeadersHeight = 35;
@@ -121,17 +107,6 @@ namespace GVC.View
             dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dataGridPesquisar.RowHeadersWidth = 30;
 
-            // 7. Formatações especiais
-            if (dataGridPesquisar.Columns["PrecoCusto"] != null)
-            {
-                dataGridPesquisar.Columns["PrecoCusto"].DefaultCellStyle.Format = "N2";
-                dataGridPesquisar.Columns["PrecoCusto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-            if (dataGridPesquisar.Columns["Lucro"] != null)
-            {
-                dataGridPesquisar.Columns["Lucro"].DefaultCellStyle.Format = "N2";
-                dataGridPesquisar.Columns["Lucro"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
             if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
             {
                 dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new System.Drawing.Font("Arial", 10F, FontStyle.Bold);
@@ -142,17 +117,6 @@ namespace GVC.View
             {
                 dataGridPesquisar.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-            if (dataGridPesquisar.Columns["DataDeEntrada"] != null)
-            {
-                dataGridPesquisar.Columns["DataDeEntrada"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dataGridPesquisar.Columns["DataDeEntrada"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-            if (dataGridPesquisar.Columns["DataValidade"] != null)
-            {
-                dataGridPesquisar.Columns["DataValidade"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dataGridPesquisar.Columns["DataValidade"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-
             // 8. Força o grid a respeitar tudo
             dataGridPesquisar.PerformLayout();
         }
@@ -165,8 +129,7 @@ namespace GVC.View
         public void ListarProduto()
         {
             ProdutoDALL dao = new();
-            dataGridPesquisar.DataSource = dao.ListarTodos();
-
+            dataGridPesquisar.DataSource = dao.ListarProdutosVenda();
             PersonalizarDataGridView();
         }
         private void FrmLocalizarProduto_Load(object sender, EventArgs e)
@@ -190,24 +153,11 @@ namespace GVC.View
         private Form formChamador;
         private void PesquisarProduto()
         {
+            string textoPesquisa = txtPesquisar.Text.Trim();
             ProdutoDALL dao = new ProdutoDALL();
 
-            if (rbtCodigo.Checked)
-            {
-                if (int.TryParse(txtPesquisar.Text, out int id))
-                {
-                    dataGridPesquisar.DataSource = dao.PesquisarPorCodigo(id);
-                }
-                else
-                {
-                    dataGridPesquisar.DataSource = null;
-                }
-            }
-            else
-            {
-                string nome = "%" + txtPesquisar.Text + "%";
-                dataGridPesquisar.DataSource = dao.PesquisarProdutoPorNome(nome);
-            }
+            // 🔹 Pesquisa apenas por nome
+            dataGridPesquisar.DataSource = dao.PesquisarProdutoPorNome(textoPesquisa);
         }
         private void SelecionarProduto()
         {
@@ -242,9 +192,10 @@ namespace GVC.View
                 ProdutoID = int.Parse(dataGridPesquisar["ProdutoID", LinhaAtual].Value.ToString());
                 NomeProduto = dataGridPesquisar["NomeProduto", LinhaAtual].Value.ToString();
                 referencia = dataGridPesquisar["Referencia", LinhaAtual].Value.ToString();
+                Estoque = decimal.Parse(dataGridPesquisar["Estoque", LinhaAtual].Value.ToString());
                 PrecoUnitario = decimal.Parse(dataGridPesquisar["PrecoDeVenda", LinhaAtual].Value.ToString());
                 EstoqueAtual = decimal.Parse(dataGridPesquisar["Estoque", LinhaAtual].Value.ToString());
-
+               
                 // Acrescenta zeros à esquerda do ProdutoID
                 string numeroComZeros = Utilitario.ZerosEsquerda(ProdutoID, 4);
 
@@ -340,7 +291,6 @@ namespace GVC.View
             }
 
         }
-
         private void dataGridPesquisar_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridPesquisar.CurrentRow != null)
@@ -363,7 +313,6 @@ namespace GVC.View
         }
         private void txtPesquisar_TextChanged(object sender, EventArgs e)
         {
-
             PesquisarProduto();
         }
 

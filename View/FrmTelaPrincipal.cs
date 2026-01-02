@@ -56,7 +56,7 @@ namespace GVC.View
         private void btnVendas_Click(object sender, EventArgs e)
         {
             //FrmPedidoVendaNovo frm = new FrmPedidoVendaNovo();
-            FrmPDV frm = new FrmPDV();
+            FrmPDVendas frm = new FrmPDVendas();
             frm.Show();
         }
 

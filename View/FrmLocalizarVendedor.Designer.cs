@@ -1,6 +1,6 @@
 ﻿namespace GVC.View
 {
-    partial class FrmLocalizarProduto
+    partial class FrmLocalizarVendedor
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -39,20 +39,21 @@
             // 
             dataGridPesquisar.AllowUserToAddRows = false;
             dataGridPesquisar.AllowUserToDeleteRows = false;
-            dataGridPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPesquisar.Location = new Point(5, 33);
+            dataGridPesquisar.Location = new Point(0, 36);
             dataGridPesquisar.Margin = new Padding(4, 3, 4, 3);
             dataGridPesquisar.MultiSelect = false;
             dataGridPesquisar.Name = "dataGridPesquisar";
             dataGridPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
             dataGridPesquisar.ReadOnly = true;
             dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPesquisar.Size = new Size(949, 264);
-            dataGridPesquisar.TabIndex = 599;
-            dataGridPesquisar.TabStop = false;
-            dataGridPesquisar.CellDoubleClick += dataGridPesquisar_CellDoubleClick;
+            dataGridPesquisar.Size = new Size(964, 349);
+            dataGridPesquisar.TabIndex = 598;
+            dataGridPesquisar.DataBindingComplete += dataGridPesquisar_DataBindingComplete;
             dataGridPesquisar.SelectionChanged += dataGridPesquisar_SelectionChanged;
+            dataGridPesquisar.DoubleClick += dataGridPesquisar_DoubleClick;
+            dataGridPesquisar.Enter += dataGridPesquisar_Enter;
             dataGridPesquisar.KeyDown += dataGridPesquisar_KeyDown;
             // 
             // kryptonPalette1
@@ -93,13 +94,13 @@
             // 
             // txtPesquisar
             // 
-            txtPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtPesquisar.CharacterCasing = CharacterCasing.Upper;
-            txtPesquisar.Location = new Point(5, 1);
+            txtPesquisar.Dock = DockStyle.Top;
+            txtPesquisar.Location = new Point(0, 0);
             txtPesquisar.Margin = new Padding(5, 6, 5, 6);
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisar.Size = new Size(948, 27);
+            txtPesquisar.Size = new Size(964, 27);
             txtPesquisar.StateCommon.Back.Color1 = Color.White;
             txtPesquisar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPesquisar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -114,7 +115,7 @@
             txtPesquisar.TextChanged += txtPesquisar_TextChanged;
             txtPesquisar.KeyDown += txtPesquisar_KeyDown;
             // 
-            // FrmLocalizarProduto
+            // FrmLocalizarVendedor
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(964, 301);
@@ -123,25 +124,27 @@
             Margin = new Padding(5, 3, 5, 3);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FrmLocalizarProduto";
+            Name = "FrmLocalizarVendedor";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            Text = "Localizar Produto...";
-            FormClosing += FrmLocalizarProduto_FormClosing;
-            Load += FrmLocalizarProduto_Load;
-            Shown += FrmLocalizarProduto_Shown;
+            Text = "Localizar Vendedor";
+            WindowState = FormWindowState.Maximized;
+            FormClosed += FrmLocalizarVendedor_FormClosed;
+            Load += FrmLocalizarVendedor_Load;
+            Shown += FrmLocalizarVendedor_Shown;
+            KeyDown += FrmLocalizarVendedor_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridPesquisar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
         private Krypton.Toolkit.KryptonDataGridView dataGridPesquisar;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
         public Krypton.Toolkit.KryptonTextBox txtPesquisar;

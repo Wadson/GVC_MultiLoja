@@ -6,27 +6,18 @@ using System.Windows.Forms;
 
 namespace GVC.View
 {
-    public partial class FrmLocalizarCliente : KryptonForm
+    public partial class FrmLocalizarVendedor : KryptonForm
     {
         // Variável para controlar a linha atual
         private int linhaAtual = -1;
-        public int ClienteID { get; private set; }  // Adicione esta linha na classe
+        public int VendedorID { get; private set; }  // Adicione esta linha na classe
         public int numeroComZeros { get; set; }
-        public string Cpf { get; set; }
-        public string Cnpj { get; set; }
-        public string Telefone { get; set; }
-        public string Logradouro { get; set; }
-        public string Numero { get; set; }
-        public string Bairro { get; set; }
-        public string Cidade { get; set; }
-        public string Estado { get; set; }
-        public int Cep { get; set; }
-
+       
         private Form _formChamador;
         private bool recebendoTextoExterno = false;
-        public string ClienteSelecionado { get; set; }
+        public string VendedorSelecionado { get; set; }
 
-        public FrmLocalizarCliente(Form formChamador, string textoDigitado)
+        public FrmLocalizarVendedor(Form formChamador, string textoDigitado)
         {
             InitializeComponent();
             ConfigurarEventosTeclado();
@@ -85,8 +76,8 @@ namespace GVC.View
 
             if (!string.IsNullOrEmpty(texto))
             {
-                PesquisarCliente();
-                SelecionarPrimeiroCliente();
+                PesquisarVendedor();
+                SelecionarPrimeiroVendedor();
             }
         }
         public new int ObterLinhaAtual()
@@ -103,17 +94,20 @@ namespace GVC.View
             }
 
             // ✔ Ajustar cabeçalhos
-            Renomear("ClienteID", "Cód. Cliente");
-            Renomear("Nome", "Nome do Cliente");           
-            Renomear("Logradouro", "Logradouro");
-            Renomear("Numero", "Número");
-            Renomear("Bairro", "Bairro");
+            Renomear("ClienteID", "Cód. Vendedor");
+            Renomear("Nome", "Nome do Vendedor");
 
-            // ✔ Definir largura fixa para coluna Nome
+            // ✔ Coluna ClienteID fixa
+            if (dataGridPesquisar.Columns.Contains("ClienteID"))
+            {
+                dataGridPesquisar.Columns["ClienteID"].Width = 70;
+                dataGridPesquisar.Columns["ClienteID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            }
+
+            // ✔ Coluna Nome ocupa todo o espaço restante
             if (dataGridPesquisar.Columns.Contains("Nome"))
             {
-                dataGridPesquisar.Columns["Nome"].Width = 400;
-                dataGridPesquisar.Columns["Nome"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dataGridPesquisar.Columns["Nome"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
             // ✔ Configurações gerais
@@ -125,9 +119,6 @@ namespace GVC.View
             dataGridPesquisar.AllowUserToDeleteRows = false;
             dataGridPesquisar.AllowUserToResizeRows = false;
 
-            // ✔ Ajuste automático das demais colunas
-            dataGridPesquisar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
             // ✔ Fundo amarelo claro
             dataGridPesquisar.DefaultCellStyle.BackColor = Color.LightYellow;
 
@@ -138,11 +129,10 @@ namespace GVC.View
             // ✔ Largura do cabeçalho da linha
             dataGridPesquisar.RowHeadersWidth = 10;
 
-            // ✔ Centralizar cabeçalhos e definir largura mínima
+            // ✔ Centralizar cabeçalhos
             foreach (DataGridViewColumn column in dataGridPesquisar.Columns)
             {
                 column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                column.MinimumWidth = 90;
             }
 
             // ✔ Eventos
@@ -151,6 +141,7 @@ namespace GVC.View
             dataGridPesquisar.DataBindingComplete += dataGridPesquisar_DataBindingComplete;
             dataGridPesquisar.Enter += dataGridPesquisar_Enter;
         }
+
 
         // Função auxiliar para selecionar a primeira linha em coluna visível
         private void SelecionarPrimeiraLinhaSegura()
@@ -184,17 +175,17 @@ namespace GVC.View
             firstRow.Selected = true;
             dataGridPesquisar.CurrentCell = firstRow.Cells[firstVisibleColIndex];
         }
-        public void ListarCliente()
+        public void ListarVendedor()
         {
             ClienteDal dao = new();
-            dataGridPesquisar.DataSource = dao.PesquisarGeral();
+            dataGridPesquisar.DataSource = dao.PesquisarVendedores();
             ConfigurarDataGridView();
         }
-        private void FrmLocalizarCliente_Load(object sender, EventArgs e)
+        private void FrmLocalizarVendedor_Load(object sender, EventArgs e)
         {
             // Altura fixa
             this.MinimumSize = new Size(this.Width, this.Height); this.MaximumSize = new Size(int.MaxValue, this.Height);
-            ListarCliente();
+            ListarVendedor();
             txtPesquisar.Focus();
 
             if (!string.IsNullOrEmpty(txtPesquisar.Text))
@@ -203,13 +194,13 @@ namespace GVC.View
             }
         }
 
-        private void PesquisarCliente()
+        private void PesquisarVendedor()
         {
             string textoPesquisa = txtPesquisar.Text.Trim();
             ClienteDal dao = new ClienteDal();
 
             // 🔹 Pesquisa apenas por nome
-            dataGridPesquisar.DataSource = dao.PesquisarGeral(textoPesquisa);
+            dataGridPesquisar.DataSource = dao.PesquisarVendedorPorNome(textoPesquisa);
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -217,14 +208,14 @@ namespace GVC.View
             this.Close();
         }
 
-        private void FrmLocalizarCliente_FormClosed(object sender, FormClosedEventArgs e)
+        private void FrmLocalizarVendedor_FormClosed(object sender, FormClosedEventArgs e)
         {
             isSelectingProduct = false;
         }
 
         private bool isSelectingProduct = false;
         private Form formChamador;
-        private void SelecionarCliente()
+        private void SelecionarVendedor()
         {
             if (isSelectingProduct) return;
             isSelectingProduct = true;
@@ -240,60 +231,25 @@ namespace GVC.View
                 }
 
                 if (dataGridPesquisar["ClienteID", linhaAtual]?.Value == null ||
-                    dataGridPesquisar["Nome", linhaAtual]?.Value == null ||
-                    dataGridPesquisar["Logradouro", linhaAtual]?.Value == null ||
-                    dataGridPesquisar["Numero", linhaAtual]?.Value == null ||
-                    dataGridPesquisar["Bairro", linhaAtual]?.Value == null)
+                    dataGridPesquisar["Nome", linhaAtual]?.Value == null)
                 {
-                    Utilitario.Mensagens.Aviso("Dados do cliente inválidos.");
+                    Utilitario.Mensagens.Aviso("Dados do vendedor inválidos.");
                     return;
                 }
-                ClienteID = Convert.ToInt32(dataGridPesquisar["ClienteID", linhaAtual].Value);
-                ClienteSelecionado = dataGridPesquisar["Nome", linhaAtual].Value.ToString();
-                Logradouro = dataGridPesquisar["Logradouro", linhaAtual].Value.ToString();
-                Numero = dataGridPesquisar["Numero", linhaAtual].Value.ToString();
-                Bairro = dataGridPesquisar["Bairro", linhaAtual].Value.ToString();
-
-                if (this.Owner is FrmContasReceber frmContaReceberr)
+                VendedorID = Convert.ToInt32(dataGridPesquisar["ClienteID", linhaAtual].Value);
+                VendedorSelecionado = dataGridPesquisar["Nome", linhaAtual].Value.ToString();
+               
+                if (this.Owner is FrmPDVendas frmPDV)
                 {
-                    frmContaReceberr.ClienteID = ClienteID;
-                    frmContaReceberr.txtNomeCliente.Text = ClienteSelecionado;
-                }
-                else if (this.Owner is FrmRelatorios frmRelatorios)
-                {
-                    frmRelatorios.txtClienteID.Text = ClienteID.ToString();
-                    frmRelatorios.txtNomeCliente.Text = ClienteSelecionado;
-                }
-                else if (this.Owner is FrmVendas frmVendas)
-                {
-                    frmVendas.ClienteID = ClienteID;
-
-                    frmVendas.txtNomeCliente.Text = ClienteSelecionado;
-                    frmVendas.txtCpf.Text = Utilitario.FormatarCPF(Cpf);
-                }
-                else if (this.Owner is FrmPDV frmPDV)
-                {
-                    frmPDV.ClienteID = ClienteID;
-
-                    frmPDV.txtClienteBuscar.Text = ClienteSelecionado;                    
-                }
-                else if (this.Owner is FrmPDVendas frmPDVendas)
-                {
-                    frmPDVendas.ClienteID = ClienteID;
-                    frmPDVendas.txtClienteBuscar.Text = ClienteSelecionado;
-                }
-                else if (this.Owner is FrmGerenciarVendas frmGerVendas)
-                {
-                    frmGerVendas.ClienteID = ClienteID;
-
-                    frmGerVendas.txtCliente.Text = ClienteSelecionado;                    
-                }
+                    frmPDV.VendedorID = VendedorID;
+                    frmPDV.txtVendedorBuscar.Text = VendedorSelecionado;                    
+                }               
                 else
                 {
                     Utilitario.Mensagens.Aviso("O formulário chamador não é reconhecido.");
                 }
 
-                this.DialogResult = DialogResult.OK; // Confirma que um cliente foi selecionado
+                this.DialogResult = DialogResult.OK; // Confirma que um vendedor foi selecionado
                 this.Close();
             }
             finally
@@ -326,8 +282,8 @@ namespace GVC.View
             switch (e.KeyCode)
             {
                 case Keys.Enter:
-                    // Enter no DataGridView: seleciona cliente
-                    SelecionarCliente(); // Chama seu método existente
+                    // Enter no DataGridView: seleciona vendedor
+                    SelecionarVendedor(); // Chama seu método existente
                     e.Handled = true;
                     break;
 
@@ -352,31 +308,12 @@ namespace GVC.View
                     e.Handled = true;
                     break;
             }
-        }
-        private void AtualizarFormularioChamador()
-        {
-        }
+        }       
         private void txtPesquisar_TextChanged(object sender, EventArgs e)
         {
-            PesquisarCliente();
+            PesquisarVendedor();
         }
-
-        private void btnSair_Click_1(object sender, EventArgs e)
-        {
-            // SE TEM ALGUMA LINHA SELECIONADA → carrega os dados antes de sair
-            if (dataGridPesquisar.CurrentRow != null && dataGridPesquisar.CurrentRow.Index >= 0)
-            {
-                linhaAtual = dataGridPesquisar.CurrentRow.Index;
-                SelecionarCliente(); // ← agora carrega mesmo clicando em Sair
-                return; // sai com DialogResult.OK
-            }
-
-            // Se não tem nada selecionado → só fecha (sem carregar nada)
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
-
-        private void FrmLocalizarCliente_Shown(object sender, EventArgs e)
+        private void FrmLocalizarVendedor_Shown(object sender, EventArgs e)
         {
             txtPesquisar.Focus();
             // Em vez disso, posicione o cursor no final
@@ -419,7 +356,7 @@ namespace GVC.View
                         dataGridPesquisar.Focus();
                         dataGridPesquisar.Rows[0].Selected = true;
                         dataGridPesquisar.CurrentCell = dataGridPesquisar.Rows[0].Cells[0];
-                        SelecionarCliente(); // Chama seu método existente
+                        SelecionarVendedor(); // Chama seu método existente
                     }
                     e.Handled = true;
                     break;
@@ -430,8 +367,8 @@ namespace GVC.View
                     break;
             }
         }
-        // Seleciona o primeiro cliente da lista
-        private void SelecionarPrimeiroCliente()
+        // Seleciona o primeiro vendedor da lista
+        private void SelecionarPrimeiroVendedor()
         {
             if (dataGridPesquisar.Rows.Count > 0)
             {
@@ -446,23 +383,23 @@ namespace GVC.View
             {
                 SelecionarPrimeiraLinhaSegura();
             }
-            //// Quando o DataGridView recebe foco, seleciona a primeira linha se nenhuma estiver selecionada
-            //if (dataGridPesquisar.Rows.Count > 0 && dataGridPesquisar.CurrentRow == null)
-            //{
-            //    dataGridPesquisar.Rows[0].Selected = true;
-            //    dataGridPesquisar.CurrentCell = dataGridPesquisar.Rows[0].Cells[0];
-            //}
+            // Quando o DataGridView recebe foco, seleciona a primeira linha se nenhuma estiver selecionada
+            if (dataGridPesquisar.Rows.Count > 0 && dataGridPesquisar.CurrentRow == null)
+            {
+                dataGridPesquisar.Rows[0].Selected = true;
+                dataGridPesquisar.CurrentCell = dataGridPesquisar.Rows[0].Cells[0];
+            }
         }
 
         private void dataGridPesquisar_DoubleClick(object sender, EventArgs e)
         {
             if (dataGridPesquisar.CurrentRow != null)
             {
-                SelecionarCliente();
+                SelecionarVendedor();
             }
         }
 
-        private void FrmLocalizarCliente_KeyDown(object sender, KeyEventArgs e)
+        private void FrmLocalizarVendedor_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
@@ -471,7 +408,7 @@ namespace GVC.View
                     if (dataGridPesquisar.CurrentRow != null && dataGridPesquisar.CurrentRow.Index >= 0)
                     {
                         linhaAtual = dataGridPesquisar.CurrentRow.Index;
-                        SelecionarCliente();
+                        SelecionarVendedor();
                     }
                     else
                     {
