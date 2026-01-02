@@ -131,25 +131,24 @@
             txtClienteBuscar.Location = new Point(94, 49);
             txtClienteBuscar.Name = "txtClienteBuscar";
             txtClienteBuscar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtClienteBuscar.Size = new Size(596, 24);
+            txtClienteBuscar.Size = new Size(592, 24);
             txtClienteBuscar.StateCommon.Back.Color1 = Color.White;
             txtClienteBuscar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtClienteBuscar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtClienteBuscar.StateCommon.Border.ColorAngle = 1F;
             txtClienteBuscar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtClienteBuscar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtClienteBuscar.StateCommon.Border.Rounding = 6F;
+            txtClienteBuscar.StateCommon.Border.Rounding = 1F;
             txtClienteBuscar.StateCommon.Border.Width = 1;
             txtClienteBuscar.StateCommon.Content.Color1 = Color.Gray;
             txtClienteBuscar.StateCommon.Content.Font = new Font("Segoe UI", 9.75F);
-            txtClienteBuscar.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtClienteBuscar.StateCommon.Content.Padding = new Padding(2);
             txtClienteBuscar.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtClienteBuscar.StateNormal.Back.Color1 = Color.FromArgb(192, 255, 255);
             txtClienteBuscar.StateNormal.Content.Color1 = Color.FromArgb(192, 255, 255);
             txtClienteBuscar.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtClienteBuscar.TabIndex = 0;
             txtClienteBuscar.TextChanged += txtClienteBuscar_TextChanged;
-            txtClienteBuscar.KeyDown += txtClienteBuscar_KeyDown;
             // 
             // lblDesconto
             // 
@@ -158,7 +157,7 @@
             lblDesconto.BackColor = Color.Transparent;
             lblDesconto.Font = new Font("Segoe UI", 9.75F);
             lblDesconto.ForeColor = Color.White;
-            lblDesconto.Location = new Point(83, 57);
+            lblDesconto.Location = new Point(83, 63);
             lblDesconto.Name = "lblDesconto";
             lblDesconto.Size = new Size(90, 17);
             lblDesconto.TabIndex = 638;
@@ -169,21 +168,21 @@
             // 
             txtDesconto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtDesconto.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtDesconto.Location = new Point(3, 77);
+            txtDesconto.Location = new Point(3, 83);
             txtDesconto.Name = "txtDesconto";
             txtDesconto.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtDesconto.Size = new Size(170, 30);
+            txtDesconto.Size = new Size(170, 36);
             txtDesconto.StateCommon.Back.Color1 = Color.White;
             txtDesconto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtDesconto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtDesconto.StateCommon.Border.ColorAngle = 1F;
             txtDesconto.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtDesconto.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtDesconto.StateCommon.Border.Rounding = 6F;
+            txtDesconto.StateCommon.Border.Rounding = 1F;
             txtDesconto.StateCommon.Border.Width = 1;
             txtDesconto.StateCommon.Content.Color1 = Color.Gray;
             txtDesconto.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 15.25F);
-            txtDesconto.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtDesconto.StateCommon.Content.Padding = new Padding(2, 5, 2, 5);
             txtDesconto.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             txtDesconto.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtDesconto.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
@@ -198,7 +197,7 @@
             lblTotalLiquido.BackColor = Color.Transparent;
             lblTotalLiquido.Font = new Font("Segoe UI", 10.75F);
             lblTotalLiquido.ForeColor = Color.White;
-            lblTotalLiquido.Location = new Point(74, 110);
+            lblTotalLiquido.Location = new Point(74, 122);
             lblTotalLiquido.Name = "lblTotalLiquido";
             lblTotalLiquido.Size = new Size(99, 20);
             lblTotalLiquido.TabIndex = 640;
@@ -209,22 +208,22 @@
             // 
             txtTotalGeral.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtTotalGeral.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtTotalGeral.Location = new Point(3, 133);
+            txtTotalGeral.Location = new Point(3, 145);
             txtTotalGeral.Name = "txtTotalGeral";
             txtTotalGeral.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             txtTotalGeral.ReadOnly = true;
-            txtTotalGeral.Size = new Size(170, 34);
+            txtTotalGeral.Size = new Size(170, 40);
             txtTotalGeral.StateCommon.Back.Color1 = Color.FromArgb(255, 255, 192);
             txtTotalGeral.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtTotalGeral.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtTotalGeral.StateCommon.Border.ColorAngle = 1F;
             txtTotalGeral.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtTotalGeral.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtTotalGeral.StateCommon.Border.Rounding = 6F;
+            txtTotalGeral.StateCommon.Border.Rounding = 1F;
             txtTotalGeral.StateCommon.Border.Width = 1;
             txtTotalGeral.StateCommon.Content.Color1 = Color.Gray;
             txtTotalGeral.StateCommon.Content.Font = new Font("Segoe UI", 15.75F);
-            txtTotalGeral.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtTotalGeral.StateCommon.Content.Padding = new Padding(2, 5, 2, 5);
             txtTotalGeral.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             txtTotalGeral.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtTotalGeral.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
@@ -234,19 +233,20 @@
             // cmbFormaPagamento
             // 
             cmbFormaPagamento.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            cmbFormaPagamento.CornerRoundingRadius = 6F;
+            cmbFormaPagamento.CornerRoundingRadius = 1F;
             cmbFormaPagamento.DropDownWidth = 171;
             cmbFormaPagamento.IntegralHeight = false;
             cmbFormaPagamento.Items.AddRange(new object[] { "Á Vista", "Crediário Parcelado", "Cartão de Crédito", "Cartão de Débito", "Pix", "Transferência" });
             cmbFormaPagamento.Location = new Point(5, 22);
             cmbFormaPagamento.Name = "cmbFormaPagamento";
-            cmbFormaPagamento.Size = new Size(308, 27);
+            cmbFormaPagamento.Size = new Size(308, 23);
             cmbFormaPagamento.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(8, 142, 250);
             cmbFormaPagamento.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(8, 142, 250);
             cmbFormaPagamento.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbFormaPagamento.StateCommon.ComboBox.Border.Rounding = 6F;
+            cmbFormaPagamento.StateCommon.ComboBox.Border.Rounding = 1F;
             cmbFormaPagamento.StateCommon.ComboBox.Border.Width = 1;
             cmbFormaPagamento.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbFormaPagamento.StateCommon.ComboBox.Content.Padding = new Padding(2, 3, 2, 3);
             cmbFormaPagamento.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             cmbFormaPagamento.TabIndex = 1014;
             cmbFormaPagamento.TabStop = false;
@@ -255,8 +255,8 @@
             // btnAdicionarItem
             // 
             btnAdicionarItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdicionarItem.CornerRoundingRadius = 6F;
-            btnAdicionarItem.Location = new Point(933, 92);
+            btnAdicionarItem.CornerRoundingRadius = 1F;
+            btnAdicionarItem.Location = new Point(913, 92);
             btnAdicionarItem.Name = "btnAdicionarItem";
             btnAdicionarItem.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnAdicionarItem.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -268,7 +268,7 @@
             btnAdicionarItem.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             btnAdicionarItem.OverrideDefault.Border.Rounding = 20F;
             btnAdicionarItem.OverrideDefault.Border.Width = 1;
-            btnAdicionarItem.Size = new Size(80, 25);
+            btnAdicionarItem.Size = new Size(98, 25);
             btnAdicionarItem.StateCommon.Back.Color1 = Color.FromArgb(252, 252, 250);
             btnAdicionarItem.StateCommon.Back.Color2 = Color.FromArgb(252, 252, 250);
             btnAdicionarItem.StateCommon.Back.ColorAngle = 45F;
@@ -276,8 +276,9 @@
             btnAdicionarItem.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 255);
             btnAdicionarItem.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             btnAdicionarItem.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnAdicionarItem.StateCommon.Border.Rounding = 6F;
+            btnAdicionarItem.StateCommon.Border.Rounding = 1F;
             btnAdicionarItem.StateCommon.Border.Width = 1;
+            btnAdicionarItem.StateCommon.Content.Padding = new Padding(2);
             btnAdicionarItem.StateCommon.Content.ShortText.Color1 = Color.FromArgb(50, 50, 50);
             btnAdicionarItem.StateCommon.Content.ShortText.Color2 = Color.FromArgb(50, 50, 50);
             btnAdicionarItem.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 9.75F);
@@ -312,7 +313,7 @@
             // btnSalvarVenda
             // 
             btnSalvarVenda.Anchor = AnchorStyles.Bottom;
-            btnSalvarVenda.CornerRoundingRadius = 6F;
+            btnSalvarVenda.CornerRoundingRadius = 1F;
             btnSalvarVenda.Location = new Point(3, 3);
             btnSalvarVenda.Name = "btnSalvarVenda";
             btnSalvarVenda.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -331,8 +332,9 @@
             btnSalvarVenda.StateCommon.Back.ColorAngle = 45F;
             btnSalvarVenda.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             btnSalvarVenda.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnSalvarVenda.StateCommon.Border.Rounding = 6F;
+            btnSalvarVenda.StateCommon.Border.Rounding = 1F;
             btnSalvarVenda.StateCommon.Border.Width = 1;
+            btnSalvarVenda.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             btnSalvarVenda.StateCommon.Content.ShortText.Color1 = Color.White;
             btnSalvarVenda.StateCommon.Content.ShortText.Color2 = Color.White;
             btnSalvarVenda.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 8.25F);
@@ -367,7 +369,7 @@
             // btnCancelarVenda
             // 
             btnCancelarVenda.Anchor = AnchorStyles.Bottom;
-            btnCancelarVenda.CornerRoundingRadius = 6F;
+            btnCancelarVenda.CornerRoundingRadius = 1F;
             btnCancelarVenda.Location = new Point(89, 3);
             btnCancelarVenda.Name = "btnCancelarVenda";
             btnCancelarVenda.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -386,8 +388,9 @@
             btnCancelarVenda.StateCommon.Back.ColorAngle = 45F;
             btnCancelarVenda.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             btnCancelarVenda.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelarVenda.StateCommon.Border.Rounding = 6F;
+            btnCancelarVenda.StateCommon.Border.Rounding = 1F;
             btnCancelarVenda.StateCommon.Border.Width = 1;
+            btnCancelarVenda.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             btnCancelarVenda.StateCommon.Content.ShortText.Color1 = Color.White;
             btnCancelarVenda.StateCommon.Content.ShortText.Color2 = Color.White;
             btnCancelarVenda.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 8.25F);
@@ -422,7 +425,7 @@
             // btnImprimirCupomNaoFiscal
             // 
             btnImprimirCupomNaoFiscal.Anchor = AnchorStyles.Bottom;
-            btnImprimirCupomNaoFiscal.CornerRoundingRadius = 6F;
+            btnImprimirCupomNaoFiscal.CornerRoundingRadius = 1F;
             btnImprimirCupomNaoFiscal.Location = new Point(3, 36);
             btnImprimirCupomNaoFiscal.Name = "btnImprimirCupomNaoFiscal";
             btnImprimirCupomNaoFiscal.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -441,8 +444,9 @@
             btnImprimirCupomNaoFiscal.StateCommon.Back.ColorAngle = 45F;
             btnImprimirCupomNaoFiscal.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             btnImprimirCupomNaoFiscal.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnImprimirCupomNaoFiscal.StateCommon.Border.Rounding = 6F;
+            btnImprimirCupomNaoFiscal.StateCommon.Border.Rounding = 1F;
             btnImprimirCupomNaoFiscal.StateCommon.Border.Width = 1;
+            btnImprimirCupomNaoFiscal.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             btnImprimirCupomNaoFiscal.StateCommon.Content.ShortText.Color1 = Color.Black;
             btnImprimirCupomNaoFiscal.StateCommon.Content.ShortText.Color2 = Color.Black;
             btnImprimirCupomNaoFiscal.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 8.25F);
@@ -492,43 +496,42 @@
             txtProdutoBuscar.Location = new Point(94, 92);
             txtProdutoBuscar.Name = "txtProdutoBuscar";
             txtProdutoBuscar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtProdutoBuscar.Size = new Size(596, 24);
+            txtProdutoBuscar.Size = new Size(592, 24);
             txtProdutoBuscar.StateCommon.Back.Color1 = Color.White;
             txtProdutoBuscar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtProdutoBuscar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtProdutoBuscar.StateCommon.Border.ColorAngle = 1F;
             txtProdutoBuscar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtProdutoBuscar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtProdutoBuscar.StateCommon.Border.Rounding = 6F;
+            txtProdutoBuscar.StateCommon.Border.Rounding = 1F;
             txtProdutoBuscar.StateCommon.Border.Width = 1;
             txtProdutoBuscar.StateCommon.Content.Color1 = Color.Gray;
             txtProdutoBuscar.StateCommon.Content.Font = new Font("Segoe UI", 9.75F);
-            txtProdutoBuscar.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtProdutoBuscar.StateCommon.Content.Padding = new Padding(2);
             txtProdutoBuscar.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtProdutoBuscar.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtProdutoBuscar.TabIndex = 2;
             txtProdutoBuscar.TextChanged += txtProdutoBuscar_TextChanged;
-            txtProdutoBuscar.KeyDown += txtProdutoBuscar_KeyDown;
             // 
             // txtPrecoUnitario
             // 
             txtPrecoUnitario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtPrecoUnitario.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtPrecoUnitario.Location = new Point(825, 92);
+            txtPrecoUnitario.Location = new Point(792, 92);
             txtPrecoUnitario.Name = "txtPrecoUnitario";
             txtPrecoUnitario.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtPrecoUnitario.Size = new Size(106, 24);
+            txtPrecoUnitario.Size = new Size(118, 24);
             txtPrecoUnitario.StateCommon.Back.Color1 = Color.White;
             txtPrecoUnitario.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoUnitario.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtPrecoUnitario.StateCommon.Border.ColorAngle = 1F;
             txtPrecoUnitario.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtPrecoUnitario.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtPrecoUnitario.StateCommon.Border.Rounding = 6F;
+            txtPrecoUnitario.StateCommon.Border.Rounding = 1F;
             txtPrecoUnitario.StateCommon.Border.Width = 1;
             txtPrecoUnitario.StateCommon.Content.Color1 = Color.Gray;
             txtPrecoUnitario.StateCommon.Content.Font = new Font("Segoe UI", 9.75F);
-            txtPrecoUnitario.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtPrecoUnitario.StateCommon.Content.Padding = new Padding(2);
             txtPrecoUnitario.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtPrecoUnitario.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtPrecoUnitario.TabIndex = 4;
@@ -543,7 +546,7 @@
             label13.BackColor = Color.Transparent;
             label13.Font = new Font("Segoe UI", 9.75F);
             label13.ForeColor = Color.FromArgb(44, 62, 80);
-            label13.Location = new Point(831, 73);
+            label13.Location = new Point(797, 72);
             label13.Name = "label13";
             label13.Size = new Size(91, 17);
             label13.TabIndex = 646;
@@ -556,7 +559,7 @@
             label12.BackColor = Color.Transparent;
             label12.Font = new Font("Segoe UI", 9.75F);
             label12.ForeColor = Color.FromArgb(44, 62, 80);
-            label12.Location = new Point(746, 73);
+            label12.Location = new Point(700, 72);
             label12.Name = "label12";
             label12.Size = new Size(76, 17);
             label12.TabIndex = 644;
@@ -566,21 +569,21 @@
             // 
             txtValorRecebido.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtValorRecebido.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtValorRecebido.Location = new Point(3, 241);
+            txtValorRecebido.Location = new Point(3, 265);
             txtValorRecebido.Name = "txtValorRecebido";
             txtValorRecebido.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtValorRecebido.Size = new Size(170, 30);
+            txtValorRecebido.Size = new Size(170, 36);
             txtValorRecebido.StateCommon.Back.Color1 = Color.White;
             txtValorRecebido.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtValorRecebido.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtValorRecebido.StateCommon.Border.ColorAngle = 1F;
             txtValorRecebido.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtValorRecebido.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtValorRecebido.StateCommon.Border.Rounding = 6F;
+            txtValorRecebido.StateCommon.Border.Rounding = 1F;
             txtValorRecebido.StateCommon.Border.Width = 1;
             txtValorRecebido.StateCommon.Content.Color1 = Color.Gray;
             txtValorRecebido.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 15.25F);
-            txtValorRecebido.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtValorRecebido.StateCommon.Content.Padding = new Padding(2, 5, 2, 5);
             txtValorRecebido.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             txtValorRecebido.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtValorRecebido.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
@@ -595,7 +598,7 @@
             lblValorRecebido.BackColor = Color.Transparent;
             lblValorRecebido.Font = new Font("Segoe UI", 9.75F);
             lblValorRecebido.ForeColor = Color.White;
-            lblValorRecebido.Location = new Point(84, 221);
+            lblValorRecebido.Location = new Point(84, 245);
             lblValorRecebido.Name = "lblValorRecebido";
             lblValorRecebido.Size = new Size(89, 17);
             lblValorRecebido.TabIndex = 642;
@@ -619,7 +622,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9.75F);
             label5.ForeColor = Color.FromArgb(44, 62, 80);
-            label5.Location = new Point(746, 30);
+            label5.Location = new Point(697, 30);
             label5.Name = "label5";
             label5.Size = new Size(65, 17);
             label5.TabIndex = 1045;
@@ -631,7 +634,7 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 9.75F);
             label3.ForeColor = Color.FromArgb(44, 62, 80);
-            label3.Location = new Point(1, 75);
+            label3.Location = new Point(1, 74);
             label3.Name = "label3";
             label3.Size = new Size(75, 17);
             label3.TabIndex = 1035;
@@ -643,7 +646,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Segoe UI", 9.75F);
             label2.ForeColor = Color.FromArgb(44, 62, 80);
-            label2.Location = new Point(96, 74);
+            label2.Location = new Point(96, 73);
             label2.Name = "label2";
             label2.Size = new Size(55, 17);
             label2.TabIndex = 1026;
@@ -653,21 +656,21 @@
             // 
             txtQuantidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtQuantidade.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtQuantidade.Location = new Point(746, 92);
+            txtQuantidade.Location = new Point(700, 92);
             txtQuantidade.Name = "txtQuantidade";
             txtQuantidade.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtQuantidade.Size = new Size(76, 24);
+            txtQuantidade.Size = new Size(85, 24);
             txtQuantidade.StateCommon.Back.Color1 = Color.White;
             txtQuantidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtQuantidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtQuantidade.StateCommon.Border.ColorAngle = 1F;
             txtQuantidade.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtQuantidade.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtQuantidade.StateCommon.Border.Rounding = 6F;
+            txtQuantidade.StateCommon.Border.Rounding = 1F;
             txtQuantidade.StateCommon.Border.Width = 1;
             txtQuantidade.StateCommon.Content.Color1 = Color.Gray;
             txtQuantidade.StateCommon.Content.Font = new Font("Segoe UI", 9.75F);
-            txtQuantidade.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtQuantidade.StateCommon.Content.Padding = new Padding(2);
             txtQuantidade.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtQuantidade.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtQuantidade.TabIndex = 3;
@@ -683,18 +686,18 @@
             txtSubTotal.Name = "txtSubTotal";
             txtSubTotal.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             txtSubTotal.ReadOnly = true;
-            txtSubTotal.Size = new Size(170, 34);
+            txtSubTotal.Size = new Size(170, 40);
             txtSubTotal.StateCommon.Back.Color1 = Color.White;
             txtSubTotal.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtSubTotal.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtSubTotal.StateCommon.Border.ColorAngle = 1F;
             txtSubTotal.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtSubTotal.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtSubTotal.StateCommon.Border.Rounding = 6F;
+            txtSubTotal.StateCommon.Border.Rounding = 1F;
             txtSubTotal.StateCommon.Border.Width = 1;
             txtSubTotal.StateCommon.Content.Color1 = Color.Gray;
             txtSubTotal.StateCommon.Content.Font = new Font("Segoe UI", 15.75F);
-            txtSubTotal.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtSubTotal.StateCommon.Content.Padding = new Padding(2, 5, 2, 5);
             txtSubTotal.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             txtSubTotal.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtSubTotal.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
@@ -719,21 +722,21 @@
             // 
             txtTroco.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtTroco.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtTroco.Location = new Point(3, 294);
+            txtTroco.Location = new Point(179, 3);
             txtTroco.Name = "txtTroco";
             txtTroco.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtTroco.Size = new Size(170, 33);
+            txtTroco.Size = new Size(170, 39);
             txtTroco.StateCommon.Back.Color1 = Color.White;
             txtTroco.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtTroco.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtTroco.StateCommon.Border.ColorAngle = 1F;
             txtTroco.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtTroco.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtTroco.StateCommon.Border.Rounding = 6F;
+            txtTroco.StateCommon.Border.Rounding = 1F;
             txtTroco.StateCommon.Border.Width = 1;
             txtTroco.StateCommon.Content.Color1 = Color.Gray;
             txtTroco.StateCommon.Content.Font = new Font("Segoe UI", 14.75F);
-            txtTroco.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtTroco.StateCommon.Content.Padding = new Padding(2, 5, 2, 5);
             txtTroco.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             txtTroco.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtTroco.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
@@ -747,7 +750,7 @@
             lblTroco.BackColor = Color.Transparent;
             lblTroco.Font = new Font("Segoe UI", 9.75F);
             lblTroco.ForeColor = Color.White;
-            lblTroco.Location = new Point(129, 274);
+            lblTroco.Location = new Point(129, 304);
             lblTroco.Name = "lblTroco";
             lblTroco.Size = new Size(44, 17);
             lblTroco.TabIndex = 1033;
@@ -757,7 +760,7 @@
             // btnGerarParcelas
             // 
             btnGerarParcelas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnGerarParcelas.CornerRoundingRadius = 6F;
+            btnGerarParcelas.CornerRoundingRadius = 1F;
             btnGerarParcelas.Location = new Point(316, 73);
             btnGerarParcelas.Name = "btnGerarParcelas";
             btnGerarParcelas.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -779,8 +782,9 @@
             btnGerarParcelas.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             btnGerarParcelas.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             btnGerarParcelas.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnGerarParcelas.StateCommon.Border.Rounding = 6F;
+            btnGerarParcelas.StateCommon.Border.Rounding = 1F;
             btnGerarParcelas.StateCommon.Border.Width = 1;
+            btnGerarParcelas.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             btnGerarParcelas.StateCommon.Content.ShortText.Color1 = Color.White;
             btnGerarParcelas.StateCommon.Content.ShortText.Color2 = Color.White;
             btnGerarParcelas.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 9.75F);
@@ -814,7 +818,7 @@
             // btnCancelarParcelas
             // 
             btnCancelarParcelas.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCancelarParcelas.CornerRoundingRadius = 6F;
+            btnCancelarParcelas.CornerRoundingRadius = 1F;
             btnCancelarParcelas.Location = new Point(319, 22);
             btnCancelarParcelas.Name = "btnCancelarParcelas";
             btnCancelarParcelas.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -836,8 +840,9 @@
             btnCancelarParcelas.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             btnCancelarParcelas.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             btnCancelarParcelas.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelarParcelas.StateCommon.Border.Rounding = 6F;
+            btnCancelarParcelas.StateCommon.Border.Rounding = 1F;
             btnCancelarParcelas.StateCommon.Border.Width = 1;
+            btnCancelarParcelas.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             btnCancelarParcelas.StateCommon.Content.ShortText.Color1 = Color.White;
             btnCancelarParcelas.StateCommon.Content.ShortText.Color2 = Color.White;
             btnCancelarParcelas.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 9.75F);
@@ -874,12 +879,13 @@
             numIntervalo.Location = new Point(213, 74);
             numIntervalo.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numIntervalo.Name = "numIntervalo";
-            numIntervalo.Size = new Size(100, 26);
+            numIntervalo.Size = new Size(100, 22);
             numIntervalo.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             numIntervalo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             numIntervalo.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            numIntervalo.StateCommon.Border.Rounding = 6F;
+            numIntervalo.StateCommon.Border.Rounding = 1F;
             numIntervalo.StateCommon.Border.Width = 1;
+            numIntervalo.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             numIntervalo.TabIndex = 1048;
             numIntervalo.Value = new decimal(new int[] { 30, 0, 0, 0 });
             numIntervalo.ValueChanged += numIntervalo_ValueChanged;
@@ -901,7 +907,7 @@
             // 
             dgvParcelas.AllowUserToAddRows = false;
             dgvParcelas.Dock = DockStyle.Fill;
-            dgvParcelas.Location = new Point(631, 20);
+            dgvParcelas.Location = new Point(627, 20);
             dgvParcelas.Name = "dgvParcelas";
             dgvParcelas.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueDarkMode;
             dgvParcelas.RowHeadersWidth = 23;
@@ -917,12 +923,13 @@
             numParcelas.Location = new Point(5, 73);
             numParcelas.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numParcelas.Name = "numParcelas";
-            numParcelas.Size = new Size(100, 26);
+            numParcelas.Size = new Size(100, 22);
             numParcelas.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             numParcelas.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             numParcelas.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            numParcelas.StateCommon.Border.Rounding = 6F;
+            numParcelas.StateCommon.Border.Rounding = 1F;
             numParcelas.StateCommon.Border.Width = 1;
+            numParcelas.StateCommon.Content.Padding = new Padding(2, 5, 2, 5);
             numParcelas.TabIndex = 1043;
             numParcelas.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numParcelas.ValueChanged += numParcelas_ValueChanged;
@@ -957,17 +964,18 @@
             // 
             dtPrimeira.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             dtPrimeira.CalendarTodayDate = new DateTime(2025, 12, 24, 0, 0, 0, 0);
-            dtPrimeira.CornerRoundingRadius = 6F;
+            dtPrimeira.CornerRoundingRadius = 1F;
             dtPrimeira.Format = DateTimePickerFormat.Short;
             dtPrimeira.Location = new Point(109, 74);
             dtPrimeira.Name = "dtPrimeira";
             dtPrimeira.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010Blue;
-            dtPrimeira.Size = new Size(100, 25);
+            dtPrimeira.Size = new Size(100, 21);
             dtPrimeira.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             dtPrimeira.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             dtPrimeira.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            dtPrimeira.StateCommon.Border.Rounding = 6F;
+            dtPrimeira.StateCommon.Border.Rounding = 1F;
             dtPrimeira.StateCommon.Border.Width = 1;
+            dtPrimeira.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             dtPrimeira.TabIndex = 1044;
             // 
             // lblFormaPgto
@@ -999,7 +1007,7 @@
             txtObservacao.StateCommon.Border.ColorAngle = 1F;
             txtObservacao.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtObservacao.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtObservacao.StateCommon.Border.Rounding = 8F;
+            txtObservacao.StateCommon.Border.Rounding = 1F;
             txtObservacao.StateCommon.Border.Width = 1;
             txtObservacao.StateCommon.Content.Color1 = Color.Gray;
             txtObservacao.StateCommon.Content.Font = new Font("Segoe UI", 12.75F);
@@ -1012,7 +1020,7 @@
             // txtFechar
             // 
             txtFechar.Anchor = AnchorStyles.Bottom;
-            txtFechar.CornerRoundingRadius = 6F;
+            txtFechar.CornerRoundingRadius = 1F;
             txtFechar.Location = new Point(89, 69);
             txtFechar.Name = "txtFechar";
             txtFechar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -1031,8 +1039,9 @@
             txtFechar.StateCommon.Back.ColorAngle = 45F;
             txtFechar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtFechar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtFechar.StateCommon.Border.Rounding = 6F;
+            txtFechar.StateCommon.Border.Rounding = 1F;
             txtFechar.StateCommon.Border.Width = 1;
+            txtFechar.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             txtFechar.StateCommon.Content.ShortText.Color1 = Color.White;
             txtFechar.StateCommon.Content.ShortText.Color2 = Color.White;
             txtFechar.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 8.25F);
@@ -1076,7 +1085,7 @@
             kryptonPanelBotoesControle.Location = new Point(0, 715);
             kryptonPanelBotoesControle.Name = "kryptonPanelBotoesControle";
             kryptonPanelBotoesControle.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverDarkMode;
-            kryptonPanelBotoesControle.Size = new Size(1024, 34);
+            kryptonPanelBotoesControle.Size = new Size(1020, 34);
             kryptonPanelBotoesControle.StateCommon.Color1 = Color.FromArgb(8, 142, 250);
             kryptonPanelBotoesControle.StateCommon.Color2 = Color.FromArgb(8, 142, 250);
             kryptonPanelBotoesControle.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
@@ -1151,7 +1160,7 @@
             // btnListarControles
             // 
             btnListarControles.Anchor = AnchorStyles.Bottom;
-            btnListarControles.CornerRoundingRadius = 6F;
+            btnListarControles.CornerRoundingRadius = 1F;
             btnListarControles.Location = new Point(3, 69);
             btnListarControles.Name = "btnListarControles";
             btnListarControles.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -1170,8 +1179,9 @@
             btnListarControles.StateCommon.Back.ColorAngle = 45F;
             btnListarControles.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             btnListarControles.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnListarControles.StateCommon.Border.Rounding = 6F;
+            btnListarControles.StateCommon.Border.Rounding = 1F;
             btnListarControles.StateCommon.Border.Width = 1;
+            btnListarControles.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             btnListarControles.StateCommon.Content.ShortText.Color1 = Color.Black;
             btnListarControles.StateCommon.Content.ShortText.Color2 = Color.Black;
             btnListarControles.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 8.25F);
@@ -1206,7 +1216,7 @@
             // btnNovaVenda
             // 
             btnNovaVenda.Anchor = AnchorStyles.Bottom;
-            btnNovaVenda.CornerRoundingRadius = 6F;
+            btnNovaVenda.CornerRoundingRadius = 1F;
             btnNovaVenda.Location = new Point(89, 36);
             btnNovaVenda.Name = "btnNovaVenda";
             btnNovaVenda.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -1225,8 +1235,9 @@
             btnNovaVenda.StateCommon.Back.ColorAngle = 45F;
             btnNovaVenda.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             btnNovaVenda.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnNovaVenda.StateCommon.Border.Rounding = 6F;
+            btnNovaVenda.StateCommon.Border.Rounding = 1F;
             btnNovaVenda.StateCommon.Border.Width = 1;
+            btnNovaVenda.StateCommon.Content.Padding = new Padding(2, 3, 2, 3);
             btnNovaVenda.StateCommon.Content.ShortText.Color1 = Color.Black;
             btnNovaVenda.StateCommon.Content.ShortText.Color2 = Color.Black;
             btnNovaVenda.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 8.25F);
@@ -1264,7 +1275,7 @@
             pnlTitulo.Location = new Point(3, 3);
             pnlTitulo.Name = "pnlTitulo";
             pnlTitulo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010SilverDarkMode;
-            pnlTitulo.Size = new Size(1018, 29);
+            pnlTitulo.Size = new Size(1014, 29);
             pnlTitulo.StateCommon.Color1 = Color.FromArgb(8, 142, 250);
             pnlTitulo.StateCommon.Color2 = Color.FromArgb(6, 142, 254);
             pnlTitulo.TabIndex = 1042;
@@ -1274,10 +1285,10 @@
             lblTituloPDV.Dock = DockStyle.Fill;
             lblTituloPDV.Location = new Point(0, 0);
             lblTituloPDV.Name = "lblTituloPDV";
-            lblTituloPDV.Size = new Size(1018, 29);
+            lblTituloPDV.Size = new Size(1014, 29);
+            lblTituloPDV.StateCommon.Padding = new Padding(2, 1, 2, 1);
             lblTituloPDV.StateCommon.ShortText.Color1 = Color.FromArgb(252, 252, 250);
             lblTituloPDV.StateCommon.ShortText.Color2 = Color.FromArgb(252, 252, 250);
-            lblTituloPDV.StateCommon.ShortText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTituloPDV.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblTituloPDV.TabIndex = 0;
             lblTituloPDV.Values.Text = "FRENTE DE CAIXA - PDV";
@@ -1287,21 +1298,21 @@
             txtVendedorBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtVendedorBuscar.CharacterCasing = CharacterCasing.Upper;
             txtVendedorBuscar.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtVendedorBuscar.Location = new Point(746, 49);
+            txtVendedorBuscar.Location = new Point(700, 49);
             txtVendedorBuscar.Name = "txtVendedorBuscar";
             txtVendedorBuscar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtVendedorBuscar.Size = new Size(269, 24);
+            txtVendedorBuscar.Size = new Size(311, 24);
             txtVendedorBuscar.StateCommon.Back.Color1 = Color.White;
             txtVendedorBuscar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtVendedorBuscar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtVendedorBuscar.StateCommon.Border.ColorAngle = 1F;
             txtVendedorBuscar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtVendedorBuscar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtVendedorBuscar.StateCommon.Border.Rounding = 6F;
+            txtVendedorBuscar.StateCommon.Border.Rounding = 1F;
             txtVendedorBuscar.StateCommon.Border.Width = 1;
             txtVendedorBuscar.StateCommon.Content.Color1 = Color.Gray;
             txtVendedorBuscar.StateCommon.Content.Font = new Font("Segoe UI", 9.75F);
-            txtVendedorBuscar.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtVendedorBuscar.StateCommon.Content.Padding = new Padding(2);
             txtVendedorBuscar.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtVendedorBuscar.StateNormal.Back.Color1 = Color.FromArgb(192, 255, 255);
             txtVendedorBuscar.StateNormal.Content.Color1 = Color.FromArgb(192, 255, 255);
@@ -1325,7 +1336,7 @@
             pnlFormaPgto.Dock = DockStyle.Fill;
             pnlFormaPgto.Location = new Point(3, 386);
             pnlFormaPgto.Name = "pnlFormaPgto";
-            pnlFormaPgto.Size = new Size(622, 104);
+            pnlFormaPgto.Size = new Size(618, 104);
             pnlFormaPgto.StateCommon.Color1 = Color.FromArgb(252, 252, 250);
             pnlFormaPgto.StateCommon.Color2 = Color.FromArgb(252, 252, 250);
             pnlFormaPgto.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
@@ -1338,7 +1349,7 @@
             label9.BackColor = Color.Transparent;
             label9.Font = new Font("Segoe UI", 9.75F);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(1320, 0);
+            label9.Location = new Point(1316, 0);
             label9.Name = "label9";
             label9.Size = new Size(76, 17);
             label9.TabIndex = 1034;
@@ -1351,7 +1362,7 @@
             dgvItensVenda.Name = "dgvItensVenda";
             dgvItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvItensVenda.RowHeadersWidth = 23;
-            dgvItensVenda.Size = new Size(622, 360);
+            dgvItensVenda.Size = new Size(618, 360);
             dgvItensVenda.TabIndex = 1051;
             dgvItensVenda.TabStop = false;
             dgvItensVenda.CellContentClick += dgvItensVenda_CellContentClick;
@@ -1361,7 +1372,7 @@
             pnlObservacoes.Controls.Add(label7);
             pnlObservacoes.Controls.Add(txtObservacao);
             pnlObservacoes.Dock = DockStyle.Fill;
-            pnlObservacoes.Location = new Point(631, 386);
+            pnlObservacoes.Location = new Point(627, 386);
             pnlObservacoes.Name = "pnlObservacoes";
             pnlObservacoes.Size = new Size(200, 104);
             pnlObservacoes.StateCommon.Color1 = Color.FromArgb(252, 252, 250);
@@ -1391,7 +1402,7 @@
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
-            tableLayoutPanel2.Size = new Size(1024, 31);
+            tableLayoutPanel2.Size = new Size(1020, 23);
             tableLayoutPanel2.TabIndex = 1044;
             // 
             // flowLayoutPanelTotais
@@ -1412,7 +1423,7 @@
             flowLayoutPanelTotais.Controls.Add(txtTroco);
             flowLayoutPanelTotais.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanelTotais.ForeColor = Color.White;
-            flowLayoutPanelTotais.Location = new Point(837, 20);
+            flowLayoutPanelTotais.Location = new Point(833, 20);
             flowLayoutPanelTotais.Name = "flowLayoutPanelTotais";
             flowLayoutPanelTotais.Size = new Size(175, 342);
             flowLayoutPanelTotais.TabIndex = 1055;
@@ -1424,7 +1435,7 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Segoe UI", 9.75F);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(84, 170);
+            label4.Location = new Point(84, 188);
             label4.Name = "label4";
             label4.Size = new Size(89, 17);
             label4.TabIndex = 1035;
@@ -1435,21 +1446,21 @@
             // 
             txtTotalItens.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtTotalItens.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtTotalItens.Location = new Point(3, 190);
+            txtTotalItens.Location = new Point(3, 208);
             txtTotalItens.Name = "txtTotalItens";
             txtTotalItens.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtTotalItens.Size = new Size(170, 28);
+            txtTotalItens.Size = new Size(170, 34);
             txtTotalItens.StateCommon.Back.Color1 = Color.White;
             txtTotalItens.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtTotalItens.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtTotalItens.StateCommon.Border.ColorAngle = 1F;
             txtTotalItens.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtTotalItens.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtTotalItens.StateCommon.Border.Rounding = 6F;
+            txtTotalItens.StateCommon.Border.Rounding = 1F;
             txtTotalItens.StateCommon.Border.Width = 1;
             txtTotalItens.StateCommon.Content.Color1 = Color.Gray;
             txtTotalItens.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 14.25F);
-            txtTotalItens.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtTotalItens.StateCommon.Content.Padding = new Padding(2, 5, 2, 5);
             txtTotalItens.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             txtTotalItens.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtTotalItens.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
@@ -1508,13 +1519,13 @@
             tableLayoutPanel1.Controls.Add(kryptonPanel1, 1, 0);
             tableLayoutPanel1.Controls.Add(kryptonPanel2, 0, 0);
             tableLayoutPanel1.Controls.Add(kryptonPanel3, 2, 0);
-            tableLayoutPanel1.Location = new Point(0, 117);
+            tableLayoutPanel1.Location = new Point(0, 125);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 17F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 110F));
-            tableLayoutPanel1.Size = new Size(1015, 493);
+            tableLayoutPanel1.Size = new Size(1011, 493);
             tableLayoutPanel1.TabIndex = 1056;
             // 
             // flowLayoutPanel1
@@ -1525,7 +1536,7 @@
             flowLayoutPanel1.Controls.Add(btnNovaVenda);
             flowLayoutPanel1.Controls.Add(btnListarControles);
             flowLayoutPanel1.Controls.Add(txtFechar);
-            flowLayoutPanel1.Location = new Point(837, 386);
+            flowLayoutPanel1.Location = new Point(833, 386);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(175, 100);
             flowLayoutPanel1.TabIndex = 1056;
@@ -1534,7 +1545,7 @@
             // 
             kryptonPanel1.Controls.Add(kryptonLabel8);
             kryptonPanel1.Dock = DockStyle.Fill;
-            kryptonPanel1.Location = new Point(631, 3);
+            kryptonPanel1.Location = new Point(627, 3);
             kryptonPanel1.Name = "kryptonPanel1";
             kryptonPanel1.Size = new Size(200, 11);
             kryptonPanel1.StateCommon.Color1 = Color.White;
@@ -1560,7 +1571,7 @@
             kryptonPanel2.Dock = DockStyle.Fill;
             kryptonPanel2.Location = new Point(3, 3);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.Size = new Size(622, 11);
+            kryptonPanel2.Size = new Size(618, 11);
             kryptonPanel2.StateCommon.Color1 = Color.White;
             kryptonPanel2.StateCommon.Color2 = Color.White;
             kryptonPanel2.TabIndex = 1058;
@@ -1570,7 +1581,7 @@
             kryptonLabel7.Dock = DockStyle.Fill;
             kryptonLabel7.Location = new Point(0, 0);
             kryptonLabel7.Name = "kryptonLabel7";
-            kryptonLabel7.Size = new Size(622, 11);
+            kryptonLabel7.Size = new Size(618, 11);
             kryptonLabel7.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
             kryptonLabel7.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
             kryptonLabel7.StateCommon.ShortText.Font = new Font("Segoe UI", 8F);
@@ -1582,7 +1593,7 @@
             // 
             kryptonPanel3.Controls.Add(kryptonLabel9);
             kryptonPanel3.Dock = DockStyle.Fill;
-            kryptonPanel3.Location = new Point(837, 3);
+            kryptonPanel3.Location = new Point(833, 3);
             kryptonPanel3.Name = "kryptonPanel3";
             kryptonPanel3.Size = new Size(175, 11);
             kryptonPanel3.StateCommon.Color1 = Color.White;
@@ -1610,18 +1621,18 @@
             txtVendaID.Name = "txtVendaID";
             txtVendaID.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             txtVendaID.ReadOnly = true;
-            txtVendaID.Size = new Size(87, 21);
+            txtVendaID.Size = new Size(87, 24);
             txtVendaID.StateCommon.Back.Color1 = Color.White;
             txtVendaID.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtVendaID.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtVendaID.StateCommon.Border.ColorAngle = 1F;
             txtVendaID.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtVendaID.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtVendaID.StateCommon.Border.Rounding = 6F;
+            txtVendaID.StateCommon.Border.Rounding = 1F;
             txtVendaID.StateCommon.Border.Width = 1;
             txtVendaID.StateCommon.Content.Color1 = Color.Gray;
-            txtVendaID.StateCommon.Content.Font = new Font("Segoe UI Semibold", 8.25F, FontStyle.Bold);
-            txtVendaID.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtVendaID.StateCommon.Content.Font = new Font("Segoe UI", 9.75F);
+            txtVendaID.StateCommon.Content.Padding = new Padding(2);
             txtVendaID.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtVendaID.StateNormal.Back.Color1 = Color.FromArgb(192, 255, 255);
             txtVendaID.StateNormal.Content.Color1 = Color.FromArgb(192, 255, 255);
@@ -1632,22 +1643,22 @@
             // 
             txtDataVenda.CharacterCasing = CharacterCasing.Upper;
             txtDataVenda.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtDataVenda.Location = new Point(3, 93);
+            txtDataVenda.Location = new Point(3, 92);
             txtDataVenda.Name = "txtDataVenda";
             txtDataVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             txtDataVenda.ReadOnly = true;
-            txtDataVenda.Size = new Size(87, 21);
+            txtDataVenda.Size = new Size(87, 24);
             txtDataVenda.StateCommon.Back.Color1 = Color.White;
             txtDataVenda.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtDataVenda.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtDataVenda.StateCommon.Border.ColorAngle = 1F;
             txtDataVenda.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtDataVenda.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtDataVenda.StateCommon.Border.Rounding = 6F;
+            txtDataVenda.StateCommon.Border.Rounding = 1F;
             txtDataVenda.StateCommon.Border.Width = 1;
             txtDataVenda.StateCommon.Content.Color1 = Color.Gray;
-            txtDataVenda.StateCommon.Content.Font = new Font("Segoe UI Semibold", 8.25F, FontStyle.Bold);
-            txtDataVenda.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtDataVenda.StateCommon.Content.Font = new Font("Segoe UI", 9.75F);
+            txtDataVenda.StateCommon.Content.Padding = new Padding(2);
             txtDataVenda.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtDataVenda.StateNormal.Back.Color1 = Color.FromArgb(192, 255, 255);
             txtDataVenda.StateNormal.Content.Color1 = Color.FromArgb(192, 255, 255);
@@ -1659,7 +1670,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(1024, 749);
+            ClientSize = new Size(1020, 749);
             Controls.Add(txtDataVenda);
             Controls.Add(txtVendaID);
             Controls.Add(label3);

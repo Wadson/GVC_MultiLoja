@@ -41,7 +41,7 @@
             dataGridPesquisar.AllowUserToDeleteRows = false;
             dataGridPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPesquisar.Location = new Point(5, 33);
+            dataGridPesquisar.Location = new Point(5, 28);
             dataGridPesquisar.Margin = new Padding(4, 3, 4, 3);
             dataGridPesquisar.MultiSelect = false;
             dataGridPesquisar.Name = "dataGridPesquisar";
@@ -49,7 +49,7 @@
             dataGridPesquisar.ReadOnly = true;
             dataGridPesquisar.RowHeadersWidth = 25;
             dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPesquisar.Size = new Size(949, 264);
+            dataGridPesquisar.Size = new Size(817, 266);
             dataGridPesquisar.TabIndex = 599;
             dataGridPesquisar.TabStop = false;
             dataGridPesquisar.CellDoubleClick += dataGridPesquisar_CellDoubleClick;
@@ -100,16 +100,16 @@
             txtPesquisar.Margin = new Padding(5, 6, 5, 6);
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisar.Size = new Size(948, 27);
-            txtPesquisar.StateCommon.Back.Color1 = Color.White;
+            txtPesquisar.Size = new Size(816, 24);
+            txtPesquisar.StateCommon.Back.Color1 = Color.LightGreen;
             txtPesquisar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPesquisar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtPesquisar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtPesquisar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtPesquisar.StateCommon.Border.Rounding = 8F;
+            txtPesquisar.StateCommon.Border.Rounding = 1F;
             txtPesquisar.StateCommon.Border.Width = 1;
             txtPesquisar.StateCommon.Content.Color1 = Color.Gray;
-            txtPesquisar.StateCommon.Content.Font = new Font("Segoe UI", 10.25F);
+            txtPesquisar.StateCommon.Content.Font = new Font("Segoe UI", 12.25F);
             txtPesquisar.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
             txtPesquisar.TabIndex = 0;
             txtPesquisar.TextChanged += txtPesquisar_TextChanged;
@@ -118,9 +118,10 @@
             // FrmLocalizarProduto
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(964, 301);
+            ClientSize = new Size(832, 301);
             Controls.Add(txtPesquisar);
             Controls.Add(dataGridPesquisar);
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(5, 3, 5, 3);
             MaximizeBox = false;
             MinimizeBox = false;

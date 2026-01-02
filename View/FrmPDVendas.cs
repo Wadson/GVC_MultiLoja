@@ -337,12 +337,13 @@ namespace GVC.View
             });
 
             // 🔹 Coluna Descrição
+            // 🔹 Coluna Descrição
             dgvItensVenda.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Descrição",
                 DataPropertyName = nameof(ItemVendaModel.ProdutoDescricao),
-                Width = 300, // 🔹 Ajuste fino
                 ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, // 🔑 Expande dinamicamente
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Alignment = DataGridViewContentAlignment.MiddleLeft,
@@ -350,6 +351,7 @@ namespace GVC.View
                 },
                 HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
             });
+
 
             // 🔹 Coluna Qtde (CENTRALIZADA)
             dgvItensVenda.Columns.Add(new DataGridViewTextBoxColumn
@@ -427,7 +429,7 @@ namespace GVC.View
             dgvItensVenda.MultiSelect = false; // 🔹 Só permite selecionar uma linha por vez
             dgvItensVenda.EnableHeadersVisualStyles = false;
             dgvItensVenda.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvItensVenda.ColumnHeadersHeight = 30; // 🔹 Altura padrão
+            dgvItensVenda.ColumnHeadersHeight = 25; // 🔹 Altura padrão
             dgvItensVenda.RowHeadersVisible = false;
             dgvItensVenda.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             dgvItensVenda.AllowUserToResizeRows = false;
@@ -436,7 +438,7 @@ namespace GVC.View
             // 🔹 Estilo dos cabeçalhos
             dgvItensVenda.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {
-                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Regular),
                 BackColor = Color.SteelBlue,
                 ForeColor = Color.White,
                 Alignment = DataGridViewContentAlignment.MiddleCenter,
@@ -1453,9 +1455,6 @@ namespace GVC.View
             }
         }
 
-        private void txtClienteBuscar_KeyDown(object sender, KeyEventArgs e)
-        {           
-        }
         private void txtVendedorBuscar_TextChanged(object sender, EventArgs e)
         {
             // Se estamos ignorando eventos, sai imediatamente
@@ -1468,43 +1467,26 @@ namespace GVC.View
 
             using (var pesquisaVendedor = new FrmLocalizarVendedor(this, texto))
             {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtVendedorBuscar.PointToScreen(Point.Empty);
+
+                pesquisaVendedor.StartPosition = FormStartPosition.Manual;
+                pesquisaVendedor.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtVendedorBuscar.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaVendedor.Width = txtVendedorBuscar.Width;
+
                 if (pesquisaVendedor.ShowDialog() == DialogResult.OK)
-                {
-                    _ignorandoBuscar = true;
-                    try
-                    {
-                        ClienteID = pesquisaVendedor.VendedorID;
-                        txtVendedorBuscar.Text = pesquisaVendedor.VendedorSelecionado;
-                    }
-                    finally
-                    {
-                        _ignorandoBuscar = false;
-                    }
-                }
-            }
-
-            txtProdutoBuscar.Select();
-        }
-        private void txtClienteBuscar_TextChanged(object sender, EventArgs e)
-        {
-            // Se estamos ignorando eventos, sai imediatamente
-            if (_ignorarEventosBusca || _ignorandoBuscar)
-                return;
-
-            var texto = txtClienteBuscar.Text.Trim();
-            if (string.IsNullOrEmpty(texto))
-                return;
-
-            using (var pesquisaCliente = new FrmLocalizarCliente(this, txtClienteBuscar.Text))
-            {
-                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
                 {
                     // Ativa flag para bloquear reentrância
                     _ignorandoBuscar = true;
                     try
                     {
-                        ClienteID = pesquisaCliente.ClienteID;
-                        txtClienteBuscar.Text = pesquisaCliente.ClienteSelecionado;
+                        ClienteID = pesquisaVendedor.VendedorID;
+                        txtVendedorBuscar.Text = pesquisaVendedor.VendedorSelecionado;
                     }
                     finally
                     {
@@ -1515,6 +1497,46 @@ namespace GVC.View
             }
 
             txtProdutoBuscar.Select();
+        }
+        private void txtClienteBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (_ignorarEventosBusca || _ignorandoBuscar)
+                return;
+
+            var texto = txtClienteBuscar.Text.Trim();
+            if (string.IsNullOrEmpty(texto))
+                return;
+
+            using (var pesquisaCliente = new FrmLocalizarCliente(this, texto))
+            {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtClienteBuscar.PointToScreen(Point.Empty);
+
+                pesquisaCliente.StartPosition = FormStartPosition.Manual;
+                pesquisaCliente.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtClienteBuscar.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaCliente.Width = txtClienteBuscar.Width;
+
+                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
+                {
+                    _ignorandoBuscar = true;
+                    try
+                    {
+                        ClienteID = pesquisaCliente.ClienteID;
+                        txtClienteBuscar.Text = pesquisaCliente.ClienteSelecionado;
+                    }
+                    finally
+                    {
+                        _ignorandoBuscar = false;
+                    }
+                }
+            }
+
+            txtVendedorBuscar.Select();
         }
 
         private void txtProdutoBuscar_TextChanged(object sender, EventArgs e)
@@ -1529,6 +1551,18 @@ namespace GVC.View
 
             using (var pesquisaProduto = new FrmLocalizarProduto(this, texto))
             {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtProdutoBuscar.PointToScreen(Point.Empty);
+
+                pesquisaProduto.StartPosition = FormStartPosition.Manual;
+                pesquisaProduto.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtProdutoBuscar.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaProduto.Width = txtProdutoBuscar.Width;
+
                 if (pesquisaProduto.ShowDialog() == DialogResult.OK)
                 {
                     // Ativa flag para bloquear reentrância
@@ -1551,11 +1585,6 @@ namespace GVC.View
 
             txtQuantidade.Select();
         }
-
-        private void txtProdutoBuscar_KeyDown(object sender, KeyEventArgs e)
-        {           
-        }
-     
         private void txtQuantidade_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

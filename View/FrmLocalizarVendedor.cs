@@ -85,64 +85,76 @@ namespace GVC.View
         {
             return linhaAtual;
         }
-        public void ConfigurarDataGridView()
+
+        public void PersonalizarDataGridView()
         {
-            // Função auxiliar para renomear somente se existir
-            void Renomear(string coluna, string titulo)
+            // 1. Desliga o auto‑resize global
+            dataGridPesquisar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // 2. Oculta todas as colunas inicialmente
+            foreach (DataGridViewColumn col in dataGridPesquisar.Columns)
             {
-                if (dataGridPesquisar.Columns.Contains(coluna))
-                    dataGridPesquisar.Columns[coluna].HeaderText = titulo;
+                col.Visible = false;
             }
 
-            // ✔ Ajustar cabeçalhos
-            Renomear("ClienteID", "Cód. Vendedor");
-            Renomear("Nome", "Nome do Vendedor");
-
-            // ✔ Coluna ClienteID fixa
-            if (dataGridPesquisar.Columns.Contains("ClienteID"))
+            // 3. Cabeçalhos bonitos
+            if (dataGridPesquisar.Columns["ClienteID"] != null)
             {
-                dataGridPesquisar.Columns["ClienteID"].Width = 70;
-                dataGridPesquisar.Columns["ClienteID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dataGridPesquisar.Columns["ClienteID"].HeaderText = "Código";
+                dataGridPesquisar.Columns["ClienteID"].Visible = true;
+            }
+            if (dataGridPesquisar.Columns["Nome"] != null)
+            {
+                dataGridPesquisar.Columns["Nome"].HeaderText = "Cliente";
+                dataGridPesquisar.Columns["Nome"].Visible = true;
+            }         
+
+            // 4. Colunas fixas (largura definida e não mudam)
+            var colunasFixas = new (string nome, int largura)[]
+            {
+        ("ClienteID", 50),      
+            };
+
+            foreach (var (nome, largura) in colunasFixas)
+            {
+                if (dataGridPesquisar.Columns[nome] != null)
+                {
+                    var col = dataGridPesquisar.Columns[nome];
+                    col.Width = largura;
+                    col.Resizable = DataGridViewTriState.False;
+                    col.ReadOnly = true;
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None; // 🔑 fixa
+                }
             }
 
-            // ✔ Coluna Nome ocupa todo o espaço restante
-            if (dataGridPesquisar.Columns.Contains("Nome"))
+            // 5. NomeProduto dinâmico (ocupa espaço restante)
+            if (dataGridPesquisar.Columns["Nome"] != null)
             {
-                dataGridPesquisar.Columns["Nome"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                var col = dataGridPesquisar.Columns["Nome"];
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // 🔄 ajusta ao grid
+                col.ReadOnly = true;
             }
 
-            // ✔ Configurações gerais
-            dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPesquisar.MultiSelect = false;
-            dataGridPesquisar.ReadOnly = true;
-            dataGridPesquisar.RowHeadersVisible = false;
-            dataGridPesquisar.AllowUserToAddRows = false;
-            dataGridPesquisar.AllowUserToDeleteRows = false;
-            dataGridPesquisar.AllowUserToResizeRows = false;
+            // 6. Cabeçalho mais estreito
+            dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridPesquisar.ColumnHeadersHeight = 25;
 
-            // ✔ Fundo amarelo claro
-            dataGridPesquisar.DefaultCellStyle.BackColor = Color.LightYellow;
-
-            // ✔ Cabeçalhos mais elegantes
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
             dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
-            // ✔ Largura do cabeçalho da linha
-            dataGridPesquisar.RowHeadersWidth = 10;
+            // ❗ Remover cabeçalho de linhas (sem alterar largura)
+            dataGridPesquisar.RowHeadersVisible = false;
 
-            // ✔ Centralizar cabeçalhos
-            foreach (DataGridViewColumn column in dataGridPesquisar.Columns)
-            {
-                column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
+            // (opcional) remove borda do cabeçalho de linhas, caso algum tema desenhe algo
+            dataGridPesquisar.AdvancedRowHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
 
-            // ✔ Eventos
-            dataGridPesquisar.KeyDown += dataGridPesquisar_KeyDown;
-            dataGridPesquisar.DoubleClick += dataGridPesquisar_DoubleClick;
-            dataGridPesquisar.DataBindingComplete += dataGridPesquisar_DataBindingComplete;
-            dataGridPesquisar.Enter += dataGridPesquisar_Enter;
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dataGridPesquisar.RowHeadersWidth = 30;
+
+            // 8. Força o grid a respeitar tudo
+            dataGridPesquisar.PerformLayout();
         }
-
 
         // Função auxiliar para selecionar a primeira linha em coluna visível
         private void SelecionarPrimeiraLinhaSegura()
@@ -180,7 +192,7 @@ namespace GVC.View
         {
             ClienteDal dao = new();
             dataGridPesquisar.DataSource = dao.PesquisarVendedores();
-            ConfigurarDataGridView();
+            PersonalizarDataGridView();
         }
         private void FrmLocalizarVendedor_Load(object sender, EventArgs e)
         {

@@ -128,7 +128,16 @@ namespace GVC.View
 
             // 6. Cabeçalho mais estreito
             dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridPesquisar.ColumnHeadersHeight = 25; // 🔑 altura mais estreita (pode ajustar entre 20–25)
+            dataGridPesquisar.ColumnHeadersHeight = 25;
+
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+
+            // ❗ Remover cabeçalho de linhas (sem alterar largura)
+            dataGridPesquisar.RowHeadersVisible = false;
+
+            // (opcional) remove borda do cabeçalho de linhas, caso algum tema desenhe algo
+            dataGridPesquisar.AdvancedRowHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
 
             dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
             dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
@@ -149,7 +158,6 @@ namespace GVC.View
             // 8. Força o grid a respeitar tudo
             dataGridPesquisar.PerformLayout();
         }
-
 
         public new int ObterLinhaAtual()
         {
@@ -329,12 +337,7 @@ namespace GVC.View
             if (!string.IsNullOrEmpty(txtPesquisar.Text))
             {
                 txtPesquisar.Select(txtPesquisar.Text.Length, 0);
-            }
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is KryptonTextBox kryptonTxt)
-                    Utilitario.AplicarCorFoco(kryptonTxt);
-            }
+            }           
         }
 
         private void dataGridPesquisar_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
