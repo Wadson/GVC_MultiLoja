@@ -92,96 +92,6 @@
           }
         }
       },
-      "itext7/8.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.DotNet.PlatformAbstractions": "1.1.0",
-          "Microsoft.Extensions.DependencyModel": "1.1.0",
-          "Microsoft.Extensions.Logging": "5.0.0",
-          "itext7.commons": "8.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/itext.barcodes.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.bouncy-castle-connector.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.forms.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.io.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.kernel.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.layout.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.pdfa.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.sign.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.styledxmlparser.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.svg.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/itext.barcodes.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.bouncy-castle-connector.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.forms.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.io.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.kernel.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.layout.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.pdfa.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.sign.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.styledxmlparser.dll": {
-            "related": ".xml"
-          },
-          "lib/netstandard2.0/itext.svg.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "itext7.commons/8.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Logging": "5.0.0",
-          "Newtonsoft.Json": "13.0.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/itext.commons.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/itext.commons.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Krypton.Toolkit/70.22.11.312": {
         "type": "package",
         "compile": {
@@ -975,15 +885,6 @@
           }
         }
       },
-      "Microsoft.DotNet.PlatformAbstractions/1.1.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll": {}
-        }
-      },
       "Microsoft.EntityFrameworkCore/10.0.0": {
         "type": "package",
         "dependencies": {
@@ -1263,7 +1164,7 @@
       "Microsoft.Extensions.DependencyModel/10.0.0": {
         "type": "package",
         "compile": {
-          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
+          "lib/net10.0/_._": {
             "related": ".xml"
           }
         },
@@ -1588,7 +1489,7 @@
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
+          "lib/net6.0/_._": {
             "related": ".xml"
           }
         },
@@ -1598,16 +1499,109 @@
           }
         }
       },
-      "Portable.BouncyCastle/1.9.0": {
+      "QuestPDF/2025.12.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+          "lib/net10.0/QuestPDF.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+          "lib/net10.0/QuestPDF.dll": {
             "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/QuestPDF.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm64/native/libQuestPdfSkia.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          },
+          "runtimes/linux-arm64/native/libqpdf.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          },
+          "runtimes/linux-musl-x64/native/libQuestPdfSkia.so": {
+            "assetType": "native",
+            "rid": "linux-musl-x64"
+          },
+          "runtimes/linux-musl-x64/native/libqpdf.so": {
+            "assetType": "native",
+            "rid": "linux-musl-x64"
+          },
+          "runtimes/linux-x64/native/libQuestPdfSkia.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x64/native/libqpdf.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-arm64/native/libQuestPdfSkia.dylib": {
+            "assetType": "native",
+            "rid": "osx-arm64"
+          },
+          "runtimes/osx-arm64/native/libqpdf.dylib": {
+            "assetType": "native",
+            "rid": "osx-arm64"
+          },
+          "runtimes/osx-x64/native/libQuestPdfSkia.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/osx-x64/native/libqpdf.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/QuestPdfSkia.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/libgcc_s_seh-1.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/libstdc++-6.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/libwinpthread-1.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/qpdf.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/zlib1.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/QuestPdfSkia.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/libgcc_s_dw2-1.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/libstdc++-6.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/libwinpthread-1.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/qpdf.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/zlib1.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
           }
         }
       },
@@ -1925,76 +1919,6 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
-      ]
-    },
-    "itext7/8.0.0": {
-      "sha512": "HWdCvclpwMXKA2slBzgxKOdCHOUch9+wq0mj5ec3AL46ZDU4j2XbojVB4Zy9j1yecDJdLJeMeD39f7ZPmZ9j5Q==",
-      "type": "package",
-      "path": "itext7/8.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ITSC-avatar.png",
-        "LICENSE.md",
-        "gnu-agpl-v3.0.md",
-        "itext7.8.0.0.nupkg.sha512",
-        "itext7.nuspec",
-        "lib/net461/itext.barcodes.dll",
-        "lib/net461/itext.barcodes.xml",
-        "lib/net461/itext.bouncy-castle-connector.dll",
-        "lib/net461/itext.bouncy-castle-connector.xml",
-        "lib/net461/itext.forms.dll",
-        "lib/net461/itext.forms.xml",
-        "lib/net461/itext.io.dll",
-        "lib/net461/itext.io.xml",
-        "lib/net461/itext.kernel.dll",
-        "lib/net461/itext.kernel.xml",
-        "lib/net461/itext.layout.dll",
-        "lib/net461/itext.layout.xml",
-        "lib/net461/itext.pdfa.dll",
-        "lib/net461/itext.pdfa.xml",
-        "lib/net461/itext.sign.dll",
-        "lib/net461/itext.sign.xml",
-        "lib/net461/itext.styledxmlparser.dll",
-        "lib/net461/itext.styledxmlparser.xml",
-        "lib/net461/itext.svg.dll",
-        "lib/net461/itext.svg.xml",
-        "lib/netstandard2.0/itext.barcodes.dll",
-        "lib/netstandard2.0/itext.barcodes.xml",
-        "lib/netstandard2.0/itext.bouncy-castle-connector.dll",
-        "lib/netstandard2.0/itext.bouncy-castle-connector.xml",
-        "lib/netstandard2.0/itext.forms.dll",
-        "lib/netstandard2.0/itext.forms.xml",
-        "lib/netstandard2.0/itext.io.dll",
-        "lib/netstandard2.0/itext.io.xml",
-        "lib/netstandard2.0/itext.kernel.dll",
-        "lib/netstandard2.0/itext.kernel.xml",
-        "lib/netstandard2.0/itext.layout.dll",
-        "lib/netstandard2.0/itext.layout.xml",
-        "lib/netstandard2.0/itext.pdfa.dll",
-        "lib/netstandard2.0/itext.pdfa.xml",
-        "lib/netstandard2.0/itext.sign.dll",
-        "lib/netstandard2.0/itext.sign.xml",
-        "lib/netstandard2.0/itext.styledxmlparser.dll",
-        "lib/netstandard2.0/itext.styledxmlparser.xml",
-        "lib/netstandard2.0/itext.svg.dll",
-        "lib/netstandard2.0/itext.svg.xml"
-      ]
-    },
-    "itext7.commons/8.0.0": {
-      "sha512": "YPraDCzJKy+xX79WkHd0FevrTtbRmHyuhF0oS9c7s12Qe+3xlCnWqaPMGQ4batr3aarDU8E4Tquj4idcuJqrWg==",
-      "type": "package",
-      "path": "itext7.commons/8.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ITSC-avatar.png",
-        "itext7.commons.8.0.0.nupkg.sha512",
-        "itext7.commons.nuspec",
-        "lib/net461/itext.commons.dll",
-        "lib/net461/itext.commons.xml",
-        "lib/netstandard2.0/itext.commons.dll",
-        "lib/netstandard2.0/itext.commons.xml"
       ]
     },
     "Krypton.Toolkit/70.22.11.312": {
@@ -3328,19 +3252,6 @@
         "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll"
       ]
     },
-    "Microsoft.DotNet.PlatformAbstractions/1.1.0": {
-      "sha512": "Bl6KYfbFSIW3QIRHAp931iR5h01qHjKghdpAtncwbzNUs0+IUZ+XfwkIU0sQsR33ufGvi3u4dZMIYYFysjpHAA==",
-      "type": "package",
-      "path": "microsoft.dotnet.platformabstractions/1.1.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net451/Microsoft.DotNet.PlatformAbstractions.dll",
-        "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll",
-        "microsoft.dotnet.platformabstractions.1.1.0.nupkg.sha512",
-        "microsoft.dotnet.platformabstractions.nuspec"
-      ]
-    },
     "Microsoft.EntityFrameworkCore/10.0.0": {
       "sha512": "hHa2amRjMyBLUH/KTML6FgIAhZ0VFYkhCKwWEax0rO6iNeM1P5MflyeQLE5dniSIOZHc3Oqyv5UIyTFO4e1Auw==",
       "type": "package",
@@ -4274,19 +4185,90 @@
         "packageIcon.png"
       ]
     },
-    "Portable.BouncyCastle/1.9.0": {
-      "sha512": "eZZBCABzVOek+id9Xy04HhmgykF0wZg9wpByzrWN7q8qEI0Qen9b7tfd7w8VA3dOeesumMG7C5ZPy0jk7PSRHw==",
+    "QuestPDF/2025.12.1": {
+      "sha512": "sMLWrK4+C8VDvCxzhENKsYm25386P9s31p2d2NTmWKO8ToMYc2bn5fZt6niXS1d7fdrlMkKgRciysUZCGvg73w==",
       "type": "package",
-      "path": "portable.bouncycastle/1.9.0",
+      "path": "questpdf/2025.12.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net40/BouncyCastle.Crypto.dll",
-        "lib/net40/BouncyCastle.Crypto.xml",
-        "lib/netstandard2.0/BouncyCastle.Crypto.dll",
-        "lib/netstandard2.0/BouncyCastle.Crypto.xml",
-        "portable.bouncycastle.1.9.0.nupkg.sha512",
-        "portable.bouncycastle.nuspec"
+        "Contributors.md",
+        "Description.md",
+        "Documentation.xml",
+        "ExternalDependencyLicenses/emsdk.txt",
+        "ExternalDependencyLicenses/expat.txt",
+        "ExternalDependencyLicenses/harfbuzz.txt",
+        "ExternalDependencyLicenses/icu.txt",
+        "ExternalDependencyLicenses/libjpeg-turbo.txt",
+        "ExternalDependencyLicenses/libpng.txt",
+        "ExternalDependencyLicenses/libwebp.txt",
+        "ExternalDependencyLicenses/ninja-build.txt",
+        "ExternalDependencyLicenses/qpdf.txt",
+        "ExternalDependencyLicenses/readme.txt",
+        "ExternalDependencyLicenses/skia.txt",
+        "ExternalDependencyLicenses/wuffs.txt",
+        "ExternalDependencyLicenses/zlib.txt",
+        "LatinWords.txt",
+        "LatoFont/Lato-Black.ttf",
+        "LatoFont/Lato-BlackItalic.ttf",
+        "LatoFont/Lato-Bold.ttf",
+        "LatoFont/Lato-BoldItalic.ttf",
+        "LatoFont/Lato-ExtraBold.ttf",
+        "LatoFont/Lato-ExtraBoldItalic.ttf",
+        "LatoFont/Lato-ExtraLight.ttf",
+        "LatoFont/Lato-ExtraLightItalic.ttf",
+        "LatoFont/Lato-Italic.ttf",
+        "LatoFont/Lato-Light.ttf",
+        "LatoFont/Lato-LightItalic.ttf",
+        "LatoFont/Lato-Medium.ttf",
+        "LatoFont/Lato-MediumItalic.ttf",
+        "LatoFont/Lato-Regular.ttf",
+        "LatoFont/Lato-SemiBold.ttf",
+        "LatoFont/Lato-SemiBoldItalic.ttf",
+        "LatoFont/Lato-Thin.ttf",
+        "LatoFont/Lato-ThinItalic.ttf",
+        "LatoFont/OFL.txt",
+        "Logo.png",
+        "MimeTypes.csv",
+        "PackageLicense.md",
+        "README.md",
+        "ReleaseNotes.txt",
+        "build/QuestPDF.targets",
+        "build/net4/QuestPDF.targets",
+        "buildTransitive/QuestPDF.targets",
+        "buildTransitive/net4/QuestPDF.targets",
+        "lib/net10.0/QuestPDF.dll",
+        "lib/net10.0/QuestPDF.xml",
+        "lib/net6.0/QuestPDF.dll",
+        "lib/net6.0/QuestPDF.xml",
+        "lib/net8.0/QuestPDF.dll",
+        "lib/net8.0/QuestPDF.xml",
+        "lib/netstandard2.0/QuestPDF.dll",
+        "lib/netstandard2.0/QuestPDF.xml",
+        "questpdf.2025.12.1.nupkg.sha512",
+        "questpdf.nuspec",
+        "runtimes/linux-arm64/native/libQuestPdfSkia.so",
+        "runtimes/linux-arm64/native/libqpdf.so",
+        "runtimes/linux-musl-x64/native/libQuestPdfSkia.so",
+        "runtimes/linux-musl-x64/native/libqpdf.so",
+        "runtimes/linux-x64/native/libQuestPdfSkia.so",
+        "runtimes/linux-x64/native/libqpdf.so",
+        "runtimes/osx-arm64/native/libQuestPdfSkia.dylib",
+        "runtimes/osx-arm64/native/libqpdf.dylib",
+        "runtimes/osx-x64/native/libQuestPdfSkia.dylib",
+        "runtimes/osx-x64/native/libqpdf.dylib",
+        "runtimes/win-x64/native/QuestPdfSkia.dll",
+        "runtimes/win-x64/native/libgcc_s_seh-1.dll",
+        "runtimes/win-x64/native/libstdc++-6.dll",
+        "runtimes/win-x64/native/libwinpthread-1.dll",
+        "runtimes/win-x64/native/qpdf.dll",
+        "runtimes/win-x64/native/zlib1.dll",
+        "runtimes/win-x86/native/QuestPdfSkia.dll",
+        "runtimes/win-x86/native/libgcc_s_dw2-1.dll",
+        "runtimes/win-x86/native/libstdc++-6.dll",
+        "runtimes/win-x86/native/libwinpthread-1.dll",
+        "runtimes/win-x86/native/qpdf.dll",
+        "runtimes/win-x86/native/zlib1.dll"
       ]
     },
     "System.ClientModel/1.5.1": {
@@ -4652,8 +4634,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 10.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 10.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 10.0.0",
-      "Portable.BouncyCastle >= 1.9.0",
-      "itext7 >= 8.0.0"
+      "QuestPDF >= 2025.12.1"
     ]
   },
   "packageFolders": {
@@ -4739,13 +4720,9 @@
             "target": "Package",
             "version": "[10.0.0, )"
           },
-          "Portable.BouncyCastle": {
+          "QuestPDF": {
             "target": "Package",
-            "version": "[1.9.0, )"
-          },
-          "itext7": {
-            "target": "Package",
-            "version": "[8.0.0, )"
+            "version": "[2025.12.1, )"
           }
         },
         "imports": [

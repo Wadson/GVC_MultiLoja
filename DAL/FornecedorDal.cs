@@ -5,7 +5,7 @@ using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace GVC.DALL
+namespace GVC.DAL
 {
     internal class FornecedorDal
     {

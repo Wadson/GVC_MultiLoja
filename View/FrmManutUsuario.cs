@@ -1,6 +1,6 @@
 ﻿using Krypton.Toolkit;
 using GVC.BLL;
-using GVC.DALL;
+using GVC.DAL;
 using GVC.View;
 using System;
 using System.Collections.Generic;

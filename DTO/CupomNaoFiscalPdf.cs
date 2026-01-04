@@ -1,13 +1,8 @@
-﻿using GVC.DALL;
+﻿using GVC.DAL;
 using GVC.Model;
-using iText.IO.Font.Constants;
-using iText.Kernel.Colors;
-using iText.Kernel.Font;
-using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,7 +19,9 @@ public static class CupomNaoFiscalPdf
         string telefone
     )
     {
-        string pasta = System.IO.Path.Combine(
+        QuestPDF.Settings.License = LicenseType.Community;
+
+        string pasta = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "CuponsPDV"
         );
@@ -32,88 +29,72 @@ public static class CupomNaoFiscalPdf
         if (!Directory.Exists(pasta))
             Directory.CreateDirectory(pasta);
 
-        string arquivo = System.IO.Path.Combine(
+        string arquivo = Path.Combine(
             pasta,
             $"CUPOM_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
         );
 
-        // Criar documento com iText 7
-        using (var writer = new PdfWriter(arquivo))
-        using (var pdf = new PdfDocument(writer))
-        using (var doc = new Document(pdf, PageSize.A4))
+        Document.Create(container =>
         {
-            doc.SetMargins(20, 20, 20, 20);
-
-            // Configurar fonte Courier para cupom fiscal
-            PdfFont fonteCourier = PdfFontFactory.CreateFont(StandardFonts.COURIER);
-
-            void AdicionarLinha(string texto = "")
+            container.Page(page =>
             {
-                doc.Add(new Paragraph(texto)
-                    .SetFont(fonteCourier)
-                    .SetFontSize(9)
-                    .SetMargin(0)
-                    .SetPadding(0));
-            }
+                page.Size(PageSizes.A4);
+                page.Margin(20);
+                page.DefaultTextStyle(x =>
+                    x.FontFamily("Courier New").FontSize(9));
 
-            void AdicionarLinhaCentro(string texto)
-            {
-                doc.Add(new Paragraph(texto)
-                    .SetFont(fonteCourier)
-                    .SetFontSize(9)
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetMargin(0)
-                    .SetPadding(0));
-            }
+                page.Content().Column(col =>
+                {
+                    void Linha(string texto = "") =>
+                        col.Item().Text(texto);
 
-            // Cabeçalho do cupom
-            AdicionarLinha("========================================");
-            AdicionarLinhaCentro(nomeEmpresa.ToUpper());
-            AdicionarLinha($"Cnpj: {cnpj}");
-            AdicionarLinha(endereco);
-            AdicionarLinha($"Tel: {telefone}");
-            AdicionarLinha("========================================");
+                    void LinhaCentro(string texto) =>
+                        col.Item().AlignCenter().Text(texto);
 
-            // Informações da venda
-            AdicionarLinha($"DATA: {venda.DataVenda:dd/MM/yyyy}    HORA: {venda.DataVenda:HH:mm:ss}");
-            AdicionarLinha($"VENDA Nº: {venda.VendaID}");
-            AdicionarLinha("========================================");
+                    Linha("========================================");
+                    LinhaCentro(nomeEmpresa.ToUpper());
+                    Linha($"CNPJ: {cnpj}");
+                    Linha(endereco);
+                    Linha($"Tel: {telefone}");
+                    Linha("========================================");
 
-            // Cabeçalho dos itens
-            AdicionarLinha("ITEM  DESCRIÇÃO            QTD   VL UNIT   TOTAL");
-            AdicionarLinha("========================================");
+                    Linha($"DATA: {venda.DataVenda:dd/MM/yyyy}    HORA: {venda.DataVenda:HH:mm:ss}");
+                    Linha($"VENDA Nº: {venda.VendaID}");
+                    Linha("========================================");
 
-            // Itens da venda
-            int i = 1;
-            foreach (var item in itens)
-            {
-                string desc = item.ProdutoDescricao.Length > 18
-                    ? item.ProdutoDescricao.Substring(0, 18)
-                    : item.ProdutoDescricao;
+                    Linha("ITEM  DESCRIÇÃO            QTD   VL UNIT   TOTAL");
+                    Linha("========================================");
 
-                // Usando formatação com espaçamento fixo (similar ao antigo)
-                string linhaItem = string.Format("{0,-4} {1,-18} {2,3} {3,8:N2} {4,8:N2}",
-                    i,
-                    desc,
-                    item.Quantidade,
-                    item.PrecoUnitario,
-                    item.Subtotal);
+                    int i = 1;
+                    foreach (var item in itens)
+                    {
+                        string desc = item.ProdutoDescricao.Length > 18
+                            ? item.ProdutoDescricao[..18]
+                            : item.ProdutoDescricao;
 
-                AdicionarLinha(linhaItem);
-                i++;
-            }
+                        Linha(string.Format(
+                            "{0,-4} {1,-18} {2,3} {3,8:N2} {4,8:N2}",
+                            i,
+                            desc,
+                            item.Quantidade,
+                            item.PrecoUnitario,
+                            item.Subtotal
+                        ));
+                        i++;
+                    }
 
-            // Rodapé/Resumo
-            AdicionarLinha("========================================");
-            AdicionarLinha($"TOTAL DE ITENS: {itens.Count}");
-            AdicionarLinha($"VALOR TOTAL: R$ {venda.ValorTotal:N2}");
-            AdicionarLinha("========================================");
-            AdicionarLinhaCentro("Agradecemos a preferência!");
-            AdicionarLinhaCentro("Volte sempre!");
-            AdicionarLinha("========================================");
-        }
+                    Linha("========================================");
+                    Linha($"TOTAL DE ITENS: {itens.Count}");
+                    Linha($"VALOR TOTAL: R$ {venda.ValorTotal:N2}");
+                    Linha("========================================");
+                    LinhaCentro("Agradecemos a preferência!");
+                    LinhaCentro("Volte sempre!");
+                    Linha("========================================");
+                });
+            });
+        })
+        .GeneratePdf(arquivo);
 
-        // Abrir o arquivo gerado
         Process.Start(new ProcessStartInfo
         {
             FileName = arquivo,
@@ -121,7 +102,7 @@ public static class CupomNaoFiscalPdf
         });
     }
 
-    // 🔹 NOVA SOBRECARGA (ERP)
+    // 🔹 SOBRECARGA (ERP)
     public static void Gerar(
         VendaModel venda,
         List<ItemVendaModel> itens
@@ -141,7 +122,6 @@ public static class CupomNaoFiscalPdf
         string endereco =
             $"{empresa.Logradouro}, Nº {empresa.Numero} - {empresa.Bairro} - {empresa.Cidade}/{empresa.UF}";
 
-        // 🔁 Reaproveita o método antigo
         Gerar(
             venda,
             itens,

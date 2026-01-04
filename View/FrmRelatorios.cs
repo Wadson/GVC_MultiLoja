@@ -7,9 +7,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Krypton.Toolkit;
 using OfficeOpenXml;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
 using Dapper;
 using GVC.UTIL;
 

@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GVC.DALL;
+using GVC.DAL;
 using GVC.UTIL;
 
 namespace GVC.BLL

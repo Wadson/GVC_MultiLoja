@@ -1,5 +1,5 @@
 ﻿using GVC.DAL;
-using GVC.DALL;
+using GVC.DAL;
 using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;

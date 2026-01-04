@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 
 
-namespace GVC.DALL
+namespace GVC.DAL
 {
     internal class EstadoDal
     {

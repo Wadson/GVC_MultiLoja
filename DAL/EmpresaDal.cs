@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace GVC.DALL
+namespace GVC.DAL
 {
     internal class EmpresaDal
     {

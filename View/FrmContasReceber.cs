@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using GVC.BLL;
 using GVC.DAL;
-using GVC.DALL;
+using GVC.DAL;
 using GVC.Model;
 using GVC.UTIL;
 using Krypton.Toolkit;
@@ -25,7 +25,8 @@ namespace GVC.View
     {
         private bool bloqueiaPesquisa = false;
         private readonly PagamentoParcialDal _pagamentoDal = new PagamentoParcialDal();
-        public long ClienteID { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int ClienteID { get; set; }
 
         private readonly VendaBLL _vendaBll = new VendaBLL();
         private readonly ItensVendaBLL _itensVendaBll = new ItensVendaBLL();

@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using GVC.BLL;
 using GVC.DAL;
-using GVC.DALL;
+using GVC.DAL;
 using GVC.Model;
 using GVC.UTIL;
 using Krypton.Toolkit;

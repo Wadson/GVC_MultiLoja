@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dal\\vendadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:dal\\vendadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\bll\\vendabll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\vendabll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\model\\vendamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:model\\vendamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 23,
+          "SelectedChildIndex": 24,
           "Children": [
             {
               "$type": "Bookmark",
@@ -110,15 +122,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FrmPDVendas.cs [Projeto]",
+              "DocumentIndex": 1,
+              "Title": "FrmPDVendas.cs",
               "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs",
               "RelativeDocumentMoniker": "View\\FrmPDVendas.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs [Projeto]",
-              "RelativeToolTip": "View\\FrmPDVendas.cs [Projeto]",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs",
+              "RelativeToolTip": "View\\FrmPDVendas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T14:09:39.502Z",
-              "EditorCaption": " [Projeto]"
+              "WhenOpened": "2026-01-04T18:12:56.643Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VendaDal.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\DAL\\VendaDal.cs",
+              "RelativeDocumentMoniker": "DAL\\VendaDal.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\DAL\\VendaDal.cs",
+              "RelativeToolTip": "DAL\\VendaDal.cs",
+              "ViewState": "AgIAAKABAAAAAAAAAAAmwK0BAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T17:48:54.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VendaModel.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\Model\\VendaModel.cs",
+              "RelativeDocumentMoniker": "Model\\VendaModel.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\Model\\VendaModel.cs",
+              "RelativeToolTip": "Model\\VendaModel.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAIA2wBsAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T17:41:45.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VendaBLL.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\BLL\\VendaBLL.cs",
+              "RelativeDocumentMoniker": "BLL\\VendaBLL.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\BLL\\VendaBLL.cs",
+              "RelativeToolTip": "BLL\\VendaBLL.cs",
+              "ViewState": "AgIAAOAAAAAAAAAAAAAowO0AAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-04T17:39:10.049Z",
+              "EditorCaption": ""
             }
           ]
         },

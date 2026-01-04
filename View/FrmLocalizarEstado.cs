@@ -1,5 +1,5 @@
 ﻿
-using GVC.DALL;
+using GVC.DAL;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;

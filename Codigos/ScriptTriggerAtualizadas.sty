@@ -50,40 +50,42 @@ BEGIN
     SET
         p.Status =
             CASE
+                -- 1️⃣ Parcela cancelada é intocável
                 WHEN p.Status = 'Cancelada' THEN 'Cancelada'
 
+                -- 2️⃣ Parcela totalmente paga (REGRA SOBERANA)
                 WHEN i.ValorRecebido >=
                      (i.ValorParcela + ISNULL(i.Juros,0) + ISNULL(i.Multa,0)) - 0.01
                     THEN 'Pago'
 
+                -- 3️⃣ Pagamento parcial
                 WHEN i.ValorRecebido > 0
                     THEN 'Parcialmente Pago'
 
+                -- 4️⃣ Sem pagamento e vencida
                 WHEN i.DataVencimento < CAST(GETDATE() AS DATE)
                     THEN 'Atrasada'
 
+                -- 5️⃣ Sem pagamento e dentro do prazo
                 ELSE 'Pendente'
             END,
 
         p.DataPagamento =
             CASE
+                -- Define data de pagamento somente quando quitar
                 WHEN i.ValorRecebido >=
                      (i.ValorParcela + ISNULL(i.Juros,0) + ISNULL(i.Multa,0)) - 0.01
-                     AND p.DataPagamento IS NULL
-                    THEN CAST(GETDATE() AS DATE)
+                    THEN
+                        COALESCE(p.DataPagamento, CAST(GETDATE() AS DATE))
 
-                WHEN i.ValorRecebido = 0
-                    THEN NULL
-
+                -- Se não está paga, não mexe na data
                 ELSE p.DataPagamento
             END
     FROM Parcela p
-    INNER JOIN inserted i ON p.ParcelaID = i.ParcelaID
-    WHERE
-        (i.ValorRecebido <> ISNULL((SELECT d.ValorRecebido FROM deleted d WHERE d.ParcelaID = i.ParcelaID),0))
-        OR (i.DataVencimento <> (SELECT d.DataVencimento FROM deleted d WHERE d.ParcelaID = i.ParcelaID));
+    INNER JOIN inserted i ON p.ParcelaID = i.ParcelaID;
 END;
 GO
+
 
 // 4️⃣ ATUALIZA STATUS DA VENDA (AGREGADO CORRETO)
 

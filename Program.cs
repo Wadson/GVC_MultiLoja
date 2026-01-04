@@ -1,5 +1,6 @@
 ﻿using GVC.MUI;
 using GVC.View;
+using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace GVC
         [STAThread]
         static void Main()
         {
+            QuestPDF.Settings.License = LicenseType.Community;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -29,7 +32,6 @@ namespace GVC
             //    Application.Exit(); // Fecha o aplicativo se o login for cancelado
             //}
             Application.Run(new FrmTelaPrincipal());
-
         }
     }
 }

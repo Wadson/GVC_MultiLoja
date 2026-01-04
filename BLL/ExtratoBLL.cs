@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using GVC.DAL;
-using GVC.DALL;
 using GVC.Model;
 using GVC.UTIL;
 

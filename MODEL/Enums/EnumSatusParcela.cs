@@ -12,19 +12,15 @@ namespace GVC.Model.Enums
         ParcialmentePago,
         Pago,
         Atrasada,        
-        Cancelada    
-        
+        Cancelada  
     }
 
     public enum EnumStatusVenda
     {
         Aberta,
-        AguardandoPagamento,
-        ParcialmentePago,
+        AguardandoPagamento,        
         Concluida,
         Cancelada, 
         Suspensa
     }
-
-
 }

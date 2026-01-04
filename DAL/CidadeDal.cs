@@ -5,7 +5,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace GVC.DALL
+namespace GVC.DAL
 {
     internal class CidadeDal
     {

@@ -1,11 +1,9 @@
 ﻿using GVC.BLL;
-using GVC.DALL;
+using GVC.DAL;
 using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
-using iText.StyledXmlParser.Jsoup.Nodes;
 using Krypton.Toolkit;
-using Org.BouncyCastle.Asn1.Cmp;
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -26,12 +24,15 @@ namespace GVC.View
 
         private bool _formatandoCNPJ = false;
         private bool _formatandoTelefone = false;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CarregandoDados { get; set; }
         private readonly EmpresaBll _empresaBll = new EmpresaBll();
         private EmpresaDal _empresaDal = new EmpresaDal();
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int EmpresaID { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string StatusOperacao { get; set; } // "NOVO", "ALTERAR", "EXCLUSAO"
-       
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int CidadeID { get; set; } // usado internamente na busca de cidade
         private bool bloqueiaPesquisa = false;
         private readonly string QueryMaxId = "SELECT MAX(EmpresaID) FROM Empresa";

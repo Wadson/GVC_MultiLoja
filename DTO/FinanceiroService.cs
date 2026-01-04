@@ -175,7 +175,7 @@ namespace GVC.DTO
                 return EnumStatusVenda.Concluida;
 
             if (parcelas.Any(p => p.Status == EnumStatusParcela.Pago))
-                return EnumStatusVenda.ParcialmentePago;
+                return EnumStatusVenda.Aberta;
 
             return EnumStatusVenda.AguardandoPagamento;
         }

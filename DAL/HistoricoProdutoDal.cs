@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GVC.DALL
+namespace GVC.DAL
 {
     internal class HistoricoProdutoDal
     {

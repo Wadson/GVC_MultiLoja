@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GVC.Model.Enums;
 
 namespace GVC.Model.Extensions
@@ -16,13 +12,12 @@ namespace GVC.Model.Extensions
         {
             return status switch
             {
-                EnumStatusVenda.Aberta => "Aberta",              
-                EnumStatusVenda.AguardandoPagamento => "Aguardando Pagamento",
+                EnumStatusVenda.Aberta => "Aberta",
+                EnumStatusVenda.AguardandoPagamento => "Aguardando Pagamento",                
                 EnumStatusVenda.Concluida => "Concluída",
-                EnumStatusVenda.Cancelada => "Cancelada", 
-                EnumStatusVenda.ParcialmentePago => "Parcialmente Pago",
+                EnumStatusVenda.Cancelada => "Cancelada",
                 EnumStatusVenda.Suspensa => "Suspensa",
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(nameof(status))
             };
         }
 
@@ -31,13 +26,14 @@ namespace GVC.Model.Extensions
         // =========================
         public static EnumStatusVenda ToEnumStatusVenda(this string status)
         {
+            status = status?.Trim();
+
             return status switch
             {
-                "Aberta" => EnumStatusVenda.Aberta,               
-                "Aguardando Pagamento" => EnumStatusVenda.AguardandoPagamento,
+                "Aberta" => EnumStatusVenda.Aberta,
+                "Aguardando Pagamento" => EnumStatusVenda.AguardandoPagamento,              
                 "Concluída" => EnumStatusVenda.Concluida,
-                "Cancelada" => EnumStatusVenda.Cancelada,              
-                "Parcialmente Pago" => EnumStatusVenda.ParcialmentePago,
+                "Cancelada" => EnumStatusVenda.Cancelada,
                 "Suspensa" => EnumStatusVenda.Suspensa,
                 _ => throw new Exception($"Status de venda inválido: {status}")
             };
@@ -51,11 +47,11 @@ namespace GVC.Model.Extensions
             return status switch
             {
                 EnumStatusParcela.Pendente => "Pendente",
-                EnumStatusParcela.Atrasada => "Atrasada",                
-                EnumStatusParcela.Pago => "Pago",
-                EnumStatusParcela.Cancelada => "Cancelada",              
                 EnumStatusParcela.ParcialmentePago => "Parcialmente Pago",
-                _ => throw new ArgumentOutOfRangeException()
+                EnumStatusParcela.Pago => "Pago",
+                EnumStatusParcela.Atrasada => "Atrasada",
+                EnumStatusParcela.Cancelada => "Cancelada",
+                _ => throw new ArgumentOutOfRangeException(nameof(status))
             };
         }
 
@@ -64,17 +60,17 @@ namespace GVC.Model.Extensions
         // =========================
         public static EnumStatusParcela ToEnumStatusParcela(this string status)
         {
+            status = status?.Trim();
+
             return status switch
             {
-                "Aberta" => EnumStatusParcela.Pendente,
-                "Atrasada" => EnumStatusParcela.Atrasada,               
-                "Pago" => EnumStatusParcela.Pago,
-                "Cancelada" => EnumStatusParcela.Cancelada,              
+                "Pendente" => EnumStatusParcela.Pendente,
                 "Parcialmente Pago" => EnumStatusParcela.ParcialmentePago,
+                "Pago" => EnumStatusParcela.Pago,
+                "Atrasada" => EnumStatusParcela.Atrasada,
+                "Cancelada" => EnumStatusParcela.Cancelada,
                 _ => throw new Exception($"Status de parcela inválido: {status}")
             };
         }
     }
-
-
 }

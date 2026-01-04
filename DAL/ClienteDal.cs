@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
-namespace GVC.DALL
+namespace GVC.DAL
 {
     internal class ClienteDal
     {

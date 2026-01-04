@@ -1,6 +1,6 @@
 ﻿using GVC.BLL;
 using GVC.DAL;
-using GVC.DALL;
+using GVC.DAL;
 using GVC.DTO;
 using GVC.Model;
 using GVC.Model.Enums;
@@ -8,7 +8,6 @@ using GVC.UTIL;
 using Krypton.Toolkit;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
-using SistemaVendas.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -289,8 +288,7 @@ namespace GVC.View
                 },
                 HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
             });
-
-            // 🔹 Coluna Descrição
+           
             // 🔹 Coluna Descrição
             dgvItensVenda.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -388,22 +386,6 @@ namespace GVC.View
             dgvItensVenda.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             dgvItensVenda.AllowUserToResizeRows = false;
             dgvItensVenda.RowTemplate.Height = 28; // 🔹 Altura das linhas
-
-            // 🔹 Estilo dos cabeçalhos
-            dgvItensVenda.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = new Font("Segoe UI", 9.5F, FontStyle.Regular),
-                BackColor = Color.SteelBlue,
-                ForeColor = Color.White,
-                Alignment = DataGridViewContentAlignment.MiddleCenter,
-                Padding = new Padding(0, 2, 0, 2) // 🔹 Espaçamento vertical interno
-            };
-
-            // 🔹 Estilo das linhas alternadas (zebra)
-            dgvItensVenda.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
-            {
-                BackColor = Color.FromArgb(245, 245, 245) // 🔹 Cinza muito claro
-            };
 
             // 🔹 Estilo de seleção
             dgvItensVenda.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
@@ -763,6 +745,56 @@ namespace GVC.View
                 txtVendedorBuscar.Focus();
             }
         }
+       
+        private void txtClienteBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (_ignorarEventosBusca || _ignorandoBuscar)
+                return;
+
+            var texto = txtClienteBuscar.Text.Trim();
+            if (string.IsNullOrEmpty(texto))
+                return;
+
+            using (var pesquisaCliente = new FrmLocalizarCliente(this, texto))
+            {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtClienteBuscar.PointToScreen(Point.Empty);
+
+                pesquisaCliente.StartPosition = FormStartPosition.Manual;
+                pesquisaCliente.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtClienteBuscar.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaCliente.Width = txtClienteBuscar.Width;
+
+                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
+                {
+                    _ignorandoBuscar = true;
+                    try
+                    {
+                        ClienteID = pesquisaCliente.ClienteID;
+                        txtClienteBuscar.Text = pesquisaCliente.ClienteSelecionado;
+                        NomeCliente = pesquisaCliente.ClienteSelecionado;
+
+                        // 🔥 AQUI: avança o estado e atualiza a tela
+                        if (_estadoVenda < EstadoVenda.ClienteSelecionado)
+                        {
+                            _estadoVenda = EstadoVenda.ClienteSelecionado;
+                            AtualizarEstadoTela();
+                        }
+
+                    }
+                    finally
+                    {
+                        _ignorandoBuscar = false;
+                    }
+                }
+            }
+
+            txtVendedorBuscar.Select();
+        }
         private void txtVendedorBuscar_TextChanged(object sender, EventArgs e)
         {
             // Se estamos ignorando eventos, sai imediatamente
@@ -813,56 +845,6 @@ namespace GVC.View
 
             txtProdutoBuscar.Select();
         }
-        private void txtClienteBuscar_TextChanged(object sender, EventArgs e)
-        {
-            if (_ignorarEventosBusca || _ignorandoBuscar)
-                return;
-
-            var texto = txtClienteBuscar.Text.Trim();
-            if (string.IsNullOrEmpty(texto))
-                return;
-
-            using (var pesquisaCliente = new FrmLocalizarCliente(this, texto))
-            {
-                // Calcula posição logo abaixo do TextBox
-                var textBoxLocation = txtClienteBuscar.PointToScreen(Point.Empty);
-
-                pesquisaCliente.StartPosition = FormStartPosition.Manual;
-                pesquisaCliente.Location = new Point(
-                    textBoxLocation.X,
-                    textBoxLocation.Y + txtClienteBuscar.Height
-                );
-
-                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
-                pesquisaCliente.Width = txtClienteBuscar.Width;
-
-                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
-                {
-                    _ignorandoBuscar = true;
-                    try
-                    {
-                        ClienteID = pesquisaCliente.ClienteID;
-                        txtClienteBuscar.Text = pesquisaCliente.ClienteSelecionado;
-                        NomeCliente = pesquisaCliente.ClienteSelecionado;
-
-                        // 🔥 AQUI: avança o estado e atualiza a tela
-                        if (_estadoVenda < EstadoVenda.ClienteSelecionado)
-                        {
-                            _estadoVenda = EstadoVenda.ClienteSelecionado;
-                            AtualizarEstadoTela();
-                        }
-
-                    }
-                    finally
-                    {
-                        _ignorandoBuscar = false;
-                    }
-                }
-            }
-
-            txtVendedorBuscar.Select();
-        }
-
         private void txtProdutoBuscar_TextChanged(object sender, EventArgs e)
         {
             // Se estamos ignorando eventos, sai imediatamente
@@ -942,44 +924,212 @@ namespace GVC.View
         {
             this.Close();
         }
+        private void AbrirBuscaCliente()
+        {
+            if (_ignorarEventosBusca || _ignorandoBuscar)
+                return;
+
+            // Foca no campo cliente primeiro
+            txtClienteBuscar.Focus();
+            Application.DoEvents();
+
+            var texto = txtClienteBuscar.Text.Trim();
+
+            // **MUDANÇA IMPORTANTE**: Permite abrir mesmo se estiver vazio!
+            // O formulário de pesquisa deve lidar com texto vazio
+            using (var pesquisaCliente = new FrmLocalizarCliente(this, texto))
+            {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtClienteBuscar.PointToScreen(Point.Empty);
+
+                pesquisaCliente.StartPosition = FormStartPosition.Manual;
+                pesquisaCliente.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtClienteBuscar.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaCliente.Width = txtClienteBuscar.Width;
+
+                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
+                {
+                    _ignorandoBuscar = true;
+                    try
+                    {
+                        ClienteID = pesquisaCliente.ClienteID;
+                        txtClienteBuscar.Text = pesquisaCliente.ClienteSelecionado;
+                        NomeCliente = pesquisaCliente.ClienteSelecionado;
+
+                        // 🔥 AQUI: avança o estado e atualiza a tela
+                        if (_estadoVenda < EstadoVenda.ClienteSelecionado)
+                        {
+                            _estadoVenda = EstadoVenda.ClienteSelecionado;
+                            AtualizarEstadoTela();
+                        }
+                    }
+                    finally
+                    {
+                        _ignorandoBuscar = false;
+                    }
+                }
+            }
+
+            txtVendedorBuscar.Select();
+        }
+
+        private void AbrirBuscaVendedor()
+        {
+            if (_ignorarEventosBusca || _ignorandoBuscar)
+                return;
+
+            // Foca no campo vendedor primeiro
+            txtVendedorBuscar.Focus();
+            Application.DoEvents();
+
+            var texto = txtVendedorBuscar.Text.Trim();
+
+            // **MUDANÇA IMPORTANTE**: Permite abrir mesmo se estiver vazio!
+            using (var pesquisaVendedor = new FrmLocalizarVendedor(this, texto))
+            {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtVendedorBuscar.PointToScreen(Point.Empty);
+
+                pesquisaVendedor.StartPosition = FormStartPosition.Manual;
+                pesquisaVendedor.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtVendedorBuscar.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaVendedor.Width = txtVendedorBuscar.Width;
+
+                if (pesquisaVendedor.ShowDialog() == DialogResult.OK)
+                {
+                    // Ativa flag para bloquear reentrância
+                    _ignorandoBuscar = true;
+                    try
+                    {
+                        VendedorID = pesquisaVendedor.VendedorID;
+                        txtVendedorBuscar.Text = pesquisaVendedor.VendedorSelecionado;
+
+                        // 🔥 Avança o estado
+                        if (_estadoVenda < EstadoVenda.VendedorSelecionado)
+                        {
+                            _estadoVenda = EstadoVenda.VendedorSelecionado;
+                            AtualizarEstadoTela();
+                        }
+                    }
+                    finally
+                    {
+                        // Libera flag após atualização
+                        _ignorandoBuscar = false;
+                    }
+                }
+            }
+
+            txtProdutoBuscar.Select();
+        }
+
+        private void AbrirBuscaProduto()
+        {
+            if (_ignorarEventosBusca || _ignorandoBuscar)
+                return;
+
+            // Foca no campo produto primeiro
+            txtProdutoBuscar.Focus();
+            Application.DoEvents();
+
+            var texto = txtProdutoBuscar.Text.Trim();
+
+            // **MUDANÇA IMPORTANTE**: Permite abrir mesmo se estiver vazio!
+            using (var pesquisaProduto = new FrmLocalizarProduto(this, texto))
+            {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtProdutoBuscar.PointToScreen(Point.Empty);
+
+                pesquisaProduto.StartPosition = FormStartPosition.Manual;
+                pesquisaProduto.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtProdutoBuscar.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaProduto.Width = txtProdutoBuscar.Width;
+
+                if (pesquisaProduto.ShowDialog() == DialogResult.OK)
+                {
+                    // Ativa flag para bloquear reentrância
+                    _ignorandoBuscar = true;
+                    try
+                    {
+                        ProdutoID = pesquisaProduto.ProdutoID;
+                        txtProdutoBuscar.Text = pesquisaProduto.ProdutoSelecionado;
+                        txtPrecoUnitario.Text = pesquisaProduto.PrecoUnitario.ToString("N2");
+                        txtQuantidade.Text = "1";
+                        Utilitario.FormatarMoeda(txtPrecoUnitario);
+                    }
+                    finally
+                    {
+                        // Libera flag após atualização
+                        _ignorandoBuscar = false;
+                        txtQuantidade.Focus();
+                        txtQuantidade.SelectAll();
+                    }
+                }
+            }
+
+            txtQuantidade.Select();
+        }
 
         private void FrmPDVendas_KeyDown(object sender, KeyEventArgs e)
         {
+           // Debug: mostra qual tecla está sendo pressionada
+            Console.WriteLine($"Tecla pressionada: {e.KeyCode}");
+            Debug.WriteLine($"Tecla pressionada: {e.KeyCode}");
+
             if (e.KeyCode == Keys.F12)
             {
                 e.SuppressKeyPress = true;
             }
+
             switch (e.KeyCode)
             {
-                //case Keys.F2:
-                //    AbrirBuscaCliente();
-                //    e.SuppressKeyPress = true;
-                //    break;
+                case Keys.F2:                  
+                    AbrirBuscaCliente();
+                    e.SuppressKeyPress = true;
+                    e.Handled = true; // Adiciona esta linha
+                    break;
 
-                //case Keys.F3:
-                //    AbrirBuscaVendedor();
-                //    e.SuppressKeyPress = true;
-                //    break;
+                case Keys.F3:                  
+                    AbrirBuscaVendedor();
+                    e.SuppressKeyPress = true;
+                    e.Handled = true; // Adiciona esta linha
+                    break;
 
-                //case Keys.F4:
-                //    AbrirBuscaProduto();
-                //    e.SuppressKeyPress = true;
-                //    break;
+                case Keys.F4:                  
+                    AbrirBuscaProduto();
+                    e.SuppressKeyPress = true;
+                    e.Handled = true; // Adiciona esta linha
+                    break;
 
-                //case Keys.F6:
-                //    btnAdicionarItem.PerformClick();
-                //    e.SuppressKeyPress = true;
-                //    break;
+                case Keys.F6:                   
+                    btnAdicionarItem.PerformClick();
+                    e.SuppressKeyPress = true;
+                    e.Handled = true;
+                    break;
 
-                //case Keys.F12:
-                //    FinalizarVenda();
-                //    e.SuppressKeyPress = true;
-                //    break;
+                case Keys.F12:                   
+                    FinalizarVenda();
+                    e.SuppressKeyPress = true;
+                    e.Handled = true;
+                    break;
 
-                //case Keys.Escape:
-                //    e.SuppressKeyPress = true;
-                //    break;
+                case Keys.Escape:                  
+                    e.SuppressKeyPress = true;
+                    e.Handled = true;
+                    break;
             }
+        
         }
 
         private void dgvItensVenda_CellEndEdit(object sender, DataGridViewCellEventArgs e)

@@ -9,7 +9,7 @@ public partial class ItemVendaModel
     private int quantidade = 1;
     private decimal precoUnitario;
     private decimal subtotal;
-    private decimal descontoItem;
+    private decimal? descontoItem;
 
 
 
@@ -62,7 +62,7 @@ public partial class ItemVendaModel
         }
     }
 
-    public decimal DescontoItem
+    public decimal? DescontoItem
     {
         get => descontoItem;
         set
@@ -91,7 +91,7 @@ public partial class ItemVendaModel
     // Método para atualizar Subtotal sempre que Quantidade, PrecoUnitario ou DescontoItem mudar
     public void AtualizarSubtotal()
     {
-        Subtotal = (Quantidade * PrecoUnitario) - DescontoItem;
+        Subtotal = (decimal)((Quantidade * PrecoUnitario) - DescontoItem);
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

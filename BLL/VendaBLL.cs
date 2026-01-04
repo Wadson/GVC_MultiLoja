@@ -1,5 +1,5 @@
 ﻿using GVC.DAL;
-using GVC.DALL;
+using GVC.DAL;
 using GVC.DTO;
 using GVC.Model;
 using GVC.UTIL;
@@ -37,7 +37,7 @@ namespace GVC.BLL
             if (recebido >= total)
                 return EnumStatusVenda.Concluida.ToString();
 
-            return EnumStatusVenda.ParcialmentePago.ToString();
+            return EnumStatusVenda.Aberta.ToString();
         }
         public int SalvarVendaCompleta(VendaModel venda, List<ItemVendaModel> itens, List<ParcelaModel>? parcelas = null)
         {
@@ -111,22 +111,22 @@ namespace GVC.BLL
         // ⚠️ SE PRECISAR MANTER int
         public VendaModel ObterVendaPorId(int vendaId)
         {
-            return vendaDAL.ObterVendaPorId(vendaId);
+            return vendaDAL.ObterPorId(vendaId);
         }
 
         public EnumStatusVenda CalcularStatusVenda(List<ParcelaModel> parcelas)
         {
-            if (parcelas == null || parcelas.Count == 0)
-                return EnumStatusVenda.Concluida;
+            if (parcelas == null || parcelas.Count == 0) return EnumStatusVenda.AguardandoPagamento;
 
             if (parcelas.All(p => p.Status == EnumStatusParcela.Pago))
                 return EnumStatusVenda.Concluida;
 
-            if (parcelas.Any(p => p.Status == EnumStatusParcela.Pago))
-                return EnumStatusVenda.ParcialmentePago;
+            if (parcelas.Any(p => p.Status == EnumStatusParcela.ParcialmentePago))
+                return EnumStatusVenda.Aberta;
 
             return EnumStatusVenda.AguardandoPagamento;
         }
+
 
         public void CancelarVenda(long vendaId, string motivo)
         {
@@ -235,9 +235,9 @@ namespace GVC.BLL
             return (int)cmd.ExecuteScalar() > 0;
         }
        
-        public VendaCompletaModel ObterVendaCompleta(long vendaId)
+        public VendaModel ObterVendaCompleta(int vendaId)
         {
-            return new VendaConsultaDal().ObterVendaCompleta(vendaId);
+            return new VendaDal().ObterVendaCompleta(vendaId);
         }
 
         public void AtualizarVendaCompleta( VendaModel venda, List<ItemVendaModel> itens,  List<ParcelaModel> parcelas)
@@ -253,12 +253,8 @@ namespace GVC.BLL
                     "Não é possível alterar a venda.\n\n" +
                     "Existem pagamentos registrados.");
 
-            // 🔹 Recalcula status da venda
-            
-
             // 🔹 Chama DAL (igual salvar)
-            new VendaAtualizacaoDal()
-                .AtualizarVendaCompleta(venda, itens, parcelas);
+            new VendaDal().AtualizarVendaCompleta(venda, itens, parcelas);
         }
     }
 }

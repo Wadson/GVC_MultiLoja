@@ -1,10 +1,7 @@
-﻿using GVC.DALL;
+﻿using GVC.DAL;
 using GVC.Model;
 using GVC.UTIL;
-using iText.Kernel.Colors;
-using iText.StyledXmlParser.Jsoup.Nodes;
 using Krypton.Toolkit;
-using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

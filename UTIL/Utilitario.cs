@@ -1,10 +1,8 @@
 using Dapper;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using GVC.Model;
-using iText.Kernel.Colors;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
 using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;
 using OfficeOpenXml;
@@ -106,7 +104,7 @@ namespace GVC.UTIL{
         public static byte[] ImagemParaBytes(Image img)
         {
             using var ms = new MemoryStream();
-            img.Save(ms, ImageFormat.Png);
+            img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
             return ms.ToArray();
         }
 
@@ -233,62 +231,81 @@ namespace GVC.UTIL{
         }
 
 
+
         public static void ExportarParaPDF(KryptonDataGridView dgv, string arquivo = null)
         {
-            var salvar = new SaveFileDialog { Filter = "PDF|*.pdf", FileName = arquivo ?? "Relatorio.pdf" };
-            if (salvar.ShowDialog() != DialogResult.OK) return;
-
-            // Criar documento (A4 paisagem)
-            using (var writer = new PdfWriter(salvar.FileName))
+            var salvar = new SaveFileDialog
             {
-                using (var pdf = new PdfDocument(writer))
+                Filter = "PDF|*.pdf",
+                FileName = arquivo ?? "Relatorio.pdf"
+            };
+
+            if (salvar.ShowDialog() != DialogResult.OK)
+                return;
+
+            QuestPDF.Settings.License = LicenseType.Community;
+
+            Document.Create(container =>
+            {
+                container.Page(page =>
                 {
-                    // A4 em paisagem: 842pt x 595pt
-                    var pageSize = iText.Kernel.Geom.PageSize.A4.Rotate();
-                    var document = new Document(pdf, pageSize);
-                    document.SetMargins(20, 20, 20, 20);
+                    page.Size(PageSizes.A4.Landscape());
+                    page.Margin(20);
+                    page.DefaultTextStyle(x => x.FontSize(9));
 
-                    // Criar tabela
-                    var tabela = new Table(dgv.Columns.Count, true);
-                    tabela.SetWidth(UnitValue.CreatePercentValue(100));
-
-                    // Cabeçalho da tabela
-                    foreach (DataGridViewColumn col in dgv.Columns)
+                    page.Content().Table(table =>
                     {
-                        if (col.Visible)
-                        {
-                            var cell = new Cell()
-                                .Add(new Paragraph(col.HeaderText ?? ""))
-                                .SetBackgroundColor(new DeviceRgb(200, 200, 200))
-                                .SetFontColor(new DeviceRgb(0, 0, 0))
-                                .SetBold();
-                            tabela.AddHeaderCell(cell);
-                        }
-                    }
+                        // 🔹 Definição de colunas (somente visíveis)
+                        var colunasVisiveis = dgv.Columns
+                            .Cast<DataGridViewColumn>()
+                            .Where(c => c.Visible)
+                            .ToList();
 
-                    // Dados da tabela
-                    foreach (DataGridViewRow row in dgv.Rows)
-                    {
-                        if (row.IsNewRow) continue;
-
-                        foreach (DataGridViewCell cell in row.Cells)
+                        table.ColumnsDefinition(columns =>
                         {
-                            if (cell.OwningColumn.Visible)
+                            foreach (var _ in colunasVisiveis)
+                                columns.RelativeColumn();
+                        });
+
+                        // 🔹 Cabeçalho
+                        table.Header(header =>
+                        {
+                            foreach (var col in colunasVisiveis)
                             {
-                                var valor = cell.Value?.ToString() ?? "";
-                                tabela.AddCell(new Cell().Add(new Paragraph(valor)));
+                                header.Cell()
+                                    .Background(Colors.Grey.Lighten3)
+                                    .Padding(5)
+                                    .AlignCenter()
+                                    .Text(col.HeaderText ?? "")
+                                    .Bold();
+                            }
+                        });
+
+                        // 🔹 Linhas
+                        foreach (DataGridViewRow row in dgv.Rows)
+                        {
+                            if (row.IsNewRow) continue;
+
+                            foreach (var col in colunasVisiveis)
+                            {
+                                var valor = row.Cells[col.Index].Value?.ToString() ?? "";
+
+                                table.Cell()
+                                    .Padding(4)
+                                    .Text(valor);
                             }
                         }
-                    }
+                    });
+                });
+            })
+            .GeneratePdf(salvar.FileName);
 
-                    // Adicionar tabela ao documento
-                    document.Add(tabela);
-
-                    // Fechar documento (não precisa chamar Close explicitamente com using)
-                }
-            }
-
-            MessageBox.Show("PDF gerado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(
+                "PDF gerado com sucesso!",
+                "Sucesso",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
 
         public static void ExportarParaExcel(KryptonDataGridView dgv)

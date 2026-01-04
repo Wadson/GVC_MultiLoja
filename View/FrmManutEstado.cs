@@ -1,6 +1,6 @@
 ﻿using Krypton.Toolkit;
 using GVC.BLL;
-using GVC.DALL;
+using GVC.DAL;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

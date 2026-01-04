@@ -2,9 +2,7 @@
 using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
-using iText.StyledXmlParser.Jsoup.Nodes;
 using Krypton.Toolkit;
-using Org.BouncyCastle.Asn1.Cmp;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -14,19 +12,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static GVC.UTIL.BrasilApiCepResponse;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.ComponentModel;
 
 namespace GVC.View
 {
     public partial class FrmCadCliente : KryptonForm
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CarregandoDados { get; set; }
 
         private readonly ClienteBLL _clienteBll = new ClienteBLL();
         private readonly string QueryClientes = "SELECT MAX(ClienteID) FROM Clientes";
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string StatusOperacao { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string cidadeSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
         private bool bloqueiaPesquisa = false;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ClienteID { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int CidadeID { get; set; }
         private bool isVendedor { get; set; }
 

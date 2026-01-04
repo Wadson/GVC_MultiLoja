@@ -14,9 +14,6 @@
     <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Controls\ComboClientes.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="CustomTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
