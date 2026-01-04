@@ -1,7 +1,7 @@
 ﻿using GVC.BLL;
 using GVC.DAL;
 using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
@@ -239,7 +239,7 @@ namespace GVC.View
             }
 
             // Carregar dados do produto selecionado
-            var produto = (ProdutosModel)dgvProdutos.CurrentRow.DataBoundItem;
+            var produto = (ProdutoModel)dgvProdutos.CurrentRow.DataBoundItem;
 
             frm.txtProdutoID.Text = produto.ProdutoID.ToString();
             frm.txtReferencia.Text = produto.Referencia ?? "";
@@ -251,8 +251,8 @@ namespace GVC.View
             frm.txtUnidade.Text = produto.Unidade ?? "";
             frm.txtMarca.Text = produto.Marca ?? "";
             frm.txtDataValidade.Text = produto.DataValidade.HasValue ? produto.DataValidade.Value.ToString("dd/MM/yyyy") : "";
-            frm.txtGtinEan.Text = produto.GtinEan ?? "";
-            frm.txtFornecedor.Text = produto.Fornecedor ?? "";
+            frm.txtGtinEan.Text = produto.GtinEan ?? "";            
+            frm.txtFornecedor.Text = produto.Fornecedor?.Nome ?? "";
             frm.txtFornecedorID.Text = produto.FornecedorID.ToString();
             frm.cmbSituacao.Text = produto.Situacao ?? "";
             frm.cmbStatus.Text = produto.Status;

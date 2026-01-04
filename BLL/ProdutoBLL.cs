@@ -2,7 +2,7 @@
 // 3. BLL - ProdutosBLL.cs
 // ==================================================
 using System.Collections.Generic;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.DAL;
 
 namespace GVC.BLL
@@ -11,11 +11,11 @@ namespace GVC.BLL
     {
         private readonly ProdutoDALL _dal = new ProdutoDALL();
 
-        public List<ProdutosModel> ListarTodos() => _dal.ListarTodos();
+        public List<ProdutoModel> ListarTodos() => _dal.ListarTodos();
 
-        public ProdutosModel? BuscarPorId(long id) => _dal.BuscarPorId(id);
+        public ProdutoModel? BuscarPorId(long id) => _dal.BuscarPorId(id);
 
-        public long Inserir(ProdutosModel produto)
+        public long Inserir(ProdutoModel produto)
         {
             // Validações básicas de negócio (você pode expandir)
             if (string.IsNullOrWhiteSpace(produto.NomeProduto))
@@ -30,7 +30,7 @@ namespace GVC.BLL
             return _dal.Inserir(produto);
         }
 
-        public bool Alterar(ProdutosModel produto)
+        public bool Alterar(ProdutoModel produto)
         {
             if (produto.ProdutoID <= 0)
                 throw new Exception("ID do produto inválido.");

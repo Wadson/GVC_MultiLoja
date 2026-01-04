@@ -1,5 +1,5 @@
-﻿using GVC.MODEL;
-using GVC.MODEL.Extensions;
+﻿using GVC.Model;
+using GVC.Model.Extensions;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
@@ -91,7 +91,7 @@ WHERE v.VendaID = @VendaID";
 
                     venda.Itens.Add(new ItemVendaModel
                     {
-                        ProdutoID = (long)dr["ProdutoID"],
+                        ProdutoID = (int)dr["ProdutoID"],
                         ProdutoDescricao = dr["ProdutoDescricao"].ToString(),
                         Quantidade = quantidade,
                         PrecoUnitario = precoUnitario,

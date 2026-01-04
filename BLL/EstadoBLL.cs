@@ -1,5 +1,5 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using System;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -24,7 +24,7 @@ namespace GVC.BLL
             }
         }
 
-        public void Salvar(EstadoMODEL estado)
+        public void Salvar(EstadoModel estado)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace GVC.BLL
             }
         }
 
-        public void Excluir(EstadoMODEL estado)
+        public void Excluir(EstadoModel estado)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace GVC.BLL
             }
         }
 
-        public void Atualizar(EstadoMODEL estado)
+        public void Atualizar(EstadoModel estado)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace GVC.BLL
             }
         }
 
-        public EstadoMODEL Pesquisar(string pesquisa)
+        public EstadoModel Pesquisar(string pesquisa)
         {
             using var conn = Conexao.Conex();
             try
@@ -75,14 +75,14 @@ namespace GVC.BLL
                 conn.Open();
                 var datareader = sql.ExecuteReader(CommandBehavior.CloseConnection);
 
-                EstadoMODEL obj_estado = null;
+                EstadoModel obj_estado = null;
                 if (datareader.Read())
                 {
-                    obj_estado = new EstadoMODEL
+                    obj_estado = new EstadoModel
                     {
                         EstadoID = Convert.ToInt32(datareader["EstadoID"]),
                         Nome = datareader["Nome"].ToString(),
-                        UF = datareader["Uf"].ToString()
+                        Uf = datareader["Uf"].ToString()
                     };
                 }
                 return obj_estado;

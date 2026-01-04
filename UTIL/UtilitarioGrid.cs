@@ -62,7 +62,7 @@ namespace GVC.UTIL
 
                 string Digitos(string v) => new string(v.Where(char.IsDigit).ToArray());
 
-                if (col == "CNPJ")
+                if (col == "Cnpj")
                 {
                     string c = Digitos(raw);
                     if (c.Length == 14 && ulong.TryParse(c, out ulong n))
@@ -115,7 +115,7 @@ private void FrmManutEmpresa_Load(object sender, EventArgs e)
         UtilitarioGrid.ColunaExpandir(dgvEmpresa, "RazaoSocial", 250, 3);
         UtilitarioGrid.ColunaExpandir(dgvEmpresa, "NomeFantasia", 220, 2);
 
-        UtilitarioGrid.ColunaFixa(dgvEmpresa, "CNPJ", 160);
+        UtilitarioGrid.ColunaFixa(dgvEmpresa, "Cnpj", 160);
         UtilitarioGrid.ColunaFixa(dgvEmpresa, "Telefone", 140);
         UtilitarioGrid.ColunaFixa(dgvEmpresa, "Cep", 90);
 

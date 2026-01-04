@@ -2,7 +2,7 @@
 using GVC.BLL;
 using GVC.DAL;
 using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;
@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ParcelaExtratoModel = GVC.MODEL.ParcelaExtrato;
+using ParcelaExtratoModel = GVC.Model.ParcelaExtrato;
 
 namespace GVC.View
 {
@@ -670,7 +670,7 @@ namespace GVC.View
             }
         }
 
-        private void CarregarVenda(long vendaId)
+        private void CarregarVenda(int vendaId)
         {
             var venda = _vendaBll.ObterVendaPorId((int)vendaId);
 
@@ -678,13 +678,19 @@ namespace GVC.View
             {
                 LimparAreaVenda();
                 return;
-            }
-            // Busca nome do cliente se necessário
-            if (string.IsNullOrEmpty(venda.NomeCliente) && venda.ClienteID > 0)
+            }          
+            if (venda.Cliente == null && venda.ClienteID > 0)
             {
                 string query = "SELECT Nome FROM Clientes WHERE ClienteID = @id";
-                venda.NomeCliente = Utilitario.PesquisarPorCodigoRetornarNome(query, "id", venda.ClienteID);
+                string nomeCliente = Utilitario.PesquisarPorCodigoRetornarNome(query, "id", venda.ClienteID);
+
+                venda.Cliente = new ClienteModel
+                {
+                    ClienteID = venda.ClienteID,
+                    Nome = nomeCliente
+                };
             }
+
         }
         private void BuscarNomeCliente(long clienteId)
         {

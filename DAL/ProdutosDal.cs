@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient; // Alterado para SQL Server
 using System;
@@ -36,9 +36,9 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
         private readonly string _connectionString = Conexao.Conex().ConnectionString;
 
         // ==================== LISTAR TODOS ====================
-        public List<ProdutosModel> ListarTodos()
+        public List<ProdutoModel> ListarTodos()
         {
-            var lista = new List<ProdutosModel>();
+            var lista = new List<ProdutoModel>();
             using (var con = new SqlConnection(_connectionString)) // Alterado para SqlConnection
             {
                 // SQL Server usa TOP para limitar resultados
@@ -65,9 +65,9 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
             }
             return lista;
         }
-        public List<ProdutosModel> ListarProdutosVenda()
+        public List<ProdutoModel> ListarProdutosVenda()
         {
-            var lista = new List<ProdutosModel>();
+            var lista = new List<ProdutoModel>();
             using (var con = new SqlConnection(_connectionString)) // Alterado para SqlConnection
             {
                 // SQL Server usa TOP para limitar resultados
@@ -97,9 +97,9 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
             }
             return lista;
         }
-        public List<ProdutosModel> ListarProdutoDinamico(string filtro = "")
+        public List<ProdutoModel> ListarProdutoDinamico(string filtro = "")
         {
-            var lista = new List<ProdutosModel>();
+            var lista = new List<ProdutoModel>();
 
             using (var conn = Conexao.Conex())
             using (var cmd = conn.CreateCommand())
@@ -124,7 +124,7 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
                 {
                     while (dr.Read())
                     {
-                        lista.Add(new ProdutosModel
+                        lista.Add(new ProdutoModel
                         {
                             ProdutoID = dr.GetInt32(0),
                             NomeProduto = dr.GetString(1),
@@ -138,7 +138,7 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
             return lista;
         }
         // ==================== BUSCAR POR ID ====================
-        public ProdutosModel? BuscarPorId(long id)
+        public ProdutoModel? BuscarPorId(long id)
         {
             using (var con = new SqlConnection(_connectionString))
             {
@@ -158,7 +158,7 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
         }
 
         // ==================== INSERIR ====================
-        public long Inserir(ProdutosModel produto)
+        public long Inserir(ProdutoModel produto)
         {
             using (var con = new SqlConnection(_connectionString))
             {
@@ -181,7 +181,7 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
         }
 
         // ==================== ATUALIZAR ====================
-        public bool Alterar(ProdutosModel produto)
+        public bool Alterar(ProdutoModel produto)
         {
             using (var con = new SqlConnection(_connectionString))
             {
@@ -214,7 +214,7 @@ WHERE ProdutoID = @Id";
                 }
             }
         }
-        private void AdicionarParametros(SqlCommand cmd, ProdutosModel p)
+        private void AdicionarParametros(SqlCommand cmd, ProdutoModel p)
         {
             cmd.Parameters.AddWithValue("@NomeProduto", p.NomeProduto ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Referencia", p.Referencia ?? (object)DBNull.Value);
@@ -252,9 +252,9 @@ WHERE ProdutoID = @Id";
         }
 
         // ==================== MÉTODO AUXILIAR MAPEAR ====================
-        private ProdutosModel Mapear(SqlDataReader reader)
+        private ProdutoModel Mapear(SqlDataReader reader)
         {
-            return new ProdutosModel
+            return new ProdutoModel
             {
                 ProdutoID = Convert.ToInt32(reader["ProdutoID"]),
                 NomeProduto = reader["NomeProduto"].ToString(),
@@ -262,7 +262,7 @@ WHERE ProdutoID = @Id";
                 PrecoCusto = Convert.ToDecimal(reader["PrecoCusto"]),
                 Lucro = Convert.ToDecimal(reader["Lucro"]),
                 PrecoDeVenda = Convert.ToDecimal(reader["PrecoDeVenda"]),
-                Estoque = Convert.ToInt64(reader["Estoque"]),
+                Estoque = Convert.ToInt32(reader["Estoque"]),
                 DataDeEntrada = Convert.ToDateTime(reader["DataDeEntrada"]),
                 Status = reader["Status"].ToString(),
                 Situacao = reader["Situacao"]?.ToString() ?? "",
@@ -271,28 +271,29 @@ WHERE ProdutoID = @Id";
                 DataValidade = reader["DataValidade"] != DBNull.Value ? Convert.ToDateTime(reader["DataValidade"]) : (DateTime?)null,
                 GtinEan = reader["GtinEan"]?.ToString() ?? "",
                 Imagem = reader["Imagem"]?.ToString() ?? "",
-                FornecedorID = reader["FornecedorID"] != DBNull.Value ? Convert.ToInt64(reader["FornecedorID"]) : 0,
-                Fornecedor = reader.HasColumn("NomeFornecedor") ? reader["NomeFornecedor"].ToString() ?? "" : ""
+                FornecedorID = reader["FornecedorID"] != DBNull.Value ? Convert.ToInt32(reader["FornecedorID"]) : 0,
+                Fornecedor = reader.HasColumn("NomeFornecedor")? new FornecedorModel{Nome = reader["NomeFornecedor"].ToString() ?? "" }: null
+
             };
         }
-        private ProdutosModel MapearPesquisaProdutoVenda(SqlDataReader reader)
+        private ProdutoModel MapearPesquisaProdutoVenda(SqlDataReader reader)
         {
-            return new ProdutosModel
+            return new ProdutoModel
             {
                 ProdutoID = reader.IsDBNull(reader.GetOrdinal("ProdutoID")) ? 0 : Convert.ToInt32(reader["ProdutoID"]),
                 NomeProduto = reader.IsDBNull(reader.GetOrdinal("NomeProduto")) ? string.Empty : reader["NomeProduto"]?.ToString() ?? string.Empty,
                 Referencia = reader.IsDBNull(reader.GetOrdinal("Referencia")) ? string.Empty : reader["Referencia"]?.ToString() ?? string.Empty,
                 PrecoDeVenda = reader.IsDBNull(reader.GetOrdinal("PrecoDeVenda")) ? 0m : Convert.ToDecimal(reader["PrecoDeVenda"]),
-                Estoque = (long)(reader.IsDBNull(reader.GetOrdinal("Estoque")) ? 0m : Convert.ToDecimal(reader["Estoque"])),
+                Estoque = (int)(reader.IsDBNull(reader.GetOrdinal("Estoque")) ? 0m : (reader["Estoque"])),
                 Unidade = reader.IsDBNull(reader.GetOrdinal("Unidade")) ? string.Empty : reader["Unidade"]?.ToString() ?? string.Empty,
                 Marca = reader.IsDBNull(reader.GetOrdinal("Marca")) ? string.Empty : reader["Marca"]?.ToString() ?? string.Empty,
             };
         }
 
         // ==================== PESQUISAR POR NOME ====================
-        public List<ProdutosModel> PesquisarProdutoPorNome(string nome)
+        public List<ProdutoModel> PesquisarProdutoPorNome(string nome)
         {
-            var lista = new List<ProdutosModel>();
+            var lista = new List<ProdutoModel>();
             // SqlServer usa TOP em vez de LIMIT
             string sql = @"SELECT TOP 100 ProdutoID, NomeProduto, Referencia, PrecoDeVenda, Estoque, Unidade, Marca FROM Produtos
                            WHERE NomeProduto LIKE @nome ORDER BY NomeProduto";
@@ -332,9 +333,9 @@ WHERE ProdutoID = @Id";
         }
 
         // ==================== PESQUISAR POR CÓDIGO (Busca parcial) ====================
-        public List<ProdutosModel> PesquisarProdutoPorCodigo(string codigo)
+        public List<ProdutoModel> PesquisarProdutoPorCodigo(string codigo)
         {
-            var lista = new List<ProdutosModel>();
+            var lista = new List<ProdutoModel>();
             string sql = @"SELECT TOP 100 ProdutoID, NomeProduto, Referencia, PrecoDeVenda, Estoque, Unidade, Marca FROM Produtos
                            WHERE NomeProduto CAST(ProdutoID AS VARCHAR) LIKE @codigo
                               OR Referencia LIKE @codigo

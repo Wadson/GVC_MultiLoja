@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -122,10 +122,10 @@ namespace GVC.DALL
                 e.EmpresaID,
                 e.RazaoSocial,
                 e.NomeFantasia,
-                e.CNPJ,
+                e.Cnpj,
                 e.InscricaoEstadual,
                 e.InscricaoMunicipal,
-                e.CNAE,
+                e.Cnae,
                 e.Logradouro,
                 e.Numero,
                 e.Bairro,
@@ -140,7 +140,7 @@ namespace GVC.DALL
                 e.UsuarioCriacao,
                 e.UsuarioAtualizacao,               
                 ci.Nome AS Cidade,
-                es.Uf AS UF
+                es.Uf AS Uf
             FROM Empresa e
             LEFT JOIN Cidade ci ON ci.CidadeID = (SELECT CidadeID FROM Cidade WHERE Nome = e.Cidade) -- Ajuste se houver CidadeID direto
             LEFT JOIN Estado es ON es.EstadoID = ci.EstadoID";
@@ -215,13 +215,13 @@ namespace GVC.DALL
             const string sql = @"
                 SELECT TOP 1 1
                 FROM Empresa
-                WHERE (RazaoSocial = @RazaoSocial OR CNPJ = @CNPJ)";
+                WHERE (RazaoSocial = @RazaoSocial OR Cnpj = @Cnpj)";
 
             using (var conn = Conexao.Conex())
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@RazaoSocial", string.IsNullOrWhiteSpace(razaoSocial) ? (object)DBNull.Value : razaoSocial);
-                cmd.Parameters.AddWithValue("@CNPJ", string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
+                cmd.Parameters.AddWithValue("@Cnpj", string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
                 conn.Open();
                 var result = cmd.ExecuteScalar();
                 return result != null;
@@ -232,8 +232,8 @@ namespace GVC.DALL
         {
             if (empresa == null) throw new ArgumentNullException(nameof(empresa));
 
-            if (EmpresaExiste(empresa.RazaoSocial, empresa.CNPJ))
-                throw new InvalidOperationException("Já existe uma empresa com esta Razão Social ou CNPJ.");
+            if (EmpresaExiste(empresa.RazaoSocial, empresa.CNAE))
+                throw new InvalidOperationException("Já existe uma empresa com esta Razão Social ou Cnpj.");
 
             const string sql = @"
                 INSERT INTO Empresa (
@@ -244,8 +244,8 @@ namespace GVC.DALL
                     DataCriacao, UsuarioCriacao
                 )
                 VALUES (
-                    @RazaoSocial, @NomeFantasia, @CNPJ, @InscricaoEstadual, @InscricaoMunicipal, @CNAE,
-                    @Logradouro, @Numero, @Bairro, @Cep, @Cidade, @UF,
+                    @RazaoSocial, @NomeFantasia, @Cnpj, @InscricaoEstadual, @InscricaoMunicipal, @Cnae,
+                    @Logradouro, @Numero, @Bairro, @Cep, @Cidade, @Uf,
                     @Telefone, @Email, @Site,
                     @Responsavel, @CertificadoDigital,
                     @DataCriacao, @UsuarioCriacao
@@ -257,16 +257,16 @@ namespace GVC.DALL
             {
                 cmd.Parameters.AddWithValue("@RazaoSocial", empresa.RazaoSocial ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@NomeFantasia", empresa.NomeFantasia ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@CNPJ", empresa.CNPJ ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Cnpj", empresa.CNPJ ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@InscricaoEstadual", empresa.InscricaoEstadual ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@InscricaoMunicipal", empresa.InscricaoMunicipal ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@CNAE", empresa.CNAE ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Cnae", empresa.CNAE ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Logradouro", empresa.Logradouro ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Numero", empresa.Numero ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Bairro", empresa.Bairro ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Cep", empresa.Cep ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Cidade", empresa.Cidade ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@UF", empresa.UF ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Uf", empresa.UF ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Telefone", empresa.Telefone ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Email", empresa.Email ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Site", empresa.Site ?? (object)DBNull.Value);
@@ -296,16 +296,16 @@ namespace GVC.DALL
         UPDATE Empresa SET
             RazaoSocial = @RazaoSocial,
             NomeFantasia = @NomeFantasia,
-            CNPJ = @CNPJ,
+            CNPJ = @Cnpj,
             InscricaoEstadual = @InscricaoEstadual,
             InscricaoMunicipal = @InscricaoMunicipal,
-            CNAE = @CNAE,
+            CNAE = @Cnae,
             Logradouro = @Logradouro,
             Numero = @Numero,
             Bairro = @Bairro,
             Cep = @Cep,
             Cidade = @Cidade,
-            UF = @UF,
+            UF = @Uf,
             Telefone = @Telefone,
             Email = @Email,
             Site = @Site,
@@ -326,16 +326,16 @@ namespace GVC.DALL
                 cmd.Parameters.AddWithValue("@EmpresaID", empresa.EmpresaID);
                 cmd.Parameters.AddWithValue("@RazaoSocial", empresa.RazaoSocial ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@NomeFantasia", empresa.NomeFantasia ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@CNPJ", empresa.CNPJ ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Cnpj", empresa.CNPJ ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@InscricaoEstadual", empresa.InscricaoEstadual ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@InscricaoMunicipal", empresa.InscricaoMunicipal ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@CNAE", empresa.CNAE ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Cnae", empresa.CNAE ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Logradouro", empresa.Logradouro ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Numero", empresa.Numero ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Bairro", empresa.Bairro ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Cep", empresa.Cep ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Cidade", empresa.Cidade ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@UF", empresa.UF ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Uf", empresa.UF ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Telefone", empresa.Telefone ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Email", empresa.Email ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Site", empresa.Site ?? (object)DBNull.Value);
@@ -400,12 +400,12 @@ namespace GVC.DALL
             const string sql = @"
                 SELECT TOP 1 *
                 FROM Empresa
-                WHERE CNPJ = @CNPJ";
+                WHERE Cnpj = @Cnpj";
 
             using (var conn = Conexao.Conex())
             using (var cmd = new SqlCommand(sql, conn))
             {
-                cmd.Parameters.AddWithValue("@CNPJ", string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
+                cmd.Parameters.AddWithValue("@Cnpj", string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
                 conn.Open();
                 using (var reader = cmd.ExecuteReader())
                 {

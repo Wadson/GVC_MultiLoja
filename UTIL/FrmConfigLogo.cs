@@ -1,5 +1,5 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using iText.Kernel.Colors;
 using iText.StyledXmlParser.Jsoup.Nodes;

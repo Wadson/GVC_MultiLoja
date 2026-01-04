@@ -1,4 +1,4 @@
-﻿using GVC.MODEL;
+﻿using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -102,9 +102,9 @@ namespace GVC.DALL
 
                 var item = new ItemVendaModel
                 {
-                    ItemVendaID = reader.GetInt64("ItemVendaID"),
-                    VendaID = reader.GetInt64("VendaID"),
-                    ProdutoID = reader.GetInt64("ProdutoID"),
+                    ItemVendaID = reader.GetInt32("ItemVendaID"),
+                    VendaID = reader.GetInt32("VendaID"),
+                    ProdutoID = reader.GetInt32("ProdutoID"),
                     Quantidade = quantidade,
                     PrecoUnitario = precoUnitario,
                     DescontoItem = descontoItem
@@ -162,9 +162,9 @@ namespace GVC.DALL
                 // ✅ Criar item primeiro
                 var item = new ItemVendaModel
                 {
-                    ItemVendaID = reader.GetInt64("ItemVendaID"),
-                    VendaID = reader.GetInt64("VendaID"),
-                    ProdutoID = reader.GetInt64("ProdutoID"),
+                    ItemVendaID = reader.GetInt32("ItemVendaID"),
+                    VendaID = reader.GetInt32("VendaID"),
+                    ProdutoID = reader.GetInt32("ProdutoID"),
                     Quantidade = quantidade,
                     PrecoUnitario = precoUnitario,
                     DescontoItem = descontoItem
@@ -257,9 +257,9 @@ namespace GVC.DALL
 
                 var item = new ItemVendaModel
                 {
-                    ItemVendaID = reader.GetInt64("ItemVendaID"),
-                    VendaID = reader.GetInt64("VendaID"),
-                    ProdutoID = reader.GetInt64("ProdutoID"),
+                    ItemVendaID = reader.GetInt32("ItemVendaID"),
+                    VendaID = reader.GetInt32("VendaID"),
+                    ProdutoID = reader.GetInt32("ProdutoID"),
                     Quantidade = quantidade,
                     PrecoUnitario = precoUnitario,
                     DescontoItem = descontoItem,

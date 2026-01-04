@@ -1032,7 +1032,7 @@
             lblRotuloCnpj.Name = "lblRotuloCnpj";
             lblRotuloCnpj.Size = new Size(42, 16);
             lblRotuloCnpj.TabIndex = 1039;
-            lblRotuloCnpj.Text = "CNPJ";
+            lblRotuloCnpj.Text = "Cnpj";
             lblRotuloCnpj.Visible = false;
             // 
             // txtIE
@@ -1062,7 +1062,7 @@
             lblRotuloIE.Name = "lblRotuloIE";
             lblRotuloIE.Size = new Size(140, 16);
             lblRotuloIE.TabIndex = 1041;
-            lblRotuloIE.Text = "IE (Inscrição Estadual)";
+            lblRotuloIE.Text = "Ie (Inscrição Estadual)";
             lblRotuloIE.Visible = false;
             // 
             // groupBoxEVendedor

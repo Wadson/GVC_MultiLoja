@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GVC.MODEL
+namespace GVC.Model;
+
+public partial class CidadeModel
 {
-    internal class CidadeMODEL
-    {
-        public int CidadeID { get; set; }
-        public string Nome { get; set; }
-        public int EstadoID { get; set; }        
+    public int CidadeID { get; set; }
 
-    }
+    public string Nome { get; set; } = null!;
+
+    public int EstadoID { get; set; }
+
+    public string? CodigoIbge { get; set; }
+
+    public virtual ICollection<ClienteModel> Clientes { get; set; } = new List<ClienteModel>();
+
+    public virtual EstadoModel Estado { get; set; } = null!;
+
+    public virtual ICollection<FornecedorModel> Fornecedors { get; set; } = new List<FornecedorModel>();
 }

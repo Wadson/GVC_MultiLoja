@@ -1,5 +1,5 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -180,17 +180,17 @@ namespace GVC.BLL
                 throw new ArgumentException("Razão Social é obrigatória");
 
             if (string.IsNullOrWhiteSpace(empresa.CNPJ))
-                throw new ArgumentException("CNPJ é obrigatório");
+                throw new ArgumentException("Cnpj é obrigatório");
 
             if (!ValidarCnpj(empresa.CNPJ))
-                throw new ArgumentException("CNPJ inválido");
+                throw new ArgumentException("Cnpj inválido");
 
             // Verifica duplicidade
             if (ExisteEmpresa(empresa.RazaoSocial, empresa.CNPJ, isUpdate ? empresa.EmpresaID : null))
-                throw new InvalidOperationException("Já existe uma empresa cadastrada com esta Razão Social ou CNPJ");
+                throw new InvalidOperationException("Já existe uma empresa cadastrada com esta Razão Social ou Cnpj");
 
             // Outras validações que você pode adicionar:
-            // - UF válida
+            // - Uf válida
             // - CEP com formato correto
             // - Email válido (quando preenchido)
         }
@@ -215,7 +215,7 @@ namespace GVC.BLL
             if (new string(cnpj[0], 14) == cnpj)
                 return false;
 
-            // Algoritmo de validação oficial do CNPJ
+            // Algoritmo de validação oficial do Cnpj
             int[] multiplicadores1 = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicadores2 = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 

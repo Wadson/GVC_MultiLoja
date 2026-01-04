@@ -1,11 +1,11 @@
-﻿using GVC.MODEL;
+﻿using GVC.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GVC.MODEL.Enums;
-using GVC.MODEL.Extensions;
+using GVC.Model.Enums;
+using GVC.Model.Extensions;
 
 
 namespace GVC.DTO

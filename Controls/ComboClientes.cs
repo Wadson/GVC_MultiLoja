@@ -1,4 +1,4 @@
-﻿using GVC.MODEL;
+﻿using GVC.Model;
 using GVC.DTO;
 using GVC.UTIL;
 using System;
@@ -20,7 +20,7 @@ namespace MeuProjeto.Controls
         private TextBox txtBusca;
         private ListBox lstClientes;
         private Panel pnlContainer;
-        private GVC.MODEL.ClienteService _clienteService;
+        private GVC.Model.ClienteService _clienteService;
         private System.Windows.Forms.Timer _timerBusca;
         private int _clienteIdSelecionado = 0;
 

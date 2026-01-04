@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GVC.MODEL
+namespace GVC.Model;
+
+public partial class UsuarioModel
 {
-    internal class UsuarioMODEL
-    {
-        public int UsuarioID { get; set; }
-        public string NomeCompleto { get; set; }   // novo campo: nome real da pessoa
-        public string NomeUsuario { get; set; }    // login/username
-        public string Email { get; set; }
-        public string Senha { get; set; }          // lembre-se: armazenar hash, não senha pura
-        public string TipoUsuario { get; set; }    // Normal, Admin, etc.
-        public string Cpf { get; set; }
-        public DateTime DataNascimento { get; set; }
-        public DateTime DataCriacao { get; set; }  // novo campo: data de cadastro no sistema
-    }
+    public int UsuarioID { get; set; }
 
+    public string TipoUsuario { get; set; } = null!;
+
+    public string NomeCompleto { get; set; } = null!;
+
+    public string Cpf { get; set; } = null!;
+
+    public DateTime DataNascimento { get; set; }
+
+    public string NomeUsuario { get; set; } = null!;
+
+    public string Email { get; set; } = null!;
+
+    public string Senha { get; set; } = null!;
+
+    public DateTime DataCriacao { get; set; }
+
+    public virtual ICollection<TokensRedefinicaoModel> TokensRedefinicaos { get; set; } = new List<TokensRedefinicaoModel>();
 }

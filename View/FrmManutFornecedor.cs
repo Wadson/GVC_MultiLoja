@@ -46,7 +46,7 @@ namespace GVC.View
             // Cabeçalhos bonitos
             if (dgvFornecedor.Columns["FornecedorID"] != null) dgvFornecedor.Columns["FornecedorID"].HeaderText = "Código";
             if (dgvFornecedor.Columns["Nome"] != null) dgvFornecedor.Columns["Nome"].HeaderText = "Nome";
-            if (dgvFornecedor.Columns["Cnpj"] != null) dgvFornecedor.Columns["Cnpj"].HeaderText = "CNPJ";
+            if (dgvFornecedor.Columns["Cnpj"] != null) dgvFornecedor.Columns["Cnpj"].HeaderText = "Cnpj";
             if (dgvFornecedor.Columns["IE"] != null) dgvFornecedor.Columns["IE"].HeaderText = "IE";
             if (dgvFornecedor.Columns["Telefone"] != null) dgvFornecedor.Columns["Telefone"].HeaderText = "Telefone";
             if (dgvFornecedor.Columns["Email"] != null) dgvFornecedor.Columns["Email"].HeaderText = "E-mail";
@@ -56,7 +56,7 @@ namespace GVC.View
             if (dgvFornecedor.Columns["Cep"] != null) dgvFornecedor.Columns["Cep"].HeaderText = "CEP";
             if (dgvFornecedor.Columns["Observacoes"] != null) dgvFornecedor.Columns["Observacoes"].HeaderText = "Obs.";
             if (dgvFornecedor.Columns["NomeCidade"] != null) dgvFornecedor.Columns["NomeCidade"].HeaderText = "Cidade";
-            if (dgvFornecedor.Columns["Estado"] != null) dgvFornecedor.Columns["Estado"].HeaderText = "UF";
+            if (dgvFornecedor.Columns["Estado"] != null) dgvFornecedor.Columns["Estado"].HeaderText = "Uf";
 
             // Larguras fixas
             var largurasFixas = new (string nome, int largura)[]
@@ -320,7 +320,7 @@ namespace GVC.View
             // Função auxiliar: extrai apenas dígitos
             string Digitos(string s) => new string(s.Where(char.IsDigit).ToArray());
 
-            // Formatar CPF / CNPJ
+            // Formatar CPF / Cnpj
             if (columnName == "Cnpj")
             {
                 string cnpj = Digitos(raw);               

@@ -1,5 +1,5 @@
 ﻿using GVC.BLL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using GVC.View;
 using Krypton.Toolkit;
@@ -150,29 +150,28 @@ namespace GVC
                 return;
             }
 
-            try
+            if (string.IsNullOrWhiteSpace(txtCPF.Text))
             {
-                UsuarioMODEL obj = new UsuarioMODEL
-                {
-                    UsuarioID = UsuarioID,
-                    NomeCompleto = txtNomeCompleto.Text,
-                    NomeUsuario = txtNomeUsuario.Text,
-                    Email = txtEmail.Text,
-                    Senha = HashSHA256(txtNovaSenha.Text),
-                    TipoUsuario = cmbTipoUsuario.Text,
-                    Cpf = txtCPF.Text,
-                    DataNascimento = dtpDataNascimento.Value,
-                    DataCriacao = DateTime.Now
-                };
+                Utilitario.Mensagens.Aviso("O campo CPF é obrigatório.");
+                return; // interrompe o fluxo e não tenta salvar
+            }
 
-                new UsuarioBLL().Salvar(obj);
-                Utilitario.Mensagens.Aviso("Usuário cadastrado com sucesso!");
-                FecharEAtualizarManutencao();
-            }
-            catch (Exception ex)
+            UsuarioModel obj = new UsuarioModel
             {
-                Utilitario.Mensagens.Aviso("Erro ao salvar: " + ex.Message);
-            }
+                UsuarioID = UsuarioID,
+                NomeCompleto = txtNomeCompleto.Text,
+                NomeUsuario = txtNomeUsuario.Text,
+                Email = txtEmail.Text,
+                Senha = HashSHA256(txtNovaSenha.Text),
+                TipoUsuario = cmbTipoUsuario.Text,
+                Cpf = txtCPF.Text,
+                DataNascimento = dtpDataNascimento.Value,
+                DataCriacao = DateTime.Now
+            };
+
+            new UsuarioBLL().Salvar(obj);
+            Utilitario.Mensagens.Info("Usuário cadastrado com sucesso!");
+            FecharEAtualizarManutencao();
         }
 
         public void AlterarRegistro()
@@ -205,7 +204,7 @@ namespace GVC
 
             try
             {
-                UsuarioMODEL obj = new UsuarioMODEL
+                UsuarioModel obj = new UsuarioModel
                 {
                     UsuarioID = UsuarioID,
                     NomeCompleto = txtNomeCompleto.Text,
@@ -235,7 +234,7 @@ namespace GVC
             {
                 try
                 {
-                    new UsuarioBLL().Excluir(new UsuarioMODEL { UsuarioID = UsuarioID });
+                    new UsuarioBLL().Excluir(new UsuarioModel { UsuarioID = UsuarioID });
                     Utilitario.Mensagens.Aviso("Usuário excluído com sucesso!");
                     FecharEAtualizarManutencao();
                 }

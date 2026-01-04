@@ -1,5 +1,5 @@
 ﻿using GVC.BLL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -88,7 +88,7 @@ namespace GVC.DALL
             }
         }
 
-        public void SalvarCliente(ClienteMODEL cliente)
+        public void SalvarCliente(ClienteModel cliente)
         {
             if (cliente == null) throw new ArgumentNullException(nameof(cliente));
             if (ClienteExiste(cliente.Nome, cliente.Cpf))
@@ -140,7 +140,7 @@ namespace GVC.DALL
             }
         }
 
-        public void Atualizar(ClienteMODEL cliente)
+        public void Atualizar(ClienteModel cliente)
         {
             const string sql = @"
                 UPDATE Clientes SET
@@ -149,7 +149,7 @@ namespace GVC.DALL
                     RG = @RG,
                     OrgaoExpedidorRG = @OrgaoExpedidorRG,
                     Cnpj = @Cnpj,
-                    IE = @IE,
+                   IE = @IE,
                     Telefone = @Telefone,
                     Email = @Email,
                     CidadeID = @CidadeID,
@@ -210,7 +210,7 @@ namespace GVC.DALL
             }
         }
 
-        public void ExcluirCliente(ClienteMODEL cliente) => ExcluirCliente(cliente.ClienteID);
+        public void ExcluirCliente(ClienteModel cliente) => ExcluirCliente(cliente.ClienteID);
 
         public DataTable PesquisarPorNome(string nome)
         {
@@ -282,7 +282,7 @@ namespace GVC.DALL
                 new SqlParameter("@Texto", filtro));
         }
 
-        public ClienteMODEL? BuscarPorCpf(string? cpf)
+        public ClienteModel? BuscarPorCpf(string? cpf)
         {
             const string sql = @"
                 SELECT TOP 1 *
@@ -305,7 +305,7 @@ namespace GVC.DALL
             return null;
         }
 
-        public ClienteMODEL? BuscarPorCnpj(string? cnpj)
+        public ClienteModel? BuscarPorCnpj(string? cnpj)
         {
             const string sql = @"
                 SELECT TOP 1 *
@@ -328,7 +328,7 @@ namespace GVC.DALL
             return null;
         }
 
-        public ClienteMODEL? BuscarPorId(int clienteID)
+        public ClienteModel? BuscarPorId(int clienteID)
         {
             string sql = SqlBase + " WHERE c.ClienteID = @Id";
             using (var conn = Conexao.Conex())
@@ -375,10 +375,10 @@ namespace GVC.DALL
             return lista;
         }
 
-        // Método auxiliar para mapear ClienteMODEL a partir de SqlDataReader
-        private ClienteMODEL MapCliente(SqlDataReader reader)
+        // Método auxiliar para mapear ClienteModel a partir de SqlDataReader
+        private ClienteModel MapCliente(SqlDataReader reader)
         {
-            var cliente = new ClienteMODEL
+            var cliente = new ClienteModel
             {
                 ClienteID = reader.GetInt32(reader.GetOrdinal("ClienteID")),
                 Nome = reader["Nome"].ToString() ?? "",
@@ -386,7 +386,7 @@ namespace GVC.DALL
                 RG = reader["RG"].ToString(),
                 OrgaoExpedidorRG = reader["OrgaoExpedidorRG"].ToString(),
                 Cnpj = reader["Cnpj"].ToString(),
-                IE = reader["IE"].ToString(),
+               IE = reader["IE"].ToString(),
                 Telefone = reader["Telefone"].ToString(),
                 Email = reader["Email"].ToString(),
                 Logradouro = reader["Logradouro"].ToString(),
@@ -399,13 +399,13 @@ namespace GVC.DALL
                 UsuarioCriacao = reader["UsuarioCriacao"].ToString(),
                 UsuarioAtualizacao = reader["UsuarioAtualizacao"].ToString(),
                 IsVendedor = reader["IsVendedor"] != DBNull.Value ? Convert.ToBoolean(reader["IsVendedor"]) : null,                
-                // Adicione os demais campos conforme sua classe ClienteMODEL
+                // Adicione os demais campos conforme sua classe ClienteModel
             };
             return cliente;
         }
-        public List<ClienteMODEL> ListarClienteDinamico(string filtro = "")
+        public List<ClienteModel> ListarClienteDinamico(string filtro = "")
         {
-            var lista = new List<ClienteMODEL>();
+            var lista = new List<ClienteModel>();
 
             using (var conn = Conexao.Conex())
             using (var cmd = conn.CreateCommand())
@@ -425,7 +425,7 @@ namespace GVC.DALL
                 {
                     while (dr.Read())
                     {
-                        lista.Add(new ClienteMODEL
+                        lista.Add(new ClienteModel
                         {
                             ClienteID = dr.GetInt32(0),
                             Nome = dr.GetString(1)
@@ -437,9 +437,9 @@ namespace GVC.DALL
             return lista;
         }
 
-        public List<ClienteMODEL> ListarVendedores(string filtro = "")
+        public List<ClienteModel> ListarVendedores(string filtro = "")
         {
-            var lista = new List<ClienteMODEL>();
+            var lista = new List<ClienteModel>();
 
             using (var conn = Conexao.Conex())
             using (var cmd = conn.CreateCommand())
@@ -459,7 +459,7 @@ namespace GVC.DALL
                 {
                     while (dr.Read())
                     {
-                        lista.Add(new ClienteMODEL
+                        lista.Add(new ClienteModel
                         {
                             ClienteID = dr.GetInt32(0),
                             Nome = dr.GetString(1)

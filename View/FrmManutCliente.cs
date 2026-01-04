@@ -48,7 +48,7 @@ namespace GVC.View
             if (dgvCliente.Columns["ClienteID"] != null) dgvCliente.Columns["ClienteID"].HeaderText = "Código";
             if (dgvCliente.Columns["Nome"] != null) dgvCliente.Columns["Nome"].HeaderText = "Nome";
             if (dgvCliente.Columns["Cpf"] != null) dgvCliente.Columns["Cpf"].HeaderText = "CPF";
-            if (dgvCliente.Columns["Cnpj"] != null) dgvCliente.Columns["Cnpj"].HeaderText = "CNPJ";
+            if (dgvCliente.Columns["Cnpj"] != null) dgvCliente.Columns["Cnpj"].HeaderText = "Cnpj";
             if (dgvCliente.Columns["RG"] != null) dgvCliente.Columns["RG"].HeaderText = "RG";
             if (dgvCliente.Columns["OrgaoExpedidorRG"] != null) dgvCliente.Columns["OrgaoExpedidorRG"].HeaderText = "Órgão Exp.";
             if (dgvCliente.Columns["IE"] != null) dgvCliente.Columns["IE"].HeaderText = "IE";
@@ -69,7 +69,7 @@ namespace GVC.View
             if (dgvCliente.Columns["UsuarioCriacao"] != null) dgvCliente.Columns["UsuarioCriacao"].HeaderText = "Usuário Criação";
             if (dgvCliente.Columns["UsuarioAtualizacao"] != null) dgvCliente.Columns["UsuarioAtualizacao"].HeaderText = "Usuário Atualização";
             if (dgvCliente.Columns["NomeCidade"] != null) dgvCliente.Columns["NomeCidade"].HeaderText = "Cidade";
-            if (dgvCliente.Columns["Estado"] != null) dgvCliente.Columns["Estado"].HeaderText = "UF";
+            if (dgvCliente.Columns["Estado"] != null) dgvCliente.Columns["Estado"].HeaderText = "Uf";
 
             if (dgvCliente.Columns["IsVendedor"] != null) dgvCliente.Columns["IsVendedor"].HeaderText = "Vendedor";
 

@@ -124,7 +124,7 @@ namespace GVC.View
             Renomear("Cep", "CEP");            
             Renomear("CidadeID", "Cód. Cidade");
             Renomear("Nome", "Nome da Cidade");
-            Renomear("Uf", "UF");           
+            Renomear("Uf", "Uf");           
             Renomear("NomeEstado", "Nome do Estado");
 
             // ✔ Modo somente leitura

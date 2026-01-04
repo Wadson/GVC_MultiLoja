@@ -1,5 +1,5 @@
 ﻿using GVC.BLL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
 using Krypton.Toolkit;
@@ -77,7 +77,7 @@ namespace GVC.View
                 txtObservacoes.Text = row.Cells["Observacoes"].Value?.ToString() ?? "";
                 ToolStripLabelDataCriacao.Text = row.Cells["DataCriacao"].Value?.ToString() ?? "";
 
-                // CNPJ — formatação
+                // Cnpj — formatação
                 string cnpj = row.Cells["Cnpj"].Value?.ToString() ?? "";
                 cnpj = new string(cnpj.Where(char.IsDigit).ToArray());
                 if (!string.IsNullOrWhiteSpace(cnpj))
@@ -145,7 +145,7 @@ namespace GVC.View
         private void FrmCadFornecedor_Load(object sender, EventArgs e)
         {
             // Sempre configura máscaras necessárias
-            txtCnpj.Tag = "CNPJ";
+            txtCnpj.Tag = "Cnpj";
 
             // Se está carregando dados (e.g., Alterar/Exclusão), não faz setup de "novo"
             if (CarregandoDados)
@@ -436,7 +436,7 @@ namespace GVC.View
 
             if (numero.Length != 14 || !Utilitario.ValidarCNPJ(numero))
             {
-                Utilitario.Mensagens.Aviso("CNPJ inválido!");
+                Utilitario.Mensagens.Aviso("Cnpj inválido!");
                 txtCnpj.Focus();
                 txtCnpj.StateCommon.Border.Color1 = System.Drawing.Color.Crimson;
                 return;
@@ -584,7 +584,7 @@ namespace GVC.View
                 this.CidadeID = cidadeId; // Descomente se tiver essa propriedade
             }
 
-            // Preenche UF
+            // Preenche Uf
             txtUF.Text = endereco.SiglaEstado ?? "";
             txtUF.Refresh();
             Application.DoEvents();

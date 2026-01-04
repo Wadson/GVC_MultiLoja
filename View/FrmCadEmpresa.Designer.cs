@@ -299,7 +299,7 @@
             lblRotuloCnpj.Name = "lblRotuloCnpj";
             lblRotuloCnpj.Size = new Size(42, 16);
             lblRotuloCnpj.TabIndex = 1039;
-            lblRotuloCnpj.Text = "CNPJ";
+            lblRotuloCnpj.Text = "Cnpj";
             // 
             // txtInscricaoEstadual
             // 
@@ -327,7 +327,7 @@
             lblRotuloIE.Name = "lblRotuloIE";
             lblRotuloIE.Size = new Size(140, 16);
             lblRotuloIE.TabIndex = 1041;
-            lblRotuloIE.Text = "IE (Inscrição Estadual)";
+            lblRotuloIE.Text = "Ie (Inscrição Estadual)";
             // 
             // txtNomeFantasia
             // 
@@ -384,7 +384,7 @@
             label2.Name = "label2";
             label2.Size = new Size(44, 16);
             label2.TabIndex = 1046;
-            label2.Text = "CNAE";
+            label2.Text = "Cnae";
             // 
             // label3
             // 
@@ -693,7 +693,7 @@
             label20.Name = "label20";
             label20.Size = new Size(25, 16);
             label20.TabIndex = 1066;
-            label20.Text = "UF";
+            label20.Text = "Uf";
             // 
             // label9
             // 

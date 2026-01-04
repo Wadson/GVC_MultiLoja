@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -12,7 +12,7 @@ namespace GVC.DALL
     internal class PagamentoParcialDal
     {
         // 1. INSERIR PAGAMENTO PARCIAL       
-        public void InserirPagamentoParcial(PagamentoParcialModel pagamentoParcial)
+        public void InserirPagamentoParcial(PagamentosParcialModel pagamentoParcial)
         {
             const string sql = @"INSERT INTO PagamentosParciais (ParcelaID, ValorPago, DataPagamento) 
                 VALUES (@ParcelaID, @ValorPago, @DataPagamento)";
@@ -28,11 +28,11 @@ namespace GVC.DALL
             conn.Execute(sql, new { Id = pagamentoParcialId });
         }
 
-        public void Excluir(PagamentoParcialModel pagamentoParcial)
+        public void Excluir(PagamentosParcialModel pagamentoParcial)
             => ExcluirPagamentoParcial(pagamentoParcial.PagamentoID);
 
         // 3. LISTAR PAGAMENTOS PARCIAIS DE UMA PARCELA        
-        public List<PagamentoParcialModel> ObterPagamentosParciaisPorParcela(long parcelaId)
+        public List<PagamentosParcialModel> ObterPagamentosParciaisPorParcela(long parcelaId)
         {
             const string sql = @" SELECT PagamentoParcialID,
                        ParcelaID,
@@ -43,7 +43,7 @@ namespace GVC.DALL
                 ORDER BY DataPagamento DESC";
 
             using var conn = Conexao.Conex();
-            return conn.Query<PagamentoParcialModel>(sql, new { ParcelaID = parcelaId }).AsList();
+            return conn.Query<PagamentosParcialModel>(sql, new { ParcelaID = parcelaId }).AsList();
         }
         public PagamentoExtratoModel ObterPagamentoPorId(long pagamentoId)
         {
@@ -160,11 +160,11 @@ namespace GVC.DALL
 
 
         // 8. BUSCAR PAGAMENTO PARCIAL POR ID
-        public PagamentoParcialModel? BuscarPorId(long pagamentoId)
+        public PagamentosParcialModel? BuscarPorId(long pagamentoId)
         {
             const string sql = "SELECT * FROM PagamentosParciais WHERE PagamentoID = @Id";
             using var conn = Conexao.Conex();
-            return conn.QueryFirstOrDefault<PagamentoParcialModel>(sql, new { Id = pagamentoId });
+            return conn.QueryFirstOrDefault<PagamentosParcialModel>(sql, new { Id = pagamentoId });
         }
         public void ExcluirPorVenda(long vendaId)
         {

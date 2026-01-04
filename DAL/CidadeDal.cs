@@ -1,4 +1,4 @@
-﻿using GVC.MODEL;
+﻿using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -38,7 +38,7 @@ namespace GVC.DALL
             }
         }
 
-        public void Salvar(CidadeMODEL Cidades)
+        public void Salvar(CidadeModel Cidades)
         {
             var conn = Conexao.Conex();
             try
@@ -63,7 +63,7 @@ namespace GVC.DALL
             }
         }
 
-        public void Excluir(CidadeMODEL Cidades)
+        public void Excluir(CidadeModel Cidades)
         {
             var conn = Conexao.Conex();
             try
@@ -83,7 +83,7 @@ namespace GVC.DALL
             }
         }
 
-        public void Atualizar(CidadeMODEL Cidades)
+        public void Atualizar(CidadeModel Cidades)
         {
             var conn = Conexao.Conex();
             try

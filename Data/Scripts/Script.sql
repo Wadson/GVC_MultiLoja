@@ -5,7 +5,7 @@
 CREATE TABLE Estado (
     EstadoID INTEGER PRIMARY KEY AUTOINCREMENT,
     NomeEstado VARCHAR(75) NOT NULL,
-    UF CHAR(2) NOT NULL
+    Uf CHAR(2) NOT NULL
 );
 
 -- Table: Cidade
@@ -153,7 +153,7 @@ CREATE INDEX idx_Parcela_VendaID ON Parcela(VendaID);
 CREATE INDEX idx_PagamentosParciais_ParcelaID ON PagamentosParciais(ParcelaID);
 
 -- Inserir dados básicos (opcional)
-INSERT INTO Estado (NomeEstado, UF) VALUES 
+INSERT INTO Estado (NomeEstado, Uf) VALUES 
     ('São Paulo', 'SP'),
     ('Rio de Janeiro', 'RJ'),
     ('Minas Gerais', 'MG');

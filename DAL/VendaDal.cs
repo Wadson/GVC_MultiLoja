@@ -1,6 +1,6 @@
-﻿using GVC.MODEL;
-using GVC.MODEL.Enums;
-using GVC.MODEL.Extensions;
+﻿using GVC.Model;
+using GVC.Model.Enums;
+using GVC.Model.Extensions;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;

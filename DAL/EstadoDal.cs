@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -22,25 +22,25 @@ namespace GVC.DALL
             return dt;
         }
         // ================== LISTAR COMO LISTA TIPADA (recomendado para ComboBox, etc) ==================
-        public List<EstadoMODEL> ListarTodos()
+        public List<EstadoModel> ListarTodos()
         {
-            const string sql = "SELECT EstadoID, Nome AS Nome, Uf AS UF FROM Estado ORDER BY Nome";
+            const string sql = "SELECT EstadoID, Nome AS Nome, Uf AS Uf FROM Estado ORDER BY Nome";
 
             using var conn = Conexao.Conex();
-            return conn.Query<EstadoMODEL>(sql).AsList();
+            return conn.Query<EstadoModel>(sql).AsList();
         }
         // ================== SALVAR (INSERT) ==================
-        public void Salvar(EstadoMODEL estado)
+        public void Salvar(EstadoModel estado)
         {
-            const string sql = @" INSERT INTO Estado (EstadoID, Nome, Uf) VALUES (@EstadoID, @Nome, @UF)";
+            const string sql = @" INSERT INTO Estado (EstadoID, Nome, Uf) VALUES (@EstadoID, @Nome, @Uf)";
 
             using var conn = Conexao.Conex();
             conn.Execute(sql, estado);
         }
         // ================== ATUALIZAR ==================
-        public void Atualizar(EstadoMODEL estado)
+        public void Atualizar(EstadoModel estado)
         {
-            const string sql = @" UPDATE Estado SET Nome = @Nome, Uf = @UF WHERE EstadoID = @EstadoID";
+            const string sql = @" UPDATE Estado SET Nome = @Nome, Uf = @Uf WHERE EstadoID = @EstadoID";
             using var conn = Conexao.Conex();
             conn.Execute(sql, estado);
         }
@@ -52,7 +52,7 @@ namespace GVC.DALL
             conn.Execute(sql, new { EstadoID = EstadoID });
         }
         // Ou se preferir passar o objeto inteiro:
-        public void Excluir(EstadoMODEL estado) => Excluir(estado.EstadoID);
+        public void Excluir(EstadoModel estado) => Excluir(estado.EstadoID);
         // ================== PESQUISAR POR NOME ==================
         public DataTable PesquisarPorNome(string nome)
         {
@@ -73,11 +73,11 @@ namespace GVC.DALL
             return dt;
         }
         // ================== BUSCAR POR ID (retorna objeto) ==================
-        public EstadoMODEL? BuscarPorId(int id)
+        public EstadoModel? BuscarPorId(int id)
         {
-            const string sql = "SELECT EstadoID, Nome AS Nome, Uf AS UF FROM Estado WHERE EstadoID = @Id";
+            const string sql = "SELECT EstadoID, Nome AS Nome, Uf AS Uf FROM Estado WHERE EstadoID = @Id";
             using var conn = Conexao.Conex();
-            return conn.QueryFirstOrDefault<EstadoMODEL>(sql, new { Id = id });
+            return conn.QueryFirstOrDefault<EstadoModel>(sql, new { Id = id });
         }
 
     }

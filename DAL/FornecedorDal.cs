@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using GVC.DAL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -58,7 +58,7 @@ namespace GVC.DALL
         {
             if (fornecedor == null) throw new ArgumentNullException(nameof(fornecedor));
             if (FornecedorExiste(fornecedor.Nome, fornecedor.Cnpj))
-                throw new InvalidOperationException("Já existe um fornecedor com este nome ou CNPJ.");
+                throw new InvalidOperationException("Já existe um fornecedor com este nome ou Cnpj.");
 
             const string sql = @"
 INSERT INTO Fornecedor (
@@ -77,7 +77,7 @@ SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
             {
                 Nome = NullIfEmpty(fornecedor.Nome),
                 Cnpj = NullIfEmpty(fornecedor.Cnpj),
-                IE = NullIfEmpty(fornecedor.IE),
+               IE = NullIfEmpty(fornecedor.IE),
                 Telefone = NullIfEmpty(fornecedor.Telefone),
                 Email = NullIfEmpty(fornecedor.Email),
                 CidadeID = fornecedor.CidadeID,
@@ -99,7 +99,7 @@ SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
             UPDATE Fornecedor SET
                 Nome = @Nome,
                 Cnpj = @Cnpj,
-                IE = @IE,
+               IE = @IE,
                 Telefone = @Telefone,
                 Email = @Email,
                 CidadeID = @CidadeID,

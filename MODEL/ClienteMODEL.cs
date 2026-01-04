@@ -1,63 +1,63 @@
-﻿using GVC.DALL;
-using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GVC.MODEL
+namespace GVC.Model;
+
+public partial class ClienteModel
 {
-    public class ClienteMODEL
-    {
-        public int ClienteID { get; set; }
-        public string Nome { get; set; }
-        public string Cpf { get; set; }
-        public string RG { get; set; }
-        public string Cnpj { get; set; }
-        public string IE { get; set; }
-        public string Telefone { get; set; }
-        public string Email { get; set; }
-        public int? CidadeID { get; set; }   // bigint no banco → int? na classe
-        public string OrgaoExpedidorRG { get; set; }
-        // Endereço detalhado
-        public string Logradouro { get; set; }
-        public string Numero { get; set; }
-        public string Bairro { get; set; }
-        public string Cep { get; set; }
-        public bool? IsVendedor { get; set; } 
-        // bit NULL
+    public int ClienteID { get; set; }
 
-        // Dados adicionais do cliente
-        public DateTime? DataNascimento { get; set; }   // datetime NULL
-        public string TipoCliente { get; set; }         // nvarchar(20)
+    public string Nome { get; set; } = null!;
 
-        // Status (no banco é bigint DEFAULT 1)
-        public long Status { get; set; } = 1;           // refletindo fielmente o banco
+    public string? Cpf { get; set; }
 
-        public string Observacoes { get; set; }
+    public string? RG { get; set; }
 
-        // Controle financeiro
-        public DateTime? DataUltimaCompra { get; set; }
-        public decimal? LimiteCredito { get; set; }     // real → decimal?
+    public string? Cnpj { get; set; }
 
-        // Auditoria
-        public DateTime DataCriacao { get; set; } = DateTime.Now;
-        public DateTime? DataAtualizacao { get; set; }
-        public string UsuarioCriacao { get; set; }
-        public string UsuarioAtualizacao { get; set; }
+    public string? IE { get; set; }
 
-        public static implicit operator Cliente(ClienteMODEL v)
-        {
-            return new Cliente
-            {
-                ClienteID = v.ClienteID,
-                Nome = v.Nome ?? "",
-                Telefone = v.Telefone ?? "",
-                CPF = v.Cpf ?? ""
-            };
-        }
-    }
+    public string? Telefone { get; set; }
 
+    public string? Email { get; set; }
+
+    public int? CidadeID { get; set; }
+
+    public string? Logradouro { get; set; }
+
+    public string? Numero { get; set; }
+
+    public string? Bairro { get; set; }
+
+    public string? Cep { get; set; }
+
+    public DateTime? DataNascimento { get; set; }
+
+    public string? TipoCliente { get; set; }
+
+    public long Status { get; set; } = 1;
+
+    public string? Observacoes { get; set; }
+
+    public DateTime? DataUltimaCompra { get; set; }
+
+    public decimal? LimiteCredito { get; set; }
+
+    public DateTime DataCriacao { get; set; }
+
+    public DateTime? DataAtualizacao { get; set; }
+
+    public string? UsuarioCriacao { get; set; }
+
+    public string? UsuarioAtualizacao { get; set; }
+
+    public string? OrgaoExpedidorRG { get; set; }
+
+    public bool? IsVendedor { get; set; }
+
+    public virtual CidadeModel? Cidade { get; set; }
+
+    public virtual ICollection<VendaModel> VendumClientes { get; set; } = new List<VendaModel>();
+
+    public virtual ICollection<VendaModel> VendumVendedors { get; set; } = new List<VendaModel>();
 }

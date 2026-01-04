@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GVC.MODEL.Enums;
+using GVC.Model.Enums;
 
-namespace GVC.MODEL.Extensions
+namespace GVC.Model.Extensions
 {
     public static class StatusExtensions
     {

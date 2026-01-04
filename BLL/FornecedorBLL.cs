@@ -1,5 +1,5 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
 using System;
@@ -34,10 +34,10 @@ namespace GVC.BLL
                 fornecedor.Cnpj = string.IsNullOrWhiteSpace(cnpjLimpo) ? null : cnpjLimpo;
 
                 if (_dal.FornecedorExiste(fornecedor.Nome, fornecedor.Cnpj))
-                    throw new Exception("Já existe um fornecedor cadastrado com este nome ou CNPJ.");
+                    throw new Exception("Já existe um fornecedor cadastrado com este nome ou Cnpj.");
 
                 if (_dal.BuscarPorCnpj(fornecedor.Cnpj) != null)
-                    throw new Exception("Já existe um fornecedor cadastrado com este CNPJ.");
+                    throw new Exception("Já existe um fornecedor cadastrado com este Cnpj.");
 
                 fornecedor.DataCriacao = DateTime.Now;
 
@@ -62,7 +62,7 @@ namespace GVC.BLL
                 var existente = _dal.BuscarPorCnpj(cnpjLimpo);
 
                 if (existente != null && existente.FornecedorID != fornecedor.FornecedorID)
-                    throw new Exception("Outro fornecedor já está cadastrado com este CNPJ.");
+                    throw new Exception("Outro fornecedor já está cadastrado com este Cnpj.");
 
                 // Atualiza auditoria
                 fornecedor.DataCriacao = DateTime.Now;
@@ -135,13 +135,13 @@ namespace GVC.BLL
 
                 cnpj = LimparCnpj(cnpj);
                 if (!Utilitario.ValidarCNPJ(cnpj))
-                    throw new Exception("CNPJ inválido.");
+                    throw new Exception("Cnpj inválido.");
 
                 return _dal.BuscarPorCnpj(cnpj);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Erro ao buscar fornecedor por CNPJ: {ex.Message}", ex);
+                throw new Exception($"Erro ao buscar fornecedor por Cnpj: {ex.Message}", ex);
             }
         }
 
@@ -190,7 +190,7 @@ namespace GVC.BLL
             if (!string.IsNullOrWhiteSpace(cnpj))
             {
                 if (cnpj.Length != 14 || !Utilitario.ValidarCNPJ(cnpj))
-                    throw new Exception("CNPJ inválido. Verifique os dígitos.");
+                    throw new Exception("Cnpj inválido. Verifique os dígitos.");
             }
         }
         private static string LimparCnpj(string cnpj) => Regex.Replace(cnpj ?? "", @"\D", "");

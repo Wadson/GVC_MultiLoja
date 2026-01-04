@@ -1,6 +1,6 @@
 ﻿using GVC.BLL;
 using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
 using iText.StyledXmlParser.Jsoup.Nodes;
@@ -251,12 +251,12 @@ namespace GVC.View
                 CidadeID = 0; // ou outro valor padrão apropriado
             }
 
-            // Preenche UF com garantia de atualização visual
+            // Preenche Uf com garantia de atualização visual
             txtUF.Text = endereco.SiglaEstado ?? "";
             txtUF.Refresh();
             Application.DoEvents();
 
-            Debug.WriteLine($"✅ UF definido: '{txtUF.Text}'");
+            Debug.WriteLine($"✅ Uf definido: '{txtUF.Text}'");
 
             // Formata o CEP para exibição
             txtCep.Text = CepService.FormatarCep(endereco.Cep);
@@ -308,18 +308,18 @@ namespace GVC.View
                 txtRazaoSocial.Text = row.Cells["RazaoSocial"].Value?.ToString() ?? "";
                 txtNomeFantasia.Text = row.Cells["NomeFantasia"].Value?.ToString() ?? "";
 
-                string cnpj = row.Cells["CNPJ"].Value?.ToString() ?? "";
+                string cnpj = row.Cells["Cnpj"].Value?.ToString() ?? "";
                 txtCnpj.Text = !string.IsNullOrWhiteSpace(cnpj)
                     ? new string(cnpj.Where(char.IsDigit).Take(14).ToArray())
                     : "";
 
 
                 /* =========================
-                 * INSCRIÇÕES / CNAE
+                 * INSCRIÇÕES / Cnae
                  * ========================= */
                 txtInscricaoEstadual.Text = row.Cells["InscricaoEstadual"].Value?.ToString() ?? "";
                 txtInscricaoMunicipal.Text = row.Cells["InscricaoMunicipal"].Value?.ToString() ?? "";
-                txtCnae.Text = row.Cells["CNAE"].Value?.ToString() ?? "";
+                txtCnae.Text = row.Cells["Cnae"].Value?.ToString() ?? "";
 
 
                 /* =========================
@@ -335,7 +335,7 @@ namespace GVC.View
                     : "";
 
                 txtNomeCidade.Text = row.Cells["Cidade"].Value?.ToString() ?? "";
-                txtUF.Text = row.Cells["UF"].Value?.ToString() ?? "";
+                txtUF.Text = row.Cells["Uf"].Value?.ToString() ?? "";
 
 
                 /* =========================
@@ -421,7 +421,7 @@ namespace GVC.View
 
                 if (string.IsNullOrWhiteSpace(txtCnpj.Text))
                 {
-                    Utilitario.Mensagens.Aviso("CNPJ é obrigatório!");
+                    Utilitario.Mensagens.Aviso("Cnpj é obrigatório!");
                     txtCnpj.Focus();
                     return;
                 }
@@ -624,7 +624,7 @@ namespace GVC.View
             if (!string.IsNullOrWhiteSpace(txtCnpj.Text) && !Utilitario.ValidarCNPJ(txtCnpj.Text))
             {
                 txtCnpj.StateCommon.Border.Color1 = Color.Crimson;
-                MessageBox.Show("CNPJ inválido.");
+                MessageBox.Show("Cnpj inválido.");
                 txtCnpj.Focus();
             }
         }

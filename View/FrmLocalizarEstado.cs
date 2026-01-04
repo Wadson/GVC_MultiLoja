@@ -43,7 +43,7 @@ namespace GVC.View
             //Renomeia as colunas do DataGridView 
             dataGridPesquisar.Columns[0].HeaderText = "Estado ID";
             dataGridPesquisar.Columns[1].HeaderText = "Nome Estado";
-            dataGridPesquisar.Columns[2].HeaderText = "UF";
+            dataGridPesquisar.Columns[2].HeaderText = "Uf";
         }
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)

@@ -1,5 +1,5 @@
 ﻿using GVC.BLL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
 using iText.StyledXmlParser.Jsoup.Nodes;
@@ -196,12 +196,12 @@ namespace GVC.View
                 CidadeID = 0; // ou outro valor padrão apropriado
             }
 
-            // Preenche UF com garantia de atualização visual
+            // Preenche Uf com garantia de atualização visual
             txtUF.Text = endereco.SiglaEstado ?? "";
             txtUF.Refresh();
             Application.DoEvents();
 
-            Debug.WriteLine($"✅ UF definido: '{txtUF.Text}'");
+            Debug.WriteLine($"✅ Uf definido: '{txtUF.Text}'");
 
             // Formata o CEP para exibição
             txtCep.Text = CepService.FormatarCep(endereco.Cep);
@@ -321,7 +321,7 @@ namespace GVC.View
         }
         private void AplicarConfiguracaoTipoCliente(string tipoCliente, bool preenchendoCampos = false)
         {
-            // Define se o cliente é pessoa física (usa CPF) ou jurídica (usa CNPJ)
+            // Define se o cliente é pessoa física (usa CPF) ou jurídica (usa Cnpj)
             bool isCpf = tipoCliente == "Física" ||
                          tipoCliente == "Operador" ||
                          tipoCliente == "Administrador" ||
@@ -576,9 +576,9 @@ namespace GVC.View
             Debug.WriteLine($"=== CONFIGURAÇÃO DE CAMPOS ===");
             Debug.WriteLine($"Tipo Cliente: {cmbTipoCliente.Text}");
             Debug.WriteLine($"CPF Visible: {txtCpf.Visible}");
-            Debug.WriteLine($"CNPJ Visible: {txtCnpj.Visible}");
+            Debug.WriteLine($"Cnpj Visible: {txtCnpj.Visible}");
             Debug.WriteLine($"RG Visible: {txtRg.Visible}");
-            Debug.WriteLine($"IE Visible: {txtIE.Visible}");
+            Debug.WriteLine($"Ie Visible: {txtIE.Visible}");
             Debug.WriteLine($"OrgaoExpedidorRG Visible: {txtOrgaoExpedidorRG.Visible}");
             Debug.WriteLine($"==============================");
         }
@@ -594,12 +594,12 @@ namespace GVC.View
             string cpfLimpo = new string(cpf.Where(char.IsDigit).ToArray());
             string cnpjLimpo = new string(cnpj.Where(char.IsDigit).ToArray());
 
-            // Se tem CNPJ válido (14 dígitos)
+            // Se tem Cnpj válido (14 dígitos)
             if (cnpjLimpo.Length == 14)
             {
                 return "Jurídica";
             }
-            // Se tem CPF válido (11 dígitos) e NÃO tem CNPJ válido
+            // Se tem CPF válido (11 dígitos) e NÃO tem Cnpj válido
             else if (cpfLimpo.Length == 11 && cnpjLimpo.Length != 14)
             {
                 return "Física";
@@ -774,13 +774,13 @@ namespace GVC.View
                 }
             }
         }
-        private ClienteMODEL MontarObjetoCliente()
+        private ClienteModel MontarObjetoCliente()
         {
-            var cliente = new ClienteMODEL();
+            var cliente = new ClienteModel();
 
             cliente.Nome = txtNomeCliente.Text.Trim();
 
-            // ========== TRATAMENTO CORRETO DO CPF/CNPJ ==========
+            // ========== TRATAMENTO CORRETO DO CPF/Cnpj ==========
             string tipoCliente = cmbTipoCliente.Text;
             bool isPessoaFisica = tipoCliente == "Física" ||
                                  tipoCliente == "Operador" ||
@@ -811,7 +811,7 @@ namespace GVC.View
                 cliente.RG = StringParaNull(txtRg.Text);
                 cliente.OrgaoExpedidorRG = StringParaNull(txtOrgaoExpedidorRG.Text);
 
-                // Para PF, CNPJ deve ser NULL/vazio
+                // Para PF, Cnpj deve ser NULL/vazio
                 cliente.Cnpj = null;
                 cliente.IE = null;
             }
@@ -822,7 +822,7 @@ namespace GVC.View
                 cliente.RG = null;
                 cliente.OrgaoExpedidorRG = null;
 
-                // CNPJ deve ter 14 dígitos
+                // Cnpj deve ter 14 dígitos
                 string cnpjRaw = Utilitario.ApenasNumeros(txtCnpj.Text);
                 cliente.Cnpj = StringParaNull(cnpjRaw);
                 cliente.IE = StringParaNull(txtIE.Text);
@@ -893,13 +893,13 @@ namespace GVC.View
             txtNomeCidade.TextChanged += txtNomeCidade_TextChanged;
         }
 
-        public void PreencherCampos(ClienteMODEL cliente)
+        public void PreencherCampos(ClienteModel cliente)
         {
             ClienteID = cliente.ClienteID;
             txtClienteID.Text = Utilitario.ZerosEsquerda(cliente.ClienteID, 6);
             txtNomeCliente.Text = cliente.Nome;
 
-            // Detectar se é CPF ou CNPJ pelo tamanho
+            // Detectar se é CPF ou Cnpj pelo tamanho
             string doc = cliente.Cpf?.Trim();
             if (!string.IsNullOrEmpty(doc))
             {
@@ -992,7 +992,7 @@ namespace GVC.View
         {
             if (CarregandoDados) return;
 
-            // Define se o cliente é pessoa física (usa CPF) ou jurídica (usa CNPJ)
+            // Define se o cliente é pessoa física (usa CPF) ou jurídica (usa Cnpj)
             bool isCpf = tipoCliente == "Física" ||
                          tipoCliente == "Operador" ||
                          tipoCliente == "Administrador" ||
@@ -1113,11 +1113,11 @@ namespace GVC.View
 
                 txtCpf.Text = Utilitario.FormatarCPF(numero);
             }
-            else // CNPJ
+            else // Cnpj
             {
                 if (numero.Length != 14 || !Utilitario.ValidarCNPJ(numero))
                 {
-                    Utilitario.Mensagens.Erro("CNPJ inválido!");
+                    Utilitario.Mensagens.Erro("Cnpj inválido!");
                     txtCpf.Focus();
                     txtCpf.StateCommon.Border.Color1 = System.Drawing.Color.Crimson;
                     return;

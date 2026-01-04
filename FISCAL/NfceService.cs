@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GVC.FISCAL;
-using GVC.MODEL;
+using GVC.Model;
 
 namespace GVC.FISCAL
 {

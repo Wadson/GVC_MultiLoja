@@ -1,7 +1,7 @@
 ﻿using GVC.BLL;
 using GVC.DAL;
 using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
@@ -85,7 +85,7 @@ namespace GVC.View
                 return;
             }
 
-            if (!long.TryParse(txtQuantidade.Text, out long estoque))
+            if (!int.TryParse(txtQuantidade.Text, out int estoque))
             {
                 Utilitario.Mensagens.Aviso("Estoque inválido.");
                 return;
@@ -94,9 +94,9 @@ namespace GVC.View
             try
             {
                 // Monta o objeto completo
-                var produto = new ProdutosModel
+                var produto = new ProdutoModel
                 {
-                    ProdutoID = long.Parse(txtProdutoID.Text),
+                    ProdutoID = int.Parse(txtProdutoID.Text),
                     NomeProduto = txtNomeProduto.Text.Trim(),
                     Referencia = txtReferencia.Text.Trim(),
                     PrecoCusto = precoCusto,

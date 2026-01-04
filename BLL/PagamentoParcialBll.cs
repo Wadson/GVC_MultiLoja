@@ -1,5 +1,5 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace GVC.BLL
         private PagamentoParcialDal _dal;
 
         PagamentoParcialDal pagamentoParcialDAL = null;
-        public void Excluir(PagamentoParcialModel pagamentoParcial)
+        public void Excluir(PagamentosParcialModel pagamentoParcial)
         {
             try
             {
@@ -31,13 +31,13 @@ namespace GVC.BLL
         }
 
 
-        public void RegistrarPagamentoParcial(PagamentoParcialModel pagamentoParcial)
+        public void RegistrarPagamentoParcial(PagamentosParcialModel pagamentoParcial)
         {
             // Lógica de negócios antes de inserir o pagamento parcial, se necessário
             _dal.InserirPagamentoParcial(pagamentoParcial);
         }
 
-        public List<PagamentoParcialModel> ObterPagamentosParciaisPorParcela(int parcelaID)
+        public List<PagamentosParcialModel> ObterPagamentosParciaisPorParcela(int parcelaID)
         {
             // Lógica de negócios antes de obter os pagamentos parciais, se necessário
             return _dal.ObterPagamentosParciaisPorParcela(parcelaID);

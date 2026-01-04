@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GVC.MODEL
+namespace GVC.Model
 {
     // Este DTO é usado APENAS para exibir no ComboBox
     public class ClienteDisplayDTO

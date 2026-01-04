@@ -2,8 +2,8 @@
 using GVC.DAL;
 using GVC.DALL;
 using GVC.DTO;
-using GVC.MODEL;
-using GVC.MODEL.Enums;
+using GVC.Model;
+using GVC.Model.Enums;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using Microsoft.Data;
@@ -31,9 +31,13 @@ namespace GVC.View
         public long VendaID { get; private set; }
         private bool _clienteFoiSelecionado = false;
         private bool _ignorarEventosBusca = false;
-        public long VendedorID { get; set; }
-        public long ClienteID { get; set; }
-        public long ProdutoID { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int VendedorID { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int ClienteID { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int ProdutoID { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string NomeCliente { get; set; }
 
         // ----------------------
@@ -655,7 +659,7 @@ namespace GVC.View
                     "PC Venda"
             };
         }
-        private ProdutoListaItem CriarLinhaProduto(ProdutosModel p)
+        private ProdutoListaItem CriarLinhaProduto(ProdutoModel p)
         {
             return new ProdutoListaItem
             {

@@ -1,7 +1,7 @@
 ﻿using GVC.DTO;
 using GVC.DTO;
-using GVC.MODEL;
-using GVC.MODEL.Enums;
+using GVC.Model;
+using GVC.Model.Enums;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;

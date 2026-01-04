@@ -1,16 +1,17 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using GVC.UTIL;
+using GVC.Model;
 
 namespace GVC.BLL
 {
     internal class CidadeBLL
     {
-        CidadeDal CidadeDal = null;
+        CidadeDal? CidadeDal = null;
 
         public DataTable Listar()
         {
@@ -27,11 +28,12 @@ namespace GVC.BLL
             return dtable;
         }
 
-        public void Salvar(CidadeMODEL cidades)
+        public void Salvar(CidadeModel cidades)
         {
             try
             {
                 CidadeDal = new CidadeDal();
+                CidadeDal.Salvar(cidades);
                 CidadeDal.Salvar(cidades);
             }
             catch (Exception erro)
@@ -40,7 +42,7 @@ namespace GVC.BLL
             }
         }
 
-        public void Excluir(CidadeMODEL cidades)
+        public void Excluir(CidadeModel cidades)
         {
             try
             {
@@ -53,7 +55,7 @@ namespace GVC.BLL
             }
         }
 
-        public void Atualizar(CidadeMODEL cidades)
+        public void Atualizar(CidadeModel cidades)
         {
             try
             {
@@ -66,7 +68,7 @@ namespace GVC.BLL
             }
         }
 
-        public CidadeMODEL Pesquisar(string pesquisa)
+        public CidadeModel Pesquisar(string pesquisa)
         {
             var conn = Conexao.Conex();
             try
@@ -77,10 +79,10 @@ namespace GVC.BLL
                 conn.Open();
                 var datareader = sql.ExecuteReader(CommandBehavior.CloseConnection);
 
-                CidadeMODEL obj_cidade = null;
+                CidadeModel obj_cidade = null;
                 if (datareader.Read())
                 {
-                    obj_cidade = new CidadeMODEL
+                    obj_cidade = new CidadeModel
                     {
                         CidadeID = Convert.ToInt32(datareader["CidadeID"]),
                         Nome = datareader["Nome"].ToString()

@@ -1,4 +1,4 @@
-﻿using GVC.MODEL;
+﻿using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
@@ -29,7 +29,7 @@ namespace GVC.DALL
             }
         }
 
-        public void GravaUsuario(UsuarioMODEL usuarios)
+        public void GravaUsuario(UsuarioModel usuarios)
         {
             var conn = Conexao.Conex();
             try
@@ -56,7 +56,7 @@ namespace GVC.DALL
             }
         }
 
-        public void ExcluiUsuario(UsuarioMODEL usuarios)
+        public void ExcluiUsuario(UsuarioModel usuarios)
         {
             var conn = Conexao.Conex();
             try
@@ -73,7 +73,7 @@ namespace GVC.DALL
             }
         }
 
-        public void Atualizar(UsuarioMODEL usuarios)
+        public void Atualizar(UsuarioModel usuarios)
         {
             var conn = Conexao.Conex();
             try
@@ -101,7 +101,7 @@ namespace GVC.DALL
             }
         }
 
-        public void AtualizaUsuarioSenha(UsuarioMODEL usuarios)
+        public void AtualizaUsuarioSenha(UsuarioModel usuarios)
         {
             var conn = Conexao.Conex();
             try

@@ -598,7 +598,7 @@
             lblIE.Name = "lblIE";
             lblIE.Size = new Size(139, 16);
             lblIE.TabIndex = 254;
-            lblIE.Text = "IE - Inscrição Estadual";
+            lblIE.Text = "Ie - Inscrição Estadual";
             // 
             // txtIE
             // 
@@ -796,7 +796,7 @@
             lblCnpj.Name = "lblCnpj";
             lblCnpj.Size = new Size(42, 16);
             lblCnpj.TabIndex = 1029;
-            lblCnpj.Text = "CNPJ";
+            lblCnpj.Text = "Cnpj";
             // 
             // label8
             // 

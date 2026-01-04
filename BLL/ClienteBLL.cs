@@ -1,5 +1,6 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
+using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
 using System;
@@ -28,7 +29,7 @@ namespace GVC.BLL
             }
         }
 
-        public void Salvar(ClienteMODEL cliente)
+        public void Salvar(ClienteModel cliente)
         {
             try
             {
@@ -47,7 +48,7 @@ namespace GVC.BLL
                     throw new Exception("Já existe um cliente cadastrado com este CPF.");
 
                 if (_dal.BuscarPorCnpj(cliente.Cnpj) != null)
-                    throw new Exception("Já existe um cliente cadastrado com este CNPJ.");
+                    throw new Exception("Já existe um cliente cadastrado com este Cnpj.");
 
                 cliente.DataCriacao = DateTime.Now;
                 cliente.UsuarioCriacao = FrmLogin.UsuarioConectado;
@@ -60,7 +61,7 @@ namespace GVC.BLL
             }
         }
 
-        public void Alterar(ClienteMODEL cliente)
+        public void Alterar(ClienteModel cliente)
         {
             try
             {
@@ -98,7 +99,7 @@ namespace GVC.BLL
             }
         }
 
-        public void Excluir(ClienteMODEL cliente) => Excluir(cliente.ClienteID);
+        public void Excluir(ClienteModel cliente) => Excluir(cliente.ClienteID);
 
         public DataTable PesquisarPorNome(string nome)
         {
@@ -136,7 +137,7 @@ namespace GVC.BLL
             }
         }
 
-        public ClienteMODEL? BuscarPorCpf(string cpf)
+        public ClienteModel? BuscarPorCpf(string cpf)
         {
             try
             {
@@ -154,7 +155,7 @@ namespace GVC.BLL
             }
         }
 
-        public ClienteMODEL? BuscarPorId(int id)
+        public ClienteModel? BuscarPorId(int id)
         {
             try
             {
@@ -167,7 +168,7 @@ namespace GVC.BLL
             }
         }
 
-        private void ValidarCliente(ClienteMODEL cliente, bool isNovo)
+        private void ValidarCliente(ClienteModel cliente, bool isNovo)
         {
             if (string.IsNullOrWhiteSpace(cliente.Nome))
                 throw new Exception("Nome do cliente é obrigatório.");
@@ -175,14 +176,14 @@ namespace GVC.BLL
             // Validação específica por tipo
             if (cliente.TipoCliente == "Jurídica")
             {
-                // Pessoa Jurídica: valida CNPJ (apenas se preenchido)
+                // Pessoa Jurídica: valida Cnpj (apenas se preenchido)
                 if (!string.IsNullOrEmpty(cliente.Cnpj))
                 {
                     if (cliente.Cnpj.Length != 14)
-                        throw new Exception("CNPJ deve conter 14 dígitos.");
+                        throw new Exception("Cnpj deve conter 14 dígitos.");
 
                     if (!Utilitario.ValidarCNPJ(cliente.Cnpj))
-                        throw new Exception("CNPJ inválido.");
+                        throw new Exception("Cnpj inválido.");
                 }
 
                 // Para PJ, CPF deve ser NULL ou vazio
@@ -205,12 +206,12 @@ namespace GVC.BLL
                         throw new Exception("CPF inválido.");
                 }
 
-                // Para PF, CNPJ deve ser NULL ou vazio
+                // Para PF, Cnpj deve ser NULL ou vazio
                 if (!string.IsNullOrEmpty(cliente.Cnpj))
                 {
-                    // Se tiver CNPJ, verifica se não é um CNPJ válido (pode ser digitado por engano)
+                    // Se tiver Cnpj, verifica se não é um Cnpj válido (pode ser digitado por engano)
                     if (cliente.Cnpj.Length == 14 && Utilitario.ValidarCNPJ(cliente.Cnpj))
-                        throw new Exception("Para Pessoa Física, não é permitido informar CNPJ.");
+                        throw new Exception("Para Pessoa Física, não é permitido informar Cnpj.");
                 }
             }
 

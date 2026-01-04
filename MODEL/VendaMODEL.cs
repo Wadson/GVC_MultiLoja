@@ -1,26 +1,37 @@
-﻿using System;
+﻿using GVC.Model.Enums;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GVC.MODEL.Enums;
 
-namespace GVC.MODEL
+namespace GVC.Model;
+
+public partial class VendaModel
 {
-    public class VendaModel
-    {
-        public long VendaID { get; set; }
-        public DateTime DataVenda { get; set; }
-        public string NomeCliente { get; set; }
-        public long ClienteID { get; set; }
-        public decimal ValorTotal { get; set; }
-        public long? FormaPgtoID { get; set; }
-        public decimal? Desconto { get; set; }
-        public string? Observacoes { get; set; }
+    public int VendaID { get; set; }
 
-        // ✅ SOMENTE ENUM
-        public EnumStatusVenda StatusVenda { get; set; }
+    public int ClienteID { get; set; }
 
-        public long? VendedorID { get; set; }
-    }
+    public int? FormaPgtoID { get; set; }
+
+    public DateTime DataVenda { get; set; }
+
+    public decimal ValorTotal { get; set; }
+
+    public decimal? Desconto { get; set; }
+
+    public string? Observacoes { get; set; }
+
+    public string NomeCliente { get; set; }
+    public EnumStatusVenda StatusVenda { get; set; }
+
+    public int? VendedorID { get; set; }
+
+    public virtual ClienteModel Cliente { get; set; } = null!;
+
+    public virtual FormaPagamentoModel? FormaPgto { get; set; }
+
+    public virtual ICollection<ItemVendaModel> ItemVenda { get; set; } = new List<ItemVendaModel>();
+
+    public virtual ICollection<ParcelaModel> Parcelas { get; set; } = new List<ParcelaModel>();
+
+    public virtual ClienteModel? Vendedor { get; set; }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GVC.MODEL
+namespace GVC.Model
 {
     public class ClienteService
     {
@@ -32,12 +32,12 @@ namespace GVC.MODEL
                             ClienteID, 
                             Nome,
                             ISNULL(CPF, '') as CPF,
-                            ISNULL(CNPJ, '') as CNPJ
+                            ISNULL(Cnpj, '') as Cnpj
                         FROM Clientes 
                         WHERE Ativo = 1 
                           AND (Nome LIKE @Busca OR 
                                CPF LIKE @Busca OR 
-                               CNPJ LIKE @Busca)
+                               Cnpj LIKE @Busca)
                         ORDER BY Nome";
 
                     using (var cmd = new SqlCommand(sql, conn))
@@ -97,7 +97,7 @@ namespace GVC.MODEL
                 {
                     await conn.OpenAsync();
 
-                    string sql = "SELECT ClienteID, Nome, CPF, CNPJ FROM Clientes WHERE ClienteID = @Id";
+                    string sql = "SELECT ClienteID, Nome, CPF, Cnpj FROM Clientes WHERE ClienteID = @Id";
 
                     using (var cmd = new SqlCommand(sql, conn))
                     {

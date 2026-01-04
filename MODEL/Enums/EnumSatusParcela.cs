@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GVC.MODEL.Enums
+namespace GVC.Model.Enums
 {
     public enum EnumStatusParcela
     {

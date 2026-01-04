@@ -2,7 +2,7 @@
 using GVC.BLL;
 using GVC.DAL;
 using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
 using Krypton.Toolkit;
@@ -83,7 +83,7 @@ namespace GVC.View
 
                 if (string.IsNullOrWhiteSpace(txtFormaPgtoID.Text))
                 {
-                    Utilitario.Mensagens.Aviso("CNPJ é obrigatório!");
+                    Utilitario.Mensagens.Aviso("Cnpj é obrigatório!");
                     txtFormaPgto.Focus();
                     return;
                 }

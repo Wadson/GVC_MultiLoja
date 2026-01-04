@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using GVC.DAL;
 using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 
 public class ExtratoBLL

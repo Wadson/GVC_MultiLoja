@@ -12110,7 +12110,7 @@
             @param fileName the file name as a byte array
         </member>
         <member name="M:iTextSharp.text.pdf.PdfFileSpecification.SetUnicodeFileName(System.String,System.Boolean)">
-            Adds the unicode file name (the key /UF). This entry was introduced
+            Adds the unicode file name (the key /Uf). This entry was introduced
             in PDF 1.7. The filename must have the slash and backslash escaped
             according to the file specification rules.
             @param filename  the filename
@@ -15078,7 +15078,7 @@
         <member name="F:iTextSharp.text.pdf.PdfName.UE">
             A name 
         </member>
-        <member name="F:iTextSharp.text.pdf.PdfName.UF">
+        <member name="F:iTextSharp.text.pdf.PdfName.Uf">
             A name of an attribute. 
         </member>
         <member name="F:iTextSharp.text.pdf.PdfName.UHC">

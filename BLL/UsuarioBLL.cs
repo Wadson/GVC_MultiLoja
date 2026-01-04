@@ -1,5 +1,5 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
@@ -47,8 +47,11 @@ namespace GVC.BLL
             return dtable;
         }
 
-        public void Salvar(UsuarioMODEL usuarios)
+        public void Salvar(UsuarioModel usuarios)
         {
+            if (string.IsNullOrWhiteSpace(usuarios.Cpf))
+                throw new ArgumentException("O campo CPF não pode ser nulo ou vazio.");
+
             try
             {
                 usuariodal = new UsuarioDal();
@@ -56,11 +59,12 @@ namespace GVC.BLL
             }
             catch (Exception erro)
             {
-                throw erro;
+                throw; // mantém o stack trace
             }
         }
 
-        public void Excluir(UsuarioMODEL usuarios)
+
+        public void Excluir(UsuarioModel usuarios)
         {
             try
             {
@@ -72,7 +76,7 @@ namespace GVC.BLL
                 throw erro;
             }
         }
-        public void Alterar(UsuarioMODEL usuarios)
+        public void Alterar(UsuarioModel usuarios)
         {
             try
             {
@@ -85,7 +89,7 @@ namespace GVC.BLL
             }
         }
 
-        public void AtualizaUsuarioDalSenha(UsuarioMODEL usuarios)
+        public void AtualizaUsuarioDalSenha(UsuarioModel usuarios)
         {
             try
             {
@@ -98,7 +102,7 @@ namespace GVC.BLL
             }
         }
       
-        public UsuarioMODEL PesquisarNo(DataGridView DataGridPesquisa, string pesquisa)
+        public UsuarioModel PesquisarNo(DataGridView DataGridPesquisa, string pesquisa)
         {
             var conn = Conexao.Conex();
             try
@@ -106,7 +110,7 @@ namespace GVC.BLL
                 SqlCommand sql = new SqlCommand("SELECT * FROM Usuarios WHERE NomeUsuario like '" + pesquisa + "%'", conn);
                 conn.Open();
                 SqlDataReader datareader;
-                UsuarioMODEL obj_usuario = new UsuarioMODEL();
+                UsuarioModel obj_usuario = new UsuarioModel();
                 datareader = sql.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (datareader.Read())
@@ -125,7 +129,7 @@ namespace GVC.BLL
                 conn.Close();
             }
         }
-        public UsuarioMODEL PesquisarCodigo(string pesquisa)
+        public UsuarioModel PesquisarCodigo(string pesquisa)
         {
             var conn = Conexao.Conex();
             try
@@ -133,7 +137,7 @@ namespace GVC.BLL
                 SqlCommand sql = new SqlCommand("SELECT * FROM Usuarios WHERE UsuarioID like '" + pesquisa + "%'", conn);
                 conn.Open();
                 SqlDataReader datareader;
-                UsuarioMODEL obj_usuario = new UsuarioMODEL();
+                UsuarioModel obj_usuario = new UsuarioModel();
                 datareader = sql.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (datareader.Read())

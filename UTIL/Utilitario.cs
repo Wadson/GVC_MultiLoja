@@ -1,5 +1,5 @@
 using Dapper;
-using GVC.MODEL;
+using GVC.Model;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -971,13 +971,13 @@ namespace GVC.UTIL{
             }
         }
     
-        public static ProdutosModel? BuscarProdutoPorRef(string referencia)
+        public static ProdutoModel? BuscarProdutoPorRef(string referencia)
         {
             if (string.IsNullOrWhiteSpace(referencia)) return null;
 
             const string sql = "SELECT * FROM Produtos WHERE Referencia = @Ref LIMIT 1";
             using var conn = Conexao.Conex();
-            return conn.QueryFirstOrDefault<ProdutosModel>(sql, new { Ref = referencia });
+            return conn.QueryFirstOrDefault<ProdutoModel>(sql, new { Ref = referencia });
         }      
       
         // WRAPPER para TELEFONE -------------------------------------------
@@ -1070,7 +1070,7 @@ namespace GVC.UTIL{
             if (resto == 10 || resto == 11) resto = 0;
             return resto == (cpf[10] - '0');
         }
-        // WRAPPER para CNPJ ------------------------------------------
+        // WRAPPER para Cnpj ------------------------------------------
         public static void MascaraCNPJ(object sender, KeyPressEventArgs e)
         {
             if (sender is KryptonTextBox txt)

@@ -1,5 +1,5 @@
 ﻿using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

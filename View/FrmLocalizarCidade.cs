@@ -1,6 +1,6 @@
 ﻿
 using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;
@@ -180,7 +180,7 @@ namespace GVC.View
             {
                 Name = "Uf",
                 DataPropertyName = "Uf",
-                HeaderText = "UF",
+                HeaderText = "Uf",
                 Width = 60
             });
 
@@ -188,7 +188,7 @@ namespace GVC.View
             {
                 Name = "EstadoID",
                 DataPropertyName = "EstadoID",
-                HeaderText = "Código UF",
+                HeaderText = "Código Uf",
                 Width = 100
             });
         }
@@ -216,7 +216,7 @@ namespace GVC.View
                 CidadeID = Convert.ToInt32(row.Cells["CidadeID"].Value);
                 cidadeSelecionado = row.Cells["Nome"].Value.ToString();
 
-                // Se houver coluna de UF
+                // Se houver coluna de Uf
                 if (row.Cells["Uf"] != null && row.Cells["Uf"].Value != null)
                 {
                     Uf = row.Cells["Uf"].Value.ToString();

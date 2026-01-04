@@ -2,7 +2,7 @@
 using GVC.BLL;
 using GVC.DAL;
 using GVC.DALL;
-using GVC.MODEL;
+using GVC.Model;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;

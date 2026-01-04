@@ -65,16 +65,16 @@ namespace GVC.View
             dgvEmpresa.Columns["EmpresaID"].HeaderText = "Código";
             dgvEmpresa.Columns["RazaoSocial"].HeaderText = "Razão Social";
             dgvEmpresa.Columns["NomeFantasia"].HeaderText = "Nome Fantasia";
-            dgvEmpresa.Columns["CNPJ"].HeaderText = "CNPJ";
+            dgvEmpresa.Columns["Cnpj"].HeaderText = "Cnpj";
             dgvEmpresa.Columns["InscricaoEstadual"].HeaderText = "Inscrição Estadual";
             dgvEmpresa.Columns["InscricaoMunicipal"].HeaderText = "Inscrição Municipal";
-            dgvEmpresa.Columns["CNAE"].HeaderText = "CNAE";
+            dgvEmpresa.Columns["Cnae"].HeaderText = "Cnae";
             dgvEmpresa.Columns["Logradouro"].HeaderText = "Endereço";
             dgvEmpresa.Columns["Numero"].HeaderText = "Número";
             dgvEmpresa.Columns["Bairro"].HeaderText = "Bairro";
             dgvEmpresa.Columns["Cep"].HeaderText = "CEP";
             dgvEmpresa.Columns["Cidade"].HeaderText = "Cidade";
-            dgvEmpresa.Columns["UF"].HeaderText = "UF";
+            dgvEmpresa.Columns["Uf"].HeaderText = "Uf";
             dgvEmpresa.Columns["Telefone"].HeaderText = "Telefone";
             dgvEmpresa.Columns["Email"].HeaderText = "E-mail";
             dgvEmpresa.Columns["Site"].HeaderText = "Site";
@@ -87,13 +87,13 @@ namespace GVC.View
 
             // Larguras FIXAS
             dgvEmpresa.Columns["EmpresaID"].Width = 70;
-            dgvEmpresa.Columns["CNPJ"].Width = 160;
+            dgvEmpresa.Columns["Cnpj"].Width = 160;
             dgvEmpresa.Columns["InscricaoEstadual"].Width = 140;
             dgvEmpresa.Columns["InscricaoMunicipal"].Width = 140;
-            dgvEmpresa.Columns["CNAE"].Width = 120;
+            dgvEmpresa.Columns["Cnae"].Width = 120;
             dgvEmpresa.Columns["Numero"].Width = 80;
             dgvEmpresa.Columns["Cep"].Width = 90;
-            dgvEmpresa.Columns["UF"].Width = 60;
+            dgvEmpresa.Columns["Uf"].Width = 60;
             dgvEmpresa.Columns["Telefone"].Width = 140;
             dgvEmpresa.Columns["Email"].Width = 240;
             dgvEmpresa.Columns["Site"].Width = 200;
@@ -236,8 +236,8 @@ namespace GVC.View
             string coluna = dgvEmpresa.Columns[e.ColumnIndex].Name;
             string valor = new string(e.Value.ToString().Where(char.IsDigit).ToArray());
 
-            // CNPJ → 00.000.000/0001-00
-            if (coluna == "CNPJ" && valor.Length == 14)
+            // Cnpj → 00.000.000/0001-00
+            if (coluna == "Cnpj" && valor.Length == 14)
             {
                 e.Value = Convert.ToUInt64(valor).ToString(@"00\.000\.000\/0000\-00");
                 e.FormattingApplied = true;

@@ -1,5 +1,5 @@
 ﻿using GVC.BLL;
-using GVC.MODEL;
+using GVC.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,8 +24,10 @@ namespace GVC.View
         private string QueryProdutos = "SELECT MAX(ProdutoID) FROM Produtos";
         private string StatusOperacao;
         private int produtoID;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ClienteID { get; set; }
         private bool bloqueiaPesquisa = false;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string clienteSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
         public FrmCadProdutos(string statusOperacao)
         {
@@ -113,7 +115,7 @@ namespace GVC.View
 
             int estoque;
             int.TryParse(txtEstoque.Text, out estoque);
-            ProdutosModel produto = new ProdutosModel
+            ProdutoModel produto = new ProdutoModel
             {
                 ProdutoID = produtoId,
                 NomeProduto = txtNomeProduto.Text,
@@ -132,7 +134,7 @@ namespace GVC.View
                ? (DateTime?)dataValida : null,
                 GtinEan = txtGtinEan.Text,
                 Imagem = txtEnderecoImagem.Text,
-                FornecedorID = txtFornecedorID.Text != "" ? long.Parse(txtFornecedorID.Text) : 0,
+                FornecedorID = txtFornecedorID.Text != "" ? int.Parse(txtFornecedorID.Text) : 0,
             };
             try
             {
@@ -192,7 +194,7 @@ namespace GVC.View
             try
             {
                 // Criar uma nova instância de ProdutoMODEL e preencher com os dados do formulário
-                ProdutosModel produto = new ProdutosModel
+                ProdutoModel produto = new ProdutoModel
                 {
                     ProdutoID = int.Parse(txtProdutoID.Text),
                     NomeProduto = txtNomeProduto.Text,
@@ -208,9 +210,14 @@ namespace GVC.View
                     Marca = txtMarca.Text, // TextBox
                     DataValidade = DateTime.TryParseExact(txtDataValidade.Text, "dd/MM/yyyy", CultureInfo.GetCultureInfo("pt-BR"), DateTimeStyles.None, out DateTime dataValida) ? (DateTime?)dataValida: null,
                     GtinEan = txtGtinEan.Text, // TextBox
-                    Imagem = txtEnderecoImagem.Text, // TextBox com caminho da imagem
-                    Fornecedor = txtFornecedor.Text, // ComboBox ou TextBox
-                    FornecedorID = txtFornecedorID.Text != "" ? long.Parse(txtFornecedorID.Text) : 0,
+                    Imagem = txtEnderecoImagem.Text, // TextBox com caminho da imagem                   
+                    Fornecedor = new FornecedorModel
+                    {
+                        Nome = txtFornecedor.Text
+                    },
+
+
+                    FornecedorID = txtFornecedorID.Text != "" ? int.Parse(txtFornecedorID.Text) : 0,
                 };
                 // Chamar o método AlterarProduto da BLL
                 ProdutosBLL produtosbll = new ProdutosBLL();
