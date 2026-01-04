@@ -3,6 +3,7 @@ using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace GVC.View
 {
@@ -11,14 +12,20 @@ namespace GVC.View
         // Variável para controlar a linha atual
         private int linhaAtual = -1;
         public int FornecedorID { get; private set; }  // Adicione esta linha na classe
-        public int numeroComZeros { get; set; }       
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int numeroComZeros { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Cnpj { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Telefone { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Cidade { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Estado { get; set; }
 
         private Form _formChamador;
         private bool recebendoTextoExterno = false;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FornecedorSelecionado { get; set; }
 
         public FrmLocalizarFornecedor(Form formChamador, string textoDigitado)

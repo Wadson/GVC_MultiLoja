@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient; // Alterado para SQL Server
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 
@@ -43,13 +44,14 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
             {
                 // SQL Server usa TOP para limitar resultados
                 string sql = @"SELECT TOP 100 
-                                p.ProdutoID, p.NomeProduto, p.Referencia, p.PrecoCusto, p.Lucro, 
-                                p.PrecoDeVenda, p.Estoque, p.DataDeEntrada, p.Status, p.Situacao, 
-                                p.Unidade, p.Marca, p.DataValidade, p.GtinEan, p.Imagem, p.FornecedorID,
-                                COALESCE(f.Nome, '') AS NomeFornecedor
-                                FROM Produtos p
-                                LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID
-                                ORDER BY p.NomeProduto";
+    p.ProdutoID, p.NomeProduto, p.Referencia, p.PrecoCusto, p.Lucro, 
+    p.PrecoDeVenda, p.Estoque, p.DataDeEntrada, p.Status, p.Situacao, 
+    p.Unidade, p.Marca, p.DataValidade, p.GtinEan, p.Imagem, p.FornecedorID,
+    COALESCE(f.Nome, '') AS NomeFornecedor
+FROM Produtos p
+LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID
+ORDER BY p.NomeProduto;
+";
 
                 using (var cmd = new SqlCommand(sql, con))
                 {
@@ -165,14 +167,14 @@ LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
                 // Alterado last_insert_rowid() para SCOPE_IDENTITY()
                 string sql = @"INSERT INTO Produtos 
                     (NomeProduto, Referencia, PrecoCusto, Lucro, PrecoDeVenda, Estoque, DataDeEntrada, 
-                     Status, Situacao, Unidade, Marca, DataValidade, GtinEan, Imagem, FornecedorID)
-                    VALUES (@NomeProduto, @Referencia, @Custo, @Lucro, @Venda, @Estoque, @Entrada, 
-                     @Status, @Situacao, @Unidade, @Marca, @Validade, @Gtin, @Imagem, @FornecedorID); 
+                     Status, Situacao, Unidade, Marca, DataValidade, GtinEan, Imagem)
+                    VALUES (@NomeProduto, @Referencia, @Custo, @Lucro, @PrecoDeVenda, @Estoque, @DataDeEntrada, 
+                     @Status, @Situacao, @Unidade, @Marca, @Validade, @Gtin, @Imagem); 
                     SELECT CAST(SCOPE_IDENTITY() AS BIGINT);";
 
                 using (var cmd = new SqlCommand(sql, con))
                 {
-                    AdicionarParametros(cmd, produto);
+                    AdicionarParametros(cmd, produto, true);
                     con.Open();
                     // SCOPE_IDENTITY retorna decimal por padrão, por isso o CAST no SQL e no C#
                     return (long)cmd.ExecuteScalar();
@@ -192,8 +194,7 @@ UPDATE Produtos SET
     PrecoCusto      = @Custo,
     Lucro           = @Lucro,
     PrecoDeVenda    = @PrecoDeVenda,
-    Estoque         = @Estoque,
-    DataDeEntrada   = @DataDeEntrada,
+    Estoque         = @Estoque,  
     Status          = @Status,
     Situacao        = @Situacao,
     Unidade         = @Unidade,
@@ -207,14 +208,14 @@ WHERE ProdutoID = @Id";
 
                 using (var cmd = new SqlCommand(sql, con))
                 {
-                    AdicionarParametros(cmd, produto);
+                    AdicionarParametros(cmd, produto,false);
                     cmd.Parameters.AddWithValue("@Id", produto.ProdutoID);
                     con.Open();
                     return cmd.ExecuteNonQuery() > 0;
                 }
             }
         }
-        private void AdicionarParametros(SqlCommand cmd, ProdutoModel p)
+        private void AdicionarParametros(SqlCommand cmd, ProdutoModel p,bool isInsert)
         {
             cmd.Parameters.AddWithValue("@NomeProduto", p.NomeProduto ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Referencia", p.Referencia ?? (object)DBNull.Value);
@@ -222,7 +223,15 @@ WHERE ProdutoID = @Id";
             cmd.Parameters.AddWithValue("@Lucro", p.Lucro);
             cmd.Parameters.AddWithValue("@PrecoDeVenda", p.PrecoDeVenda);
             cmd.Parameters.AddWithValue("@Estoque", p.Estoque);
-            cmd.Parameters.AddWithValue("@DataDeEntrada", p.DataDeEntrada);
+            //cmd.Parameters.AddWithValue("@DataDeEntrada",p.DataDeEntrada < (DateTime)SqlDateTime.MinValue ? (object)DBNull.Value : p.DataDeEntrada);
+
+            if (isInsert)
+            { 
+                //Só no cadastro 
+                    cmd.Parameters.AddWithValue("@DataDeEntrada", p.DataDeEntrada);              
+            }
+
+                cmd.Parameters.AddWithValue("@FornecedorID", p.FornecedorID.HasValue ? (object)p.FornecedorID.Value : DBNull.Value);
             cmd.Parameters.AddWithValue("@Status", p.Status ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Situacao", p.Situacao ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Unidade", p.Unidade ?? (object)DBNull.Value);
@@ -230,11 +239,6 @@ WHERE ProdutoID = @Id";
             cmd.Parameters.AddWithValue("@Validade", p.DataValidade.HasValue ? (object)p.DataValidade.Value : DBNull.Value);
             cmd.Parameters.AddWithValue("@Gtin", p.GtinEan ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Imagem", p.Imagem ?? (object)DBNull.Value);
-
-            if (p.FornecedorID > 0)
-                cmd.Parameters.AddWithValue("@FornecedorID", p.FornecedorID);
-            else
-                cmd.Parameters.AddWithValue("@FornecedorID", DBNull.Value);
         }
         // ==================== EXCLUIR ====================
         public bool Excluir(long id)
@@ -295,8 +299,17 @@ WHERE ProdutoID = @Id";
         {
             var lista = new List<ProdutoModel>();
             // SqlServer usa TOP em vez de LIMIT
-            string sql = @"SELECT TOP 100 ProdutoID, NomeProduto, Referencia, PrecoDeVenda, Estoque, Unidade, Marca FROM Produtos
-                           WHERE NomeProduto LIKE @nome ORDER BY NomeProduto";
+            string sql = @"
+SELECT TOP 100 
+    p.ProdutoID, p.NomeProduto, p.Referencia, p.PrecoCusto, p.Lucro, 
+    p.PrecoDeVenda, p.Estoque, p.DataDeEntrada, p.Status, p.Situacao, 
+    p.Unidade, p.Marca, p.DataValidade, p.GtinEan, p.Imagem, p.FornecedorID,
+    COALESCE(f.Nome, '') AS NomeFornecedor
+FROM Produtos p
+LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID
+WHERE p.NomeProduto LIKE @nome
+ORDER BY p.NomeProduto;";
+
 
             using (var con = new SqlConnection(_connectionString))
             {
@@ -308,7 +321,7 @@ WHERE ProdutoID = @Id";
                     {
                         while (reader.Read())
                         {
-                            lista.Add(MapearPesquisaProdutoVenda(reader));
+                            lista.Add(Mapear(reader));
                         }
                     }
                 }
@@ -336,10 +349,19 @@ WHERE ProdutoID = @Id";
         public List<ProdutoModel> PesquisarProdutoPorCodigo(string codigo)
         {
             var lista = new List<ProdutoModel>();
-            string sql = @"SELECT TOP 100 ProdutoID, NomeProduto, Referencia, PrecoDeVenda, Estoque, Unidade, Marca FROM Produtos
-                           WHERE NomeProduto CAST(ProdutoID AS VARCHAR) LIKE @codigo
-                              OR Referencia LIKE @codigo
-                           ORDER BY ProdutoID";
+            string sql = @"
+SELECT TOP 100 
+    p.ProdutoID, p.NomeProduto, p.Referencia, p.PrecoCusto, p.Lucro, 
+    p.PrecoDeVenda, p.Estoque, p.DataDeEntrada, p.Status, p.Situacao, 
+    p.Unidade, p.Marca, p.DataValidade, p.GtinEan, p.Imagem, p.FornecedorID,
+    COALESCE(f.Nome, '') AS NomeFornecedor
+FROM Produtos p
+LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID
+WHERE p.NomeProduto LIKE @codigo
+   OR CAST(p.ProdutoID AS VARCHAR) LIKE @codigo
+   OR p.Referencia LIKE @codigo
+ORDER BY p.ProdutoID;";
+
 
             using (var con = new SqlConnection(_connectionString))
             {
@@ -351,7 +373,7 @@ WHERE ProdutoID = @Id";
                     {
                         while (reader.Read())
                         {
-                            lista.Add(MapearPesquisaProdutoVenda(reader));
+                            lista.Add(Mapear(reader));
                         }
                     }
                 }

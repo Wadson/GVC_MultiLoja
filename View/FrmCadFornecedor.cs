@@ -191,7 +191,7 @@ namespace GVC.View
                 var fornecedor = MontarObjetoFornecedor();
                 _fornecedorBll.Salvar(fornecedor);
 
-                Utilitario.Mensagens.Aviso("Fornecedor cadastrado com sucesso!");
+                Utilitario.Mensagens.Info("Fornecedor cadastrado com sucesso!");
 
                 var frmManutFornecedor = Application.OpenForms["FrmManutFornecedor"] as FrmManutFornecedor;
                 if (frmManutFornecedor != null)
@@ -214,7 +214,7 @@ namespace GVC.View
                 var fornecedor = MontarObjetoFornecedor();
                 _fornecedorBll.Alterar(fornecedor);
 
-                Utilitario.Mensagens.Aviso("Fornecedor alterado com sucesso!");
+                Utilitario.Mensagens.Info("Fornecedor alterado com sucesso!");
                 toolStripStatusLabelUsuarioAtualizacao.Text = FrmLogin.UsuarioConectado;
                 ToolStripLabelDataUtimaCompra.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 this.Close();
@@ -243,7 +243,7 @@ namespace GVC.View
                 try
                 {
                     _fornecedorBll.Excluir(FornecedorID);
-                    Utilitario.Mensagens.Aviso("Fornecedor excluído com sucesso!");
+                    Utilitario.Mensagens.Info("Fornecedor excluído com sucesso!");
 
                     var frmManutFornecedor = Application.OpenForms["FrmManutFornecedor"] as FrmManutFornecedor;
                     if (frmManutFornecedor != null)

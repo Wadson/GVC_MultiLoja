@@ -239,7 +239,8 @@
             btnSalva.StateTracking.Border.Width = 1;
             btnSalva.StateTracking.Content.ShortText.Color1 = Color.FromArgb(252, 252, 250);
             btnSalva.StateTracking.Content.ShortText.Color2 = Color.FromArgb(252, 252, 250);
-            btnSalva.TabIndex = 13;
+            btnSalva.TabIndex = 200;
+            btnSalva.TabStop = false;
             btnSalva.Values.Text = "Salvar";
             btnSalva.Click += btnSalva_Click;
             // 
@@ -367,7 +368,7 @@
             txtEstoque.StateCommon.Content.Color1 = Color.Gray;
             txtEstoque.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtEstoque.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtEstoque.TabIndex = 8;
+            txtEstoque.TabIndex = 9;
             // 
             // txtPrecoDeVenda
             // 
@@ -384,7 +385,7 @@
             txtPrecoDeVenda.StateCommon.Content.Color1 = Color.Gray;
             txtPrecoDeVenda.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtPrecoDeVenda.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtPrecoDeVenda.TabIndex = 7;
+            txtPrecoDeVenda.TabIndex = 8;
             txtPrecoDeVenda.Leave += txtPrecoDeVenda_Leave;
             // 
             // txtLucro
@@ -402,7 +403,7 @@
             txtLucro.StateCommon.Content.Color1 = Color.Gray;
             txtLucro.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtLucro.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtLucro.TabIndex = 6;
+            txtLucro.TabIndex = 7;
             txtLucro.Enter += txtLucro_Enter;
             txtLucro.Leave += txtLucro_Leave;
             // 
@@ -421,7 +422,7 @@
             txtPrecoCusto.StateCommon.Content.Color1 = Color.Gray;
             txtPrecoCusto.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtPrecoCusto.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtPrecoCusto.TabIndex = 5;
+            txtPrecoCusto.TabIndex = 6;
             txtPrecoCusto.Enter += txtPrecoCusto_Enter;
             txtPrecoCusto.Leave += txtPrecoCusto_Leave;
             // 
@@ -536,7 +537,7 @@
             txtGtinEan.StateCommon.Content.Color1 = Color.Gray;
             txtGtinEan.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtGtinEan.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtGtinEan.TabIndex = 10;
+            txtGtinEan.TabIndex = 11;
             // 
             // label2
             // 
@@ -697,7 +698,7 @@
             btnLocalizarImagem.StateTracking.Border.Rounding = 20F;
             btnLocalizarImagem.StateTracking.Border.Width = 1;
             btnLocalizarImagem.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnLocalizarImagem.TabIndex = 12;
+            btnLocalizarImagem.TabIndex = 13;
             btnLocalizarImagem.TabStop = false;
             btnLocalizarImagem.Values.Image = Properties.Resources.Pesquisar;
             btnLocalizarImagem.Values.Text = "";
@@ -719,7 +720,7 @@
             txtEnderecoImagem.StateCommon.Content.Color1 = Color.Gray;
             txtEnderecoImagem.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtEnderecoImagem.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtEnderecoImagem.TabIndex = 11;
+            txtEnderecoImagem.TabIndex = 12;
             // 
             // label4
             // 
@@ -781,8 +782,7 @@
             btnLocalizarFornecedor.StateTracking.Border.Rounding = 20F;
             btnLocalizarFornecedor.StateTracking.Border.Width = 1;
             btnLocalizarFornecedor.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnLocalizarFornecedor.TabIndex = 40;
-            btnLocalizarFornecedor.TabStop = false;
+            btnLocalizarFornecedor.TabIndex = 5;
             btnLocalizarFornecedor.Values.Image = Properties.Resources.Pesquisar;
             btnLocalizarFornecedor.Values.Text = "";
             btnLocalizarFornecedor.Click += btnLocalizarFornecedor_Click;
@@ -828,7 +828,7 @@
             txtDataValidade.StateCommon.Content.Color1 = Color.Gray;
             txtDataValidade.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtDataValidade.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtDataValidade.TabIndex = 9;
+            txtDataValidade.TabIndex = 10;
             txtDataValidade.TextChanged += txtDataValidade_TextChanged;
             txtDataValidade.Leave += txtDataValidade_Leave;
             // 

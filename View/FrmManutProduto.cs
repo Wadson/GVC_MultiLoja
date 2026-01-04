@@ -14,6 +14,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using Font = System.Drawing.Font;
 using Image = System.Drawing.Image;
 
 namespace GVC.View
@@ -46,43 +47,25 @@ namespace GVC.View
         }
         public void PersonalizarDataGridView()
         {
-            // 1. Desliga o auto‑resize global
             dgvProdutos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
-            // 🔹 1.1 REORDENAR COLUNAS antes de fazer qualquer configuração
-            ReordenarColunas();
-
-            // 🔹 1.2 OCULTAR COLUNAS
+            // 1. Ocultar colunas primeiro
             string[] colunasParaOcultar = { "ProdutoID", "FornecedorID", "DataDeEntrada" };
             foreach (var nome in colunasParaOcultar)
             {
                 if (dgvProdutos.Columns[nome] != null)
-                {
                     dgvProdutos.Columns[nome].Visible = false;
-                }
             }
 
-            // 2. Cabeçalhos bonitos (mantendo apenas as colunas visíveis)
+            // 2. Reordenar colunas visíveis
+            ReordenarColunas();
+
+            // 3. Cabeçalhos
             if (dgvProdutos.Columns["NomeProduto"] != null)
                 dgvProdutos.Columns["NomeProduto"].HeaderText = "Nome Produto";
-            if (dgvProdutos.Columns["Referencia"] != null)
-                dgvProdutos.Columns["Referencia"].HeaderText = "Referência";
-            if (dgvProdutos.Columns["PrecoCusto"] != null)
-                dgvProdutos.Columns["PrecoCusto"].HeaderText = "Preço Custo";
-            if (dgvProdutos.Columns["Lucro"] != null)
-                dgvProdutos.Columns["Lucro"].HeaderText = "Lucro";
-            if (dgvProdutos.Columns["PrecoDeVenda"] != null)
-                dgvProdutos.Columns["PrecoDeVenda"].HeaderText = "Preço Venda";
-            if (dgvProdutos.Columns["Estoque"] != null)
-                dgvProdutos.Columns["Estoque"].HeaderText = "Estoque";
-            if (dgvProdutos.Columns["DataValidade"] != null)
-                dgvProdutos.Columns["DataValidade"].HeaderText = "Validade";
-            if (dgvProdutos.Columns["NomeFornecedor"] != null)
-                dgvProdutos.Columns["NomeFornecedor"].HeaderText = "Fornecedor";
-            if (dgvProdutos.Columns["Marca"] != null)
-                dgvProdutos.Columns["Marca"].HeaderText = "Marca";
+            // ... demais cabeçalhos
 
-            // 3. Colunas fixas (largura definida e não mudam)
+            // 4. Colunas fixas
             var colunasFixas = new (string nome, int largura)[]
             {
         ("NomeProduto", 400),
@@ -105,25 +88,8 @@ namespace GVC.View
                 }
             }
 
-            // 🔹 3.1 CONFIGURAÇÃO ESPECIAL PARA COLUNA "FORNECEDOR" (mais larga)
-            if (dgvProdutos.Columns["NomeFornecedor"] != null)
-            {
-                var colFornecedor = dgvProdutos.Columns["NomeFornecedor"];
-                colFornecedor.Width = 200;
-                colFornecedor.MinimumWidth = 150;
-                colFornecedor.Resizable = DataGridViewTriState.True;
-                colFornecedor.ReadOnly = true;
-                colFornecedor.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            }
-
-            // 4. Colunas dinâmicas (ajustam conforme conteúdo)
-            var colunasAuto = new string[]
-            {
-        "Referencia",
-        "Marca"
-            };
-
-            foreach (var nome in colunasAuto)
+            // 6. Colunas dinâmicas
+            foreach (var nome in new[] { "Referencia", "Marca" })
             {
                 if (dgvProdutos.Columns[nome] != null)
                 {
@@ -133,51 +99,24 @@ namespace GVC.View
                 }
             }
 
-            // 6. Estilo do cabeçalho
+            // 7. Estilo cabeçalho
             dgvProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvProdutos.ColumnHeadersHeight = 35;
-            dgvProdutos.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Regular);
-            dgvProdutos.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dgvProdutos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             dgvProdutos.RowHeadersWidth = 30;
 
-            // 7. Formatações especiais (igual ao anterior)
-            if (dgvProdutos.Columns["PrecoCusto"] != null)
-            {
-                dgvProdutos.Columns["PrecoCusto"].DefaultCellStyle.Format = "N2";
-                dgvProdutos.Columns["PrecoCusto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-            if (dgvProdutos.Columns["Lucro"] != null)
-            {
-                dgvProdutos.Columns["Lucro"].DefaultCellStyle.Format = "N2";
-                dgvProdutos.Columns["Lucro"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
+            // 8. Formatações especiais
             if (dgvProdutos.Columns["PrecoDeVenda"] != null)
             {
-                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new System.Drawing.Font("Arial", 10F, FontStyle.Bold);
+                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new Font("Arial", 10F, FontStyle.Bold);
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.ForeColor = Color.DarkGreen;
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
             }
-            if (dgvProdutos.Columns["Estoque"] != null)
-            {
-                dgvProdutos.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-            if (dgvProdutos.Columns["DataValidade"] != null)
-            {
-                dgvProdutos.Columns["DataValidade"].DefaultCellStyle.Format = "dd/MM/yyyy";
-                dgvProdutos.Columns["DataValidade"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
 
-            if (dgvProdutos.Columns["NomeFornecedor"] != null)
-            {
-                dgvProdutos.Columns["NomeFornecedor"].DefaultCellStyle.Font =
-                    new System.Drawing.Font("Segoe UI", 9F, FontStyle.Regular);
-                dgvProdutos.Columns["NomeFornecedor"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleLeft;
-            }
-
-            // 8. Força o grid a respeitar tudo
-            dgvProdutos.PerformLayout();
+            // 9. Atualizar grid
+            dgvProdutos.Refresh();
         }
+
 
         // 🔹 Método para reordenar as colunas
         private void ReordenarColunas()

@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcadusuario .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcadusuario .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dal\\usuariodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:dal\\usuariodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -115,27 +111,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FrmCadUsuario .cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmCadUsuario .cs",
-              "RelativeDocumentMoniker": "View\\FrmCadUsuario .cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmCadUsuario .cs [Projeto]",
-              "RelativeToolTip": "View\\FrmCadUsuario .cs [Projeto]",
+              "Title": "FrmPDVendas.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs",
+              "RelativeDocumentMoniker": "View\\FrmPDVendas.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmPDVendas.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T11:37:54.708Z",
+              "WhenOpened": "2026-01-04T14:09:39.502Z",
               "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UsuarioDal.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\DAL\\UsuarioDal.cs",
-              "RelativeDocumentMoniker": "DAL\\UsuarioDal.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\DAL\\UsuarioDal.cs",
-              "RelativeToolTip": "DAL\\UsuarioDal.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwBAAAABRAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T11:36:51.492Z",
-              "EditorCaption": ""
             }
           ]
         },

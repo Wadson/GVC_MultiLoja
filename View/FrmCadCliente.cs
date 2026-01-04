@@ -715,7 +715,7 @@ namespace GVC.View
                 var cliente = MontarObjetoCliente();
                 _clienteBll.Salvar(cliente);
 
-                Utilitario.Mensagens.Aviso("Cliente cadastrado com sucesso!");
+                Utilitario.Mensagens.Info("Cliente cadastrado com sucesso!");
 
                 AtualizarManutencao();
                 LimparCampos();

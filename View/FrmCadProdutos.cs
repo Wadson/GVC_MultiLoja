@@ -28,7 +28,7 @@ namespace GVC.View
         public int ClienteID { get; set; }
         private bool bloqueiaPesquisa = false;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string clienteSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
+        public string FornecedorSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
         public FrmCadProdutos(string statusOperacao)
         {
             InitializeComponent();
@@ -141,7 +141,7 @@ namespace GVC.View
                 ProdutosBLL produtosbll = new ProdutosBLL();
 
                 produtosbll.Inserir(produto);
-                Utilitario.Mensagens.Aviso("Produto salvo com sucesso!");
+                Utilitario.Mensagens.Info("Produto salvo com sucesso!");
                 Utilitario.LimparCampos(this);
                 int NovoCodigo = Utilitario.ProximoId(QueryProdutos);
                 string numeroComZeros = Utilitario.ZerosEsquerda(NovoCodigo, 4);
@@ -174,7 +174,7 @@ namespace GVC.View
 
                     if (sucesso)
                     {
-                        Utilitario.Mensagens.Aviso("Registro excluído com sucesso!");
+                        Utilitario.Mensagens.Info("Registro excluído com sucesso!");
 
                         var frmManutProduto = Application.OpenForms["FrmManutProduto"] as FrmManutProduto;
                         frmManutProduto?.HabilitarTimer(true);
@@ -222,7 +222,7 @@ namespace GVC.View
                 // Chamar o método AlterarProduto da BLL
                 ProdutosBLL produtosbll = new ProdutosBLL();
                 produtosbll.Alterar(produto);
-                Utilitario.Mensagens.Aviso("Produto alterado com sucesso!");
+                Utilitario.Mensagens.Info("Produto alterado com sucesso!");
                 Utilitario.LimparCampos(this);
                 this.Close();
                 var frmManutProduto = Application.OpenForms["FrmManutProduto"] as FrmManutProduto;
@@ -400,18 +400,18 @@ namespace GVC.View
                 }
             }
         }
-        private void AbrirFrmLocalizarCidadeDinamico()
+        private void AbrirFrmLocalizarFornecedorDinamico()
         {
             // Desliga temporariamente o evento para evitar loop
             txtFornecedor.TextChanged -= txtFornecedor_TextChanged;
 
-            using (FrmLocalizarCliente frmLocalizarCliente = new FrmLocalizarCliente(this, clienteSelecionado))
+            using (FrmLocalizarFornecedor frmLocalizarFornecedor = new FrmLocalizarFornecedor(this, FornecedorSelecionado))
             {
-                frmLocalizarCliente.Owner = this;
-                frmLocalizarCliente.ShowDialog();
-                txtFornecedor.Text = frmLocalizarCliente.ClienteSelecionado; // Define o nome do cliente retornado
-                ClienteID = frmLocalizarCliente.ClienteID; // Define o ID do cliente retornado
-                txtFornecedorID.Text = frmLocalizarCliente.ClienteID.ToString(); // Define o ID no TextBox correspondente
+                frmLocalizarFornecedor.Owner = this;
+                frmLocalizarFornecedor.ShowDialog();
+                txtFornecedor.Text = frmLocalizarFornecedor.FornecedorSelecionado; // Define o nome do cliente retornado
+                ClienteID = frmLocalizarFornecedor.FornecedorID; // Define o ID do cliente retornado
+                txtFornecedorID.Text = frmLocalizarFornecedor.FornecedorID.ToString(); // Define o ID no TextBox correspondente
             }
 
             // Religa o evento após modificar o texto
@@ -419,7 +419,7 @@ namespace GVC.View
         }
         private void btnLocalizarFornecedor_Click(object sender, EventArgs e)
         {
-            AbrirFrmLocalizarCidadeDinamico();
+            AbrirFrmLocalizarFornecedorDinamico();
         }
 
         private void txtDataValidade_Leave(object sender, EventArgs e)

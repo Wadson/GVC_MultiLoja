@@ -25,33 +25,25 @@ namespace GVC
         }
         public void PersonalizarDataGridView(KryptonDataGridView dgv)
         {
-            // Verifica se há colunas no DataGridView antes de tentar personalizá-las
             if (dgv.Columns.Count > 0)
             {
-                // Redimensionar as colunas manualmente
+                // Colunas com largura fixa
                 dgv.Columns["EstadoID"].Width = 60;
-                dgv.Columns["EstadoID"].Width = 60;
-                dgv.Columns["Nome"].Width = 500;
                 dgv.Columns["Uf"].Width = 50;
-                dgv.Columns["Regiao"].Width = 60;
 
-                // Centralizar cabeçalhos das colunas
+                // Coluna Nome ocupa todo o espaço restante
+                var colNome = dgv.Columns["Nome"];
+                colNome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                colNome.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                // Centralizar cabeçalhos
                 foreach (DataGridViewColumn column in dgv.Columns)
                 {
                     column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    // Centralizar o conteúdo das células nas colunas especificadas
-                    if (column.Name == "EstadoID")
-                    {
-                        column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    }
-                    else if (column.Name == "Nome")
-                    {
-                        column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft; // Alinhar à esquerda
-                    }
                 }
             }
         }
+
         private void CarregaDados()
         {
             //FrmCadEstado frm = new FrmCadEstado(StatusOperacao);

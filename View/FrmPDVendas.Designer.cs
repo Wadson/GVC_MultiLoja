@@ -541,10 +541,8 @@
             pnlHeader.Dock = DockStyle.Fill;
             pnlHeader.Location = new Point(3, 3);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010SilverDarkMode;
+            pnlHeader.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Blue;
             pnlHeader.Size = new Size(806, 24);
-            pnlHeader.StateCommon.Color1 = Color.FromArgb(8, 142, 250);
-            pnlHeader.StateCommon.Color2 = Color.FromArgb(6, 142, 254);
             pnlHeader.TabIndex = 1042;
             // 
             // lblTituloPDV
@@ -554,8 +552,8 @@
             lblTituloPDV.Name = "lblTituloPDV";
             lblTituloPDV.Size = new Size(806, 24);
             lblTituloPDV.StateCommon.Padding = new Padding(2, 1, 2, 1);
-            lblTituloPDV.StateCommon.ShortText.Color1 = Color.FromArgb(252, 252, 250);
-            lblTituloPDV.StateCommon.ShortText.Color2 = Color.FromArgb(252, 252, 250);
+            lblTituloPDV.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
+            lblTituloPDV.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
             lblTituloPDV.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblTituloPDV.TabIndex = 0;
             lblTituloPDV.Values.Text = "PDV - FRENTE DE CAIXA";
@@ -592,7 +590,7 @@
             dgvItensVenda.Dock = DockStyle.Fill;
             dgvItensVenda.Location = new Point(3, 203);
             dgvItensVenda.Name = "dgvItensVenda";
-            dgvItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
+            dgvItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
             dgvItensVenda.RowHeadersWidth = 23;
             dgvItensVenda.Size = new Size(806, 254);
             dgvItensVenda.TabIndex = 1051;

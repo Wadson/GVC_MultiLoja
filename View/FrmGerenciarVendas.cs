@@ -187,7 +187,7 @@ namespace GVC.View
             // ===============================
             // Colunas FIXAS
             // ===============================
-            dgvVendas.Columns["VendaID"].Width = 80;
+            dgvVendas.Columns["VendaID"].Width = 60;
             dgvVendas.Columns["DataVenda"].Width = 100;
             dgvVendas.Columns["ValorTotal"].Width = 110;
             dgvVendas.Columns["Desconto"].Width = 110;

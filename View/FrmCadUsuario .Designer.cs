@@ -262,6 +262,7 @@
             txtNovaSenha.Location = new Point(285, 132);
             txtNovaSenha.Margin = new Padding(4, 3, 4, 3);
             txtNovaSenha.Name = "txtNovaSenha";
+            txtNovaSenha.PasswordChar = '*';
             txtNovaSenha.Size = new Size(173, 24);
             txtNovaSenha.StateCommon.Back.Color1 = Color.White;
             txtNovaSenha.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
@@ -335,6 +336,7 @@
             txtRepitaSenha.Location = new Point(460, 132);
             txtRepitaSenha.Margin = new Padding(4, 3, 4, 3);
             txtRepitaSenha.Name = "txtRepitaSenha";
+            txtRepitaSenha.PasswordChar = '*';
             txtRepitaSenha.Size = new Size(173, 24);
             txtRepitaSenha.StateCommon.Back.Color1 = Color.White;
             txtRepitaSenha.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
@@ -471,6 +473,7 @@
             txtSenhaAtual.Location = new Point(110, 132);
             txtSenhaAtual.Margin = new Padding(4, 3, 4, 3);
             txtSenhaAtual.Name = "txtSenhaAtual";
+            txtSenhaAtual.PasswordChar = '*';
             txtSenhaAtual.Size = new Size(173, 24);
             txtSenhaAtual.StateCommon.Back.Color1 = Color.White;
             txtSenhaAtual.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
