@@ -130,8 +130,9 @@
             // 
             // btnSalvar
             // 
+            btnSalvar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSalvar.CornerRoundingRadius = 6F;
-            btnSalvar.Location = new Point(7, 97);
+            btnSalvar.Location = new Point(405, 97);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);

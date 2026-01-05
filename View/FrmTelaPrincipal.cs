@@ -1,5 +1,6 @@
 ﻿using GVC.BLL;
 using GVC.MUI;
+using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
@@ -62,8 +63,17 @@ namespace GVC.View
 
         private void btnFerramentas_Click(object sender, EventArgs e)
         {
-            FrmFerramentas frm = new FrmFerramentas();
-            AbrirFormEnPanel(frm);
+            var empresaBll = new EmpresaBll();
+            var empresa = empresaBll.ObterTodas().FirstOrDefault();
+
+            if (empresa == null)
+            {
+                MessageBox.Show("Nenhuma empresa cadastrada.");
+                return;
+            }
+
+            FrmConfiguracoes frm = new FrmConfiguracoes(empresa.EmpresaID);
+            frm.ShowDialog();
         }
 
         private void btnContaReceber_Click(object sender, EventArgs e)
@@ -94,6 +104,7 @@ namespace GVC.View
         }
         private void AtualizaBarraStatus()
         {
+            lblAmbienteStatus.Text = $"Ambiente: {Sessao.AmbienteSelecionado}";
             // Obtém o caminho do diretório de execução
             string currentPath = Path.GetDirectoryName(Application.ExecutablePath);
 
@@ -269,18 +280,7 @@ namespace GVC.View
         }
 
         private void ToolStripMenuItemConfiguracoes_Click(object sender, EventArgs e)
-        {
-            var empresaBll = new EmpresaBll();
-            var empresa = empresaBll.ObterTodas().FirstOrDefault();
-
-            if (empresa == null)
-            {
-                MessageBox.Show("Nenhuma empresa cadastrada.");
-                return;
-            }
-
-            FrmConfiguracoes frm = new FrmConfiguracoes(empresa.EmpresaID);
-            frm.ShowDialog();
+        {           
         }
 
         private void empresaToolStripMenuItem_Click(object sender, EventArgs e)

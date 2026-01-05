@@ -1,6 +1,5 @@
 ﻿using Krypton.Toolkit;
 using System;
-using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
@@ -15,56 +14,61 @@ namespace GVC.View
             InitializeComponent();
         }
 
-        // Nome do banco de dados no SQL Server (ajuste conforme seu banco real)
+        // ================================
+        // CONFIGURAÇÕES
+        // ================================
+
         private string NomeBanco => "bdsiscontrol";
 
-        // Caminho padrão para salvar backups (pasta do sistema + Bkp)
+        private string PastaBackupPadrao => @"C:\GVCSqlExpress\Bkp";
+
+        // ================================
+        // UTILITÁRIOS
+        // ================================
+
         private string GetDefaultBackupFolder()
         {
-            // Pega a pasta onde o sistema está rodando
-            string pastaSistema = Application.StartupPath;
+            if (!Directory.Exists(PastaBackupPadrao))
+                Directory.CreateDirectory(PastaBackupPadrao);
 
-            // Cria subpasta "Bkp" dentro da pasta do sistema
-            string pastaBackup = Path.Combine(pastaSistema, "Bkp");
-
-            if (!Directory.Exists(pastaBackup))
-                Directory.CreateDirectory(pastaBackup);
-
-            return pastaBackup;
+            return PastaBackupPadrao;
         }
 
-        // Verifica permissão de gravação no diretório
         private bool VerificarPermissoesGravacao(string caminho)
         {
             try
             {
-                if (!Directory.Exists(caminho))
-                    Directory.CreateDirectory(caminho);
-
-                string tempFile = Path.Combine(caminho, "gvc_perm_test.tmp");
-                using (FileStream fs = File.Create(tempFile)) { }
-                File.Delete(tempFile);
+                string arquivoTeste = Path.Combine(caminho, "perm_test.tmp");
+                using (File.Create(arquivoTeste)) { }
+                File.Delete(arquivoTeste);
                 return true;
             }
             catch
             {
-                MessageBox.Show("Sem permissão para gravar no diretório selecionado.");
+                Utilitario.Mensagens.Aviso(
+                    "O SQL Server não possui permissão para gravar na pasta selecionada.\n" +
+                    "Verifique as permissões do serviço MSSQL."
+                );
                 return false;
             }
         }
 
         // ================================
-        //   GERAR BACKUP (SQL Server)
+        // GERAR BACKUP
         // ================================
+
         private bool RealizarBackupSqlServer(string pastaDestino)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(pastaDestino))
                 {
-                    Utilitario.Mensagens.Aviso("Selecione a pasta de destino do backup.");
+                    Utilitario.Mensagens.Aviso("Informe a pasta de destino do backup.");
                     return false;
                 }
+
+                if (!Directory.Exists(pastaDestino))
+                    Directory.CreateDirectory(pastaDestino);
 
                 if (!VerificarPermissoesGravacao(pastaDestino))
                     return false;
@@ -72,111 +76,215 @@ namespace GVC.View
                 string nomeArquivo = $"Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
                 string destino = Path.Combine(pastaDestino, nomeArquivo);
 
+                bool suportaCompression = false;
+
                 using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
                 {
-                    string sql = $"BACKUP DATABASE [{NomeBanco}] TO DISK = @Destino";
-                    using (var cmd = new SqlCommand(sql, con))
+                    con.Open();
+
+                    // Detecta edição do SQL Server
+                    using (var cmdEdicao = new SqlCommand(
+                        "SELECT SERVERPROPERTY('Edition')", con))
                     {
-                        cmd.Parameters.AddWithValue("@Destino", destino);
-                        con.Open();
-                        cmd.ExecuteNonQuery();
+                        string edicao = cmdEdicao.ExecuteScalar()?.ToString() ?? "";
+                        suportaCompression = !edicao.Contains("Express", StringComparison.OrdinalIgnoreCase);
+                    }
+
+                    string sqlBackup = suportaCompression
+                        ? $@"BACKUP DATABASE [{NomeBanco}]
+                     TO DISK = @Destino
+                     WITH INIT, COMPRESSION"
+                        : $@"BACKUP DATABASE [{NomeBanco}]
+                     TO DISK = @Destino
+                     WITH INIT";
+
+                    using (var cmdBackup = new SqlCommand(sqlBackup, con))
+                    {
+                        cmdBackup.Parameters.AddWithValue("@Destino", destino);
+                        cmdBackup.ExecuteNonQuery();
                     }
                 }
 
-                Utilitario.Mensagens.Aviso($"Backup gerado com sucesso:\n{destino}");
+                if (!File.Exists(destino))
+                {
+                    Utilitario.Mensagens.Aviso(
+                        "O SQL Server informou sucesso, mas o arquivo não foi encontrado."
+                    );
+                    return false;
+                }
+
+                Utilitario.Mensagens.Info(
+                    $"Backup gerado com sucesso!\n\nArquivo:\n{destino}"
+                );
+
                 return true;
             }
             catch (Exception ex)
             {
-                Utilitario.Mensagens.Aviso($"Erro ao gerar backup: {ex.Message}");
+                Utilitario.Mensagens.Aviso($"Erro ao gerar backup:\n{ex.Message}");
                 return false;
             }
         }
 
+
         // ================================
-        //   RESTAURAR BACKUP (SQL Server)
+        // RESTAURAR BACKUP
         // ================================
+
         private bool RestaurarBackupSqlServer(string arquivoBackup)
         {
+            SqlConnection con = null;
+
             try
             {
-                if (string.IsNullOrWhiteSpace(arquivoBackup) || !File.Exists(arquivoBackup))
+                // ================================
+                // VALIDAÇÕES
+                // ================================
+
+                if (string.IsNullOrWhiteSpace(arquivoBackup))
                 {
-                    Utilitario.Mensagens.Aviso("Arquivo de backup não encontrado ou inválido.");
+                    Utilitario.Mensagens.Aviso("Informe o arquivo de backup.");
+                    return false;
+                }
+
+                if (!File.Exists(arquivoBackup))
+                {
+                    Utilitario.Mensagens.Aviso("Arquivo de backup não encontrado.");
+                    return false;
+                }
+
+                string pastaPermitida = GetDefaultBackupFolder();
+
+                if (!arquivoBackup.StartsWith(pastaPermitida, StringComparison.OrdinalIgnoreCase))
+                {
+                    Utilitario.Mensagens.Aviso(
+                        "O arquivo de backup deve estar localizado em:\n\n" + pastaPermitida
+                    );
                     return false;
                 }
 
                 var resp = MessageBox.Show(
-                    "A restauração irá substituir o banco atual. Deseja prosseguir?\nRecomenda-se fazer backup antes.",
-                    "Confirmação",
+                    "ATENÇÃO!\n\n" +
+                    "A restauração irá SUBSTITUIR o banco atual.\n" +
+                    "Todas as conexões ativas serão encerradas.\n\n" +
+                    "Deseja continuar?",
+                    "Confirmação de Restauração",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
 
-                if (resp != DialogResult.Yes) return false;
+                if (resp != DialogResult.Yes)
+                    return false;
 
-                using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
+                // ================================
+                // EXECUÇÃO SEGURA
+                // ================================
+
+                con = Conexao.Conex(Sessao.AmbienteSelecionado);
+                con.Open();
+
+                // IMPORTANTE: usa master
+                con.ChangeDatabase("master");
+
+                string sql = $@"
+ALTER DATABASE [{NomeBanco}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+RESTORE DATABASE [{NomeBanco}] FROM DISK = @Arquivo WITH REPLACE;
+ALTER DATABASE [{NomeBanco}] SET MULTI_USER;";
+
+                using (var cmd = new SqlCommand(sql, con))
                 {
-                    string sql = $"RESTORE DATABASE [{NomeBanco}] FROM DISK = @Arquivo WITH REPLACE";
-                    using (var cmd = new SqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@Arquivo", arquivoBackup);
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.Parameters.AddWithValue("@Arquivo", arquivoBackup);
+                    cmd.CommandTimeout = 0; // sem timeout
+                    cmd.ExecuteNonQuery();
                 }
 
-                Utilitario.Mensagens.Aviso("Restauração concluída com sucesso!");
+                Utilitario.Mensagens.Info("Banco restaurado com sucesso!");
                 return true;
             }
             catch (Exception ex)
             {
-                Utilitario.Mensagens.Aviso($"Erro ao restaurar backup: {ex.Message}");
+                Utilitario.Mensagens.Aviso(
+                    "Erro ao restaurar backup:\n\n" + ex.Message
+                );
                 return false;
             }
+            finally
+            {
+                // ================================
+                // GARANTIA DE SEGURANÇA
+                // ================================
+
+                try
+                {
+                    if (con != null && con.State == System.Data.ConnectionState.Open)
+                    {
+                        using (var cmd = new SqlCommand(
+                            $"ALTER DATABASE [{NomeBanco}] SET MULTI_USER;", con))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch
+                {
+                    // Evita exceção em cascata
+                }
+                finally
+                {
+                    con?.Close();
+                    con?.Dispose();
+                }
+            }
+        }
+
+
+        // ================================
+        // EVENTOS
+        // ================================
+
+        private void FrmBackup_Load(object sender, EventArgs e)
+        {
+            // Estado inicial do formulário
+            rbtGerarBackup.Checked = true;
+            txtCaminhoBackup.Text = GetDefaultBackupFolder();
+            lblRotulo.Text = "Local onde o backup será salvo";
+            btnExecutar.Text = "Gerar Backup";
         }
 
         private void rbtGerarBackup_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtGerarBackup.Checked)
-            {
-                lblRotulo.Text = "Escolha o local para salvar o backup";
-                txtCaminhoBackup.Text = GetDefaultBackupFolder();
-                btnExecutar.Text = "Gerar Backup";
-            }
+            if (!rbtGerarBackup.Checked) return;
+
+            lblRotulo.Text = "Local onde o backup será salvo";
+            txtCaminhoBackup.Text = GetDefaultBackupFolder();
+            btnExecutar.Text = "Gerar Backup";
         }
 
         private void rbtRestaurarBackup_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtRestaurarBackup.Checked)
-            {
-                lblRotulo.Text = "Escolha o arquivo de backup";
-                txtCaminhoBackup.Clear();
-                btnExecutar.Text = "Restaurar Backup";
-            }
-        }
+            if (!rbtRestaurarBackup.Checked) return;
 
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            lblRotulo.Text = "Selecione o arquivo de backup";
+            txtCaminhoBackup.Clear();
+            btnExecutar.Text = "Restaurar Backup";
         }
 
         private void btnLocalBackup_Click(object sender, EventArgs e)
         {
             if (rbtGerarBackup.Checked)
             {
-                using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+                using (var dialog = new FolderBrowserDialog())
                 {
                     dialog.SelectedPath = GetDefaultBackupFolder();
                     if (dialog.ShowDialog() == DialogResult.OK)
                         txtCaminhoBackup.Text = dialog.SelectedPath;
                 }
             }
-            else if (rbtRestaurarBackup.Checked)
+            else
             {
-                using (OpenFileDialog dialog = new OpenFileDialog())
+                using (var dialog = new OpenFileDialog())
                 {
-                    dialog.Filter = "Backup SQL Server (*.bak)|*.bak|Todos os Arquivos (*.*)|*.*";
+                    dialog.Filter = "Backup SQL Server (*.bak)|*.bak";
                     if (dialog.ShowDialog() == DialogResult.OK)
                         txtCaminhoBackup.Text = dialog.FileName;
                 }
@@ -188,29 +296,14 @@ namespace GVC.View
             string caminho = txtCaminhoBackup.Text?.Trim();
 
             if (rbtGerarBackup.Checked)
-            {
-                if (string.IsNullOrWhiteSpace(caminho))
-                {
-                    Utilitario.Mensagens.Aviso("Selecione o destino do backup.");
-                    return;
-                }
-
                 RealizarBackupSqlServer(caminho);
-            }
-            else if (rbtRestaurarBackup.Checked)
-            {
-                if (string.IsNullOrWhiteSpace(caminho) || !File.Exists(caminho))
-                {
-                    Utilitario.Mensagens.Aviso("Selecione um arquivo de backup válido para restaurar.");
-                    return;
-                }
-
+            else
                 RestaurarBackupSqlServer(caminho);
-            }
         }
 
-        private void FrmBackup_Load(object sender, EventArgs e)
+        private void btnSair_Click(object sender, EventArgs e)
         {
+            Close();
         }
     }
 }

@@ -266,7 +266,7 @@
             kryptonStatusStrip1.Location = new Point(0, 157);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
-            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
             kryptonStatusStrip1.Size = new Size(467, 22);
             kryptonStatusStrip1.TabIndex = 1030;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";

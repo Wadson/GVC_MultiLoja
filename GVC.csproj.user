@@ -17,10 +17,10 @@
     <Compile Update="CustomTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="MUI\FrmLogin.cs">
+    <Compile Update="UTIL\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="MUI\FrmRecuperarSenhaOffline.cs">
+    <Compile Update="UTIL\FrmRecuperarSenhaOffline.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="TexBoxPersonalizado.cs">
@@ -62,7 +62,7 @@
     <Compile Update="View\FrmEstornarPagamento.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="View\FrmFerramentas.cs">
+    <Compile Update="UTIL\FrmConfiguracoes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="View\FrmSelecionarPagamento.cs">

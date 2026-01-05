@@ -31,30 +31,33 @@ namespace GVC.DAL
 
         public void GravaUsuario(UsuarioModel usuarios)
         {
-            var conn = Conexao.Conex();
-            try
+            using (var conn = Conexao.Conex())
             {
-                var sqlcomm = new SqlCommand(
-                    "INSERT INTO Usuarios (NomeUsuario, Email, Senha, TipoUsuario, Cpf, DataNascimento, NomeCompleto, DataCriacao) " +
-                    "VALUES (@NomeUsuario, @Email, @Senha, @TipoUsuario, @Cpf, @DataNascimento, @NomeCompleto, @DataCriacao)", conn);
+                try
+                {
+                    var sqlcomm = new SqlCommand(
+                        "INSERT INTO Usuarios (NomeUsuario, Email, Senha, TipoUsuario, Cpf, DataNascimento, NomeCompleto, DataCriacao) " +
+                        "VALUES (@NomeUsuario, @Email, @Senha, @TipoUsuario, @Cpf, @DataNascimento, @NomeCompleto, @DataCriacao)", conn);
 
-                sqlcomm.Parameters.AddWithValue("@NomeUsuario", usuarios.NomeUsuario);
-                sqlcomm.Parameters.AddWithValue("@Email", usuarios.Email);
-                sqlcomm.Parameters.AddWithValue("@Senha", usuarios.Senha);
-                sqlcomm.Parameters.AddWithValue("@TipoUsuario", usuarios.TipoUsuario);
-                sqlcomm.Parameters.AddWithValue("@Cpf", usuarios.Cpf);
-                sqlcomm.Parameters.AddWithValue("@DataNascimento", usuarios.DataNascimento);
-                sqlcomm.Parameters.AddWithValue("@NomeCompleto", usuarios.NomeCompleto);
-                sqlcomm.Parameters.AddWithValue("@DataCriacao", usuarios.DataCriacao);
+                    sqlcomm.Parameters.AddWithValue("@NomeUsuario", usuarios.NomeUsuario);
+                    sqlcomm.Parameters.AddWithValue("@Email", usuarios.Email);
+                    sqlcomm.Parameters.AddWithValue("@Senha", usuarios.Senha);
+                    sqlcomm.Parameters.AddWithValue("@TipoUsuario", usuarios.TipoUsuario);
+                    sqlcomm.Parameters.AddWithValue("@Cpf", usuarios.Cpf);
+                    sqlcomm.Parameters.AddWithValue("@DataNascimento", usuarios.DataNascimento);
+                    sqlcomm.Parameters.AddWithValue("@NomeCompleto", usuarios.NomeCompleto);
+                    sqlcomm.Parameters.AddWithValue("@DataCriacao", usuarios.DataCriacao);
 
-                conn.Open();
-                sqlcomm.ExecuteNonQuery();
-            }
-            finally
-            {
-                conn.Close();
+                    conn.Open();
+                    sqlcomm.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw; // deixa o BLL tratar
+                }
             }
         }
+
 
         public void ExcluiUsuario(UsuarioModel usuarios)
         {

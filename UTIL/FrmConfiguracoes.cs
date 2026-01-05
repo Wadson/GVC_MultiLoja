@@ -1,15 +1,11 @@
-﻿using GVC.DAL;
-using GVC.Model;
-using GVC.UTIL;
+﻿
 using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GVC.View
@@ -17,26 +13,31 @@ namespace GVC.View
     public partial class FrmConfiguracoes : KryptonForm
     {
         private readonly int _empresaId;
-
         public FrmConfiguracoes(int empresaId)
         {
             InitializeComponent();
             _empresaId = empresaId;
         }
 
+        private void txtBackup_Click(object sender, EventArgs e)
+        {
+            FrmBackup frmBackup = new FrmBackup();
+            frmBackup.ShowDialog();
+        }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void FrmConfiguracoes_Shown(object sender, EventArgs e)
+        private void InsertBanco_Click(object sender, EventArgs e)
         {
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is KryptonTextBox kryptonTxt)
-                    Utilitario.AplicarCorFoco(kryptonTxt);
-            }
+        }
+
+        private void FrmModeloUI_Click(object sender, EventArgs e)
+        {
+            FrmModeloUI frm = new FrmModeloUI();
+            frm.ShowDialog();
         }
 
         private void btnLogo_Click(object sender, EventArgs e)
@@ -46,19 +47,14 @@ namespace GVC.View
             frm.ShowDialog();
         }
 
-
-        private void FrmConfiguracoes_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                SendKeys.Send("{TAB}");
-            }
-        }
-
         private void btnCertificadoDigital_Click(object sender, EventArgs e)
         {
             new FrmConfigCertificado(_empresaId).ShowDialog();
+        }
+
+        private void btnDadosFiscais_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

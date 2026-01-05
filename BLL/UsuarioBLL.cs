@@ -57,11 +57,20 @@ namespace GVC.BLL
                 usuariodal = new UsuarioDal();
                 usuariodal.GravaUsuario(usuarios);
             }
-            catch (Exception erro)
+            catch (SqlException sqlEx)
             {
-                throw; // mantém o stack trace
+                // Tratamento específico para erros de banco
+                if (sqlEx.Message.Contains("CHK_Usuarios_Email_Format"))
+                    throw new Exception("O e-mail informado não está em formato válido.");
+                else
+                    throw new Exception("Erro ao gravar usuário no banco: " + sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro inesperado: " + ex.Message);
             }
         }
+
 
 
         public void Excluir(UsuarioModel usuarios)

@@ -74,28 +74,33 @@ namespace GVC.DAL
         {
             if (empresaId <= 0)
                 throw new ArgumentException("ID da empresa inválido.");
-            if (logo == null || logo.Length == 0)
-                throw new ArgumentException("Logo não pode ser nula ou vazia.");
 
             using var conn = Conexao.Conex();
             using var cmd = conn.CreateCommand();
+
             cmd.CommandText = @"
-        UPDATE Empresa
-        SET Logo = @Logo,
-            DataAtualizacao = GETDATE()
-        WHERE EmpresaID = @EmpresaID";
+UPDATE Empresa
+SET Logo = @Logo,
+    DataAtualizacao = GETDATE()
+WHERE EmpresaID = @EmpresaID";
 
             cmd.Parameters.AddWithValue("@EmpresaID", empresaId);
 
             var logoParam = cmd.Parameters.Add("@Logo", SqlDbType.VarBinary, -1);
-            logoParam.Value = logo;  // Não precisa do (object) ?? DBNull, pois já validamos que não é null
+
+            // ✔ Se logo for null → remove
+            // ✔ Se logo tiver bytes → salva
+            logoParam.Value = (object)logo ?? DBNull.Value;
 
             conn.Open();
             int afetadas = cmd.ExecuteNonQuery();
 
             if (afetadas == 0)
-                Utilitario.Mensagens.Aviso("Nenhuma empresa encontrada com esse ID. Logo não foi atualizada.");
+                Utilitario.Mensagens.Aviso(
+                    "Nenhuma empresa encontrada com esse ID. Logo não foi atualizada."
+                );
         }
+
 
         public static void AtualizarCertificado(int empresaId, string caminho)
         {

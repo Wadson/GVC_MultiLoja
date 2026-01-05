@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace GVC
 {
@@ -15,6 +16,7 @@ namespace GVC
     {
         private string QueryUsuario = "SELECT MAX(UsuarioID) FROM Usuarios";
         private string StatusOperacao;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int UsuarioID { get; set; }
         private string HashSenhaAtualNoBanco; // Armazena o hash da senha atual
 
@@ -153,7 +155,13 @@ namespace GVC
             if (string.IsNullOrWhiteSpace(txtCPF.Text))
             {
                 Utilitario.Mensagens.Aviso("O campo CPF é obrigatório.");
-                return; // interrompe o fluxo e não tenta salvar
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtEmail.Text) || !ValidarEmail(txtEmail.Text))
+            {
+                Utilitario.Mensagens.Aviso("Informe um e-mail válido.");
+                return;
             }
 
             UsuarioModel obj = new UsuarioModel
@@ -169,10 +177,32 @@ namespace GVC
                 DataCriacao = DateTime.Now
             };
 
-            new UsuarioBLL().Salvar(obj);
-            Utilitario.Mensagens.Info("Usuário cadastrado com sucesso!");
-            FecharEAtualizarManutencao();
+            try
+            {
+                new UsuarioBLL().Salvar(obj);
+                Utilitario.Mensagens.Info("Usuário cadastrado com sucesso!");
+                FecharEAtualizarManutencao();
+            }
+            catch (Exception ex)
+            {
+                Utilitario.Mensagens.Erro($"Erro ao salvar usuário: {ex.Message}");
+            }
         }
+
+        // Validação simples de e-mail
+        private bool ValidarEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
 
         public void AlterarRegistro()
         {
@@ -218,7 +248,7 @@ namespace GVC
 
                 new UsuarioBLL().Alterar(obj);
 
-                Utilitario.Mensagens.Aviso("Usuário alterado com sucesso!");
+                Utilitario.Mensagens.Info("Usuário alterado com sucesso!");
                 FecharEAtualizarManutencao();
             }
             catch (Exception ex)
@@ -235,7 +265,7 @@ namespace GVC
                 try
                 {
                     new UsuarioBLL().Excluir(new UsuarioModel { UsuarioID = UsuarioID });
-                    Utilitario.Mensagens.Aviso("Usuário excluído com sucesso!");
+                    Utilitario.Mensagens.Info("Usuário excluído com sucesso!");
                     FecharEAtualizarManutencao();
                 }
                 catch (Exception ex)

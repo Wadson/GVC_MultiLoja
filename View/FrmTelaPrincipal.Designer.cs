@@ -44,6 +44,7 @@
             toolStripStatusLabel3 = new ToolStripStatusLabel();
             lblTipoUsuario = new ToolStripStatusLabel();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
+            button1 = new Button();
             btnFornecedor = new Button();
             btnLogoff = new Button();
             btnUsuario = new Button();
@@ -70,6 +71,8 @@
             lblUsuarioLogadoo = new ToolStripStatusLabel();
             toolStripStatusLabel6 = new ToolStripStatusLabel();
             lblTipoUsuarioo = new ToolStripStatusLabel();
+            toolStripStatusLabel8 = new ToolStripStatusLabel();
+            lblAmbienteStatus = new ToolStripStatusLabel();
             timer1 = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
             cadastrosToolStripMenuItem1 = new ToolStripMenuItem();
@@ -80,6 +83,7 @@
             produtosToolStripMenuItem1 = new ToolStripMenuItem();
             usuáriosToolStripMenuItem1 = new ToolStripMenuItem();
             empresaToolStripMenuItem = new ToolStripMenuItem();
+            formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
             ferramentasToolStripMenuItem = new ToolStripMenuItem();
             cancelarVendaToolStripMenuItem = new ToolStripMenuItem();
             estoqueToolStripMenuItem = new ToolStripMenuItem();
@@ -90,8 +94,6 @@
             configuraçãoDoSistemaToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItemConfiguracoes = new ToolStripMenuItem();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
-            button1 = new Button();
-            formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
             kryptonPanel2.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -207,6 +209,25 @@
             kryptonPanel2.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.GridDataCellCustom1;
             kryptonPanel2.Size = new Size(1008, 46);
             kryptonPanel2.TabIndex = 602;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Transparent;
+            button1.BackgroundImage = Properties.Resources.Logogg64;
+            button1.BackgroundImageLayout = ImageLayout.Stretch;
+            button1.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatAppearance.CheckedBackColor = Color.FromArgb(255, 255, 192);
+            button1.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
+            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(371, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(40, 40);
+            button1.TabIndex = 13;
+            button1.TextAlign = ContentAlignment.BottomCenter;
+            toolTip1.SetToolTip(button1, "Logoff");
+            button1.UseVisualStyleBackColor = false;
             // 
             // btnFornecedor
             // 
@@ -437,11 +458,11 @@
             // kryptonStatusStrip1
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblDataa, lblHoraAtuall, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblDataa, lblHoraAtuall, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblAmbienteStatus });
             kryptonStatusStrip1.Location = new Point(0, 707);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
-            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
             kryptonStatusStrip1.Size = new Size(1008, 22);
             kryptonStatusStrip1.TabIndex = 608;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
@@ -493,6 +514,18 @@
             lblTipoUsuarioo.Name = "lblTipoUsuarioo";
             lblTipoUsuarioo.Size = new Size(84, 17);
             lblTipoUsuarioo.Text = "lblTipoUsuario";
+            // 
+            // toolStripStatusLabel8
+            // 
+            toolStripStatusLabel8.Name = "toolStripStatusLabel8";
+            toolStripStatusLabel8.Size = new Size(16, 17);
+            toolStripStatusLabel8.Text = " | ";
+            // 
+            // lblAmbienteStatus
+            // 
+            lblAmbienteStatus.Name = "lblAmbienteStatus";
+            lblAmbienteStatus.Size = new Size(59, 17);
+            lblAmbienteStatus.Text = "Ambiente";
             // 
             // timer1
             // 
@@ -567,6 +600,13 @@
             empresaToolStripMenuItem.Size = new Size(188, 22);
             empresaToolStripMenuItem.Text = "Empresa";
             empresaToolStripMenuItem.Click += empresaToolStripMenuItem_Click;
+            // 
+            // formaDePagamentoToolStripMenuItem
+            // 
+            formaDePagamentoToolStripMenuItem.Name = "formaDePagamentoToolStripMenuItem";
+            formaDePagamentoToolStripMenuItem.Size = new Size(188, 22);
+            formaDePagamentoToolStripMenuItem.Text = "Forma de Pagamento";
+            formaDePagamentoToolStripMenuItem.Click += formaDePagamentoToolStripMenuItem_Click;
             // 
             // ferramentasToolStripMenuItem
             // 
@@ -669,32 +709,6 @@
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
-            // button1
-            // 
-            button1.BackColor = Color.Transparent;
-            button1.BackgroundImage = Properties.Resources.Logogg64;
-            button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.CheckedBackColor = Color.FromArgb(255, 255, 192);
-            button1.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
-            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(371, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(40, 40);
-            button1.TabIndex = 13;
-            button1.TextAlign = ContentAlignment.BottomCenter;
-            toolTip1.SetToolTip(button1, "Logoff");
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // formaDePagamentoToolStripMenuItem
-            // 
-            formaDePagamentoToolStripMenuItem.Name = "formaDePagamentoToolStripMenuItem";
-            formaDePagamentoToolStripMenuItem.Size = new Size(188, 22);
-            formaDePagamentoToolStripMenuItem.Text = "Forma de Pagamento";
-            formaDePagamentoToolStripMenuItem.Click += formaDePagamentoToolStripMenuItem_Click;
-            // 
             // FrmTelaPrincipal
             // 
             ClientSize = new Size(1008, 729);
@@ -787,5 +801,7 @@
         private ToolStripMenuItem ToolStripMenuItemConfiguracoes;
         private Button button1;
         private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
+        private ToolStripStatusLabel toolStripStatusLabel8;
+        private ToolStripStatusLabel lblAmbienteStatus;
     }
 }

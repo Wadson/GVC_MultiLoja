@@ -51,8 +51,8 @@
             txtSenhaAtual = new Krypton.Toolkit.KryptonTextBox();
             label1 = new Label();
             txtNomeCompleto = new Krypton.Toolkit.KryptonTextBox();
-            kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
             lblDataCadastro = new ToolStripStatusLabel();
+            kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
             ((System.ComponentModel.ISupportInitialize)cmbTipoUsuario).BeginInit();
             kryptonStatusStrip1.SuspendLayout();
             SuspendLayout();
@@ -518,6 +518,12 @@
             txtNomeCompleto.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
             txtNomeCompleto.TabIndex = 0;
             // 
+            // lblDataCadastro
+            // 
+            lblDataCadastro.Name = "lblDataCadastro";
+            lblDataCadastro.Size = new Size(98, 17);
+            lblDataCadastro.Text = "Data do Cadastro";
+            // 
             // kryptonStatusStrip1
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
@@ -525,16 +531,10 @@
             kryptonStatusStrip1.Location = new Point(0, 211);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
-            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
             kryptonStatusStrip1.Size = new Size(637, 22);
             kryptonStatusStrip1.TabIndex = 1032;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
-            // 
-            // lblDataCadastro
-            // 
-            lblDataCadastro.Name = "lblDataCadastro";
-            lblDataCadastro.Size = new Size(98, 17);
-            lblDataCadastro.Text = "Data do Cadastro";
             // 
             // FrmCadUser
             // 
@@ -611,7 +611,7 @@
         public Krypton.Toolkit.KryptonTextBox txtSenhaAtual;
         private Label label1;
         public Krypton.Toolkit.KryptonTextBox txtNomeCompleto;
-        private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
         public ToolStripStatusLabel lblDataCadastro;
+        private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
     }
 }

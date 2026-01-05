@@ -29,17 +29,23 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConfigLogo));
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             btnSair = new Krypton.Toolkit.KryptonButton();
             btnSalvar = new Krypton.Toolkit.KryptonButton();
             picLogo = new PictureBox();
             btnSelecionarLogo = new Krypton.Toolkit.KryptonButton();
-            label1 = new Label();
             cmbEmpresas = new Krypton.Toolkit.KryptonComboBox();
             lblInstrucao = new Label();
             pgbSalvando = new Krypton.Toolkit.KryptonProgressBar();
+            kryptonTableLayoutPanel1 = new Krypton.Toolkit.KryptonTableLayoutPanel();
+            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
+            label2 = new Label();
+            btnRemoverLogo = new Krypton.Toolkit.KryptonButton();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbEmpresas).BeginInit();
+            kryptonTableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -81,7 +87,7 @@
             // btnSair
             // 
             btnSair.CornerRoundingRadius = 6F;
-            btnSair.Location = new Point(250, 330);
+            btnSair.Location = new Point(179, 345);
             btnSair.Margin = new Padding(4, 3, 4, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -95,7 +101,7 @@
             btnSair.OverrideDefault.Border.Rounding = 20F;
             btnSair.OverrideDefault.Border.Width = 1;
             btnSair.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnSair.Size = new Size(90, 27);
+            btnSair.Size = new Size(150, 27);
             btnSair.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
             btnSair.StateCommon.Back.ColorAngle = 45F;
@@ -130,13 +136,13 @@
             btnSair.StateTracking.Content.ShortText.Color1 = Color.White;
             btnSair.TabIndex = 1044;
             btnSair.TabStop = false;
-            btnSair.Values.Text = "Sair";
+            btnSair.Values.Text = "Cancelar / Sair";
             btnSair.Click += btnSair_Click;
             // 
             // btnSalvar
             // 
             btnSalvar.CornerRoundingRadius = 6F;
-            btnSalvar.Location = new Point(85, 330);
+            btnSalvar.Location = new Point(4, 345);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -149,7 +155,7 @@
             btnSalvar.OverrideDefault.Border.Rounding = 20F;
             btnSalvar.OverrideDefault.Border.Width = 1;
             btnSalvar.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnSalvar.Size = new Size(90, 27);
+            btnSalvar.Size = new Size(150, 27);
             btnSalvar.StateCommon.Back.Color1 = Color.FromArgb(8, 142, 254);
             btnSalvar.StateCommon.Back.Color2 = Color.FromArgb(6, 180, 240);
             btnSalvar.StateCommon.Back.ColorAngle = 45F;
@@ -186,21 +192,22 @@
             btnSalvar.StateTracking.Content.ShortText.Color1 = Color.Black;
             btnSalvar.StateTracking.Content.ShortText.Color2 = Color.Black;
             btnSalvar.TabIndex = 2;
-            btnSalvar.Values.Text = "Alterar";
+            btnSalvar.Values.Text = "Salvar Alterações";
             btnSalvar.Click += btnSalvar_Click;
             // 
             // picLogo
             // 
-            picLogo.Location = new Point(85, 86);
+            picLogo.Location = new Point(5, 141);
             picLogo.Name = "picLogo";
-            picLogo.Size = new Size(255, 238);
+            picLogo.Size = new Size(327, 165);
             picLogo.TabIndex = 1047;
             picLogo.TabStop = false;
+            picLogo.Tag = "";
             // 
             // btnSelecionarLogo
             // 
             btnSelecionarLogo.CornerRoundingRadius = 6F;
-            btnSelecionarLogo.Location = new Point(250, 53);
+            btnSelecionarLogo.Location = new Point(3, 312);
             btnSelecionarLogo.Margin = new Padding(4, 3, 4, 3);
             btnSelecionarLogo.Name = "btnSelecionarLogo";
             btnSelecionarLogo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -214,7 +221,7 @@
             btnSelecionarLogo.OverrideDefault.Border.Rounding = 20F;
             btnSelecionarLogo.OverrideDefault.Border.Width = 1;
             btnSelecionarLogo.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnSelecionarLogo.Size = new Size(90, 27);
+            btnSelecionarLogo.Size = new Size(150, 27);
             btnSelecionarLogo.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSelecionarLogo.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
             btnSelecionarLogo.StateCommon.Back.ColorAngle = 45F;
@@ -249,36 +256,26 @@
             btnSelecionarLogo.StateTracking.Content.ShortText.Color1 = Color.White;
             btnSelecionarLogo.TabIndex = 1048;
             btnSelecionarLogo.TabStop = false;
-            btnSelecionarLogo.Values.Text = "Seleciona";
+            btnSelecionarLogo.Values.Text = "Seleciona Imagem";
             btnSelecionarLogo.Click += btnSelecionarLogo_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 9.25F);
-            label1.ForeColor = Color.FromArgb(0, 76, 172);
-            label1.Location = new Point(85, 64);
-            label1.Name = "label1";
-            label1.Size = new Size(76, 16);
-            label1.TabIndex = 1050;
-            label1.Text = "Logomarca";
             // 
             // cmbEmpresas
             // 
-            cmbEmpresas.CornerRoundingRadius = 10F;
+            cmbEmpresas.CornerRoundingRadius = 20F;
             cmbEmpresas.DropDownWidth = 171;
             cmbEmpresas.IntegralHeight = false;
-            cmbEmpresas.Location = new Point(12, 26);
+            cmbEmpresas.Location = new Point(5, 72);
             cmbEmpresas.Name = "cmbEmpresas";
-            cmbEmpresas.Size = new Size(417, 27);
+            cmbEmpresas.Size = new Size(324, 33);
             cmbEmpresas.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(8, 142, 254);
             cmbEmpresas.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(8, 142, 254);
             cmbEmpresas.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbEmpresas.StateCommon.ComboBox.Border.Rounding = 10F;
+            cmbEmpresas.StateCommon.ComboBox.Border.Rounding = 20F;
             cmbEmpresas.StateCommon.ComboBox.Border.Width = 1;
             cmbEmpresas.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             cmbEmpresas.TabIndex = 1051;
             cmbEmpresas.TabStop = false;
+            cmbEmpresas.Text = "Selecione uma empresa";
             cmbEmpresas.SelectedIndexChanged += cmbEmpresas_SelectedIndexChanged;
             // 
             // lblInstrucao
@@ -286,33 +283,139 @@
             lblInstrucao.AutoSize = true;
             lblInstrucao.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblInstrucao.ForeColor = Color.FromArgb(0, 76, 172);
-            lblInstrucao.Location = new Point(12, 6);
+            lblInstrucao.Location = new Point(30, 28);
             lblInstrucao.Name = "lblInstrucao";
-            lblInstrucao.Size = new Size(268, 16);
+            lblInstrucao.Size = new Size(277, 16);
             lblInstrucao.TabIndex = 1052;
-            lblInstrucao.Text = "Selecione uma Empresa para alterar o logo";
+            lblInstrucao.Text = "Selecione a empresa e altere sua logomarca";
             // 
             // pgbSalvando
             // 
             pgbSalvando.Dock = DockStyle.Bottom;
             pgbSalvando.Location = new Point(0, 378);
             pgbSalvando.Name = "pgbSalvando";
-            pgbSalvando.Size = new Size(441, 23);
+            pgbSalvando.Size = new Size(339, 23);
             pgbSalvando.Style = ProgressBarStyle.Continuous;
             pgbSalvando.TabIndex = 1053;
             pgbSalvando.UseKrypton = true;
             pgbSalvando.Visible = false;
+            // 
+            // kryptonTableLayoutPanel1
+            // 
+            kryptonTableLayoutPanel1.BackgroundImage = (Image)resources.GetObject("kryptonTableLayoutPanel1.BackgroundImage");
+            kryptonTableLayoutPanel1.BackgroundImageLayout = ImageLayout.None;
+            kryptonTableLayoutPanel1.ColumnCount = 1;
+            kryptonTableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            kryptonTableLayoutPanel1.Controls.Add(kryptonLabel1, 0, 0);
+            kryptonTableLayoutPanel1.Dock = DockStyle.Top;
+            kryptonTableLayoutPanel1.Location = new Point(0, 0);
+            kryptonTableLayoutPanel1.Name = "kryptonTableLayoutPanel1";
+            kryptonTableLayoutPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonTableLayoutPanel1.RowCount = 1;
+            kryptonTableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            kryptonTableLayoutPanel1.Size = new Size(339, 25);
+            kryptonTableLayoutPanel1.TabIndex = 1054;
+            // 
+            // kryptonLabel1
+            // 
+            kryptonLabel1.Dock = DockStyle.Fill;
+            kryptonLabel1.Location = new Point(3, 3);
+            kryptonLabel1.Name = "kryptonLabel1";
+            kryptonLabel1.Size = new Size(333, 19);
+            kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel1.TabIndex = 0;
+            kryptonLabel1.Values.Text = "Configurar Logomarca da Empresa";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 9.25F);
+            label2.ForeColor = Color.FromArgb(0, 76, 172);
+            label2.Location = new Point(5, 53);
+            label2.Name = "label2";
+            label2.Size = new Size(62, 16);
+            label2.TabIndex = 1056;
+            label2.Text = "Empresa";
+            // 
+            // btnRemoverLogo
+            // 
+            btnRemoverLogo.CornerRoundingRadius = 6F;
+            btnRemoverLogo.Location = new Point(179, 312);
+            btnRemoverLogo.Margin = new Padding(4, 3, 4, 3);
+            btnRemoverLogo.Name = "btnRemoverLogo";
+            btnRemoverLogo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnRemoverLogo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnRemoverLogo.OverrideDefault.Back.ColorAngle = 45F;
+            btnRemoverLogo.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
+            btnRemoverLogo.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnRemoverLogo.OverrideDefault.Border.ColorAngle = 45F;
+            btnRemoverLogo.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnRemoverLogo.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnRemoverLogo.OverrideDefault.Border.Rounding = 20F;
+            btnRemoverLogo.OverrideDefault.Border.Width = 1;
+            btnRemoverLogo.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            btnRemoverLogo.Size = new Size(150, 27);
+            btnRemoverLogo.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
+            btnRemoverLogo.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            btnRemoverLogo.StateCommon.Back.ColorAngle = 45F;
+            btnRemoverLogo.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnRemoverLogo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnRemoverLogo.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnRemoverLogo.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnRemoverLogo.StateCommon.Border.Rounding = 6F;
+            btnRemoverLogo.StateCommon.Border.Width = 1;
+            btnRemoverLogo.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
+            btnRemoverLogo.StateCommon.Content.ShortText.Color2 = Color.White;
+            btnRemoverLogo.StateCommon.Content.ShortText.Font = new Font("Segoe UI Semilight", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRemoverLogo.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
+            btnRemoverLogo.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
+            btnRemoverLogo.StatePressed.Back.ColorAngle = 135F;
+            btnRemoverLogo.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
+            btnRemoverLogo.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
+            btnRemoverLogo.StatePressed.Border.ColorAngle = 135F;
+            btnRemoverLogo.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnRemoverLogo.StatePressed.Border.Rounding = 20F;
+            btnRemoverLogo.StatePressed.Border.Width = 1;
+            btnRemoverLogo.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
+            btnRemoverLogo.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
+            btnRemoverLogo.StateTracking.Back.ColorAngle = 45F;
+            btnRemoverLogo.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnRemoverLogo.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnRemoverLogo.StateTracking.Border.ColorAngle = 45F;
+            btnRemoverLogo.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnRemoverLogo.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnRemoverLogo.StateTracking.Border.Rounding = 20F;
+            btnRemoverLogo.StateTracking.Border.Width = 1;
+            btnRemoverLogo.StateTracking.Content.ShortText.Color1 = Color.White;
+            btnRemoverLogo.TabIndex = 1057;
+            btnRemoverLogo.TabStop = false;
+            btnRemoverLogo.Values.Text = "Remover Logo";
+            btnRemoverLogo.Click += btnRemoverLogo_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 9.25F);
+            label1.ForeColor = Color.FromArgb(0, 76, 172);
+            label1.Location = new Point(5, 122);
+            label1.Name = "label1";
+            label1.Size = new Size(109, 16);
+            label1.TabIndex = 1058;
+            label1.Text = "Logomarca Atual";
             // 
             // FrmConfigLogo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(441, 401);
+            ClientSize = new Size(339, 401);
+            Controls.Add(label1);
+            Controls.Add(btnRemoverLogo);
+            Controls.Add(label2);
+            Controls.Add(kryptonTableLayoutPanel1);
             Controls.Add(pgbSalvando);
             Controls.Add(cmbEmpresas);
             Controls.Add(lblInstrucao);
-            Controls.Add(label1);
             Controls.Add(btnSelecionarLogo);
             Controls.Add(picLogo);
             Controls.Add(btnSair);
@@ -329,6 +432,8 @@
             Shown += FrmConfigLogo_Shown;
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbEmpresas).EndInit();
+            kryptonTableLayoutPanel1.ResumeLayout(false);
+            kryptonTableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -342,8 +447,12 @@
         private Label lblInstrucao;
         private PictureBox picLogo;
         private Krypton.Toolkit.KryptonButton btnSelecionarLogo;
-        private Label label1;
         public Krypton.Toolkit.KryptonComboBox cmbEmpresas;
         private Krypton.Toolkit.KryptonProgressBar pgbSalvando;
+        private Krypton.Toolkit.KryptonTableLayoutPanel kryptonTableLayoutPanel1;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private Label label2;
+        private Krypton.Toolkit.KryptonButton btnRemoverLogo;
+        private Label label1;
     }
 }
