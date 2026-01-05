@@ -112,37 +112,42 @@ Tabela PagamentosParciais: registro único com o ValorPago, DataPagamento = Date
 
 👉 Exemplo:
 
-FormaPgto = Dinheiro, Cartão de Débito, PIX, Transferência:
+1. FormaPgto = Dinheiro, Cartão de Débito, PIX, Transferência:
 Venda → Concluída
 Parcela → Pago
 Pagamento → único, valor total.
 
 2. FormaPgto = Cartão de Crédito, Boleto, Cheque, Crediário.
 
-Tabela Venda: criada com StatusVenda = 'Aguardando Pagamento' até confirmação da operadora. e/ou recebimento das parcelas
+Tabela Venda: criada com StatusVenda = 'AguardandoPagamento' até o recebimento das parcelas
 Tabela ItemVenda: produtos/serviços.
 
 Tabela Parcela:
-
 Se parcelado: gera N parcelas com Status = "Pendente".
-Se à vista no crédito: gera 1 parcela "Pendente".
+Se Dinheiro, Cartão de Débito, PIX, Transferência: gera 1 parcela "Pago".
+
+
+
+
+
+
 
 Tabela PagamentosParciais:
 
 Quando a operadora confirma, ou as parcelas são baixadas manualmente, grava pagamento.
-Parcela(s) passam para "Pago" ou "Parcialmente Pago".
+Parcela(s) passam para "Pago" ou "ParcialmentePago".
 Venda: muda para Concluída quando todas as parcelas estão quitadas.
 
 👉 Exemplo:
 
 FormaPgto = Cartão de Crédito (3x)
-Venda → Aguardando Pagamento
+Venda → AguardandoPagamento
 Parcelas → 3 registros Pendente
-Conforme liquidação → Parcialmente Pago → Concluída.
+Conforme liquidação → ParcialmentePago → Concluída.
 
 3. Venda com Boleto
 
-Venda: criada com StatusVenda = "Aguardando Pagamento".
+Venda: criada com StatusVenda = "AguardandoPagamento".
 ItemVenda: produtos/serviços.
 Parcela:
 Uma parcela com vencimento futuro (Status = "Pendente").
@@ -154,13 +159,13 @@ Venda: muda para "Concluida".
 👉 Exemplo:
 
 FormaPgto = Boleto
-Venda → Aguardando Pagamento
+Venda → AguardandoPagamento
 Parcela → "Pendente" até liquidação
 Pagamento → único, valor total.
 
 4. Venda com Cheque
 
-Venda: criada com StatusVenda = 'Em Análise' ou Aguardando Pagamento (aguarda compensação).
+Venda: criada com StatusVenda = 'Em Análise' ou AguardandoPagamento (aguarda compensação).
 ItemVenda: produtos/serviços.
 Parcela:
 Uma parcela com vencimento na data do cheque.
@@ -207,10 +212,10 @@ public enum EnumStatusParcela
          return status switch
          {
              EnumStatusVenda.Aberta => "Aberta",              
-             EnumStatusVenda.AguardandoPagamento => "Aguardando Pagamento",
+             EnumStatusVenda.AguardandoPagamento => "AguardandoPagamento",
              EnumStatusVenda.Concluida => "Concluída",
              EnumStatusVenda.Cancelada => "Cancelada", 
-             EnumStatusVenda.ParcialmentePago => "Parcialmente Pago",
+             EnumStatusVenda.ParcialmentePago => "ParcialmentePago",
              EnumStatusVenda.Suspensa => "Suspensa",
              _ => throw new ArgumentOutOfRangeException()
          };
@@ -224,10 +229,10 @@ public enum EnumStatusParcela
          return status switch
          {
              "Aberta" => EnumStatusVenda.Aberta,               
-             "Aguardando Pagamento" => EnumStatusVenda.AguardandoPagamento,
+             "AguardandoPagamento" => EnumStatusVenda.AguardandoPagamento,
              "Concluída" => EnumStatusVenda.Concluida,
              "Cancelada" => EnumStatusVenda.Cancelada,              
-             "Parcialmente Pago" => EnumStatusVenda.ParcialmentePago,
+             "ParcialmentePago" => EnumStatusVenda.ParcialmentePago,
              "Suspensa" => EnumStatusVenda.Suspensa,
              _ => throw new Exception($"Status de venda inválido: {status}")
          };
@@ -244,7 +249,7 @@ public enum EnumStatusParcela
              EnumStatusParcela.Atrasada => "Atrasada",                
              EnumStatusParcela.Pago => "Pago",
              EnumStatusParcela.Cancelada => "Cancelada",              
-             EnumStatusParcela.ParcialmentePago => "Parcialmente Pago",
+             EnumStatusParcela.ParcialmentePago => "ParcialmentePago",
              _ => throw new ArgumentOutOfRangeException()
          };
      }
@@ -260,7 +265,7 @@ public enum EnumStatusParcela
              "Atrasada" => EnumStatusParcela.Atrasada,               
              "Pago" => EnumStatusParcela.Pago,
              "Cancelada" => EnumStatusParcela.Cancelada,              
-             "Parcialmente Pago" => EnumStatusParcela.ParcialmentePago,
+             "ParcialmentePago" => EnumStatusParcela.ParcialmentePago,
              _ => throw new Exception($"Status de parcela inválido: {status}")
          };
      }
@@ -271,7 +276,7 @@ public enum EnumStatusParcela
 👉 Esse é o fluxo do sistema GVC:
 
 À vista (Dinheiro, Débito, PIX, Transferência) → Venda já nasce Concluída.
-Crédito, Boleto, Cheque, Crediário → Venda nasce Aguardando Pagamento ou Em Análise, 
+Crédito, Boleto, Cheque, Crediário → Venda nasce AguardandoPagamento ou Em Análise, 
 e só vira Concluída após quitação das parcelas.
 
 using GVC.DTO;
@@ -1743,15 +1748,15 @@ namespace GVC.View
             
             Aberta               → em edição.
             Em Análise           → aguardando aprovação (crédito/cheque).
-            Aguardando Pagamento → emitida, aguardando liquidação.
-            Parcialmente Pago    → parte quitada.
+            AguardandoPagamento → emitida, aguardando liquidação.
+            ParcialmentePago    → parte quitada.
             Concluída            → 100% liquidada.
             Cancelada            → anulada.
             Suspensa             → bloqueada temporariamente.
            
            📊 Status para a Tabela Parcela coluna "Status"
 
-            Pendente          → aguardando pagamento.
+            Pendente          → AguardandoPagamento.
             Parcialmente Paga → recebeu parte.
             Paga              → liquidada.
             Atrasada          → vencida sem quitação.

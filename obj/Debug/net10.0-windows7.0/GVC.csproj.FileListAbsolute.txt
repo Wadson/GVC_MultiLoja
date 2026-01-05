@@ -4,6 +4,7 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.TexBoxPersonalizado.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.TexBoxTelefoneFormatado.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConfigCertificado.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConfigLogo.resources
+C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConfiguracoes.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.MUI.FrmLogin.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.UTIL.FrmOpcoesExtrato.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.MUI.FrmRecuperarSenhaOffline.resources
@@ -292,7 +293,6 @@ C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\runtimes\win-x86\native\libstdc++-
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\runtimes\win-x86\native\libwinpthread-1.dll
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\runtimes\win-x86\native\qpdf.dll
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\runtimes\win-x86\native\zlib1.dll
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConfiguracoes.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.csproj.Up2Date
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.dll
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\refint\GVC.dll

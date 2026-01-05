@@ -2,8 +2,9 @@
 using GVC.DAL;
 using GVC.DTO;
 using GVC.Model;
-using GVC.UTIL;
 using GVC.Model.Enums;
+using GVC.Model.Enums.GVC.Model.Enums;
+using GVC.UTIL;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;

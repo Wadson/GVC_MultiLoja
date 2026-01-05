@@ -258,7 +258,7 @@
             cmbStatusParcela.CornerRoundingRadius = 6F;
             cmbStatusParcela.DropDownWidth = 171;
             cmbStatusParcela.IntegralHeight = false;
-            cmbStatusParcela.Items.AddRange(new object[] { " Aberta              ", " Atrasada            ", " Aguardando Pagamento", " Pago                ", " Cancelada           ", " Devolvida           ", " Parcialmente Pago   " });
+            cmbStatusParcela.Items.AddRange(new object[] { " Aberta              ", " Atrasada            ", " AguardandoPagamento", " Pago                ", " Cancelada           ", " Devolvida           ", " ParcialmentePago   " });
             cmbStatusParcela.Location = new Point(175, 19);
             cmbStatusParcela.Name = "cmbStatusParcela";
             cmbStatusParcela.Size = new Size(116, 25);

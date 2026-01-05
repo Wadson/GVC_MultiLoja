@@ -60,7 +60,7 @@ BEGIN
 
                 -- 3️⃣ Pagamento parcial
                 WHEN i.ValorRecebido > 0
-                    THEN 'Parcialmente Pago'
+                    THEN 'ParcialmentePago'
 
                 -- 4️⃣ Sem pagamento e vencida
                 WHEN i.DataVencimento < CAST(GETDATE() AS DATE)
@@ -106,17 +106,17 @@ BEGIN
                 WHEN COUNT(*) = COUNT(CASE WHEN p.Status = 'Pago' THEN 1 END)
                     THEN 'Concluída'
 
-                WHEN COUNT(CASE WHEN p.Status = 'Parcialmente Pago' THEN 1 END) > 0
+                WHEN COUNT(CASE WHEN p.Status = 'ParcialmentePago' THEN 1 END) > 0
                   OR (
                       COUNT(CASE WHEN p.Status = 'Pago' THEN 1 END) > 0
                   AND COUNT(CASE WHEN p.Status IN ('Pendente','Atrasada') THEN 1 END) > 0
                   )
-                    THEN 'Parcialmente Pago'
+                    THEN 'ParcialmentePago'
 
                 WHEN COUNT(CASE WHEN p.Status = 'Atrasada' THEN 1 END) > 0
-                    THEN 'Aguardando Pagamento'
+                    THEN 'AguardandoPagamento'
 
-                ELSE 'Aguardando Pagamento'
+                ELSE 'AguardandoPagamento'
             END AS NovoStatus
         FROM Parcela p
         WHERE p.VendaID IN (SELECT DISTINCT VendaID FROM inserted)

@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using GVC.DAL;
 using GVC.Model;
-using GVC.Model.Enums;
+using GVC.Model.Enums.GVC.Model.Enums;
 using GVC.Model.Extensions;
 using GVC.UTIL;
 using System;
@@ -296,7 +296,7 @@ WHERE ParcelaID = @ParcelaID";
             EnumStatusVenda statusVendaEnum = (EnumStatusVenda)Enum.Parse(typeof(EnumStatusVenda), statusVenda);
 
             if (statusVendaEnum == EnumStatusVenda.Aberta)
-                statusVendaEnum = EnumStatusVenda.AguardandoPagamento;
+                statusVendaEnum =  EnumStatusVenda.AguardandoPagamento;
 
             _vendaDal.AtualizarStatusVenda(vendaId, statusVendaEnum);
 

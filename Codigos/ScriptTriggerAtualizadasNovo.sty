@@ -139,10 +139,10 @@ BEGIN
                 p.VendaID,
                 CASE
                     WHEN COUNT(CASE WHEN p.Status = 'Cancelada' THEN 1 END) = COUNT(*) THEN 'Cancelada'
-                    WHEN COUNT(CASE WHEN p.Status IN ('Pendente','Atrasada') THEN 1 END) > 0 THEN 'Aguardando Pagamento'
-                    WHEN COUNT(CASE WHEN p.Status = 'Parcialmente Paga' THEN 1 END) > 0 THEN 'Parcialmente Pago'
+                    WHEN COUNT(CASE WHEN p.Status IN ('Pendente','Atrasada') THEN 1 END) > 0 THEN 'AguardandoPagamento'
+                    WHEN COUNT(CASE WHEN p.Status = 'Parcialmente Paga' THEN 1 END) > 0 THEN 'ParcialmentePago'
                     WHEN COUNT(CASE WHEN p.Status = 'Paga' THEN 1 END) = COUNT(*) THEN 'Concluída'
-                    ELSE 'Aguardando Pagamento'
+                    ELSE 'AguardandoPagamento'
                 END AS NovoStatus
             FROM Parcela p
             WHERE p.VendaID IN (SELECT DISTINCT VendaID FROM inserted)
@@ -236,7 +236,7 @@ BEGIN
     SET StatusVenda = CASE
                           WHEN fp.NomeFormaPagamento IN ('Dinheiro','Débito','PIX','Transferência') THEN 'Concluída'
                           WHEN fp.NomeFormaPagamento = 'Cheque' THEN 'Em Análise'
-                          ELSE 'Aguardando Pagamento'
+                          ELSE 'AguardandoPagamento'
                       END
     FROM Venda v
     INNER JOIN inserted i ON v.VendaID = i.VendaID
