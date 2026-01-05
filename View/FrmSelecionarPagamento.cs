@@ -233,12 +233,22 @@ namespace GVC.View
 
             InicializarControles(); // resetar antes
 
-            // Formas de pagamento à vista → parcela única
-            var formasAVista = new[] { "Dinheiro", "PIX", "Transferência", "Cartão de Débito", "À Vista" };
+            // ===============================
+            // PAGAMENTO À VISTA
+            // ===============================
+            var formasAVista = new[]
+            {
+        "Dinheiro",
+        "PIX",
+        "Transferência",
+        "Cartão de Débito",
+        "À Vista"
+    };
 
             if (formasAVista.Contains(forma.NomeFormaPagamento, StringComparer.OrdinalIgnoreCase))
             {
-                _parcelasGeradas = new List<ParcelaModel>{
+                _parcelasGeradas = new List<ParcelaModel>
+        {
             new ParcelaModel
             {
                 NumeroParcela = 1,
@@ -247,28 +257,49 @@ namespace GVC.View
                 ValorParcela = _dto.Total,
                 ValorRecebido = _dto.Total,
                 Status = EnumStatusParcela.Pago
-            }};
+            }
+        };
 
                 foreach (var p in _parcelasGeradas)
                 {
                     p.ValorParcela = Math.Round(p.ValorParcela, 2);
-                    p.ValorRecebido = Math.Round(Math.Min((decimal)p.ValorRecebido, p.ValorParcela), 2);
+                    p.ValorRecebido = Math.Round(p.ValorRecebido.Value, 2);
                 }
 
                 CarregarGridParcelas(_parcelasGeradas);
+                return;
             }
-            // Formas de pagamento parceladas → habilitar controles
-            else if (forma.NomeFormaPagamento.Equals("Crediário", StringComparison.OrdinalIgnoreCase) ||
-                     forma.NomeFormaPagamento.Equals("Cheque", StringComparison.OrdinalIgnoreCase) ||
-                     forma.NomeFormaPagamento.Equals("Boleto", StringComparison.OrdinalIgnoreCase) ||
-                     forma.NomeFormaPagamento.Equals("Cartão de Crédito", StringComparison.OrdinalIgnoreCase))
+
+            // ===============================
+            // PAGAMENTO NÃO IMEDIATO
+            // ===============================
+            if (forma.NomeFormaPagamento.Equals("Crediário", StringComparison.OrdinalIgnoreCase) ||
+                forma.NomeFormaPagamento.Equals("Cheque", StringComparison.OrdinalIgnoreCase) ||
+                forma.NomeFormaPagamento.Equals("Boleto", StringComparison.OrdinalIgnoreCase) ||
+                forma.NomeFormaPagamento.Equals("Cartão de Crédito", StringComparison.OrdinalIgnoreCase))
             {
-                txtValorRecebido.Enabled = false; // 🔒 valor recebido só após pagamento
+                // 🔒 Controles habilitados
+                txtValorRecebido.Enabled = false;
                 numParcelas.Enabled = true;
                 dtpPrimeiraParcela.Enabled = true;
                 numIntervalo.Enabled = true;
                 btnGerarParcelas.Enabled = true;
-                dgvParcelas.DataSource = null;
+
+                // ✅ PARCELA PADRÃO PENDENTE (garantia)
+                _parcelasGeradas = new List<ParcelaModel>
+        {
+            new ParcelaModel
+            {
+                NumeroParcela = 1,
+                DataVencimento = DateTime.Now.AddDays(30),
+                ValorParcela = _dto.Total,
+                ValorRecebido = null,
+                DataPagamento = null,
+                Status = EnumStatusParcela.Pendente
+            }
+        };
+
+                CarregarGridParcelas(_parcelasGeradas);
             }
         }
 

@@ -10,6 +10,37 @@ using System.IO;
 
 public static class CupomNaoFiscalPdf
 {
+    private static void Linha(ColumnDescriptor col, string texto = "")
+    {
+        col.Item().Text(texto);
+    }
+    private static string Centralizar(string texto, int largura = 32)
+    {
+        if (texto.Length >= largura)
+            return texto.Substring(0, largura);
+
+        int espacos = (largura - texto.Length) / 2;
+        return new string(' ', espacos) + texto;
+    }
+    private static void LinhaQuebrada(ColumnDescriptor col, string texto, int largura = 40)
+    {
+        if (string.IsNullOrWhiteSpace(texto))
+        {
+            Linha(col);
+            return;
+        }
+
+        for (int i = 0; i < texto.Length; i += largura)
+        {
+            var parte = texto.Substring(i, Math.Min(largura, texto.Length - i));
+            Linha(col, parte);
+        }
+    }
+
+
+
+
+
     public static void Gerar(VendaModel venda, List<ItemVendaModel> itens,
         string nomeEmpresa,
         string cnpj,
@@ -41,13 +72,10 @@ public static class CupomNaoFiscalPdf
                     void Linha(string texto = "") =>
                         col.Item().Text(texto);
 
-                    void LinhaCentro(string texto) =>
-                        col.Item().AlignCenter().Text(texto);
-
                     Linha("========================================");
-                    LinhaCentro(nomeEmpresa.ToUpper());
+                    Linha(Centralizar(nomeEmpresa.ToUpper()));
                     Linha($"CNPJ: {cnpj}");
-                    Linha(endereco);
+                    LinhaQuebrada(col, endereco, 40);
                     Linha($"Tel: {telefone}");
                     Linha("========================================");
                     Linha($"DATA: {venda.DataVenda:dd/MM/yyyy}    HORA: {venda.DataVenda:HH:mm:ss}");
@@ -60,17 +88,15 @@ public static class CupomNaoFiscalPdf
                     int i = 1;
                     foreach (var item in itens)
                     {
-                        string desc = item.ProdutoDescricao.Length > 18
-                            ? item.ProdutoDescricao[..18]
-                            : item.ProdutoDescricao;
+                        string desc = item.ProdutoDescricao.Length > 18? item.ProdutoDescricao[..18]: item.ProdutoDescricao;
 
-                        Linha(string.Format("{0,-4} {1,-18} {2,3} {3,8:N2} {4,8:N2}",
+                        LinhaQuebrada(col, string.Format("{0,-4} {1,-18} {2,3} {3,8:N2} {4,8:N2}",
                             i,
                             desc,
                             item.Quantidade,
                             item.PrecoUnitario,
-                            item.Subtotal
-                        ));
+                            item.Subtotal,
+                        40));
                         i++;
                     }
 
@@ -78,8 +104,8 @@ public static class CupomNaoFiscalPdf
                     Linha($"TOTAL DE ITENS: {itens.Count}");
                     Linha($"VALOR TOTAL: R$ {venda.ValorTotal:N2}");
                     Linha("========================================");
-                    LinhaCentro("Agradecemos a preferência!");
-                    LinhaCentro("Volte sempre!");
+                    Linha(Centralizar("Agradecemos a preferência!"));
+                    Linha(Centralizar("Volte sempre!"));
                     Linha("========================================");
                 });
             });

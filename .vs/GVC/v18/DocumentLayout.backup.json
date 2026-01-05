@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dto\\cupomnaofiscalpdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:dto\\cupomnaofiscalpdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -15,7 +19,7 @@
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 24,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -126,7 +130,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "CupomNaoFiscalPdf.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\DTO\\CupomNaoFiscalPdf.cs",
+              "RelativeDocumentMoniker": "DTO\\CupomNaoFiscalPdf.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\DTO\\CupomNaoFiscalPdf.cs*",
+              "RelativeToolTip": "DTO\\CupomNaoFiscalPdf.cs*",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAwwGEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T00:37:35.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "FrmPDVendas.cs",
               "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs",
               "RelativeDocumentMoniker": "View\\FrmPDVendas.cs",
@@ -139,44 +156,42 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "FrmSelecionarPagamento.cs",
               "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs",
               "RelativeDocumentMoniker": "View\\FrmSelecionarPagamento.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs*",
-              "RelativeToolTip": "View\\FrmSelecionarPagamento.cs*",
-              "ViewState": "AgIAANwAAAAAAAAAAAAiwOwAAABfAAAAAAAAAA==",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs",
+              "RelativeToolTip": "View\\FrmSelecionarPagamento.cs",
+              "ViewState": "AgIAAAMBAAAAAAAAAAAwwC4BAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-04T21:34:19.477Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "FrmSelecionarPagamento.cs [Projeto]",
               "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs",
               "RelativeDocumentMoniker": "View\\FrmSelecionarPagamento.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs [Projeto]*",
-              "RelativeToolTip": "View\\FrmSelecionarPagamento.cs [Projeto]*",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmSelecionarPagamento.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:33:31.348Z",
-              "EditorCaption": " [Projeto]"
+              "WhenOpened": "2026-01-04T21:33:31.348Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "FrmPDVendas.cs [Projeto]",
               "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs",
               "RelativeDocumentMoniker": "View\\FrmPDVendas.cs",
               "ToolTip": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs [Projeto]",
               "RelativeToolTip": "View\\FrmPDVendas.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:33:35.032Z",
-              "EditorCaption": " [Projeto]"
+              "WhenOpened": "2026-01-04T21:33:35.032Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "VendaDal.cs",
               "DocumentMoniker": "C:\\GVCSqlExpress\\DAL\\VendaDal.cs",
               "RelativeDocumentMoniker": "DAL\\VendaDal.cs",
@@ -184,8 +199,7 @@
               "RelativeToolTip": "DAL\\VendaDal.cs",
               "ViewState": "AgIAAIgAAAAAAAAAAAAowJoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T22:09:06.596Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-04T22:09:06.596Z"
             }
           ]
         },
