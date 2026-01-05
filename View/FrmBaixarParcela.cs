@@ -49,7 +49,7 @@ namespace GVC.View
             _parcelasIds.Add(parcelaId);
             _saldoTotal = saldo;
 
-            txtClienteNome.Text = nome;
+            this.Text = nome;
 
             // 🔹 AGORA É SALDO
             lblSaldo.Text = saldo.ToString("C2", _culturaBR);
@@ -150,33 +150,34 @@ namespace GVC.View
         }
 
         public void CarregarDados(
-                 IEnumerable<ContaAReceberDTO> parcelas,
-                 string nomeCliente,
-                 decimal totalParcelas,
-                 decimal totalRecebido,
-                 decimal saldoTotal)
+           IEnumerable<ContaAReceberDTO> parcelas,
+           string nomeCliente,
+           decimal totalParcelas,
+           decimal totalRecebido,
+           decimal saldoTotal)
         {
             // Guarda os IDs das parcelas
             _parcelasIds = parcelas.Select(p => p.ParcelaID).ToList();
             _saldoTotal = saldoTotal;
 
-            // Preenche campos
-            txtClienteNome.Text = nomeCliente;
+            // Preenche campos          
             lblRotuloValorParcela.Text = "Saldo Atual";
-
             lblSaldo.Text = saldoTotal.ToString("C2", _culturaBR);
             txtValorRecebido.Text = totalRecebido.ToString("C2", _culturaBR);
             txtNovoSaldo.Text = saldoTotal.ToString("C2", _culturaBR);
-
 
             // Grid
             ConfigurarGridBaixa();
             dgvParcelasBaixa.DataSource = parcelas.ToList();
 
+            // Define o título da janela com o nome do cliente
+            this.Text = $"Cliente: {nomeCliente}";
+
             // Foco automático
             if (_parcelasIds.Count == 1)
                 txtValorRecebido.Focus();
         }
+
 
 
         private void btnConfirmarBaixa_Click(object sender, EventArgs e)

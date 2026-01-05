@@ -1106,7 +1106,7 @@ namespace GVC.View
             string nomeCliente = selecionadas[0].NomeCliente ?? string.Empty;
 
             using var frm = new FrmBaixarParcela();
-            frm.txtClienteNome.Text = nomeCliente;
+            frm.Text = nomeCliente;
             frm.lblInfo.Text = selecionadas.Count == 1
                 ? nomeCliente : "Múltiplas parcelas selecionadas";
 
