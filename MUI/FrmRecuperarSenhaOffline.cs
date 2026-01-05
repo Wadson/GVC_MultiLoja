@@ -26,7 +26,7 @@ namespace GVC.MUI
         // ====================== REDEFINIR SENHA ======================
         private bool RedefinirSenha(string token, string novaSenha)
         {
-            using (var con = Conexao.Conex())
+            using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
             {
                 string query = "SELECT UsuarioID, DataExpiracao FROM TokensRedefinicao WHERE Token = @Token";
                 using (var cmd = new SqlCommand(query, con))
@@ -92,7 +92,7 @@ namespace GVC.MUI
 
             try
             {
-                using (var con = Conexao.Conex())
+                using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
                 {
                     string sql = @"
                 SELECT UsuarioID, Email
@@ -165,7 +165,7 @@ namespace GVC.MUI
         {
             string tokenLower = token.ToLower();
 
-            using (var con = Conexao.Conex())
+            using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
             {
                 string query = @"
                 INSERT INTO TokensRedefinicao (UsuarioID, Token, DataExpiracao) 

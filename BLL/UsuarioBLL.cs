@@ -21,7 +21,7 @@ namespace GVC.BLL
         {
             string sql = "SELECT Senha FROM Usuarios WHERE UsuarioID = @id";
 
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@id", usuarioId);

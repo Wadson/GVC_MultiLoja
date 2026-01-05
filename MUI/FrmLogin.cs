@@ -1,15 +1,16 @@
-﻿using GVC.View;
+﻿using GVC.UTIL;
+using GVC.View;
+using Krypton.Toolkit;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using System.Security.Cryptography;
-using Krypton.Toolkit;
-using GVC.UTIL;
 
 namespace GVC.MUI
 {
@@ -27,6 +28,11 @@ namespace GVC.MUI
             Utilitario.ConfigurarEnterComoTab(this);
 
             this.KeyPreview = true; // habilita o preview das teclas
+
+            // Preenche opções
+            cmbAmbiente.Items.Add("Homologacao");
+            cmbAmbiente.Items.Add("Teste");
+            cmbAmbiente.SelectedIndex = 0; // padrão
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -77,7 +83,7 @@ namespace GVC.MUI
         {
             string query = "SELECT NomeUsuario, TipoUsuario FROM Usuarios WHERE NomeUsuario = @Usuario AND Senha = @Senha";
 
-            using (var con = Conexao.Conex())
+            using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -99,7 +105,7 @@ namespace GVC.MUI
         {
             string senhaHash = GerarHashSHA256(password);
 
-            using (var con = Conexao.Conex())
+            using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
             {
                 // Primeiro: verificar se o usuário existe
                 string queryUsuario = "SELECT Senha, TipoUsuario FROM Usuarios WHERE NomeUsuario = @Usuario";
@@ -173,23 +179,29 @@ namespace GVC.MUI
             string usuario = txtUsuario.Text.Trim();
             string password = txtSenha.Text;
 
-            string resultado = ValidarLogin(usuario, password);
+            // pega o ambiente escolhido
+            Sessao.AmbienteSelecionado = cmbAmbiente.SelectedItem.ToString();
 
-            if (resultado == "OK")
+            using (SqlConnection conn = Conexao.Conex())
             {
-                Utilitario.Mensagens.Aviso("Login realizado com sucesso!");
+                conn.Open();
+               Utilitario.Mensagens.Info($"Conectado ao ambiente: {Sessao.AmbienteSelecionado}");
 
-                this.Hide();
-                FrmTelaPrincipal frm = new FrmTelaPrincipal();
-                frm.Show();
+                string resultado = ValidarLogin(usuario, password);
 
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-
-            }
-            else
-            {
-                Utilitario.Mensagens.Erro(resultado);
+                if (resultado == "OK")
+                {
+                    Utilitario.Mensagens.Info("Login realizado com sucesso!");
+                    this.Hide();
+                    FrmTelaPrincipal frm = new FrmTelaPrincipal();
+                    frm.Show();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    Utilitario.Mensagens.Erro(resultado);
+                }
             }
         }
         private void txtRepetPass_Validating(object sender, CancelEventArgs e)
@@ -257,6 +269,16 @@ namespace GVC.MUI
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             txtUsuario.Focus();
+
+            // Lê todos os nomes de connectionStrings do App.config
+            foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
+            {
+                cmbAmbiente.Items.Add(cs.Name);
+            }
+
+            // Define o primeiro como padrão
+            if (cmbAmbiente.Items.Count > 0)
+                cmbAmbiente.SelectedIndex = 0;
         }       
     }
 }

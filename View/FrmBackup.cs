@@ -15,13 +15,17 @@ namespace GVC.View
             InitializeComponent();
         }
 
-        // Nome do banco de dados no SQL Server
-        private string NomeBanco => "NomeDoBanco"; // 🔴 ajuste para o nome real do seu banco
+        // Nome do banco de dados no SQL Server (ajuste conforme seu banco real)
+        private string NomeBanco => "bdsiscontrol";
 
-        // Caminho padrão para salvar backups
+        // Caminho padrão para salvar backups (pasta do sistema + Bkp)
         private string GetDefaultBackupFolder()
         {
-            string pastaBackup = @"C:\GVC\Data\Backup";
+            // Pega a pasta onde o sistema está rodando
+            string pastaSistema = Application.StartupPath;
+
+            // Cria subpasta "Bkp" dentro da pasta do sistema
+            string pastaBackup = Path.Combine(pastaSistema, "Bkp");
 
             if (!Directory.Exists(pastaBackup))
                 Directory.CreateDirectory(pastaBackup);
@@ -68,7 +72,7 @@ namespace GVC.View
                 string nomeArquivo = $"Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
                 string destino = Path.Combine(pastaDestino, nomeArquivo);
 
-                using (var con = Conexao.Conex())
+                using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
                 {
                     string sql = $"BACKUP DATABASE [{NomeBanco}] TO DISK = @Destino";
                     using (var cmd = new SqlCommand(sql, con))
@@ -102,10 +106,16 @@ namespace GVC.View
                     return false;
                 }
 
-                var resp = MessageBox.Show("A restauração irá substituir o banco atual. Deseja prosseguir?\nRecomenda-se fazer backup antes.");
+                var resp = MessageBox.Show(
+                    "A restauração irá substituir o banco atual. Deseja prosseguir?\nRecomenda-se fazer backup antes.",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
                 if (resp != DialogResult.Yes) return false;
 
-                using (var con = Conexao.Conex())
+                using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
                 {
                     string sql = $"RESTORE DATABASE [{NomeBanco}] FROM DISK = @Arquivo WITH REPLACE";
                     using (var cmd = new SqlCommand(sql, con))

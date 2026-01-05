@@ -118,7 +118,7 @@ namespace GVC.DAL
         public FormaPagamentoModel? BuscarPorId(int formaPgtoID)
         {
             string sql = SqlBase + " WHERE FormaPgtoID = @Id";
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Id", formaPgtoID);

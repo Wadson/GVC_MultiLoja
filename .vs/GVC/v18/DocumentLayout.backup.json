@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dto\\cupomnaofiscalpdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:dto\\cupomnaofiscalpdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmbackup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmbackup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmselecionarpagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmbackup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmbackup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dal\\vendadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:dal\\vendadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\mui\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:mui\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -131,75 +123,52 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CupomNaoFiscalPdf.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\DTO\\CupomNaoFiscalPdf.cs",
-              "RelativeDocumentMoniker": "DTO\\CupomNaoFiscalPdf.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\DTO\\CupomNaoFiscalPdf.cs*",
-              "RelativeToolTip": "DTO\\CupomNaoFiscalPdf.cs*",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAwwGEAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T00:37:35.165Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmPDVendas.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs",
-              "RelativeDocumentMoniker": "View\\FrmPDVendas.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs",
-              "RelativeToolTip": "View\\FrmPDVendas.cs",
-              "ViewState": "AgIAAEUCAAAAAAAAAIAwwFYCAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T22:48:40.698Z",
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\App.config",
+              "RelativeDocumentMoniker": "App.config",
+              "ToolTip": "C:\\GVCSqlExpress\\App.config",
+              "RelativeToolTip": "App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-01-05T10:29:08.507Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FrmSelecionarPagamento.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs",
-              "RelativeDocumentMoniker": "View\\FrmSelecionarPagamento.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs",
-              "RelativeToolTip": "View\\FrmSelecionarPagamento.cs",
-              "ViewState": "AgIAAAMBAAAAAAAAAAAwwC4BAAANAAAAAAAAAA==",
+              "Title": "FrmBackup.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmBackup.cs",
+              "RelativeDocumentMoniker": "View\\FrmBackup.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmBackup.cs",
+              "RelativeToolTip": "View\\FrmBackup.cs",
+              "ViewState": "AgIAALAAAAAAAAAAAAAowL0AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:34:19.477Z",
+              "WhenOpened": "2026-01-05T10:26:11.143Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "FrmSelecionarPagamento.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs",
-              "RelativeDocumentMoniker": "View\\FrmSelecionarPagamento.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmSelecionarPagamento.cs [Projeto]",
-              "RelativeToolTip": "View\\FrmSelecionarPagamento.cs [Projeto]",
+              "Title": "FrmBackup.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmBackup.cs",
+              "RelativeDocumentMoniker": "View\\FrmBackup.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmBackup.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmBackup.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:33:31.348Z"
+              "WhenOpened": "2026-01-05T10:26:07.066Z",
+              "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FrmPDVendas.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs",
-              "RelativeDocumentMoniker": "View\\FrmPDVendas.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmPDVendas.cs [Projeto]",
-              "RelativeToolTip": "View\\FrmPDVendas.cs [Projeto]",
+              "DocumentIndex": 3,
+              "Title": "FrmLogin.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\MUI\\FrmLogin.cs",
+              "RelativeDocumentMoniker": "MUI\\FrmLogin.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\MUI\\FrmLogin.cs [Projeto]*",
+              "RelativeToolTip": "MUI\\FrmLogin.cs [Projeto]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T21:33:35.032Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "VendaDal.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\DAL\\VendaDal.cs",
-              "RelativeDocumentMoniker": "DAL\\VendaDal.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\DAL\\VendaDal.cs",
-              "RelativeToolTip": "DAL\\VendaDal.cs",
-              "ViewState": "AgIAAIgAAAAAAAAAAAAowJoAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T22:09:06.596Z"
+              "WhenOpened": "2026-01-05T10:24:31.566Z",
+              "EditorCaption": " [Projeto]"
             }
           ]
         },

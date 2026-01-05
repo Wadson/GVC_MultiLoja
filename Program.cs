@@ -22,16 +22,16 @@ namespace GVC
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //FrmLogin frmLogin = new FrmLogin();
-            //if (frmLogin.ShowDialog() == DialogResult.OK) // Se o login for bem-sucedido
-            //{
-            //    Application.Run(new FrmTelaPrincipal()); // Abre a tela principal
-            //}
-            //else
-            //{
-            //    Application.Exit(); // Fecha o aplicativo se o login for cancelado
-            //}
-            Application.Run(new FrmTelaPrincipal());
+            FrmLogin frmLogin = new FrmLogin();
+            if (frmLogin.ShowDialog() == DialogResult.OK) // Se o login for bem-sucedido
+            {
+                Application.Run(new FrmTelaPrincipal()); // Abre a tela principal
+            }
+            else
+            {
+                Application.Exit(); // Fecha o aplicativo se o login for cancelado
+            }
+            //Application.Run(new FrmTelaPrincipal());
         }
     }
 }

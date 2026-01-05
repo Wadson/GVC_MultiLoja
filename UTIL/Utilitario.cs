@@ -179,7 +179,7 @@ namespace GVC.UTIL{
 
         public static void PesquisarPorCodigoRetornarNomeTexBox(string query, string nomeParametro, string parametro, KryptonTextBox txtResultado)
         {
-                using (var connection = Conexao.Conex())
+                using (var connection = Conexao.Conex(Sessao.AmbienteSelecionado))
                 try
                 {
                     connection.Open();
@@ -207,7 +207,7 @@ namespace GVC.UTIL{
         }
         public static string PesquisarPorCodigoRetornarNome(string query, string nomeParametro, object parametro)
         {
-            using (var connection = Conexao.Conex())
+            using (var connection = Conexao.Conex(Sessao.AmbienteSelecionado))
             {
                 try
                 {
@@ -1382,7 +1382,7 @@ namespace GVC.UTIL{
                 END,
                 NomeFormaPagamento";
 
-                using (var connection = Conexao.Conex())
+                using (var connection = Conexao.Conex(Sessao.AmbienteSelecionado))
                 using (var command = new SqlCommand(query, connection))
                 {
                     connection.Open();

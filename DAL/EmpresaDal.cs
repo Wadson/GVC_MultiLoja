@@ -149,7 +149,7 @@ namespace GVC.DAL
         private DataTable ExecuteReaderToDataTable(string sql, params SqlParameter[] parameters)
         {
             var dt = new DataTable();
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 if (parameters != null && parameters.Length > 0)
@@ -196,7 +196,7 @@ namespace GVC.DAL
             DataTable dt = new DataTable();
 
             // Exemplo de uso com SqlConnection (SQL Server)
-            using (SqlConnection conn = Conexao.Conex())
+            using (SqlConnection conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
@@ -217,7 +217,7 @@ namespace GVC.DAL
                 FROM Empresa
                 WHERE (RazaoSocial = @RazaoSocial OR Cnpj = @Cnpj)";
 
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@RazaoSocial", string.IsNullOrWhiteSpace(razaoSocial) ? (object)DBNull.Value : razaoSocial);
@@ -252,7 +252,7 @@ namespace GVC.DAL
                 );
                 SELECT SCOPE_IDENTITY();";
 
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@RazaoSocial", empresa.RazaoSocial ?? (object)DBNull.Value);
@@ -320,7 +320,7 @@ namespace GVC.DAL
 
             sql.Append(" WHERE EmpresaID = @EmpresaID");
 
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql.ToString(), conn))
             {
                 cmd.Parameters.AddWithValue("@EmpresaID", empresa.EmpresaID);
@@ -351,7 +351,7 @@ namespace GVC.DAL
         public void ExcluirEmpresa(int empresaID)
         {
             const string sql = "DELETE FROM Empresa WHERE EmpresaID = @EmpresaID";
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@EmpresaID", empresaID);
@@ -402,7 +402,7 @@ namespace GVC.DAL
                 FROM Empresa
                 WHERE Cnpj = @Cnpj";
 
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Cnpj", string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
@@ -421,7 +421,7 @@ namespace GVC.DAL
         public EmpresaModel? BuscarPorId(int empresaID)
         {
             string sql = SqlBase + " WHERE e.EmpresaID = @Id";
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Id", empresaID);

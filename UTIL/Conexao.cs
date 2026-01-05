@@ -1,26 +1,17 @@
 ﻿using Microsoft.Data.SqlClient; // biblioteca para SQL Server
 using System;
+using System.Configuration;
 
 namespace GVC.UTIL
 {
     internal class Conexao
     {
-        public static SqlConnection Conex()
+        public static SqlConnection Conex(string ambiente = null)
         {
             try
             {
-                // Nome do servidor: pode ser localhost\SQLEXPRESS ou WR-PC\SQLEXPRESS
-                string serverName = @"localhost\SQLEXPRESS";
-
-                // Nome do banco que você criou
-                string databaseName = "bdsiscontrol";
-
-                // Autenticação do Windows (integrada)
-                string connString = $"Server={serverName};Database={databaseName};Trusted_Connection=True;Encrypt=False;";
-
-                // Se quiser usar usuário e senha SQL:
-                // string connString = $"Server={serverName};Database={databaseName};User Id=usuario;Password=senha;Encrypt=False;";
-
+                string ambienteFinal = ambiente ?? Sessao.AmbienteSelecionado;
+                string connString = ConfigurationManager.ConnectionStrings[ambienteFinal].ConnectionString;
                 return new SqlConnection(connString);
             }
             catch (Exception ex)
@@ -35,3 +26,20 @@ namespace GVC.UTIL
         Edicao = 2
     }
 }
+
+/*
+ * // Para homologação
+using (SqlConnection conn = Conexao.Conex("Homologacao"))
+{
+    conn.Open();
+    // comandos SQL aqui
+}
+
+// Para teste
+using (SqlConnection conn = Conexao.Conex("Teste"))
+{
+    conn.Open();
+    // comandos SQL aqui
+}
+
+ * */

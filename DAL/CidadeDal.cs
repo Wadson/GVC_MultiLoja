@@ -144,7 +144,7 @@ namespace GVC.DAL
         {
             string sql = SqlBase + " WHERE CidadeID = @CidadeID";
             var dt = new DataTable();
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@CidadeID", codigo);

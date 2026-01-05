@@ -42,9 +42,14 @@
             txtSenha = new Krypton.Toolkit.KryptonTextBox();
             label1 = new Label();
             pictureBox1 = new PictureBox();
+            kryptonComboBox1 = new Krypton.Toolkit.KryptonComboBox();
+            cmbAmbiente = new Krypton.Toolkit.KryptonComboBox();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxUser).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxRepetePassWord).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)kryptonComboBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbAmbiente).BeginInit();
             SuspendLayout();
             // 
             // lblEsqueciSenha
@@ -61,7 +66,7 @@
             // btnCancelar
             // 
             btnCancelar.CornerRoundingRadius = 20F;
-            btnCancelar.Location = new Point(159, 234);
+            btnCancelar.Location = new Point(159, 260);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnCancelar.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -131,7 +136,7 @@
             // btnLogin
             // 
             btnLogin.CornerRoundingRadius = 20F;
-            btnLogin.Location = new Point(25, 231);
+            btnLogin.Location = new Point(25, 257);
             btnLogin.Name = "btnLogin";
             btnLogin.OverrideDefault.Back.Color1 = Color.FromArgb(8, 142, 254);
             btnLogin.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -328,10 +333,49 @@
             pictureBox1.TabIndex = 187;
             pictureBox1.TabStop = false;
             // 
+            // kryptonComboBox1
+            // 
+            kryptonComboBox1.CornerRoundingRadius = -1F;
+            kryptonComboBox1.DropDownWidth = 121;
+            kryptonComboBox1.IntegralHeight = false;
+            kryptonComboBox1.Location = new Point(0, 0);
+            kryptonComboBox1.Name = "kryptonComboBox1";
+            kryptonComboBox1.Size = new Size(121, 21);
+            kryptonComboBox1.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonComboBox1.TabIndex = 188;
+            kryptonComboBox1.Text = "kryptonComboBox1";
+            // 
+            // cmbAmbiente
+            // 
+            cmbAmbiente.CornerRoundingRadius = 10F;
+            cmbAmbiente.DropDownWidth = 228;
+            cmbAmbiente.IntegralHeight = false;
+            cmbAmbiente.Location = new Point(25, 226);
+            cmbAmbiente.Name = "cmbAmbiente";
+            cmbAmbiente.Size = new Size(234, 27);
+            cmbAmbiente.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbAmbiente.StateCommon.ComboBox.Border.Rounding = 10F;
+            cmbAmbiente.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            cmbAmbiente.TabIndex = 189;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 9.25F);
+            label2.ForeColor = Color.FromArgb(8, 142, 254);
+            label2.Location = new Point(34, 207);
+            label2.Name = "label2";
+            label2.Size = new Size(64, 16);
+            label2.TabIndex = 190;
+            label2.Text = "Ambiente";
+            // 
             // FrmLogin
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(276, 319);
+            Controls.Add(label2);
+            Controls.Add(cmbAmbiente);
+            Controls.Add(kryptonComboBox1);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
             Controls.Add(txtSenha);
@@ -345,7 +389,7 @@
             Controls.Add(panel3);
             Controls.Add(pictureBoxRepetePassWord);
             ForeColor = Color.FromArgb(252, 252, 250);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -370,6 +414,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxUser).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxRepetePassWord).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)kryptonComboBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbAmbiente).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -389,5 +435,8 @@
         public Krypton.Toolkit.KryptonTextBox txtSenha;
         private Label label1;
         private PictureBox pictureBox1;
+        private Krypton.Toolkit.KryptonComboBox kryptonComboBox1;
+        private Krypton.Toolkit.KryptonComboBox cmbAmbiente;
+        private Label label2;
     }
 }
