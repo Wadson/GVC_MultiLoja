@@ -24,8 +24,9 @@ namespace GVC.View
         private readonly CultureInfo _culturaBR = new CultureInfo("pt-BR");
         private List<int> _parcelasIds = new();
         private decimal _saldoTotal;
-        private IFormatProvider? _br;
         private readonly ParcelaBLL parcelaBLL = new ParcelaBLL();
+        private decimal _valorParcela;
+
 
         private int? FormaPgtoIDSelecionada => cmbFormaPagamento.SelectedValue == null
         ? (int?)null : Convert.ToInt32(cmbFormaPagamento.SelectedValue);
@@ -37,6 +38,8 @@ namespace GVC.View
         public FrmBaixarParcela()
         {
             InitializeComponent();
+            this.txtValorRecebido.TextChanged += new System.EventHandler(this.txtValorRecebido_TextChanged);
+
         }
 
         public FrmBaixarParcela(int parcelaId, string nome, decimal valorParcela, decimal valorRecebido, decimal saldo)
@@ -186,24 +189,38 @@ namespace GVC.View
                 return;
             }
 
-            if (!decimal.TryParse(_valorRecebido, NumberStyles.Any, _br, out decimal valorBaixa) || valorBaixa <= 0)
+            if (!decimal.TryParse(_valorRecebido, NumberStyles.Any, _culturaBR, out decimal valorBaixa) || valorBaixa <= 0)
             {
                 Utilitario.Mensagens.Aviso("Informe um valor válido maior que zero.");
                 return;
             }
 
-            if (valorBaixa > _saldoTotal)
+
+            string textoParcela = txtValorParcela.Text
+                            .Replace("R$", "")
+                            .Replace(".", "")
+                            .Replace(",", ".")
+                            .Trim();
+
+            if (!decimal.TryParse(textoParcela, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorParcela))
             {
-                Utilitario.Mensagens.Aviso("O valor pago não pode ser maior que o saldo devido.");
+                Utilitario.Mensagens.Aviso("Valor da parcela inválido.");
                 return;
             }
+
+            if (valorBaixa > valorParcela)
+            {
+                Utilitario.Mensagens.Aviso("O valor pago não pode ser maior que o valor da parcela.");
+                return;
+            }
+
             // 🔹 OBSERVAÇÃO VEM DO FORM
             string? observacao = string.IsNullOrWhiteSpace(txtObservacao.Text)
                 ? null : txtObservacao.Text.Trim();
 
             if (_parcelasIds.Count == 1)
-            {               
-                parcelaBLL.BaixarParcelaParcial(_parcelasIds[0],valorBaixa,FormaPgtoIDSelecionada.Value, observacao);
+            {
+                parcelaBLL.BaixarParcelaParcial(_parcelasIds[0], valorBaixa, FormaPgtoIDSelecionada.Value, observacao);
             }
             else
             {
@@ -242,35 +259,34 @@ namespace GVC.View
         }
         private void txtValorRecebido_TextChanged(object sender, EventArgs e)
         {
-            string texto = txtValorRecebido.Text
-         .Replace("R$", "")
-         .Replace(" ", "")
-         .Trim();
+            // 🔹 PEGA O VALOR DIRETO DO TEXTBOX DA PARCELA (como era antes)
+            string textoParcela = txtValorParcela.Text
+                .Replace("R$", "")
+                .Replace(".", "")
+                .Replace(",", ".")
+                .Trim();
 
-            if (string.IsNullOrEmpty(texto))
+            string textoRecebido = txtValorRecebido.Text
+                .Replace("R$", "")
+                .Replace(".", "")
+                .Replace(",", ".")
+                .Trim();
+
+            if (!decimal.TryParse(textoParcela, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorParcela))
+                return;
+
+            if (!decimal.TryParse(textoRecebido, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorRecebido))
             {
-                txtSaldo.Text = _saldoTotal.ToString("C2");
-                btnConfirmarBaixa.Enabled = false;
+                txtSaldo.Text = valorParcela.ToString("C2", _culturaBR);
                 return;
             }
 
-            if (decimal.TryParse(texto, NumberStyles.Any, _br, out decimal valorBaixa))
-            {
-                if (valorBaixa <= 0 || valorBaixa > _saldoTotal)
-                {
-                    txtSaldo.Text = _saldoTotal.ToString("C2");
-                    btnConfirmarBaixa.Enabled = false;
-                }
-                else
-                {
-                    txtSaldo.Text = (_saldoTotal - valorBaixa).ToString("C2");
-                    btnConfirmarBaixa.Enabled = true;
-                }
-            }
-            else
-            {
-                btnConfirmarBaixa.Enabled = false;
-            }
+            decimal saldo = valorParcela - valorRecebido;
+
+            if (saldo < 0)
+                saldo = valorParcela;
+
+            txtSaldo.Text = saldo.ToString("C2", _culturaBR);
         }
         private void btnListarControlesDoForm_Click(object sender, EventArgs e)
         {
@@ -309,10 +325,11 @@ namespace GVC.View
             // Limpa possíveis caracteres indesejados
             string textoLimpo = txtValorRecebido.Text
                 .Replace("R$", "")
+
                 .Replace(" ", "")
                 .Trim();
 
-            if (decimal.TryParse(textoLimpo, NumberStyles.Any, _br, out decimal valor))
+            if (decimal.TryParse(textoLimpo, NumberStyles.Any, _culturaBR, out decimal valor))
             {
                 // Formata como 1.000,00 (sem R$ para evitar problema no parse)
                 txtValorRecebido.Text = valor.ToString("C2");
@@ -354,7 +371,7 @@ namespace GVC.View
             var dal = new FormaPagamentoDal();
             var formas = dal.Listar(); // deve retornar ID + Nome
 
-            
+
             cmbFormaPagamento.DisplayMember = "NomeFormaPagamento";
             cmbFormaPagamento.ValueMember = "FormaPgtoID";
             cmbFormaPagamento.DataSource = formas;
@@ -365,6 +382,11 @@ namespace GVC.View
         private void FrmBaixarParcela_Load(object sender, EventArgs e)
         {
             CarregarFormasPagamento();
+        }
+
+        private void txtValorParcela_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

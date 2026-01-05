@@ -42,13 +42,11 @@
             txtSenha = new Krypton.Toolkit.KryptonTextBox();
             label1 = new Label();
             pictureBox1 = new PictureBox();
-            kryptonComboBox1 = new Krypton.Toolkit.KryptonComboBox();
             cmbAmbiente = new Krypton.Toolkit.KryptonComboBox();
             label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxUser).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxRepetePassWord).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)kryptonComboBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbAmbiente).BeginInit();
             SuspendLayout();
             // 
@@ -326,24 +324,12 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.GVC_Gestao_de_Vendas_e_Cobrancas;
-            pictureBox1.Location = new Point(100, 3);
+            pictureBox1.Location = new Point(96, -9);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(83, 85);
+            pictureBox1.Size = new Size(100, 100);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 187;
             pictureBox1.TabStop = false;
-            // 
-            // kryptonComboBox1
-            // 
-            kryptonComboBox1.CornerRoundingRadius = -1F;
-            kryptonComboBox1.DropDownWidth = 121;
-            kryptonComboBox1.IntegralHeight = false;
-            kryptonComboBox1.Location = new Point(0, 0);
-            kryptonComboBox1.Name = "kryptonComboBox1";
-            kryptonComboBox1.Size = new Size(121, 21);
-            kryptonComboBox1.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            kryptonComboBox1.TabIndex = 188;
-            kryptonComboBox1.Text = "kryptonComboBox1";
             // 
             // cmbAmbiente
             // 
@@ -375,7 +361,6 @@
             ClientSize = new Size(276, 319);
             Controls.Add(label2);
             Controls.Add(cmbAmbiente);
-            Controls.Add(kryptonComboBox1);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
             Controls.Add(txtSenha);
@@ -414,7 +399,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxUser).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxRepetePassWord).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)kryptonComboBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbAmbiente).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -435,7 +419,6 @@
         public Krypton.Toolkit.KryptonTextBox txtSenha;
         private Label label1;
         private PictureBox pictureBox1;
-        private Krypton.Toolkit.KryptonComboBox kryptonComboBox1;
         private Krypton.Toolkit.KryptonComboBox cmbAmbiente;
         private Label label2;
     }

@@ -18,6 +18,8 @@ namespace GVC.View
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ProdutoID { get; set; }
+        private bool _ignorandoBuscar = false;
+        private bool _ignorarEventosBusca = false;
         public FrmMovimentacaoEstoque()
         {
             InitializeComponent();
@@ -56,7 +58,7 @@ namespace GVC.View
         }
         private void ValidarFormulario()
         {
-            if (string.IsNullOrWhiteSpace(txtProdutoID.Text))
+            if (string.IsNullOrWhiteSpace(lblIdProduto.Text))
                 throw new Exception("Selecione um produto.");
 
             if (cmbTipoMovimentacao.SelectedIndex < 0)
@@ -70,8 +72,8 @@ namespace GVC.View
         }
         private void LimparFormulario()
         {
-            txtProdutoID.Clear();
-            txtNomeProduto.Clear();
+            lblIdProduto.Text = "0";
+            txtProdutoBuscar.Clear();
             txtObservacao.Clear();
             numQuantidade.Value = 1;
             lblEstoqueAtual.Text = "0";
@@ -81,21 +83,6 @@ namespace GVC.View
 
         private void btnBuscarProduto_Click(object sender, EventArgs e)
         {
-            // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
-            string textoDigitado = txtNomeProduto.Text;
-
-            using (var pesquisaProduto = new FrmLocalizarProduto(this, textoDigitado))
-            {
-                pesquisaProduto.Owner = this;
-
-                if (pesquisaProduto.ShowDialog() == DialogResult.OK)
-                {
-                    txtNomeProduto.Text = pesquisaProduto.ProdutoSelecionado;
-                    lblEstoqueAtual.Text = pesquisaProduto.Estoque.ToString("N2");
-                    ProdutoID = pesquisaProduto.ProdutoID;
-                    txtNomeProduto.SelectionStart = txtNomeProduto.Text.Length;
-                }
-            }
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -106,7 +93,7 @@ namespace GVC.View
 
                 var mov = new MovimentacaoEstoqueModel
                 {
-                    ProdutoID = Convert.ToInt32(txtProdutoID.Text),
+                    ProdutoID = Convert.ToInt32(lblIdProduto.Text),
                     TipoMovimentacao = cmbTipoMovimentacao.Text,
                     Quantidade = (int)numQuantidade.Value,
                     Origem = cmbOrigem.Text,
@@ -130,6 +117,57 @@ namespace GVC.View
         private void bnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtProdutoBuscar_TextChanged(object sender, EventArgs e)
+        {
+            // Se estamos ignorando eventos, sai imediatamente
+            if (_ignorarEventosBusca || _ignorandoBuscar)
+                return;
+
+            var texto = txtProdutoBuscar.Text.Trim();
+            if (string.IsNullOrEmpty(texto))
+                return;
+
+            using (var pesquisaProduto = new FrmLocalizarProduto(this, texto))
+            {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtProdutoBuscar.PointToScreen(Point.Empty);
+
+                pesquisaProduto.StartPosition = FormStartPosition.Manual;
+                pesquisaProduto.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtProdutoBuscar.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaProduto.Width = txtProdutoBuscar.Width;
+
+                if (pesquisaProduto.ShowDialog() == DialogResult.OK)
+                {
+                    // Ativa flag para bloquear reentrância
+                    _ignorandoBuscar = true;
+                    try
+                    {
+                        txtProdutoBuscar.Text = pesquisaProduto.ProdutoSelecionado;
+                        lblEstoqueAtual.Text = pesquisaProduto.Estoque.ToString();
+                        ProdutoID = pesquisaProduto.ProdutoID;
+                        lblIdProduto.Text = ProdutoID.ToString();
+                        txtProdutoBuscar.SelectionStart = txtProdutoBuscar.Text.Length;
+                    }
+                    finally
+                    {
+                        // Libera flag após atualização
+                        _ignorandoBuscar = false;
+                        cmbTipoMovimentacao.Select();
+                    }
+                }
+            }
+
+        }
+
+        private void grpProduto_Enter(object sender, EventArgs e)
+        {
         }
     }
 }
