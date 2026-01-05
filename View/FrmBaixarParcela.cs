@@ -25,8 +25,7 @@ namespace GVC.View
         private List<int> _parcelasIds = new();
         private decimal _saldoTotal;
         private readonly ParcelaBLL parcelaBLL = new ParcelaBLL();
-        private decimal _valorParcela;
-
+       
 
         private int? FormaPgtoIDSelecionada => cmbFormaPagamento.SelectedValue == null
         ? (int?)null : Convert.ToInt32(cmbFormaPagamento.SelectedValue);
@@ -49,13 +48,16 @@ namespace GVC.View
             _parcelasIds.Clear();
             _parcelasIds.Add(parcelaId);
             _saldoTotal = saldo;
+
             txtClienteNome.Text = nome;
 
-            txtValorParcela.Text = valorParcela.ToString("C2");
-            txtValorRecebido.Text = valorRecebido.ToString("C2");
-            txtSaldo.Text = saldo.ToString("C2");
+            // 🔹 AGORA É SALDO
+            lblSaldo.Text = saldo.ToString("C2", _culturaBR);
 
-            lblRotuloValorParcela.Text = "Valor da Parcela";
+            txtValorRecebido.Text = valorRecebido.ToString("C2", _culturaBR);
+            txtNovoSaldo.Text = saldo.ToString("C2", _culturaBR);
+
+            lblRotuloValorParcela.Text = "Saldo Atual";
             txtValorRecebido.Focus();
         }
         private void ConfigurarGridBaixa()
@@ -160,13 +162,12 @@ namespace GVC.View
 
             // Preenche campos
             txtClienteNome.Text = nomeCliente;
-            lblRotuloValorParcela.Text = _parcelasIds.Count > 1
-                ? "Valor Total das Parcelas"
-                : "Valor da Parcela";
+            lblRotuloValorParcela.Text = "Saldo Atual";
 
-            txtValorParcela.Text = totalParcelas.ToString("C2");
-            txtValorRecebido.Text = totalRecebido.ToString("C2");
-            txtSaldo.Text = saldoTotal.ToString("C2");
+            lblSaldo.Text = saldoTotal.ToString("C2", _culturaBR);
+            txtValorRecebido.Text = totalRecebido.ToString("C2", _culturaBR);
+            txtNovoSaldo.Text = saldoTotal.ToString("C2", _culturaBR);
+
 
             // Grid
             ConfigurarGridBaixa();
@@ -196,7 +197,7 @@ namespace GVC.View
             }
 
 
-            string textoParcela = txtValorParcela.Text
+            string textoParcela = lblSaldo.Text
                             .Replace("R$", "")
                             .Replace(".", "")
                             .Replace(",", ".")
@@ -259,12 +260,11 @@ namespace GVC.View
         }
         private void txtValorRecebido_TextChanged(object sender, EventArgs e)
         {
-            // 🔹 PEGA O VALOR DIRETO DO TEXTBOX DA PARCELA (como era antes)
-            string textoParcela = txtValorParcela.Text
-                .Replace("R$", "")
-                .Replace(".", "")
-                .Replace(",", ".")
-                .Trim();
+            string textoSaldo = lblSaldo.Text
+         .Replace("R$", "")
+         .Replace(".", "")
+         .Replace(",", ".")
+         .Trim();
 
             string textoRecebido = txtValorRecebido.Text
                 .Replace("R$", "")
@@ -272,21 +272,21 @@ namespace GVC.View
                 .Replace(",", ".")
                 .Trim();
 
-            if (!decimal.TryParse(textoParcela, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorParcela))
+            if (!decimal.TryParse(textoSaldo, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal saldoAtual))
                 return;
 
             if (!decimal.TryParse(textoRecebido, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorRecebido))
             {
-                txtSaldo.Text = valorParcela.ToString("C2", _culturaBR);
+                txtNovoSaldo.Text = saldoAtual.ToString("C2", _culturaBR);
                 return;
             }
 
-            decimal saldo = valorParcela - valorRecebido;
+            decimal novoSaldo = saldoAtual - valorRecebido;
 
-            if (saldo < 0)
-                saldo = valorParcela;
+            if (novoSaldo < 0)
+                novoSaldo = saldoAtual;
 
-            txtSaldo.Text = saldo.ToString("C2", _culturaBR);
+            txtNovoSaldo.Text = novoSaldo.ToString("C2", _culturaBR);
         }
         private void btnListarControlesDoForm_Click(object sender, EventArgs e)
         {

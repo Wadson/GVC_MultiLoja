@@ -35,7 +35,7 @@
             btnConfirmarBaixa = new Krypton.Toolkit.KryptonButton();
             lblRotuloFormaPgto = new Label();
             cmbFormaPagamento = new Krypton.Toolkit.KryptonComboBox();
-            txtSaldo = new Krypton.Toolkit.KryptonTextBox();
+            txtNovoSaldo = new Krypton.Toolkit.KryptonTextBox();
             txtValorRecebido = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloValorRecebido = new Label();
             dgvParcelasBaixa = new Krypton.Toolkit.KryptonDataGridView();
@@ -49,7 +49,7 @@
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             txtClienteNome = new Label();
-            txtValorParcela = new Label();
+            lblSaldo = new Label();
             ((System.ComponentModel.ISupportInitialize)cmbFormaPagamento).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvParcelasBaixa).BeginInit();
             kryptonStatusStrip1.SuspendLayout();
@@ -101,9 +101,9 @@
             lblRotuloValorParcela.ForeColor = Color.FromArgb(0, 76, 172);
             lblRotuloValorParcela.Location = new Point(152, 0);
             lblRotuloValorParcela.Name = "lblRotuloValorParcela";
-            lblRotuloValorParcela.Size = new Size(87, 17);
+            lblRotuloValorParcela.Size = new Size(44, 17);
             lblRotuloValorParcela.TabIndex = 1032;
-            lblRotuloValorParcela.Text = "Valor Parcela:";
+            lblRotuloValorParcela.Text = "Saldo:";
             // 
             // btnCancelar
             // 
@@ -245,31 +245,31 @@
             cmbFormaPagamento.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             cmbFormaPagamento.TabIndex = 0;
             // 
-            // txtSaldo
+            // txtNovoSaldo
             // 
-            txtSaldo.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtSaldo.Location = new Point(169, 234);
-            txtSaldo.Name = "txtSaldo";
-            txtSaldo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtSaldo.ReadOnly = true;
-            txtSaldo.Size = new Size(160, 24);
-            txtSaldo.StateCommon.Back.Color1 = Color.White;
-            txtSaldo.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
-            txtSaldo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            txtSaldo.StateCommon.Border.ColorAngle = 1F;
-            txtSaldo.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            txtSaldo.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtSaldo.StateCommon.Border.Rounding = 6F;
-            txtSaldo.StateCommon.Border.Width = 1;
-            txtSaldo.StateCommon.Content.Color1 = Color.Gray;
-            txtSaldo.StateCommon.Content.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSaldo.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtSaldo.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
-            txtSaldo.StateNormal.Back.Color1 = Color.FromArgb(192, 255, 255);
-            txtSaldo.StateNormal.Content.Color1 = Color.FromArgb(192, 255, 255);
-            txtSaldo.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
-            txtSaldo.TabIndex = 1054;
-            txtSaldo.TabStop = false;
+            txtNovoSaldo.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
+            txtNovoSaldo.Location = new Point(169, 234);
+            txtNovoSaldo.Name = "txtNovoSaldo";
+            txtNovoSaldo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
+            txtNovoSaldo.ReadOnly = true;
+            txtNovoSaldo.Size = new Size(160, 24);
+            txtNovoSaldo.StateCommon.Back.Color1 = Color.White;
+            txtNovoSaldo.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
+            txtNovoSaldo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            txtNovoSaldo.StateCommon.Border.ColorAngle = 1F;
+            txtNovoSaldo.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtNovoSaldo.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            txtNovoSaldo.StateCommon.Border.Rounding = 6F;
+            txtNovoSaldo.StateCommon.Border.Width = 1;
+            txtNovoSaldo.StateCommon.Content.Color1 = Color.Gray;
+            txtNovoSaldo.StateCommon.Content.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNovoSaldo.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtNovoSaldo.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
+            txtNovoSaldo.StateNormal.Back.Color1 = Color.FromArgb(192, 255, 255);
+            txtNovoSaldo.StateNormal.Content.Color1 = Color.FromArgb(192, 255, 255);
+            txtNovoSaldo.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
+            txtNovoSaldo.TabIndex = 1054;
+            txtNovoSaldo.TabStop = false;
             // 
             // txtValorRecebido
             // 
@@ -430,7 +430,7 @@
             flowLayoutPanel1.Controls.Add(lblRotuloCliente);
             flowLayoutPanel1.Controls.Add(txtClienteNome);
             flowLayoutPanel1.Controls.Add(lblRotuloValorParcela);
-            flowLayoutPanel1.Controls.Add(txtValorParcela);
+            flowLayoutPanel1.Controls.Add(lblSaldo);
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(3, 26);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -447,20 +447,20 @@
             txtClienteNome.Name = "txtClienteNome";
             txtClienteNome.Size = new Size(87, 17);
             txtClienteNome.TabIndex = 1065;
-            txtClienteNome.Text = "Valor Parcela:";
+            txtClienteNome.Text = "Nome Cliente";
             // 
-            // txtValorParcela
+            // lblSaldo
             // 
-            txtValorParcela.AutoSize = true;
-            txtValorParcela.BackColor = Color.Transparent;
-            txtValorParcela.Font = new Font("Segoe UI", 9.75F);
-            txtValorParcela.ForeColor = Color.FromArgb(0, 76, 172);
-            txtValorParcela.Location = new Point(245, 0);
-            txtValorParcela.Name = "txtValorParcela";
-            txtValorParcela.Size = new Size(87, 17);
-            txtValorParcela.TabIndex = 1065;
-            txtValorParcela.Text = "Valor Parcela:";
-            txtValorParcela.Click += txtValorParcela_Click;
+            lblSaldo.AutoSize = true;
+            lblSaldo.BackColor = Color.Transparent;
+            lblSaldo.Font = new Font("Segoe UI", 9.75F);
+            lblSaldo.ForeColor = Color.FromArgb(0, 76, 172);
+            lblSaldo.Location = new Point(202, 0);
+            lblSaldo.Name = "lblSaldo";
+            lblSaldo.Size = new Size(41, 17);
+            lblSaldo.TabIndex = 1065;
+            lblSaldo.Text = "Saldo";
+            lblSaldo.Click += txtValorParcela_Click;
             // 
             // FrmBaixarParcela
             // 
@@ -476,7 +476,7 @@
             Controls.Add(dgvParcelasBaixa);
             Controls.Add(txtValorRecebido);
             Controls.Add(lblRotuloValorRecebido);
-            Controls.Add(txtSaldo);
+            Controls.Add(txtNovoSaldo);
             Controls.Add(lblRotuloFormaPgto);
             Controls.Add(cmbFormaPagamento);
             Controls.Add(btnCancelar);
@@ -514,7 +514,7 @@
         public Krypton.Toolkit.KryptonButton btnConfirmarBaixa;
         private Label lblRotuloFormaPgto;
         private Krypton.Toolkit.KryptonComboBox cmbFormaPagamento;
-        public Krypton.Toolkit.KryptonTextBox txtSaldo;
+        public Krypton.Toolkit.KryptonTextBox txtNovoSaldo;
         public Krypton.Toolkit.KryptonTextBox txtValorRecebido;
         private Label lblRotuloValorRecebido;
         private Krypton.Toolkit.KryptonDataGridView dgvParcelasBaixa;
@@ -528,6 +528,6 @@
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private FlowLayoutPanel flowLayoutPanel1;
         public Label txtClienteNome;
-        public Label txtValorParcela;
+        public Label lblSaldo;
     }
 }

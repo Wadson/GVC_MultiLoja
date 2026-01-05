@@ -19,19 +19,23 @@ namespace GVC.DAL
         {
             var sql = new StringBuilder();
             sql.Append(@"
-        SELECT 
-            p.ParcelaID       AS ParcelaID,
-            p.VendaID         AS VendaID,
-            p.NumeroParcela   AS NumeroParcela,
-            c.Nome            AS NomeCliente,
-            v.DataVenda       AS DataVenda,
-            p.DataVencimento  AS DataVencimento,
-            p.ValorParcela    AS ValorParcela,
-            p.ValorRecebido   AS ValorRecebido,
-            (p.ValorParcela + p.Juros + p.Multa - p.ValorRecebido) AS Saldo,
-            p.Status          AS StatusParcela,
-            fp.NomeFormaPagamento      AS NomeFormaPagamento,
-            v.Observacoes     AS Observacoes
+       SELECT 
+    p.ParcelaID       AS ParcelaID,
+    p.VendaID         AS VendaID,
+    p.NumeroParcela   AS NumeroParcela,
+    c.Nome            AS NomeCliente,
+    v.DataVenda       AS DataVenda,
+    p.DataVencimento  AS DataVencimento,
+    p.ValorParcela    AS ValorParcela,
+    p.ValorRecebido   AS ValorRecebido,
+    (ISNULL(p.ValorParcela, 0)
+     + ISNULL(p.Juros, 0)
+     + ISNULL(p.Multa, 0)
+     - ISNULL(p.ValorRecebido, 0)) AS Saldo,
+    p.Status          AS StatusParcela,
+    fp.NomeFormaPagamento AS NomeFormaPagamento,
+    v.Observacoes     AS Observacoes
+
         FROM Parcela p
         JOIN Venda v       ON v.VendaID = p.VendaID
         JOIN Clientes c    ON c.ClienteID = v.ClienteID

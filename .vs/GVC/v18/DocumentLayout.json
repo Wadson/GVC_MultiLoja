@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmbaixarparcela.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmbaixarparcela.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmbaixarparcela.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmbaixarparcela.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -107,26 +107,26 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FrmContasReceber.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
-              "RelativeDocumentMoniker": "View\\FrmContasReceber.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
-              "RelativeToolTip": "View\\FrmContasReceber.cs",
-              "ViewState": "AgIAAFIFAAAAAAAAAAAUwHAFAAAAAAAAAAAAAA==",
+              "Title": "FrmBaixarParcela.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmBaixarParcela.cs",
+              "RelativeDocumentMoniker": "View\\FrmBaixarParcela.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmBaixarParcela.cs",
+              "RelativeToolTip": "View\\FrmBaixarParcela.cs",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAvwKkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T14:33:32.129Z",
+              "WhenOpened": "2026-01-05T14:50:31.627Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FrmContasReceber.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
-              "RelativeDocumentMoniker": "View\\FrmContasReceber.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs [Projeto]",
-              "RelativeToolTip": "View\\FrmContasReceber.cs [Projeto]",
+              "Title": "FrmBaixarParcela.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmBaixarParcela.cs",
+              "RelativeDocumentMoniker": "View\\FrmBaixarParcela.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmBaixarParcela.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmBaixarParcela.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T14:32:36.495Z",
+              "WhenOpened": "2026-01-05T14:46:18.87Z",
               "EditorCaption": " [Projeto]"
             }
           ]

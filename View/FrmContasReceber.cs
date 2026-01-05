@@ -118,7 +118,8 @@ namespace GVC.View
                 DataPropertyName = "ValorParcela",
                 HeaderText = "Valor Parcela",
                 Width = 100,
-                ValueType = typeof(long),
+                ValueType = typeof(decimal
+                ),
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", Alignment = DataGridViewContentAlignment.MiddleRight }
             });
 
@@ -127,7 +128,7 @@ namespace GVC.View
                 DataPropertyName = "ValorRecebido",
                 HeaderText = "Recebido",
                 Width = 100,
-                ValueType = typeof(long),
+                ValueType = typeof(decimal),
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", Alignment = DataGridViewContentAlignment.MiddleRight }
             });
 
@@ -136,7 +137,7 @@ namespace GVC.View
                 DataPropertyName = "Saldo",
                 HeaderText = "Saldo",
                 Width = 100,
-                ValueType = typeof(long),
+                ValueType = typeof(decimal),
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", Alignment = DataGridViewContentAlignment.MiddleRight }
             });
 
@@ -317,14 +318,15 @@ namespace GVC.View
                 cmbStatusParcela.Text
             );
 
-            dgvContasAReceber.DataSource = lista;
+            ConfigurarGridContasAReceber();   // ✅ PRIMEIRO configura colunas
+            dgvContasAReceber.DataSource = lista; // ✅ DEPOIS faz o bind
 
-            ConfigurarGridContasAReceber();
             AtualizarResumo(lista);
             AtualizarResumoGeral(lista);
             AtualizarTotalSelecionado();
             AtualizarParcelasAtrasadasNoBanco();
         }
+
 
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
         {
