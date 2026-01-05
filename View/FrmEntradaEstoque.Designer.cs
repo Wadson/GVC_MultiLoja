@@ -50,13 +50,16 @@
             btnLocalizarProduto = new Krypton.Toolkit.KryptonButton();
             dtpDataDeEntrada = new Krypton.Toolkit.KryptonDateTimePicker();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
+            tableLayoutPanel1 = new TableLayoutPanel();
+            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // txtQuantidade
             // 
-            txtQuantidade.Location = new Point(530, 201);
+            txtQuantidade.Location = new Point(496, 128);
             txtQuantidade.Name = "txtQuantidade";
-            txtQuantidade.Size = new Size(130, 30);
+            txtQuantidade.Size = new Size(110, 30);
             txtQuantidade.StateCommon.Back.Color1 = Color.White;
             txtQuantidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtQuantidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -72,9 +75,9 @@
             // 
             // txtPrecoDeVenda
             // 
-            txtPrecoDeVenda.Location = new Point(400, 201);
+            txtPrecoDeVenda.Location = new Point(375, 128);
             txtPrecoDeVenda.Name = "txtPrecoDeVenda";
-            txtPrecoDeVenda.Size = new Size(130, 30);
+            txtPrecoDeVenda.Size = new Size(110, 30);
             txtPrecoDeVenda.StateCommon.Back.Color1 = Color.White;
             txtPrecoDeVenda.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoDeVenda.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -89,9 +92,9 @@
             // 
             // txtLucro
             // 
-            txtLucro.Location = new Point(270, 201);
+            txtLucro.Location = new Point(254, 128);
             txtLucro.Name = "txtLucro";
-            txtLucro.Size = new Size(130, 30);
+            txtLucro.Size = new Size(110, 30);
             txtLucro.StateCommon.Back.Color1 = Color.White;
             txtLucro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtLucro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -106,9 +109,9 @@
             // 
             // txtPrecoCusto
             // 
-            txtPrecoCusto.Location = new Point(140, 201);
+            txtPrecoCusto.Location = new Point(133, 128);
             txtPrecoCusto.Name = "txtPrecoCusto";
-            txtPrecoCusto.Size = new Size(130, 30);
+            txtPrecoCusto.Size = new Size(110, 30);
             txtPrecoCusto.StateCommon.Back.Color1 = Color.White;
             txtPrecoCusto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoCusto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -124,9 +127,9 @@
             // txtReferencia
             // 
             txtReferencia.CharacterCasing = CharacterCasing.Upper;
-            txtReferencia.Location = new Point(12, 201);
+            txtReferencia.Location = new Point(12, 128);
             txtReferencia.Name = "txtReferencia";
-            txtReferencia.Size = new Size(130, 30);
+            txtReferencia.Size = new Size(110, 30);
             txtReferencia.StateCommon.Back.Color1 = Color.White;
             txtReferencia.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtReferencia.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -143,9 +146,9 @@
             // txtNomeProduto
             // 
             txtNomeProduto.CharacterCasing = CharacterCasing.Upper;
-            txtNomeProduto.Location = new Point(12, 136);
+            txtNomeProduto.Location = new Point(81, 70);
             txtNomeProduto.Name = "txtNomeProduto";
-            txtNomeProduto.Size = new Size(618, 30);
+            txtNomeProduto.Size = new Size(404, 30);
             txtNomeProduto.StateCommon.Back.Color1 = Color.White;
             txtNomeProduto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNomeProduto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -163,7 +166,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 9.75F);
             label11.ForeColor = Color.FromArgb(0, 76, 172);
-            label11.Location = new Point(530, 181);
+            label11.Location = new Point(500, 108);
             label11.Name = "label11";
             label11.Size = new Size(76, 17);
             label11.TabIndex = 619;
@@ -174,7 +177,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 9.75F);
             label9.ForeColor = Color.FromArgb(0, 76, 172);
-            label9.Location = new Point(400, 181);
+            label9.Location = new Point(380, 108);
             label9.Name = "label9";
             label9.Size = new Size(93, 17);
             label9.TabIndex = 618;
@@ -185,7 +188,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9.75F);
             label8.ForeColor = Color.FromArgb(0, 76, 172);
-            label8.Location = new Point(270, 181);
+            label8.Location = new Point(256, 108);
             label8.Name = "label8";
             label8.Size = new Size(75, 17);
             label8.TabIndex = 617;
@@ -197,7 +200,7 @@
             label29.BackColor = Color.Transparent;
             label29.Font = new Font("Segoe UI", 9.75F);
             label29.ForeColor = Color.FromArgb(0, 76, 172);
-            label29.Location = new Point(556, 50);
+            label29.Location = new Point(518, 54);
             label29.Name = "label29";
             label29.Size = new Size(84, 17);
             label29.TabIndex = 246;
@@ -205,10 +208,10 @@
             // 
             // txtProdutoID
             // 
-            txtProdutoID.Location = new Point(12, 69);
+            txtProdutoID.Location = new Point(9, 69);
             txtProdutoID.Name = "txtProdutoID";
             txtProdutoID.ReadOnly = true;
-            txtProdutoID.Size = new Size(90, 30);
+            txtProdutoID.Size = new Size(69, 30);
             txtProdutoID.StateCommon.Back.Color1 = Color.White;
             txtProdutoID.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtProdutoID.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -228,7 +231,7 @@
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label23.ForeColor = Color.FromArgb(0, 76, 172);
-            label23.Location = new Point(12, 50);
+            label23.Location = new Point(9, 50);
             label23.Name = "label23";
             label23.Size = new Size(51, 17);
             label23.TabIndex = 239;
@@ -237,7 +240,7 @@
             // btnSair
             // 
             btnSair.CornerRoundingRadius = 10F;
-            btnSair.Location = new Point(560, 255);
+            btnSair.Location = new Point(536, 199);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -250,7 +253,7 @@
             btnSair.OverrideDefault.Border.Rounding = 20F;
             btnSair.OverrideDefault.Border.Width = 1;
             btnSair.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnSair.Size = new Size(100, 30);
+            btnSair.Size = new Size(70, 30);
             btnSair.StateCommon.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSair.StateCommon.Back.Color2 = Color.FromArgb(8, 142, 254);
             btnSair.StateCommon.Back.ColorAngle = 45F;
@@ -262,7 +265,7 @@
             btnSair.StateCommon.Border.Width = 1;
             btnSair.StateCommon.Content.ShortText.Color1 = Color.White;
             btnSair.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnSair.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSair.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 9F);
             btnSair.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
             btnSair.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
             btnSair.StatePressed.Back.ColorAngle = 135F;
@@ -289,7 +292,7 @@
             // btnNovo
             // 
             btnNovo.CornerRoundingRadius = 10F;
-            btnNovo.Location = new Point(452, 255);
+            btnNovo.Location = new Point(460, 199);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -302,7 +305,7 @@
             btnNovo.OverrideDefault.Border.Rounding = 20F;
             btnNovo.OverrideDefault.Border.Width = 1;
             btnNovo.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnNovo.Size = new Size(100, 30);
+            btnNovo.Size = new Size(70, 30);
             btnNovo.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
             btnNovo.StateCommon.Back.ColorAngle = 45F;
@@ -314,7 +317,7 @@
             btnNovo.StateCommon.Border.Width = 1;
             btnNovo.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
             btnNovo.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnNovo.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNovo.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 9F);
             btnNovo.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
             btnNovo.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
             btnNovo.StatePressed.Back.ColorAngle = 135F;
@@ -342,7 +345,7 @@
             // btnSalva
             // 
             btnSalva.CornerRoundingRadius = 10F;
-            btnSalva.Location = new Point(344, 255);
+            btnSalva.Location = new Point(384, 199);
             btnSalva.Name = "btnSalva";
             btnSalva.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalva.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -355,7 +358,7 @@
             btnSalva.OverrideDefault.Border.Rounding = 20F;
             btnSalva.OverrideDefault.Border.Width = 1;
             btnSalva.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnSalva.Size = new Size(100, 30);
+            btnSalva.Size = new Size(70, 30);
             btnSalva.StateCommon.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalva.StateCommon.Back.Color2 = Color.FromArgb(8, 142, 254);
             btnSalva.StateCommon.Back.ColorAngle = 45F;
@@ -367,7 +370,7 @@
             btnSalva.StateCommon.Border.Width = 1;
             btnSalva.StateCommon.Content.ShortText.Color1 = Color.White;
             btnSalva.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnSalva.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSalva.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 9F);
             btnSalva.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
             btnSalva.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
             btnSalva.StatePressed.Back.ColorAngle = 135F;
@@ -396,7 +399,7 @@
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 9.75F);
             label21.ForeColor = Color.FromArgb(0, 76, 172);
-            label21.Location = new Point(12, 181);
+            label21.Location = new Point(18, 108);
             label21.Name = "label21";
             label21.Size = new Size(69, 17);
             label21.TabIndex = 612;
@@ -407,7 +410,7 @@
             label25.AutoSize = true;
             label25.Font = new Font("Segoe UI", 9.75F);
             label25.ForeColor = Color.FromArgb(0, 76, 172);
-            label25.Location = new Point(12, 117);
+            label25.Location = new Point(81, 51);
             label25.Name = "label25";
             label25.Size = new Size(55, 17);
             label25.TabIndex = 611;
@@ -418,7 +421,7 @@
             label27.AutoSize = true;
             label27.Font = new Font("Segoe UI", 9.75F);
             label27.ForeColor = Color.FromArgb(0, 76, 172);
-            label27.Location = new Point(140, 181);
+            label27.Location = new Point(136, 108);
             label27.Name = "label27";
             label27.Size = new Size(82, 17);
             label27.TabIndex = 613;
@@ -427,7 +430,7 @@
             // btnLocalizarProduto
             // 
             btnLocalizarProduto.CornerRoundingRadius = 10F;
-            btnLocalizarProduto.Location = new Point(636, 135);
+            btnLocalizarProduto.Location = new Point(486, 69);
             btnLocalizarProduto.Name = "btnLocalizarProduto";
             btnLocalizarProduto.OverrideDefault.Back.Color1 = Color.FromArgb(8, 142, 254);
             btnLocalizarProduto.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -440,7 +443,7 @@
             btnLocalizarProduto.OverrideDefault.Border.Rounding = 20F;
             btnLocalizarProduto.OverrideDefault.Border.Width = 1;
             btnLocalizarProduto.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnLocalizarProduto.Size = new Size(37, 30);
+            btnLocalizarProduto.Size = new Size(30, 30);
             btnLocalizarProduto.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnLocalizarProduto.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
             btnLocalizarProduto.StateCommon.Back.ColorAngle = 45F;
@@ -497,21 +500,45 @@
             // 
             dtpDataDeEntrada.CornerRoundingRadius = 10F;
             dtpDataDeEntrada.Format = DateTimePickerFormat.Short;
-            dtpDataDeEntrada.Location = new Point(542, 69);
+            dtpDataDeEntrada.Location = new Point(520, 73);
             dtpDataDeEntrada.Name = "dtpDataDeEntrada";
             dtpDataDeEntrada.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverLightMode;
-            dtpDataDeEntrada.Size = new Size(131, 26);
+            dtpDataDeEntrada.Size = new Size(88, 26);
             dtpDataDeEntrada.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             dtpDataDeEntrada.StateCommon.Border.Rounding = 10F;
             dtpDataDeEntrada.StateCommon.Border.Width = 1;
             dtpDataDeEntrada.StateCommon.Content.Font = new Font("Segoe UI", 8F);
             dtpDataDeEntrada.TabIndex = 1013;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(kryptonLabel1, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Top;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(617, 25);
+            tableLayoutPanel1.TabIndex = 1014;
+            // 
+            // kryptonLabel1
+            // 
+            kryptonLabel1.Dock = DockStyle.Fill;
+            kryptonLabel1.Location = new Point(3, 3);
+            kryptonLabel1.Name = "kryptonLabel1";
+            kryptonLabel1.Size = new Size(611, 19);
+            kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel1.TabIndex = 0;
+            kryptonLabel1.Values.Text = "ENTRADA DE ESTOQUE";
+            // 
             // FrmEntradaEstoque
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(685, 326);
+            ClientSize = new Size(617, 243);
             ControlBox = false;
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(label29);
             Controls.Add(dtpDataDeEntrada);
             Controls.Add(btnLocalizarProduto);
@@ -545,6 +572,8 @@
             StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Load += FrmEntradaEstoque_Load;
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
 
@@ -572,5 +601,7 @@
         private Krypton.Toolkit.KryptonButton btnLocalizarProduto;
         private Krypton.Toolkit.KryptonDateTimePicker dtpDataDeEntrada;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
     }
 }

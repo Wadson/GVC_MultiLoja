@@ -23,4 +23,5 @@ namespace GVC.Model.Enums
         Cancelada, 
         Suspensa
     }
+
 }

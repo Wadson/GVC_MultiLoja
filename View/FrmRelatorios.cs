@@ -9,6 +9,7 @@ using Krypton.Toolkit;
 using OfficeOpenXml;
 using Dapper;
 using GVC.UTIL;
+using System.ComponentModel;
 
 namespace GVC.View
 {
@@ -16,10 +17,10 @@ namespace GVC.View
     {
         public FrmRelatorios()
         {
-            InitializeComponent();
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Ajuste se for comercial
+            InitializeComponent();            
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string clienteSelecionado { get; set; }
 
         private void CalcularTotalDataGrid()

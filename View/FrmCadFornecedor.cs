@@ -289,7 +289,7 @@ namespace GVC.View
             {
                 frmLocalizarCidade.Owner = this;
                 frmLocalizarCidade.ShowDialog();
-                txtCidade.Text = frmLocalizarCidade.cidadeSelecionado; // Define o nome do fornecedor retornado
+                txtCidade.Text = frmLocalizarCidade.CidadeSelecionado; // Define o nome do fornecedor retornado
             }
 
             // Religa o evento após modificar o texto
@@ -411,7 +411,7 @@ namespace GVC.View
                         if (pesquisaCidade.ShowDialog() == DialogResult.OK)
                         {
                             bloqueiaPesquisa = true;
-                            txtCidade.Text = pesquisaCidade.cidadeSelecionado;
+                            txtCidade.Text = pesquisaCidade.CidadeSelecionado;
                             CidadeID = pesquisaCidade.CidadeID;
                             txtCidade.SelectionStart = txtCidade.Text.Length;
                         }

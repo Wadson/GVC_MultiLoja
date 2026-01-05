@@ -890,7 +890,7 @@ namespace GVC.View
             {
                 frmLocalizarCidade.Owner = this;
                 frmLocalizarCidade.ShowDialog();
-                txtNomeCidade.Text = frmLocalizarCidade.cidadeSelecionado; // Define o nome do cliente retornado
+                txtNomeCidade.Text = frmLocalizarCidade.CidadeSelecionado; // Define o nome do cliente retornado
             }
 
             // Religa o evento após modificar o texto
@@ -1192,7 +1192,7 @@ namespace GVC.View
                         {
                             if (!txtNomeCidade.IsDisposed)
                             {
-                                txtNomeCidade.Text = pesquisaCidade.cidadeSelecionado;
+                                txtNomeCidade.Text = pesquisaCidade.CidadeSelecionado;
                                 CidadeID = pesquisaCidade.CidadeID;
                                 txtUF.Text = pesquisaCidade.Uf;
                                 txtNomeCidade.SelectionStart = txtNomeCidade.Text.Length;

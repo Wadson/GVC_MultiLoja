@@ -197,7 +197,7 @@
             lblRotuloCliente.BackColor = Color.Transparent;
             lblRotuloCliente.Font = new Font("Segoe UI", 9.75F);
             lblRotuloCliente.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloCliente.Location = new Point(96, 32);
+            lblRotuloCliente.Location = new Point(75, 32);
             lblRotuloCliente.Name = "lblRotuloCliente";
             lblRotuloCliente.Size = new Size(154, 17);
             lblRotuloCliente.TabIndex = 1053;
@@ -207,11 +207,11 @@
             // 
             txtFormaPgto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtFormaPgto.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtFormaPgto.Location = new Point(96, 52);
+            txtFormaPgto.Location = new Point(70, 52);
             txtFormaPgto.Name = "txtFormaPgto";
             txtFormaPgto.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             txtFormaPgto.ReadOnly = true;
-            txtFormaPgto.Size = new Size(333, 24);
+            txtFormaPgto.Size = new Size(359, 24);
             txtFormaPgto.StateCommon.Back.Color1 = Color.White;
             txtFormaPgto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtFormaPgto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -263,7 +263,7 @@
             // 
             txtFormaPgtoID.Location = new Point(0, 49);
             txtFormaPgtoID.Name = "txtFormaPgtoID";
-            txtFormaPgtoID.Size = new Size(90, 27);
+            txtFormaPgtoID.Size = new Size(64, 27);
             txtFormaPgtoID.StateCommon.Back.Color1 = Color.White;
             txtFormaPgtoID.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtFormaPgtoID.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);

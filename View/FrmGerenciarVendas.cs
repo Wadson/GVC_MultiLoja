@@ -18,6 +18,7 @@ namespace GVC.View
 {
     public partial class FrmGerenciarVendas : KryptonForm
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ClienteID { get; set; }
         public FrmGerenciarVendas()
         {
@@ -32,10 +33,7 @@ namespace GVC.View
                 return;
             }
 
-            long vendaId = Convert.ToInt64(
-                dgvVendas.CurrentRow.Cells["VendaID"].Value
-            );
-
+            int vendaId = Convert.ToInt32( dgvVendas.CurrentRow.Cells["VendaID"].Value);
             var frm = new FrmPDVendas(vendaId);
             frm.ShowDialog();
         }
@@ -48,9 +46,7 @@ namespace GVC.View
                 return;
             }
 
-            long vendaId = Convert.ToInt64(
-                dgvVendas.CurrentRow.Cells["VendaID"].Value
-            );
+            int vendaId = Convert.ToInt32( dgvVendas.CurrentRow.Cells["VendaID"].Value);
 
             var frm = new FrmPDVendas(vendaId);
            //Falta implementação de mais botões e controles aqui
@@ -65,7 +61,7 @@ namespace GVC.View
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            long vendaId = ObterVendaSelecionada();
+            int vendaId = ObterVendaSelecionada();
 
             using (var frmMotivo = new FrmMotivoOperacao("Cancelamento de Venda"))
             {
@@ -87,7 +83,7 @@ namespace GVC.View
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            long vendaId = ObterVendaSelecionada();
+            int vendaId = ObterVendaSelecionada();
 
             var confirmacao = MessageBox.Show(
                 "⚠️ ATENÇÃO – EXCLUSÃO TOTAL ⚠️\n\n" +
@@ -122,7 +118,7 @@ namespace GVC.View
         {
             this.Close();
         }
-        private long ObterVendaSelecionada()
+        private int ObterVendaSelecionada()
         {
             if (dgvVendas.SelectedRows.Count == 0)
                 throw new Exception("Selecione uma venda.");
@@ -132,7 +128,7 @@ namespace GVC.View
             if (valor == null || valor == DBNull.Value)
                 throw new Exception("Venda inválida.");
 
-            return Convert.ToInt64(valor);
+            return Convert.ToInt32(valor);
         }
         private void CarregarVendas()
         {

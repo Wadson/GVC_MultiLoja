@@ -1,6 +1,6 @@
 ﻿namespace GVC.View
 {
-    partial class FrmFinalizarVenda
+    partial class FrmSelecionarPagamento
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             kryptonPalette2 = new Krypton.Toolkit.KryptonPalette(components);
             tlpFinalizacao = new TableLayoutPanel();
@@ -155,8 +155,8 @@
             dgvParcelas.Name = "dgvParcelas";
             dgvParcelas.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueDarkMode;
             dgvParcelas.RowHeadersWidth = 23;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dgvParcelas.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dgvParcelas.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dgvParcelas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvParcelas.Size = new Size(347, 110);
             dgvParcelas.TabIndex = 1037;
@@ -180,7 +180,7 @@
             lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblTitulo.TabIndex = 0;
-            lblTitulo.Values.Text = "FINALIZAR VENDA";
+            lblTitulo.Values.Text = "Detalhes de pagamento";
             // 
             // pnResumoVenda
             // 
@@ -806,10 +806,10 @@
             btnConfirmar.StateTracking.Content.ShortText.Color2 = Color.Black;
             btnConfirmar.TabIndex = 1017;
             btnConfirmar.TabStop = false;
-            btnConfirmar.Values.Text = "Confirmar Venda";
+            btnConfirmar.Values.Text = "Confirmar";
             btnConfirmar.Click += btnConfirmar_Click;
             // 
-            // FrmFinalizarVenda
+            // FrmDetalhesPagamento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -820,7 +820,7 @@
             KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FrmFinalizarVenda";
+            Name = "FrmDetalhesPagamento";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;

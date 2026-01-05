@@ -10,9 +10,7 @@ using System.IO;
 
 public static class CupomNaoFiscalPdf
 {
-    public static void Gerar(
-        VendaModel venda,
-        List<ItemVendaModel> itens,
+    public static void Gerar(VendaModel venda, List<ItemVendaModel> itens,
         string nomeEmpresa,
         string cnpj,
         string endereco,
@@ -21,18 +19,13 @@ public static class CupomNaoFiscalPdf
     {
         QuestPDF.Settings.License = LicenseType.Community;
 
-        string pasta = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            "CuponsPDV"
-        );
+        string pasta = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "CuponsPDV");
 
         if (!Directory.Exists(pasta))
             Directory.CreateDirectory(pasta);
 
-        string arquivo = Path.Combine(
-            pasta,
-            $"CUPOM_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
-        );
+        string arquivo = Path.Combine( pasta, $"CUPOM_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
 
         Document.Create(container =>
         {
@@ -57,12 +50,11 @@ public static class CupomNaoFiscalPdf
                     Linha(endereco);
                     Linha($"Tel: {telefone}");
                     Linha("========================================");
-
                     Linha($"DATA: {venda.DataVenda:dd/MM/yyyy}    HORA: {venda.DataVenda:HH:mm:ss}");
                     Linha($"VENDA Nº: {venda.VendaID}");
                     Linha("========================================");
 
-                    Linha("ITEM  DESCRIÇÃO            QTD   VL UNIT   TOTAL");
+                    Linha("ITEM  DESCRIÇÃO     QTD   VL UNIT   TOTAL");
                     Linha("========================================");
 
                     int i = 1;
@@ -72,8 +64,7 @@ public static class CupomNaoFiscalPdf
                             ? item.ProdutoDescricao[..18]
                             : item.ProdutoDescricao;
 
-                        Linha(string.Format(
-                            "{0,-4} {1,-18} {2,3} {3,8:N2} {4,8:N2}",
+                        Linha(string.Format("{0,-4} {1,-18} {2,3} {3,8:N2} {4,8:N2}",
                             i,
                             desc,
                             item.Quantidade,

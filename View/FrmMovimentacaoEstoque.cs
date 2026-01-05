@@ -16,6 +16,7 @@ namespace GVC.View
 {
     public partial class FrmMovimentacaoEstoque : KryptonForm
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ProdutoID { get; set; }
         public FrmMovimentacaoEstoque()
         {

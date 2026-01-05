@@ -22,7 +22,8 @@ namespace GVC.View
         public int CidadeID { get; private set; }
         public string Uf { get; private set; }
         private bool recebendoTextoExterno = false;
-        public string cidadeSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string CidadeSelecionado { get; set; } // não serve para nada só para preencher o parametro do construtor
         public FrmLocalizarCidade(Form formChamador, string textoDigitado)
         {
             InitializeComponent();
@@ -214,7 +215,7 @@ namespace GVC.View
                 }
 
                 CidadeID = Convert.ToInt32(row.Cells["CidadeID"].Value);
-                cidadeSelecionado = row.Cells["Nome"].Value.ToString();
+                CidadeSelecionado = row.Cells["Nome"].Value.ToString();
 
                 // Se houver coluna de Uf
                 if (row.Cells["Uf"] != null && row.Cells["Uf"].Value != null)

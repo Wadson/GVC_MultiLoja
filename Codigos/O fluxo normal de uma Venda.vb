@@ -1,28 +1,80 @@
-﻿using GVC.BLL;
-using GVC.DAL;
-using GVC.DAL;
-using GVC.DTO;
-using GVC.Model;
-using GVC.Model.Enums;
-using GVC.UTIL;
-using Krypton.Toolkit;
-using Microsoft.Data;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+O fluxo normal de uma venda era para a Tela princi
 
+✅ FLUXO CORRETO (ERP / PDV PROFISSIONAL)
+📌 Regra de ouro
 
-namespace GVC.View
-{
+Quem FINALIZA a venda é o FrmPDVendas.
+Quem ESCOLHE como pagar é o FrmFinalizarVenda.
+
+🔁 FLUXO CORRETO (passo a passo)
+🟢 FrmPDVendas
+
+1- Usuário informa:
+*Cliente
+*Vendedor
+*Itens
+
+2 - Pressiona F12
+3 - Abre FrmFinalizarVenda
+4 - Espera o retorno
+
+🟡 FrmFinalizarVenda
+
+1 - Recebe os dados da venda (DTO)
+2- Usuário:
+* Escolhe forma de pagamento
+* Gera parcelas (se houver)
+3 - CONFIRMA
+4 - NÃO salva nada
+5 - Apenas:
+* Retorna dados para o PDV
+* Fecha com DialogResult.OK
+
+🔵 De volta ao FrmPDVendas
+
+1 - Agora SIM:
+* Salva venda
+* Salva itens
+* Salva parcelas
+* Atualiza estoque
+* Gera cupom
+2 - Limpa tela
+3 - Cursor volta para txtClienteBuscar
+
+1️⃣ FrmFinalizarVenda — o que ELE PODE FAZER
+✔️ Pode
+
+* Validar forma de pagamento
+* Gerar parcelas
+* Preencher DTO
+* Retornar dados
+
+❌ NÃO pode
+
+* Salvar venda
+* Definir status final
+* Emitir cupom
+* Atualizar estoque
+
+✅ RESULTADO FINAL (COMPORTAMENTO)
+
+✔ Usuário pressiona F12
+✔ Abre FrmSelecionarPagamento
+✔ Nada pode finalizar enquanto ele estiver aberto
+✔ Usuário confirma pagamento
+✔ FrmPDVendas recebe DTO
+✔ Só então:
+
+* salva venda
+* salva itens
+* salva parcelas
+* baixa estoque
+* gera cupom
+* limpa tela
+* foco volta para cliente
+
+Formulário FrmPDVendas
+
     public partial class FrmPDVendas : KryptonForm
     {
         private readonly ModoVenda _modo;
@@ -30,8 +82,6 @@ namespace GVC.View
         public int VendaID { get; private set; }
         private bool _clienteFoiSelecionado = false;
         private bool _ignorarEventosBusca = false;
-        private bool _aguardandoPagamento = false;
-
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int VendedorID { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -129,7 +179,8 @@ namespace GVC.View
             txtVendedorBuscar.Enabled = false;
             txtProdutoBuscar.Enabled = false;
             dgvItensVenda.Enabled = false;
-                        
+
+            btnNovaVenda.Enabled = false;
             btnFinalizarVenda.Enabled = false;
             btnSair.Enabled = true;
 
@@ -179,30 +230,29 @@ namespace GVC.View
                     txtProdutoBuscar.Enabled = true;
                     dgvItensVenda.Enabled = true;
                     btnFinalizarVenda.Enabled = true;
-                    // Permite iniciar nova venda
+                    btnNovaVenda.Enabled = true;        // Permite iniciar nova venda
                     break;
 
                 case EstadoVenda.Finalizada:
-                    // Tudo bloqueado, exceto nova venda e sair                   
+                    // Tudo bloqueado, exceto nova venda e sair
+                    btnNovaVenda.Enabled = true;
                     btnSair.Enabled = true;
                     break;
             }
         }
-
+               
 
         // Chame este método sempre que adicionar ou remover um item do grid
-
+       
 
         // Captura F12 para abrir tela de finalização
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (_aguardandoPagamento)
-                return true; // 🔒 ignora tudo
-
             if (keyData == Keys.F12 && _estadoVenda >= EstadoVenda.ComItens)
             {
+                // Apenas executa o mesmo método que o botão usa — NÃO abre o form aqui manualmente
                 FinalizarVenda();
-                return true;
+                return true; // Impede que a tecla F12 faça outro comportamento padrão
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -210,8 +260,6 @@ namespace GVC.View
 
         private void FrmPDVendas_Load(object sender, EventArgs e)
         {
-            dgvItensVenda.DataError += (s, e) => { e.ThrowException = false; };
-
             // Permite capturar teclas como F12 no form
             this.KeyPreview = true;
 
@@ -258,14 +306,19 @@ namespace GVC.View
                 // btnFinalizarVenda.Text = "Salvar Alterações";
             }
 
+            // 4. Finalmente: atualiza a tela e coloca foco no primeiro campo
+            AtualizarEstadoTela();
+
             // Garante o foco no campo de busca de cliente
             if (txtClienteBuscar.CanFocus)
             {
                 txtClienteBuscar.Focus();
                 txtClienteBuscar.SelectAll();
             }
-        }    
+        }
+      
 
+        
         private void ConfigurarGridItensVenda()
         {
             dgvItensVenda.AutoGenerateColumns = false;
@@ -505,16 +558,8 @@ namespace GVC.View
             txtVendedorBuscar.Clear();
 
             // ===== ITENS =====
-            // 🔒 Desacopla o grid antes de limpar
-            dgvItensVenda.DataSource = null;
-
-            // Limpa a lista
             _itensBinding.Clear();
-
-            // Reacopla
-            _itensBindingSource.DataSource = _itensBinding;
-            dgvItensVenda.DataSource = _itensBindingSource;
-
+            dgvItensVenda.Refresh();
 
             lblSubTotal.Text = "0,00";
 
@@ -561,25 +606,35 @@ namespace GVC.View
 
         private void FinalizarVenda()
         {
-            if (_aguardandoPagamento)
-                return;
-
             dgvItensVenda.EndEdit();
             _itensBindingSource.EndEdit();
 
             if (!ValidarEstoqueAntesFinalizar())
                 return;
 
-            if (ClienteID <= 0 || VendedorID <= 0 || _itensBinding.Count == 0)
+            if (ClienteID <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Selecione um cliente.");
                 return;
+            }
+            if (VendedorID <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Selecione um vendedor.");
+                return;
+            }
+            if (_itensBinding.Count == 0)
+            {
+                Utilitario.Mensagens.Aviso("Adicione itens à venda.");
+                return;
+            }
 
             var dto = new VendaFinalizacaoDTO
             {
                 Venda = new VendaModel
                 {
                     ClienteID = ClienteID,
-                    NomeCliente = txtClienteBuscar.Text,
-                    VendedorID = VendedorID,
+                    NomeCliente = txtClienteBuscar.Text, // 🔥 AQUI
+                    VendedorID = VendedorID > 0 ? VendedorID : null,
                     DataVenda = DateTime.Now,
                     ValorTotal = _valorTotal,
                     Desconto = _desconto
@@ -588,30 +643,25 @@ namespace GVC.View
                 Total = _valorTotal
             };
 
-            _aguardandoPagamento = true;
-            btnFinalizarVenda.Enabled = false; // 🔒 trava botão
-
+            // FrmPDVendas
             using (var frm = new FrmSelecionarPagamento(dto))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    // ✅ ÚNICO PONTO DE FINALIZAÇÃO
+                    // 🔥 AQUI É O ÚNICO LUGAR QUE FINALIZA
                     new VendaBLL().SalvarVendaCompleta(
                         frm.VendaFinal,
                         frm.Itens,
                         frm.Parcelas
                     );
 
+                    // 🔥 CUPOM SÓ AQUI
                     CupomNaoFiscalPdf.Gerar(frm.VendaFinal, frm.Itens);
 
                     LimparFormulario();
                 }
             }
-
-            _aguardandoPagamento = false;
-            AtualizarEstadoTela(); // 🔓 restaura tela
         }
-
 
         private ProdutoListaItem CriarCabecalhoProduto()
         {
@@ -1161,3 +1211,264 @@ namespace GVC.View
     }
 }
 
+Formulário para selecionar forma de pagamento FrmSelecionarPagamento
+
+
+    public partial class FrmSelecionarPagamento : KryptonForm
+    {
+        private readonly VendaFinalizacaoDTO _dto;
+        private readonly FinanceiroService _financeiroService;
+        private BindingList<ParcelaModel> _parcelasBinding;
+
+        // FrmFinalizarVenda
+        public List<ParcelaModel> Parcelas { get; private set; }
+
+        private List<ParcelaModel> _parcelasGeradas;
+        public VendaModel VendaFinal { get; private set; }
+        public List<ItemVendaModel> Itens { get; private set; }
+
+        public FrmSelecionarPagamento(VendaFinalizacaoDTO dto)
+        {
+            InitializeComponent();
+            _dto = dto;
+            _financeiroService = new FinanceiroService();
+
+            Itens = dto.Itens;
+            VendaFinal = dto.Venda;
+
+            cmbFormaPagamento.SelectedIndexChanged += cmbFormaPagamento_SelectedIndexChanged;
+
+        }
+        public enum EnumFormaPagamento
+        {
+            Dinheiro,
+            Pix,
+            Credito,
+            Debito
+        }
+        private void InicializarControles()
+        {
+            // Bloquear todos os controles de pagamento
+            txtValorRecebido.Enabled = false;
+            numParcelas.Enabled = false;
+            dtpPrimeiraParcela.Enabled = false;
+            numIntervalo.Enabled = false;
+            btnGerarParcelas.Enabled = false;
+
+            // Apenas forma de pagamento liberada
+            cmbFormaPagamento.Enabled = true;
+
+            // Limpar valores
+            txtValorRecebido.Text = string.Empty;
+            numParcelas.Value = 1;
+            numIntervalo.Value = 30;
+        }
+        // Atualiza o estado do botão Confirmar
+        private void AtualizarBotaoConfirmar()
+        {
+            // Habilita somente se houver linhas no DataGridView
+            btnConfirmar.Enabled = dgvParcelas.Rows.Count > 0;
+        }
+        public void ValidarFormaPagamento(EnumFormaPagamento forma, int qtdParcelas)
+        {
+            if (forma == EnumFormaPagamento.Pix && qtdParcelas > 1)
+                throw new Exception("PIX não permite parcelamento.");
+
+            if (forma == EnumFormaPagamento.Dinheiro && qtdParcelas > 1)
+                throw new Exception("Dinheiro não permite parcelamento.");
+
+            if (forma == EnumFormaPagamento.Credito && qtdParcelas < 1)
+                throw new Exception("Informe o número de parcelas.");
+        }
+
+        private void AtualizarParcelas()
+        {
+            int qtd = (int)numParcelas.Value;
+            DateTime venc = dtpPrimeiraParcela.Value;
+
+            var parcelas = _financeiroService.GerarParcelas(
+                _dto.Total,
+                qtd,
+                30,
+                venc
+            );
+
+            // 🔒 GARANTIA: parcelamento nasce pendente
+            foreach (var p in parcelas)
+            {
+                p.Status = EnumStatusParcela.Pendente;
+                p.ValorRecebido = null;
+                p.DataPagamento = null;
+            }
+
+            _parcelasBinding = new BindingList<ParcelaModel>(parcelas);
+            dgvParcelas.DataSource = _parcelasBinding;
+        }
+
+        private void CarregarGridParcelas(List<ParcelaModel> parcelas)
+        {
+            dgvParcelas.DataSource = null;
+            dgvParcelas.DataSource = parcelas;
+            // Atualiza o botão Confirmar
+            AtualizarBotaoConfirmar();
+        }
+
+        private void ConfigurarGridParcelas()
+        {
+            // Geralmente no Load do Form ou no InitializeComponent customizado
+            dgvParcelas.DataError += (s, e) =>
+            {
+                // Ignora o erro de índice fora do intervalo
+                e.ThrowException = false;
+            };
+
+            dgvParcelas.AutoGenerateColumns = false;
+            dgvParcelas.Columns.Clear();
+
+            dgvParcelas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NumeroParcela",
+                HeaderText = "Parc",
+                Width = 60
+            });
+
+            dgvParcelas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataVencimento",
+                HeaderText = "Vencimento",
+                Width = 110,
+                DefaultCellStyle = { Format = "dd/MM/yyyy" }
+            });
+
+            dgvParcelas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ValorParcela",
+                HeaderText = "Valor",
+                Width = 120,
+                DefaultCellStyle = { Format = "C2" }
+            });
+        }
+
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            var forma = cmbFormaPagamento.SelectedItem as FormaPagamentoItem;
+
+            if (forma == null || forma.FormaPgtoID == 0)
+            {
+                Utilitario.Mensagens.Aviso("Selecione a forma de pagamento.");
+                return;
+            }
+
+            // Apenas define dados, NÃO salva
+            _dto.Venda.FormaPgtoID = forma.FormaPgtoID;
+
+            VendaFinal = _dto.Venda;
+            Itens = _dto.Itens;
+            Parcelas = _parcelasGeradas;
+
+            // 🔴 EVITA IndexOutOfRange no fechamento
+            dgvParcelas.DataSource = null;
+
+            DialogResult = DialogResult.OK;
+            Close();
+
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnGerarParcelas_Click(object sender, EventArgs e)
+        {
+            _parcelasGeradas = _financeiroService.GerarParcelas(
+         _dto.Total,
+         (int)numParcelas.Value,
+         (int)numIntervalo.Value,
+         dtpPrimeiraParcela.Value.Date);
+
+            CarregarGridParcelas(_parcelasGeradas);
+
+            foreach (var p in _parcelasGeradas)
+            {
+                p.ValorParcela = Math.Round(p.ValorParcela, 2);
+
+                if (p.ValorRecebido.HasValue)
+                {
+                    p.ValorRecebido = Math.Round(Math.Min(p.ValorRecebido.Value, p.ValorParcela), 2);
+                }
+            }
+        }
+
+        private void FrmFinalizarVenda_Load(object sender, EventArgs e)
+        {
+
+            lblCliente.Text = _dto.Venda.NomeCliente ?? "CLIENTE NÃO INFORMADO";
+            lblVendaNumero.Text = _dto.Venda.VendaID > 0 ? $"VENDA Nº {_dto.Venda.VendaID}" : "NOVA VENDA";
+            lblTotal.Text = _dto.Total.ToString("C2");
+
+            Utilitario.CarregarFormasPagamento(cmbFormaPagamento);
+            ConfigurarGridParcelas();
+            // 🔹 Inicializa controles bloqueados
+            InicializarControles();
+            // Garantir que o botão Confirmar comece desabilitado
+            AtualizarBotaoConfirmar();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+      
+        private void cmbFormaPagamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var forma = cmbFormaPagamento.SelectedItem as FormaPagamentoItem;
+            if (forma == null) return;
+
+            InicializarControles(); // resetar antes
+
+            // Formas de pagamento com parcela automática
+            if (forma.NomeFormaPagamento.Equals("Dinheiro", StringComparison.OrdinalIgnoreCase) ||
+                forma.NomeFormaPagamento.Equals("PIX", StringComparison.OrdinalIgnoreCase) ||
+                forma.NomeFormaPagamento.Equals("Transferência", StringComparison.OrdinalIgnoreCase) ||
+                forma.NomeFormaPagamento.Equals("Cartão de Débito", StringComparison.OrdinalIgnoreCase))
+            {
+                // Cria parcela única com DataPagamento atual
+                _parcelasGeradas = new List<ParcelaModel>
+                {
+                    new ParcelaModel
+                    {
+                        NumeroParcela = 1,
+                        DataVencimento = DateTime.Now,
+                        DataPagamento = DateTime.Now,
+                        ValorParcela = _dto.Total,
+                        ValorRecebido = _dto.Total,
+                        Status = EnumStatusParcela.Pago
+                    }
+                };
+
+                // 🔹 Arredondamento seguro
+                foreach (var p in _parcelasGeradas)
+                {
+                    p.ValorParcela = Math.Round(p.ValorParcela, 2);
+                    p.ValorRecebido = Math.Round(Math.Min((decimal)p.ValorRecebido, p.ValorParcela), 2);
+                }
+
+                CarregarGridParcelas(_parcelasGeradas);
+
+            }           
+            else if (forma.NomeFormaPagamento.Equals("Crediário", StringComparison.OrdinalIgnoreCase))
+            {
+                txtValorRecebido.Enabled = false; // 🔒
+                numParcelas.Enabled = true;
+                dtpPrimeiraParcela.Enabled = true;
+                numIntervalo.Enabled = true;
+                btnGerarParcelas.Enabled = true;
+
+                dgvParcelas.DataSource = null;
+            }
+
+        }
+    }
+}

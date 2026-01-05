@@ -14,7 +14,6 @@ namespace GVC.View
 {
     public partial class FrmEstornarPagamento : KryptonForm
     {
-
         public decimal ValorEstorno { get; private set; }
         public string Motivo { get; private set; }
 

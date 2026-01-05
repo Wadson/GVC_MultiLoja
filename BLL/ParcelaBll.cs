@@ -256,11 +256,7 @@ WHERE ParcelaID = @ParcelaID";
         /// <param name="motivo">Motivo do estorno (para auditoria)</param>
        //"EnumStatusVenda" não contém uma definição para "ParcialmentePago"
 
-
-        public void EstornarPagamentosEmLote(
-     List<long> parcelasIds,
-     decimal valorEstorno,
-     string motivo)
+        public void EstornarPagamentosEmLote(List<int> parcelasIds, decimal valorEstorno, string motivo)
         {
             if (valorEstorno <= 0)
                 throw new Exception("Valor de estorno inválido.");
@@ -290,17 +286,20 @@ WHERE ParcelaID = @ParcelaID";
             }
 
             // 🔁 Recalcula status da venda UMA VEZ
-            long vendaId = _parcelaDal.BuscarPorId(parcelasIds.First()).VendaID;
+            int vendaId = _parcelaDal.BuscarPorId(parcelasIds.First()).VendaID;
             var parcelasVenda = _parcelaDal.GetParcelas((long)vendaId);
 
-            string statusVenda =
-                _vendaBLL.CalcularStatusVendaPorParcelas(parcelasVenda);
+            string statusVenda = _vendaBLL.CalcularStatusVendaPorParcelas(parcelasVenda);
 
             // 🔒 CHECK constraint do SQLite
-            if (statusVenda == EnumStatusVenda.Aberta.ToDb())
-                statusVenda = EnumStatusVenda.AguardandoPagamento.ToDb();
 
-            _vendaDal.AtualizarStatusVenda(vendaId, statusVenda);
+            EnumStatusVenda statusVendaEnum = (EnumStatusVenda)Enum.Parse(typeof(EnumStatusVenda), statusVenda);
+
+            if (statusVendaEnum == EnumStatusVenda.Aberta)
+                statusVendaEnum = EnumStatusVenda.AguardandoPagamento;
+
+            _vendaDal.AtualizarStatusVenda(vendaId, statusVendaEnum);
+
         }
         public void EstornarPagamento(long parcelaId, decimal valorEstorno, string motivo)
         {
@@ -319,12 +318,15 @@ WHERE ParcelaID = @ParcelaID";
             var parcelasVenda = _parcelaDal.GetParcelas(parcela.VendaID);
             var statusVenda = _vendaBLL.CalcularStatusVendaPorParcelas(parcelasVenda);
 
+
+            EnumStatusVenda statusVendaEnum = (EnumStatusVenda)Enum.Parse(typeof(EnumStatusVenda), statusVenda);
+
             if (statusVenda == EnumStatusVenda.Aberta.ToDb() && parcelasVenda.All(p => p.ValorRecebido == 0))
             {
                 statusVenda = EnumStatusVenda.AguardandoPagamento.ToDb();
             }
 
-            _vendaDal.AtualizarStatusVenda(parcela.VendaID, statusVenda);
+            _vendaDal.AtualizarStatusVenda(parcela.VendaID, statusVendaEnum);
         }
     }
 }

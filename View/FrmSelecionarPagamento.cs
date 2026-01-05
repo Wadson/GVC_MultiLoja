@@ -14,9 +14,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace GVC.View
 {
-    public partial class FrmFinalizarVenda : KryptonForm
+    public partial class FrmSelecionarPagamento : KryptonForm
     {
         private readonly VendaFinalizacaoDTO _dto;
         private readonly FinanceiroService _financeiroService;
@@ -29,7 +30,7 @@ namespace GVC.View
         public VendaModel VendaFinal { get; private set; }
         public List<ItemVendaModel> Itens { get; private set; }
 
-        public FrmFinalizarVenda(VendaFinalizacaoDTO dto)
+        public FrmSelecionarPagamento(VendaFinalizacaoDTO dto)
         {
             InitializeComponent();
             _dto = dto;
@@ -41,13 +42,23 @@ namespace GVC.View
             cmbFormaPagamento.SelectedIndexChanged += cmbFormaPagamento_SelectedIndexChanged;
 
         }
-        public enum EnumFormaPagamento
+      
+        public void ValidarFormaPagamento(EnumFormaPagamento forma, int qtdParcelas)
         {
-            Dinheiro,
-            Pix,
-            Credito,
-            Debito
+            if (forma == EnumFormaPagamento.Pix && qtdParcelas > 1)
+                throw new Exception($"{forma.ToDb()} não permite parcelamento.");
+
+            if (forma == EnumFormaPagamento.Dinheiro && qtdParcelas > 1)
+                throw new Exception($"{forma.ToDb()} não permite parcelamento.");
+
+            if (forma == EnumFormaPagamento.CartaoCredito && qtdParcelas < 1)
+                throw new Exception("Informe o número de parcelas para " + forma.ToDb());
+
+            if (forma == EnumFormaPagamento.Crediario && qtdParcelas < 1)
+                throw new Exception("Informe o número de parcelas para " + forma.ToDb());
         }
+
+
         private void InicializarControles()
         {
             // Bloquear todos os controles de pagamento
@@ -70,18 +81,7 @@ namespace GVC.View
         {
             // Habilita somente se houver linhas no DataGridView
             btnConfirmar.Enabled = dgvParcelas.Rows.Count > 0;
-        }
-        public void ValidarFormaPagamento(EnumFormaPagamento forma, int qtdParcelas)
-        {
-            if (forma == EnumFormaPagamento.Pix && qtdParcelas > 1)
-                throw new Exception("PIX não permite parcelamento.");
-
-            if (forma == EnumFormaPagamento.Dinheiro && qtdParcelas > 1)
-                throw new Exception("Dinheiro não permite parcelamento.");
-
-            if (forma == EnumFormaPagamento.Credito && qtdParcelas < 1)
-                throw new Exception("Informe o número de parcelas.");
-        }
+        }       
 
         private void AtualizarParcelas()
         {
@@ -189,17 +189,20 @@ namespace GVC.View
          (int)numIntervalo.Value,
          dtpPrimeiraParcela.Value.Date);
 
-            CarregarGridParcelas(_parcelasGeradas);
-
+            // 🔧 CORREÇÃO AQUI: Força status correto para crediário/cheque
             foreach (var p in _parcelasGeradas)
             {
                 p.ValorParcela = Math.Round(p.ValorParcela, 2);
 
-                if (p.ValorRecebido.HasValue)
-                {
-                    p.ValorRecebido = Math.Round(Math.Min(p.ValorRecebido.Value, p.ValorParcela), 2);
-                }
+                // Garante que não venha pago por engano
+                p.ValorRecebido = 0m;           // ou null, se preferir
+                p.Status = EnumStatusParcela.Pendente;
+                p.DataPagamento = null;
+                p.Juros = 0;
+                p.Multa = 0;
             }
+
+            CarregarGridParcelas(_parcelasGeradas);
         }
 
         private void FrmFinalizarVenda_Load(object sender, EventArgs e)
@@ -222,7 +225,7 @@ namespace GVC.View
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-      
+
         private void cmbFormaPagamento_SelectedIndexChanged(object sender, EventArgs e)
         {
             var forma = cmbFormaPagamento.SelectedItem as FormaPagamentoItem;
@@ -230,27 +233,22 @@ namespace GVC.View
 
             InicializarControles(); // resetar antes
 
-            // Formas de pagamento com parcela automática
-            if (forma.NomeFormaPagamento.Equals("Dinheiro", StringComparison.OrdinalIgnoreCase) ||
-                forma.NomeFormaPagamento.Equals("PIX", StringComparison.OrdinalIgnoreCase) ||
-                forma.NomeFormaPagamento.Equals("Transferência", StringComparison.OrdinalIgnoreCase) ||
-                forma.NomeFormaPagamento.Equals("Cartão de Débito", StringComparison.OrdinalIgnoreCase))
-            {
-                // Cria parcela única com DataPagamento atual
-                _parcelasGeradas = new List<ParcelaModel>
-                {
-                    new ParcelaModel
-                    {
-                        NumeroParcela = 1,
-                        DataVencimento = DateTime.Now,
-                        DataPagamento = DateTime.Now,
-                        ValorParcela = _dto.Total,
-                        ValorRecebido = _dto.Total,
-                        Status = EnumStatusParcela.Pago
-                    }
-                };
+            // Formas de pagamento à vista → parcela única
+            var formasAVista = new[] { "Dinheiro", "PIX", "Transferência", "Cartão de Débito", "À Vista" };
 
-                // 🔹 Arredondamento seguro
+            if (formasAVista.Contains(forma.NomeFormaPagamento, StringComparer.OrdinalIgnoreCase))
+            {
+                _parcelasGeradas = new List<ParcelaModel>{
+            new ParcelaModel
+            {
+                NumeroParcela = 1,
+                DataVencimento = DateTime.Now,
+                DataPagamento = DateTime.Now,
+                ValorParcela = _dto.Total,
+                ValorRecebido = _dto.Total,
+                Status = EnumStatusParcela.Pago
+            }};
+
                 foreach (var p in _parcelasGeradas)
                 {
                     p.ValorParcela = Math.Round(p.ValorParcela, 2);
@@ -258,19 +256,21 @@ namespace GVC.View
                 }
 
                 CarregarGridParcelas(_parcelasGeradas);
-
-            }           
-            else if (forma.NomeFormaPagamento.Equals("Crediário", StringComparison.OrdinalIgnoreCase))
+            }
+            // Formas de pagamento parceladas → habilitar controles
+            else if (forma.NomeFormaPagamento.Equals("Crediário", StringComparison.OrdinalIgnoreCase) ||
+                     forma.NomeFormaPagamento.Equals("Cheque", StringComparison.OrdinalIgnoreCase) ||
+                     forma.NomeFormaPagamento.Equals("Boleto", StringComparison.OrdinalIgnoreCase) ||
+                     forma.NomeFormaPagamento.Equals("Cartão de Crédito", StringComparison.OrdinalIgnoreCase))
             {
-                txtValorRecebido.Enabled = false; // 🔒
+                txtValorRecebido.Enabled = false; // 🔒 valor recebido só após pagamento
                 numParcelas.Enabled = true;
                 dtpPrimeiraParcela.Enabled = true;
                 numIntervalo.Enabled = true;
                 btnGerarParcelas.Enabled = true;
-
                 dgvParcelas.DataSource = null;
             }
-
         }
+
     }
 }

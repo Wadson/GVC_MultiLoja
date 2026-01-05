@@ -10,24 +10,12 @@ public partial class ItemVendaModel
     private decimal precoUnitario;
     private decimal subtotal;
     private decimal? descontoItem;
-
-
-
-
     public int ItemVendaID { get; set; }
 
     public int VendaID { get; set; }
 
     public int ProdutoID { get; set; }
-
-    //public int Quantidade { get; set; }
-
-    //public decimal PrecoUnitario { get; set; }
-
-    //public decimal Subtotal { get; set; }
-
-    //public decimal? DescontoItem { get; set; }
-    public string ProdutoDescricao { get; set; }
+    public string? ProdutoDescricao { get; set; }
 
     public virtual ProdutoModel Produto { get; set; } = null!;
 
@@ -62,19 +50,7 @@ public partial class ItemVendaModel
         }
     }
 
-    public decimal? DescontoItem
-    {
-        get => descontoItem;
-        set
-        {
-            if (descontoItem != value)
-            {
-                descontoItem = value;
-                OnPropertyChanged(nameof(DescontoItem));
-                AtualizarSubtotal();
-            }
-        }
-    }
+   
 
     public decimal Subtotal
     {
@@ -88,17 +64,28 @@ public partial class ItemVendaModel
             }
         }
     }
+    public decimal? DescontoItem
+    {
+        get => descontoItem;
+        set
+        {
+            descontoItem = value < 0 ? 0 : value;
+            OnPropertyChanged(nameof(DescontoItem));
+            AtualizarSubtotal();
+        }
+    }
+
     // Método para atualizar Subtotal sempre que Quantidade, PrecoUnitario ou DescontoItem mudar
     public void AtualizarSubtotal()
     {
-        Subtotal = (decimal)((Quantidade * PrecoUnitario) - DescontoItem);
+        var desconto = DescontoItem ?? 0m;
+        Subtotal = (Quantidade * PrecoUnitario) - desconto;
     }
+
 
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-
-
 }

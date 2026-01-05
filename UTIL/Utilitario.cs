@@ -1357,10 +1357,7 @@ namespace GVC.UTIL{
         public static string ZerosEsquerda(int numero, int tamanho) => numero.ToString().PadLeft(tamanho, '0');
         //public static string ZerosEsquerda(string texto, int tamanho) => texto.PadLeft(tamanho, '0');
 
-
-
-
-
+        
         public static void CarregarFormasPagamento(KryptonComboBox cmb)
         {
             try

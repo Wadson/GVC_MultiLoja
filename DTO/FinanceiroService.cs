@@ -93,16 +93,23 @@ namespace GVC.DTO
         // ================================
         // 1️⃣ APLICA REGRAS FINANCEIRAS
         // ================================
-        public void ProcessarFinanceiroVenda( VendaModel venda,List<ParcelaModel> parcelas)
+        public void ProcessarFinanceiroVenda(VendaModel venda, List<ParcelaModel> parcelas)
         {
-            if (parcelas == null || !parcelas.Any())
-                throw new Exception("Venda sem parcelas.");
+            if (parcelas == null || parcelas.Count == 0)
+            {
+                venda.StatusVenda = EnumStatusVenda.Concluida;
+                return;
+            }
 
-            NormalizarParcelas(parcelas);
-            ValidarTotalParcelas(venda.ValorTotal, parcelas);
+            bool todasQuitadas = parcelas.All(p =>
+                p.ValorRecebido.HasValue &&
+                p.ValorRecebido.Value >= p.ValorParcela);
 
-            venda.StatusVenda = CalcularStatusVendaEnum(parcelas);
+            venda.StatusVenda = todasQuitadas
+                ? EnumStatusVenda.Concluida
+                : EnumStatusVenda.AguardandoPagamento;
         }
+
 
 
         // ================================
@@ -147,14 +154,9 @@ namespace GVC.DTO
         // ================================
         // 4️⃣ TOTAL DAS PARCELAS
         // ================================
-        private void ValidarTotalParcelas(
-    decimal valorVenda,
-    List<ParcelaModel> parcelas
-)
+        private void ValidarTotalParcelas( decimal valorVenda, List<ParcelaModel> parcelas)
         {
-            decimal totalParcelas = parcelas.Sum(p =>
-                p.ValorParcela + (p.Juros ?? 0m) + (p.Multa ?? 0m)
-            );
+            decimal totalParcelas = parcelas.Sum(p => p.ValorParcela + (p.Juros ?? 0m) + (p.Multa ?? 0m));
 
             if (Math.Abs(totalParcelas - valorVenda) > 0.01m)
             {

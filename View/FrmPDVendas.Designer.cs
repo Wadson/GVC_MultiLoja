@@ -363,6 +363,7 @@
             // 
             btnFinalizarVenda.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnFinalizarVenda.CornerRoundingRadius = 1F;
+            btnFinalizarVenda.Enabled = false;
             btnFinalizarVenda.Location = new Point(99, 3);
             btnFinalizarVenda.Name = "btnFinalizarVenda";
             btnFinalizarVenda.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);

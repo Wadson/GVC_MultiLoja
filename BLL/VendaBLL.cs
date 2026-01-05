@@ -97,7 +97,7 @@ namespace GVC.BLL
             new ItemVendaDal().ExcluirPorVenda(vendaID);
             new VendaDal().Excluir(vendaID);
         }
-        public bool ExistePagamento(long vendaId)
+        public bool ExistePagamento(int vendaId)
         {
             return new ParcelaDal().ExistePagamentoPorVenda(vendaId);
         }
@@ -128,7 +128,7 @@ namespace GVC.BLL
         }
 
 
-        public void CancelarVenda(long vendaId, string motivo)
+        public void CancelarVenda(int vendaId, string motivo)
         {
             if (string.IsNullOrWhiteSpace(motivo))
                 throw new Exception("Motivo do cancelamento é obrigatório.");
@@ -204,7 +204,7 @@ namespace GVC.BLL
         {
             return !ExistePagamento(vendaID);
         }       
-        public void ExcluirVendaFisicamente(long vendaId)
+        public void ExcluirVendaFisicamente(int vendaId)
         {
             var parcelaDal = new ParcelaDal();
 
@@ -219,7 +219,7 @@ namespace GVC.BLL
             new VendaDal().Excluir(vendaId);
         }
         //Abaixo métodos para atualizar venda, 
-        public bool VendaPossuiPagamento(long vendaId)
+        public bool VendaPossuiPagamento(int vendaId)
         {
             using var conn = Conexao.Conex();
             conn.Open();
