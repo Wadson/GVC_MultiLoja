@@ -188,7 +188,7 @@
             // panelCpf
             // 
             panelCpf.BackColor = Color.White;
-            panelCpf.Location = new Point(7, 75);
+            panelCpf.Location = new Point(25, 82);
             panelCpf.Name = "panelCpf";
             panelCpf.Size = new Size(250, 3);
             panelCpf.TabIndex = 23;
@@ -196,7 +196,7 @@
             // panelDataNascimento
             // 
             panelDataNascimento.BackColor = Color.White;
-            panelDataNascimento.Location = new Point(7, 153);
+            panelDataNascimento.Location = new Point(23, 159);
             panelDataNascimento.Name = "panelDataNascimento";
             panelDataNascimento.Size = new Size(250, 3);
             panelDataNascimento.TabIndex = 22;
@@ -215,7 +215,7 @@
             // pictureBoxDataNasc
             // 
             pictureBoxDataNasc.Image = Properties.Resources.calendarioBranco24;
-            pictureBoxDataNasc.Location = new Point(7, 119);
+            pictureBoxDataNasc.Location = new Point(7, 122);
             pictureBoxDataNasc.Name = "pictureBoxDataNasc";
             pictureBoxDataNasc.Size = new Size(20, 25);
             pictureBoxDataNasc.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -225,7 +225,7 @@
             // pictureBoxCpf
             // 
             pictureBoxCpf.Image = Properties.Resources.cpfBranco24;
-            pictureBoxCpf.Location = new Point(9, 45);
+            pictureBoxCpf.Location = new Point(9, 48);
             pictureBoxCpf.Name = "pictureBoxCpf";
             pictureBoxCpf.Size = new Size(20, 25);
             pictureBoxCpf.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -296,13 +296,13 @@
             txtDataNascimento.Location = new Point(33, 121);
             txtDataNascimento.MaxLength = 100;
             txtDataNascimento.Name = "txtDataNascimento";
-            txtDataNascimento.Size = new Size(224, 27);
+            txtDataNascimento.Size = new Size(248, 33);
             txtDataNascimento.StateCommon.Back.Color1 = Color.White;
             txtDataNascimento.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtDataNascimento.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtDataNascimento.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtDataNascimento.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtDataNascimento.StateCommon.Border.Rounding = 8F;
+            txtDataNascimento.StateCommon.Border.Rounding = 20F;
             txtDataNascimento.StateCommon.Border.Width = 1;
             txtDataNascimento.StateCommon.Content.Color1 = Color.Gray;
             txtDataNascimento.StateCommon.Content.Font = new Font("Segoe UI", 10.25F);
@@ -317,13 +317,13 @@
             txtCpf.Location = new Point(33, 44);
             txtCpf.MaxLength = 14;
             txtCpf.Name = "txtCpf";
-            txtCpf.Size = new Size(224, 27);
+            txtCpf.Size = new Size(248, 33);
             txtCpf.StateCommon.Back.Color1 = Color.White;
             txtCpf.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtCpf.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             txtCpf.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtCpf.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtCpf.StateCommon.Border.Rounding = 8F;
+            txtCpf.StateCommon.Border.Rounding = 20F;
             txtCpf.StateCommon.Border.Width = 1;
             txtCpf.StateCommon.Content.Color1 = Color.Gray;
             txtCpf.StateCommon.Content.Font = new Font("Segoe UI", 10.25F);
@@ -672,7 +672,7 @@
             painelRecuperacao.Dock = DockStyle.Fill;
             painelRecuperacao.Location = new Point(0, 0);
             painelRecuperacao.Name = "painelRecuperacao";
-            painelRecuperacao.Size = new Size(276, 319);
+            painelRecuperacao.Size = new Size(284, 334);
             painelRecuperacao.TabIndex = 1023;
             // 
             // painelRedefinir
@@ -688,13 +688,13 @@
             painelRedefinir.Dock = DockStyle.Fill;
             painelRedefinir.Location = new Point(0, 0);
             painelRedefinir.Name = "painelRedefinir";
-            painelRedefinir.Size = new Size(276, 319);
+            painelRedefinir.Size = new Size(284, 334);
             painelRedefinir.TabIndex = 1024;
             // 
             // FrmRecuperarSenhaOffline
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(276, 319);
+            ClientSize = new Size(284, 334);
             Controls.Add(painelRecuperacao);
             Controls.Add(painelRedefinir);
             FormBorderStyle = FormBorderStyle.FixedSingle;

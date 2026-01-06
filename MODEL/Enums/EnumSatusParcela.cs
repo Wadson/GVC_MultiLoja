@@ -21,10 +21,10 @@ namespace GVC.Model.Enums
         {
             Aberta,
             AguardandoPagamento,
-            ParcialmentePago,
             Concluida,
             Cancelada,
             Suspensa
         }
+
     }
 }

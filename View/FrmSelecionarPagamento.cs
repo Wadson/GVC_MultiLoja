@@ -43,7 +43,7 @@ namespace GVC.View
             cmbFormaPagamento.SelectedIndexChanged += cmbFormaPagamento_SelectedIndexChanged;
 
         }
-      
+
         public void ValidarFormaPagamento(EnumFormaPagamento forma, int qtdParcelas)
         {
             if (forma == EnumFormaPagamento.Pix && qtdParcelas > 1)
@@ -82,7 +82,7 @@ namespace GVC.View
         {
             // Habilita somente se houver linhas no DataGridView
             btnConfirmar.Enabled = dgvParcelas.Rows.Count > 0;
-        }       
+        }
 
         private void AtualizarParcelas()
         {
@@ -304,5 +304,13 @@ namespace GVC.View
             }
         }
 
+        private void gbParcelamento_Enter(object sender, EventArgs e)
+        {
+        }
+
+        private void pnlPagamentoVista_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

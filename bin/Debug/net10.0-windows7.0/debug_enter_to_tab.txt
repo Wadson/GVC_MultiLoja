@@ -153,3 +153,8 @@
 2026-01-05 19:03:06 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
 2026-01-05 19:08:11 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
 2026-01-05 19:08:13 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
+2026-01-05 22:05:55 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
+2026-01-05 22:09:37 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
+2026-01-05 22:09:39 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
+2026-01-05 22:11:53 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
+2026-01-05 22:11:54 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)

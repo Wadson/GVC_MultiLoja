@@ -32,7 +32,7 @@ namespace GVC.View
 
             FrmBaixarParcela.SalvarNomesControles(this, caminho);
 
-            Utilitario.Mensagens.Aviso("Lista de controles salva em: " + caminho);
+            Utilitario.Mensagens.Info("Lista de controles salva em: " + caminho);
         }
 
         private void FrmMovimentacaoEstoque_Load(object sender, EventArgs e)
@@ -81,10 +81,6 @@ namespace GVC.View
             cmbOrigem.SelectedIndex = 0;
         }
 
-        private void btnBuscarProduto_Click(object sender, EventArgs e)
-        {
-        }
-
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             try
@@ -104,7 +100,7 @@ namespace GVC.View
 
                 new EstoqueBLL().MovimentarEstoque(mov);
 
-                Utilitario.Mensagens.Aviso("Movimentação realizada com sucesso!");
+                Utilitario.Mensagens.Info("Movimentação realizada com sucesso!");
 
                 LimparFormulario();
             }
@@ -163,11 +159,6 @@ namespace GVC.View
                     }
                 }
             }
-
-        }
-
-        private void grpProduto_Enter(object sender, EventArgs e)
-        {
         }
     }
 }
