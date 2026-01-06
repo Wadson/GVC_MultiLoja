@@ -209,7 +209,7 @@ namespace GVC.View
         private void FrmFinalizarVenda_Load(object sender, EventArgs e)
         {
 
-            lblCliente.Text = _dto.Venda.NomeCliente ?? "CLIENTE NÃO INFORMADO";
+            this.Text = _dto.Venda.NomeCliente ?? "CLIENTE NÃO INFORMADO";
             lblVendaNumero.Text = _dto.Venda.VendaID > 0 ? $"VENDA Nº {_dto.Venda.VendaID}" : "NOVA VENDA";
             lblTotal.Text = _dto.Total.ToString("C2");
 

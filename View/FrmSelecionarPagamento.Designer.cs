@@ -37,8 +37,6 @@
             lblTitulo = new Krypton.Toolkit.KryptonLabel();
             lblVendaNumero = new Label();
             lblVendaResumo = new Label();
-            lblCliente = new Label();
-            lblClienteResumo = new Label();
             lblTotal = new Label();
             lblTotalResumo = new Label();
             lblFormaPgto = new Label();
@@ -140,11 +138,11 @@
             // 
             lblVendaNumero.AutoSize = true;
             lblVendaNumero.BackColor = Color.Transparent;
-            lblVendaNumero.Font = new Font("Segoe UI", 9F);
+            lblVendaNumero.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             lblVendaNumero.ForeColor = Color.FromArgb(44, 62, 80);
-            lblVendaNumero.Location = new Point(220, 58);
+            lblVendaNumero.Location = new Point(220, 50);
             lblVendaNumero.Name = "lblVendaNumero";
-            lblVendaNumero.Size = new Size(37, 15);
+            lblVendaNumero.Size = new Size(40, 15);
             lblVendaNumero.TabIndex = 1055;
             lblVendaNumero.Text = "00218";
             lblVendaNumero.TextAlign = ContentAlignment.MiddleCenter;
@@ -153,51 +151,25 @@
             // 
             lblVendaResumo.AutoSize = true;
             lblVendaResumo.BackColor = Color.Transparent;
-            lblVendaResumo.Font = new Font("Segoe UI", 9F);
+            lblVendaResumo.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             lblVendaResumo.ForeColor = Color.FromArgb(44, 62, 80);
-            lblVendaResumo.Location = new Point(158, 58);
+            lblVendaResumo.Location = new Point(158, 50);
             lblVendaResumo.Name = "lblVendaResumo";
-            lblVendaResumo.Size = new Size(59, 15);
+            lblVendaResumo.Size = new Size(60, 15);
             lblVendaResumo.TabIndex = 1054;
             lblVendaResumo.Text = "Venda Nº:";
             lblVendaResumo.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblCliente
-            // 
-            lblCliente.AutoSize = true;
-            lblCliente.BackColor = Color.Transparent;
-            lblCliente.Font = new Font("Segoe UI", 9F);
-            lblCliente.ForeColor = Color.FromArgb(44, 62, 80);
-            lblCliente.Location = new Point(91, 40);
-            lblCliente.Name = "lblCliente";
-            lblCliente.Size = new Size(192, 15);
-            lblCliente.TabIndex = 1053;
-            lblCliente.Text = "MANOEL DA SILVA CUNHA LEMOS";
-            lblCliente.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblClienteResumo
-            // 
-            lblClienteResumo.AutoSize = true;
-            lblClienteResumo.BackColor = Color.Transparent;
-            lblClienteResumo.Font = new Font("Segoe UI", 9F);
-            lblClienteResumo.ForeColor = Color.FromArgb(44, 62, 80);
-            lblClienteResumo.Location = new Point(40, 40);
-            lblClienteResumo.Name = "lblClienteResumo";
-            lblClienteResumo.Size = new Size(47, 15);
-            lblClienteResumo.TabIndex = 1052;
-            lblClienteResumo.Text = "Cliente:";
-            lblClienteResumo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblTotal
             // 
             lblTotal.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotal.AutoSize = true;
             lblTotal.BackColor = Color.Transparent;
-            lblTotal.Font = new Font("Segoe UI", 9F);
+            lblTotal.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             lblTotal.ForeColor = Color.FromArgb(44, 62, 80);
-            lblTotal.Location = new Point(71, 58);
+            lblTotal.Location = new Point(71, 50);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(56, 15);
+            lblTotal.Size = new Size(60, 15);
             lblTotal.TabIndex = 1051;
             lblTotal.Text = "R$ 918,00";
             lblTotal.TextAlign = ContentAlignment.MiddleCenter;
@@ -207,11 +179,11 @@
             lblTotalResumo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotalResumo.AutoSize = true;
             lblTotalResumo.BackColor = Color.Transparent;
-            lblTotalResumo.Font = new Font("Segoe UI", 9F);
+            lblTotalResumo.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             lblTotalResumo.ForeColor = Color.FromArgb(44, 62, 80);
-            lblTotalResumo.Location = new Point(10, 58);
+            lblTotalResumo.Location = new Point(10, 50);
             lblTotalResumo.Name = "lblTotalResumo";
-            lblTotalResumo.Size = new Size(44, 15);
+            lblTotalResumo.Size = new Size(45, 15);
             lblTotalResumo.TabIndex = 1050;
             lblTotalResumo.Text = "TOTAL:";
             lblTotalResumo.TextAlign = ContentAlignment.MiddleCenter;
@@ -231,8 +203,11 @@
             // cmbFormaPagamento
             // 
             cmbFormaPagamento.CornerRoundingRadius = 10F;
+            cmbFormaPagamento.DropBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonStandalone;
+            cmbFormaPagamento.DropButtonStyle = Krypton.Toolkit.ButtonStyle.CalendarDay;
             cmbFormaPagamento.DropDownWidth = 171;
             cmbFormaPagamento.IntegralHeight = false;
+            cmbFormaPagamento.ItemStyle = Krypton.Toolkit.ButtonStyle.BreadCrumb;
             cmbFormaPagamento.Location = new Point(3, 103);
             cmbFormaPagamento.Name = "cmbFormaPagamento";
             cmbFormaPagamento.Size = new Size(330, 29);
@@ -695,8 +670,6 @@
             Controls.Add(lblFormaPgto);
             Controls.Add(lblVendaResumo);
             Controls.Add(txtTroco);
-            Controls.Add(lblCliente);
-            Controls.Add(lblClienteResumo);
             Controls.Add(cmbFormaPagamento);
             Controls.Add(lblTotal);
             Controls.Add(btnGerarParcelas);
@@ -750,8 +723,6 @@
         private Krypton.Toolkit.KryptonLabel lblTitulo;
         private Label lblTotal;
         private Label lblTotalResumo;
-        private Label lblCliente;
-        private Label lblClienteResumo;
         private Label lblFormaPgto;
         private Krypton.Toolkit.KryptonComboBox cmbFormaPagamento;
         private Label lblValorRecebido;
