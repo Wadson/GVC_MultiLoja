@@ -77,7 +77,7 @@ public class ExtratoBLL
     public List<ParcelaExtratoDetalhado> ObterExtratoDetalhado(int clienteId)
     {
         var parcelas = _extratoDal.ObterParcelas(clienteId);
-        var pagamentos = _extratoDal.ObterPagamentosPorParcela(clienteId);
+        var pagamentos = _extratoDal.ObterPagamentosPorCliente(clienteId); // ✅ CORRETO
 
         foreach (var parcela in parcelas)
         {
@@ -94,6 +94,7 @@ public class ExtratoBLL
 
         return parcelas;
     }
+
     // ======================================================
     // EXTRATO PARA RECIBO (PARCELA ESPECÍFICA)
     // ======================================================

@@ -834,6 +834,67 @@ namespace GVC.View
                 Utilitario.Mensagens.Erro($"Erro ao gerar extrato: {ex.Message}");
             }
         }
+        private void GerarExtratoDetalhadoHierarquico()
+        {
+            int clienteId = ObterClienteSelecionadoId(); // o mesmo que você já usa
+
+            var extratoBLL = new ExtratoBLL();
+            var parcelas = extratoBLL.ObterExtratoDetalhado(clienteId);
+
+            if (parcelas == null || parcelas.Count == 0)
+            {
+                Utilitario.Mensagens.Info("Não há dados para este cliente.");
+                return;
+            }
+
+            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            {
+                saveDialog.Filter = "PDF Files|*.pdf";
+                saveDialog.Title = "Salvar Extrato Detalhado";
+
+                saveDialog.FileName =
+                    $"ExtratoDetalhado_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var empresaBLL = new EmpresaBll();
+                    var empresa = empresaBLL.ObterDadosParaPdf();
+
+                    var extratoCliente = ObterExtratoCliente(false);
+
+                    ExtratoDetalhadoHierarquicoPdf.Gerar(
+                        extratoCliente,
+                        parcelas,
+                        empresa,
+                        saveDialog.FileName
+                    );
+
+                }
+            }
+        }
+        private int ObterClienteSelecionadoId()
+        {
+            if (dgvContasAReceber.CurrentRow == null)
+                throw new Exception("Nenhuma linha selecionada.");
+
+            if (dgvContasAReceber.CurrentRow.DataBoundItem is not ContaAReceberDTO dto)
+                throw new Exception("Linha inválida.");
+
+            int vendaId = dto.VendaID;
+
+            using var conn = Conexao.Conex();
+
+            int? clienteId = conn.ExecuteScalar<int?>(@"
+        SELECT ClienteID      FROM Venda
+        WHERE VendaID = @VendaID",
+                new { VendaID = vendaId });
+
+            if (clienteId == null)
+                throw new Exception("Cliente não encontrado para a venda.");
+
+            return clienteId.Value;
+        }
+
 
         private string RemoveCaracteresInvalidos(string nomeArquivo)
         {
@@ -1179,14 +1240,21 @@ namespace GVC.View
 
                     if (resultado == DialogResult.Yes && temLinhaSelecionada)
                     {
-                    // Pergunta se será detalhado
-                    var opcao = MessageBox.Show("Deseja o extrato DETALHADO (com pagamentos)?\n\n" +
-                        "SIM = Detalhado\nNÃO = Resumido", "Tipo de Extrato",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        var opcao = MessageBox.Show(
+                            "Deseja o extrato DETALHADO (com pagamentos)?",
+                            "Tipo de Extrato",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question
+                        );
 
                         bool detalhado = opcao == DialogResult.Yes;
-                        GerarExtratoCompleto(detalhado);
+
+                        if (detalhado)
+                            GerarExtratoDetalhadoHierarquico(); // 🔹 NOVO
+                        else
+                            GerarExtratoCompleto(false);        // 🔹 JÁ EXISTE
                     }
+
                 }
             }
             catch (Exception ex)

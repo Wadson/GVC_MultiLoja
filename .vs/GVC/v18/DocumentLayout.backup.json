@@ -7,8 +7,8 @@
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\extratobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\bll\\parcelabll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\parcelabll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\bll\\pagamentoparcialbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\pagamentoparcialbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dal\\extratodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,12 +19,16 @@
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\extratodetalhadohierarquicopdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\extratodetalhadohierarquicopdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\model\\parcelaextratodetalhado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:model\\parcelaextratodetalhado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 27,
+          "SelectedChildIndex": 26,
           "Children": [
             {
               "$type": "Bookmark",
@@ -131,14 +135,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ParcelaBll.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\BLL\\ParcelaBll.cs",
-              "RelativeDocumentMoniker": "BLL\\ParcelaBll.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\BLL\\ParcelaBll.cs",
-              "RelativeToolTip": "BLL\\ParcelaBll.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAiwE8AAAAAAAAAAAAAAA==",
+              "Title": "PagamentoParcialBll.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\BLL\\PagamentoParcialBll.cs",
+              "RelativeDocumentMoniker": "BLL\\PagamentoParcialBll.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\BLL\\PagamentoParcialBll.cs",
+              "RelativeToolTip": "BLL\\PagamentoParcialBll.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAAAC4AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T10:30:17.312Z",
+              "WhenOpened": "2026-01-06T15:28:58.965Z",
               "EditorCaption": ""
             },
             {
@@ -149,34 +153,22 @@
               "RelativeDocumentMoniker": "View\\FrmContasReceber.cs",
               "ToolTip": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
               "RelativeToolTip": "View\\FrmContasReceber.cs",
-              "ViewState": "AgIAACQDAAAAAAAAAAAawPYCAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAABoFAAAAAAAAAAAowCgFAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T10:20:54.803Z",
+              "WhenOpened": "2026-01-06T15:00:54.754Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "FrmContasReceber.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
-              "RelativeDocumentMoniker": "View\\FrmContasReceber.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs [Projeto]",
-              "RelativeToolTip": "View\\FrmContasReceber.cs [Projeto]",
+              "Title": "ExtratoDetalhadoHierarquicoPdf.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\ExtratoDetalhadoHierarquicoPdf.cs",
+              "RelativeDocumentMoniker": "UTIL\\ExtratoDetalhadoHierarquicoPdf.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\ExtratoDetalhadoHierarquicoPdf.cs",
+              "RelativeToolTip": "UTIL\\ExtratoDetalhadoHierarquicoPdf.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAcwGkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T10:20:50.381Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ParcelaExtratoDetalhado.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\Model\\ParcelaExtratoDetalhado.cs",
-              "RelativeDocumentMoniker": "Model\\ParcelaExtratoDetalhado.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\Model\\ParcelaExtratoDetalhado.cs",
-              "RelativeToolTip": "Model\\ParcelaExtratoDetalhado.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T10:05:19.8Z",
+              "WhenOpened": "2026-01-06T14:54:08.61Z",
               "EditorCaption": ""
             },
             {
@@ -185,9 +177,9 @@
               "Title": "ExtratoBLL.cs",
               "DocumentMoniker": "C:\\GVCSqlExpress\\BLL\\ExtratoBLL.cs",
               "RelativeDocumentMoniker": "BLL\\ExtratoBLL.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\BLL\\ExtratoBLL.cs*",
-              "RelativeToolTip": "BLL\\ExtratoBLL.cs*",
-              "ViewState": "AgIAAFgAAAAAAAAAAAAqwHQAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\GVCSqlExpress\\BLL\\ExtratoBLL.cs",
+              "RelativeToolTip": "BLL\\ExtratoBLL.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAIwGAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-06T09:53:21.849Z",
               "EditorCaption": ""
@@ -200,10 +192,34 @@
               "RelativeDocumentMoniker": "DAL\\ExtratoDal.cs",
               "ToolTip": "C:\\GVCSqlExpress\\DAL\\ExtratoDal.cs",
               "RelativeToolTip": "DAL\\ExtratoDal.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAQwFYAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAcwHYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-06T09:37:56.466Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FrmContasReceber.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
+              "RelativeDocumentMoniker": "View\\FrmContasReceber.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmContasReceber.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T10:20:50.381Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FrmOpcoesExtrato.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmOpcoesExtrato.cs",
+              "RelativeDocumentMoniker": "UTIL\\FrmOpcoesExtrato.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmOpcoesExtrato.cs [Projeto]",
+              "RelativeToolTip": "UTIL\\FrmOpcoesExtrato.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T14:47:07.583Z",
+              "EditorCaption": " [Projeto]"
             }
           ]
         },

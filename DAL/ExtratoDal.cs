@@ -98,6 +98,24 @@ namespace GVC.DAL
                 new { ParcelaID = parcelaId }
             ).ToList();
         }
+        public List<PagamentoExtratoModel> ObterPagamentosPorCliente(int clienteId)
+        {
+            using var conn = Conexao.Conex();
+
+            return conn.Query<PagamentoExtratoModel>(@"
+        SELECT
+            pg.ParcelaID,
+            pg.DataPagamento,
+            pg.ValorPago,
+            pg.Observacao
+        FROM PagamentosParciais pg
+        INNER JOIN Parcela pc ON pc.ParcelaID = pg.ParcelaID
+        INNER JOIN Venda v ON v.VendaID = pc.VendaID
+        WHERE v.ClienteID = @ClienteID
+        ORDER BY pg.DataPagamento",
+                new { ClienteID = clienteId }
+            ).ToList();
+        }
 
         public List<ParcelaExtrato> ObterExtratoResumido(int clienteId)
         {
