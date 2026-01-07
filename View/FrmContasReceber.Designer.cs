@@ -78,6 +78,7 @@
             btnRecibo = new Krypton.Toolkit.KryptonButton();
             btnVerItensVenda = new Krypton.Toolkit.KryptonButton();
             toolTip1 = new ToolTip(components);
+            flowLayoutPanel1 = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)cmbStatusParcela).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
@@ -282,6 +283,7 @@
             // 
             // kryptonPanel1
             // 
+            tableLayoutPanel1.SetColumnSpan(kryptonPanel1, 2);
             kryptonPanel1.Controls.Add(btnLimparFiltro);
             kryptonPanel1.Controls.Add(label1);
             kryptonPanel1.Controls.Add(cmbTipoPesquisa);
@@ -443,11 +445,12 @@
             // 
             // dgvContasAReceber
             // 
+            tableLayoutPanel1.SetColumnSpan(dgvContasAReceber, 2);
             dgvContasAReceber.Dock = DockStyle.Fill;
             dgvContasAReceber.Location = new Point(3, 88);
             dgvContasAReceber.Name = "dgvContasAReceber";
             dgvContasAReceber.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            dgvContasAReceber.Size = new Size(911, 165);
+            dgvContasAReceber.Size = new Size(911, 204);
             dgvContasAReceber.TabIndex = 1039;
             dgvContasAReceber.TabStop = false;
             dgvContasAReceber.CellFormatting += dgvContasAReceber_CellFormatting;
@@ -682,28 +685,31 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 234F));
             tableLayoutPanel1.Controls.Add(kryptonPanel1, 0, 1);
             tableLayoutPanel1.Controls.Add(kryptonPanel4, 0, 0);
             tableLayoutPanel1.Controls.Add(dgvContasAReceber, 0, 2);
             tableLayoutPanel1.Controls.Add(kryptonLabel2, 0, 3);
             tableLayoutPanel1.Controls.Add(dgvPagamentos, 0, 4);
             tableLayoutPanel1.Controls.Add(kryptonPanel2, 0, 5);
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 1, 4);
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 6;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel1.Size = new Size(917, 484);
+            tableLayoutPanel1.Size = new Size(917, 560);
             tableLayoutPanel1.TabIndex = 1069;
             // 
             // kryptonPanel4
             // 
+            tableLayoutPanel1.SetColumnSpan(kryptonPanel4, 2);
             kryptonPanel4.Controls.Add(kryptonLabel5);
             kryptonPanel4.Dock = DockStyle.Fill;
             kryptonPanel4.Location = new Point(3, 3);
@@ -728,10 +734,10 @@
             // kryptonLabel2
             // 
             kryptonLabel2.Dock = DockStyle.Fill;
-            kryptonLabel2.Location = new Point(3, 259);
+            kryptonLabel2.Location = new Point(3, 298);
             kryptonLabel2.Name = "kryptonLabel2";
             kryptonLabel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonLabel2.Size = new Size(911, 19);
+            kryptonLabel2.Size = new Size(677, 18);
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel2.TabIndex = 1052;
@@ -739,10 +745,11 @@
             // 
             // dgvPagamentos
             // 
-            dgvPagamentos.Location = new Point(3, 284);
+            dgvPagamentos.Dock = DockStyle.Fill;
+            dgvPagamentos.Location = new Point(3, 322);
             dgvPagamentos.Name = "dgvPagamentos";
             dgvPagamentos.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            dgvPagamentos.Size = new Size(911, 111);
+            dgvPagamentos.Size = new Size(677, 204);
             dgvPagamentos.TabIndex = 1053;
             dgvPagamentos.CellContentClick += dgvPagamentos_CellContentClick;
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
@@ -751,10 +758,10 @@
             // 
             kryptonPanel2.Controls.Add(lblTotalSelect);
             kryptonPanel2.Dock = DockStyle.Fill;
-            kryptonPanel2.Location = new Point(3, 455);
+            kryptonPanel2.Location = new Point(3, 532);
             kryptonPanel2.Name = "kryptonPanel2";
             kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonPanel2.Size = new Size(911, 26);
+            kryptonPanel2.Size = new Size(677, 25);
             kryptonPanel2.TabIndex = 1054;
             // 
             // lblTotalSelect
@@ -1003,6 +1010,15 @@
             toolTip1.SetToolTip(btnVerItensVenda, "Visualizar Itens da Venda");
             btnVerItensVenda.Values.Text = "Ver Itens";
             btnVerItensVenda.Click += btnVerItensVenda_Click;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.Location = new Point(686, 322);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            tableLayoutPanel1.SetRowSpan(flowLayoutPanel1, 2);
+            flowLayoutPanel1.Size = new Size(228, 235);
+            flowLayoutPanel1.TabIndex = 1055;
             // 
             // FrmContasReceber
             // 
