@@ -434,6 +434,9 @@ namespace GVC.View
                 }
 
                 item.Quantidade += qtd; // Subtotal será recalculado automaticamente
+                // ✅ CORREÇÃO 2: força atualização do DataGrid
+                _itensBindingSource.ResetBindings(false);
+
             }
             else
             {
@@ -463,27 +466,26 @@ namespace GVC.View
 
         private void AtualizarTotais()
         {
-            // Proteção: se não houver itens ou _itensBinding for null
             if (_itensBinding == null || _itensBinding.Count == 0)
             {
                 _subtotal = 0m;
             }
             else
             {
-                // Soma apenas os valores não nulos, tratando null como 0
-                _subtotal = (decimal)_itensBinding.Sum(i => i.Subtotal);
+                _subtotal = _itensBinding.Sum(i => i.Subtotal);
             }
 
-            // Blindagem: desconto não pode ser negativo nem maior que o subtotal
             if (_desconto < 0m) _desconto = 0m;
             if (_desconto > _subtotal) _desconto = _subtotal;
 
-            // Calcula o total final
             _valorTotal = _subtotal - _desconto;
 
-            // Atualiza os campos na tela
             lblSubTotal.Text = _subtotal.ToString("N2");
+
+            // ✅ CORREÇÃO 1: atualizar total de itens
+            txtTotalItens.Text = _itensBinding.Sum(i => i.Quantidade).ToString();
         }
+
 
         private void LimparCamposProduto()
         {

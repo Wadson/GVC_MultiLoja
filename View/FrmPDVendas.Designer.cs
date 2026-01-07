@@ -549,6 +549,7 @@
             lblTituloPDV.Dock = DockStyle.Fill;
             lblTituloPDV.Location = new Point(0, 0);
             lblTituloPDV.Name = "lblTituloPDV";
+            lblTituloPDV.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             lblTituloPDV.Size = new Size(804, 24);
             lblTituloPDV.StateCommon.Padding = new Padding(2, 1, 2, 1);
             lblTituloPDV.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
@@ -590,7 +591,7 @@
             dgvItensVenda.HideOuterBorders = true;
             dgvItensVenda.Location = new Point(4, 202);
             dgvItensVenda.Name = "dgvItensVenda";
-            dgvItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueLightMode;
+            dgvItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvItensVenda.RowHeadersWidth = 23;
             dgvItensVenda.Size = new Size(804, 271);
             dgvItensVenda.TabIndex = 1051;
