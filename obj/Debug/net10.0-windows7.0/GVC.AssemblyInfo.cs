@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b690002efa826924f4e27265dd3705915369f2b7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67485c724283cbd42fa153ab83f721aa87681348")]
 [assembly: System.Reflection.AssemblyProductAttribute("GVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

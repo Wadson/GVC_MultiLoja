@@ -3,6 +3,9 @@ using GVC.BLL;
 using GVC.DAL;
 using GVC.DAL;
 using GVC.Model;
+using GVC.Model.Enums.GVC.Model.Enums;
+using GVC.Model.Extensions;
+using GVC.MODEL.Extensions;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;
@@ -330,22 +333,19 @@ namespace GVC.View
 
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
         {
-            decimal totalAberto = 0m;
             decimal totalVencido = 0m;
-            decimal totalRecebido = 0m;
 
             foreach (var p in dados)
             {
-                totalRecebido += p.ValorRecebido;
-                if (p.StatusParcela == "Pendente" || p.StatusParcela == "Parcialmente Paga")
-                    totalAberto += p.Saldo;
-                if (p.StatusParcela == "Atrasada")
+                var status = p.StatusParcela.ToEnumStatusParcela();
+
+                if (status == EnumStatusParcela.Atrasada)
                     totalVencido += p.Saldo;
             }
 
             lblTotalVencido.Text = totalVencido.ToString("C2");
-
         }
+
         private void AtualizarCamposPorTipoPesquisa()
         {
             dgvContasAReceber.DataSource = null;
@@ -609,9 +609,19 @@ namespace GVC.View
         private void AtualizarTotalSelecionado()
         {
             var selecionadas = ObterParcelasSelecionadas();
-            decimal totalSelecionado = selecionadas.Sum(p => p.Saldo);
-            lblTotalSelecionado.Text = "Total selecionado:     " +totalSelecionado.ToString("C2");
+
+            decimal totalSaldo = selecionadas.Sum(p => p.Saldo);
+
+            lblTotalSelecionado.Text =
+                $"Total selecionado: {totalSaldo:C2}";
         }
+        private decimal CalcularTotalRecebidoSelecionado()
+        {
+            return ObterParcelasSelecionadas()
+                .Where(p => p.StatusParcela.ToEnumStatusParcela() == EnumStatusParcela.Pago)
+                .Sum(p => p.ValorRecebido);
+        }
+
         private void dgvContasAReceber_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             if (dgvContasAReceber.IsCurrentCellDirty) { dgvContasAReceber.CommitEdit(DataGridViewDataErrorContexts.Commit); }
@@ -623,26 +633,26 @@ namespace GVC.View
         }
         private void AtualizarResumoGeral(IEnumerable<ContaAReceberDTO> dados)
         {
-            var aReceber = dados.Where(p =>
-                p.StatusParcela == "Pendente" ||
-                p.StatusParcela == "Parcialmente Paga" ||
-                p.StatusParcela == "Atrasada" ||
-                p.StatusParcela == "Em Cobrança" ||
-                p.StatusParcela == "Renegociada");
+            decimal totalAReceber = 0m;
+            decimal totalRecebido = 0m;
 
-            int qtdAReceber = aReceber.Count();
-            decimal totalAReceber = aReceber.Sum(p => p.Saldo);
+            foreach (var p in dados)
+            {
+                if (ParcelaContabilHelper.EntraEmAberto(p.StatusParcela))
+                    totalAReceber += p.Saldo;
 
-            var pagas = dados.Where(p =>
-                p.StatusParcela == "Paga" ||
-                p.StatusParcela == "Parcialmente Paga");
+                if (ParcelaContabilHelper.EntraComoRecebido(p.StatusParcela))
+                    totalRecebido += p.ValorRecebido;
+            }
 
-            int qtdPagas = pagas.Count();
-            decimal totalPagas = pagas.Sum(p => p.ValorRecebido);
             lblTotalContasReceber.Text = totalAReceber.ToString("C2");
+            lblTotalContasReceber.ForeColor =
+                totalAReceber > 0m ? Color.Red : Color.Gray;
 
-            lblTotalContasReceber.ForeColor = totalAReceber > 0m ? Color.Red : Color.Gray;
+            // 👉 Se quiser exibir recebido futuramente, já está pronto
+            // lblTotalRecebido.Text = totalRecebido.ToString("C2");
         }
+
 
         private void AtualizarParcelasAtrasadasNoBanco()
         {
@@ -650,7 +660,7 @@ namespace GVC.View
             {
                 // ✅ Query ajustada para SQL Server
                 const string sql = @" UPDATE Parcela SET Status = 'Atrasada' WHERE DataVencimento < CAST(GETDATE() AS DATE)
-                                      AND Status NOT IN ('Paga', 'Parcialmente Paga', 'Cancelada', 'Atrasada')";
+                                      AND Status NOT IN ('Paga', 'ParcialmentePaga', 'Cancelada', 'Atrasada')";
 
                 using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
                 using (var cmd = new SqlCommand(sql, conn))
@@ -1077,7 +1087,6 @@ namespace GVC.View
             CarregarContasAReceber(); // vai chamar AtualizarResumoGeral automaticamente
             AtualizarCamposPorTipoPesquisa();
         }
-
         private void btnEstornarPagamento_Click(object sender, EventArgs e)
         {
             var selecionadas = ObterParcelasSelecionadas();
@@ -1156,7 +1165,6 @@ namespace GVC.View
             // Converte para List<dynamic> apenas para compatibilidade
             var selecionadasDto = selecionadas.ToList();
 
-
             decimal totalParcelas = selecionadas.Sum(p => p.ValorParcela);
             decimal totalRecebido = selecionadas.Sum(p => p.ValorRecebido);
             decimal saldoTotal = selecionadas.Sum(p => p.Saldo);
@@ -1173,8 +1181,6 @@ namespace GVC.View
             if (frm.ShowDialog() == DialogResult.OK)
                 CarregarContasAReceber();
         }
-
-
 
         private void btnExtratoRecibo_Click(object sender, EventArgs e)
         {
