@@ -34,8 +34,6 @@
             btnEstoque = new Krypton.Toolkit.KryptonButton();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
             toolStripStatusLabelTotalRegistros = new ToolStripStatusLabel();
-            rbInativos = new Krypton.Toolkit.KryptonRadioButton();
-            rbAtivos = new Krypton.Toolkit.KryptonRadioButton();
             rbtCodigo = new Krypton.Toolkit.KryptonRadioButton();
             rbtDescricao = new Krypton.Toolkit.KryptonRadioButton();
             btnSair = new Krypton.Toolkit.KryptonButton();
@@ -75,7 +73,7 @@
             dgvProdutos.Margin = new Padding(4, 3, 4, 3);
             dgvProdutos.MultiSelect = false;
             dgvProdutos.Name = "dgvProdutos";
-            dgvProdutos.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueLightMode;
+            dgvProdutos.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvProdutos.ReadOnly = true;
             dgvProdutos.RowHeadersWidth = 20;
             dgvProdutos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -158,32 +156,6 @@
             toolStripStatusLabelTotalRegistros.Name = "toolStripStatusLabelTotalRegistros";
             toolStripStatusLabelTotalRegistros.Size = new Size(100, 17);
             toolStripStatusLabelTotalRegistros.Text = "Total de Registros";
-            // 
-            // rbInativos
-            // 
-            rbInativos.Location = new Point(235, 6);
-            rbInativos.Margin = new Padding(5, 6, 5, 6);
-            rbInativos.Name = "rbInativos";
-            rbInativos.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            rbInativos.Size = new Size(65, 20);
-            rbInativos.StateCommon.ShortText.Color1 = Color.White;
-            rbInativos.StateCommon.ShortText.Color2 = Color.White;
-            rbInativos.TabIndex = 621;
-            rbInativos.TabStop = false;
-            rbInativos.Values.Text = "Inativos";
-            // 
-            // rbAtivos
-            // 
-            rbAtivos.Location = new Point(168, 6);
-            rbAtivos.Margin = new Padding(5, 6, 5, 6);
-            rbAtivos.Name = "rbAtivos";
-            rbAtivos.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            rbAtivos.Size = new Size(56, 20);
-            rbAtivos.StateCommon.ShortText.Color1 = Color.White;
-            rbAtivos.StateCommon.ShortText.Color2 = Color.White;
-            rbAtivos.TabIndex = 20;
-            rbAtivos.TabStop = false;
-            rbAtivos.Values.Text = "Ativos";
             // 
             // rbtCodigo
             // 
@@ -520,10 +492,8 @@
             kryptonPanel3.Dock = DockStyle.Fill;
             kryptonPanel3.Location = new Point(3, 3);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueDarkMode;
+            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel3.Size = new Size(986, 29);
-            kryptonPanel3.StateCommon.Color1 = Color.FromArgb(8, 90, 180);
-            kryptonPanel3.StateCommon.Color2 = Color.FromArgb(102, 178, 255);
             kryptonPanel3.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
             kryptonPanel3.TabIndex = 0;
             // 
@@ -542,15 +512,13 @@
             // 
             // kryptonPanel5
             // 
-            kryptonPanel5.Controls.Add(rbInativos);
-            kryptonPanel5.Controls.Add(rbAtivos);
             kryptonPanel5.Controls.Add(rbtDescricao);
             kryptonPanel5.Controls.Add(rbtCodigo);
             kryptonPanel5.Controls.Add(txtPesquisa);
             kryptonPanel5.Dock = DockStyle.Fill;
             kryptonPanel5.Location = new Point(3, 38);
             kryptonPanel5.Name = "kryptonPanel5";
-            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverDarkMode;
+            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel5.Size = new Size(986, 29);
             kryptonPanel5.TabIndex = 1;
             // 
@@ -564,7 +532,7 @@
             kryptonPanel6.Dock = DockStyle.Fill;
             kryptonPanel6.Location = new Point(3, 467);
             kryptonPanel6.Name = "kryptonPanel6";
-            kryptonPanel6.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverDarkMode;
+            kryptonPanel6.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel6.Size = new Size(986, 34);
             kryptonPanel6.TabIndex = 2;
             // 
@@ -618,8 +586,6 @@
         public Krypton.Toolkit.KryptonButton btnAlterar;
         public Krypton.Toolkit.KryptonTextBox txtPesquisa;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
-        public Krypton.Toolkit.KryptonRadioButton rbInativos;
-        public Krypton.Toolkit.KryptonRadioButton rbAtivos;
         private TableLayoutPanel tableLayoutPanel2;
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;

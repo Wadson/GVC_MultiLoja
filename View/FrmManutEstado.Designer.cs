@@ -72,7 +72,7 @@
             dgvPesquisar.Margin = new Padding(4, 3, 4, 3);
             dgvPesquisar.MultiSelect = false;
             dgvPesquisar.Name = "dgvPesquisar";
-            dgvPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
+            dgvPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvPesquisar.ReadOnly = true;
             dgvPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPesquisar.Size = new Size(1103, 393);
@@ -428,8 +428,6 @@
             kryptonPanel1.Name = "kryptonPanel1";
             kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueDarkMode;
             kryptonPanel1.Size = new Size(1105, 29);
-            kryptonPanel1.StateCommon.Color1 = Color.FromArgb(8, 90, 180);
-            kryptonPanel1.StateCommon.Color2 = Color.FromArgb(102, 178, 255);
             kryptonPanel1.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
             kryptonPanel1.TabIndex = 0;
             // 
@@ -454,7 +452,7 @@
             kryptonPanel3.Dock = DockStyle.Fill;
             kryptonPanel3.Location = new Point(3, 38);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverDarkMode;
+            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel3.Size = new Size(1105, 29);
             kryptonPanel3.TabIndex = 1;
             // 
@@ -467,7 +465,7 @@
             kryptonPanel4.Dock = DockStyle.Fill;
             kryptonPanel4.Location = new Point(3, 472);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverDarkMode;
+            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel4.Size = new Size(1105, 34);
             kryptonPanel4.TabIndex = 2;
             // 

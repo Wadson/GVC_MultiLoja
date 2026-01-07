@@ -301,8 +301,6 @@
             kryptonPanel1.Name = "kryptonPanel1";
             kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel1.Size = new Size(911, 54);
-            kryptonPanel1.StateCommon.Color1 = Color.FromArgb(252, 252, 250);
-            kryptonPanel1.StateCommon.Color2 = Color.FromArgb(252, 252, 250);
             kryptonPanel1.TabIndex = 1038;
             // 
             // btnLimparFiltro
@@ -448,7 +446,7 @@
             dgvContasAReceber.Dock = DockStyle.Fill;
             dgvContasAReceber.Location = new Point(3, 88);
             dgvContasAReceber.Name = "dgvContasAReceber";
-            dgvContasAReceber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010White;
+            dgvContasAReceber.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvContasAReceber.Size = new Size(911, 165);
             dgvContasAReceber.TabIndex = 1039;
             dgvContasAReceber.TabStop = false;
@@ -710,7 +708,7 @@
             kryptonPanel4.Dock = DockStyle.Fill;
             kryptonPanel4.Location = new Point(3, 3);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010White;
+            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel4.Size = new Size(911, 19);
             kryptonPanel4.TabIndex = 1051;
             // 
@@ -720,8 +718,8 @@
             kryptonLabel5.Location = new Point(0, 0);
             kryptonLabel5.Name = "kryptonLabel5";
             kryptonLabel5.Size = new Size(911, 19);
-            kryptonLabel5.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            kryptonLabel5.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
+            kryptonLabel5.StateCommon.ShortText.Color1 = Color.White;
+            kryptonLabel5.StateCommon.ShortText.Color2 = Color.White;
             kryptonLabel5.StateCommon.ShortText.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel5.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel5.TabIndex = 1;
@@ -732,9 +730,8 @@
             kryptonLabel2.Dock = DockStyle.Fill;
             kryptonLabel2.Location = new Point(3, 259);
             kryptonLabel2.Name = "kryptonLabel2";
+            kryptonLabel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonLabel2.Size = new Size(911, 19);
-            kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(44, 62, 80);
-            kryptonLabel2.StateCommon.ShortText.Color2 = Color.FromArgb(44, 62, 80);
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel2.TabIndex = 1052;
@@ -744,7 +741,7 @@
             // 
             dgvPagamentos.Location = new Point(3, 284);
             dgvPagamentos.Name = "dgvPagamentos";
-            dgvPagamentos.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010White;
+            dgvPagamentos.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvPagamentos.Size = new Size(911, 111);
             dgvPagamentos.TabIndex = 1053;
             dgvPagamentos.CellContentClick += dgvPagamentos_CellContentClick;
@@ -756,7 +753,7 @@
             kryptonPanel2.Dock = DockStyle.Fill;
             kryptonPanel2.Location = new Point(3, 455);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Blue;
+            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel2.Size = new Size(911, 26);
             kryptonPanel2.TabIndex = 1054;
             // 

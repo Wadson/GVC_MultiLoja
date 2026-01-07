@@ -42,12 +42,14 @@
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             tableLayoutPanel1 = new TableLayoutPanel();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
+            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
             timer2 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dgvEmpresa).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
+            kryptonPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
@@ -69,7 +71,7 @@
             dgvEmpresa.Margin = new Padding(4, 3, 4, 3);
             dgvEmpresa.MultiSelect = false;
             dgvEmpresa.Name = "dgvEmpresa";
-            dgvEmpresa.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
+            dgvEmpresa.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvEmpresa.ReadOnly = true;
             dgvEmpresa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEmpresa.Size = new Size(901, 327);
@@ -336,7 +338,7 @@
             rbtCodigo.Name = "rbtCodigo";
             rbtCodigo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             rbtCodigo.Size = new Size(62, 20);
-            rbtCodigo.StateCommon.ShortText.Color1 = Color.FromArgb(4, 44, 150);
+            rbtCodigo.StateCommon.ShortText.Color1 = Color.White;
             rbtCodigo.StateCommon.ShortText.Color2 = Color.White;
             rbtCodigo.TabIndex = 0;
             rbtCodigo.Values.Text = "Código";
@@ -350,7 +352,7 @@
             rbtDescricao.Name = "rbtDescricao";
             rbtDescricao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             rbtDescricao.Size = new Size(75, 20);
-            rbtDescricao.StateCommon.ShortText.Color1 = Color.FromArgb(4, 44, 150);
+            rbtDescricao.StateCommon.ShortText.Color1 = Color.White;
             rbtDescricao.StateCommon.ShortText.Color2 = Color.White;
             rbtDescricao.TabIndex = 1;
             rbtDescricao.Values.Text = "Descrição";
@@ -413,13 +415,27 @@
             // 
             // kryptonPanel2
             // 
+            kryptonPanel2.Controls.Add(kryptonLabel1);
             kryptonPanel2.Dock = DockStyle.Fill;
             kryptonPanel2.Location = new Point(3, 3);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010White;
+            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel2.Size = new Size(903, 29);
             kryptonPanel2.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
             kryptonPanel2.TabIndex = 0;
+            // 
+            // kryptonLabel1
+            // 
+            kryptonLabel1.Dock = DockStyle.Fill;
+            kryptonLabel1.Location = new Point(0, 0);
+            kryptonLabel1.Name = "kryptonLabel1";
+            kryptonLabel1.Size = new Size(903, 29);
+            kryptonLabel1.StateCommon.ShortText.Color1 = Color.White;
+            kryptonLabel1.StateCommon.ShortText.Color2 = Color.White;
+            kryptonLabel1.StateCommon.ShortText.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel1.TabIndex = 0;
+            kryptonLabel1.Values.Text = "MANUTENÇÃO DE EMPRESA";
             // 
             // kryptonPanel3
             // 
@@ -429,7 +445,7 @@
             kryptonPanel3.Dock = DockStyle.Fill;
             kryptonPanel3.Location = new Point(3, 38);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010White;
+            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel3.Size = new Size(903, 29);
             kryptonPanel3.TabIndex = 1;
             // 
@@ -442,7 +458,7 @@
             kryptonPanel4.Dock = DockStyle.Fill;
             kryptonPanel4.Location = new Point(3, 406);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2013White;
+            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel4.Size = new Size(903, 34);
             kryptonPanel4.TabIndex = 2;
             // 
@@ -474,6 +490,8 @@
             ((System.ComponentModel.ISupportInitialize)dgvEmpresa).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
+            kryptonPanel2.ResumeLayout(false);
+            kryptonPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
@@ -502,5 +520,6 @@
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
         private System.Windows.Forms.Timer timer2;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
     }
 }

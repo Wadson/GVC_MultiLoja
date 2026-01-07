@@ -72,7 +72,7 @@
             dataGridPesquisar.Margin = new Padding(4, 3, 4, 3);
             dataGridPesquisar.MultiSelect = false;
             dataGridPesquisar.Name = "dataGridPesquisar";
-            dataGridPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
+            dataGridPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dataGridPesquisar.ReadOnly = true;
             dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridPesquisar.Size = new Size(1028, 425);
@@ -425,10 +425,8 @@
             kryptonPanel1.Dock = DockStyle.Fill;
             kryptonPanel1.Location = new Point(3, 3);
             kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueDarkMode;
+            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel1.Size = new Size(1030, 29);
-            kryptonPanel1.StateCommon.Color1 = Color.FromArgb(8, 90, 180);
-            kryptonPanel1.StateCommon.Color2 = Color.FromArgb(102, 178, 255);
             kryptonPanel1.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
             kryptonPanel1.TabIndex = 0;
             // 
@@ -453,7 +451,7 @@
             kryptonPanel2.Dock = DockStyle.Fill;
             kryptonPanel2.Location = new Point(3, 38);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverDarkMode;
+            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel2.Size = new Size(1030, 29);
             kryptonPanel2.TabIndex = 1;
             // 
@@ -466,7 +464,7 @@
             kryptonPanel4.Dock = DockStyle.Fill;
             kryptonPanel4.Location = new Point(3, 504);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverDarkMode;
+            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel4.Size = new Size(1030, 34);
             kryptonPanel4.TabIndex = 2;
             // 

@@ -201,7 +201,7 @@
             kryptonPanel2.Dock = DockStyle.Top;
             kryptonPanel2.Location = new Point(0, 0);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Silver;
+            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueLightMode;
             kryptonPanel2.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.GridDataCellCustom1;
             kryptonPanel2.Size = new Size(1008, 46);
             kryptonPanel2.TabIndex = 602;

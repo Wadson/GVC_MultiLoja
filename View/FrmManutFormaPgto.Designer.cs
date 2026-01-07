@@ -69,7 +69,7 @@
             dgvFormaPgto.Margin = new Padding(4, 3, 4, 3);
             dgvFormaPgto.MultiSelect = false;
             dgvFormaPgto.Name = "dgvFormaPgto";
-            dgvFormaPgto.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
+            dgvFormaPgto.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvFormaPgto.ReadOnly = true;
             dgvFormaPgto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvFormaPgto.Size = new Size(901, 327);
@@ -336,7 +336,7 @@
             rbtCodigo.Name = "rbtCodigo";
             rbtCodigo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             rbtCodigo.Size = new Size(62, 20);
-            rbtCodigo.StateCommon.ShortText.Color1 = Color.FromArgb(4, 44, 150);
+            rbtCodigo.StateCommon.ShortText.Color1 = Color.White;
             rbtCodigo.StateCommon.ShortText.Color2 = Color.White;
             rbtCodigo.TabIndex = 0;
             rbtCodigo.Values.Text = "Código";
@@ -350,7 +350,7 @@
             rbtDescricao.Name = "rbtDescricao";
             rbtDescricao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             rbtDescricao.Size = new Size(75, 20);
-            rbtDescricao.StateCommon.ShortText.Color1 = Color.FromArgb(4, 44, 150);
+            rbtDescricao.StateCommon.ShortText.Color1 = Color.White;
             rbtDescricao.StateCommon.ShortText.Color2 = Color.White;
             rbtDescricao.TabIndex = 1;
             rbtDescricao.Values.Text = "Descrição";
@@ -416,7 +416,7 @@
             kryptonPanel2.Dock = DockStyle.Fill;
             kryptonPanel2.Location = new Point(3, 3);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010White;
+            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel2.Size = new Size(903, 29);
             kryptonPanel2.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
             kryptonPanel2.TabIndex = 0;
@@ -429,7 +429,7 @@
             kryptonPanel3.Dock = DockStyle.Fill;
             kryptonPanel3.Location = new Point(3, 38);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010White;
+            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel3.Size = new Size(903, 29);
             kryptonPanel3.TabIndex = 1;
             // 
@@ -442,7 +442,7 @@
             kryptonPanel4.Dock = DockStyle.Fill;
             kryptonPanel4.Location = new Point(3, 406);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2013White;
+            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             kryptonPanel4.Size = new Size(903, 34);
             kryptonPanel4.TabIndex = 2;
             // 

@@ -435,6 +435,7 @@ namespace GVC.View
 
                 item.Quantidade += qtd; // Subtotal será recalculado automaticamente
                 // ✅ CORREÇÃO 2: força atualização do DataGrid
+
                 _itensBindingSource.ResetBindings(false);
 
             }

@@ -203,11 +203,9 @@
             // cmbFormaPagamento
             // 
             cmbFormaPagamento.CornerRoundingRadius = 10F;
-            cmbFormaPagamento.DropBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonStandalone;
-            cmbFormaPagamento.DropButtonStyle = Krypton.Toolkit.ButtonStyle.CalendarDay;
+            cmbFormaPagamento.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbFormaPagamento.DropDownWidth = 171;
             cmbFormaPagamento.IntegralHeight = false;
-            cmbFormaPagamento.ItemStyle = Krypton.Toolkit.ButtonStyle.BreadCrumb;
             cmbFormaPagamento.Location = new Point(3, 103);
             cmbFormaPagamento.Name = "cmbFormaPagamento";
             cmbFormaPagamento.Size = new Size(330, 29);
