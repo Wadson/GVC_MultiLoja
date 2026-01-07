@@ -343,7 +343,8 @@ namespace GVC.View
                     totalVencido += p.Saldo;
             }
 
-            txtTotalVencido.Text = totalVencido.ToString("C2");
+            lblTotalVencido.Text = totalVencido.ToString("C2");
+
         }
         private void AtualizarCamposPorTipoPesquisa()
         {
@@ -609,7 +610,7 @@ namespace GVC.View
         {
             var selecionadas = ObterParcelasSelecionadas();
             decimal totalSelecionado = selecionadas.Sum(p => p.Saldo);
-            lblTotalSelecionado.Text = totalSelecionado.ToString("C2");
+            lblTotalSelecionado.Text = "Total selecionado:     " +totalSelecionado.ToString("C2");
         }
         private void dgvContasAReceber_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
@@ -638,14 +639,9 @@ namespace GVC.View
 
             int qtdPagas = pagas.Count();
             decimal totalPagas = pagas.Sum(p => p.ValorRecebido);
-
-            lblQtdContasPagas.Text = qtdPagas.ToString();
-            lblTotalContasPagas.Text = totalPagas.ToString("C2");
-            lblQtdeContasReceber.Text = qtdAReceber.ToString();
             lblTotalContasReceber.Text = totalAReceber.ToString("C2");
 
             lblTotalContasReceber.ForeColor = totalAReceber > 0m ? Color.Red : Color.Gray;
-            lblTotalContasPagas.ForeColor = Color.ForestGreen;
         }
 
         private void AtualizarParcelasAtrasadasNoBanco()
@@ -681,7 +677,7 @@ namespace GVC.View
             {
                 LimparAreaVenda();
                 return;
-            }          
+            }
             if (venda.Cliente == null && venda.ClienteID > 0)
             {
                 string query = "SELECT Nome FROM Clientes WHERE ClienteID = @id";
@@ -1177,7 +1173,7 @@ namespace GVC.View
             if (frm.ShowDialog() == DialogResult.OK)
                 CarregarContasAReceber();
         }
-       
+
 
 
         private void btnExtratoRecibo_Click(object sender, EventArgs e)
@@ -1402,7 +1398,7 @@ namespace GVC.View
                 });
             }
         }
-       
+
 
         private void dgvPagamentos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
@@ -1457,6 +1453,6 @@ namespace GVC.View
 
             AtualizarTotalSelecionado();
         }
-
+      
     }
 }

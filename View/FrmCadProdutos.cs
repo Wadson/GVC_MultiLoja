@@ -142,13 +142,16 @@ namespace GVC.View
 
                 produtosbll.Inserir(produto);
                 Utilitario.Mensagens.Info("Produto salvo com sucesso!");
+
                 Utilitario.LimparCampos(this);
-                int NovoCodigo = Utilitario.ProximoId(QueryProdutos);
-                string numeroComZeros = Utilitario.ZerosEsquerda(NovoCodigo, 4);
-                txtProdutoID.Text = numeroComZeros;
-                txtNomeProduto.Focus();
+
                 cmbStatus.SelectedIndex = 1;
                 cmbSituacao.SelectedIndex = 0;
+                txtNomeProduto.Focus();
+
+                int novoCodigo = Utilitario.ProximoId(QueryProdutos);
+                txtProdutoID.Text = Utilitario.ZerosEsquerda(novoCodigo, 4);
+
                 var frmManutProduto = Application.OpenForms["FrmManutProduto"] as FrmManutProduto;
                 if (frmManutProduto != null)
                 {
@@ -244,11 +247,7 @@ namespace GVC.View
             }
             if (StatusOperacao == "NOVO")
             {
-                Salvar();
-                Utilitario.LimparCampos(this);
-                txtNomeProduto.Focus();
-                produtoID = Utilitario.ProximoId(QueryProdutos);
-                txtProdutoID.Text = Utilitario.ZerosEsquerda(produtoID, 4);
+                Salvar();                
                 var frmManutProduto = Application.OpenForms["FrmManutProduto"] as FrmManutProduto;
                 if (frmManutProduto != null)
                 {
@@ -418,8 +417,7 @@ namespace GVC.View
             txtFornecedor.TextChanged += txtFornecedor_TextChanged;
         }
         private void btnLocalizarFornecedor_Click(object sender, EventArgs e)
-        {
-            AbrirFrmLocalizarFornecedorDinamico();
+        {           
         }
 
         private void txtDataValidade_Leave(object sender, EventArgs e)

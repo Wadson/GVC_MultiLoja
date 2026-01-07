@@ -56,29 +56,18 @@
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             dgvPagamentos = new Krypton.Toolkit.KryptonDataGridView();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
-            lblTotalSelect = new Label();
-            kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
-            toolStripStatusLabel1 = new ToolStripStatusLabel();
-            lblQtdContasPagas = new ToolStripStatusLabel();
-            toolStripStatusLabel3 = new ToolStripStatusLabel();
-            toolStripStatusLabel4 = new ToolStripStatusLabel();
-            lblTotalContasPagas = new ToolStripStatusLabel();
-            toolStripStatusLabel6 = new ToolStripStatusLabel();
-            toolStripStatusLabel7 = new ToolStripStatusLabel();
-            lblQtdeContasReceber = new ToolStripStatusLabel();
-            toolStripStatusLabel2 = new ToolStripStatusLabel();
-            toolStripStatusLabel5 = new ToolStripStatusLabel();
-            lblTotalContasReceber = new ToolStripStatusLabel();
-            toolStripStatusLabel8 = new ToolStripStatusLabel();
-            lblTotalSelecionado = new ToolStripStatusLabel();
-            toolStripStatusLabel10 = new ToolStripStatusLabel();
-            toolStripStatusLabel9 = new ToolStripStatusLabel();
-            txtTotalVencido = new ToolStripStatusLabel();
+            lblTotalSelecionado = new Krypton.Toolkit.KryptonLabel();
+            kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            lblTotalContasReceber = new Krypton.Toolkit.KryptonLabel();
+            lblTotalVencido = new Krypton.Toolkit.KryptonLabel();
+            flowLayoutPanel3 = new FlowLayoutPanel();
+            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
+            kryptonLabel6 = new Krypton.Toolkit.KryptonLabel();
             flowLayoutPanel4 = new FlowLayoutPanel();
             btnRecibo = new Krypton.Toolkit.KryptonButton();
             btnVerItensVenda = new Krypton.Toolkit.KryptonButton();
             toolTip1 = new ToolTip(components);
-            flowLayoutPanel1 = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)cmbStatusParcela).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
@@ -90,7 +79,10 @@
             ((System.ComponentModel.ISupportInitialize)dgvPagamentos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
             kryptonPanel2.SuspendLayout();
-            kryptonStatusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
+            kryptonPanel3.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            flowLayoutPanel3.SuspendLayout();
             flowLayoutPanel4.SuspendLayout();
             SuspendLayout();
             // 
@@ -160,7 +152,7 @@
             lblNomeCliente.AutoSize = true;
             lblNomeCliente.BackColor = Color.Transparent;
             lblNomeCliente.Font = new Font("Segoe UI", 9.75F);
-            lblNomeCliente.ForeColor = Color.FromArgb(44, 62, 80);
+            lblNomeCliente.ForeColor = Color.White;
             lblNomeCliente.Location = new Point(181, 1);
             lblNomeCliente.Name = "lblNomeCliente";
             lblNomeCliente.Size = new Size(87, 17);
@@ -197,7 +189,7 @@
             lblNumeroVenda.AutoSize = true;
             lblNumeroVenda.BackColor = Color.Transparent;
             lblNumeroVenda.Font = new Font("Segoe UI", 9.75F);
-            lblNumeroVenda.ForeColor = Color.FromArgb(44, 62, 80);
+            lblNumeroVenda.ForeColor = Color.White;
             lblNumeroVenda.Location = new Point(178, 1);
             lblNumeroVenda.Name = "lblNumeroVenda";
             lblNumeroVenda.Size = new Size(64, 17);
@@ -222,7 +214,7 @@
             lblVenctoInicial.AutoSize = true;
             lblVenctoInicial.BackColor = Color.Transparent;
             lblVenctoInicial.Font = new Font("Segoe UI", 9.75F);
-            lblVenctoInicial.ForeColor = Color.FromArgb(44, 62, 80);
+            lblVenctoInicial.ForeColor = Color.White;
             lblVenctoInicial.Location = new Point(181, 1);
             lblVenctoInicial.Name = "lblVenctoInicial";
             lblVenctoInicial.Size = new Size(83, 17);
@@ -234,7 +226,7 @@
             lblVenctoFinal.AutoSize = true;
             lblVenctoFinal.BackColor = Color.Transparent;
             lblVenctoFinal.Font = new Font("Segoe UI", 9.75F);
-            lblVenctoFinal.ForeColor = Color.FromArgb(44, 62, 80);
+            lblVenctoFinal.ForeColor = Color.White;
             lblVenctoFinal.Location = new Point(287, 1);
             lblVenctoFinal.Name = "lblVenctoFinal";
             lblVenctoFinal.Size = new Size(77, 17);
@@ -274,7 +266,7 @@
             lblStatusParcela.AutoSize = true;
             lblStatusParcela.BackColor = Color.Transparent;
             lblStatusParcela.Font = new Font("Segoe UI", 9.75F);
-            lblStatusParcela.ForeColor = Color.FromArgb(44, 62, 80);
+            lblStatusParcela.ForeColor = Color.White;
             lblStatusParcela.Location = new Point(185, 1);
             lblStatusParcela.Name = "lblStatusParcela";
             lblStatusParcela.Size = new Size(89, 17);
@@ -301,7 +293,7 @@
             kryptonPanel1.Dock = DockStyle.Fill;
             kryptonPanel1.Location = new Point(3, 28);
             kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
+            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlackDarkMode;
             kryptonPanel1.Size = new Size(911, 54);
             kryptonPanel1.TabIndex = 1038;
             // 
@@ -365,7 +357,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 9.75F);
-            label1.ForeColor = Color.FromArgb(44, 62, 80);
+            label1.ForeColor = Color.White;
             label1.Location = new Point(8, -2);
             label1.Name = "label1";
             label1.Size = new Size(111, 17);
@@ -449,8 +441,8 @@
             dgvContasAReceber.Dock = DockStyle.Fill;
             dgvContasAReceber.Location = new Point(3, 88);
             dgvContasAReceber.Name = "dgvContasAReceber";
-            dgvContasAReceber.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            dgvContasAReceber.Size = new Size(911, 204);
+            dgvContasAReceber.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Black;
+            dgvContasAReceber.Size = new Size(911, 187);
             dgvContasAReceber.TabIndex = 1039;
             dgvContasAReceber.TabStop = false;
             dgvContasAReceber.CellFormatting += dgvContasAReceber_CellFormatting;
@@ -685,16 +677,17 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel1.BackColor = Color.Black;
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 234F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 358F));
             tableLayoutPanel1.Controls.Add(kryptonPanel1, 0, 1);
             tableLayoutPanel1.Controls.Add(kryptonPanel4, 0, 0);
             tableLayoutPanel1.Controls.Add(dgvContasAReceber, 0, 2);
             tableLayoutPanel1.Controls.Add(kryptonLabel2, 0, 3);
             tableLayoutPanel1.Controls.Add(dgvPagamentos, 0, 4);
             tableLayoutPanel1.Controls.Add(kryptonPanel2, 0, 5);
-            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 1, 4);
+            tableLayoutPanel1.Controls.Add(kryptonPanel3, 1, 4);
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 6;
@@ -703,8 +696,8 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            tableLayoutPanel1.Size = new Size(917, 560);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel1.Size = new Size(917, 531);
             tableLayoutPanel1.TabIndex = 1069;
             // 
             // kryptonPanel4
@@ -714,7 +707,7 @@
             kryptonPanel4.Dock = DockStyle.Fill;
             kryptonPanel4.Location = new Point(3, 3);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
+            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlackDarkMode;
             kryptonPanel4.Size = new Size(911, 19);
             kryptonPanel4.TabIndex = 1051;
             // 
@@ -726,163 +719,130 @@
             kryptonLabel5.Size = new Size(911, 19);
             kryptonLabel5.StateCommon.ShortText.Color1 = Color.White;
             kryptonLabel5.StateCommon.ShortText.Color2 = Color.White;
-            kryptonLabel5.StateCommon.ShortText.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel5.StateCommon.ShortText.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             kryptonLabel5.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel5.TabIndex = 1;
-            kryptonLabel5.Values.Text = "CONTAS A RECEBER";
+            kryptonLabel5.Values.Text = "Contas a receber";
             // 
             // kryptonLabel2
             // 
             kryptonLabel2.Dock = DockStyle.Fill;
-            kryptonLabel2.Location = new Point(3, 298);
+            kryptonLabel2.Location = new Point(3, 281);
             kryptonLabel2.Name = "kryptonLabel2";
-            kryptonLabel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonLabel2.Size = new Size(677, 18);
-            kryptonLabel2.StateCommon.ShortText.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Black;
+            kryptonLabel2.Size = new Size(553, 18);
+            kryptonLabel2.StateCommon.ShortText.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel2.TabIndex = 1052;
-            kryptonLabel2.Values.Text = "PAGAMENTOS DA PARCELA SELECIONADA";
+            kryptonLabel2.Values.Text = "Pagamentos da parcela selecionada";
             // 
             // dgvPagamentos
             // 
             dgvPagamentos.Dock = DockStyle.Fill;
-            dgvPagamentos.Location = new Point(3, 322);
+            dgvPagamentos.Location = new Point(3, 305);
             dgvPagamentos.Name = "dgvPagamentos";
-            dgvPagamentos.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            dgvPagamentos.Size = new Size(677, 204);
+            dgvPagamentos.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Black;
+            dgvPagamentos.Size = new Size(553, 187);
             dgvPagamentos.TabIndex = 1053;
             dgvPagamentos.CellContentClick += dgvPagamentos_CellContentClick;
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
             // 
             // kryptonPanel2
             // 
-            kryptonPanel2.Controls.Add(lblTotalSelect);
+            kryptonPanel2.Controls.Add(lblTotalSelecionado);
             kryptonPanel2.Dock = DockStyle.Fill;
-            kryptonPanel2.Location = new Point(3, 532);
+            kryptonPanel2.Location = new Point(3, 498);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonPanel2.Size = new Size(677, 25);
+            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlackDarkMode;
+            kryptonPanel2.Size = new Size(553, 30);
             kryptonPanel2.TabIndex = 1054;
-            // 
-            // lblTotalSelect
-            // 
-            lblTotalSelect.AutoSize = true;
-            lblTotalSelect.BackColor = Color.Transparent;
-            lblTotalSelect.Font = new Font("Segoe UI", 9.75F);
-            lblTotalSelect.ForeColor = Color.FromArgb(44, 62, 80);
-            lblTotalSelect.Location = new Point(3, 3);
-            lblTotalSelect.Name = "lblTotalSelect";
-            lblTotalSelect.Size = new Size(111, 17);
-            lblTotalSelect.TabIndex = 1073;
-            lblTotalSelect.Text = "Total Selecionado";
-            // 
-            // kryptonStatusStrip1
-            // 
-            kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, lblQtdContasPagas, toolStripStatusLabel3, toolStripStatusLabel4, lblTotalContasPagas, toolStripStatusLabel6, toolStripStatusLabel7, lblQtdeContasReceber, toolStripStatusLabel2, toolStripStatusLabel5, lblTotalContasReceber, toolStripStatusLabel8, lblTotalSelecionado, toolStripStatusLabel10, toolStripStatusLabel9, txtTotalVencido });
-            kryptonStatusStrip1.Location = new Point(0, 599);
-            kryptonStatusStrip1.Name = "kryptonStatusStrip1";
-            kryptonStatusStrip1.ProgressBars = null;
-            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            kryptonStatusStrip1.Size = new Size(913, 22);
-            kryptonStatusStrip1.TabIndex = 1071;
-            kryptonStatusStrip1.Text = "kryptonStatusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(99, 17);
-            toolStripStatusLabel1.Text = "Qtde Ctas. Pagas:";
-            // 
-            // lblQtdContasPagas
-            // 
-            lblQtdContasPagas.Name = "lblQtdContasPagas";
-            lblQtdContasPagas.Size = new Size(12, 17);
-            lblQtdContasPagas.Text = "-";
-            // 
-            // toolStripStatusLabel3
-            // 
-            toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            toolStripStatusLabel3.Size = new Size(16, 17);
-            toolStripStatusLabel3.Text = " | ";
-            // 
-            // toolStripStatusLabel4
-            // 
-            toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            toolStripStatusLabel4.Size = new Size(99, 17);
-            toolStripStatusLabel4.Text = "Total Ctas. Pagas:";
-            // 
-            // lblTotalContasPagas
-            // 
-            lblTotalContasPagas.Name = "lblTotalContasPagas";
-            lblTotalContasPagas.Size = new Size(12, 17);
-            lblTotalContasPagas.Text = "-";
-            // 
-            // toolStripStatusLabel6
-            // 
-            toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            toolStripStatusLabel6.Size = new Size(16, 17);
-            toolStripStatusLabel6.Text = " | ";
-            // 
-            // toolStripStatusLabel7
-            // 
-            toolStripStatusLabel7.Name = "toolStripStatusLabel7";
-            toolStripStatusLabel7.Size = new Size(101, 17);
-            toolStripStatusLabel7.Text = "Qtd Ctas Receber:";
-            // 
-            // lblQtdeContasReceber
-            // 
-            lblQtdeContasReceber.Name = "lblQtdeContasReceber";
-            lblQtdeContasReceber.Size = new Size(12, 17);
-            lblQtdeContasReceber.Text = "-";
-            // 
-            // toolStripStatusLabel2
-            // 
-            toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            toolStripStatusLabel2.Size = new Size(16, 17);
-            toolStripStatusLabel2.Text = " | ";
-            // 
-            // toolStripStatusLabel5
-            // 
-            toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            toolStripStatusLabel5.Size = new Size(107, 17);
-            toolStripStatusLabel5.Text = "Total Ctas Receber:";
-            // 
-            // lblTotalContasReceber
-            // 
-            lblTotalContasReceber.Name = "lblTotalContasReceber";
-            lblTotalContasReceber.Size = new Size(12, 17);
-            lblTotalContasReceber.Text = "-";
-            // 
-            // toolStripStatusLabel8
-            // 
-            toolStripStatusLabel8.Name = "toolStripStatusLabel8";
-            toolStripStatusLabel8.Size = new Size(102, 17);
-            toolStripStatusLabel8.Text = "Valor selecionado:";
             // 
             // lblTotalSelecionado
             // 
+            lblTotalSelecionado.Anchor = AnchorStyles.Left;
+            lblTotalSelecionado.Location = new Point(2, 2);
             lblTotalSelecionado.Name = "lblTotalSelecionado";
-            lblTotalSelecionado.Size = new Size(12, 17);
-            lblTotalSelecionado.Text = "-";
+            lblTotalSelecionado.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Black;
+            lblTotalSelecionado.Size = new Size(33, 20);
+            lblTotalSelecionado.StateCommon.ShortText.Color1 = Color.FromArgb(40, 143, 78);
+            lblTotalSelecionado.StateCommon.ShortText.Color2 = Color.FromArgb(40, 143, 78);
+            lblTotalSelecionado.TabIndex = 4;
+            lblTotalSelecionado.Values.Text = "0,00";
             // 
-            // toolStripStatusLabel10
+            // kryptonPanel3
             // 
-            toolStripStatusLabel10.Name = "toolStripStatusLabel10";
-            toolStripStatusLabel10.Size = new Size(16, 17);
-            toolStripStatusLabel10.Text = " | ";
+            kryptonPanel3.Controls.Add(flowLayoutPanel1);
+            kryptonPanel3.Controls.Add(flowLayoutPanel3);
+            kryptonPanel3.Dock = DockStyle.Fill;
+            kryptonPanel3.Location = new Point(562, 305);
+            kryptonPanel3.Name = "kryptonPanel3";
+            kryptonPanel3.Size = new Size(352, 187);
+            kryptonPanel3.TabIndex = 1055;
             // 
-            // toolStripStatusLabel9
+            // flowLayoutPanel1
             // 
-            toolStripStatusLabel9.Name = "toolStripStatusLabel9";
-            toolStripStatusLabel9.Size = new Size(108, 17);
-            toolStripStatusLabel9.Text = "Valor total vencido:";
+            flowLayoutPanel1.BackColor = Color.Black;
+            flowLayoutPanel1.Controls.Add(lblTotalContasReceber);
+            flowLayoutPanel1.Controls.Add(lblTotalVencido);
+            flowLayoutPanel1.Dock = DockStyle.Right;
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.Location = new Point(189, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(163, 187);
+            flowLayoutPanel1.TabIndex = 1055;
             // 
-            // txtTotalVencido
+            // lblTotalContasReceber
             // 
-            txtTotalVencido.Name = "txtTotalVencido";
-            txtTotalVencido.Size = new Size(12, 17);
-            txtTotalVencido.Text = "-";
+            lblTotalContasReceber.Location = new Point(3, 3);
+            lblTotalContasReceber.Name = "lblTotalContasReceber";
+            lblTotalContasReceber.PaletteMode = Krypton.Toolkit.PaletteMode.Office365SilverLightMode;
+            lblTotalContasReceber.Size = new Size(33, 20);
+            lblTotalContasReceber.StateCommon.ShortText.Color1 = Color.Green;
+            lblTotalContasReceber.StateCommon.ShortText.Color2 = Color.Green;
+            lblTotalContasReceber.TabIndex = 3;
+            lblTotalContasReceber.Values.Text = "0,00";
+            // 
+            // lblTotalVencido
+            // 
+            lblTotalVencido.Location = new Point(3, 29);
+            lblTotalVencido.Name = "lblTotalVencido";
+            lblTotalVencido.Size = new Size(33, 20);
+            lblTotalVencido.StateCommon.ShortText.Color1 = Color.FromArgb(40, 143, 78);
+            lblTotalVencido.StateCommon.ShortText.Color2 = Color.FromArgb(40, 143, 78);
+            lblTotalVencido.TabIndex = 5;
+            lblTotalVencido.Values.Text = "0,00";
+            // 
+            // flowLayoutPanel3
+            // 
+            flowLayoutPanel3.BackColor = Color.Black;
+            flowLayoutPanel3.Controls.Add(kryptonLabel1);
+            flowLayoutPanel3.Controls.Add(kryptonLabel6);
+            flowLayoutPanel3.Dock = DockStyle.Left;
+            flowLayoutPanel3.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel3.Location = new Point(0, 0);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Size = new Size(218, 187);
+            flowLayoutPanel3.TabIndex = 1056;
+            // 
+            // kryptonLabel1
+            // 
+            kryptonLabel1.Location = new Point(3, 3);
+            kryptonLabel1.Name = "kryptonLabel1";
+            kryptonLabel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Black;
+            kryptonLabel1.Size = new Size(180, 20);
+            kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(40, 143, 78);
+            kryptonLabel1.TabIndex = 3;
+            kryptonLabel1.Values.Text = "Quantidae de contas a receber:";
+            // 
+            // kryptonLabel6
+            // 
+            kryptonLabel6.Location = new Point(3, 29);
+            kryptonLabel6.Name = "kryptonLabel6";
+            kryptonLabel6.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Black;
+            kryptonLabel6.Size = new Size(86, 20);
+            kryptonLabel6.StateCommon.ShortText.Color1 = Color.FromArgb(40, 143, 78);
+            kryptonLabel6.TabIndex = 5;
+            kryptonLabel6.Values.Text = "Total vencido:";
             // 
             // flowLayoutPanel4
             // 
@@ -894,7 +854,7 @@
             flowLayoutPanel4.Controls.Add(btnVerItensVenda);
             flowLayoutPanel4.Dock = DockStyle.Bottom;
             flowLayoutPanel4.FlowDirection = FlowDirection.RightToLeft;
-            flowLayoutPanel4.Location = new Point(0, 566);
+            flowLayoutPanel4.Location = new Point(0, 588);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
             flowLayoutPanel4.Size = new Size(913, 33);
             flowLayoutPanel4.TabIndex = 1072;
@@ -1011,23 +971,13 @@
             btnVerItensVenda.Values.Text = "Ver Itens";
             btnVerItensVenda.Click += btnVerItensVenda_Click;
             // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(686, 322);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            tableLayoutPanel1.SetRowSpan(flowLayoutPanel1, 2);
-            flowLayoutPanel1.Size = new Size(228, 235);
-            flowLayoutPanel1.TabIndex = 1055;
-            // 
             // FrmContasReceber
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(252, 252, 250);
+            BackColor = Color.Black;
             ClientSize = new Size(913, 621);
             Controls.Add(flowLayoutPanel4);
-            Controls.Add(kryptonStatusStrip1);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
@@ -1056,11 +1006,14 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
             kryptonPanel2.ResumeLayout(false);
             kryptonPanel2.PerformLayout();
-            kryptonStatusStrip1.ResumeLayout(false);
-            kryptonStatusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
+            kryptonPanel3.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            flowLayoutPanel3.ResumeLayout(false);
+            flowLayoutPanel3.PerformLayout();
             flowLayoutPanel4.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -1101,29 +1054,18 @@
         private Krypton.Toolkit.KryptonLabel kryptonLabel18;
         private Krypton.Toolkit.KryptonLabel kryptonLabel4;
         private TableLayoutPanel tableLayoutPanel2;
-        private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
-        private ToolStripStatusLabel toolStripStatusLabel1;
-        private ToolStripStatusLabel lblQtdContasPagas;
-        private ToolStripStatusLabel toolStripStatusLabel3;
-        private ToolStripStatusLabel toolStripStatusLabel4;
-        private ToolStripStatusLabel lblTotalContasPagas;
-        private ToolStripStatusLabel toolStripStatusLabel6;
-        private ToolStripStatusLabel toolStripStatusLabel7;
-        private ToolStripStatusLabel lblQtdeContasReceber;
-        private ToolStripStatusLabel toolStripStatusLabel2;
-        private ToolStripStatusLabel toolStripStatusLabel5;
-        private ToolStripStatusLabel lblTotalContasReceber;
-        private ToolStripStatusLabel toolStripStatusLabel8;
-        private ToolStripStatusLabel lblTotalSelecionado;
-        private ToolStripStatusLabel toolStripStatusLabel10;
-        private ToolStripStatusLabel toolStripStatusLabel9;
-        private ToolStripStatusLabel txtTotalVencido;
         private Krypton.Toolkit.KryptonDataGridView dgvPagamentos;
         private FlowLayoutPanel flowLayoutPanel4;
         public Krypton.Toolkit.KryptonButton btnVerItensVenda;
         private ToolTip toolTip1;
         public Krypton.Toolkit.KryptonButton btnRecibo;
-        private Label lblTotalSelect;
         private Krypton.Toolkit.KryptonPanel kryptonPanel2;
+        private Krypton.Toolkit.KryptonLabel lblTotalContasReceber;
+        private Krypton.Toolkit.KryptonLabel lblTotalVencido;
+        private Krypton.Toolkit.KryptonPanel kryptonPanel3;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel6;
+        private Krypton.Toolkit.KryptonLabel lblTotalSelecionado;
     }
 }

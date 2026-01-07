@@ -333,7 +333,7 @@ namespace GVC.View
             if (decimal.TryParse(textoLimpo, NumberStyles.Any, _culturaBR, out decimal valor))
             {
                 // Formata como 1.000,00 (sem R$ para evitar problema no parse)
-                txtValorRecebido.Text = valor.ToString("C2");
+                txtValorRecebido.Text = valor.ToString("N");
             }
             else
             {
