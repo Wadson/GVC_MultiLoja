@@ -315,17 +315,6 @@ namespace GVC.View
 
         private void btnSair_Click_1(object sender, EventArgs e)
         {
-            // SE TEM ALGUMA LINHA SELECIONADA → carrega os dados antes de sair
-            if (dataGridPesquisar.CurrentRow != null && dataGridPesquisar.CurrentRow.Index >= 0)
-            {
-                linhaAtual = dataGridPesquisar.CurrentRow.Index;
-                SelecionarFornecedor(); // ← agora carrega mesmo clicando em Sair
-                return; // sai com DialogResult.OK
-            }
-
-            // Se não tem nada selecionado → só fecha (sem carregar nada)
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
         }
 
         private void FrmLocalizarFornecedor_Shown(object sender, EventArgs e)

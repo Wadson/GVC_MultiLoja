@@ -57,9 +57,9 @@
             // 
             // txtQuantidade
             // 
-            txtQuantidade.Location = new Point(496, 128);
+            txtQuantidade.Location = new Point(493, 128);
             txtQuantidade.Name = "txtQuantidade";
-            txtQuantidade.Size = new Size(110, 30);
+            txtQuantidade.Size = new Size(120, 30);
             txtQuantidade.StateCommon.Back.Color1 = Color.White;
             txtQuantidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtQuantidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -75,9 +75,9 @@
             // 
             // txtPrecoDeVenda
             // 
-            txtPrecoDeVenda.Location = new Point(375, 128);
+            txtPrecoDeVenda.Location = new Point(372, 128);
             txtPrecoDeVenda.Name = "txtPrecoDeVenda";
-            txtPrecoDeVenda.Size = new Size(110, 30);
+            txtPrecoDeVenda.Size = new Size(120, 30);
             txtPrecoDeVenda.StateCommon.Back.Color1 = Color.White;
             txtPrecoDeVenda.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoDeVenda.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -92,9 +92,9 @@
             // 
             // txtLucro
             // 
-            txtLucro.Location = new Point(254, 128);
+            txtLucro.Location = new Point(251, 128);
             txtLucro.Name = "txtLucro";
-            txtLucro.Size = new Size(110, 30);
+            txtLucro.Size = new Size(120, 30);
             txtLucro.StateCommon.Back.Color1 = Color.White;
             txtLucro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtLucro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -109,9 +109,9 @@
             // 
             // txtPrecoCusto
             // 
-            txtPrecoCusto.Location = new Point(133, 128);
+            txtPrecoCusto.Location = new Point(130, 128);
             txtPrecoCusto.Name = "txtPrecoCusto";
-            txtPrecoCusto.Size = new Size(110, 30);
+            txtPrecoCusto.Size = new Size(120, 30);
             txtPrecoCusto.StateCommon.Back.Color1 = Color.White;
             txtPrecoCusto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoCusto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -127,9 +127,9 @@
             // txtReferencia
             // 
             txtReferencia.CharacterCasing = CharacterCasing.Upper;
-            txtReferencia.Location = new Point(12, 128);
+            txtReferencia.Location = new Point(9, 128);
             txtReferencia.Name = "txtReferencia";
-            txtReferencia.Size = new Size(110, 30);
+            txtReferencia.Size = new Size(120, 30);
             txtReferencia.StateCommon.Back.Color1 = Color.White;
             txtReferencia.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtReferencia.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -166,7 +166,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 9.75F);
             label11.ForeColor = Color.FromArgb(0, 76, 172);
-            label11.Location = new Point(500, 108);
+            label11.Location = new Point(497, 108);
             label11.Name = "label11";
             label11.Size = new Size(76, 17);
             label11.TabIndex = 619;
@@ -177,7 +177,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 9.75F);
             label9.ForeColor = Color.FromArgb(0, 76, 172);
-            label9.Location = new Point(380, 108);
+            label9.Location = new Point(377, 108);
             label9.Name = "label9";
             label9.Size = new Size(93, 17);
             label9.TabIndex = 618;
@@ -188,7 +188,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9.75F);
             label8.ForeColor = Color.FromArgb(0, 76, 172);
-            label8.Location = new Point(256, 108);
+            label8.Location = new Point(253, 108);
             label8.Name = "label8";
             label8.Size = new Size(75, 17);
             label8.TabIndex = 617;
@@ -240,7 +240,7 @@
             // btnSair
             // 
             btnSair.CornerRoundingRadius = 10F;
-            btnSair.Location = new Point(536, 199);
+            btnSair.Location = new Point(506, 201);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -253,7 +253,7 @@
             btnSair.OverrideDefault.Border.Rounding = 20F;
             btnSair.OverrideDefault.Border.Width = 1;
             btnSair.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnSair.Size = new Size(70, 30);
+            btnSair.Size = new Size(100, 30);
             btnSair.StateCommon.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSair.StateCommon.Back.Color2 = Color.FromArgb(8, 142, 254);
             btnSair.StateCommon.Back.ColorAngle = 45F;
@@ -292,7 +292,7 @@
             // btnNovo
             // 
             btnNovo.CornerRoundingRadius = 10F;
-            btnNovo.Location = new Point(460, 199);
+            btnNovo.Location = new Point(406, 201);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -305,7 +305,7 @@
             btnNovo.OverrideDefault.Border.Rounding = 20F;
             btnNovo.OverrideDefault.Border.Width = 1;
             btnNovo.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnNovo.Size = new Size(70, 30);
+            btnNovo.Size = new Size(100, 30);
             btnNovo.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
             btnNovo.StateCommon.Back.ColorAngle = 45F;
@@ -345,7 +345,7 @@
             // btnSalva
             // 
             btnSalva.CornerRoundingRadius = 10F;
-            btnSalva.Location = new Point(384, 199);
+            btnSalva.Location = new Point(306, 201);
             btnSalva.Name = "btnSalva";
             btnSalva.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalva.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -358,7 +358,7 @@
             btnSalva.OverrideDefault.Border.Rounding = 20F;
             btnSalva.OverrideDefault.Border.Width = 1;
             btnSalva.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnSalva.Size = new Size(70, 30);
+            btnSalva.Size = new Size(100, 30);
             btnSalva.StateCommon.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalva.StateCommon.Back.Color2 = Color.FromArgb(8, 142, 254);
             btnSalva.StateCommon.Back.ColorAngle = 45F;
@@ -399,7 +399,7 @@
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 9.75F);
             label21.ForeColor = Color.FromArgb(0, 76, 172);
-            label21.Location = new Point(18, 108);
+            label21.Location = new Point(15, 108);
             label21.Name = "label21";
             label21.Size = new Size(69, 17);
             label21.TabIndex = 612;
@@ -421,7 +421,7 @@
             label27.AutoSize = true;
             label27.Font = new Font("Segoe UI", 9.75F);
             label27.ForeColor = Color.FromArgb(0, 76, 172);
-            label27.Location = new Point(136, 108);
+            label27.Location = new Point(133, 108);
             label27.Name = "label27";
             label27.Size = new Size(82, 17);
             label27.TabIndex = 613;
@@ -503,7 +503,7 @@
             dtpDataDeEntrada.Location = new Point(520, 73);
             dtpDataDeEntrada.Name = "dtpDataDeEntrada";
             dtpDataDeEntrada.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverLightMode;
-            dtpDataDeEntrada.Size = new Size(88, 26);
+            dtpDataDeEntrada.Size = new Size(90, 26);
             dtpDataDeEntrada.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             dtpDataDeEntrada.StateCommon.Border.Rounding = 10F;
             dtpDataDeEntrada.StateCommon.Border.Width = 1;

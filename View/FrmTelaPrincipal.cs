@@ -203,32 +203,7 @@ namespace GVC.View
             FrmManutUsuario frm = new FrmManutUsuario(StatusOperacao);
             StatusOperacao = "NOVO";
             AbrirFormEnPanel(frm);
-        }
-
-        private void btnLogoff_Click(object sender, EventArgs e)
-        {
-            // Fecha a tela principal
-            this.Hide();
-
-            // Limpa dados do usuário conectado
-            FrmLogin.UsuarioConectado = null;
-            FrmLogin.NivelAcesso = null;
-
-            // Volta para a tela de login
-            FrmLogin frmLogin = new FrmLogin();
-            frmLogin.ShowDialog();
-
-            // Se o login for cancelado, fecha o sistema
-            if (frmLogin.DialogResult != DialogResult.OK)
-            {
-                Application.Exit();
-            }
-            else
-            {
-                // Se o login foi feito novamente, reabre a tela principal
-                this.Show();
-            }
-        }
+        }    
 
         private void FrmTelaPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {

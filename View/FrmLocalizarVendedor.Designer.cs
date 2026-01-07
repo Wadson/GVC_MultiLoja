@@ -45,10 +45,10 @@
             dataGridPesquisar.Margin = new Padding(4, 3, 4, 3);
             dataGridPesquisar.MultiSelect = false;
             dataGridPesquisar.Name = "dataGridPesquisar";
-            dataGridPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
+            dataGridPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueLightMode;
             dataGridPesquisar.ReadOnly = true;
             dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPesquisar.Size = new Size(497, 233);
+            dataGridPesquisar.Size = new Size(497, 118);
             dataGridPesquisar.TabIndex = 598;
             dataGridPesquisar.DataBindingComplete += dataGridPesquisar_DataBindingComplete;
             dataGridPesquisar.SelectionChanged += dataGridPesquisar_SelectionChanged;

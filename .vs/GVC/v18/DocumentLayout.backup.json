@@ -3,32 +3,28 @@
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\bll\\extratobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\extratobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmlocalizarvendedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmlocalizarvendedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\bll\\pagamentoparcialbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\pagamentoparcialbll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmlocalizarproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmlocalizarproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\dal\\extratodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:dal\\extratodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmlocalizarfornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmlocalizarfornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmlocalizarestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmlocalizarestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\extratodetalhadohierarquicopdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\extratodetalhadohierarquicopdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmlocalizarcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmlocalizarcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcontasreceber.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmlocalizarcidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmlocalizarcidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 26,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -134,91 +130,74 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PagamentoParcialBll.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\BLL\\PagamentoParcialBll.cs",
-              "RelativeDocumentMoniker": "BLL\\PagamentoParcialBll.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\BLL\\PagamentoParcialBll.cs",
-              "RelativeToolTip": "BLL\\PagamentoParcialBll.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAAC4AAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T15:28:58.965Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmContasReceber.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
-              "RelativeDocumentMoniker": "View\\FrmContasReceber.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
-              "RelativeToolTip": "View\\FrmContasReceber.cs",
-              "ViewState": "AgIAABoFAAAAAAAAAAAowCgFAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T15:00:54.754Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ExtratoDetalhadoHierarquicoPdf.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\ExtratoDetalhadoHierarquicoPdf.cs",
-              "RelativeDocumentMoniker": "UTIL\\ExtratoDetalhadoHierarquicoPdf.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\ExtratoDetalhadoHierarquicoPdf.cs",
-              "RelativeToolTip": "UTIL\\ExtratoDetalhadoHierarquicoPdf.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAcwGkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T14:54:08.61Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ExtratoBLL.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\BLL\\ExtratoBLL.cs",
-              "RelativeDocumentMoniker": "BLL\\ExtratoBLL.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\BLL\\ExtratoBLL.cs",
-              "RelativeToolTip": "BLL\\ExtratoBLL.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAIwGAAAAAAAAAAAAAAAA==",
+              "Title": "FrmLocalizarVendedor.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmLocalizarVendedor.cs",
+              "RelativeDocumentMoniker": "View\\FrmLocalizarVendedor.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmLocalizarVendedor.cs [Projeto]*",
+              "RelativeToolTip": "View\\FrmLocalizarVendedor.cs [Projeto]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T09:53:21.849Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ExtratoDal.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\DAL\\ExtratoDal.cs",
-              "RelativeDocumentMoniker": "DAL\\ExtratoDal.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\DAL\\ExtratoDal.cs",
-              "RelativeToolTip": "DAL\\ExtratoDal.cs",
-              "ViewState": "AgIAAGIAAAAAAAAAAAAcwHYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T09:37:56.466Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FrmContasReceber.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs",
-              "RelativeDocumentMoniker": "View\\FrmContasReceber.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmContasReceber.cs [Projeto]",
-              "RelativeToolTip": "View\\FrmContasReceber.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T10:20:50.381Z",
+              "WhenOpened": "2026-01-07T08:50:47.295Z",
               "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "FrmOpcoesExtrato.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmOpcoesExtrato.cs",
-              "RelativeDocumentMoniker": "UTIL\\FrmOpcoesExtrato.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmOpcoesExtrato.cs [Projeto]",
-              "RelativeToolTip": "UTIL\\FrmOpcoesExtrato.cs [Projeto]",
+              "DocumentIndex": 1,
+              "Title": "FrmLocalizarProduto.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmLocalizarProduto.cs",
+              "RelativeDocumentMoniker": "View\\FrmLocalizarProduto.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmLocalizarProduto.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmLocalizarProduto.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-06T14:47:07.583Z",
+              "WhenOpened": "2026-01-07T08:50:47.272Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FrmLocalizarFornecedor.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmLocalizarFornecedor.cs",
+              "RelativeDocumentMoniker": "View\\FrmLocalizarFornecedor.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmLocalizarFornecedor.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmLocalizarFornecedor.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T08:50:47.248Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FrmLocalizarEstado.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmLocalizarEstado.cs",
+              "RelativeDocumentMoniker": "View\\FrmLocalizarEstado.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmLocalizarEstado.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmLocalizarEstado.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T08:50:47.222Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FrmLocalizarCliente.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmLocalizarCliente.cs",
+              "RelativeDocumentMoniker": "View\\FrmLocalizarCliente.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmLocalizarCliente.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmLocalizarCliente.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T08:50:47.191Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FrmLocalizarCidade.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmLocalizarCidade.cs",
+              "RelativeDocumentMoniker": "View\\FrmLocalizarCidade.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmLocalizarCidade.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmLocalizarCidade.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-07T08:50:47.168Z",
               "EditorCaption": " [Projeto]"
             }
           ]

@@ -44,9 +44,7 @@
             toolStripStatusLabel3 = new ToolStripStatusLabel();
             lblTipoUsuario = new ToolStripStatusLabel();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
-            button1 = new Button();
             btnFornecedor = new Button();
-            btnLogoff = new Button();
             btnUsuario = new Button();
             btnCliente = new Button();
             btnRelatorios = new Button();
@@ -192,9 +190,7 @@
             // 
             // kryptonPanel2
             // 
-            kryptonPanel2.Controls.Add(button1);
             kryptonPanel2.Controls.Add(btnFornecedor);
-            kryptonPanel2.Controls.Add(btnLogoff);
             kryptonPanel2.Controls.Add(btnUsuario);
             kryptonPanel2.Controls.Add(btnCliente);
             kryptonPanel2.Controls.Add(btnRelatorios);
@@ -209,25 +205,6 @@
             kryptonPanel2.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.GridDataCellCustom1;
             kryptonPanel2.Size = new Size(1008, 46);
             kryptonPanel2.TabIndex = 602;
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.Transparent;
-            button1.BackgroundImage = Properties.Resources.Logogg64;
-            button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.CheckedBackColor = Color.FromArgb(255, 255, 192);
-            button1.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
-            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(371, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(40, 40);
-            button1.TabIndex = 13;
-            button1.TextAlign = ContentAlignment.BottomCenter;
-            toolTip1.SetToolTip(button1, "Logoff");
-            button1.UseVisualStyleBackColor = false;
             // 
             // btnFornecedor
             // 
@@ -248,26 +225,6 @@
             toolTip1.SetToolTip(btnFornecedor, "Fornecedores");
             btnFornecedor.UseVisualStyleBackColor = false;
             btnFornecedor.Click += btnFornecedor_Click;
-            // 
-            // btnLogoff
-            // 
-            btnLogoff.BackColor = Color.Transparent;
-            btnLogoff.BackgroundImage = Properties.Resources.Logogg64;
-            btnLogoff.BackgroundImageLayout = ImageLayout.Stretch;
-            btnLogoff.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
-            btnLogoff.FlatAppearance.BorderSize = 0;
-            btnLogoff.FlatAppearance.CheckedBackColor = Color.FromArgb(255, 255, 192);
-            btnLogoff.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
-            btnLogoff.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
-            btnLogoff.FlatStyle = FlatStyle.Flat;
-            btnLogoff.Location = new Point(325, 3);
-            btnLogoff.Name = "btnLogoff";
-            btnLogoff.Size = new Size(40, 40);
-            btnLogoff.TabIndex = 11;
-            btnLogoff.TextAlign = ContentAlignment.BottomCenter;
-            toolTip1.SetToolTip(btnLogoff, "Logoff");
-            btnLogoff.UseVisualStyleBackColor = false;
-            btnLogoff.Click += btnLogoff_Click;
             // 
             // btnUsuario
             // 
@@ -787,7 +744,6 @@
         private ToolStripMenuItem usuáriosToolStripMenuItem1;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
         private Button btnUsuario;
-        private Button btnLogoff;
         private Button btnFornecedor;
         private ToolStripMenuItem ferramentasToolStripMenuItem;
         private ToolStripMenuItem cancelarVendaToolStripMenuItem;
@@ -799,7 +755,6 @@
         private ToolStripMenuItem empresaToolStripMenuItem;
         private ToolStripMenuItem configuraçãoDoSistemaToolStripMenuItem;
         private ToolStripMenuItem ToolStripMenuItemConfiguracoes;
-        private Button button1;
         private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
         private ToolStripStatusLabel toolStripStatusLabel8;
         private ToolStripStatusLabel lblAmbienteStatus;
