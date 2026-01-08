@@ -25,7 +25,7 @@ namespace GVC
             FrmLogin frmLogin = new FrmLogin();
             if (frmLogin.ShowDialog() == DialogResult.OK) // Se o login for bem-sucedido
             {
-                Application.Run(new FrmTelaPrincipal()); // Abre a tela principal
+                Application.Run(new FrmPrincipal()); // Abre a tela principal
             }
             else
             {
