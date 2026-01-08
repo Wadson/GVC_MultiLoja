@@ -44,7 +44,7 @@ namespace GVC.View
                 Name = "ProdutoDescricao",
                 DataPropertyName = "ProdutoDescricao",
                 HeaderText = "Produto",
-                Width = 250,
+                Width = 450,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             };
             dgvItensVenda.Columns.Add(colNomeProduto);
@@ -69,7 +69,7 @@ namespace GVC.View
                 Name = "PrecoUnitario",
                 DataPropertyName = "PrecoUnitario",
                 HeaderText = "Preço Unitário",
-                Width = 100,
+                Width = 90,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "C2",
@@ -84,7 +84,7 @@ namespace GVC.View
                 Name = "DescontoItem",
                 DataPropertyName = "DescontoItem",
                 HeaderText = "Desconto",
-                Width = 90,
+                Width = 80,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "C2",
@@ -99,7 +99,7 @@ namespace GVC.View
                 Name = "Subtotal",
                 DataPropertyName = "Subtotal",
                 HeaderText = "Subtotal",
-                Width = 100,
+                Width = 90,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "C2",

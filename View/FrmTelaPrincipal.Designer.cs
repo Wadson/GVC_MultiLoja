@@ -43,8 +43,8 @@
             toolStripStatusLabel2 = new ToolStripStatusLabel();
             toolStripStatusLabel3 = new ToolStripStatusLabel();
             lblTipoUsuario = new ToolStripStatusLabel();
-            kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
             btnFornecedor = new Button();
+            imageList1 = new ImageList(components);
             btnUsuario = new Button();
             btnCliente = new Button();
             btnRelatorios = new Button();
@@ -92,10 +92,11 @@
             configuraçãoDoSistemaToolStripMenuItem = new ToolStripMenuItem();
             ToolStripMenuItemConfiguracoes = new ToolStripMenuItem();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
-            kryptonPanel2.SuspendLayout();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            imageListMenu = new ImageList(components);
             kryptonStatusStrip1.SuspendLayout();
             menuStrip1.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // panelConteiner
@@ -104,9 +105,9 @@
             panelConteiner.BackColor = Color.FromArgb(252, 255, 255);
             panelConteiner.BackgroundImageLayout = ImageLayout.Center;
             panelConteiner.BorderStyle = BorderStyle.FixedSingle;
-            panelConteiner.Location = new Point(3, 75);
+            panelConteiner.Location = new Point(3, 52);
             panelConteiner.Name = "panelConteiner";
-            panelConteiner.Size = new Size(1002, 609);
+            panelConteiner.Size = new Size(1002, 632);
             panelConteiner.TabIndex = 1;
             // 
             // toolStripStatusLabel7
@@ -188,28 +189,9 @@
             lblTipoUsuario.Size = new Size(12, 17);
             lblTipoUsuario.Text = "-";
             // 
-            // kryptonPanel2
-            // 
-            kryptonPanel2.Controls.Add(btnFornecedor);
-            kryptonPanel2.Controls.Add(btnUsuario);
-            kryptonPanel2.Controls.Add(btnCliente);
-            kryptonPanel2.Controls.Add(btnRelatorios);
-            kryptonPanel2.Controls.Add(btnProduto);
-            kryptonPanel2.Controls.Add(btnContaReceber);
-            kryptonPanel2.Controls.Add(btnVendas);
-            kryptonPanel2.Controls.Add(btnFerramentas);
-            kryptonPanel2.Dock = DockStyle.Top;
-            kryptonPanel2.Location = new Point(0, 0);
-            kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueLightMode;
-            kryptonPanel2.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.GridDataCellCustom1;
-            kryptonPanel2.Size = new Size(1008, 46);
-            kryptonPanel2.TabIndex = 602;
-            // 
             // btnFornecedor
             // 
             btnFornecedor.BackColor = Color.Transparent;
-            btnFornecedor.BackgroundImage = Properties.Resources.Fornecedo64;
             btnFornecedor.BackgroundImageLayout = ImageLayout.Stretch;
             btnFornecedor.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
             btnFornecedor.FlatAppearance.BorderSize = 0;
@@ -217,7 +199,9 @@
             btnFornecedor.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
             btnFornecedor.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
             btnFornecedor.FlatStyle = FlatStyle.Flat;
-            btnFornecedor.Location = new Point(79, 3);
+            btnFornecedor.ImageKey = "fornecedores.png";
+            btnFornecedor.ImageList = imageList1;
+            btnFornecedor.Location = new Point(95, 3);
             btnFornecedor.Name = "btnFornecedor";
             btnFornecedor.Size = new Size(40, 40);
             btnFornecedor.TabIndex = 12;
@@ -226,10 +210,27 @@
             btnFornecedor.UseVisualStyleBackColor = false;
             btnFornecedor.Click += btnFornecedor_Click;
             // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "cidades.png");
+            imageList1.Images.SetKeyName(1, "clientes.png");
+            imageList1.Images.SetKeyName(2, "contas_receber.png");
+            imageList1.Images.SetKeyName(3, "empresa.png");
+            imageList1.Images.SetKeyName(4, "estados.png");
+            imageList1.Images.SetKeyName(5, "ferramentas.png");
+            imageList1.Images.SetKeyName(6, "forma_pagamento.png");
+            imageList1.Images.SetKeyName(7, "fornecedores.png");
+            imageList1.Images.SetKeyName(8, "produtos.png");
+            imageList1.Images.SetKeyName(9, "relatorios.png");
+            imageList1.Images.SetKeyName(10, "usuario.png");
+            imageList1.Images.SetKeyName(11, "venda.png");
+            // 
             // btnUsuario
             // 
             btnUsuario.BackColor = Color.Transparent;
-            btnUsuario.BackgroundImage = Properties.Resources.Usuarios64;
             btnUsuario.BackgroundImageLayout = ImageLayout.Stretch;
             btnUsuario.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
             btnUsuario.FlatAppearance.BorderSize = 0;
@@ -237,7 +238,9 @@
             btnUsuario.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
             btnUsuario.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
             btnUsuario.FlatStyle = FlatStyle.Flat;
-            btnUsuario.Location = new Point(1, 3);
+            btnUsuario.ImageKey = "usuario.png";
+            btnUsuario.ImageList = imageList1;
+            btnUsuario.Location = new Point(3, 3);
             btnUsuario.Name = "btnUsuario";
             btnUsuario.Size = new Size(40, 40);
             btnUsuario.TabIndex = 10;
@@ -249,7 +252,6 @@
             // btnCliente
             // 
             btnCliente.BackColor = Color.Transparent;
-            btnCliente.BackgroundImage = Properties.Resources.Cliente64;
             btnCliente.BackgroundImageLayout = ImageLayout.Stretch;
             btnCliente.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
             btnCliente.FlatAppearance.BorderSize = 0;
@@ -257,7 +259,9 @@
             btnCliente.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
             btnCliente.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
             btnCliente.FlatStyle = FlatStyle.Flat;
-            btnCliente.Location = new Point(41, 3);
+            btnCliente.ImageKey = "clientes.png";
+            btnCliente.ImageList = imageList1;
+            btnCliente.Location = new Point(49, 3);
             btnCliente.Name = "btnCliente";
             btnCliente.Size = new Size(40, 40);
             btnCliente.TabIndex = 2;
@@ -269,7 +273,6 @@
             // btnRelatorios
             // 
             btnRelatorios.BackColor = Color.Transparent;
-            btnRelatorios.BackgroundImage = Properties.Resources.Relatorio64;
             btnRelatorios.BackgroundImageLayout = ImageLayout.Stretch;
             btnRelatorios.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
             btnRelatorios.FlatAppearance.BorderSize = 0;
@@ -277,7 +280,9 @@
             btnRelatorios.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
             btnRelatorios.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
             btnRelatorios.FlatStyle = FlatStyle.Flat;
-            btnRelatorios.Location = new Point(285, 3);
+            btnRelatorios.ImageKey = "relatorios.png";
+            btnRelatorios.ImageList = imageList1;
+            btnRelatorios.Location = new Point(325, 3);
             btnRelatorios.Name = "btnRelatorios";
             btnRelatorios.Size = new Size(40, 40);
             btnRelatorios.TabIndex = 9;
@@ -289,7 +294,6 @@
             // btnProduto
             // 
             btnProduto.BackColor = Color.Transparent;
-            btnProduto.BackgroundImage = Properties.Resources.Produtos64;
             btnProduto.BackgroundImageLayout = ImageLayout.Stretch;
             btnProduto.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
             btnProduto.FlatAppearance.BorderSize = 0;
@@ -297,7 +301,9 @@
             btnProduto.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
             btnProduto.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
             btnProduto.FlatStyle = FlatStyle.Flat;
-            btnProduto.Location = new Point(125, 3);
+            btnProduto.ImageKey = "produtos.png";
+            btnProduto.ImageList = imageList1;
+            btnProduto.Location = new Point(141, 3);
             btnProduto.Name = "btnProduto";
             btnProduto.Size = new Size(40, 40);
             btnProduto.TabIndex = 4;
@@ -309,7 +315,6 @@
             // btnContaReceber
             // 
             btnContaReceber.BackColor = Color.Transparent;
-            btnContaReceber.BackgroundImage = Properties.Resources.Recebe64;
             btnContaReceber.BackgroundImageLayout = ImageLayout.Stretch;
             btnContaReceber.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
             btnContaReceber.FlatAppearance.BorderSize = 0;
@@ -317,7 +322,9 @@
             btnContaReceber.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
             btnContaReceber.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
             btnContaReceber.FlatStyle = FlatStyle.Flat;
-            btnContaReceber.Location = new Point(245, 3);
+            btnContaReceber.ImageKey = "contas_receber.png";
+            btnContaReceber.ImageList = imageList1;
+            btnContaReceber.Location = new Point(279, 3);
             btnContaReceber.Name = "btnContaReceber";
             btnContaReceber.Size = new Size(40, 40);
             btnContaReceber.TabIndex = 8;
@@ -329,7 +336,6 @@
             // btnVendas
             // 
             btnVendas.BackColor = Color.Transparent;
-            btnVendas.BackgroundImage = Properties.Resources.Venda64;
             btnVendas.BackgroundImageLayout = ImageLayout.Stretch;
             btnVendas.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
             btnVendas.FlatAppearance.BorderSize = 0;
@@ -337,7 +343,9 @@
             btnVendas.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
             btnVendas.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
             btnVendas.FlatStyle = FlatStyle.Flat;
-            btnVendas.Location = new Point(165, 3);
+            btnVendas.ImageKey = "venda.png";
+            btnVendas.ImageList = imageList1;
+            btnVendas.Location = new Point(187, 3);
             btnVendas.Name = "btnVendas";
             btnVendas.Size = new Size(40, 40);
             btnVendas.TabIndex = 5;
@@ -349,7 +357,6 @@
             // btnFerramentas
             // 
             btnFerramentas.BackColor = Color.Transparent;
-            btnFerramentas.BackgroundImage = Properties.Resources.Ferrament64;
             btnFerramentas.BackgroundImageLayout = ImageLayout.Stretch;
             btnFerramentas.FlatAppearance.BorderColor = Color.FromArgb(8, 142, 254);
             btnFerramentas.FlatAppearance.BorderSize = 0;
@@ -357,7 +364,9 @@
             btnFerramentas.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 255, 192);
             btnFerramentas.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 192, 128);
             btnFerramentas.FlatStyle = FlatStyle.Flat;
-            btnFerramentas.Location = new Point(205, 3);
+            btnFerramentas.ImageKey = "ferramentas.png";
+            btnFerramentas.ImageList = imageList1;
+            btnFerramentas.Location = new Point(233, 3);
             btnFerramentas.Name = "btnFerramentas";
             btnFerramentas.Size = new Size(40, 40);
             btnFerramentas.TabIndex = 6;
@@ -492,18 +501,20 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.BackColor = Color.White;
+            menuStrip1.BackColor = Color.FromArgb(252, 252, 250);
+            menuStrip1.Dock = DockStyle.None;
             menuStrip1.Font = new Font("Segoe UI", 9F);
             menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrosToolStripMenuItem1, ferramentasToolStripMenuItem, estoqueToolStripMenuItem, configuraçãoDoSistemaToolStripMenuItem });
             menuStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            menuStrip1.Location = new Point(0, 46);
+            menuStrip1.Location = new Point(368, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1008, 24);
+            menuStrip1.Size = new Size(284, 24);
             menuStrip1.TabIndex = 607;
             menuStrip1.Text = "menuStrip1";
             // 
             // cadastrosToolStripMenuItem1
             // 
+            cadastrosToolStripMenuItem1.BackColor = Color.FromArgb(252, 252, 250);
             cadastrosToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { cidadeToolStripMenuItem1, clientesToolStripMenuItem1, estadoToolStripMenuItem, fornecedoresToolStripMenuItem1, produtosToolStripMenuItem1, usuáriosToolStripMenuItem1, empresaToolStripMenuItem, formaDePagamentoToolStripMenuItem });
             cadastrosToolStripMenuItem1.ForeColor = Color.White;
             cadastrosToolStripMenuItem1.Name = "cadastrosToolStripMenuItem1";
@@ -666,12 +677,46 @@
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.BackColor = Color.FromArgb(252, 252, 250);
+            flowLayoutPanel1.Controls.Add(btnUsuario);
+            flowLayoutPanel1.Controls.Add(btnCliente);
+            flowLayoutPanel1.Controls.Add(btnFornecedor);
+            flowLayoutPanel1.Controls.Add(btnProduto);
+            flowLayoutPanel1.Controls.Add(btnVendas);
+            flowLayoutPanel1.Controls.Add(btnFerramentas);
+            flowLayoutPanel1.Controls.Add(btnContaReceber);
+            flowLayoutPanel1.Controls.Add(btnRelatorios);
+            flowLayoutPanel1.Controls.Add(menuStrip1);
+            flowLayoutPanel1.Location = new Point(0, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(1008, 45);
+            flowLayoutPanel1.TabIndex = 0;
+            // 
+            // imageListMenu
+            // 
+            imageListMenu.ColorDepth = ColorDepth.Depth32Bit;
+            imageListMenu.ImageStream = (ImageListStreamer)resources.GetObject("imageListMenu.ImageStream");
+            imageListMenu.TransparentColor = Color.Transparent;
+            imageListMenu.Images.SetKeyName(0, "cidades.png");
+            imageListMenu.Images.SetKeyName(1, "clientes.png");
+            imageListMenu.Images.SetKeyName(2, "contas_receber.png");
+            imageListMenu.Images.SetKeyName(3, "empresa.png");
+            imageListMenu.Images.SetKeyName(4, "estados.png");
+            imageListMenu.Images.SetKeyName(5, "ferramentas.png");
+            imageListMenu.Images.SetKeyName(6, "forma_pagamento.png");
+            imageListMenu.Images.SetKeyName(7, "fornecedores.png");
+            imageListMenu.Images.SetKeyName(8, "produtos.png");
+            imageListMenu.Images.SetKeyName(9, "relatorios.png");
+            imageListMenu.Images.SetKeyName(10, "usuario.png");
+            imageListMenu.Images.SetKeyName(11, "venda.png");
+            // 
             // FrmTelaPrincipal
             // 
             ClientSize = new Size(1008, 729);
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(kryptonStatusStrip1);
-            Controls.Add(menuStrip1);
-            Controls.Add(kryptonPanel2);
             Controls.Add(panelConteiner);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmTelaPrincipal";
@@ -684,12 +729,12 @@
             WindowState = FormWindowState.Maximized;
             FormClosing += FrmTelaPrincipal_FormClosing;
             Load += FrmPrincipal_Load;
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
-            kryptonPanel2.ResumeLayout(false);
             kryptonStatusStrip1.ResumeLayout(false);
             kryptonStatusStrip1.PerformLayout();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
 
@@ -710,7 +755,6 @@
         private System.Windows.Forms.ToolStripStatusLabel lblData;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel11;
         private System.Windows.Forms.ToolStripStatusLabel lblHoraAtual;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel2;
         private System.Windows.Forms.ToolStripMenuItem cadastrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fornecedoresToolStripMenuItem;
@@ -758,5 +802,8 @@
         private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
         private ToolStripStatusLabel toolStripStatusLabel8;
         private ToolStripStatusLabel lblAmbienteStatus;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private ImageList imageList1;
+        private ImageList imageListMenu;
     }
 }
