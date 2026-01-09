@@ -15,7 +15,7 @@ namespace GVC.View
 {
     public partial class FrmCadFornecedor : KryptonForm
     {
-       
+
 
         private readonly FornecedorBll _fornecedorBll = new FornecedorBll();
         private readonly string QueryFornecedor = "SELECT MAX(FornecedorID) FROM Fornecedor";
@@ -317,29 +317,10 @@ namespace GVC.View
             txtObservacoes.Text = fornecedor.Observacoes;
         }
 
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            if (StatusOperacao == "NOVO")
-                SalvarRegistro();
-            else if (StatusOperacao == "ALTERAR")
-                AlterarRegistro();
-            else if (StatusOperacao == "EXCLUSAO")
-                ExcluirRegistro(); btnSalvar.Enabled = true;
-        }
-
-        private void btnNovo_Click(object sender, EventArgs e)
-        {
-            LimparCampos();
-            GerarNovoCodigo();
-            txtNomeFornecedor.Focus();
-        }
-
         private void btnLocalizar_Click(object sender, EventArgs e)
         {
             AbrirFrmLocalizarCidadeDinamico();
         }
-
-        private void btnSair_Click(object sender, EventArgs e) => this.Close();
 
         private void LimparCampos() => Utilitario.LimparCampos(this);
 
@@ -501,7 +482,7 @@ namespace GVC.View
             }
 
             // Religa eventos se necessário
-             txtCidade.TextChanged += txtCidade_TextChanged;
+            txtCidade.TextChanged += txtCidade_TextChanged;
         }
         private bool ValidarCepParaBusca()
         {
@@ -686,6 +667,28 @@ namespace GVC.View
         private async void btnBuscarEnderecoPorCep_Click(object sender, EventArgs e)
         {
             await BuscarEnderecoPorCep();
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (StatusOperacao == "NOVO")
+                SalvarRegistro();
+            else if (StatusOperacao == "ALTERAR")
+                AlterarRegistro();
+            else if (StatusOperacao == "EXCLUSAO")
+                ExcluirRegistro(); btnSalvar.Enabled = true;
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+            GerarNovoCodigo();
+            txtNomeFornecedor.Focus();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

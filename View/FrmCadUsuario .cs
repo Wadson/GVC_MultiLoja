@@ -23,7 +23,7 @@ namespace GVC
         public FrmCadUser(string statusOperacao)
         {
             InitializeComponent();
-            this.StatusOperacao = statusOperacao;           
+            this.StatusOperacao = statusOperacao;
         }
 
         public static string HashSHA256(string senha)
@@ -100,7 +100,7 @@ namespace GVC
         private void CarregarHashSenhaAtual()
         {
             try
-            {                
+            {
                 UsuarioBLL bll = new UsuarioBLL();
                 HashSenhaAtualNoBanco = bll.ObterSenhaHashPorId(UsuarioID); // Você precisa criar esse método na BLL
             }
@@ -282,13 +282,6 @@ namespace GVC
             this.Close();
         }
 
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            if (StatusOperacao == "NOVO") SalvarRegistro();
-            else if (StatusOperacao == "ALTERAR") AlterarRegistro();
-            else if (StatusOperacao == "EXCLUSÃO") ExcluirRegistro();
-        }
-
         private void FrmCadUser_Load(object sender, EventArgs e)
         {
             ConfigurarCamposPorOperacao();
@@ -322,18 +315,6 @@ namespace GVC
             txtCPF.KeyPress += Utilitario.MascaraCPF;
         }
 
-        private void btnNovo_Click(object sender, EventArgs e)
-        {
-            Utilitario.LimparCampos(this);
-            int novoId = Utilitario.ProximoId(QueryUsuario);
-            UsuarioID = novoId;
-            ConfigurarCamposPorOperacao();
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void txtSenhaAtual_TextChanged_1(object sender, EventArgs e)
         {
@@ -400,6 +381,26 @@ namespace GVC
                 txtCPF.Text = formatado;
                 txtCPF.SelectionStart = Math.Min(pos + 1, txtCPF.Text.Length);
             }
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            Utilitario.LimparCampos(this);
+            int novoId = Utilitario.ProximoId(QueryUsuario);
+            UsuarioID = novoId;
+            ConfigurarCamposPorOperacao();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (StatusOperacao == "NOVO") SalvarRegistro();
+            else if (StatusOperacao == "ALTERAR") AlterarRegistro();
+            else if (StatusOperacao == "EXCLUSÃO") ExcluirRegistro();
         }
     }
 }

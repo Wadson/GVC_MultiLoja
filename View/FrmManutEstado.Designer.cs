@@ -486,6 +486,7 @@
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção de Estados";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutUsuario_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPesquisar).EndInit();
             kryptonStatusStrip1.ResumeLayout(false);

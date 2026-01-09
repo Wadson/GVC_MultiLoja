@@ -470,6 +470,7 @@
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção de Formas de Pagamento";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutFormaPgto_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFormaPgto).EndInit();
             tableLayoutPanel1.ResumeLayout(false);

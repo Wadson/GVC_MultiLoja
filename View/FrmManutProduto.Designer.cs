@@ -553,6 +553,7 @@
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção de Produtos";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutProduto_Load;
             ((System.ComponentModel.ISupportInitialize)dgvProdutos).EndInit();
             kryptonStatusStrip1.ResumeLayout(false);

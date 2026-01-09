@@ -19,11 +19,28 @@ namespace GVC.View
             InitializeComponent();
         }
 
+        private void btnBuscarProduto_Click(object sender, EventArgs e)
+        {
+            // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
+            string textoDigitado = txtNomeProduto.Text;
+
+            using (var pesquisaProduto = new FrmLocalizarProduto(this, textoDigitado))
+            {
+                pesquisaProduto.Owner = this;
+
+                if (pesquisaProduto.ShowDialog() == DialogResult.OK)
+                {
+                    txtNomeProduto.Text = pesquisaProduto.ProdutoSelecionado;
+                    txtNomeProduto.SelectionStart = txtNomeProduto.Text.Length;
+                }
+            }
+        }
+
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
             int? produtoId = string.IsNullOrWhiteSpace(txtProdutoID.Text)
-        ? null
-        : Convert.ToInt32(txtProdutoID.Text);
+       ? null
+       : Convert.ToInt32(txtProdutoID.Text);
 
             string tipo = cmbTipoMovimentacao.SelectedIndex <= 0
                 ? null
@@ -42,23 +59,10 @@ namespace GVC.View
             );
 
             dgvMovimentacoes.DataSource = dt;
-        }
-
-        private void btnBuscarProduto_Click(object sender, EventArgs e)
+        }    
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-            // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
-            string textoDigitado = txtNomeProduto.Text;
-
-            using (var pesquisaProduto = new FrmLocalizarProduto(this, textoDigitado))
-            {
-                pesquisaProduto.Owner = this;
-
-                if (pesquisaProduto.ShowDialog() == DialogResult.OK)
-                {
-                    txtNomeProduto.Text = pesquisaProduto.ProdutoSelecionado; 
-                    txtNomeProduto.SelectionStart = txtNomeProduto.Text.Length;
-                }
-            }
+            this.Close();
         }
     }
 }

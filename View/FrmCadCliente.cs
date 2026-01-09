@@ -611,7 +611,7 @@ namespace GVC.View
 
             // Padrão (se não conseguiu determinar)
             return "Física";
-        }       
+        }
         private void HabilitarCampos(bool habilitar)
         {
             // iniciar a recursão a partir do próprio formulário (this)
@@ -746,7 +746,7 @@ namespace GVC.View
                 ToolStripLabelDataUtimaCompra.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 this.Close();
 
-               AtualizarManutencao();
+                AtualizarManutencao();
             }
             catch (Exception ex)
             {
@@ -768,7 +768,7 @@ namespace GVC.View
                     _clienteBll.Excluir(ClienteID);
                     Utilitario.Mensagens.Aviso("Cliente excluído com sucesso!");
 
-                   AtualizarManutencao();
+                    AtualizarManutencao();
 
                     this.Close();
                 }
@@ -875,12 +875,12 @@ namespace GVC.View
 
             // Para alteração (será sobrescrito no AlterarRegistro, mas mantemos aqui para consistência)
             cliente.DataAtualizacao = DateTime.Now;
-            cliente.UsuarioAtualizacao = FrmLogin.UsuarioConectado;            
+            cliente.UsuarioAtualizacao = FrmLogin.UsuarioConectado;
             cliente.IsVendedor = chkIsVendedor.Checked;
 
             return cliente;
         }
-       
+
         private void AbrirFrmLocalizarCidadeDinamico()
         {
             // Desliga temporariamente o evento para evitar loop
@@ -958,29 +958,11 @@ namespace GVC.View
 
         }
 
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            if (StatusOperacao == "NOVO")
-                SalvarRegistro();
-            else if (StatusOperacao == "ALTERAR")
-                AlterarRegistro();
-            else if (StatusOperacao == "EXCLUSAO")
-                ExcluirRegistro(); btnSalvar.Enabled = true;
-        }
-
-        private void btnNovo_Click(object sender, EventArgs e)
-        {
-            LimparCampos();
-            GerarNovoCodigo();
-            txtNomeCliente.Focus();
-        }
-
         private void btnLocalizar_Click(object sender, EventArgs e)
         {
             AbrirFrmLocalizarCidadeDinamico();
         }
 
-        private void btnSair_Click(object sender, EventArgs e) => this.Close();
 
         private void LimparCampos() => Utilitario.LimparCampos(this);
 
@@ -990,7 +972,7 @@ namespace GVC.View
             if (CarregandoDados) return;
 
             string tipoSelecionado = cmbTipoCliente.Text;
-            AplicarConfiguracaoTipoCliente(tipoSelecionado);           
+            AplicarConfiguracaoTipoCliente(tipoSelecionado);
         }
         private void ConfigurarCamposPorTipoCliente(string tipoCliente)
         {
@@ -1219,6 +1201,28 @@ namespace GVC.View
         private async void btnBuscarEnderecoPorCep_Click(object sender, EventArgs e)
         {
             await BuscarEnderecoPorCep();
-        }       
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (StatusOperacao == "NOVO")
+                SalvarRegistro();
+            else if (StatusOperacao == "ALTERAR")
+                AlterarRegistro();
+            else if (StatusOperacao == "EXCLUSAO")
+                ExcluirRegistro(); btnSalvar.Enabled = true;
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+            GerarNovoCodigo();
+            txtNomeCliente.Focus();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

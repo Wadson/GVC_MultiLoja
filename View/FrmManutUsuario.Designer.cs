@@ -764,6 +764,7 @@
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             Text = "USUÁRIO";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutUsuario_Load;
             Shown += FrmManutUsuario_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();

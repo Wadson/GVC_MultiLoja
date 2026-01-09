@@ -156,7 +156,7 @@ namespace GVC.View
             // Se for NOVO, não precisa de linha selecionada
             if (StatusOperacao == "NOVO")
             {
-                frm.btnSalva.Text = "&Salvar";
+                frm.btnSalvar.Text = "&Salvar";
                 StatusOperacao = "NOVO";
 
                 // Personalização do título
@@ -212,7 +212,7 @@ namespace GVC.View
 
             if (StatusOperacao == "ALTERAR")
             {               
-                frm.btnSalva.Text = "&Alterar";
+                frm.btnSalvar.Text = "&Alterar";
                 frm.btnNovo.Enabled = false;
                 // Personalização do título
                 frm.Text = "Alterar Produto";
@@ -222,7 +222,7 @@ namespace GVC.View
             }
             else if (StatusOperacao == "EXCLUSÃO")
             {                
-                frm.btnSalva.Text = "&Excluir";
+                frm.btnSalvar.Text = "&Excluir";
 
                 // Personalização do título
                 frm.Text = "Excluir Produto";

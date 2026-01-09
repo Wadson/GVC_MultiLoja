@@ -126,7 +126,7 @@ namespace GVC.View
                 Estoque = estoque,
                 DataDeEntrada = dtpDataDeEntrada?.Value.Date ?? DateTime.Today,
                 Status = cmbStatus.Text,
-                Situacao = cmbSituacao.Text,
+                Situacao = cmbSituacao.Text,
                 Unidade = txtUnidade.Text,
                 Marca = txtMarca.Text,
                 DataValidade = DateTime.TryParseExact(txtDataValidade.Text, "dd/MM/yyyy",
@@ -211,7 +211,7 @@ namespace GVC.View
                     Situacao = cmbSituacao.Text, // se for ComboBox
                     Unidade = txtUnidade.Text, // TextBox ou ComboBox
                     Marca = txtMarca.Text, // TextBox
-                    DataValidade = DateTime.TryParseExact(txtDataValidade.Text, "dd/MM/yyyy", CultureInfo.GetCultureInfo("pt-BR"), DateTimeStyles.None, out DateTime dataValida) ? (DateTime?)dataValida: null,
+                    DataValidade = DateTime.TryParseExact(txtDataValidade.Text, "dd/MM/yyyy", CultureInfo.GetCultureInfo("pt-BR"), DateTimeStyles.None, out DateTime dataValida) ? (DateTime?)dataValida : null,
                     GtinEan = txtGtinEan.Text, // TextBox
                     Imagem = txtEnderecoImagem.Text, // TextBox com caminho da imagem                   
                     Fornecedor = new FornecedorModel
@@ -221,7 +221,7 @@ namespace GVC.View
 
 
                     FornecedorID = txtFornecedorID.Text != "" ? int.Parse(txtFornecedorID.Text) : 0,
-                };
+                };
                 // Chamar o método AlterarProduto da BLL
                 ProdutosBLL produtosbll = new ProdutosBLL();
                 produtosbll.Alterar(produto);
@@ -239,40 +239,7 @@ namespace GVC.View
                 Utilitario.Mensagens.Aviso("Erro ao Alterar o registro: " + ex.Message);
             }
         }
-        private void btnSalva_Click(object sender, EventArgs e)
-        {
-            if (StatusOperacao == "ALTERAR")
-            {
-                Alterar();
-            }
-            if (StatusOperacao == "NOVO")
-            {
-                Salvar();                
-                var frmManutProduto = Application.OpenForms["FrmManutProduto"] as FrmManutProduto;
-                if (frmManutProduto != null)
-                {
-                    frmManutProduto.HabilitarTimer(true);
-                }
-            }
-            if (StatusOperacao == "EXCLUSÃO")
-            {
-                if (MessageBox.Show("Deseja Excluir? \n\n O Usuário: " + txtNomeProduto.Text + " ??? ", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    Excluir();
-                }
-            }
-        }
-        private void btnNovo_Click(object sender, EventArgs e)
-        {
-            Utilitario.LimparCampos(this);
-            produtoID = Utilitario.ProximoId("SELECT MAX(ProdutoID) FROM Produto");
-            cmbStatus.SelectedIndex = 1;
-            cmbSituacao.SelectedIndex = 0;
-        }
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
         private void txtPrecoCusto_Leave(object sender, EventArgs e)
         {
             txtPrecoCusto.BackColor = Color.White;
@@ -417,7 +384,7 @@ namespace GVC.View
             txtFornecedor.TextChanged += txtFornecedor_TextChanged;
         }
         private void btnLocalizarFornecedor_Click(object sender, EventArgs e)
-        {           
+        {
         }
 
         private void txtDataValidade_Leave(object sender, EventArgs e)
@@ -458,7 +425,7 @@ namespace GVC.View
         {
             if (bloqueiaPesquisa || string.IsNullOrWhiteSpace(txtFornecedor.Text))
                 return;
-            
+
             string textoDigitado = txtFornecedor.Text;
 
             // VERIFICA SE O CONTROLE JÁ TEM UM HANDLE VÁLIDO
@@ -493,6 +460,43 @@ namespace GVC.View
                     bloqueiaPesquisa = false;
                 }
             }));
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (StatusOperacao == "ALTERAR")
+            {
+                Alterar();
+            }
+            if (StatusOperacao == "NOVO")
+            {
+                Salvar();
+                var frmManutProduto = Application.OpenForms["FrmManutProduto"] as FrmManutProduto;
+                if (frmManutProduto != null)
+                {
+                    frmManutProduto.HabilitarTimer(true);
+                }
+            }
+            if (StatusOperacao == "EXCLUSÃO")
+            {
+                if (MessageBox.Show("Deseja Excluir? \n\n O Usuário: " + txtNomeProduto.Text + " ??? ", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Excluir();
+                }
+            }
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            Utilitario.LimparCampos(this);
+            produtoID = Utilitario.ProximoId("SELECT MAX(ProdutoID) FROM Produto");
+            cmbStatus.SelectedIndex = 1;
+            cmbSituacao.SelectedIndex = 0;
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

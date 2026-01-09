@@ -486,6 +486,7 @@
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção e Empresa";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutEmpresa_Load;
             ((System.ComponentModel.ISupportInitialize)dgvEmpresa).EndInit();
             tableLayoutPanel1.ResumeLayout(false);

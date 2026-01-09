@@ -485,6 +485,7 @@
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção de Cidade";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutCidade_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridPesquisar).EndInit();
             kryptonStatusStrip2.ResumeLayout(false);

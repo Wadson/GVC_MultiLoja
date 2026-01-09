@@ -480,6 +480,7 @@
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção de Fornecedor";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutFornecedor_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFornecedor).EndInit();
             tableLayoutPanel1.ResumeLayout(false);

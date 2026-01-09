@@ -45,14 +45,38 @@
             pictureBox1 = new PictureBox();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             panelTitulo = new Krypton.Toolkit.KryptonPanel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            menuStrip1 = new MenuStrip();
+            cadastrosToolStripMenuItem1 = new ToolStripMenuItem();
+            cidadeToolStripMenuItem1 = new ToolStripMenuItem();
+            clientesToolStripMenuItem1 = new ToolStripMenuItem();
+            estadoToolStripMenuItem = new ToolStripMenuItem();
+            fornecedoresToolStripMenuItem1 = new ToolStripMenuItem();
+            produtosToolStripMenuItem1 = new ToolStripMenuItem();
+            usuáriosToolStripMenuItem1 = new ToolStripMenuItem();
+            empresaToolStripMenuItem = new ToolStripMenuItem();
+            formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
+            ferramentasToolStripMenuItem = new ToolStripMenuItem();
+            cancelarVendaToolStripMenuItem = new ToolStripMenuItem();
+            estoqueToolStripMenuItem = new ToolStripMenuItem();
+            movimentaçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
+            consultaMovimentaçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
+            relatórioEstoqueToolStripMenuItem = new ToolStripMenuItem();
+            dashbordToolStripMenuItem = new ToolStripMenuItem();
+            configuraçãoDoSistemaToolStripMenuItem = new ToolStripMenuItem();
+            ToolStripMenuItemConfiguracoes = new ToolStripMenuItem();
             btnMenu = new Button();
             panelConteiner = new Krypton.Toolkit.KryptonPanel();
+            kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
+            buttonsToolStripMenuItem = new ToolStripMenuItem();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelTitulo).BeginInit();
             panelTitulo.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelConteiner).BeginInit();
             SuspendLayout();
             // 
@@ -334,7 +358,7 @@
             // 
             // panelTitulo
             // 
-            panelTitulo.Controls.Add(btnMenu);
+            panelTitulo.Controls.Add(tableLayoutPanel1);
             panelTitulo.Dock = DockStyle.Top;
             panelTitulo.Location = new Point(168, 0);
             panelTitulo.Name = "panelTitulo";
@@ -345,6 +369,151 @@
             panelTitulo.TabIndex = 0;
             panelTitulo.MouseDown += panelTitulo_MouseDown;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.BackColor = Color.FromArgb(8, 148, 254);
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(menuStrip1, 1, 0);
+            tableLayoutPanel1.Controls.Add(btnMenu, 0, 0);
+            tableLayoutPanel1.Location = new Point(0, 5);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(629, 33);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.BackColor = Color.FromArgb(8, 148, 254);
+            menuStrip1.Font = new Font("Segoe UI", 9F);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrosToolStripMenuItem1, ferramentasToolStripMenuItem, estoqueToolStripMenuItem, configuraçãoDoSistemaToolStripMenuItem });
+            menuStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            menuStrip1.Location = new Point(35, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(594, 24);
+            menuStrip1.TabIndex = 1104;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // cadastrosToolStripMenuItem1
+            // 
+            cadastrosToolStripMenuItem1.BackColor = Color.FromArgb(8, 148, 254);
+            cadastrosToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { cidadeToolStripMenuItem1, clientesToolStripMenuItem1, estadoToolStripMenuItem, fornecedoresToolStripMenuItem1, produtosToolStripMenuItem1, usuáriosToolStripMenuItem1, empresaToolStripMenuItem, formaDePagamentoToolStripMenuItem });
+            cadastrosToolStripMenuItem1.ForeColor = Color.White;
+            cadastrosToolStripMenuItem1.Name = "cadastrosToolStripMenuItem1";
+            cadastrosToolStripMenuItem1.Size = new Size(71, 20);
+            cadastrosToolStripMenuItem1.Text = "&Cadastros";
+            // 
+            // cidadeToolStripMenuItem1
+            // 
+            cidadeToolStripMenuItem1.BackColor = Color.FromArgb(8, 148, 254);
+            cidadeToolStripMenuItem1.Name = "cidadeToolStripMenuItem1";
+            cidadeToolStripMenuItem1.Size = new Size(188, 22);
+            cidadeToolStripMenuItem1.Text = "&Cidade";
+            // 
+            // clientesToolStripMenuItem1
+            // 
+            clientesToolStripMenuItem1.Name = "clientesToolStripMenuItem1";
+            clientesToolStripMenuItem1.Size = new Size(188, 22);
+            clientesToolStripMenuItem1.Text = "&Clientes";
+            // 
+            // estadoToolStripMenuItem
+            // 
+            estadoToolStripMenuItem.Name = "estadoToolStripMenuItem";
+            estadoToolStripMenuItem.Size = new Size(188, 22);
+            estadoToolStripMenuItem.Text = "&Estado";
+            // 
+            // fornecedoresToolStripMenuItem1
+            // 
+            fornecedoresToolStripMenuItem1.Name = "fornecedoresToolStripMenuItem1";
+            fornecedoresToolStripMenuItem1.Size = new Size(188, 22);
+            fornecedoresToolStripMenuItem1.Text = "&Fornecedores";
+            // 
+            // produtosToolStripMenuItem1
+            // 
+            produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
+            produtosToolStripMenuItem1.Size = new Size(188, 22);
+            produtosToolStripMenuItem1.Text = "&Produtos";
+            // 
+            // usuáriosToolStripMenuItem1
+            // 
+            usuáriosToolStripMenuItem1.Name = "usuáriosToolStripMenuItem1";
+            usuáriosToolStripMenuItem1.Size = new Size(188, 22);
+            usuáriosToolStripMenuItem1.Text = "&Usuários";
+            // 
+            // empresaToolStripMenuItem
+            // 
+            empresaToolStripMenuItem.Name = "empresaToolStripMenuItem";
+            empresaToolStripMenuItem.Size = new Size(188, 22);
+            empresaToolStripMenuItem.Text = "Empresa";
+            // 
+            // formaDePagamentoToolStripMenuItem
+            // 
+            formaDePagamentoToolStripMenuItem.Name = "formaDePagamentoToolStripMenuItem";
+            formaDePagamentoToolStripMenuItem.Size = new Size(188, 22);
+            formaDePagamentoToolStripMenuItem.Text = "Forma de Pagamento";
+            // 
+            // ferramentasToolStripMenuItem
+            // 
+            ferramentasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cancelarVendaToolStripMenuItem });
+            ferramentasToolStripMenuItem.ForeColor = Color.White;
+            ferramentasToolStripMenuItem.Name = "ferramentasToolStripMenuItem";
+            ferramentasToolStripMenuItem.Size = new Size(84, 20);
+            ferramentasToolStripMenuItem.Text = "Ferramentas";
+            // 
+            // cancelarVendaToolStripMenuItem
+            // 
+            cancelarVendaToolStripMenuItem.Name = "cancelarVendaToolStripMenuItem";
+            cancelarVendaToolStripMenuItem.Size = new Size(155, 22);
+            cancelarVendaToolStripMenuItem.Text = "&Cancelar Venda";
+            // 
+            // estoqueToolStripMenuItem
+            // 
+            estoqueToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { movimentaçãoDeEstoqueToolStripMenuItem, consultaMovimentaçãoDeEstoqueToolStripMenuItem, relatórioEstoqueToolStripMenuItem, dashbordToolStripMenuItem });
+            estoqueToolStripMenuItem.ForeColor = Color.White;
+            estoqueToolStripMenuItem.Name = "estoqueToolStripMenuItem";
+            estoqueToolStripMenuItem.Size = new Size(61, 20);
+            estoqueToolStripMenuItem.Text = "Estoque";
+            // 
+            // movimentaçãoDeEstoqueToolStripMenuItem
+            // 
+            movimentaçãoDeEstoqueToolStripMenuItem.Name = "movimentaçãoDeEstoqueToolStripMenuItem";
+            movimentaçãoDeEstoqueToolStripMenuItem.Size = new Size(265, 22);
+            movimentaçãoDeEstoqueToolStripMenuItem.Text = "Movimentação de Estoque";
+            // 
+            // consultaMovimentaçãoDeEstoqueToolStripMenuItem
+            // 
+            consultaMovimentaçãoDeEstoqueToolStripMenuItem.Name = "consultaMovimentaçãoDeEstoqueToolStripMenuItem";
+            consultaMovimentaçãoDeEstoqueToolStripMenuItem.Size = new Size(265, 22);
+            consultaMovimentaçãoDeEstoqueToolStripMenuItem.Text = "Consulta Movimentação de Estoque";
+            // 
+            // relatórioEstoqueToolStripMenuItem
+            // 
+            relatórioEstoqueToolStripMenuItem.Name = "relatórioEstoqueToolStripMenuItem";
+            relatórioEstoqueToolStripMenuItem.Size = new Size(265, 22);
+            relatórioEstoqueToolStripMenuItem.Text = "Relatório Estoque";
+            // 
+            // dashbordToolStripMenuItem
+            // 
+            dashbordToolStripMenuItem.Name = "dashbordToolStripMenuItem";
+            dashbordToolStripMenuItem.Size = new Size(265, 22);
+            dashbordToolStripMenuItem.Text = "Dashboard";
+            // 
+            // configuraçãoDoSistemaToolStripMenuItem
+            // 
+            configuraçãoDoSistemaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ToolStripMenuItemConfiguracoes, buttonsToolStripMenuItem });
+            configuraçãoDoSistemaToolStripMenuItem.ForeColor = Color.White;
+            configuraçãoDoSistemaToolStripMenuItem.Name = "configuraçãoDoSistemaToolStripMenuItem";
+            configuraçãoDoSistemaToolStripMenuItem.Size = new Size(60, 20);
+            configuraçãoDoSistemaToolStripMenuItem.Text = "Sistema";
+            // 
+            // ToolStripMenuItemConfiguracoes
+            // 
+            ToolStripMenuItemConfiguracoes.Name = "ToolStripMenuItemConfiguracoes";
+            ToolStripMenuItemConfiguracoes.Size = new Size(151, 22);
+            ToolStripMenuItemConfiguracoes.Text = "Configurações";
+            // 
             // btnMenu
             // 
             btnMenu.BackColor = Color.FromArgb(8, 148, 254);
@@ -352,9 +521,9 @@
             btnMenu.BackgroundImageLayout = ImageLayout.Stretch;
             btnMenu.FlatAppearance.BorderSize = 0;
             btnMenu.FlatStyle = FlatStyle.Flat;
-            btnMenu.Location = new Point(10, 3);
+            btnMenu.Location = new Point(3, 3);
             btnMenu.Name = "btnMenu";
-            btnMenu.Size = new Size(30, 30);
+            btnMenu.Size = new Size(29, 27);
             btnMenu.TabIndex = 1103;
             btnMenu.UseVisualStyleBackColor = false;
             btnMenu.Click += btnMenu_Click;
@@ -368,6 +537,13 @@
             panelConteiner.StateCommon.Color1 = Color.FromArgb(252, 252, 250);
             panelConteiner.StateCommon.Color2 = Color.FromArgb(252, 252, 250);
             panelConteiner.TabIndex = 2;
+            // 
+            // buttonsToolStripMenuItem
+            // 
+            buttonsToolStripMenuItem.Name = "buttonsToolStripMenuItem";
+            buttonsToolStripMenuItem.Size = new Size(180, 22);
+            buttonsToolStripMenuItem.Text = "Buttons";
+            buttonsToolStripMenuItem.Click += buttonsToolStripMenuItem_Click;
             // 
             // FrmPrincipal
             // 
@@ -390,6 +566,10 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelTitulo).EndInit();
             panelTitulo.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)panelConteiner).EndInit();
             ResumeLayout(false);
         }
@@ -412,5 +592,27 @@
         private Krypton.Toolkit.KryptonPanel panelTitulo;
         private PictureBox pictureBox2;
         private Button btnMenu;
+        private TableLayoutPanel tableLayoutPanel1;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem cadastrosToolStripMenuItem1;
+        private ToolStripMenuItem cidadeToolStripMenuItem1;
+        private ToolStripMenuItem clientesToolStripMenuItem1;
+        private ToolStripMenuItem estadoToolStripMenuItem;
+        private ToolStripMenuItem fornecedoresToolStripMenuItem1;
+        private ToolStripMenuItem produtosToolStripMenuItem1;
+        private ToolStripMenuItem usuáriosToolStripMenuItem1;
+        private ToolStripMenuItem empresaToolStripMenuItem;
+        private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
+        private ToolStripMenuItem ferramentasToolStripMenuItem;
+        private ToolStripMenuItem cancelarVendaToolStripMenuItem;
+        private ToolStripMenuItem estoqueToolStripMenuItem;
+        private ToolStripMenuItem movimentaçãoDeEstoqueToolStripMenuItem;
+        private ToolStripMenuItem consultaMovimentaçãoDeEstoqueToolStripMenuItem;
+        private ToolStripMenuItem relatórioEstoqueToolStripMenuItem;
+        private ToolStripMenuItem dashbordToolStripMenuItem;
+        private ToolStripMenuItem configuraçãoDoSistemaToolStripMenuItem;
+        private ToolStripMenuItem ToolStripMenuItemConfiguracoes;
+        private Krypton.Toolkit.KryptonContextMenu kryptonContextMenu1;
+        private ToolStripMenuItem buttonsToolStripMenuItem;
     }
 }

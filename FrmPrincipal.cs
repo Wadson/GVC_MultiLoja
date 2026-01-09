@@ -1,5 +1,6 @@
 ﻿using GVC.BLL;
 using GVC.Thema;
+using GVC.UTIL;
 using GVC.View;
 using Krypton.Toolkit;
 using System;
@@ -165,6 +166,12 @@ namespace GVC
                 ReleaseCapture();
                 SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
+        }
+
+        private void buttonsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmModelo frm = new FrmModelo();
+            AbrirFormEnPanel(frm);
         }
     }
 }

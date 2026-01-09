@@ -62,10 +62,10 @@ namespace GVC.View
 
             if (StatusOperacao == "NOVO")
             {
-               
+
             }
             if (StatusOperacao == "ALTERAR")
-            { 
+            {
             }
 
             return formapgto;
@@ -174,27 +174,7 @@ namespace GVC.View
                 SendKeys.Send("{TAB}");
             }
         }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            if (StatusOperacao == "NOVO")
-                SalvarRegistro();
-            else if (StatusOperacao == "ALTERAR")
-                AlterarRegistro();
-            else if (StatusOperacao == "EXCLUSAO")
-                ExcluirRegistro(); btnSalvar.Enabled = true;
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-        private void btnNovo_Click(object sender, EventArgs e)
-        {
-            LimparCampos();
-            GerarNovoCodigo();
-            txtFormaPgto.Focus();
-        }
+      
         private void LimparCampos()
         {
             Utilitario.LimparCampos(this);
@@ -283,7 +263,7 @@ namespace GVC.View
 
             txtFormaPgtoID.Text = Utilitario.ZerosEsquerda((int)formapgto.FormaPgtoID, 4);
             txtFormaPgto.Text = formapgto.NomeFormaPagamento;
-            
+
         }
         private void FrmCadFormaPgto_Load(object sender, EventArgs e)
         {
@@ -305,6 +285,28 @@ namespace GVC.View
             AplicarModoFormulario();
 
             CarregandoDados = false;
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (StatusOperacao == "NOVO")
+                SalvarRegistro();
+            else if (StatusOperacao == "ALTERAR")
+                AlterarRegistro();
+            else if (StatusOperacao == "EXCLUSAO")
+                ExcluirRegistro(); btnSalvar.Enabled = true;
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+            GerarNovoCodigo();
+            txtFormaPgto.Focus();
+        }
+
+        private void btnSair_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
