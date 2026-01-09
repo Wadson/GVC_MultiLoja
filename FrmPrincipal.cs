@@ -142,8 +142,14 @@ namespace GVC
         private void btnMaximizar_Click(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal)
+            {
                 this.WindowState = FormWindowState.Maximized;
-            else this.WindowState = FormWindowState.Normal;
+                this.Bounds = Screen.FromHandle(this.Handle).WorkingArea; // garante ocupar toda a tela
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
         }
 
         private void btnFechar_Click(object sender, EventArgs e)

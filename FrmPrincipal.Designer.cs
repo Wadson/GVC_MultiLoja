@@ -46,9 +46,6 @@
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             panelTitulo = new Krypton.Toolkit.KryptonPanel();
             btnMenu = new Button();
-            btnMinimizar = new Button();
-            btnMaximizar = new Button();
-            btnFechar = new Button();
             panelConteiner = new Krypton.Toolkit.KryptonPanel();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
@@ -64,32 +61,26 @@
             imageList1.ColorDepth = ColorDepth.Depth32Bit;
             imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
             imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "Backup.png");
-            imageList1.Images.SetKeyName(1, "Cidade.png");
-            imageList1.Images.SetKeyName(2, "Clientes.png");
-            imageList1.Images.SetKeyName(3, "CloseL.png");
-            imageList1.Images.SetKeyName(4, "Dashbord.png");
-            imageList1.Images.SetKeyName(5, "Empresa.png");
-            imageList1.Images.SetKeyName(6, "Estados.png");
-            imageList1.Images.SetKeyName(7, "Estoque.png");
-            imageList1.Images.SetKeyName(8, "Ferramentas.png");
-            imageList1.Images.SetKeyName(9, "Fornecedor.png");
-            imageList1.Images.SetKeyName(10, "LogoSGVendas.png");
-            imageList1.Images.SetKeyName(11, "Menu.png");
-            imageList1.Images.SetKeyName(12, "Produto.png");
-            imageList1.Images.SetKeyName(13, "Receber.png");
-            imageList1.Images.SetKeyName(14, "Relatorio.png");
-            imageList1.Images.SetKeyName(15, "SGVendas.png");
-            imageList1.Images.SetKeyName(16, "SGVendas256.png");
-            imageList1.Images.SetKeyName(17, "Usuario.png");
-            imageList1.Images.SetKeyName(18, "Venda.png");
-            imageList1.Images.SetKeyName(19, "Fechar.png");
-            imageList1.Images.SetKeyName(20, "Maximizar.png");
-            imageList1.Images.SetKeyName(21, "Minimizar.png");
+            imageList1.Images.SetKeyName(0, "BackupBranco.png");
+            imageList1.Images.SetKeyName(1, "CarrinhoSGVendas64.png");
+            imageList1.Images.SetKeyName(2, "CidadeBranco.png");
+            imageList1.Images.SetKeyName(3, "ClienteBranco.png");
+            imageList1.Images.SetKeyName(4, "ContasReceberBranco.png");
+            imageList1.Images.SetKeyName(5, "DashBordBranco.png");
+            imageList1.Images.SetKeyName(6, "EmpresaBranco.png");
+            imageList1.Images.SetKeyName(7, "EstadoBranco.png");
+            imageList1.Images.SetKeyName(8, "EstoqueBranco.png");
+            imageList1.Images.SetKeyName(9, "FerramentasBranco.png");
+            imageList1.Images.SetKeyName(10, "FornecedorBranco.png");
+            imageList1.Images.SetKeyName(11, "ProdutoBranco.png");
+            imageList1.Images.SetKeyName(12, "RelatorioBRanco.png");
+            imageList1.Images.SetKeyName(13, "SGVendasBranco.png");
+            imageList1.Images.SetKeyName(14, "UsuarioBranco.png");
+            imageList1.Images.SetKeyName(15, "VendaBranco.png");
             // 
             // panelMenu
             // 
-            panelMenu.BackColor = Color.FromArgb(252, 252, 250);
+            panelMenu.BackColor = Color.FromArgb(8, 142, 254);
             panelMenu.Controls.Add(btnRelatorio);
             panelMenu.Controls.Add(btnContasReceber);
             panelMenu.Controls.Add(btnFerramentas);
@@ -110,18 +101,18 @@
             btnRelatorio.Dock = DockStyle.Top;
             btnRelatorio.FlatAppearance.BorderSize = 0;
             btnRelatorio.FlatStyle = FlatStyle.Flat;
-            btnRelatorio.Font = new Font("Noto Sans", 9.75F, FontStyle.Italic);
-            btnRelatorio.ForeColor = Color.FromArgb(245, 85, 0);
+            btnRelatorio.Font = new Font("Poppins", 9.75F);
+            btnRelatorio.ForeColor = Color.White;
             btnRelatorio.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRelatorio.ImageKey = "Relatorio.png";
+            btnRelatorio.ImageKey = "RelatorioBRanco.png";
             btnRelatorio.ImageList = imageList1;
             btnRelatorio.Location = new Point(0, 388);
             btnRelatorio.Name = "btnRelatorio";
             btnRelatorio.Padding = new Padding(11, 0, 0, 0);
             btnRelatorio.Size = new Size(168, 50);
             btnRelatorio.TabIndex = 10;
-            btnRelatorio.Text = "                  Relatórios";
-            btnRelatorio.TextAlign = ContentAlignment.MiddleLeft;
+            btnRelatorio.Text = "Relatórios";
+            btnRelatorio.TextAlign = ContentAlignment.MiddleRight;
             btnRelatorio.UseVisualStyleBackColor = true;
             btnRelatorio.Click += btnRelatorio_Click;
             // 
@@ -130,17 +121,18 @@
             btnContasReceber.Dock = DockStyle.Top;
             btnContasReceber.FlatAppearance.BorderSize = 0;
             btnContasReceber.FlatStyle = FlatStyle.Flat;
-            btnContasReceber.Font = new Font("Noto Sans", 9.75F, FontStyle.Italic);
-            btnContasReceber.ForeColor = Color.FromArgb(245, 85, 0);
+            btnContasReceber.Font = new Font("Poppins", 9.75F);
+            btnContasReceber.ForeColor = Color.White;
             btnContasReceber.ImageAlign = ContentAlignment.MiddleLeft;
-            btnContasReceber.ImageKey = "Receber.png";
+            btnContasReceber.ImageKey = "ContasReceberBranco.png";
             btnContasReceber.ImageList = imageList1;
             btnContasReceber.Location = new Point(0, 338);
             btnContasReceber.Name = "btnContasReceber";
             btnContasReceber.Padding = new Padding(11, 0, 0, 0);
             btnContasReceber.Size = new Size(168, 50);
             btnContasReceber.TabIndex = 9;
-            btnContasReceber.Text = "   Receber";
+            btnContasReceber.Text = "Receber";
+            btnContasReceber.TextAlign = ContentAlignment.MiddleRight;
             btnContasReceber.UseVisualStyleBackColor = true;
             btnContasReceber.Click += btnContasReceber_Click;
             // 
@@ -149,18 +141,18 @@
             btnFerramentas.Dock = DockStyle.Top;
             btnFerramentas.FlatAppearance.BorderSize = 0;
             btnFerramentas.FlatStyle = FlatStyle.Flat;
-            btnFerramentas.Font = new Font("Noto Sans", 9.75F, FontStyle.Italic);
-            btnFerramentas.ForeColor = Color.FromArgb(245, 85, 0);
+            btnFerramentas.Font = new Font("Poppins", 9.75F);
+            btnFerramentas.ForeColor = Color.White;
             btnFerramentas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFerramentas.ImageKey = "Ferramentas.png";
+            btnFerramentas.ImageKey = "FerramentasBranco.png";
             btnFerramentas.ImageList = imageList1;
             btnFerramentas.Location = new Point(0, 288);
             btnFerramentas.Name = "btnFerramentas";
             btnFerramentas.Padding = new Padding(11, 0, 0, 0);
             btnFerramentas.Size = new Size(168, 50);
             btnFerramentas.TabIndex = 8;
-            btnFerramentas.Text = "                  Ferramentas";
-            btnFerramentas.TextAlign = ContentAlignment.MiddleLeft;
+            btnFerramentas.Text = "Ferramentas";
+            btnFerramentas.TextAlign = ContentAlignment.MiddleRight;
             btnFerramentas.UseVisualStyleBackColor = true;
             btnFerramentas.Click += btnFerramentas_Click;
             // 
@@ -169,18 +161,18 @@
             btnVenda.Dock = DockStyle.Top;
             btnVenda.FlatAppearance.BorderSize = 0;
             btnVenda.FlatStyle = FlatStyle.Flat;
-            btnVenda.Font = new Font("Noto Sans", 9.75F, FontStyle.Italic);
-            btnVenda.ForeColor = Color.FromArgb(245, 85, 0);
+            btnVenda.Font = new Font("Poppins", 9.75F);
+            btnVenda.ForeColor = Color.White;
             btnVenda.ImageAlign = ContentAlignment.MiddleLeft;
-            btnVenda.ImageKey = "Venda.png";
+            btnVenda.ImageKey = "VendaBranco.png";
             btnVenda.ImageList = imageList1;
             btnVenda.Location = new Point(0, 238);
             btnVenda.Name = "btnVenda";
             btnVenda.Padding = new Padding(11, 0, 0, 0);
             btnVenda.Size = new Size(168, 50);
             btnVenda.TabIndex = 7;
-            btnVenda.Text = "                  PDV";
-            btnVenda.TextAlign = ContentAlignment.MiddleLeft;
+            btnVenda.Text = "PDV";
+            btnVenda.TextAlign = ContentAlignment.MiddleRight;
             btnVenda.UseVisualStyleBackColor = true;
             btnVenda.Click += btnVenda_Click;
             // 
@@ -189,17 +181,18 @@
             btnProdutos.Dock = DockStyle.Top;
             btnProdutos.FlatAppearance.BorderSize = 0;
             btnProdutos.FlatStyle = FlatStyle.Flat;
-            btnProdutos.Font = new Font("Noto Sans", 9.75F, FontStyle.Italic);
-            btnProdutos.ForeColor = Color.FromArgb(245, 85, 0);
+            btnProdutos.Font = new Font("Poppins", 9.75F);
+            btnProdutos.ForeColor = Color.White;
             btnProdutos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnProdutos.ImageKey = "Produto.png";
+            btnProdutos.ImageKey = "ProdutoBranco.png";
             btnProdutos.ImageList = imageList1;
             btnProdutos.Location = new Point(0, 188);
             btnProdutos.Name = "btnProdutos";
             btnProdutos.Padding = new Padding(11, 0, 0, 0);
             btnProdutos.Size = new Size(168, 50);
             btnProdutos.TabIndex = 6;
-            btnProdutos.Text = "    Produtos";
+            btnProdutos.Text = "Produtos";
+            btnProdutos.TextAlign = ContentAlignment.MiddleRight;
             btnProdutos.UseVisualStyleBackColor = true;
             btnProdutos.Click += btnProdutos_Click;
             // 
@@ -208,17 +201,18 @@
             btnFornecedor.Dock = DockStyle.Top;
             btnFornecedor.FlatAppearance.BorderSize = 0;
             btnFornecedor.FlatStyle = FlatStyle.Flat;
-            btnFornecedor.Font = new Font("Noto Sans", 9.75F, FontStyle.Italic);
-            btnFornecedor.ForeColor = Color.FromArgb(245, 85, 0);
+            btnFornecedor.Font = new Font("Poppins", 9.75F);
+            btnFornecedor.ForeColor = Color.White;
             btnFornecedor.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFornecedor.ImageKey = "Fornecedor.png";
+            btnFornecedor.ImageKey = "FornecedorBranco.png";
             btnFornecedor.ImageList = imageList1;
             btnFornecedor.Location = new Point(0, 138);
             btnFornecedor.Name = "btnFornecedor";
             btnFornecedor.Padding = new Padding(11, 0, 0, 0);
             btnFornecedor.Size = new Size(168, 50);
             btnFornecedor.TabIndex = 5;
-            btnFornecedor.Text = "            Fornecedores";
+            btnFornecedor.Text = "Fornecedores";
+            btnFornecedor.TextAlign = ContentAlignment.MiddleRight;
             btnFornecedor.UseVisualStyleBackColor = true;
             btnFornecedor.Click += btnFornecedor_Click;
             // 
@@ -227,17 +221,18 @@
             btnCliente.Dock = DockStyle.Top;
             btnCliente.FlatAppearance.BorderSize = 0;
             btnCliente.FlatStyle = FlatStyle.Flat;
-            btnCliente.Font = new Font("Noto Sans", 9.75F, FontStyle.Italic);
-            btnCliente.ForeColor = Color.FromArgb(245, 85, 0);
+            btnCliente.Font = new Font("Poppins", 9.75F);
+            btnCliente.ForeColor = Color.White;
             btnCliente.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCliente.ImageKey = "Clientes.png";
+            btnCliente.ImageKey = "ClienteBranco.png";
             btnCliente.ImageList = imageList1;
             btnCliente.Location = new Point(0, 88);
             btnCliente.Name = "btnCliente";
             btnCliente.Padding = new Padding(11, 0, 0, 0);
             btnCliente.Size = new Size(168, 50);
             btnCliente.TabIndex = 4;
-            btnCliente.Text = "  Clientes";
+            btnCliente.Text = "Clientes";
+            btnCliente.TextAlign = ContentAlignment.MiddleRight;
             btnCliente.UseVisualStyleBackColor = true;
             btnCliente.Click += btnCliente_Click;
             // 
@@ -246,23 +241,24 @@
             btnUsuario.Dock = DockStyle.Top;
             btnUsuario.FlatAppearance.BorderSize = 0;
             btnUsuario.FlatStyle = FlatStyle.Flat;
-            btnUsuario.Font = new Font("Noto Sans", 9.75F, FontStyle.Italic);
-            btnUsuario.ForeColor = Color.FromArgb(245, 85, 0);
+            btnUsuario.Font = new Font("Poppins", 9.75F);
+            btnUsuario.ForeColor = Color.White;
             btnUsuario.ImageAlign = ContentAlignment.MiddleLeft;
-            btnUsuario.ImageKey = "Usuario.png";
+            btnUsuario.ImageKey = "UsuarioBranco.png";
             btnUsuario.ImageList = imageList1;
             btnUsuario.Location = new Point(0, 38);
             btnUsuario.Name = "btnUsuario";
             btnUsuario.Padding = new Padding(11, 0, 0, 0);
             btnUsuario.Size = new Size(168, 50);
             btnUsuario.TabIndex = 3;
-            btnUsuario.Text = "   Usuários";
+            btnUsuario.Text = "Usuários";
+            btnUsuario.TextAlign = ContentAlignment.MiddleRight;
             btnUsuario.UseVisualStyleBackColor = true;
             btnUsuario.Click += btnUsuario_Click;
             // 
             // panelLogo
             // 
-            panelLogo.BackColor = Color.FromArgb(252, 252, 250);
+            panelLogo.BackColor = Color.FromArgb(8, 148, 254);
             panelLogo.Controls.Add(pictureBox2);
             panelLogo.Controls.Add(pictureBox1);
             panelLogo.Dock = DockStyle.Top;
@@ -273,7 +269,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.FromArgb(252, 252, 250);
+            pictureBox2.BackColor = Color.FromArgb(8, 142, 254);
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(70, 12);
             pictureBox2.Name = "pictureBox2";
@@ -284,7 +280,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.FromArgb(252, 252, 250);
+            pictureBox1.BackColor = Color.FromArgb(8, 148, 254);
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(14, 0);
             pictureBox1.Name = "pictureBox1";
@@ -319,34 +315,39 @@
             kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Back.Color2 = Color.FromArgb(250, 252, 252);
             kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Border.Width = 0;
+            kryptonPalette1.FormStyles.FormCommon.StateCommon.Border.Color1 = Color.FromArgb(244, 82, 0);
+            kryptonPalette1.FormStyles.FormCommon.StateCommon.Border.Color2 = Color.FromArgb(244, 82, 0);
+            kryptonPalette1.FormStyles.FormCommon.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             kryptonPalette1.FormStyles.FormMain.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
             kryptonPalette1.FormStyles.FormMain.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.FormStyles.FormMain.StateCommon.Border.Color1 = Color.FromArgb(8, 148, 250);
+            kryptonPalette1.FormStyles.FormMain.StateCommon.Border.Color2 = Color.FromArgb(8, 148, 250);
             kryptonPalette1.FormStyles.FormMain.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             kryptonPalette1.FormStyles.FormMain.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.None;
             kryptonPalette1.FormStyles.FormMain.StateCommon.Border.Rounding = 12F;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Back.Color1 = Color.FromArgb(236, 240, 241);
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Back.Color2 = Color.FromArgb(236, 240, 241);
+            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
+            kryptonPalette1.HeaderStyles.HeaderPrimary.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             // 
             // panelTitulo
             // 
             panelTitulo.Controls.Add(btnMenu);
-            panelTitulo.Controls.Add(btnMinimizar);
-            panelTitulo.Controls.Add(btnMaximizar);
-            panelTitulo.Controls.Add(btnFechar);
             panelTitulo.Dock = DockStyle.Top;
             panelTitulo.Location = new Point(168, 0);
             panelTitulo.Name = "panelTitulo";
             panelTitulo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
             panelTitulo.Size = new Size(632, 38);
-            panelTitulo.StateCommon.Color1 = Color.FromArgb(252, 252, 250);
-            panelTitulo.StateCommon.Color2 = Color.FromArgb(252, 252, 250);
+            panelTitulo.StateCommon.Color1 = Color.FromArgb(8, 148, 254);
+            panelTitulo.StateCommon.Color2 = Color.FromArgb(8, 148, 254);
             panelTitulo.TabIndex = 0;
             panelTitulo.MouseDown += panelTitulo_MouseDown;
             // 
             // btnMenu
             // 
+            btnMenu.BackColor = Color.FromArgb(8, 148, 254);
             btnMenu.BackgroundImage = (Image)resources.GetObject("btnMenu.BackgroundImage");
             btnMenu.BackgroundImageLayout = ImageLayout.Stretch;
             btnMenu.FlatAppearance.BorderSize = 0;
@@ -355,53 +356,8 @@
             btnMenu.Name = "btnMenu";
             btnMenu.Size = new Size(30, 30);
             btnMenu.TabIndex = 1103;
-            btnMenu.UseVisualStyleBackColor = true;
+            btnMenu.UseVisualStyleBackColor = false;
             btnMenu.Click += btnMenu_Click;
-            // 
-            // btnMinimizar
-            // 
-            btnMinimizar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnMinimizar.BackColor = Color.FromArgb(252, 252, 250);
-            btnMinimizar.BackgroundImage = (Image)resources.GetObject("btnMinimizar.BackgroundImage");
-            btnMinimizar.BackgroundImageLayout = ImageLayout.Stretch;
-            btnMinimizar.FlatAppearance.BorderSize = 0;
-            btnMinimizar.FlatStyle = FlatStyle.Flat;
-            btnMinimizar.Location = new Point(546, 7);
-            btnMinimizar.Name = "btnMinimizar";
-            btnMinimizar.Size = new Size(20, 20);
-            btnMinimizar.TabIndex = 1102;
-            btnMinimizar.UseVisualStyleBackColor = false;
-            btnMinimizar.Click += btnMinimizar_Click;
-            // 
-            // btnMaximizar
-            // 
-            btnMaximizar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnMaximizar.BackColor = Color.FromArgb(252, 252, 250);
-            btnMaximizar.BackgroundImage = (Image)resources.GetObject("btnMaximizar.BackgroundImage");
-            btnMaximizar.BackgroundImageLayout = ImageLayout.Stretch;
-            btnMaximizar.FlatAppearance.BorderSize = 0;
-            btnMaximizar.FlatStyle = FlatStyle.Flat;
-            btnMaximizar.Location = new Point(576, 7);
-            btnMaximizar.Name = "btnMaximizar";
-            btnMaximizar.Size = new Size(20, 20);
-            btnMaximizar.TabIndex = 1101;
-            btnMaximizar.UseVisualStyleBackColor = false;
-            btnMaximizar.Click += btnMaximizar_Click;
-            // 
-            // btnFechar
-            // 
-            btnFechar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnFechar.BackColor = Color.FromArgb(252, 252, 250);
-            btnFechar.BackgroundImage = (Image)resources.GetObject("btnFechar.BackgroundImage");
-            btnFechar.BackgroundImageLayout = ImageLayout.Stretch;
-            btnFechar.FlatAppearance.BorderSize = 0;
-            btnFechar.FlatStyle = FlatStyle.Flat;
-            btnFechar.Location = new Point(606, 7);
-            btnFechar.Name = "btnFechar";
-            btnFechar.Size = new Size(20, 20);
-            btnFechar.TabIndex = 0;
-            btnFechar.UseVisualStyleBackColor = false;
-            btnFechar.Click += btnFechar_Click;
             // 
             // panelConteiner
             // 
@@ -422,7 +378,6 @@
             Controls.Add(panelConteiner);
             Controls.Add(panelTitulo);
             Controls.Add(panelMenu);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "FrmPrincipal";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
@@ -457,8 +412,5 @@
         private Krypton.Toolkit.KryptonPanel panelTitulo;
         private PictureBox pictureBox2;
         private Button btnMenu;
-        private Button btnMinimizar;
-        private Button btnMaximizar;
-        private Button btnFechar;
     }
 }

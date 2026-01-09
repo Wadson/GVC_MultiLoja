@@ -3,15 +3,23 @@
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmmodelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmmodelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmmanutcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmmanutcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmcadcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmcadcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmtelaprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmtelaprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmtelaprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -26,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 26,
+          "SelectedChildIndex": 24,
           "Children": [
             {
               "$type": "Bookmark",
@@ -122,45 +130,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmTelaPrincipal.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs",
-              "RelativeDocumentMoniker": "View\\FrmTelaPrincipal.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs",
-              "RelativeToolTip": "View\\FrmTelaPrincipal.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAArwBgAAAArAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "FrmManutCliente.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmManutCliente.cs",
+              "RelativeDocumentMoniker": "View\\FrmManutCliente.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmManutCliente.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmManutCliente.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T01:27:17.603Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FrmTelaPrincipal.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs",
-              "RelativeDocumentMoniker": "View\\FrmTelaPrincipal.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs [Projeto]",
-              "RelativeToolTip": "View\\FrmTelaPrincipal.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T01:27:05.311Z",
+              "WhenOpened": "2026-01-09T15:09:27.5Z",
               "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmPrincipal.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\FrmPrincipal.cs",
-              "RelativeDocumentMoniker": "FrmPrincipal.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\FrmPrincipal.cs",
-              "RelativeToolTip": "FrmPrincipal.cs",
-              "ViewState": "AgIAAJAAAAAAAAAAAAAlwKAAAAANAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "FrmModelo.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmModelo.cs",
+              "RelativeDocumentMoniker": "UTIL\\FrmModelo.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmModelo.cs [Projeto]",
+              "RelativeToolTip": "UTIL\\FrmModelo.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-08T22:05:16.742Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-09T15:08:33.158Z",
+              "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
+              "Title": "FrmCadCliente.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmCadCliente.cs",
+              "RelativeDocumentMoniker": "View\\FrmCadCliente.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmCadCliente.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmCadCliente.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T10:28:04.663Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "FrmPrincipal.cs [Projeto]",
               "DocumentMoniker": "C:\\GVCSqlExpress\\FrmPrincipal.cs",
               "RelativeDocumentMoniker": "FrmPrincipal.cs",
@@ -169,6 +175,29 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-08T15:26:19.406Z",
               "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FrmTelaPrincipal.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs",
+              "RelativeDocumentMoniker": "View\\FrmTelaPrincipal.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs [Projeto]",
+              "RelativeToolTip": "View\\FrmTelaPrincipal.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T01:27:05.311Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FrmTelaPrincipal.cs",
+              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs",
+              "RelativeDocumentMoniker": "View\\FrmTelaPrincipal.cs",
+              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmTelaPrincipal.cs",
+              "RelativeToolTip": "View\\FrmTelaPrincipal.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAArwBgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T01:27:17.603Z"
             }
           ]
         },
