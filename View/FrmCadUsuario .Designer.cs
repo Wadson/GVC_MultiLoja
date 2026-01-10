@@ -59,10 +59,10 @@
             // 
             // txtNomeUsuario
             // 
-            txtNomeUsuario.Location = new Point(1, 257);
+            txtNomeUsuario.Location = new Point(285, 125);
             txtNomeUsuario.Margin = new Padding(4, 3, 4, 3);
             txtNomeUsuario.Name = "txtNomeUsuario";
-            txtNomeUsuario.Size = new Size(289, 24);
+            txtNomeUsuario.Size = new Size(542, 24);
             txtNomeUsuario.StateCommon.Back.Color1 = Color.White;
             txtNomeUsuario.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNomeUsuario.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -78,11 +78,11 @@
             // txtEmail
             // 
             txtEmail.CharacterCasing = CharacterCasing.Lower;
-            txtEmail.Location = new Point(292, 257);
+            txtEmail.Location = new Point(1, 179);
             txtEmail.Margin = new Padding(4, 3, 4, 3);
             txtEmail.Multiline = true;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(342, 24);
+            txtEmail.Size = new Size(827, 24);
             txtEmail.StateCommon.Back.Color1 = Color.White;
             txtEmail.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtEmail.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -97,11 +97,11 @@
             // 
             // txtNovaSenha
             // 
-            txtNovaSenha.Location = new Point(285, 307);
+            txtNovaSenha.Location = new Point(349, 231);
             txtNovaSenha.Margin = new Padding(4, 3, 4, 3);
             txtNovaSenha.Name = "txtNovaSenha";
             txtNovaSenha.PasswordChar = '*';
-            txtNovaSenha.Size = new Size(173, 24);
+            txtNovaSenha.Size = new Size(235, 24);
             txtNovaSenha.StateCommon.Back.Color1 = Color.White;
             txtNovaSenha.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNovaSenha.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -118,7 +118,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 10.25F);
-            label2.Location = new Point(1, 237);
+            label2.Location = new Point(285, 105);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(98, 17);
@@ -129,7 +129,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 10.25F);
-            label3.Location = new Point(294, 237);
+            label3.Location = new Point(1, 159);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(47, 17);
@@ -140,7 +140,7 @@
             // 
             lblNovaSenha.AutoSize = true;
             lblNovaSenha.Font = new Font("Microsoft Sans Serif", 10.25F);
-            lblNovaSenha.Location = new Point(292, 287);
+            lblNovaSenha.Location = new Point(349, 211);
             lblNovaSenha.Margin = new Padding(4, 0, 4, 0);
             lblNovaSenha.Name = "lblNovaSenha";
             lblNovaSenha.Size = new Size(86, 17);
@@ -162,7 +162,7 @@
             // 
             lblRepitaSenha.AutoSize = true;
             lblRepitaSenha.Font = new Font("Microsoft Sans Serif", 10.25F);
-            lblRepitaSenha.Location = new Point(464, 287);
+            lblRepitaSenha.Location = new Point(586, 211);
             lblRepitaSenha.Margin = new Padding(4, 0, 4, 0);
             lblRepitaSenha.Name = "lblRepitaSenha";
             lblRepitaSenha.Size = new Size(94, 17);
@@ -171,11 +171,11 @@
             // 
             // txtRepitaSenha
             // 
-            txtRepitaSenha.Location = new Point(460, 307);
+            txtRepitaSenha.Location = new Point(586, 231);
             txtRepitaSenha.Margin = new Padding(4, 3, 4, 3);
             txtRepitaSenha.Name = "txtRepitaSenha";
             txtRepitaSenha.PasswordChar = '*';
-            txtRepitaSenha.Size = new Size(173, 24);
+            txtRepitaSenha.Size = new Size(241, 24);
             txtRepitaSenha.StateCommon.Back.Color1 = Color.White;
             txtRepitaSenha.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtRepitaSenha.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -192,7 +192,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Microsoft Sans Serif", 10.25F);
-            label7.Location = new Point(5, 287);
+            label7.Location = new Point(1, 211);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(78, 17);
@@ -203,7 +203,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft Sans Serif", 10.25F);
-            label8.Location = new Point(4, 146);
+            label8.Location = new Point(1, 105);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new Size(29, 17);
@@ -212,10 +212,10 @@
             // 
             // txtCPF
             // 
-            txtCPF.Location = new Point(1, 166);
+            txtCPF.Location = new Point(1, 125);
             txtCPF.Margin = new Padding(4, 3, 4, 3);
             txtCPF.Name = "txtCPF";
-            txtCPF.Size = new Size(158, 24);
+            txtCPF.Size = new Size(276, 24);
             txtCPF.StateCommon.Back.Color1 = Color.White;
             txtCPF.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtCPF.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -285,7 +285,7 @@
             // 
             dtpDataNascimento.CornerRoundingRadius = 10F;
             dtpDataNascimento.Format = DateTimePickerFormat.Short;
-            dtpDataNascimento.Location = new Point(1, 307);
+            dtpDataNascimento.Location = new Point(1, 228);
             dtpDataNascimento.Name = "dtpDataNascimento";
             dtpDataNascimento.Palette = kryptonPalette1;
             dtpDataNascimento.PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
@@ -299,7 +299,7 @@
             // 
             lblSenhaAtual.AutoSize = true;
             lblSenhaAtual.Font = new Font("Microsoft Sans Serif", 10.25F);
-            lblSenhaAtual.Location = new Point(114, 287);
+            lblSenhaAtual.Location = new Point(116, 211);
             lblSenhaAtual.Margin = new Padding(4, 0, 4, 0);
             lblSenhaAtual.Name = "lblSenhaAtual";
             lblSenhaAtual.Size = new Size(85, 17);
@@ -308,11 +308,11 @@
             // 
             // txtSenhaAtual
             // 
-            txtSenhaAtual.Location = new Point(110, 307);
+            txtSenhaAtual.Location = new Point(112, 231);
             txtSenhaAtual.Margin = new Padding(4, 3, 4, 3);
             txtSenhaAtual.Name = "txtSenhaAtual";
             txtSenhaAtual.PasswordChar = '*';
-            txtSenhaAtual.Size = new Size(173, 24);
+            txtSenhaAtual.Size = new Size(235, 24);
             txtSenhaAtual.StateCommon.Back.Color1 = Color.White;
             txtSenhaAtual.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtSenhaAtual.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -330,7 +330,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 10.25F);
-            label1.Location = new Point(0, 58);
+            label1.Location = new Point(1, 58);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(108, 17);
@@ -340,7 +340,7 @@
             // txtNomeCompleto
             // 
             txtNomeCompleto.CharacterCasing = CharacterCasing.Upper;
-            txtNomeCompleto.Location = new Point(0, 78);
+            txtNomeCompleto.Location = new Point(1, 78);
             txtNomeCompleto.Margin = new Padding(4, 3, 4, 3);
             txtNomeCompleto.Name = "txtNomeCompleto";
             txtNomeCompleto.Size = new Size(827, 24);

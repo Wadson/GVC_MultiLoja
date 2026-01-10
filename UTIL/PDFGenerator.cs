@@ -4,7 +4,6 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace GVC.UTIL
@@ -75,6 +74,90 @@ namespace GVC.UTIL
         }
 
         // =========================
+        // NOVO: CONTAS A RECEBER AGRUPADO POR CLIENTE
+        // =========================
+        public static void GerarContasReceberAgrupadoPorCliente(
+            List<ExtratoCliente> extratos,
+            DadosEmpresaPdf empresa,
+            string caminhoArquivo)
+        {
+            if (extratos == null || extratos.Count == 0)
+                throw new Exception("Nenhum dado para gerar o relatório.");
+
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    ConfigurarPagina(page);
+
+                    page.Content().Column(col =>
+                    {
+                        AdicionarCabecalho(
+                            col,
+                            empresa,
+                            "Relatório de Contas a Receber Agrupado por Cliente");
+
+                        decimal totalGeral = 0m;
+
+                        foreach (var extrato in extratos)
+                        {
+                            col.Item().PaddingTop(10)
+                                .Text(extrato.NomeCliente)
+                                .Bold();
+
+                            col.Item().Table(table =>
+                            {
+                                table.ColumnsDefinition(c =>
+                                {
+                                    c.RelativeColumn(); // Venda
+                                    c.RelativeColumn(); // Documento
+                                    c.RelativeColumn(); // Vencimento
+                                    c.RelativeColumn(); // Situação
+                                    c.RelativeColumn(); // Saldo
+                                });
+
+                                Header(table,
+                                    "Venda",
+                                    "Documento",
+                                    "Vencimento",
+                                    "Situação",
+                                    "Saldo");
+
+                                foreach (var item in extrato.ItensExtrato)
+                                {
+                                    Row(table,
+                                        item.VendaID,
+                                        item.ParcelaID,
+                                        item.DataVencimento.ToString("dd/MM/yyyy"),
+                                        item.Status,
+                                        item.Saldo.ToString("C2"));
+                                }
+                            });
+
+                            col.Item()
+                                .AlignRight()
+                                .PaddingTop(5)
+                                .Text($"Total do cliente: {extrato.SaldoAtual:C2}")
+                                .Bold();
+
+                            totalGeral += extrato.SaldoAtual;
+                        }
+
+                        col.Item()
+                            .PaddingTop(20)
+                            .AlignRight()
+                            .Text($"TOTAL GERAL: {totalGeral:C2}")
+                            .FontSize(12)
+                            .Bold();
+
+                        AdicionarRodape(col);
+                    });
+                });
+            })
+            .GeneratePdf(caminhoArquivo);
+        }
+
+        // =========================
         // CONFIGURAÇÃO BASE
         // =========================
         private static void ConfigurarPagina(PageDescriptor page)
@@ -126,7 +209,7 @@ namespace GVC.UTIL
             ExtratoCliente extrato)
         {
             col.Item().Text($"Cliente: {extrato.NomeCliente}").Bold();
-            col.Item().Text($"Data de emissão: {DateTime.Now:dd/MM/yyyy HH:mm}");
+            col.Item().Text($"Data de emissão: {extrato.DataEmissao:dd/MM/yyyy HH:mm}");
             col.Item().PaddingBottom(10);
         }
 
@@ -250,7 +333,6 @@ namespace GVC.UTIL
                 }
             });
         }
-
 
         private static void Row(TableDescriptor table, params object[] values)
         {

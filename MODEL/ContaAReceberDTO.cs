@@ -21,5 +21,8 @@ namespace GVC.Model
         public string StatusParcela { get; set; }
         public string NomeFormaPagamento { get; set; }
         public string Observacoes { get; set; } // ⬅️ aqui
+
+        public List<ContaAReceberDTO> Parcelas { get; set; } = new();
+        public decimal TotalCliente => Parcelas.Sum(p => p.Saldo);
     }
 }

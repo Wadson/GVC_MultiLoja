@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             txtNomeCliente = new Krypton.Toolkit.KryptonTextBox();
             lblNomeCliente = new Label();
             txtNumeroVenda = new Krypton.Toolkit.KryptonTextBox();
@@ -48,7 +47,6 @@
             dgvContasAReceber = new Krypton.Toolkit.KryptonDataGridView();
             tableLayoutPanel1 = new TableLayoutPanel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
-            kryptonLabel5 = new Krypton.Toolkit.KryptonLabel();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             dgvPagamentos = new Krypton.Toolkit.KryptonDataGridView();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
@@ -68,6 +66,7 @@
             btnBaixarParcela = new Krypton.Toolkit.KryptonButton();
             btnVerItensVenda = new Krypton.Toolkit.KryptonButton();
             toolTip1 = new ToolTip(components);
+            kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             ((System.ComponentModel.ISupportInitialize)cmbStatusParcela).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelFiltroPesquisa).BeginInit();
             panelFiltroPesquisa.SuspendLayout();
@@ -75,7 +74,6 @@
             ((System.ComponentModel.ISupportInitialize)dgvContasAReceber).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
-            kryptonPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPagamentos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
             kryptonPanel2.SuspendLayout();
@@ -85,42 +83,6 @@
             flowLayoutPanel3.SuspendLayout();
             flowLayoutPanel4.SuspendLayout();
             SuspendLayout();
-            // 
-            // kryptonPalette1
-            // 
-            kryptonPalette1.ButtonSpecs.FormClose.Image = Properties.Resources.Exit;
-            kryptonPalette1.ButtonSpecs.FormClose.ImageStates.ImagePressed = Properties.Resources.Sairr;
-            kryptonPalette1.ButtonSpecs.FormClose.ImageStates.ImageTracking = Properties.Resources.Sairr;
-            kryptonPalette1.ButtonSpecs.FormMax.Image = Properties.Resources.Maximize;
-            kryptonPalette1.ButtonSpecs.FormMax.ImageStates.ImagePressed = Properties.Resources.Minimiza24;
-            kryptonPalette1.ButtonSpecs.FormMax.ImageStates.ImageTracking = Properties.Resources.Minimiza24;
-            kryptonPalette1.ButtonSpecs.FormMin.Image = Properties.Resources.Minimize;
-            kryptonPalette1.ButtonSpecs.FormMin.ImageStates.ImagePressed = Properties.Resources.Minimizar24;
-            kryptonPalette1.ButtonSpecs.FormMin.ImageStates.ImageTracking = Properties.Resources.Minimizar24;
-            kryptonPalette1.ButtonSpecs.FormRestore.Image = Properties.Resources.Maximize;
-            kryptonPalette1.ButtonSpecs.FormRestore.ImageStates.ImagePressed = Properties.Resources.Minimiza24;
-            kryptonPalette1.ButtonSpecs.FormRestore.ImageStates.ImageTracking = Properties.Resources.Maximize;
-            kryptonPalette1.ButtonStyles.ButtonForm.StateNormal.Back.Color1 = Color.FromArgb(250, 252, 252);
-            kryptonPalette1.ButtonStyles.ButtonForm.StateNormal.Back.Color2 = Color.FromArgb(250, 252, 252);
-            kryptonPalette1.ButtonStyles.ButtonForm.StateNormal.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            kryptonPalette1.ButtonStyles.ButtonForm.StateNormal.Border.Width = 0;
-            kryptonPalette1.ButtonStyles.ButtonForm.StatePressed.Back.Color1 = Color.FromArgb(250, 252, 252);
-            kryptonPalette1.ButtonStyles.ButtonForm.StatePressed.Back.Color2 = Color.FromArgb(250, 252, 252);
-            kryptonPalette1.ButtonStyles.ButtonForm.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            kryptonPalette1.ButtonStyles.ButtonForm.StatePressed.Border.Width = 0;
-            kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Back.Color1 = Color.FromArgb(250, 252, 252);
-            kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Back.Color2 = Color.FromArgb(250, 252, 252);
-            kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Border.Width = 0;
-            kryptonPalette1.FormStyles.FormMain.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            kryptonPalette1.FormStyles.FormMain.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
-            kryptonPalette1.FormStyles.FormMain.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            kryptonPalette1.FormStyles.FormMain.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.None;
-            kryptonPalette1.FormStyles.FormMain.StateCommon.Border.Rounding = 12F;
-            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Back.Color1 = Color.FromArgb(236, 240, 241);
-            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Back.Color2 = Color.FromArgb(236, 240, 241);
-            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
-            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
             // txtNomeCliente
             // 
@@ -294,7 +256,7 @@
             panelFiltroPesquisa.Location = new Point(3, 28);
             panelFiltroPesquisa.Name = "panelFiltroPesquisa";
             panelFiltroPesquisa.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            panelFiltroPesquisa.Size = new Size(911, 54);
+            panelFiltroPesquisa.Size = new Size(821, 54);
             panelFiltroPesquisa.StateCommon.Color1 = Color.White;
             panelFiltroPesquisa.StateCommon.Color2 = Color.White;
             panelFiltroPesquisa.TabIndex = 1038;
@@ -303,7 +265,7 @@
             // 
             btnLimparFiltro.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnLimparFiltro.CornerRoundingRadius = 20F;
-            btnLimparFiltro.Location = new Point(798, 14);
+            btnLimparFiltro.Location = new Point(708, 14);
             btnLimparFiltro.Name = "btnLimparFiltro";
             btnLimparFiltro.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnLimparFiltro.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -368,7 +330,7 @@
             // 
             btnPesquisar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnPesquisar.CornerRoundingRadius = 20F;
-            btnPesquisar.Location = new Point(696, 14);
+            btnPesquisar.Location = new Point(606, 14);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnPesquisar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -466,7 +428,7 @@
             dgvContasAReceber.Location = new Point(3, 88);
             dgvContasAReceber.Name = "dgvContasAReceber";
             dgvContasAReceber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            dgvContasAReceber.Size = new Size(911, 187);
+            dgvContasAReceber.Size = new Size(821, 187);
             dgvContasAReceber.TabIndex = 1039;
             dgvContasAReceber.TabStop = false;
             dgvContasAReceber.CellFormatting += dgvContasAReceber_CellFormatting;
@@ -496,32 +458,19 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 24F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
-            tableLayoutPanel1.Size = new Size(917, 531);
+            tableLayoutPanel1.Size = new Size(827, 531);
             tableLayoutPanel1.TabIndex = 1069;
             // 
             // kryptonPanel4
             // 
             tableLayoutPanel1.SetColumnSpan(kryptonPanel4, 2);
-            kryptonPanel4.Controls.Add(kryptonLabel5);
             kryptonPanel4.Dock = DockStyle.Fill;
             kryptonPanel4.Location = new Point(3, 3);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.Size = new Size(911, 19);
+            kryptonPanel4.Size = new Size(821, 19);
             kryptonPanel4.StateCommon.Color1 = Color.FromArgb(41, 129, 229);
             kryptonPanel4.StateCommon.Color2 = Color.FromArgb(41, 129, 229);
             kryptonPanel4.TabIndex = 1051;
-            // 
-            // kryptonLabel5
-            // 
-            kryptonLabel5.Location = new Point(0, 0);
-            kryptonLabel5.Name = "kryptonLabel5";
-            kryptonLabel5.Size = new Size(110, 21);
-            kryptonLabel5.StateCommon.ShortText.Color1 = Color.White;
-            kryptonLabel5.StateCommon.ShortText.Color2 = Color.White;
-            kryptonLabel5.StateCommon.ShortText.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            kryptonLabel5.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel5.TabIndex = 1;
-            kryptonLabel5.Values.Text = "Contas a receber";
             // 
             // kryptonLabel2
             // 
@@ -541,7 +490,7 @@
             dgvPagamentos.Location = new Point(3, 305);
             dgvPagamentos.Name = "dgvPagamentos";
             dgvPagamentos.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            dgvPagamentos.Size = new Size(553, 187);
+            dgvPagamentos.Size = new Size(463, 187);
             dgvPagamentos.TabIndex = 1053;
             dgvPagamentos.CellContentClick += dgvPagamentos_CellContentClick;
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
@@ -551,7 +500,7 @@
             kryptonPanel2.Controls.Add(lblTotalSelecionado);
             kryptonPanel2.Location = new Point(3, 498);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.Size = new Size(553, 30);
+            kryptonPanel2.Size = new Size(463, 30);
             kryptonPanel2.StateCommon.Color1 = Color.White;
             kryptonPanel2.StateCommon.Color2 = Color.White;
             kryptonPanel2.TabIndex = 1054;
@@ -573,7 +522,7 @@
             kryptonPanel3.Controls.Add(flowLayoutPanel1);
             kryptonPanel3.Controls.Add(flowLayoutPanel3);
             kryptonPanel3.Dock = DockStyle.Fill;
-            kryptonPanel3.Location = new Point(562, 305);
+            kryptonPanel3.Location = new Point(472, 305);
             kryptonPanel3.Name = "kryptonPanel3";
             kryptonPanel3.Size = new Size(352, 187);
             kryptonPanel3.TabIndex = 1055;
@@ -656,16 +605,16 @@
             flowLayoutPanel4.Controls.Add(btnVerItensVenda);
             flowLayoutPanel4.Dock = DockStyle.Bottom;
             flowLayoutPanel4.FlowDirection = FlowDirection.RightToLeft;
-            flowLayoutPanel4.Location = new Point(0, 588);
+            flowLayoutPanel4.Location = new Point(0, 559);
             flowLayoutPanel4.Name = "flowLayoutPanel4";
-            flowLayoutPanel4.Size = new Size(913, 33);
+            flowLayoutPanel4.Size = new Size(823, 33);
             flowLayoutPanel4.TabIndex = 1072;
             // 
             // btnSair
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 20F;
-            btnSair.Location = new Point(810, 3);
+            btnSair.Location = new Point(720, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -730,7 +679,7 @@
             // 
             btnEstornarPagamento.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnEstornarPagamento.CornerRoundingRadius = 20F;
-            btnEstornarPagamento.Location = new Point(704, 3);
+            btnEstornarPagamento.Location = new Point(614, 3);
             btnEstornarPagamento.Name = "btnEstornarPagamento";
             btnEstornarPagamento.OverrideDefault.Back.Color1 = Color.Red;
             btnEstornarPagamento.OverrideDefault.Back.Color2 = Color.Red;
@@ -797,7 +746,7 @@
             // 
             btnRecibo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnRecibo.CornerRoundingRadius = 20F;
-            btnRecibo.Location = new Point(598, 3);
+            btnRecibo.Location = new Point(508, 3);
             btnRecibo.Name = "btnRecibo";
             btnRecibo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnRecibo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -862,7 +811,7 @@
             // 
             btnExtrato.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnExtrato.CornerRoundingRadius = 20F;
-            btnExtrato.Location = new Point(492, 3);
+            btnExtrato.Location = new Point(402, 3);
             btnExtrato.Name = "btnExtrato";
             btnExtrato.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnExtrato.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -927,7 +876,7 @@
             // 
             btnBaixarParcela.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnBaixarParcela.CornerRoundingRadius = 20F;
-            btnBaixarParcela.Location = new Point(386, 3);
+            btnBaixarParcela.Location = new Point(296, 3);
             btnBaixarParcela.Name = "btnBaixarParcela";
             btnBaixarParcela.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnBaixarParcela.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -993,7 +942,7 @@
             // 
             btnVerItensVenda.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnVerItensVenda.CornerRoundingRadius = 20F;
-            btnVerItensVenda.Location = new Point(280, 3);
+            btnVerItensVenda.Location = new Point(190, 3);
             btnVerItensVenda.Name = "btnVerItensVenda";
             btnVerItensVenda.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnVerItensVenda.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1054,21 +1003,59 @@
             btnVerItensVenda.Values.Text = "Ver Itens";
             btnVerItensVenda.Click += btnVerItensVenda_Click;
             // 
+            // kryptonPalette1
+            // 
+            kryptonPalette1.ButtonSpecs.FormClose.Image = Properties.Resources.Exit;
+            kryptonPalette1.ButtonSpecs.FormClose.ImageStates.ImagePressed = Properties.Resources.Sairr;
+            kryptonPalette1.ButtonSpecs.FormClose.ImageStates.ImageTracking = Properties.Resources.Sairr;
+            kryptonPalette1.ButtonSpecs.FormMax.Image = Properties.Resources.Maximize;
+            kryptonPalette1.ButtonSpecs.FormMax.ImageStates.ImagePressed = Properties.Resources.Minimiza24;
+            kryptonPalette1.ButtonSpecs.FormMax.ImageStates.ImageTracking = Properties.Resources.Minimiza24;
+            kryptonPalette1.ButtonSpecs.FormMin.Image = Properties.Resources.Minimize;
+            kryptonPalette1.ButtonSpecs.FormMin.ImageStates.ImagePressed = Properties.Resources.Minimizar24;
+            kryptonPalette1.ButtonSpecs.FormMin.ImageStates.ImageTracking = Properties.Resources.Minimizar24;
+            kryptonPalette1.ButtonSpecs.FormRestore.Image = Properties.Resources.Maximize;
+            kryptonPalette1.ButtonSpecs.FormRestore.ImageStates.ImagePressed = Properties.Resources.Minimiza24;
+            kryptonPalette1.ButtonSpecs.FormRestore.ImageStates.ImageTracking = Properties.Resources.Maximize;
+            kryptonPalette1.ButtonStyles.ButtonForm.StateNormal.Back.Color1 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.ButtonStyles.ButtonForm.StateNormal.Back.Color2 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.ButtonStyles.ButtonForm.StateNormal.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            kryptonPalette1.ButtonStyles.ButtonForm.StateNormal.Border.Width = 0;
+            kryptonPalette1.ButtonStyles.ButtonForm.StatePressed.Back.Color1 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.ButtonStyles.ButtonForm.StatePressed.Back.Color2 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.ButtonStyles.ButtonForm.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            kryptonPalette1.ButtonStyles.ButtonForm.StatePressed.Border.Width = 0;
+            kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Back.Color1 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Back.Color2 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            kryptonPalette1.ButtonStyles.ButtonForm.StateTracking.Border.Width = 0;
+            kryptonPalette1.FormStyles.FormMain.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.FormStyles.FormMain.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.FormStyles.FormMain.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            kryptonPalette1.FormStyles.FormMain.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.None;
+            kryptonPalette1.FormStyles.FormMain.StateCommon.Border.Rounding = 12F;
+            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
+            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
+            kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
+            // 
             // FrmContasReceber
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(913, 621);
+            ClientSize = new Size(823, 592);
             Controls.Add(flowLayoutPanel4);
             Controls.Add(tableLayoutPanel1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             KeyPreview = true;
-            MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmContasReceber";
-            PaletteMode = Krypton.Toolkit.PaletteMode.SparkleBlueLightMode;
+            Palette = kryptonPalette1;
+            PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Contas a Receber";
             Load += FrmContasAReceber_Load;
             Shown += FrmContasAReceber_Shown;
@@ -1082,8 +1069,6 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
-            kryptonPanel4.ResumeLayout(false);
-            kryptonPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPagamentos).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
             kryptonPanel2.ResumeLayout(false);
@@ -1099,8 +1084,6 @@
         }
 
         #endregion
-
-        private Krypton.Toolkit.KryptonPalette kryptonPalette1;
         public Krypton.Toolkit.KryptonTextBox txtNomeCliente;
         private Label lblNomeCliente;
         public Krypton.Toolkit.KryptonTextBox txtNumeroVenda;
@@ -1121,7 +1104,6 @@
         private TableLayoutPanel tableLayoutPanel1;
         private FlowLayoutPanel flowLayoutPanel2;
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel5;
         private FlowLayoutPanel flowLayoutPanel1;
         private Krypton.Toolkit.KryptonLabel lblRotuloQtdContasPagas;
         private Krypton.Toolkit.KryptonLabel lblRotuloQtdContasAReceber;
@@ -1148,5 +1130,6 @@
         public Krypton.Toolkit.KryptonButton btnSair;
         public Krypton.Toolkit.KryptonButton btnLimparFiltro;
         public Krypton.Toolkit.KryptonButton btnPesquisar;
+        private Krypton.Toolkit.KryptonPalette kryptonPalette1;
     }
 }

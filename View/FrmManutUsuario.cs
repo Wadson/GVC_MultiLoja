@@ -45,8 +45,7 @@ namespace GVC
                 }
                 else if (StatusOperacao == "ALTERAR")
                 {
-                    CarregarCamposComuns(cadUsuarios);
-                    //cadUsuarios.Text = "Alterar Registro";
+                    CarregarCamposComuns(cadUsuarios);                   
                     StatusOperacao = "ALTERAR";
                     cadUsuarios.btnSalvar.Text = "Alterar";
                     cadUsuarios.btnNovo.Enabled = false;
@@ -54,8 +53,7 @@ namespace GVC
                 }
                 else if (StatusOperacao == "EXCLUSÃO")
                 {
-                    CarregarCamposComuns(cadUsuarios);
-                    //cadUsuarios.Text = "Excluir Registro";
+                    CarregarCamposComuns(cadUsuarios);                   
                     StatusOperacao = "EXCLUSÃO";
                     cadUsuarios.btnSalvar.Text = "Excluir";
 

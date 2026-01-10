@@ -83,6 +83,7 @@
             lblAmbienteStatus = new ToolStripStatusLabel();
             picBackground = new PictureBox();
             panelBackground = new Panel();
+            kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -147,21 +148,21 @@
             // trocarEmpresaToolStripMenuItem
             // 
             trocarEmpresaToolStripMenuItem.Name = "trocarEmpresaToolStripMenuItem";
-            trocarEmpresaToolStripMenuItem.Size = new Size(180, 22);
+            trocarEmpresaToolStripMenuItem.Size = new Size(155, 22);
             trocarEmpresaToolStripMenuItem.Text = "Trocar Empresa";
             trocarEmpresaToolStripMenuItem.Click += trocarEmpresaToolStripMenuItem_Click;
             // 
             // backupToolStripMenuItem
             // 
             backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            backupToolStripMenuItem.Size = new Size(180, 22);
+            backupToolStripMenuItem.Size = new Size(155, 22);
             backupToolStripMenuItem.Text = "Backup";
             backupToolStripMenuItem.Click += backupToolStripMenuItem_Click;
             // 
             // sairToolStripMenuItem
             // 
             sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            sairToolStripMenuItem.Size = new Size(180, 22);
+            sairToolStripMenuItem.Size = new Size(155, 22);
             sairToolStripMenuItem.Text = "Sair";
             sairToolStripMenuItem.Click += sairToolStripMenuItem_Click;
             // 
@@ -580,7 +581,7 @@
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
-            FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 3, 4, 3);
@@ -661,5 +662,6 @@
         private Panel panelBackground;
         private ToolStripButton btnUsuarios;
         private ToolStripButton btnFornecedor;
+        private Krypton.Toolkit.KryptonContextMenu kryptonContextMenu1;
     }
 }

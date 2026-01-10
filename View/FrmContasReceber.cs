@@ -750,7 +750,7 @@ namespace GVC.View
             }
             return false;
         }
-
+        
         private ExtratoCliente ObterExtratoCliente(bool detalhado)
         {
             if (dgvContasAReceber.CurrentRow?.DataBoundItem is not ContaAReceberDTO dto)
@@ -1386,19 +1386,74 @@ namespace GVC.View
 
                     if (resultado == DialogResult.Yes && temLinhaSelecionada)
                     {
-                        var opcao = MessageBox.Show(
-                            "Deseja o extrato DETALHADO (com pagamentos)?",
+                        // 🔹 PRIMEIRA PERGUNTA: relatório agrupado?
+                        var resposta = MessageBox.Show(
+                            "Deseja gerar o RELATÓRIO DE CONTAS A RECEBER agrupado por cliente?",
                             "Tipo de Extrato",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question
-                        );
+                            MessageBoxButtons.YesNoCancel,
+                            MessageBoxIcon.Question);
 
-                        bool detalhado = opcao == DialogResult.Yes;
+                        if (resposta == DialogResult.Yes)
+                        {
+                            var dadosGrid =
+                                dgvContasAReceber.DataSource as List<ContaAReceberDTO>;
 
-                        if (detalhado)
-                            GerarExtratoDetalhadoHierarquico(); // 🔹 NOVO
-                        else
-                            GerarExtratoCompleto(false);        // 🔹 JÁ EXISTE
+                            if (dadosGrid == null || dadosGrid.Count == 0)
+                            {
+                                Utilitario.Mensagens.Info(
+                                    "Não há dados no grid para gerar o relatório.");
+                                return;
+                            }
+
+                            var extratoBLL = new ExtratoBLL();
+                            var grupos = extratoBLL.ObterContasPendentesAgrupadasPorCliente(dadosGrid);
+
+                            if (!grupos.Any())
+                            {
+                                Utilitario.Mensagens.Info(
+                                    "Não há contas pendentes para gerar o relatório.");
+                                return;
+                            }
+
+                            using var sfd = new SaveFileDialog
+                            {
+                                Filter = "PDF (*.pdf)|*.pdf",
+                                FileName = $"ContasReceber_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
+                            };
+
+                            if (sfd.ShowDialog() != DialogResult.OK)
+                                return;
+
+                            var empresa = new EmpresaBll().ObterDadosParaPdf();
+
+                            PDFGenerator.GerarContasReceberAgrupadoPorCliente(
+                                grupos,
+                                empresa,
+                                sfd.FileName);
+
+                            AbrirPDF(sfd.FileName);
+                            return; // 🔴 MUITO IMPORTANTE: encerra aqui
+                        }
+
+                        if (resposta == DialogResult.No)
+                        {
+                            // 🔹 FLUXO ANTIGO (extrato simples / detalhado)
+                            var opcao = MessageBox.Show(
+                                "Deseja o extrato DETALHADO (com pagamentos)?",
+                                "Tipo de Extrato",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question
+                            );
+
+                            bool detalhado = opcao == DialogResult.Yes;
+
+                            if (detalhado)
+                                GerarExtratoDetalhadoHierarquico();
+                            else
+                                GerarExtratoCompleto(false);
+                        }
+
+                        // Cancel → não faz nada
                     }
 
                 }

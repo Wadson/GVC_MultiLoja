@@ -135,7 +135,7 @@
             // txtNomeCliente
             // 
             txtNomeCliente.CharacterCasing = CharacterCasing.Upper;
-            txtNomeCliente.Location = new Point(250, 30);
+            txtNomeCliente.Location = new Point(240, 30);
             txtNomeCliente.Name = "txtNomeCliente";
             txtNomeCliente.Size = new Size(632, 27);
             txtNomeCliente.StateCommon.Back.Color1 = Color.White;
@@ -212,7 +212,7 @@
             txtBairro.CharacterCasing = CharacterCasing.Upper;
             txtBairro.Location = new Point(646, 196);
             txtBairro.Name = "txtBairro";
-            txtBairro.Size = new Size(237, 27);
+            txtBairro.Size = new Size(226, 27);
             txtBairro.StateCommon.Back.Color1 = Color.White;
             txtBairro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtBairro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -258,7 +258,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Microsoft Sans Serif", 9.25F);
             label11.ForeColor = Color.FromArgb(0, 76, 172);
-            label11.Location = new Point(250, 9);
+            label11.Location = new Point(240, 9);
             label11.Name = "label11";
             label11.Size = new Size(44, 16);
             label11.TabIndex = 183;
@@ -335,7 +335,7 @@
             txtUF.CharacterCasing = CharacterCasing.Upper;
             txtUF.Location = new Point(786, 248);
             txtUF.Name = "txtUF";
-            txtUF.Size = new Size(97, 27);
+            txtUF.Size = new Size(86, 27);
             txtUF.StateCommon.Back.Color1 = Color.White;
             txtUF.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtUF.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -462,7 +462,7 @@
             cmbTipoCliente.CornerRoundingRadius = 10F;
             cmbTipoCliente.DropDownWidth = 171;
             cmbTipoCliente.IntegralHeight = false;
-            cmbTipoCliente.Location = new Point(101, 30);
+            cmbTipoCliente.Location = new Point(96, 30);
             cmbTipoCliente.Name = "cmbTipoCliente";
             cmbTipoCliente.Size = new Size(140, 27);
             cmbTipoCliente.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(8, 142, 254);
@@ -480,7 +480,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 9.25F);
             label5.ForeColor = Color.FromArgb(0, 76, 172);
-            label5.Location = new Point(101, 10);
+            label5.Location = new Point(96, 10);
             label5.Name = "label5";
             label5.Size = new Size(104, 16);
             label5.TabIndex = 1016;
@@ -492,7 +492,7 @@
             txtObservacoes.Location = new Point(3, 303);
             txtObservacoes.Multiline = true;
             txtObservacoes.Name = "txtObservacoes";
-            txtObservacoes.Size = new Size(880, 49);
+            txtObservacoes.Size = new Size(869, 49);
             txtObservacoes.StateCommon.Back.Color1 = Color.White;
             txtObservacoes.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtObservacoes.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -532,7 +532,7 @@
             txtLimiteCredito.CharacterCasing = CharacterCasing.Upper;
             txtLimiteCredito.Location = new Point(713, 140);
             txtLimiteCredito.Name = "txtLimiteCredito";
-            txtLimiteCredito.Size = new Size(170, 27);
+            txtLimiteCredito.Size = new Size(159, 27);
             txtLimiteCredito.StateCommon.Back.Color1 = Color.White;
             txtLimiteCredito.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtLimiteCredito.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -565,11 +565,11 @@
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
             kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelUsuarioCriacao, toolStripStatusLabel2, ToolStripLabelDataCriacao, toolStripStatusLabel4, ToolStripLabelDataUtimaCompra, toolStripStatusLabel1, toolStripStatusLabelUsuarioAtualizacao, toolStripStatusLabel3, toolStripStatusLabelDataAtualizacao, lblStatus });
-            kryptonStatusStrip1.Location = new Point(0, 426);
+            kryptonStatusStrip1.Location = new Point(0, 585);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
             kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            kryptonStatusStrip1.Size = new Size(894, 22);
+            kryptonStatusStrip1.Size = new Size(880, 22);
             kryptonStatusStrip1.TabIndex = 1027;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
@@ -871,9 +871,9 @@
             lblRotuloCnpj.ForeColor = Color.FromArgb(0, 76, 172);
             lblRotuloCnpj.Location = new Point(11, 65);
             lblRotuloCnpj.Name = "lblRotuloCnpj";
-            lblRotuloCnpj.Size = new Size(34, 16);
+            lblRotuloCnpj.Size = new Size(42, 16);
             lblRotuloCnpj.TabIndex = 1039;
-            lblRotuloCnpj.Text = "Cnpj";
+            lblRotuloCnpj.Text = "CNPJ";
             lblRotuloCnpj.Visible = false;
             // 
             // txtIE
@@ -901,9 +901,9 @@
             lblRotuloIE.ForeColor = Color.FromArgb(0, 76, 172);
             lblRotuloIE.Location = new Point(181, 65);
             lblRotuloIE.Name = "lblRotuloIE";
-            lblRotuloIE.Size = new Size(139, 16);
+            lblRotuloIE.Size = new Size(140, 16);
             lblRotuloIE.TabIndex = 1041;
-            lblRotuloIE.Text = "Ie (Inscrição Estadual)";
+            lblRotuloIE.Text = "IE (Inscrição Estadual)";
             lblRotuloIE.Visible = false;
             // 
             // groupBoxEVendedor
@@ -911,7 +911,7 @@
             groupBoxEVendedor.Controls.Add(chkIsVendedor);
             groupBoxEVendedor.Location = new Point(679, 65);
             groupBoxEVendedor.Name = "groupBoxEVendedor";
-            groupBoxEVendedor.Size = new Size(203, 46);
+            groupBoxEVendedor.Size = new Size(193, 46);
             groupBoxEVendedor.TabIndex = 1042;
             groupBoxEVendedor.TabStop = false;
             groupBoxEVendedor.Text = "É Vendedor?";
@@ -931,7 +931,7 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.CornerRoundingRadius = 20F;
-            btnSalvar.Location = new Point(570, 377);
+            btnSalvar.Location = new Point(556, 536);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -997,7 +997,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 20F;
-            btnNovo.Location = new Point(676, 377);
+            btnNovo.Location = new Point(662, 536);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1062,7 +1062,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 20F;
-            btnSair.Location = new Point(782, 377);
+            btnSair.Location = new Point(768, 536);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1126,7 +1126,7 @@
             // FrmCadCliente
             // 
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(894, 448);
+            ClientSize = new Size(880, 607);
             ControlBox = false;
             Controls.Add(btnSair);
             Controls.Add(btnSalvar);

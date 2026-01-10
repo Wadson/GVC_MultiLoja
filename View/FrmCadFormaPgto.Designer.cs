@@ -98,7 +98,7 @@
             txtFormaPgto.Name = "txtFormaPgto";
             txtFormaPgto.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             txtFormaPgto.ReadOnly = true;
-            txtFormaPgto.Size = new Size(359, 24);
+            txtFormaPgto.Size = new Size(514, 24);
             txtFormaPgto.StateCommon.Back.Color1 = Color.White;
             txtFormaPgto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtFormaPgto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -121,11 +121,11 @@
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
             kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblInfo });
-            kryptonStatusStrip1.Location = new Point(0, 127);
+            kryptonStatusStrip1.Location = new Point(0, 239);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
             kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            kryptonStatusStrip1.Size = new Size(429, 22);
+            kryptonStatusStrip1.Size = new Size(584, 22);
             kryptonStatusStrip1.TabIndex = 1061;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
@@ -168,7 +168,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 20F;
-            btnSair.Location = new Point(328, 94);
+            btnSair.Location = new Point(483, 206);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -233,7 +233,7 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.CornerRoundingRadius = 20F;
-            btnSalvar.Location = new Point(116, 94);
+            btnSalvar.Location = new Point(271, 206);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -299,7 +299,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 20F;
-            btnNovo.Location = new Point(222, 94);
+            btnNovo.Location = new Point(377, 206);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -365,7 +365,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(429, 149);
+            ClientSize = new Size(584, 261);
             Controls.Add(btnSair);
             Controls.Add(btnSalvar);
             Controls.Add(btnNovo);

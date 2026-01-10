@@ -480,7 +480,7 @@
             // btnLocalizarImagem
             // 
             btnLocalizarImagem.CornerRoundingRadius = 10F;
-            btnLocalizarImagem.Location = new Point(545, 395);
+            btnLocalizarImagem.Location = new Point(630, 392);
             btnLocalizarImagem.Name = "btnLocalizarImagem";
             btnLocalizarImagem.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnLocalizarImagem.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -537,7 +537,7 @@
             txtEnderecoImagem.CharacterCasing = CharacterCasing.Upper;
             txtEnderecoImagem.Location = new Point(12, 395);
             txtEnderecoImagem.Name = "txtEnderecoImagem";
-            txtEnderecoImagem.Size = new Size(527, 24);
+            txtEnderecoImagem.Size = new Size(612, 24);
             txtEnderecoImagem.StateCommon.Back.Color1 = Color.White;
             txtEnderecoImagem.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtEnderecoImagem.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);

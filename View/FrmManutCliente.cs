@@ -209,7 +209,7 @@ namespace GVC.View
             cad.StatusOperacao = StatusOperacao;
             cad.CarregandoDados = false;
             cad.Text = "Novo Cliente";
-            cad.ForeColor = Color.FromArgb(8, 142, 254);
+            cad.ForeColor = Color.FromArgb(8, 142, 254);            
 
             cad.ShowDialog();
         }

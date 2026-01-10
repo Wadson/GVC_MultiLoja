@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using GVC.DAL;
 using GVC.Model;
+using GVC.Model.Enums.GVC.Model.Enums;
+using GVC.Model.Extensions;
 using GVC.UTIL;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,62 @@ public class ExtratoBLL
 {
     private readonly ExtratoDal _extratoDal = new();
     private readonly ClienteDal _clienteDal = new();
+
+    // ======================================================
+    // EXTRATO POR VENDA (ANTIGO)
+    // ======================================================
+
+    public List<ExtratoCliente> ObterContasPendentesAgrupadasPorCliente(
+    List<ContaAReceberDTO> dadosGrid)
+    {
+        var statusValidos = new[]
+        {
+        EnumStatusParcela.Pendente,
+        EnumStatusParcela.ParcialmentePago,
+        EnumStatusParcela.Atrasada
+    };
+
+        var filtradas = dadosGrid
+            .Where(p => statusValidos.Contains(
+                p.StatusParcela.ToEnumStatusParcela()))
+            .ToList();
+
+        var extratos = filtradas
+            .GroupBy(p => new { p.ClienteID, p.NomeCliente })
+            .Select(g =>
+            {
+                var itens = g
+                    .OrderBy(p => p.DataVencimento)
+                    .Select(p => new ItemExtrato
+                    {
+                        VendaID = p.VendaID,
+                        ParcelaID = p.ParcelaID,
+                        DataVencimento = p.DataVencimento,
+                        ValorParcela = p.ValorParcela,
+                        ValorRecebido = p.ValorRecebido,
+                        Saldo = p.Saldo,
+                        Status = p.StatusParcela
+                    })
+                    .ToList();
+
+                return new ExtratoCliente
+                {
+                    ClienteID = g.Key.ClienteID,
+                    NomeCliente = g.Key.NomeCliente,
+                    DataEmissao = DateTime.Now,
+                    ItensExtrato = itens,
+                    TotalDevendo = itens.Sum(i => i.Saldo),
+                    SaldoAtual = itens.Sum(i => i.Saldo)
+                };
+            })
+            .OrderBy(e => e.NomeCliente)
+            .ToList();
+
+        return extratos;
+    }
+
+
+
 
     // ======================================================
     // EXTRATO POR VENDA (ANTIGO)
