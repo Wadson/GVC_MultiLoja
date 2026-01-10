@@ -77,7 +77,7 @@
             label21.AutoSize = true;
             label21.Font = new Font("Microsoft Sans Serif", 9.25F);
             label21.ForeColor = Color.FromArgb(0, 76, 172);
-            label21.Location = new Point(10, 69);
+            label21.Location = new Point(12, 76);
             label21.Name = "label21";
             label21.Size = new Size(73, 16);
             label21.TabIndex = 236;
@@ -89,7 +89,7 @@
             label23.BackColor = Color.Transparent;
             label23.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label23.ForeColor = Color.FromArgb(0, 76, 172);
-            label23.Location = new Point(10, 22);
+            label23.Location = new Point(12, 22);
             label23.Name = "label23";
             label23.Size = new Size(57, 16);
             label23.TabIndex = 239;
@@ -100,7 +100,7 @@
             label25.AutoSize = true;
             label25.Font = new Font("Microsoft Sans Serif", 9.25F);
             label25.ForeColor = Color.FromArgb(0, 76, 172);
-            label25.Location = new Point(90, 22);
+            label25.Location = new Point(91, 22);
             label25.Name = "label25";
             label25.Size = new Size(44, 16);
             label25.TabIndex = 234;
@@ -111,7 +111,7 @@
             label27.AutoSize = true;
             label27.Font = new Font("Microsoft Sans Serif", 9.25F);
             label27.ForeColor = Color.FromArgb(0, 76, 172);
-            label27.Location = new Point(10, 162);
+            label27.Location = new Point(12, 221);
             label27.Name = "label27";
             label27.Size = new Size(99, 16);
             label27.TabIndex = 240;
@@ -119,7 +119,7 @@
             // 
             // txtProdutoID
             // 
-            txtProdutoID.Location = new Point(10, 41);
+            txtProdutoID.Location = new Point(12, 41);
             txtProdutoID.Name = "txtProdutoID";
             txtProdutoID.ReadOnly = true;
             txtProdutoID.Size = new Size(73, 24);
@@ -142,7 +142,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 9.25F);
             label1.ForeColor = Color.FromArgb(0, 76, 172);
-            label1.Location = new Point(10, 213);
+            label1.Location = new Point(12, 270);
             label1.Name = "label1";
             label1.Size = new Size(57, 16);
             label1.TabIndex = 590;
@@ -153,7 +153,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft Sans Serif", 9.25F);
             label8.ForeColor = Color.FromArgb(0, 76, 172);
-            label8.Location = new Point(161, 162);
+            label8.Location = new Point(228, 221);
             label8.Name = "label8";
             label8.Size = new Size(40, 16);
             label8.TabIndex = 596;
@@ -164,7 +164,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Microsoft Sans Serif", 9.25F);
             label9.ForeColor = Color.FromArgb(0, 76, 172);
-            label9.Location = new Point(311, 162);
+            label9.Location = new Point(452, 221);
             label9.Name = "label9";
             label9.Size = new Size(105, 16);
             label9.TabIndex = 598;
@@ -175,7 +175,7 @@
             label11.AutoSize = true;
             label11.Font = new Font("Microsoft Sans Serif", 9.25F);
             label11.ForeColor = Color.FromArgb(0, 76, 172);
-            label11.Location = new Point(10, 260);
+            label11.Location = new Point(12, 320);
             label11.Name = "label11";
             label11.Size = new Size(44, 16);
             label11.TabIndex = 600;
@@ -183,9 +183,9 @@
             // 
             // txtEstoque
             // 
-            txtEstoque.Location = new Point(10, 232);
+            txtEstoque.Location = new Point(12, 289);
             txtEstoque.Name = "txtEstoque";
-            txtEstoque.Size = new Size(150, 24);
+            txtEstoque.Size = new Size(210, 24);
             txtEstoque.StateCommon.Back.Color1 = Color.White;
             txtEstoque.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtEstoque.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -200,9 +200,9 @@
             // 
             // txtPrecoDeVenda
             // 
-            txtPrecoDeVenda.Location = new Point(310, 181);
+            txtPrecoDeVenda.Location = new Point(446, 240);
             txtPrecoDeVenda.Name = "txtPrecoDeVenda";
-            txtPrecoDeVenda.Size = new Size(150, 24);
+            txtPrecoDeVenda.Size = new Size(210, 24);
             txtPrecoDeVenda.StateCommon.Back.Color1 = Color.White;
             txtPrecoDeVenda.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoDeVenda.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -218,9 +218,9 @@
             // 
             // txtLucro
             // 
-            txtLucro.Location = new Point(160, 181);
+            txtLucro.Location = new Point(228, 240);
             txtLucro.Name = "txtLucro";
-            txtLucro.Size = new Size(150, 24);
+            txtLucro.Size = new Size(210, 24);
             txtLucro.StateCommon.Back.Color1 = Color.White;
             txtLucro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtLucro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -237,9 +237,9 @@
             // 
             // txtPrecoCusto
             // 
-            txtPrecoCusto.Location = new Point(10, 181);
+            txtPrecoCusto.Location = new Point(12, 240);
             txtPrecoCusto.Name = "txtPrecoCusto";
-            txtPrecoCusto.Size = new Size(150, 24);
+            txtPrecoCusto.Size = new Size(210, 24);
             txtPrecoCusto.StateCommon.Back.Color1 = Color.White;
             txtPrecoCusto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoCusto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -257,9 +257,9 @@
             // txtReferencia
             // 
             txtReferencia.CharacterCasing = CharacterCasing.Upper;
-            txtReferencia.Location = new Point(10, 90);
+            txtReferencia.Location = new Point(12, 97);
             txtReferencia.Name = "txtReferencia";
-            txtReferencia.Size = new Size(301, 24);
+            txtReferencia.Size = new Size(285, 24);
             txtReferencia.StateCommon.Back.Color1 = Color.White;
             txtReferencia.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtReferencia.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -275,9 +275,9 @@
             // txtNomeProduto
             // 
             txtNomeProduto.CharacterCasing = CharacterCasing.Upper;
-            txtNomeProduto.Location = new Point(90, 41);
+            txtNomeProduto.Location = new Point(91, 41);
             txtNomeProduto.Name = "txtNomeProduto";
-            txtNomeProduto.Size = new Size(587, 24);
+            txtNomeProduto.Size = new Size(778, 24);
             txtNomeProduto.StateCommon.Back.Color1 = Color.White;
             txtNomeProduto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNomeProduto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -296,10 +296,10 @@
             cmbStatus.DropDownWidth = 115;
             cmbStatus.IntegralHeight = false;
             cmbStatus.Items.AddRange(new object[] { "Descontinuado", "Disponível", "Em Espera", "Em Produção", "Indisponível" });
-            cmbStatus.Location = new Point(10, 282);
+            cmbStatus.Location = new Point(12, 338);
             cmbStatus.Name = "cmbStatus";
             cmbStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbStatus.Size = new Size(145, 27);
+            cmbStatus.Size = new Size(210, 27);
             cmbStatus.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             cmbStatus.StateCommon.ComboBox.Border.Rounding = 8F;
             cmbStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
@@ -344,17 +344,17 @@
             // 
             // pbImagem
             // 
-            pbImagem.Location = new Point(470, 167);
+            pbImagem.Location = new Point(662, 211);
             pbImagem.Name = "pbImagem";
-            pbImagem.Size = new Size(207, 191);
+            pbImagem.Size = new Size(207, 240);
             pbImagem.TabIndex = 610;
             pbImagem.TabStop = false;
             // 
             // txtGtinEan
             // 
-            txtGtinEan.Location = new Point(311, 285);
+            txtGtinEan.Location = new Point(228, 289);
             txtGtinEan.Name = "txtGtinEan";
-            txtGtinEan.Size = new Size(150, 24);
+            txtGtinEan.Size = new Size(210, 24);
             txtGtinEan.StateCommon.Back.Color1 = Color.White;
             txtGtinEan.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtGtinEan.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -365,14 +365,14 @@
             txtGtinEan.StateCommon.Content.Color1 = Color.Gray;
             txtGtinEan.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtGtinEan.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtGtinEan.TabIndex = 10;
+            txtGtinEan.TabIndex = 9;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 9.25F);
             label2.ForeColor = Color.FromArgb(0, 76, 172);
-            label2.Location = new Point(312, 266);
+            label2.Location = new Point(228, 270);
             label2.Name = "label2";
             label2.Size = new Size(71, 16);
             label2.TabIndex = 612;
@@ -381,9 +381,9 @@
             // txtFornecedor
             // 
             txtFornecedor.CharacterCasing = CharacterCasing.Upper;
-            txtFornecedor.Location = new Point(90, 137);
+            txtFornecedor.Location = new Point(92, 151);
             txtFornecedor.Name = "txtFornecedor";
-            txtFornecedor.Size = new Size(585, 24);
+            txtFornecedor.Size = new Size(777, 24);
             txtFornecedor.StateCommon.Back.Color1 = Color.White;
             txtFornecedor.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtFornecedor.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -402,7 +402,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 9.25F);
             label3.ForeColor = Color.FromArgb(0, 76, 172);
-            label3.Location = new Point(90, 118);
+            label3.Location = new Point(92, 132);
             label3.Name = "label3";
             label3.Size = new Size(77, 16);
             label3.TabIndex = 614;
@@ -413,7 +413,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Microsoft Sans Serif", 9.25F);
             label6.ForeColor = Color.FromArgb(0, 76, 172);
-            label6.Location = new Point(167, 213);
+            label6.Location = new Point(450, 268);
             label6.Name = "label6";
             label6.Size = new Size(91, 16);
             label6.TabIndex = 626;
@@ -422,9 +422,9 @@
             // txtMarca
             // 
             txtMarca.CharacterCasing = CharacterCasing.Upper;
-            txtMarca.Location = new Point(318, 90);
+            txtMarca.Location = new Point(299, 97);
             txtMarca.Name = "txtMarca";
-            txtMarca.Size = new Size(206, 24);
+            txtMarca.Size = new Size(285, 24);
             txtMarca.StateCommon.Back.Color1 = Color.White;
             txtMarca.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtMarca.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -442,7 +442,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Microsoft Sans Serif", 9.25F);
             label7.ForeColor = Color.FromArgb(0, 76, 172);
-            label7.Location = new Point(319, 71);
+            label7.Location = new Point(299, 78);
             label7.Name = "label7";
             label7.Size = new Size(45, 16);
             label7.TabIndex = 624;
@@ -451,9 +451,9 @@
             // txtUnidade
             // 
             txtUnidade.CharacterCasing = CharacterCasing.Upper;
-            txtUnidade.Location = new Point(527, 90);
+            txtUnidade.Location = new Point(584, 97);
             txtUnidade.Name = "txtUnidade";
-            txtUnidade.Size = new Size(150, 24);
+            txtUnidade.Size = new Size(285, 24);
             txtUnidade.StateCommon.Back.Color1 = Color.White;
             txtUnidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtUnidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -471,7 +471,7 @@
             label12.AutoSize = true;
             label12.Font = new Font("Microsoft Sans Serif", 9.25F);
             label12.ForeColor = Color.FromArgb(0, 76, 172);
-            label12.Location = new Point(528, 71);
+            label12.Location = new Point(584, 78);
             label12.Name = "label12";
             label12.Size = new Size(59, 16);
             label12.TabIndex = 620;
@@ -480,7 +480,7 @@
             // btnLocalizarImagem
             // 
             btnLocalizarImagem.CornerRoundingRadius = 10F;
-            btnLocalizarImagem.Location = new Point(438, 330);
+            btnLocalizarImagem.Location = new Point(545, 395);
             btnLocalizarImagem.Name = "btnLocalizarImagem";
             btnLocalizarImagem.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnLocalizarImagem.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -535,9 +535,9 @@
             // txtEnderecoImagem
             // 
             txtEnderecoImagem.CharacterCasing = CharacterCasing.Upper;
-            txtEnderecoImagem.Location = new Point(10, 334);
+            txtEnderecoImagem.Location = new Point(12, 395);
             txtEnderecoImagem.Name = "txtEnderecoImagem";
-            txtEnderecoImagem.Size = new Size(426, 24);
+            txtEnderecoImagem.Size = new Size(527, 24);
             txtEnderecoImagem.StateCommon.Back.Color1 = Color.White;
             txtEnderecoImagem.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtEnderecoImagem.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -556,7 +556,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Microsoft Sans Serif", 9.25F);
             label4.ForeColor = Color.FromArgb(0, 76, 172);
-            label4.Location = new Point(10, 315);
+            label4.Location = new Point(12, 376);
             label4.Name = "label4";
             label4.Size = new Size(137, 16);
             label4.TabIndex = 1021;
@@ -568,10 +568,10 @@
             cmbSituacao.DropDownWidth = 115;
             cmbSituacao.IntegralHeight = false;
             cmbSituacao.Items.AddRange(new object[] { "Ativo", "Inativo" });
-            cmbSituacao.Location = new Point(161, 282);
+            cmbSituacao.Location = new Point(228, 338);
             cmbSituacao.Name = "cmbSituacao";
             cmbSituacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbSituacao.Size = new Size(145, 27);
+            cmbSituacao.Size = new Size(210, 27);
             cmbSituacao.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             cmbSituacao.StateCommon.ComboBox.Border.Rounding = 8F;
             cmbSituacao.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
@@ -583,7 +583,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Microsoft Sans Serif", 9.25F);
             label10.ForeColor = Color.FromArgb(0, 76, 172);
-            label10.Location = new Point(161, 263);
+            label10.Location = new Point(228, 320);
             label10.Name = "label10";
             label10.Size = new Size(60, 16);
             label10.TabIndex = 1025;
@@ -591,9 +591,9 @@
             // 
             // txtDataValidade
             // 
-            txtDataValidade.Location = new Point(161, 232);
+            txtDataValidade.Location = new Point(446, 289);
             txtDataValidade.Name = "txtDataValidade";
-            txtDataValidade.Size = new Size(150, 24);
+            txtDataValidade.Size = new Size(210, 24);
             txtDataValidade.StateCommon.Back.Color1 = Color.White;
             txtDataValidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtDataValidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -604,13 +604,13 @@
             txtDataValidade.StateCommon.Content.Color1 = Color.Gray;
             txtDataValidade.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtDataValidade.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtDataValidade.TabIndex = 9;
+            txtDataValidade.TabIndex = 10;
             txtDataValidade.TextChanged += txtDataValidade_TextChanged;
             txtDataValidade.Leave += txtDataValidade_Leave;
             // 
             // txtFornecedorID
             // 
-            txtFornecedorID.Location = new Point(10, 135);
+            txtFornecedorID.Location = new Point(12, 149);
             txtFornecedorID.Name = "txtFornecedorID";
             txtFornecedorID.ReadOnly = true;
             txtFornecedorID.Size = new Size(73, 24);
@@ -634,7 +634,7 @@
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.FromArgb(0, 76, 172);
-            label5.Location = new Point(10, 116);
+            label5.Location = new Point(12, 130);
             label5.Name = "label5";
             label5.Size = new Size(57, 16);
             label5.TabIndex = 1027;
@@ -643,7 +643,7 @@
             // btnSair
             // 
             btnSair.CornerRoundingRadius = 20F;
-            btnSair.Location = new Point(575, 372);
+            btnSair.Location = new Point(772, 555);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -707,7 +707,7 @@
             // btnSalvar
             // 
             btnSalvar.CornerRoundingRadius = 20F;
-            btnSalvar.Location = new Point(363, 372);
+            btnSalvar.Location = new Point(560, 555);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -765,14 +765,14 @@
             btnSalvar.StateTracking.Border.Rounding = 20F;
             btnSalvar.StateTracking.Border.Width = 1;
             btnSalvar.StateTracking.Content.ShortText.Color1 = Color.FromArgb(22, 121, 206);
-            btnSalvar.TabIndex = 1030;
+            btnSalvar.TabIndex = 11;
             btnSalvar.Values.Text = "Salvar";
             btnSalvar.Click += btnSalvar_Click;
             // 
             // btnNovo
             // 
             btnNovo.CornerRoundingRadius = 20F;
-            btnNovo.Location = new Point(469, 372);
+            btnNovo.Location = new Point(666, 555);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -836,7 +836,7 @@
             // FrmCadProdutos
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(688, 414);
+            ClientSize = new Size(884, 611);
             Controls.Add(btnSair);
             Controls.Add(btnSalvar);
             Controls.Add(btnNovo);

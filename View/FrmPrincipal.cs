@@ -230,5 +230,12 @@ namespace GVC
             StatusOperacao = "NOVO";
             frm.Show();
         }
+
+        private void btnFornecedor_Click(object sender, EventArgs e)
+        {
+            FrmManutFornecedor frm = new FrmManutFornecedor(StatusOperacao);
+            StatusOperacao = "NOVO";
+            frm.Show();
+        }
     }
 }

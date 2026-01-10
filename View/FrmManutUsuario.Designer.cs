@@ -756,7 +756,8 @@
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
-            Text = "USUÁRIO";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Manutenção de Usuários";
             Load += FrmManutUsuario_Load;
             Shown += FrmManutUsuario_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();

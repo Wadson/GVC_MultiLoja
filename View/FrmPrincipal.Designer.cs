@@ -60,7 +60,9 @@
             ajudaToolStripMenuItem = new ToolStripMenuItem();
             sobreToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1 = new ToolStrip();
+            btnUsuarios = new ToolStripButton();
             btnClientes = new ToolStripButton();
+            btnFornecedor = new ToolStripButton();
             btnProdutos = new ToolStripButton();
             btnPDV = new ToolStripButton();
             btnCaixa = new ToolStripButton();
@@ -81,7 +83,6 @@
             lblAmbienteStatus = new ToolStripStatusLabel();
             picBackground = new PictureBox();
             panelBackground = new Panel();
-            btnUsuarios = new ToolStripButton();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -146,21 +147,21 @@
             // trocarEmpresaToolStripMenuItem
             // 
             trocarEmpresaToolStripMenuItem.Name = "trocarEmpresaToolStripMenuItem";
-            trocarEmpresaToolStripMenuItem.Size = new Size(155, 22);
+            trocarEmpresaToolStripMenuItem.Size = new Size(180, 22);
             trocarEmpresaToolStripMenuItem.Text = "Trocar Empresa";
             trocarEmpresaToolStripMenuItem.Click += trocarEmpresaToolStripMenuItem_Click;
             // 
             // backupToolStripMenuItem
             // 
             backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            backupToolStripMenuItem.Size = new Size(155, 22);
+            backupToolStripMenuItem.Size = new Size(180, 22);
             backupToolStripMenuItem.Text = "Backup";
             backupToolStripMenuItem.Click += backupToolStripMenuItem_Click;
             // 
             // sairToolStripMenuItem
             // 
             sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            sairToolStripMenuItem.Size = new Size(155, 22);
+            sairToolStripMenuItem.Size = new Size(180, 22);
             sairToolStripMenuItem.Text = "Sair";
             sairToolStripMenuItem.Click += sairToolStripMenuItem_Click;
             // 
@@ -331,13 +332,27 @@
             toolStrip1.Font = new Font("Segoe UI", 9F);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(32, 32);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuarios, btnClientes, btnProdutos, btnPDV, btnCaixa, btnEstoque, btnRelatorios, btnBackup, btnSair });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuarios, btnClientes, btnFornecedor, btnProdutos, btnPDV, btnCaixa, btnEstoque, btnRelatorios, btnBackup, btnSair });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
             toolStrip1.Size = new Size(637, 54);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
+            // 
+            // btnUsuarios
+            // 
+            btnUsuarios.AutoSize = false;
+            btnUsuarios.BackgroundImageLayout = ImageLayout.None;
+            btnUsuarios.Image = (Image)resources.GetObject("btnUsuarios.Image");
+            btnUsuarios.ImageAlign = ContentAlignment.TopCenter;
+            btnUsuarios.ImageTransparentColor = Color.Magenta;
+            btnUsuarios.Name = "btnUsuarios";
+            btnUsuarios.Size = new Size(63, 51);
+            btnUsuarios.Text = "Usuarios";
+            btnUsuarios.TextAlign = ContentAlignment.BottomCenter;
+            btnUsuarios.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnUsuarios.Click += btnUsuarios_Click;
             // 
             // btnClientes
             // 
@@ -352,6 +367,20 @@
             btnClientes.TextAlign = ContentAlignment.BottomCenter;
             btnClientes.TextImageRelation = TextImageRelation.ImageAboveText;
             btnClientes.Click += btnClientes_Click;
+            // 
+            // btnFornecedor
+            // 
+            btnFornecedor.AutoSize = false;
+            btnFornecedor.BackgroundImageLayout = ImageLayout.Center;
+            btnFornecedor.Image = (Image)resources.GetObject("btnFornecedor.Image");
+            btnFornecedor.ImageAlign = ContentAlignment.TopCenter;
+            btnFornecedor.ImageTransparentColor = Color.Magenta;
+            btnFornecedor.Name = "btnFornecedor";
+            btnFornecedor.Size = new Size(63, 51);
+            btnFornecedor.Text = "Fornecedor";
+            btnFornecedor.TextAlign = ContentAlignment.BottomCenter;
+            btnFornecedor.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnFornecedor.Click += btnFornecedor_Click;
             // 
             // btnProdutos
             // 
@@ -542,20 +571,6 @@
             panelBackground.Size = new Size(637, 330);
             panelBackground.TabIndex = 611;
             // 
-            // btnUsuarios
-            // 
-            btnUsuarios.AutoSize = false;
-            btnUsuarios.BackgroundImageLayout = ImageLayout.None;
-            btnUsuarios.Image = (Image)resources.GetObject("btnUsuarios.Image");
-            btnUsuarios.ImageAlign = ContentAlignment.TopCenter;
-            btnUsuarios.ImageTransparentColor = Color.Magenta;
-            btnUsuarios.Name = "btnUsuarios";
-            btnUsuarios.Size = new Size(63, 51);
-            btnUsuarios.Text = "Usuarios";
-            btnUsuarios.TextAlign = ContentAlignment.BottomCenter;
-            btnUsuarios.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnUsuarios.Click += btnUsuarios_Click;
-            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -645,5 +660,6 @@
         private PictureBox picBackground;
         private Panel panelBackground;
         private ToolStripButton btnUsuarios;
+        private ToolStripButton btnFornecedor;
     }
 }
