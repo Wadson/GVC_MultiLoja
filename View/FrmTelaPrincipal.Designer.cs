@@ -30,7 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTelaPrincipal));
-            panelConteiner = new Panel();
             toolStripStatusLabel7 = new ToolStripStatusLabel();
             lblEstação = new ToolStripStatusLabel();
             toolStripStatusLabel9 = new ToolStripStatusLabel();
@@ -98,17 +97,6 @@
             menuStrip1.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // panelConteiner
-            // 
-            panelConteiner.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panelConteiner.BackColor = Color.FromArgb(252, 255, 255);
-            panelConteiner.BackgroundImageLayout = ImageLayout.Center;
-            panelConteiner.BorderStyle = BorderStyle.FixedSingle;
-            panelConteiner.Location = new Point(3, 52);
-            panelConteiner.Name = "panelConteiner";
-            panelConteiner.Size = new Size(1002, 632);
-            panelConteiner.TabIndex = 1;
             // 
             // toolStripStatusLabel7
             // 
@@ -502,13 +490,12 @@
             // menuStrip1
             // 
             menuStrip1.BackColor = Color.FromArgb(252, 252, 250);
-            menuStrip1.Dock = DockStyle.None;
             menuStrip1.Font = new Font("Segoe UI", 9F);
             menuStrip1.Items.AddRange(new ToolStripItem[] { cadastrosToolStripMenuItem1, ferramentasToolStripMenuItem, estoqueToolStripMenuItem, configuraçãoDoSistemaToolStripMenuItem });
             menuStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            menuStrip1.Location = new Point(368, 0);
+            menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(284, 24);
+            menuStrip1.Size = new Size(1008, 24);
             menuStrip1.TabIndex = 607;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -637,7 +624,7 @@
             // ToolStripMenuItemConfiguracoes
             // 
             ToolStripMenuItemConfiguracoes.Name = "ToolStripMenuItemConfiguracoes";
-            ToolStripMenuItemConfiguracoes.Size = new Size(151, 22);
+            ToolStripMenuItemConfiguracoes.Size = new Size(180, 22);
             ToolStripMenuItemConfiguracoes.Text = "Configurações";
             ToolStripMenuItemConfiguracoes.Click += ToolStripMenuItemConfiguracoes_Click;
             // 
@@ -688,8 +675,8 @@
             flowLayoutPanel1.Controls.Add(btnFerramentas);
             flowLayoutPanel1.Controls.Add(btnContaReceber);
             flowLayoutPanel1.Controls.Add(btnRelatorios);
-            flowLayoutPanel1.Controls.Add(menuStrip1);
-            flowLayoutPanel1.Location = new Point(0, 3);
+            flowLayoutPanel1.Dock = DockStyle.Top;
+            flowLayoutPanel1.Location = new Point(0, 24);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(1008, 45);
             flowLayoutPanel1.TabIndex = 0;
@@ -717,7 +704,7 @@
             ClientSize = new Size(1008, 729);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(kryptonStatusStrip1);
-            Controls.Add(panelConteiner);
+            Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmTelaPrincipal";
             Palette = kryptonPalette1;
@@ -725,7 +712,7 @@
             StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            Text = "GVC - Sistema de Vendas";
+            Text = "SGVendas - Sistema de Gestão Comercial";
             WindowState = FormWindowState.Maximized;
             FormClosing += FrmTelaPrincipal_FormClosing;
             Load += FrmPrincipal_Load;
@@ -734,7 +721,6 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
 
@@ -747,7 +733,6 @@
         private System.Windows.Forms.Button btnFerramentas;
         private System.Windows.Forms.Button btnContaReceber;
         private System.Windows.Forms.Button btnRelatorios;
-        private System.Windows.Forms.Panel panelConteiner;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
         private System.Windows.Forms.ToolStripStatusLabel lblEstação;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel9;

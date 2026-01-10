@@ -392,7 +392,6 @@
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(948, 561);
             Controls.Add(kryptonTableLayoutPanel1);
-            FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmDashboard";

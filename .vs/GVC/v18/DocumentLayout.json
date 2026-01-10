@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmmanutproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmmanutproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\frmmodelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:util\\frmmodelo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 21,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -98,36 +89,19 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:1061461490:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:1061461490:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+              "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FrmManutProduto.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmManutProduto.cs",
-              "RelativeDocumentMoniker": "View\\FrmManutProduto.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\View\\FrmManutProduto.cs",
-              "RelativeToolTip": "View\\FrmManutProduto.cs",
-              "ViewState": "AgIAAMYAAAAAAAAAAAAmwNYAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T20:55:33.248Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmModelo.cs [Projeto]",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\UTIL\\FrmModelo.cs",
-              "RelativeDocumentMoniker": "UTIL\\FrmModelo.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\UTIL\\FrmModelo.cs [Projeto]",
-              "RelativeToolTip": "UTIL\\FrmModelo.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T15:08:33.158Z",
-              "EditorCaption": " [Projeto]"
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
             }
           ]
         },

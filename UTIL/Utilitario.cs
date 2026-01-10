@@ -929,6 +929,8 @@ namespace GVC.UTIL{
         public static void AtualizarTotal(Label lbl, DataGridView dgv)
            => lbl.Text = $"Total: {dgv.Rows.Cast<DataGridViewRow>().Count(r => !r.IsNewRow)} registro(s)";
 
+        public static void AtualizarTotalToolStatusStrip(ToolStripStatusLabel lbl, DataGridView dgv)
+          => lbl.Text = $"Total: {dgv.Rows.Cast<DataGridViewRow>().Count(r => !r.IsNewRow)} registro(s)";
 
         public static void AtualizaTotalKrypton(KryptonLabel lbl, DataGridView dgv)
                 => lbl.Text = $"Total: {dgv.Rows.Cast<DataGridViewRow>().Count(r => !r.IsNewRow)} registro(s)";

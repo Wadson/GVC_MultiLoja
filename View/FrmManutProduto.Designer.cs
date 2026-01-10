@@ -34,8 +34,6 @@
             btnEstoque = new Krypton.Toolkit.KryptonButton();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
             toolStripStatusLabelTotalRegistros = new ToolStripStatusLabel();
-            rbtCodigo = new Krypton.Toolkit.KryptonRadioButton();
-            rbtDescricao = new Krypton.Toolkit.KryptonRadioButton();
             btnSair = new Krypton.Toolkit.KryptonButton();
             btnExcluir = new Krypton.Toolkit.KryptonButton();
             btnNovo = new Krypton.Toolkit.KryptonButton();
@@ -46,6 +44,8 @@
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel5 = new Krypton.Toolkit.KryptonPanel();
+            pictureBox1 = new PictureBox();
+            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel6 = new Krypton.Toolkit.KryptonPanel();
             ((System.ComponentModel.ISupportInitialize)dgvProdutos).BeginInit();
             kryptonStatusStrip1.SuspendLayout();
@@ -54,6 +54,7 @@
             kryptonPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel5).BeginInit();
             kryptonPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel6).BeginInit();
             kryptonPanel6.SuspendLayout();
             SuspendLayout();
@@ -77,7 +78,7 @@
             dgvProdutos.ReadOnly = true;
             dgvProdutos.RowHeadersWidth = 20;
             dgvProdutos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProdutos.Size = new Size(984, 388);
+            dgvProdutos.Size = new Size(702, 269);
             dgvProdutos.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             dgvProdutos.StateCommon.HeaderColumn.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             dgvProdutos.TabIndex = 597;
@@ -87,7 +88,7 @@
             // 
             btnEstoque.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnEstoque.CornerRoundingRadius = 10F;
-            btnEstoque.Location = new Point(520, 3);
+            btnEstoque.Location = new Point(238, 3);
             btnEstoque.Margin = new Padding(4, 3, 4, 3);
             btnEstoque.Name = "btnEstoque";
             btnEstoque.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -143,11 +144,11 @@
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
             kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelTotalRegistros });
-            kryptonStatusStrip1.Location = new Point(0, 504);
+            kryptonStatusStrip1.Location = new Point(0, 385);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
-            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            kryptonStatusStrip1.Size = new Size(992, 22);
+            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
+            kryptonStatusStrip1.Size = new Size(710, 22);
             kryptonStatusStrip1.TabIndex = 604;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
@@ -157,40 +158,11 @@
             toolStripStatusLabelTotalRegistros.Size = new Size(100, 17);
             toolStripStatusLabelTotalRegistros.Text = "Total de Registros";
             // 
-            // rbtCodigo
-            // 
-            rbtCodigo.Location = new Point(95, 6);
-            rbtCodigo.Margin = new Padding(5, 6, 5, 6);
-            rbtCodigo.Name = "rbtCodigo";
-            rbtCodigo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            rbtCodigo.Size = new Size(62, 20);
-            rbtCodigo.StateCommon.ShortText.Color1 = Color.White;
-            rbtCodigo.StateCommon.ShortText.Color2 = Color.White;
-            rbtCodigo.TabIndex = 101;
-            rbtCodigo.TabStop = false;
-            rbtCodigo.Values.Text = "Código";
-            rbtCodigo.CheckedChanged += rbtCodigo_CheckedChanged;
-            // 
-            // rbtDescricao
-            // 
-            rbtDescricao.Checked = true;
-            rbtDescricao.Location = new Point(9, 6);
-            rbtDescricao.Margin = new Padding(5, 6, 5, 6);
-            rbtDescricao.Name = "rbtDescricao";
-            rbtDescricao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            rbtDescricao.Size = new Size(75, 20);
-            rbtDescricao.StateCommon.ShortText.Color1 = Color.White;
-            rbtDescricao.StateCommon.ShortText.Color2 = Color.White;
-            rbtDescricao.TabIndex = 100;
-            rbtDescricao.TabStop = false;
-            rbtDescricao.Values.Text = "Descrição";
-            rbtDescricao.CheckedChanged += rbtDescricao_CheckedChanged;
-            // 
             // btnSair
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 10F;
-            btnSair.Location = new Point(889, 3);
+            btnSair.Location = new Point(607, 3);
             btnSair.Margin = new Padding(5, 3, 5, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -245,7 +217,7 @@
             // 
             btnExcluir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnExcluir.CornerRoundingRadius = 10F;
-            btnExcluir.Location = new Point(797, 3);
+            btnExcluir.Location = new Point(515, 3);
             btnExcluir.Margin = new Padding(5, 3, 5, 3);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -302,7 +274,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 10F;
-            btnNovo.Location = new Point(613, 3);
+            btnNovo.Location = new Point(331, 3);
             btnNovo.Margin = new Padding(5, 3, 5, 3);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -357,7 +329,7 @@
             // 
             btnAlterar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnAlterar.CornerRoundingRadius = 10F;
-            btnAlterar.Location = new Point(705, 3);
+            btnAlterar.Location = new Point(423, 3);
             btnAlterar.Margin = new Padding(5, 3, 5, 3);
             btnAlterar.Name = "btnAlterar";
             btnAlterar.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -413,11 +385,11 @@
             // 
             txtPesquisa.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtPesquisa.CharacterCasing = CharacterCasing.Upper;
-            txtPesquisa.Location = new Point(305, 1);
+            txtPesquisa.Location = new Point(89, 1);
             txtPesquisa.Margin = new Padding(5, 6, 5, 6);
             txtPesquisa.Name = "txtPesquisa";
             txtPesquisa.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisa.Size = new Size(672, 27);
+            txtPesquisa.Size = new Size(606, 27);
             txtPesquisa.StateCommon.Back.Color1 = Color.White;
             txtPesquisa.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPesquisa.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -483,7 +455,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel2.Size = new Size(992, 504);
+            tableLayoutPanel2.Size = new Size(710, 385);
             tableLayoutPanel2.TabIndex = 625;
             // 
             // kryptonPanel3
@@ -493,7 +465,7 @@
             kryptonPanel3.Location = new Point(3, 3);
             kryptonPanel3.Name = "kryptonPanel3";
             kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonPanel3.Size = new Size(986, 29);
+            kryptonPanel3.Size = new Size(704, 29);
             kryptonPanel3.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
             kryptonPanel3.TabIndex = 0;
             // 
@@ -502,7 +474,7 @@
             kryptonLabel2.Dock = DockStyle.Fill;
             kryptonLabel2.Location = new Point(0, 0);
             kryptonLabel2.Name = "kryptonLabel2";
-            kryptonLabel2.Size = new Size(986, 29);
+            kryptonLabel2.Size = new Size(704, 29);
             kryptonLabel2.StateCommon.ShortText.Color1 = Color.White;
             kryptonLabel2.StateCommon.ShortText.Color2 = Color.White;
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -512,15 +484,33 @@
             // 
             // kryptonPanel5
             // 
-            kryptonPanel5.Controls.Add(rbtDescricao);
-            kryptonPanel5.Controls.Add(rbtCodigo);
+            kryptonPanel5.Controls.Add(pictureBox1);
+            kryptonPanel5.Controls.Add(kryptonLabel1);
             kryptonPanel5.Controls.Add(txtPesquisa);
             kryptonPanel5.Dock = DockStyle.Fill;
             kryptonPanel5.Location = new Point(3, 38);
             kryptonPanel5.Name = "kryptonPanel5";
-            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonPanel5.Size = new Size(986, 29);
+            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
+            kryptonPanel5.Size = new Size(704, 29);
             kryptonPanel5.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.Pesquisar;
+            pictureBox1.Location = new Point(64, 1);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(25, 25);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 627;
+            pictureBox1.TabStop = false;
+            // 
+            // kryptonLabel1
+            // 
+            kryptonLabel1.Location = new Point(3, 3);
+            kryptonLabel1.Name = "kryptonLabel1";
+            kryptonLabel1.Size = new Size(62, 20);
+            kryptonLabel1.TabIndex = 626;
+            kryptonLabel1.Values.Text = "Pesquisar";
             // 
             // kryptonPanel6
             // 
@@ -530,20 +520,21 @@
             kryptonPanel6.Controls.Add(btnAlterar);
             kryptonPanel6.Controls.Add(btnNovo);
             kryptonPanel6.Dock = DockStyle.Fill;
-            kryptonPanel6.Location = new Point(3, 467);
+            kryptonPanel6.Location = new Point(3, 348);
             kryptonPanel6.Name = "kryptonPanel6";
-            kryptonPanel6.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonPanel6.Size = new Size(986, 34);
+            kryptonPanel6.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
+            kryptonPanel6.Size = new Size(704, 34);
             kryptonPanel6.TabIndex = 2;
             // 
             // FrmManutProduto
             // 
+            AutoScroll = true;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(992, 526);
+            ClientSize = new Size(710, 407);
             ControlBox = false;
             Controls.Add(tableLayoutPanel2);
             Controls.Add(kryptonStatusStrip1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             Margin = new Padding(5, 3, 5, 3);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -565,6 +556,7 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel5).EndInit();
             kryptonPanel5.ResumeLayout(false);
             kryptonPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel6).EndInit();
             kryptonPanel6.ResumeLayout(false);
             ResumeLayout(false);
@@ -579,8 +571,6 @@
         private Krypton.Toolkit.KryptonButton btnEstoque;
         private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
         private ToolStripStatusLabel toolStripStatusLabelTotalRegistros;
-        public Krypton.Toolkit.KryptonRadioButton rbtCodigo;
-        private Krypton.Toolkit.KryptonRadioButton rbtDescricao;
         public Krypton.Toolkit.KryptonButton btnSair;
         public Krypton.Toolkit.KryptonButton btnExcluir;
         public Krypton.Toolkit.KryptonButton btnNovo;
@@ -592,5 +582,7 @@
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private Krypton.Toolkit.KryptonPanel kryptonPanel5;
         private Krypton.Toolkit.KryptonPanel kryptonPanel6;
+        private PictureBox pictureBox1;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
     }
 }

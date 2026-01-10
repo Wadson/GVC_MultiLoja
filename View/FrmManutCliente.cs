@@ -10,7 +10,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GVC.View
 {
@@ -22,12 +21,6 @@ namespace GVC.View
         {
             this.StatusOperacao = statusOperacao;
             InitializeComponent();
-
-            // Personalização do título
-            this.Text = "Manutenção de Clientes";
-            this.StateCommon.Header.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-            this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 12);
         }
         public void ListarCliente()
         {
@@ -276,28 +269,14 @@ namespace GVC.View
         {
             string texto = txtPesquisa.Text.Trim();
 
-            if (string.IsNullOrEmpty(texto) && !rbtCodigo.Checked)
+            if (string.IsNullOrEmpty(texto))
             {
                 ListarCliente();
                 return;
             }
 
             var dao = new ClienteDal();
-            DataTable dt = null;
-
-            if (rbtCodigo.Checked && int.TryParse(texto, out int id))
-            {
-                dt = dao.PesquisarPorCodigo(id);
-            }
-            else if (rbtDescricao.Checked)
-            {
-                dt = dao.PesquisarPorNome(texto);
-            }
-            else
-            {
-                ListarCliente();
-                return;
-            }
+            DataTable dt = dao.PesquisarPorNome(texto);
 
             dgvCliente.DataSource = dt ?? new DataTable();
             PersonalizarDataGridView();

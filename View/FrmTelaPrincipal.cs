@@ -23,18 +23,7 @@ namespace GVC.View
             StatusOperacao = "";
         }
         private string StatusOperacao = "";
-        private void AbrirFormEnPanel(object Form)
-        {
-            if (this.panelConteiner.Controls.Count > 0)
-                this.panelConteiner.Controls.RemoveAt(0);
-            Form fh = Form as Form;
-            fh.TopLevel = false;
-            fh.Dock = DockStyle.Fill;
-            this.panelConteiner.Controls.Add(fh);
-            this.panelConteiner.Tag = fh;
-            fh.Show();
-        }
-
+       
 
         private void btnUsuario_Click(object sender, EventArgs e)
         {
@@ -44,14 +33,14 @@ namespace GVC.View
         {
             FrmManutCliente frm = new FrmManutCliente(StatusOperacao);
             StatusOperacao = "NOVO";
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void btnProduto_Click(object sender, EventArgs e)
         {
             FrmManutProduto frm = new FrmManutProduto(StatusOperacao);
             StatusOperacao = "NOVO";
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void btnVendas_Click(object sender, EventArgs e)
@@ -79,7 +68,7 @@ namespace GVC.View
         private void btnContaReceber_Click(object sender, EventArgs e)
         {
             FrmContasReceber frm = new FrmContasReceber();
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
 
@@ -167,42 +156,42 @@ namespace GVC.View
         {
             FrmManutCidade frmManutCidade = new FrmManutCidade(StatusOperacao);
             StatusOperacao = "NOVO";
-            AbrirFormEnPanel(frmManutCidade);
+            frmManutCidade.Show();
         }
 
         private void clientesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             FrmManutCliente frm = new FrmManutCliente(StatusOperacao);
             StatusOperacao = "NOVO";
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void estadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmManutEstado frm = new FrmManutEstado(StatusOperacao);
             StatusOperacao = "NOVO";
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void fornecedoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             FrmManutProduto frm = new FrmManutProduto(StatusOperacao);
             StatusOperacao = "NOVO";
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void produtosToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             FrmManutProduto frm = new FrmManutProduto(StatusOperacao);
             StatusOperacao = "NOVO";
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void btnUsuario_Click_1(object sender, EventArgs e)
         {
             FrmManutUsuario frm = new FrmManutUsuario(StatusOperacao);
             StatusOperacao = "NOVO";
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }    
 
         private void FrmTelaPrincipal_FormClosing(object sender, FormClosingEventArgs e)
@@ -217,7 +206,7 @@ namespace GVC.View
         private void btnFornecedor_Click(object sender, EventArgs e)
         {
             FrmManutFornecedor frm = new FrmManutFornecedor(StatusOperacao);
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void btnCalculo_Click(object sender, EventArgs e)
@@ -227,7 +216,7 @@ namespace GVC.View
         private void cancelarVendaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmGerenciarVendas frm = new FrmGerenciarVendas();
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void movimentaçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
@@ -245,13 +234,13 @@ namespace GVC.View
         private void relatórioEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmRelatorioEstoque frm = new FrmRelatorioEstoque();
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void dashbordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmDashboard frm = new FrmDashboard();
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void ToolStripMenuItemConfiguracoes_Click(object sender, EventArgs e)
@@ -261,13 +250,13 @@ namespace GVC.View
         private void empresaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmManutEmpresa frm = new FrmManutEmpresa(StatusOperacao);
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
 
         private void formaDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmManutFormaPgto frm = new FrmManutFormaPgto(StatusOperacao);
-            AbrirFormEnPanel(frm);
+            frm.Show();
         }
     }
 }

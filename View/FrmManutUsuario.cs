@@ -23,11 +23,6 @@ namespace GVC
         {
             InitializeComponent();
             this.StatusOperacao = statusOperacao;
-            // Personalização do título
-            this.Text = "Manutenção de Usuários";
-            this.StateCommon.Header.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-            this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 12);
         }
 
         private void CarregaDados()
@@ -233,27 +228,20 @@ namespace GVC
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
-            string textoPesquisa = txtPesquisa.Text.ToLower();           
-            UsuarioDal dao = new UsuarioDal();
+            string textoPesquisa = txtPesquisa.Text.Trim();
 
-            if (rbtCodigo.Checked)
+            if (string.IsNullOrEmpty(textoPesquisa))
             {
-                if (int.TryParse(textoPesquisa, out int codigo)) // só tenta se for número
-                {
-                    dgvUsuarios.DataSource = dao.PesquisarPorCodigo(codigo);
-                    PersonalizarDataGridView();
-                }
-                else
-                {
-                    dgvUsuarios.DataSource = null; // limpa se não for número válido
-                }
+                dgvUsuarios.DataSource = null; // ou pode chamar um método ListarUsuarios()
+                Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvUsuarios);
+                return;
             }
-            else
-            {
-                string nome = "%" + textoPesquisa + "%";
-                dgvUsuarios.DataSource = dao.PesquisarPorNome(nome);
-                PersonalizarDataGridView();
-            }
+
+            UsuarioDal dao = new UsuarioDal();
+            string nome = "%" + textoPesquisa.ToLower() + "%";
+            dgvUsuarios.DataSource = dao.PesquisarPorNome(nome);
+
+            PersonalizarDataGridView();
             Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvUsuarios);
         }
 

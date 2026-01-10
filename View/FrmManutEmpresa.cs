@@ -22,12 +22,6 @@ namespace GVC.View
         {           
             InitializeComponent();
             dgvEmpresa.CellFormatting += dgvEmpresa_CellFormatting;
-
-            // Personalização do título
-            this.Text = "Manutenção de Empresas";
-            this.StateCommon.Header.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-            this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 12);
         }
         public void ListarEmpresa()
         {
@@ -43,7 +37,7 @@ namespace GVC.View
                 _gridConfigurado = true;
             }
 
-            Utilitario.AtualizarTotal(lblTotalRegistros, dgvEmpresa);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvEmpresa);            
         }
         private void ConfigurarColunaFill(string coluna, int larguraMinima, int peso)
         {
@@ -192,30 +186,21 @@ namespace GVC.View
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
-            string texto = txtPesquisa.Text.Trim();
+            string textoPesquisa = txtPesquisa.Text.Trim();
 
-            EmpresaDal dao = new EmpresaDal();
-            DataTable dt;
-
-            if (string.IsNullOrEmpty(texto))
+            if (string.IsNullOrEmpty(textoPesquisa))
             {
-                dt = dao.ListarEmpresas();
-            }
-            else if (rbtCodigo.Checked && int.TryParse(texto, out int id))
-            {
-                dt = dao.PesquisarPorCodigo(id);
-            }
-            else if (rbtDescricao.Checked)
-            {
-                dt = dao.PesquisarPorNome(texto);
-            }
-            else
-            {
+                dgvEmpresa.DataSource = null; // ou pode chamar um método ListarUsuarios()
+                Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvEmpresa);
                 return;
             }
 
-            dgvEmpresa.DataSource = dt;
-            Utilitario.AtualizarTotal(lblTotalRegistros, dgvEmpresa);
+            UsuarioDal dao = new UsuarioDal();
+            string nome = "%" + textoPesquisa.ToLower() + "%";
+            dgvEmpresa.DataSource = dao.PesquisarPorNome(nome);
+
+            PersonalizarDataGridView();
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvEmpresa);
         }
 
         private void FrmManutEmpresa_Load(object sender, EventArgs e)

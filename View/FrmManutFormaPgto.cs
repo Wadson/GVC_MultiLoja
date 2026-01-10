@@ -23,12 +23,6 @@ namespace GVC.View
         {           
             InitializeComponent();
             dgvFormaPgto.CellFormatting += dgvFormaPgto_CellFormatting;
-
-            // Personalização do título
-            this.Text = "Manutenção de FormaPgtos";
-            this.StateCommon.Header.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-            this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 12);
         }
         public void ListarFormaPgto()
         {
@@ -44,7 +38,7 @@ namespace GVC.View
                 _gridConfigurado = true;
             }
 
-            Utilitario.AtualizarTotal(lblTotalRegistros, dgvFormaPgto);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvFormaPgto);
         }
         private void ConfigurarColunaFill(string coluna, int larguraMinima, int peso)
         {
@@ -162,23 +156,22 @@ namespace GVC.View
 
             if (string.IsNullOrEmpty(texto))
             {
+                // Lista todos os registros se não houver texto
                 dt = dao.ListaFormaPgto();
             }
-            else if (rbtCodigo.Checked && int.TryParse(texto, out int id))
+            else if (int.TryParse(texto, out int id))
             {
+                // Se for número → pesquisa por código
                 dt = dao.PesquisarPorCodigo(id);
-            }
-            else if (rbtDescricao.Checked)
-            {
-                dt = dao.PesquisarPorNome(texto);
             }
             else
             {
-                return;
+                // Caso contrário → pesquisa por nome
+                dt = dao.PesquisarPorNome(texto);
             }
 
-            dgvFormaPgto.DataSource = dt;
-            Utilitario.AtualizarTotal(lblTotalRegistros, dgvFormaPgto);
+            dgvFormaPgto.DataSource = dt ?? new DataTable();
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvFormaPgto);
         }
 
         private void FrmManutFormaPgto_Load(object sender, EventArgs e)

@@ -20,20 +20,14 @@ namespace GVC.View
         public FrmManutFornecedor(string statusOperacao)
         {
             this.StatusOperacao = statusOperacao;
-            InitializeComponent();
-
-            // Personalização do título
-            this.Text = "Manutenção de Fornecedor";
-            this.StateCommon.Header.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-            this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 12);
+            InitializeComponent();          
         }
         public void ListarFornecedor()
         {
             FornecedorBll objetoBll = new FornecedorBll();
             dgvFornecedor.DataSource = objetoBll.Listar();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotal(lblTotalRegistros, dgvFornecedor);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvFornecedor);
         }
         public void HabilitarTimer(bool habilitar)
         {
@@ -261,32 +255,27 @@ namespace GVC.View
         {
             string texto = txtPesquisa.Text.Trim();
 
-            if (string.IsNullOrEmpty(texto) && !rbtCodigo.Checked)
+            FormaPagamentoDal dao = new FormaPagamentoDal();
+            DataTable dt;
+
+            if (string.IsNullOrEmpty(texto))
             {
-                ListarFornecedor();
-                return;
+                // Lista todos os registros se não houver texto
+                dt = dao.ListaFormaPgto();
             }
-
-            var dao = new FornecedorDal();
-            DataTable dt = null;
-
-            if (rbtCodigo.Checked && int.TryParse(texto, out int id))
+            else if (int.TryParse(texto, out int id))
             {
+                // Se for número → pesquisa por código
                 dt = dao.PesquisarPorCodigo(id);
             }
-            else if (rbtDescricao.Checked)
-            {
-                dt = dao.PesquisarPorNome(texto);
-            }           
             else
             {
-                ListarFornecedor();
-                return;
+                // Caso contrário → pesquisa por nome
+                dt = dao.PesquisarPorNome(texto);
             }
 
             dgvFornecedor.DataSource = dt ?? new DataTable();
-            PersonalizarDataGridView();
-            Utilitario.AtualizarTotal(lblTotalRegistros, dgvFornecedor);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvFornecedor);
         }
 
         private void FrmManutFornecedor_Load(object sender, EventArgs e)

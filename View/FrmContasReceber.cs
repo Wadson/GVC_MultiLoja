@@ -1073,12 +1073,6 @@ namespace GVC.View
                 SendKeys.Send("{TAB}");
             }
         }
-
-        private void btnPesquisar_Click(object sender, EventArgs e)
-        {
-            CarregarContasAReceber();
-        }
-
         private void LimparFiltro_Click(object sender, EventArgs e)
         {
             cmbTipoPesquisa.SelectedIndex = 0;
@@ -1087,182 +1081,77 @@ namespace GVC.View
             CarregarContasAReceber(); // vai chamar AtualizarResumoGeral automaticamente
             AtualizarCamposPorTipoPesquisa();
         }
-        private void btnEstornarPagamento_Click(object sender, EventArgs e)
+
+        private void dgvPagamentos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            var selecionadas = ObterParcelasSelecionadas();
+            if (dgvPagamentos.IsCurrentCellDirty)
+                dgvPagamentos.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
 
-            // 🔴 CORREÇÃO: Verifica se há exatamente UMA parcela selecionada
-            if (selecionadas.Count == 0)
-            {
-                Utilitario.Mensagens.Aviso("Selecione uma parcela para estornar.");
+        private void dgvPagamentos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
                 return;
-            }
 
-            // 🔴 NOVA VERIFICAÇÃO: Bloqueia se mais de uma parcela estiver selecionada
-            if (selecionadas.Count > 1)
-            {
-                Utilitario.Mensagens.Aviso("Selecione apenas UMA parcela para estornar.");
+            if (dgvPagamentos.Columns[e.ColumnIndex].Name != "Selecionar")
                 return;
-            }
 
-            // Agora temos certeza que é apenas uma parcela
-            var parcela = selecionadas.First();
+            dgvPagamentos.CommitEdit(DataGridViewDataErrorContexts.Commit);
 
-            // Verifica se a parcela tem valor recebido > 0
-            if ((decimal)parcela.ValorRecebido <= 0)
-            {
-                Utilitario.Mensagens.Aviso("Esta parcela não possui pagamentos para estornar.");
+            var row = dgvPagamentos.Rows[e.RowIndex];
+            bool marcado = Convert.ToBoolean(row.Cells["Selecionar"].Value);
+
+            var pagamento = row.DataBoundItem as PagamentoExtratoModel;
+            if (pagamento == null)
                 return;
-            }
 
-            // Form para informar o valor e motivo
-            using (var frm = new FrmEstornarPagamento())
+            // 🔹 Se está marcando
+            if (marcado)
             {
-                // 🔴 AJUSTE: Passa apenas o ID da única parcela
-                frm.CarregarDados(new List<long> { (long)parcela.ParcelaID },
-                    parcela.NomeCliente ?? "Cliente"
-                );
-
-                if (frm.ShowDialog() == DialogResult.OK)
+                if (_parcelaSelecionadaParaRecibo == null)
                 {
-                    try
-                    {
-                        var bll = new ParcelaBLL();
-
-                        // 🔴 AGORA ESTORNA APENAS A PARCELA ÚNICA
-                        bll.EstornarPagamento(
-                            (long)parcela.ParcelaID,
-                            frm.ValorEstorno,
-                            frm.Motivo
-                        );
-
-                        Utilitario.Mensagens.Info("Estorno realizado com sucesso!");
-                        CarregarContasAReceber(); // atualiza o grid
-                    }
-                    catch (Exception ex)
-                    {
-                        Utilitario.Mensagens.Erro("Erro ao estornar: " + ex.Message);
-                    }
+                    _parcelaSelecionadaParaRecibo = pagamento.ParcelaID;
                 }
-            }
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnBaixarParcela_Click(object sender, EventArgs e)
-        {
-            var selecionadas = ObterParcelasSelecionadas();
-            if (!selecionadas.Any())
-            {
-                Utilitario.Mensagens.Aviso("Por favor, marque a caixa de seleção ao lado para escolher ao menos uma parcela");
-
-                return;
-            }
-
-            // Converte para List<dynamic> apenas para compatibilidade
-            var selecionadasDto = selecionadas.ToList();
-
-            decimal totalParcelas = selecionadas.Sum(p => p.ValorParcela);
-            decimal totalRecebido = selecionadas.Sum(p => p.ValorRecebido);
-            decimal saldoTotal = selecionadas.Sum(p => p.Saldo);
-            string nomeCliente = selecionadas[0].NomeCliente ?? string.Empty;
-
-            using var frm = new FrmBaixarParcela();
-            frm.Text = nomeCliente;
-            frm.lblInfo.Text = selecionadas.Count == 1
-                ? nomeCliente : "Múltiplas parcelas selecionadas";
-
-            // Passa a versão dynamic
-            frm.CarregarDados(selecionadasDto, nomeCliente, totalParcelas, totalRecebido, saldoTotal);
-
-            if (frm.ShowDialog() == DialogResult.OK)
-                CarregarContasAReceber();
-        }
-
-        private void btnExtratoRecibo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Verifica se há checkbox marcado
-                bool temCheckboxMarcado = false;
-
-                foreach (DataGridViewRow row in dgvContasAReceber.Rows)
+                else if (_parcelaSelecionadaParaRecibo != pagamento.ParcelaID)
                 {
-                    if (row.Cells["Selecionar"].Value is bool marcado && marcado)
-                    {
-                        temCheckboxMarcado = true;
-                        break;
-                    }
-                }
+                    Utilitario.Mensagens.Aviso(
+                        "Você só pode selecionar pagamentos da mesma parcela.");
 
-                // Verifica se há linha selecionada (CurrentRow)
-                bool temLinhaSelecionada = (dgvContasAReceber.CurrentRow != null);
-
-                // Se não tem nenhum dos dois, mostra mensagem
-                if (!temCheckboxMarcado && !temLinhaSelecionada)
-                {
-                    Utilitario.Mensagens.Info("Para gerar extrato: selecione uma linha.\nPara gerar recibo: marque o checkbox das parcelas.");
+                    row.Cells["Selecionar"].Value = false;
                     return;
                 }
-
-                // SEMPRE abre o formulário de opções
-                using (var frmOpcoes = new FrmOpcoesExtrato())
-                {
-                    // Desabilita os botões que não estão disponíveis
-                    // Supondo que seus botões no FrmOpcoesExtrato são públicos ou você tem acesso a eles
-
-                    // Se não tem linha selecionada, desabilita Extrato
-                    if (!temLinhaSelecionada)
-                    {
-                        // Desabilita o botão de extrato
-                        var controles = frmOpcoes.Controls.Find("btnExtrato", true);
-                        if (controles.Length > 0 && controles[0] is Button btnExtrato)
-                        {
-                            btnExtrato.Enabled = false;
-                            btnExtrato.Text = "Extrato (selecione uma linha primeiro)";
-                        }
-                    }
-
-                    // Se não tem checkbox marcado, desabilita Recibo
-                    if (!temCheckboxMarcado)
-                    {
-                        // Desabilita o botão de recibo
-                        var controles = frmOpcoes.Controls.Find("btnRecibo", true);
-                        if (controles.Length > 0 && controles[0] is Button btnRecibo)
-                        {
-                            btnRecibo.Enabled = false;
-                            btnRecibo.Text = "Recibo (marque o checkbox primeiro)";
-                        }
-                    }
-
-                    var resultado = frmOpcoes.ShowDialog();
-
-                    if (resultado == DialogResult.Yes && temLinhaSelecionada)
-                    {
-                        var opcao = MessageBox.Show(
-                            "Deseja o extrato DETALHADO (com pagamentos)?",
-                            "Tipo de Extrato",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question
-                        );
-
-                        bool detalhado = opcao == DialogResult.Yes;
-
-                        if (detalhado)
-                            GerarExtratoDetalhadoHierarquico(); // 🔹 NOVO
-                        else
-                            GerarExtratoCompleto(false);        // 🔹 JÁ EXISTE
-                    }
-
-                }
             }
-            catch (Exception ex)
+            else
             {
-                Utilitario.Mensagens.Erro($"Erro: {ex.Message}");
+                // 🔹 Se desmarcou tudo, libera novamente
+                bool aindaTemMarcado = dgvPagamentos.Rows
+                    .Cast<DataGridViewRow>()
+                    .Any(r => Convert.ToBoolean(r.Cells["Selecionar"].Value));
+
+                if (!aindaTemMarcado)
+                    _parcelaSelecionadaParaRecibo = null;
             }
+            AtualizarCoresGridPagamentos();
+
+            AtualizarTotalSelecionado();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            CarregarContasAReceber();
         }
 
         private void btnLimparFiltro_Click(object sender, EventArgs e)
@@ -1274,31 +1163,9 @@ namespace GVC.View
             AtualizarCamposPorTipoPesquisa();
         }
 
-        private void btnVerItensVenda_Click(object sender, EventArgs e)
-        {
-            if (dgvContasAReceber.CurrentRow == null)
-            {
-                Utilitario.Mensagens.Aviso("Selecione uma venda para visualizar os itens.");
-                return;
-            }
-
-            if (!(dgvContasAReceber.CurrentRow.DataBoundItem is ContaAReceberDTO dto))
-            {
-                Utilitario.Mensagens.Aviso("Não foi possível identificar a venda.");
-                return;
-            }
-
-            long vendaId = dto.VendaID;
-
-            using (var frm = new FrmItensVenda())
-            {
-                frm.CarregarItensVenda(vendaId);
-                frm.ShowDialog(this);
-            }
-        }
-
         private void btnRecibo_Click(object sender, EventArgs e)
         {
+
             // ======================================================
             // 🔹 VALIDA PARCELA
             // ======================================================
@@ -1405,60 +1272,206 @@ namespace GVC.View
             }
         }
 
-
-        private void dgvPagamentos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        private void btnVerItensVenda_Click(object sender, EventArgs e)
         {
-            if (dgvPagamentos.IsCurrentCellDirty)
-                dgvPagamentos.CommitEdit(DataGridViewDataErrorContexts.Commit);
+
+            if (dgvContasAReceber.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione uma venda para visualizar os itens.");
+                return;
+            }
+
+            if (!(dgvContasAReceber.CurrentRow.DataBoundItem is ContaAReceberDTO dto))
+            {
+                Utilitario.Mensagens.Aviso("Não foi possível identificar a venda.");
+                return;
+            }
+
+            long vendaId = dto.VendaID;
+
+            using (var frm = new FrmItensVenda())
+            {
+                frm.CarregarItensVenda(vendaId);
+                frm.ShowDialog(this);
+            }
         }
 
-        private void dgvPagamentos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btnBaixarParcela_Click_1(object sender, EventArgs e)
         {
-            if (e.RowIndex < 0)
-                return;
-
-            if (dgvPagamentos.Columns[e.ColumnIndex].Name != "Selecionar")
-                return;
-
-            dgvPagamentos.CommitEdit(DataGridViewDataErrorContexts.Commit);
-
-            var row = dgvPagamentos.Rows[e.RowIndex];
-            bool marcado = Convert.ToBoolean(row.Cells["Selecionar"].Value);
-
-            var pagamento = row.DataBoundItem as PagamentoExtratoModel;
-            if (pagamento == null)
-                return;
-
-            // 🔹 Se está marcando
-            if (marcado)
+            var selecionadas = ObterParcelasSelecionadas();
+            if (!selecionadas.Any())
             {
-                if (_parcelaSelecionadaParaRecibo == null)
-                {
-                    _parcelaSelecionadaParaRecibo = pagamento.ParcelaID;
-                }
-                else if (_parcelaSelecionadaParaRecibo != pagamento.ParcelaID)
-                {
-                    Utilitario.Mensagens.Aviso(
-                        "Você só pode selecionar pagamentos da mesma parcela.");
+                Utilitario.Mensagens.Aviso("Por favor, marque a caixa de seleção ao lado para escolher ao menos uma parcela");
 
-                    row.Cells["Selecionar"].Value = false;
+                return;
+            }
+
+            // Converte para List<dynamic> apenas para compatibilidade
+            var selecionadasDto = selecionadas.ToList();
+
+            decimal totalParcelas = selecionadas.Sum(p => p.ValorParcela);
+            decimal totalRecebido = selecionadas.Sum(p => p.ValorRecebido);
+            decimal saldoTotal = selecionadas.Sum(p => p.Saldo);
+            string nomeCliente = selecionadas[0].NomeCliente ?? string.Empty;
+
+            using var frm = new FrmBaixarParcela();
+            frm.Text = nomeCliente;
+            frm.lblInfo.Text = selecionadas.Count == 1
+                ? nomeCliente : "Múltiplas parcelas selecionadas";
+
+            // Passa a versão dynamic
+            frm.CarregarDados(selecionadasDto, nomeCliente, totalParcelas, totalRecebido, saldoTotal);
+
+            if (frm.ShowDialog() == DialogResult.OK)
+                CarregarContasAReceber();
+        }
+
+        private void btnExtrato_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verifica se há checkbox marcado
+                bool temCheckboxMarcado = false;
+
+                foreach (DataGridViewRow row in dgvContasAReceber.Rows)
+                {
+                    if (row.Cells["Selecionar"].Value is bool marcado && marcado)
+                    {
+                        temCheckboxMarcado = true;
+                        break;
+                    }
+                }
+
+                // Verifica se há linha selecionada (CurrentRow)
+                bool temLinhaSelecionada = (dgvContasAReceber.CurrentRow != null);
+
+                // Se não tem nenhum dos dois, mostra mensagem
+                if (!temCheckboxMarcado && !temLinhaSelecionada)
+                {
+                    Utilitario.Mensagens.Info("Para gerar extrato: selecione uma linha.\nPara gerar recibo: marque o checkbox das parcelas.");
                     return;
                 }
+
+                // SEMPRE abre o formulário de opções
+                using (var frmOpcoes = new FrmOpcoesExtrato())
+                {
+                    // Desabilita os botões que não estão disponíveis
+                    // Supondo que seus botões no FrmOpcoesExtrato são públicos ou você tem acesso a eles
+
+                    // Se não tem linha selecionada, desabilita Extrato
+                    if (!temLinhaSelecionada)
+                    {
+                        // Desabilita o botão de extrato
+                        var controles = frmOpcoes.Controls.Find("btnExtrato", true);
+                        if (controles.Length > 0 && controles[0] is Button btnExtrato)
+                        {
+                            btnExtrato.Enabled = false;
+                            btnExtrato.Text = "Extrato (selecione uma linha primeiro)";
+                        }
+                    }
+
+                    // Se não tem checkbox marcado, desabilita Recibo
+                    if (!temCheckboxMarcado)
+                    {
+                        // Desabilita o botão de recibo
+                        var controles = frmOpcoes.Controls.Find("btnRecibo", true);
+                        if (controles.Length > 0 && controles[0] is Button btnRecibo)
+                        {
+                            btnRecibo.Enabled = false;
+                            btnRecibo.Text = "Recibo (marque o checkbox primeiro)";
+                        }
+                    }
+
+                    var resultado = frmOpcoes.ShowDialog();
+
+                    if (resultado == DialogResult.Yes && temLinhaSelecionada)
+                    {
+                        var opcao = MessageBox.Show(
+                            "Deseja o extrato DETALHADO (com pagamentos)?",
+                            "Tipo de Extrato",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question
+                        );
+
+                        bool detalhado = opcao == DialogResult.Yes;
+
+                        if (detalhado)
+                            GerarExtratoDetalhadoHierarquico(); // 🔹 NOVO
+                        else
+                            GerarExtratoCompleto(false);        // 🔹 JÁ EXISTE
+                    }
+
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // 🔹 Se desmarcou tudo, libera novamente
-                bool aindaTemMarcado = dgvPagamentos.Rows
-                    .Cast<DataGridViewRow>()
-                    .Any(r => Convert.ToBoolean(r.Cells["Selecionar"].Value));
-
-                if (!aindaTemMarcado)
-                    _parcelaSelecionadaParaRecibo = null;
+                Utilitario.Mensagens.Erro($"Erro: {ex.Message}");
             }
-            AtualizarCoresGridPagamentos();
-
-            AtualizarTotalSelecionado();
         }
-      
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnEstornarPagamento_Click(object sender, EventArgs e)
+        {
+            var selecionadas = ObterParcelasSelecionadas();
+
+            // 🔴 CORREÇÃO: Verifica se há exatamente UMA parcela selecionada
+            if (selecionadas.Count == 0)
+            {
+                Utilitario.Mensagens.Aviso("Selecione uma parcela para estornar.");
+                return;
+            }
+
+            // 🔴 NOVA VERIFICAÇÃO: Bloqueia se mais de uma parcela estiver selecionada
+            if (selecionadas.Count > 1)
+            {
+                Utilitario.Mensagens.Aviso("Selecione apenas UMA parcela para estornar.");
+                return;
+            }
+
+            // Agora temos certeza que é apenas uma parcela
+            var parcela = selecionadas.First();
+
+            // Verifica se a parcela tem valor recebido > 0
+            if ((decimal)parcela.ValorRecebido <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Esta parcela não possui pagamentos para estornar.");
+                return;
+            }
+
+            // Form para informar o valor e motivo
+            using (var frm = new FrmEstornarPagamento())
+            {
+                // 🔴 AJUSTE: Passa apenas o ID da única parcela
+                frm.CarregarDados(new List<long> { (long)parcela.ParcelaID },
+                    parcela.NomeCliente ?? "Cliente"
+                );
+
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        var bll = new ParcelaBLL();
+
+                        // 🔴 AGORA ESTORNA APENAS A PARCELA ÚNICA
+                        bll.EstornarPagamento(
+                            (long)parcela.ParcelaID,
+                            frm.ValorEstorno,
+                            frm.Motivo
+                        );
+
+                        Utilitario.Mensagens.Info("Estorno realizado com sucesso!");
+                        CarregarContasAReceber(); // atualiza o grid
+                    }
+                    catch (Exception ex)
+                    {
+                        Utilitario.Mensagens.Erro("Erro ao estornar: " + ex.Message);
+                    }
+                }
+            }
+        }
     }
 }

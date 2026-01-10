@@ -1,5 +1,4 @@
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.csproj.AssemblyReference.cache
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.FrmPrincipal.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.Properties.Resources.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.TexBoxPersonalizado.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.TexBoxTelefoneFormatado.resources
@@ -40,7 +39,6 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmManutFormaPgto.resourc
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmManutFornecedor.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmManutProduto.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.FrmManutUsuario.resources
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.FrmModeloUI.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmMotivoOperacao.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmMovimentacaoEstoque.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmPDVendas.resources
@@ -301,3 +299,4 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\refint\GVC.dll
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.pdb
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.genruntimeconfig.cache
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\ref\GVC.dll
+C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.FrmPrincipal.resources

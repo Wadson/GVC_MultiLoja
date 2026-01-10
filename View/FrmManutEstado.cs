@@ -17,11 +17,6 @@ namespace GVC
             InitializeComponent();
             PersonalizarDataGridView(dgvPesquisar);
             this.StatusOperacao = statusOperacao;
-            // Personalização do título
-            this.Text = "Manutenção de Estados";
-            this.StateCommon.Header.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-            this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 12);
         }
         public void PersonalizarDataGridView(KryptonDataGridView dgv)
         {
@@ -148,22 +143,21 @@ namespace GVC
 
         private void txtPesquisar_TextChanged(object sender, EventArgs e)
         {
-            EstadoDal dao = new EstadoDal();
+            string textoPesquisa = txtPesquisar.Text.Trim();
 
-            if (rbtCodigo.Checked)
+            if (string.IsNullOrEmpty(textoPesquisa))
             {
-                // pesquisa numérica pura
-                if (int.TryParse(txtPesquisar.Text, out int id))
-                    dgvPesquisar.DataSource = dao.PesquisarPorCodigo(id);
-                else
-                    dgvPesquisar.DataSource = null;
+                dgvPesquisar.DataSource = null; // ou pode chamar um método ListarUsuarios()
+                Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvPesquisar);
+                return;
             }
-            else
-            {
-                // pesquisa textual normal
-                string nome = "%" + txtPesquisar.Text + "%";
-                dgvPesquisar.DataSource = dao.PesquisarPorNome(nome);
-            }
+
+            UsuarioDal dao = new UsuarioDal();
+            string nome = "%" + textoPesquisa.ToLower() + "%";
+            dgvPesquisar.DataSource = dao.PesquisarPorNome(nome);
+
+            PersonalizarDataGridView(dgvPesquisar);
+            Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvPesquisar);
         }
 
         private void btnNovo_Click(object sender, EventArgs e)

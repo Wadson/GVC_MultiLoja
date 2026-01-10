@@ -35,9 +35,7 @@ namespace GVC.View
         }
 
         private void FrmModeloUI_Click(object sender, EventArgs e)
-        {
-            FrmModeloUI frm = new FrmModeloUI();
-            frm.ShowDialog();
+        {           
         }
 
         private void btnLogo_Click(object sender, EventArgs e)

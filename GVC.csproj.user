@@ -17,9 +17,6 @@
     <Compile Update="CustomTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="FrmPrincipal.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="UTIL\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,9 +99,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="View\FrmManutUsuario.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="View\FrmModeloUI .cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="View\FrmMovimentacaoEstoque.cs">

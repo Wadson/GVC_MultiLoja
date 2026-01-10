@@ -18,12 +18,6 @@ namespace GVC
 
             PersonalizarDataGridView(dataGridPesquisar);
             this.StatusOperacao = statusOperacao;
-            // Personalização do título
-            this.Text = "Manutenção de Cidade";
-            this.StateCommon.Header.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-            this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 12);
-
         }
 
         private void CarregaDados()
@@ -130,7 +124,7 @@ namespace GVC
             CidadeBLL cidadeBll = new CidadeBLL();
             dataGridPesquisar.DataSource = cidadeBll.Listar();
             PersonalizarDataGridView(dataGridPesquisar);
-            Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistro, dataGridPesquisar);
+            Utilitario.AtualizarTotalKrypton(LabelTotalRegistros, dataGridPesquisar);
         }
         public void HabilitarTimer(bool habilitar)
         {
@@ -172,21 +166,11 @@ namespace GVC
 
         private void txtLocaliza_TextChanged(object sender, EventArgs e)
         {
-            string textoPesquisa = txtLocaliza.Text.ToLower();
-
             string nome = "%" + txtLocaliza.Text + "%";
             CidadeDal dao = new CidadeDal();
 
-            if (rbtCodig.Checked)
-            {
-                dataGridPesquisar.DataSource = dao.PesquisarPorCodigo(nome);
-                //Utilitario.AtualizarTotal(lblTotalRegistros, dataGridPesquisar);
-            }
-            else
-            {
-                dataGridPesquisar.DataSource = dao.PesquisarPorNome(nome);
-                //Utilitario.AtualizarTotal(lblTotalRegistros, dataGridPesquisar);
-            }
+            dataGridPesquisar.DataSource = dao.PesquisarPorNome(nome);
+            Utilitario.AtualizarTotal(lblTotalRegistros, dataGridPesquisar);
         }
 
         private void rbtCodig_CheckedChanged(object sender, EventArgs e)

@@ -50,6 +50,9 @@
 	  <Compile Update="View\FrmCadFormaPgto.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="View\FrmPrincipal.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="View\FrmItensVenda.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
@@ -83,6 +86,10 @@
 	  <Compile Update="View\FrmPDVendas.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="View\NovaPasta\" />
 	</ItemGroup>
 
 </Project>

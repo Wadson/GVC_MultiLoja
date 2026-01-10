@@ -26,12 +26,7 @@ namespace GVC.View
 
         public FrmManutProduto(string statusOperacao)
         {
-            InitializeComponent();
-            // Personalização do título
-            this.Text = "Manutenção de Produtos";
-            this.StateCommon.Header.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254); 
-            this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-            this.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+            InitializeComponent();         
         }
 
         public void HabilitarTimer(bool habilitar)
@@ -286,20 +281,29 @@ namespace GVC.View
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
-            string nome = "%" + txtPesquisa.Text + "%";
-            ProdutoDALL dao = new ProdutoDALL();
+            string texto = txtPesquisa.Text.Trim();
 
-            if (rbtCodigo.Checked)
+            FormaPagamentoDal dao = new FormaPagamentoDal();
+            DataTable dt;
+
+            if (string.IsNullOrEmpty(texto))
             {
-                dgvProdutos.DataSource = dao.PesquisarProdutoPorCodigo(nome);
-                Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvProdutos);
+                // Lista todos os registros se não houver texto
+                dt = dao.ListaFormaPgto();
+            }
+            else if (int.TryParse(texto, out int id))
+            {
+                // Se for número → pesquisa por código
+                dt = dao.PesquisarPorCodigo(id);
             }
             else
             {
-                dgvProdutos.DataSource = dao.PesquisarProdutoPorNome(nome);
-                Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvProdutos);
+                // Caso contrário → pesquisa por nome
+                dt = dao.PesquisarPorNome(texto);
             }
-            PersonalizarDataGridView();
+
+            dgvProdutos.DataSource = dt ?? new DataTable();
+            Utilitario.AtualizarTotalToolStatusStrip(toolStripStatusLabelTotalRegistros, dgvProdutos);
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
