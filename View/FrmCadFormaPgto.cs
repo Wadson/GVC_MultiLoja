@@ -21,10 +21,13 @@ namespace GVC.View
 {
     public partial class FrmCadFormaPgto : KryptonForm
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string StatusOperacao { get; set; } // "NOVO", "ALTERAR", "EXCLUSAO"
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CarregandoDados { get; set; }
         private readonly FormaPagamentoBLL _formaPgtoBll = new FormaPagamentoBLL();
         private FormaPagamentoDal _formaPgtoDal = new FormaPagamentoDal();
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int FormaPgtoID { get; set; }
         private readonly string QueryMaxId = "SELECT MAX(FormaPgtoID) FROM FormaPagamento";
         public bool HouveAlteracao { get; private set; } // indica se houve alteração nos dados atualiza o datagrid do FrmManutFormaPgto

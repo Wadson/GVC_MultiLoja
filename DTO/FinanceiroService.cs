@@ -60,7 +60,7 @@ namespace GVC.DTO
         // ================================
         public string DefinirStatusParcela(bool pagamentoAVista)
         {
-            return pagamentoAVista ? "Paga" : "Pendente";
+            return pagamentoAVista ? "Pago" : "Pendente";
         }
 
         // ================================

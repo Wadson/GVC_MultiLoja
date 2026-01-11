@@ -93,22 +93,24 @@ namespace GVC.View
             if (chkPendentes.Checked)
                 lista.Add(EnumStatusParcela.Pendente);
 
-            if (chkAtrasadas.Checked)
-                lista.Add(EnumStatusParcela.Atrasada);
+            if (chkPendentes.Checked)
+                lista.Add(EnumStatusParcela.ParcialmentePago); // 🔴 ESSENCIAL
 
             if (chkPagas.Checked)
                 lista.Add(EnumStatusParcela.Pago);
 
+            if (chkAtrasadas.Checked)
+                lista.Add(EnumStatusParcela.Atrasada);
+
             return lista;
         }
-       
+
+
+
         private void btnGerar_Click(object sender, EventArgs e)
         {
             try
             {
-                // ===============================
-                // 1️⃣ CLIENTE (OPCIONAL)
-                // ===============================
                 int? clienteId = null;
 
                 if (txtCliente.Tag != null &&
@@ -117,9 +119,6 @@ namespace GVC.View
                     clienteId = id;
                 }
 
-                // ===============================
-                // 2️⃣ PERÍODO
-                // ===============================
                 DateTime dataInicio = dtpInicio.Value.Date;
                 DateTime dataFim = dtpFim.Value.Date;
 
@@ -130,39 +129,22 @@ namespace GVC.View
                     return;
                 }
 
-                // ===============================
-                // 3️⃣ STATUS (FILTROS)
-                // ===============================
                 var statusSelecionados = ObterStatusSelecionados();
 
                 if (!statusSelecionados.Any())
                 {
                     Utilitario.Mensagens.Aviso(
-                        "Selecione ao menos um status para o relatório.");
+                        "Selecione ao menos um status.");
                     return;
                 }
 
-                // ===============================
-                // 4️⃣ TIPO DE RELATÓRIO
-                // ===============================
-                if (!rbContasReceber.Checked && !rbContasPorCliente.Checked)
-                {
-                    Utilitario.Mensagens.Aviso(
-                        "Selecione um tipo de relatório.");
-                    return;
-                }
-
-                // ===============================
-                // 5️⃣ CHAMADA DA BLL (ÚNICA)
-                // ===============================
                 var extratoBLL = new ExtratoBLL();
 
-                List<ExtratoCliente> resultado =
-                    extratoBLL.ObterRelatorioContasReceber(
-                        clienteId,
-                        dataInicio,
-                        dataFim,
-                        statusSelecionados);
+                var resultado = extratoBLL.ObterRelatorioContasReceber(
+                    clienteId,
+                    dataInicio,
+                    dataFim,
+                    statusSelecionados);
 
                 if (resultado == null || resultado.Count == 0)
                 {
@@ -171,9 +153,6 @@ namespace GVC.View
                     return;
                 }
 
-                // ===============================
-                // 6️⃣ SAÍDA (PDF / EXCEL)
-                // ===============================
                 using var sfd = new SaveFileDialog
                 {
                     Filter = rbPDF.Checked
@@ -188,17 +167,13 @@ namespace GVC.View
                 if (rbPDF.Checked)
                 {
                     var empresa = new EmpresaBll().ObterDadosParaPdf();
-
                     PDFGenerator.GerarContasReceberAgrupadoPorCliente(
-                        resultado,
-                        empresa,
-                        sfd.FileName);
+                        resultado, empresa, sfd.FileName);
                 }
                 else
                 {
                     ExcelGenerator.GerarContasReceberAgrupadoPorClienteExcel(
-                        resultado,
-                        sfd.FileName);
+                        resultado, sfd.FileName);
                 }
 
                 Utilitario.Mensagens.Info("Relatório gerado com sucesso!");
@@ -256,7 +231,9 @@ namespace GVC.View
                     {
                         ClienteID = pesquisaCliente.ClienteID;
                         txtCliente.Text = pesquisaCliente.ClienteSelecionado;
+                        txtCliente.Tag = ClienteID; // 🔴 ESSENCIAL
                         NomeCliente = pesquisaCliente.ClienteSelecionado;
+
 
                     }
                     finally

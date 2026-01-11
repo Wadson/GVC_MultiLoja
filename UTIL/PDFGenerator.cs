@@ -10,6 +10,14 @@ namespace GVC.UTIL
 {
     public static class PDFGenerator
     {
+        public static void GerarRelatorioContasPorCliente(
+    List<ExtratoCliente> extratos,
+    DadosEmpresaPdf empresa,
+    string caminhoArquivo)
+        {
+
+        }
+
         // =========================
         // EXTRATO FINANCEIRO
         // =========================

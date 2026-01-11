@@ -45,7 +45,6 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmPDVendas.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmRelatorioEstoque.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmRelatorios.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmSelecionarPagamento.resources
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmTelaPrincipal.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.Sobre.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.csproj.GenerateResource.cache
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.GeneratedMSBuildEditorConfig.editorconfig

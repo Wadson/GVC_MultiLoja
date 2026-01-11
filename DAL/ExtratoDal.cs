@@ -60,7 +60,7 @@ namespace GVC.DAL
             CASE
                 WHEN ISNULL(SUM(pg.ValorPago), 0) = 0 THEN 'Em aberto'
                 WHEN ISNULL(SUM(pg.ValorPago), 0) < pc.ValorParcela THEN 'Parcialmente paga'
-                ELSE 'Paga'
+                ELSE 'Pago'
             END AS Status
         FROM Parcela pc
         INNER JOIN Venda v ON v.VendaID = pc.VendaID

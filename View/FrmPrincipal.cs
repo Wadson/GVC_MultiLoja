@@ -95,37 +95,49 @@ namespace GVC
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmCadCliente frm = new FrmCadCliente();
+            frm.StatusOperacao = "NOVO";
+            frm.Show();
         }
 
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            StatusOperacao = "NOVO";
+            FrmCadProdutos frm = new FrmCadProdutos(StatusOperacao);
+            
+            frm.Show();
         }
 
         private void fornecedoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmCadFornecedor frm = new FrmCadFornecedor();
+            frm.StatusOperacao = "NOVO";
+            frm.Show();
         }
 
         private void empresasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmCadEmpresa frm = new FrmCadEmpresa();
+            frm.StatusOperacao = "NOVO";
+            frm.Show();
         }
 
         private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+        {          
+            FrmCadUser frm = new FrmCadUser(StatusOperacao);
+            StatusOperacao = "NOVO";
+            frm.Show();
         }
 
         private void pDVToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmPDVendas frm = new FrmPDVendas();
+            frm.Show();
         }
 
         private void orçamentosToolStripMenuItem_Click(object sender, EventArgs e)

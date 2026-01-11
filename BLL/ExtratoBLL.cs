@@ -186,12 +186,16 @@ public class ExtratoBLL
     // RELATÓRIO CONTAS A RECEBER (FORM DEDICADO)
     // ======================================================
     public List<ExtratoCliente> ObterRelatorioContasReceber(
-        int? clienteId,
-        DateTime dataInicio,
-        DateTime dataFim,
-        List<EnumStatusParcela> statusSelecionados)
+    int? clienteId,
+    DateTime dataInicio,
+    DateTime dataFim,
+    List<EnumStatusParcela> statusSelecionados)
     {
         using var conn = Conexao.Conex();
+
+        var statusBanco = statusSelecionados
+            .Select(MapStatusParcelaBanco)
+            .ToList();
 
         var parcelas = conn.Query<ContaAReceberDTO>(@"
         SELECT
@@ -200,6 +204,7 @@ public class ExtratoBLL
             v.ClienteID,
             c.Nome AS NomeCliente,
             p.DataVencimento,
+            p.DataPagamento,
             p.ValorParcela,
             p.ValorRecebido,
             (p.ValorParcela - p.ValorRecebido) AS Saldo,
@@ -208,21 +213,76 @@ public class ExtratoBLL
         INNER JOIN Venda v ON v.VendaID = p.VendaID
         INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
         WHERE
-            p.DataVencimento BETWEEN @inicio AND @fim
-            AND (p.Status = 'Paga' AND p.DataPagamento BETWEEN @inicio AND @fim)
-    OR (p.Status <> 'Paga' AND p.DataVencimento BETWEEN @inicio AND @fim)
-
+            (@clienteId IS NULL OR v.ClienteID = @clienteId)
+            AND p.Status IN @status
+            AND (
+                (p.Status = 'Pago'
+                    AND p.DataPagamento IS NOT NULL
+                    AND p.DataPagamento BETWEEN @inicio AND @fim)
+                OR
+                (p.Status IN ('Pendente', 'Atrasada', 'ParcialmentePago')
+                    AND p.DataVencimento BETWEEN @inicio AND @fim)
+            )
         ORDER BY c.Nome, p.DataVencimento",
             new
             {
+                clienteId,
                 inicio = dataInicio.Date,
                 fim = dataFim.Date,
-                status = statusSelecionados.Select(s => s.ToString()).ToList(),
-                clienteId
+                status = statusBanco
             }).ToList();
 
-        return ObterContasPendentesAgrupadasPorCliente(parcelas);
+        return AgruparPorCliente(parcelas);
     }
+
+
+
+    private static string MapStatusParcelaBanco(EnumStatusParcela status)
+    {
+        return status switch
+        {
+            EnumStatusParcela.Pendente => "Pendente",
+            EnumStatusParcela.ParcialmentePago => "ParcialmentePago",
+            EnumStatusParcela.Pago => "Pago",
+            EnumStatusParcela.Atrasada => "Atrasada",
+            EnumStatusParcela.Cancelada => "Cancelada",
+            _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
+        };
+    }
+
+    private static List<ExtratoCliente> AgruparPorCliente(
+     List<ContaAReceberDTO> parcelas)
+    {
+        return parcelas
+            .GroupBy(p => new { p.ClienteID, p.NomeCliente })
+            .Select(g =>
+            {
+                var itens = g.Select(p => new ItemExtrato
+                {
+                    VendaID = p.VendaID,
+                    ParcelaID = p.ParcelaID,
+                    DataVencimento = p.DataVencimento,
+                    ValorParcela = p.ValorParcela,
+                    ValorRecebido = p.ValorRecebido,
+                    Saldo = p.Saldo,
+                    Status = p.StatusParcela
+                }).ToList();
+
+                return new ExtratoCliente
+                {
+                    ClienteID = g.Key.ClienteID,
+                    NomeCliente = g.Key.NomeCliente,
+                    DataEmissao = DateTime.Now,
+                    ItensExtrato = itens,
+                    TotalDevendo = itens.Sum(i => i.Saldo),
+                    SaldoAtual = itens.Sum(i => i.Saldo)
+                };
+            })
+            .OrderBy(e => e.NomeCliente)
+            .ToList();
+    }
+
+
     // ======================================================
     // RELATÓRIO CONTAS PAGAS POR CLIENTE
     // ======================================================

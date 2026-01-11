@@ -52,6 +52,7 @@
             dtpInicio = new Krypton.Toolkit.KryptonDateTimePicker();
             lblPeriodo = new Label();
             btnLimpar = new Krypton.Toolkit.KryptonButton();
+            chkParcialmentePago = new CheckBox();
             grbTipoRelatorio.SuspendLayout();
             grpFormato.SuspendLayout();
             grpFiltros.SuspendLayout();
@@ -369,6 +370,7 @@
             // grpFiltros
             // 
             grpFiltros.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpFiltros.Controls.Add(chkParcialmentePago);
             grpFiltros.Controls.Add(txtCliente);
             grpFiltros.Controls.Add(chkPagas);
             grpFiltros.Controls.Add(chkAtrasadas);
@@ -411,7 +413,7 @@
             // 
             chkPagas.AutoSize = true;
             chkPagas.ForeColor = Color.FromArgb(0, 76, 172);
-            chkPagas.Location = new Point(76, 138);
+            chkPagas.Location = new Point(73, 122);
             chkPagas.Name = "chkPagas";
             chkPagas.Size = new Size(57, 19);
             chkPagas.TabIndex = 1098;
@@ -422,7 +424,7 @@
             // 
             chkAtrasadas.AutoSize = true;
             chkAtrasadas.ForeColor = Color.FromArgb(0, 76, 172);
-            chkAtrasadas.Location = new Point(76, 164);
+            chkAtrasadas.Location = new Point(73, 166);
             chkAtrasadas.Name = "chkAtrasadas";
             chkAtrasadas.Size = new Size(77, 19);
             chkAtrasadas.TabIndex = 1097;
@@ -433,7 +435,7 @@
             // 
             chkPendentes.AutoSize = true;
             chkPendentes.ForeColor = Color.FromArgb(0, 76, 172);
-            chkPendentes.Location = new Point(76, 112);
+            chkPendentes.Location = new Point(73, 100);
             chkPendentes.Name = "chkPendentes";
             chkPendentes.Size = new Size(81, 19);
             chkPendentes.TabIndex = 1096;
@@ -445,7 +447,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft Sans Serif", 9.25F);
             label3.ForeColor = Color.FromArgb(0, 76, 172);
-            label3.Location = new Point(20, 110);
+            label3.Location = new Point(20, 98);
             label3.Name = "label3";
             label3.Size = new Size(47, 16);
             label3.TabIndex = 1094;
@@ -612,6 +614,17 @@
             btnLimpar.Values.Text = "Limpar";
             btnLimpar.Click += btnLimpar_Click;
             // 
+            // chkParcialmentePago
+            // 
+            chkParcialmentePago.AutoSize = true;
+            chkParcialmentePago.ForeColor = Color.FromArgb(0, 76, 172);
+            chkParcialmentePago.Location = new Point(73, 144);
+            chkParcialmentePago.Name = "chkParcialmentePago";
+            chkParcialmentePago.Size = new Size(125, 19);
+            chkParcialmentePago.TabIndex = 1100;
+            chkParcialmentePago.Text = "Parcialmente Pago";
+            chkParcialmentePago.UseVisualStyleBackColor = true;
+            // 
             // FrmRelatoriosFinanceiros
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -666,5 +679,6 @@
         private CheckBox chkPendentes;
         public Krypton.Toolkit.KryptonTextBox txtCliente;
         private CheckBox chkAgruparCliente;
+        private CheckBox chkParcialmentePago;
     }
 }
