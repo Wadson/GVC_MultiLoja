@@ -254,7 +254,7 @@ namespace GVC
 
         private void btnContasAReceber_Click(object sender, EventArgs e)
         {
-            FrmContasReceber frm = new FrmContasReceber();
+            FrmFinanceiro frm = new FrmFinanceiro();
             frm.Show();
 
         }

@@ -25,7 +25,7 @@ using ParcelaExtratoModel = GVC.Model.ParcelaExtrato;
 
 namespace GVC.View
 {
-    public partial class FrmContasReceber : KryptonForm
+    public partial class FrmFinanceiro : KryptonForm
     {
         private bool bloqueiaPesquisa = false;
         private readonly PagamentoParcialDal _pagamentoDal = new PagamentoParcialDal();
@@ -36,26 +36,46 @@ namespace GVC.View
         private readonly ItensVendaBLL _itensVendaBll = new ItensVendaBLL();
         private long? _parcelaSelecionadaParaRecibo = null;
         private readonly Color _corSelecionado = Color.FromArgb(220, 240, 255);
+        private bool _ignorarEventosBusca = false;
+        private bool _ignorandoBuscar = false;
 
 
-
-        public FrmContasReceber()
+        public FrmFinanceiro()
         {
             InitializeComponent();
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
-            WireTipoPesquisa();
+           
         }
         private void WireTipoPesquisa()
         {
-            foreach (Control ctrl in grpTipoPesquisa.Controls)
+            var radios = this.Controls
+                .OfType<Control>()
+                .SelectMany(GetAllControls)
+                .OfType<RadioButton>()
+                .Where(rb => rb.Tag?.ToString() == "TipoPesquisa");
+
+            foreach (var rb in radios)
             {
-                if (ctrl is RadioButton rb)
+                rb.CheckedChanged += (_, __) =>
                 {
-                    rb.CheckedChanged -= TipoPesquisa_CheckedChanged;
-                    rb.CheckedChanged += TipoPesquisa_CheckedChanged;
-                }
+                    if (rb.Checked)
+                        AtualizarEstadoPesquisa();
+                };
             }
         }
+        private IEnumerable<Control> GetAllControls(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                yield return ctrl;
+
+                foreach (var child in GetAllControls(ctrl))
+                    yield return child;
+            }
+        }
+
+
+
         private void TipoPesquisa_CheckedChanged(object sender, EventArgs e)
         {
             if (sender is not RadioButton rb || !rb.Checked)
@@ -86,21 +106,33 @@ namespace GVC.View
 
         private void AtualizarEstadoPesquisa()
         {
-            // 🔒 Desliga tudo
+            // ======================================================
+            // 1️⃣ DESLIGA TUDO (estado neutro)
+            // ======================================================
             txtNomeCliente.Enabled = false;
             txtNumeroVenda.Enabled = false;
+
             dtpInicial.Enabled = false;
             dtpFinal.Enabled = false;
-            lblAte.Enabled = false;
 
             lblPeriodoVenda.Text = "Período:";
+            lblAte.Enabled = false;
 
+            // Limpa foco anterior
+            this.ActiveControl = null;
+
+            // ======================================================
+            // 2️⃣ IDENTIFICA O TIPO SELECIONADO
+            // ======================================================
             var tipo = ObterTipoPesquisaSelecionado();
 
+            // ======================================================
+            // 3️⃣ ATIVA SOMENTE O NECESSÁRIO
+            // ======================================================
             switch (tipo)
             {
                 case TipoPesquisaContasReceber.Todos:
-                    // Nada habilitado
+                    // Nenhum campo habilitado
                     break;
 
                 case TipoPesquisaContasReceber.NomeCliente:
@@ -138,7 +170,7 @@ namespace GVC.View
                     break;
 
                 case TipoPesquisaContasReceber.StatusParcela:
-                    // Status é controlado SOMENTE pelos checkboxes
+                    // Nenhum campo adicional
                     break;
             }
         }
@@ -509,7 +541,7 @@ namespace GVC.View
 
             lblTotalVencido.Text = totalVencido.ToString("C2");
         }
-               
+
         private List<PagamentoExtratoModel> ObterPagamentosDoGrid()
         {
             var lista = new List<PagamentoExtratoModel>();
@@ -528,41 +560,47 @@ namespace GVC.View
             lblTotalSelecionado.Text = "Total selecionado: R$ 0,00";
             ConfigurarGridContasAReceber();
             ConfigurarGridPagamentos(); // 🔴 ESSENCIAL
-            AtualizarParcelasAtrasadasNoBanco(); // ← Atualiza ao abrir              
+            AtualizarParcelasAtrasadasNoBanco(); // ← Atualiza ao abrir
+            WireTipoPesquisa();
         }
         private void txtNomeCliente_TextChanged(object sender, EventArgs e)
         {
-            if (bloqueiaPesquisa || string.IsNullOrWhiteSpace(txtNomeCliente.Text))
+
+            if (_ignorarEventosBusca || _ignorandoBuscar)
                 return;
 
-            // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
-            string textoDigitado = txtNomeCliente.Text;
+            var texto = txtNomeCliente.Text.Trim();
+            if (string.IsNullOrEmpty(texto))
+                return;
 
-            // Usa BeginInvoke para "adiar" a abertura da pesquisa até o Windows terminar de processar a digitação
-            this.BeginInvoke(new Action(() =>
+            using (var pesquisaCliente = new FrmLocalizarCliente(this, texto))
             {
-                if (bloqueiaPesquisa) return; // pode ter sido bloqueado enquanto esperava
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtNomeCliente.PointToScreen(Point.Empty);
 
-                bloqueiaPesquisa = true;
-                try
+                pesquisaCliente.StartPosition = FormStartPosition.Manual;
+                pesquisaCliente.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtNomeCliente.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaCliente.Width = txtNomeCliente.Width;
+
+                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
                 {
-                    using (var pesquisaCliente = new FrmLocalizarCliente(this, textoDigitado))
+                    _ignorandoBuscar = true;
+                    try
                     {
-                        pesquisaCliente.Owner = this;
-
-                        if (pesquisaCliente.ShowDialog() == DialogResult.OK)
-                        {
-                            bloqueiaPesquisa = true;
-                            txtNomeCliente.Text = pesquisaCliente.ClienteSelecionado;
-                            ClienteID = pesquisaCliente.ClienteID;
-                        }
+                        ClienteID = pesquisaCliente.ClienteID;
+                        txtNomeCliente.Text = pesquisaCliente.ClienteSelecionado;  
+                    }
+                    finally
+                    {
+                        _ignorandoBuscar = false;
                     }
                 }
-                finally
-                {
-                    bloqueiaPesquisa = false;
-                }
-            }));
+            }
         }
 
         private void dgvContasAReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -804,7 +842,7 @@ namespace GVC.View
             }
             return false;
         }
-        
+
         private ExtratoCliente ObterExtratoCliente(bool detalhado)
         {
             if (dgvContasAReceber.CurrentRow?.DataBoundItem is not ContaAReceberDTO dto)
@@ -1572,6 +1610,10 @@ namespace GVC.View
                     }
                 }
             }
+        }
+
+        private void lblNumeroVenda_Click(object sender, EventArgs e)
+        {
         }
     }
 }

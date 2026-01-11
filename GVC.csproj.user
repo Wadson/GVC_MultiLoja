@@ -110,9 +110,6 @@
     <Compile Update="View\FrmRelatorioEstoque.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="View\FrmRelatorios.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="View\Sobre.cs">
       <SubType>Form</SubType>
     </Compile>

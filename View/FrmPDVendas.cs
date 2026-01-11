@@ -30,6 +30,7 @@ namespace GVC.View
         public int VendaID { get; private set; }
         private bool _clienteFoiSelecionado = false;
         private bool _ignorarEventosBusca = false;
+        private bool _ignorandoBuscar = false;
         private bool _aguardandoPagamento = false;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -64,7 +65,7 @@ namespace GVC.View
         // ----------------------
         private FrmLocalizarCliente frmPesquisaCliente;
         private bool formularioPesquisaAberto = false;
-        private bool _ignorandoBuscar = false;
+        
         private readonly string QueryVenda = "SELECT MAX(VendaID) FROM Venda";
 
 

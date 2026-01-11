@@ -51,6 +51,9 @@
 	  <Compile Update="View\FrmCadFormaPgto.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="View\FrmFinanceiro.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="View\FrmPrincipal.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
