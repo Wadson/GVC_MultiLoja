@@ -85,85 +85,18 @@ namespace GVC.UTIL
         // NOVO: CONTAS A RECEBER AGRUPADO POR CLIENTE
         // =========================
         public static void GerarContasReceberAgrupadoPorCliente(
-            List<ExtratoCliente> extratos,
-            DadosEmpresaPdf empresa,
-            string caminhoArquivo)
+     List<ExtratoCliente> extratos,
+     DadosEmpresaPdf empresa,
+     string caminhoArquivo)
         {
-            if (extratos == null || extratos.Count == 0)
-                throw new Exception("Nenhum dado para gerar o relatório.");
-
-            Document.Create(container =>
-            {
-                container.Page(page =>
-                {
-                    ConfigurarPagina(page);
-
-                    page.Content().Column(col =>
-                    {
-                        AdicionarCabecalho(
-                            col,
-                            empresa,
-                            "Relatório de Contas a Receber Agrupado por Cliente");
-
-                        decimal totalGeral = 0m;
-
-                        foreach (var extrato in extratos)
-                        {
-                            col.Item().PaddingTop(10)
-                                .Text(extrato.NomeCliente)
-                                .Bold();
-
-                            col.Item().Table(table =>
-                            {
-                                table.ColumnsDefinition(c =>
-                                {
-                                    c.RelativeColumn(); // Venda
-                                    c.RelativeColumn(); // Documento
-                                    c.RelativeColumn(); // Vencimento
-                                    c.RelativeColumn(); // Situação
-                                    c.RelativeColumn(); // Saldo
-                                });
-
-                                Header(table,
-                                    "Venda",
-                                    "Documento",
-                                    "Vencimento",
-                                    "Situação",
-                                    "Saldo");
-
-                                foreach (var item in extrato.ItensExtrato)
-                                {
-                                    Row(table,
-                                        item.VendaID,
-                                        item.ParcelaID,
-                                        item.DataVencimento.ToString("dd/MM/yyyy"),
-                                        item.Status,
-                                        item.Saldo.ToString("C2"));
-                                }
-                            });
-
-                            col.Item()
-                                .AlignRight()
-                                .PaddingTop(5)
-                                .Text($"Total do cliente: {extrato.SaldoAtual:C2}")
-                                .Bold();
-
-                            totalGeral += extrato.SaldoAtual;
-                        }
-
-                        col.Item()
-                            .PaddingTop(20)
-                            .AlignRight()
-                            .Text($"TOTAL GERAL: {totalGeral:C2}")
-                            .FontSize(12)
-                            .Bold();
-
-                        AdicionarRodape(col);
-                    });
-                });
-            })
-            .GeneratePdf(caminhoArquivo);
+            GerarRelatorioPorCliente(
+                extratos,
+                empresa,
+                "Relatório de Contas a Receber Agrupado por Cliente",
+                caminhoArquivo);
         }
+
+
 
         // =========================
         // CONFIGURAÇÃO BASE
@@ -349,5 +282,92 @@ namespace GVC.UTIL
                 table.Cell().Padding(5).Text(v?.ToString());
             }
         }
+        public static void GerarRelatorioPorCliente(
+    List<ExtratoCliente> extratos,
+    DadosEmpresaPdf empresa,
+    string titulo,
+    string caminhoArquivo)
+        {
+            if (extratos == null || extratos.Count == 0)
+                throw new Exception("Nenhum dado para gerar o relatório.");
+
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    ConfigurarPagina(page);
+
+                    page.Content().Column(col =>
+                    {
+                        AdicionarCabecalho(col, empresa, titulo);
+
+                        decimal totalGeral = 0m;
+
+                        foreach (var extrato in extratos)
+                        {
+                            col.Item()
+                                .PaddingTop(10)
+                                .Text(extrato.NomeCliente)
+                                .Bold();
+
+                            col.Item().Table(table =>
+                            {
+                                table.ColumnsDefinition(c =>
+                                {
+                                    c.RelativeColumn(); // Venda
+                                    c.RelativeColumn(); // Documento
+                                    c.RelativeColumn(); // Vencimento
+                                    c.RelativeColumn(); // Situação
+                                    c.RelativeColumn(); // Saldo
+                                });
+
+                                Header(table,
+                                    "Venda",
+                                    "Documento",
+                                    "Vencimento",
+                                    "Situação",
+                                    "Saldo");
+
+                                foreach (var item in extrato.ItensExtrato)
+                                {
+                                    Row(table,
+                                        item.VendaID,
+                                        item.ParcelaID,
+                                        item.DataVencimento.ToString("dd/MM/yyyy"),
+                                        item.Status,
+                                        item.Saldo.ToString("C2"));
+                                }
+                            });
+
+                            bool somentePagos =
+                                extrato.ItensExtrato.All(i => i.Status == "Pago");
+
+                            decimal totalCliente = somentePagos
+                                ? extrato.ItensExtrato.Sum(i => i.ValorRecebido)
+                                : extrato.ItensExtrato.Sum(i => i.Saldo);
+
+                            col.Item()
+                                .AlignRight()
+                                .PaddingTop(5)
+                                .Text($"Total do cliente: {totalCliente:C2}")
+                                .Bold();
+
+                            totalGeral += totalCliente;
+                        }
+
+                        col.Item()
+                            .PaddingTop(20)
+                            .AlignRight()
+                            .Text($"TOTAL GERAL: {totalGeral:C2}")
+                            .FontSize(12)
+                            .Bold();
+
+                        AdicionarRodape(col);
+                    });
+                });
+            })
+            .GeneratePdf(caminhoArquivo);
+        }
+
     }
 }

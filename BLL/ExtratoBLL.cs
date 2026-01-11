@@ -186,15 +186,15 @@ public class ExtratoBLL
     // RELATÓRIO CONTAS A RECEBER (FORM DEDICADO)
     // ======================================================
     public List<ExtratoCliente> ObterRelatorioContasReceber(
-    int? clienteId,
-    DateTime dataInicio,
-    DateTime dataFim,
-    List<EnumStatusParcela> statusSelecionados)
+      int? clienteId,
+      DateTime dataInicio,
+      DateTime dataFim,
+      List<EnumStatusParcela> statusSelecionados)
     {
         using var conn = Conexao.Conex();
 
-        var statusBanco = statusSelecionados
-            .Select(MapStatusParcelaBanco)
+        var statusStrings = statusSelecionados
+            .Select(s => s.ToString())
             .ToList();
 
         var parcelas = conn.Query<ContaAReceberDTO>(@"
@@ -204,7 +204,6 @@ public class ExtratoBLL
             v.ClienteID,
             c.Nome AS NomeCliente,
             p.DataVencimento,
-            p.DataPagamento,
             p.ValorParcela,
             p.ValorRecebido,
             (p.ValorParcela - p.ValorRecebido) AS Saldo,
@@ -216,24 +215,66 @@ public class ExtratoBLL
             (@clienteId IS NULL OR v.ClienteID = @clienteId)
             AND p.Status IN @status
             AND (
-                (p.Status = 'Pago'
-                    AND p.DataPagamento IS NOT NULL
-                    AND p.DataPagamento BETWEEN @inicio AND @fim)
+                (p.Status = 'Pago' AND p.DataPagamento BETWEEN @inicio AND @fim)
                 OR
-                (p.Status IN ('Pendente', 'Atrasada', 'ParcialmentePago')
-                    AND p.DataVencimento BETWEEN @inicio AND @fim)
+                (p.Status <> 'Pago' AND p.DataVencimento BETWEEN @inicio AND @fim)
             )
         ORDER BY c.Nome, p.DataVencimento",
             new
             {
                 clienteId,
-                inicio = dataInicio.Date,
-                fim = dataFim.Date,
-                status = statusBanco
+                inicio = dataInicio,
+                fim = dataFim,
+                status = statusStrings
             }).ToList();
 
-        return AgruparPorCliente(parcelas);
+        if (!parcelas.Any())
+            return new List<ExtratoCliente>();
+
+        // 🔹 AGRUPAMENTO FINAL (SEM FILTRAR STATUS!)
+        var extratos = parcelas
+            .GroupBy(p => new { p.ClienteID, p.NomeCliente })
+            .Select(g =>
+            {
+                var itens = g
+                    .OrderBy(p => p.DataVencimento)
+                    .Select(p => new ItemExtrato
+                    {
+                        VendaID = p.VendaID,
+                        ParcelaID = p.ParcelaID,
+                        DataVencimento = p.DataVencimento,
+                        ValorParcela = p.ValorParcela,
+                        ValorRecebido = p.ValorRecebido,
+                        Saldo = p.Saldo,
+                        Status = p.StatusParcela
+                    })
+                    .ToList();
+
+                return new ExtratoCliente
+                {
+                    ClienteID = g.Key.ClienteID,
+                    NomeCliente = g.Key.NomeCliente,
+                    DataEmissao = DateTime.Now,
+                    ItensExtrato = itens,
+
+                    // 🔥 TOTAIS CORRETOS
+                    TotalPago = itens
+                        .Where(i => i.Status == EnumStatusParcela.Pago.ToString())
+                        .Sum(i => i.ValorRecebido),
+
+                    TotalDevendo = itens
+                        .Where(i => i.Status != EnumStatusParcela.Pago.ToString())
+                        .Sum(i => i.Saldo),
+
+                    SaldoAtual = itens.Sum(i => i.Saldo)
+                };
+            })
+            .OrderBy(e => e.NomeCliente)
+            .ToList();
+
+        return extratos;
     }
+
 
 
 
@@ -251,7 +292,7 @@ public class ExtratoBLL
     }
 
     private static List<ExtratoCliente> AgruparPorCliente(
-     List<ContaAReceberDTO> parcelas)
+    List<ContaAReceberDTO> parcelas)
     {
         return parcelas
             .GroupBy(p => new { p.ClienteID, p.NomeCliente })
@@ -268,20 +309,30 @@ public class ExtratoBLL
                     Status = p.StatusParcela
                 }).ToList();
 
+                decimal totalPago = itens
+                    .Where(i => i.Status == "Pago")
+                    .Sum(i => i.ValorRecebido);
+
+                decimal totalDevendo = itens
+                    .Where(i => i.Status != "Pago")
+                    .Sum(i => i.Saldo);
+
                 return new ExtratoCliente
                 {
                     ClienteID = g.Key.ClienteID,
                     NomeCliente = g.Key.NomeCliente,
                     DataEmissao = DateTime.Now,
                     ItensExtrato = itens,
-                    TotalDevendo = itens.Sum(i => i.Saldo),
-                    SaldoAtual = itens.Sum(i => i.Saldo)
+
+                    // 🔑 TOTAIS CORRETOS
+                    TotalPago = totalPago,
+                    TotalDevendo = totalDevendo,
+                    SaldoAtual = totalDevendo
                 };
             })
             .OrderBy(e => e.NomeCliente)
             .ToList();
     }
-
 
     // ======================================================
     // RELATÓRIO CONTAS PAGAS POR CLIENTE

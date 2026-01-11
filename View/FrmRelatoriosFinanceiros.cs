@@ -67,6 +67,7 @@ namespace GVC.View
             chkPendentes.Enabled = true;
             chkPagas.Enabled = true;
             chkAtrasadas.Enabled = true;
+            chkAgruparCliente.Enabled = true;
         }
 
 
@@ -93,7 +94,7 @@ namespace GVC.View
             if (chkPendentes.Checked)
                 lista.Add(EnumStatusParcela.Pendente);
 
-            if (chkPendentes.Checked)
+            if (chkParcialmentePago.Checked)
                 lista.Add(EnumStatusParcela.ParcialmentePago); // 🔴 ESSENCIAL
 
             if (chkPagas.Checked)
@@ -111,6 +112,9 @@ namespace GVC.View
         {
             try
             {
+                // ===============================
+                // 1️⃣ CLIENTE (OPCIONAL)
+                // ===============================
                 int? clienteId = null;
 
                 if (txtCliente.Tag != null &&
@@ -119,6 +123,9 @@ namespace GVC.View
                     clienteId = id;
                 }
 
+                // ===============================
+                // 2️⃣ PERÍODO
+                // ===============================
                 DateTime dataInicio = dtpInicio.Value.Date;
                 DateTime dataFim = dtpFim.Value.Date;
 
@@ -129,6 +136,9 @@ namespace GVC.View
                     return;
                 }
 
+                // ===============================
+                // 3️⃣ STATUS
+                // ===============================
                 var statusSelecionados = ObterStatusSelecionados();
 
                 if (!statusSelecionados.Any())
@@ -138,6 +148,30 @@ namespace GVC.View
                     return;
                 }
 
+                // ===============================
+                // 4️⃣ TÍTULO DO RELATÓRIO
+                // ===============================
+                bool somentePagos = statusSelecionados
+                    .All(s => s == EnumStatusParcela.Pago);
+
+                string titulo;
+
+                if (somentePagos)
+                {
+                    titulo = chkAgruparCliente.Checked
+                        ? "Relatório de Contas Pagas Agrupado por Cliente"
+                        : "Relatório de Contas Pagas por Cliente";
+                }
+                else
+                {
+                    titulo = chkAgruparCliente.Checked
+                        ? "Relatório de Contas a Receber Agrupado por Cliente"
+                        : "Relatório de Contas por Cliente";
+                }
+
+                // ===============================
+                // 5️⃣ BUSCA DOS DADOS (BLL)
+                // ===============================
                 var extratoBLL = new ExtratoBLL();
 
                 var resultado = extratoBLL.ObterRelatorioContasReceber(
@@ -153,6 +187,9 @@ namespace GVC.View
                     return;
                 }
 
+                // ===============================
+                // 6️⃣ SAÍDA (PDF / EXCEL)
+                // ===============================
                 using var sfd = new SaveFileDialog
                 {
                     Filter = rbPDF.Checked
@@ -167,13 +204,18 @@ namespace GVC.View
                 if (rbPDF.Checked)
                 {
                     var empresa = new EmpresaBll().ObterDadosParaPdf();
-                    PDFGenerator.GerarContasReceberAgrupadoPorCliente(
-                        resultado, empresa, sfd.FileName);
+
+                    PDFGenerator.GerarRelatorioPorCliente(
+                        resultado,
+                        empresa,
+                        titulo,
+                        sfd.FileName);
                 }
                 else
                 {
                     ExcelGenerator.GerarContasReceberAgrupadoPorClienteExcel(
-                        resultado, sfd.FileName);
+                        resultado,
+                        sfd.FileName);
                 }
 
                 Utilitario.Mensagens.Info("Relatório gerado com sucesso!");
