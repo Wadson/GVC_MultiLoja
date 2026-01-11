@@ -198,35 +198,36 @@ public class ExtratoBLL
             .ToList();
 
         var parcelas = conn.Query<ContaAReceberDTO>(@"
-        SELECT
-            p.ParcelaID,
-            p.VendaID,
-            v.ClienteID,
-            c.Nome AS NomeCliente,
-            p.DataVencimento,
-            p.ValorParcela,
-            p.ValorRecebido,
-            (p.ValorParcela - p.ValorRecebido) AS Saldo,
-            p.Status AS StatusParcela
-        FROM Parcela p
-        INNER JOIN Venda v ON v.VendaID = p.VendaID
-        INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
-        WHERE
-            (@clienteId IS NULL OR v.ClienteID = @clienteId)
-            AND p.Status IN @status
-            AND (
-                (p.Status = 'Pago' AND p.DataPagamento BETWEEN @inicio AND @fim)
-                OR
-                (p.Status <> 'Pago' AND p.DataVencimento BETWEEN @inicio AND @fim)
-            )
-        ORDER BY c.Nome, p.DataVencimento",
-            new
-            {
-                clienteId,
-                inicio = dataInicio,
-                fim = dataFim,
-                status = statusStrings
-            }).ToList();
+    SELECT
+        p.ParcelaID,
+        p.VendaID,
+        v.ClienteID,
+        c.Nome AS NomeCliente,
+        p.DataVencimento,
+        p.ValorParcela,
+        p.ValorRecebido,
+        (p.ValorParcela - p.ValorRecebido) AS Saldo,
+        p.Status AS StatusParcela
+    FROM Parcela p
+    INNER JOIN Venda v ON v.VendaID = p.VendaID
+    INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
+    WHERE
+        (@clienteId IS NULL OR v.ClienteID = @clienteId)
+        AND p.Status IN @status
+        AND (
+            (p.Status = 'Pago' AND p.DataPagamento BETWEEN @inicio AND @fim)
+            OR (p.Status = 'Atrasada' AND p.DataVencimento BETWEEN @inicio AND @fim)
+            OR (p.Status IN ('Pendente', 'ParcialmentePago'))
+        )
+    ORDER BY c.Nome, p.DataVencimento",
+    new
+    {
+        clienteId,
+        inicio = dataInicio,
+        fim = dataFim,
+        status = statusStrings
+    }).ToList();
+
 
         if (!parcelas.Any())
             return new List<ExtratoCliente>();

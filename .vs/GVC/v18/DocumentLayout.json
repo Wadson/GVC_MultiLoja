@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\GVCSqlExpress\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\bll\\extratobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\extratobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\view\\frmrelatoriosfinanceiros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmrelatoriosfinanceiros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\view\\frmrelatoriosfinanceiros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:view\\frmrelatoriosfinanceiros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\bll\\extratobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:bll\\extratobll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\util\\pdfgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 25,
+          "SelectedChildIndex": 24,
           "Children": [
             {
               "$type": "Bookmark",
@@ -130,25 +130,24 @@
               "RelativeToolTip": "UTIL\\PDFGenerator.cs",
               "ViewState": "AgIAAE4AAAAAAAAAAAASwGEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-11T01:58:14.126Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-11T01:58:14.126Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "ExtratoBLL.cs",
               "DocumentMoniker": "C:\\GVCSqlExpress\\BLL\\ExtratoBLL.cs",
               "RelativeDocumentMoniker": "BLL\\ExtratoBLL.cs",
               "ToolTip": "C:\\GVCSqlExpress\\BLL\\ExtratoBLL.cs",
               "RelativeToolTip": "BLL\\ExtratoBLL.cs",
-              "ViewState": "AgIAAPoAAAAAAAAAAAAcwAQBAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAM8AAAAAAAAAAAAiwOUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-11T00:39:57.402Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "FrmRelatoriosFinanceiros.cs",
               "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmRelatoriosFinanceiros.cs",
               "RelativeDocumentMoniker": "View\\FrmRelatoriosFinanceiros.cs",
@@ -161,15 +160,14 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "FrmRelatoriosFinanceiros.cs [Projeto]",
               "DocumentMoniker": "C:\\GVCSqlExpress\\View\\FrmRelatoriosFinanceiros.cs",
               "RelativeDocumentMoniker": "View\\FrmRelatoriosFinanceiros.cs",
               "ToolTip": "C:\\GVCSqlExpress\\View\\FrmRelatoriosFinanceiros.cs [Projeto]",
               "RelativeToolTip": "View\\FrmRelatoriosFinanceiros.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T23:31:56.294Z",
-              "EditorCaption": " [Projeto]"
+              "WhenOpened": "2026-01-10T23:31:56.294Z"
             }
           ]
         },
