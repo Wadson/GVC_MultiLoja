@@ -146,7 +146,8 @@ namespace GVC.View
             // 4. Colunas fixas (largura definida e não mudam)
             var colunasFixas = new (string nome, int largura)[]
             {
-        ("ClienteID", 50),       
+        ("ClienteID", 50), 
+        ("Nome", 300),
         ("Logradouro", 250),
         ("Numero", 60),
         ("Bairro", 250)        
@@ -164,13 +165,13 @@ namespace GVC.View
                 }
             }
 
-            // 5. NomeProduto dinâmico (ocupa espaço restante)
-            if (dataGridPesquisar.Columns["Nome"] != null)
-            {
-                var col = dataGridPesquisar.Columns["Nome"];
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // 🔄 ajusta ao grid
-                col.ReadOnly = true;
-            }
+            //// 5. NomeProduto dinâmico (ocupa espaço restante)
+            //if (dataGridPesquisar.Columns["Nome"] != null)
+            //{
+            //    var col = dataGridPesquisar.Columns["Nome"];
+            //    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // 🔄 ajusta ao grid
+            //    col.ReadOnly = true;
+            //}
 
             // 6. Cabeçalho mais estreito
             dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;

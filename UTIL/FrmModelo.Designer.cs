@@ -731,7 +731,7 @@
             // 
             kryptonDateTimePicker1.CornerRoundingRadius = 10F;
             kryptonDateTimePicker1.Format = DateTimePickerFormat.Short;
-            kryptonDateTimePicker1.Location = new Point(6, 84);
+            kryptonDateTimePicker1.Location = new Point(8, 84);
             kryptonDateTimePicker1.Name = "kryptonDateTimePicker1";
             kryptonDateTimePicker1.Size = new Size(115, 33);
             kryptonDateTimePicker1.StateActive.Back.Color1 = Color.FromArgb(6, 174, 244);

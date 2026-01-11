@@ -161,12 +161,14 @@ namespace GVC
 
         private void financeiroToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            FrmRelatoriosFinanceiros frm = new FrmRelatoriosFinanceiros();
+            frm.Show();
         }
 
         private void estoqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FrmRelatorioEstoque frm = new FrmRelatorioEstoque();
+            frm.Show();
         }
 
         private void usuáriosToolStripMenuItem1_Click(object sender, EventArgs e)

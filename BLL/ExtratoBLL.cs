@@ -182,4 +182,61 @@ public class ExtratoBLL
     {
         return _extratoDal.ObterPagamentosPorParcela(parcelaId);
     }
+    // ======================================================
+    // RELATÓRIO CONTAS A RECEBER (FORM DEDICADO)
+    // ======================================================
+    public List<ExtratoCliente> ObterRelatorioContasReceber(
+        int? clienteId,
+        DateTime dataInicio,
+        DateTime dataFim,
+        List<EnumStatusParcela> statusSelecionados)
+    {
+        using var conn = Conexao.Conex();
+
+        var parcelas = conn.Query<ContaAReceberDTO>(@"
+        SELECT
+            p.ParcelaID,
+            p.VendaID,
+            v.ClienteID,
+            c.Nome AS NomeCliente,
+            p.DataVencimento,
+            p.ValorParcela,
+            p.ValorRecebido,
+            (p.ValorParcela - p.ValorRecebido) AS Saldo,
+            p.Status AS StatusParcela
+        FROM Parcela p
+        INNER JOIN Venda v ON v.VendaID = p.VendaID
+        INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
+        WHERE
+            p.DataVencimento BETWEEN @inicio AND @fim
+            AND (p.Status = 'Paga' AND p.DataPagamento BETWEEN @inicio AND @fim)
+    OR (p.Status <> 'Paga' AND p.DataVencimento BETWEEN @inicio AND @fim)
+
+        ORDER BY c.Nome, p.DataVencimento",
+            new
+            {
+                inicio = dataInicio.Date,
+                fim = dataFim.Date,
+                status = statusSelecionados.Select(s => s.ToString()).ToList(),
+                clienteId
+            }).ToList();
+
+        return ObterContasPendentesAgrupadasPorCliente(parcelas);
+    }
+    // ======================================================
+    // RELATÓRIO CONTAS PAGAS POR CLIENTE
+    // ======================================================
+    public List<ExtratoCliente> ObterRelatorioContasPagasPorCliente(int? clienteId, DateTime dataInicio, DateTime dataFim)
+    {
+        return ObterRelatorioContasReceber(
+            clienteId,
+            dataInicio,
+            dataFim,
+            new List<EnumStatusParcela>
+            {
+            EnumStatusParcela.Pago
+            });
+    }
+
+
 }

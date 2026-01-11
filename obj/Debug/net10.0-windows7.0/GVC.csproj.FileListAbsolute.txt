@@ -300,3 +300,12 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.pdb
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.genruntimeconfig.cache
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\ref\GVC.dll
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.FrmPrincipal.resources
+C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\ClosedXML.dll
+C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\ClosedXML.Parser.dll
+C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\DocumentFormat.OpenXml.dll
+C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\DocumentFormat.OpenXml.Framework.dll
+C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\ExcelNumberFormat.dll
+C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\RBush.dll
+C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\SixLabors.Fonts.dll
+C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmRelatoriosFinanceiros.resources
+C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmReport.resources
