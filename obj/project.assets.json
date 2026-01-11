@@ -154,6 +154,18 @@
           }
         }
       },
+      "FontAwesome.Sharp/6.6.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0-windows7.0/FontAwesome.Sharp.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0-windows7.0/FontAwesome.Sharp.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -2102,6 +2114,23 @@
         "lib/netstandard1.0/ExcelNumberFormat.xml",
         "lib/netstandard2.0/ExcelNumberFormat.dll",
         "lib/netstandard2.0/ExcelNumberFormat.xml"
+      ]
+    },
+    "FontAwesome.Sharp/6.6.0": {
+      "sha512": "bJCb2x73UC1nD9+9iMLaUy6Ujf9Pf+buL6FHwVnaoDYT4CQNLazz59hO5gQ0+SMSW0G+ZXmjjShOYr3Jn2UZiw==",
+      "type": "package",
+      "path": "fontawesome.sharp/6.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fontawesome.sharp.6.6.0.nupkg.sha512",
+        "fontawesome.sharp.nuspec",
+        "lib/net472/FontAwesome.Sharp.dll",
+        "lib/net48/FontAwesome.Sharp.dll",
+        "lib/net6.0-windows7.0/FontAwesome.Sharp.dll",
+        "lib/net7.0-windows7.0/FontAwesome.Sharp.dll",
+        "lib/net8.0-windows7.0/FontAwesome.Sharp.dll",
+        "lib/netcoreapp3.1/FontAwesome.Sharp.dll"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -4867,6 +4896,7 @@
       "ClosedXML >= 0.105.0",
       "Dapper >= 2.1.66",
       "EPPlus >= 8.3.1",
+      "FontAwesome.Sharp >= 6.6.0",
       "Krypton.Toolkit >= 70.22.11.312",
       "Microsoft.Data.SqlClient >= 6.1.3",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.0",
@@ -4876,8 +4906,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\iConnect\\.nuget\\packages\\": {},
-    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\wadso\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -4885,14 +4915,14 @@
       "projectUniqueName": "C:\\GVCSqlExpress\\GVC.csproj",
       "projectName": "GVC",
       "projectPath": "C:\\GVCSqlExpress\\GVC.csproj",
-      "packagesPath": "C:\\Users\\iConnect\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\wadso\\.nuget\\packages\\",
       "outputPath": "C:\\GVCSqlExpress\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\iConnect\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\wadso\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4937,6 +4967,10 @@
           "EPPlus": {
             "target": "Package",
             "version": "[8.3.1, )"
+          },
+          "FontAwesome.Sharp": {
+            "target": "Package",
+            "version": "[6.6.0, )"
           },
           "Krypton.Toolkit": {
             "target": "Package",

@@ -68,6 +68,9 @@
     <Compile Update="UTIL\FrmConfiguracoes.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="View\FrmRelatorioProdutos.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="View\FrmReport.cs">
       <SubType>Form</SubType>
     </Compile>

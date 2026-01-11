@@ -1,4 +1,5 @@
 ﻿using GVC.Model;
+using GVC.MODEL.Relatorios;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -269,11 +270,11 @@ namespace GVC.UTIL
                         .Background(Colors.Grey.Lighten3)
                         .Padding(5)
                         .AlignCenter()
-                        .Text(h)
-                        .Bold();
+                        .Element(c => c.Text(h).Bold());
                 }
             });
         }
+
 
         private static void Row(TableDescriptor table, params object[] values)
         {
@@ -368,6 +369,71 @@ namespace GVC.UTIL
             })
             .GeneratePdf(caminhoArquivo);
         }
+
+
+        public static void GerarRelatorioProdutos(
+     IEnumerable<RelatorioProdutoDTO> dados,
+     DadosEmpresaPdf empresa,
+     string titulo,
+     string caminhoArquivo)
+        {
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(40);
+
+                    page.Content().Column(col =>
+                    {
+                        col.Item()
+                            .AlignCenter()
+                            .Text(empresa.NomeEmpresa)
+                            .FontSize(16)
+                            .Bold();
+
+                        col.Item()
+                            .PaddingVertical(10)
+                            .AlignCenter()
+                            .Text(titulo)
+                            .FontSize(14)
+                            .Bold();
+
+                        col.Item().LineHorizontal(1);
+
+                        col.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(c =>
+                            {
+                                c.RelativeColumn();     // Produto
+                                c.ConstantColumn(70);   // Qtde
+                                c.ConstantColumn(90);   // Venda
+                                c.ConstantColumn(90);   // Lucro
+                            });
+
+                            table.Header(header =>
+                            {
+                                header.Cell().Element(c => c.Text("Produto").Bold());
+                                header.Cell().Element(c => c.Text("Qtd").Bold());
+                                header.Cell().Element(c => c.Text("Preço Venda").Bold());
+                                header.Cell().Element(c => c.Text("Lucro").Bold());
+                            });
+
+                            foreach (var item in dados)
+                            {
+                                table.Cell().Element(c => c.Text(item.NomeProduto));
+                                table.Cell().Element(c => c.Text(item.Quantidade.ToString()));
+                                table.Cell().Element(c => c.Text(item.PrecoDeVenda.ToString("C2")));
+                                table.Cell().Element(c => c.Text(item.LucroTotal.ToString("C2")));
+                            }
+                        });
+                    });
+                });
+            })
+            .GeneratePdf(caminhoArquivo);
+        }
+
+
 
     }
 }

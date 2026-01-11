@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Data;
 
 namespace GVC.UTIL
 {
@@ -105,6 +106,18 @@ namespace GVC.UTIL
             // =========================
             // AJUSTES FINAIS
             // =========================
+            ws.Columns().AdjustToContents();
+
+            workbook.SaveAs(caminhoArquivo);
+        }
+
+        public static void Exportar(DataTable tabela, string caminhoArquivo)
+        {
+            using var workbook = new XLWorkbook();
+            var ws = workbook.Worksheets.Add("Relatório");
+
+            ws.Cell(1, 1).InsertTable(tabela, "Dados", true);
+
             ws.Columns().AdjustToContents();
 
             workbook.SaveAs(caminhoArquivo);

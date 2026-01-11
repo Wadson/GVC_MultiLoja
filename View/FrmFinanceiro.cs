@@ -557,7 +557,7 @@ namespace GVC.View
 
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
-            lblTotalSelecionado.Text = "Total selecionado: R$ 0,00";
+            lblTotalSelecionado.Text = "R$ 0,00";
             ConfigurarGridContasAReceber();
             ConfigurarGridPagamentos(); // 🔴 ESSENCIAL
             AtualizarParcelasAtrasadasNoBanco(); // ← Atualiza ao abrir
@@ -704,8 +704,7 @@ namespace GVC.View
 
             decimal totalSaldo = selecionadas.Sum(p => p.Saldo);
 
-            lblTotalSelecionado.Text =
-                $"Total selecionado: {totalSaldo:C2}";
+            lblTotalSelecionado.Text = totalSaldo.ToString("C2");
         }
         private decimal CalcularTotalRecebidoSelecionado()
         {

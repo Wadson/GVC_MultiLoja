@@ -258,5 +258,11 @@ namespace GVC
             frm.Show();
 
         }
+
+        private void iconMenuItem5_Click(object sender, EventArgs e)
+        {
+            FrmRelatorioProdutos frm = new FrmRelatorioProdutos();
+            frm.Show();
+        }
     }
 }
