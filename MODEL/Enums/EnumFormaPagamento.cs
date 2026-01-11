@@ -55,5 +55,18 @@ namespace GVC.Model.Enums
                 _ => throw new Exception($"Forma de pagamento inválida: {forma}")
             };
         }
+
+
+        public enum TipoPesquisaContasReceber
+        {
+            Todos,
+            NomeCliente,
+            NumeroVenda,
+            DataVenda,
+            PeriodoVenda,
+            Vencimento,
+            PeriodoVencimento,
+            StatusParcela
+        }
     }
 }

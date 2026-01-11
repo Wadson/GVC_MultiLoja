@@ -65,6 +65,7 @@
             btnFornecedor = new ToolStripButton();
             btnProdutos = new ToolStripButton();
             btnPDV = new ToolStripButton();
+            btnContasAReceber = new ToolStripButton();
             btnCaixa = new ToolStripButton();
             btnEstoque = new ToolStripButton();
             btnRelatorios = new ToolStripButton();
@@ -134,7 +135,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { arquivoToolStripMenuItem, cadastrosToolStripMenuItem, vendasToolStripMenuItem, financeiroToolStripMenuItem, relatóriosToolStripMenuItem, configuraçõesToolStripMenuItem, ajudaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(637, 24);
+            menuStrip1.Size = new Size(829, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -333,11 +334,11 @@
             toolStrip1.Font = new Font("Segoe UI", 9F);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(32, 32);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuarios, btnClientes, btnFornecedor, btnProdutos, btnPDV, btnCaixa, btnEstoque, btnRelatorios, btnBackup, btnSair });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuarios, btnClientes, btnFornecedor, btnProdutos, btnPDV, btnContasAReceber, btnCaixa, btnEstoque, btnRelatorios, btnBackup, btnSair });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
-            toolStrip1.Size = new Size(637, 54);
+            toolStrip1.Size = new Size(829, 54);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -410,6 +411,20 @@
             btnPDV.TextAlign = ContentAlignment.BottomCenter;
             btnPDV.TextImageRelation = TextImageRelation.ImageAboveText;
             btnPDV.Click += btnPDV_Click;
+            // 
+            // btnContasAReceber
+            // 
+            btnContasAReceber.AutoSize = false;
+            btnContasAReceber.BackgroundImageLayout = ImageLayout.Center;
+            btnContasAReceber.Image = (Image)resources.GetObject("btnContasAReceber.Image");
+            btnContasAReceber.ImageAlign = ContentAlignment.TopCenter;
+            btnContasAReceber.ImageTransparentColor = Color.Magenta;
+            btnContasAReceber.Name = "btnContasAReceber";
+            btnContasAReceber.Size = new Size(63, 51);
+            btnContasAReceber.Text = "Receber";
+            btnContasAReceber.TextAlign = ContentAlignment.BottomCenter;
+            btnContasAReceber.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnContasAReceber.Click += btnContasAReceber_Click;
             // 
             // btnCaixa
             // 
@@ -488,7 +503,7 @@
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
             kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            kryptonStatusStrip1.Size = new Size(637, 22);
+            kryptonStatusStrip1.Size = new Size(829, 22);
             kryptonStatusStrip1.TabIndex = 609;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
@@ -556,9 +571,10 @@
             // 
             picBackground.Dock = DockStyle.Fill;
             picBackground.Enabled = false;
+            picBackground.Image = (Image)resources.GetObject("picBackground.Image");
             picBackground.Location = new Point(0, 0);
             picBackground.Name = "picBackground";
-            picBackground.Size = new Size(637, 330);
+            picBackground.Size = new Size(829, 330);
             picBackground.SizeMode = PictureBoxSizeMode.Zoom;
             picBackground.TabIndex = 610;
             picBackground.TabStop = false;
@@ -569,14 +585,14 @@
             panelBackground.Dock = DockStyle.Fill;
             panelBackground.Location = new Point(0, 78);
             panelBackground.Name = "panelBackground";
-            panelBackground.Size = new Size(637, 330);
+            panelBackground.Size = new Size(829, 330);
             panelBackground.TabIndex = 611;
             // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 252, 252);
-            ClientSize = new Size(637, 430);
+            ClientSize = new Size(829, 430);
             Controls.Add(panelBackground);
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(toolStrip1);
@@ -663,5 +679,6 @@
         private ToolStripButton btnUsuarios;
         private ToolStripButton btnFornecedor;
         private Krypton.Toolkit.KryptonContextMenu kryptonContextMenu1;
+        private ToolStripButton btnContasAReceber;
     }
 }

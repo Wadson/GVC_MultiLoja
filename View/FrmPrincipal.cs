@@ -109,7 +109,7 @@ namespace GVC
         {
             StatusOperacao = "NOVO";
             FrmCadProdutos frm = new FrmCadProdutos(StatusOperacao);
-            
+
             frm.Show();
         }
 
@@ -128,7 +128,7 @@ namespace GVC
         }
 
         private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
-        {          
+        {
             FrmCadUser frm = new FrmCadUser(StatusOperacao);
             StatusOperacao = "NOVO";
             frm.Show();
@@ -250,6 +250,13 @@ namespace GVC
             FrmManutFornecedor frm = new FrmManutFornecedor(StatusOperacao);
             StatusOperacao = "NOVO";
             frm.Show();
+        }
+
+        private void btnContasAReceber_Click(object sender, EventArgs e)
+        {
+            FrmContasReceber frm = new FrmContasReceber();
+            frm.Show();
+
         }
     }
 }

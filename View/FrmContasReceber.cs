@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static GVC.Model.Enums.FormaPagamentoExtensions;
 using ParcelaExtratoModel = GVC.Model.ParcelaExtrato;
 
 namespace GVC.View
@@ -42,7 +43,128 @@ namespace GVC.View
         {
             InitializeComponent();
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
+            WireTipoPesquisa();
         }
+        private void WireTipoPesquisa()
+        {
+            foreach (Control ctrl in grpTipoPesquisa.Controls)
+            {
+                if (ctrl is RadioButton rb)
+                {
+                    rb.CheckedChanged += TipoPesquisa_CheckedChanged;
+                }
+            }
+        }
+
+        private void TipoPesquisa_CheckedChanged(object sender, EventArgs e)
+        {
+            // sender = o RadioButton que mudou
+            if (sender is not RadioButton rb || !rb.Checked)
+                return;
+
+            AtualizarEstadoPesquisa();
+        }
+
+
+
+
+        private TipoPesquisaContasReceber ObterTipoPesquisaSelecionado()
+        {
+            if (rbTodos.Checked) return TipoPesquisaContasReceber.Todos;
+            if (rbNomeCliente.Checked) return TipoPesquisaContasReceber.NomeCliente;
+            if (rbNumeroVenda.Checked) return TipoPesquisaContasReceber.NumeroVenda;
+            if (rbDataVenda.Checked) return TipoPesquisaContasReceber.DataVenda;
+            if (rbPeriodoVenda.Checked) return TipoPesquisaContasReceber.PeriodoVenda;
+            if (rbVencimento.Checked) return TipoPesquisaContasReceber.Vencimento;
+            if (rbPeriodoVencimento.Checked) return TipoPesquisaContasReceber.PeriodoVencimento;
+            if (rbStatusParcela.Checked) return TipoPesquisaContasReceber.StatusParcela;
+
+            return TipoPesquisaContasReceber.Todos;
+        }
+
+
+        private void AtualizarEstadoPesquisa()
+        {
+            // Desliga tudo
+            txtNomeCliente.Enabled = false;
+            txtNumeroVenda.Enabled = false;
+            dtpInicial.Enabled = false;
+            dtpFinal.Enabled = false;
+            lblAte.Enabled = false;
+
+            var tipo = ObterTipoPesquisaSelecionado();
+
+            switch (tipo)
+            {
+                case TipoPesquisaContasReceber.NomeCliente:
+                    txtNomeCliente.Enabled = true;
+                    txtNomeCliente.Focus();
+                    break;
+
+                case TipoPesquisaContasReceber.NumeroVenda:
+                    txtNumeroVenda.Enabled = true;
+                    txtNumeroVenda.Focus();
+                    break;
+
+                case TipoPesquisaContasReceber.DataVenda:
+                    dtpInicial.Enabled = true;
+                    break;
+
+                case TipoPesquisaContasReceber.PeriodoVenda:
+                    lblPeriodoVenda.Text = "Período da Venda:";
+                    lblAte.Enabled = true;
+                    dtpInicial.Enabled = true;
+                    dtpFinal.Enabled = true;
+                    break;
+
+                case TipoPesquisaContasReceber.Vencimento:
+                    lblPeriodoVenda.Text = "Data de Vencimento:";
+                    dtpInicial.Enabled = true;
+                    break;
+
+                case TipoPesquisaContasReceber.PeriodoVencimento:
+                    lblPeriodoVenda.Text = "Período de Vencimento:";
+                    lblAte.Enabled = true;
+                    dtpInicial.Enabled = true;
+                    dtpFinal.Enabled = true;
+                    break;
+            }
+        }
+
+
+        private void WirePesquisaEvents()
+        {
+            rbTodos.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+            rbNomeCliente.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+            rbNumeroVenda.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+            rbDataVenda.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+            rbDataVenda.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+            rbVencimento.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+            rbPeriodoVencimento.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+            rbStatusParcela.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+        }
+        private List<EnumStatusParcela> ObterStatusSelecionados()
+        {
+            var lista = new List<EnumStatusParcela>();
+
+            if (chkPendente.Checked) lista.Add(EnumStatusParcela.Pendente);
+            if (chkParcial.Checked) lista.Add(EnumStatusParcela.ParcialmentePago);
+            if (chkPago.Checked) lista.Add(EnumStatusParcela.Pago);
+            if (chkAtrasada.Checked) lista.Add(EnumStatusParcela.Atrasada);
+            if (chkCancelada.Checked) lista.Add(EnumStatusParcela.Cancelada);
+
+            // Se nenhum marcado, assume todos
+            if (!lista.Any())
+                lista.AddRange(Enum.GetValues(typeof(EnumStatusParcela))
+                    .Cast<EnumStatusParcela>());
+
+            return lista;
+        }
+
+
+
+
+
         private void ConfigurarGridContasAReceber()
         {
             dgvContasAReceber.AutoGenerateColumns = false;
@@ -312,23 +434,51 @@ namespace GVC.View
         {
             var dal = new ContasAReceberDAL();
 
+            // 🔑 1️⃣ Tipo de pesquisa (RadioButton)
+            var tipoPesquisa = ObterTipoPesquisaSelecionado();
+
+            // 🔑 2️⃣ Status selecionados (CheckBox)
+            var statusSelecionados = ObterStatusSelecionados();
+
+            // 🔑 3️⃣ Filtros opcionais (somente se habilitados)
+            string nomeCliente = txtNomeCliente.Enabled
+                ? txtNomeCliente.Text.Trim()
+                : null;
+
+            string numeroVenda = txtNumeroVenda.Enabled
+                ? txtNumeroVenda.Text.Trim()
+                : null;
+
+            DateTime? dataInicial = null;
+            DateTime? dataFinal = null;
+
+            if (dtpInicial.Enabled)
+                dataInicial = dtpInicial.Value.Date;
+
+            if (dtpFinal.Enabled)
+                dataFinal = dtpFinal.Value.Date;
+
+            // 🔑 4️⃣ Chamada única ao DAL
             var lista = dal.ListarContasAReceber(
-                cmbTipoPesquisa.Text,
-                txtNomeCliente.Text,
-                txtNumeroVenda.Text,
-                dtpVencInicial.Value,
-                dtpVencFinal.Value,
-                cmbStatusParcela.Text
+                tipoPesquisa,
+                nomeCliente,
+                numeroVenda,
+                dataInicial,
+                dataFinal,
+                statusSelecionados
             );
 
-            ConfigurarGridContasAReceber();   // ✅ PRIMEIRO configura colunas
-            dgvContasAReceber.DataSource = lista; // ✅ DEPOIS faz o bind
+            // 🔑 5️⃣ Bind no grid
+            ConfigurarGridContasAReceber();
+            dgvContasAReceber.DataSource = lista;
 
+            // 🔑 6️⃣ Atualizações auxiliares
             AtualizarResumo(lista);
             AtualizarResumoGeral(lista);
             AtualizarTotalSelecionado();
             AtualizarParcelasAtrasadasNoBanco();
         }
+
 
 
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
@@ -345,105 +495,7 @@ namespace GVC.View
 
             lblTotalVencido.Text = totalVencido.ToString("C2");
         }
-
-        private void AtualizarCamposPorTipoPesquisa()
-        {
-            dgvContasAReceber.DataSource = null;
-            lblNomeCliente.Visible = false;
-            txtNomeCliente.Visible = false;
-            lblNumeroVenda.Visible = false;
-            txtNumeroVenda.Visible = false;
-            lblVenctoInicial.Visible = false;
-            dtpVencInicial.Visible = false;
-            lblVenctoFinal.Visible = false;
-            dtpVencFinal.Visible = false;
-            lblStatusParcela.Visible = false;
-            cmbStatusParcela.Visible = false;
-
-            // Limpa valores opcionais
-            txtNomeCliente.Clear();
-            txtNumeroVenda.Clear();
-
-            switch (cmbTipoPesquisa.Text)
-            {
-                case "Todos":
-                    break;
-
-                case "Nome do Cliente":
-                    txtNomeCliente.Visible = true;
-                    lblNomeCliente.Visible = true;
-                    txtNomeCliente.Enabled = true;
-                    txtNomeCliente.Focus();
-                    btnPesquisar.Location = new Point(498, 21);
-                    btnLimparFiltro.Location = new Point(595, 21);
-                    break;
-
-                case "Número da Venda":
-                    txtNomeCliente.Visible = false;
-                    lblNomeCliente.Visible = false;
-                    txtNomeCliente.Enabled = false;
-                    txtNumeroVenda.Visible = true;
-                    lblNumeroVenda.Visible = true;
-                    txtNumeroVenda.Focus();
-                    btnPesquisar.Location = new Point(248, 21);
-                    btnLimparFiltro.Location = new Point(345, 21);
-                    break;
-
-                case "Data da Venda":
-                    txtNomeCliente.Visible = false;
-                    lblNomeCliente.Visible = false;
-                    txtNomeCliente.Enabled = false;
-                    dtpVencInicial.Visible = true;
-                    lblVenctoInicial.Visible = true;
-                    btnPesquisar.Location = new Point(302, 21);
-                    btnLimparFiltro.Location = new Point(399, 21);
-                    break;
-
-                case "Período da Venda":
-                    txtNomeCliente.Visible = false;
-                    lblNomeCliente.Visible = false;
-                    txtNomeCliente.Enabled = false;
-                    lblVenctoInicial.Visible = true;
-                    dtpVencInicial.Visible = true;
-                    lblVenctoFinal.Visible = true;
-                    dtpVencFinal.Visible = true;
-                    btnPesquisar.Location = new Point(399, 21);
-                    btnLimparFiltro.Location = new Point(496, 21);
-                    break;
-
-                case "Vencimento":
-                    txtNomeCliente.Visible = false;
-                    lblNomeCliente.Visible = false;
-                    txtNomeCliente.Enabled = false;
-                    lblVenctoInicial.Visible = true;
-                    dtpVencInicial.Visible = true;
-                    btnPesquisar.Location = new Point(302, 21);
-                    btnLimparFiltro.Location = new Point(399, 21);
-                    break;
-
-                case "Período de Vencimento":
-                    txtNomeCliente.Visible = false;
-                    lblNomeCliente.Visible = false;
-                    txtNomeCliente.Enabled = false;
-                    lblVenctoInicial.Visible = true;
-                    dtpVencInicial.Visible = true;
-                    lblVenctoFinal.Visible = true;
-                    dtpVencFinal.Visible = true;
-                    btnPesquisar.Location = new Point(399, 21);
-                    btnLimparFiltro.Location = new Point(496, 21);
-                    break;
-
-                case "Status da Parcela":
-                    txtNomeCliente.Visible = false;
-                    lblNomeCliente.Visible = false;
-                    txtNomeCliente.Enabled = false;
-                    lblStatusParcela.Visible = true;
-                    cmbStatusParcela.Visible = true;
-                    btnPesquisar.Location = new Point(302, 21);
-                    btnLimparFiltro.Location = new Point(399, 21);
-                    break;
-            }
-        }
+               
         private List<PagamentoExtratoModel> ObterPagamentosDoGrid()
         {
             var lista = new List<PagamentoExtratoModel>();
@@ -460,22 +512,10 @@ namespace GVC.View
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
             lblTotalSelecionado.Text = "Total selecionado: R$ 0,00";
-
-            cmbTipoPesquisa.SelectedIndex = 0;
-
             ConfigurarGridContasAReceber();
             ConfigurarGridPagamentos(); // 🔴 ESSENCIAL
-            AtualizarParcelasAtrasadasNoBanco(); // ← Atualiza ao abrir  
-            txtNomeCliente.Visible = false;
-            lblNomeCliente.Visible = false;
-            txtNomeCliente.Enabled = false;
+            AtualizarParcelasAtrasadasNoBanco(); // ← Atualiza ao abrir              
         }
-
-        private void cmbTipoPesquisa_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            AtualizarCamposPorTipoPesquisa();
-        }
-
         private void txtNomeCliente_TextChanged(object sender, EventArgs e)
         {
             if (bloqueiaPesquisa || string.IsNullOrWhiteSpace(txtNomeCliente.Text))
@@ -1075,11 +1115,42 @@ namespace GVC.View
         }
         private void LimparFiltro_Click(object sender, EventArgs e)
         {
-            cmbTipoPesquisa.SelectedIndex = 0;
-            cmbStatusParcela.SelectedIndex = 0;
-            AtualizarCamposPorTipoPesquisa();
-            CarregarContasAReceber(); // vai chamar AtualizarResumoGeral automaticamente
-            AtualizarCamposPorTipoPesquisa();
+            // =========================
+            // 1️⃣ TIPO DE PESQUISA
+            // =========================
+            rbTodos.Checked = true;
+
+            // =========================
+            // 2️⃣ STATUS DA PARCELA
+            // (nenhum marcado = todos)
+            // =========================
+            chkPendente.Checked = false;
+            chkParcial.Checked = false;
+            chkPago.Checked = false;
+            chkAtrasada.Checked = false;
+            chkCancelada.Checked = false;
+
+            // =========================
+            // 3️⃣ CAMPOS DE TEXTO
+            // =========================
+            txtNomeCliente.Clear();
+            txtNumeroVenda.Clear();
+
+            // =========================
+            // 4️⃣ DATAS (APENAS DOIS PICKERS)
+            // =========================
+            dtpInicial.Value = DateTime.Today;
+            dtpFinal.Value = DateTime.Today;
+
+            // =========================
+            // 5️⃣ ESTADO DA TELA
+            // =========================
+            AtualizarEstadoPesquisa();
+
+            // =========================
+            // 6️⃣ RECARREGA O GRID
+            // =========================
+            CarregarContasAReceber();
         }
 
         private void dgvPagamentos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -1155,12 +1226,8 @@ namespace GVC.View
         }
 
         private void btnLimparFiltro_Click(object sender, EventArgs e)
-        {
-            cmbTipoPesquisa.SelectedIndex = 0;
-            cmbStatusParcela.SelectedIndex = 0;
-            AtualizarCamposPorTipoPesquisa();
-            CarregarContasAReceber(); // vai chamar AtualizarResumoGeral automaticamente
-            AtualizarCamposPorTipoPesquisa();
+        {           
+           
         }
 
         private void btnRecibo_Click(object sender, EventArgs e)
@@ -1328,11 +1395,85 @@ namespace GVC.View
 
         private void btnExtrato_Click(object sender, EventArgs e)
         {
-            using var frm = new FrmReport(
-       dgvContasAReceber.DataSource as List<ContaAReceberDTO>,
-       dgvContasAReceber.CurrentRow?.DataBoundItem as ContaAReceberDTO);
+            try
+            {
+                // Verifica se há checkbox marcado
+                bool temCheckboxMarcado = false;
 
-            frm.ShowDialog(this);
+                foreach (DataGridViewRow row in dgvContasAReceber.Rows)
+                {
+                    if (row.Cells["Selecionar"].Value is bool marcado && marcado)
+                    {
+                        temCheckboxMarcado = true;
+                        break;
+                    }
+                }
+
+                // Verifica se há linha selecionada (CurrentRow)
+                bool temLinhaSelecionada = (dgvContasAReceber.CurrentRow != null);
+
+                // Se não tem nenhum dos dois, mostra mensagem
+                if (!temCheckboxMarcado && !temLinhaSelecionada)
+                {
+                    Utilitario.Mensagens.Info("Para gerar extrato: selecione uma linha.\nPara gerar recibo: marque o checkbox das parcelas.");
+                    return;
+                }
+
+                // SEMPRE abre o formulário de opções
+                using (var frmOpcoes = new FrmOpcoesExtrato())
+                {
+                    // Desabilita os botões que não estão disponíveis
+                    // Supondo que seus botões no FrmOpcoesExtrato são públicos ou você tem acesso a eles
+
+                    // Se não tem linha selecionada, desabilita Extrato
+                    if (!temLinhaSelecionada)
+                    {
+                        // Desabilita o botão de extrato
+                        var controles = frmOpcoes.Controls.Find("btnExtrato", true);
+                        if (controles.Length > 0 && controles[0] is Button btnExtrato)
+                        {
+                            btnExtrato.Enabled = false;
+                            btnExtrato.Text = "Extrato (selecione uma linha primeiro)";
+                        }
+                    }
+
+                    // Se não tem checkbox marcado, desabilita Recibo
+                    if (!temCheckboxMarcado)
+                    {
+                        // Desabilita o botão de recibo
+                        var controles = frmOpcoes.Controls.Find("btnRecibo", true);
+                        if (controles.Length > 0 && controles[0] is Button btnRecibo)
+                        {
+                            btnRecibo.Enabled = false;
+                            btnRecibo.Text = "Recibo (marque o checkbox primeiro)";
+                        }
+                    }
+
+                    var resultado = frmOpcoes.ShowDialog();
+
+                    if (resultado == DialogResult.Yes && temLinhaSelecionada)
+                    {
+                        var opcao = MessageBox.Show(
+                            "Deseja o extrato DETALHADO (com pagamentos)?",
+                            "Tipo de Extrato",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question
+                        );
+
+                        bool detalhado = opcao == DialogResult.Yes;
+
+                        if (detalhado)
+                            GerarExtratoDetalhadoHierarquico(); // 🔹 NOVO
+                        else
+                            GerarExtratoCompleto(false);        // 🔹 JÁ EXISTE
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Utilitario.Mensagens.Erro($"Erro: {ex.Message}");
+            }
         }
 
         private void btnSair_Click(object sender, EventArgs e)
