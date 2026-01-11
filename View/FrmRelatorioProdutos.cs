@@ -14,19 +14,136 @@ namespace GVC.View
     public partial class FrmRelatorioProdutos : KryptonForm
     {
         private List<RelatorioProdutoDTO> _dadosRelatorio = new();
+        private IEnumerable<RelatorioProdutoEstoqueDTO>? _dadosEstoque;
+        private IEnumerable<RelatorioLucroProdutoDTO>? _dadosLucro;
 
         public FrmRelatorioProdutos()
         {
             InitializeComponent();
         }
+        public enum TipoRelatorioProduto
+        {
+            ListagemProdutos,
+            LucroPorProduto,
+            ResumoGeral
+        }
+        private void ConfigurarGridProdutos(TipoRelatorioProduto tipo)
+        {
+            // 🔒 Esconde tudo primeiro
+            foreach (DataGridViewColumn col in dgvProdutos.Columns)
+                col.Visible = false;
+
+            // 🧭 Decide o layout
+            switch (tipo)
+            {
+                case TipoRelatorioProduto.ListagemProdutos:
+                    MostrarColunas(
+                        "Codigo",
+                        "Produto",
+                        "Categoria",
+                        "Quantidade",
+                        "PrecoCusto",
+                        "PrecoVenda"
+                    );
+                    break;
+
+                case TipoRelatorioProduto.LucroPorProduto:
+                    MostrarColunas(
+                        "Codigo",
+                        "Produto",
+                        "Quantidade",
+                        "PrecoVenda",
+                        "LucroUnitario",
+                        "LucroTotal"
+                    );
+                    break;
+
+                case TipoRelatorioProduto.ResumoGeral:
+                    MostrarColunas(
+                        "Produto",
+                        "Quantidade",
+                        "CustoTotal",
+                        "VendaTotal",
+                        "LucroTotal"
+                    );
+                    break;
+            }
+
+            AjustarOrdemColunas();
+        }
+        private void AjustarOrdemColunas()
+        {
+            int ordem = 0;
+
+            foreach (DataGridViewColumn col in dgvProdutos.Columns
+                     .Cast<DataGridViewColumn>()
+                     .Where(c => c.Visible))
+            {
+                col.DisplayIndex = ordem++;
+            }
+        }
+
+        private void MostrarColunas(params string[] nomes)
+        {
+            int ordem = 0;
+
+            foreach (var nome in nomes)
+            {
+                if (!dgvProdutos.Columns.Contains(nome))
+                    continue;
+
+                var col = dgvProdutos.Columns[nome];
+                col.Visible = true;
+                col.DisplayIndex = ordem++;
+            }
+        }
+
+        private void ConfigurarGridResumoGeral()
+        {
+            foreach (DataGridViewColumn col in dgvProdutos.Columns)
+                col.Visible = false;
+
+            MostrarColunas(
+                "Produto",
+                "QuantidadeVendida",
+                "VendaTotal",
+                "LucroTotal"
+            );
+        }
+
+        private void ConfigurarGridLucroProduto()
+        {
+            foreach (DataGridViewColumn col in dgvProdutos.Columns)
+                col.Visible = false;
+
+            MostrarColunas(
+                "Produto",
+                "QuantidadeVendida",
+                "CustoTotal",
+                "VendaTotal",
+                "LucroTotal"
+            );
+        }
+
+        private void ConfigurarGridListagemProdutos()
+        {
+            foreach (DataGridViewColumn col in dgvProdutos.Columns)
+                col.Visible = false;
+
+            MostrarColunas(
+                "Codigo",
+                "Produto",
+                "Categoria",
+                "Quantidade",
+                "PrecoCusto",
+                "PrecoVenda"
+            );
+        }
+
         private void AtualizarEstadoFiltros()
         {
             bool usaPeriodo =
                 rbLucroProduto.Checked || rbResumoGeral.Checked;
-
-            dtpInicio.Enabled = usaPeriodo;
-            dtpFim.Enabled = usaPeriodo;
-
             chkSomenteComEstoque.Enabled = rbListagemProdutos.Checked;
             chkEstoqueBaixo.Enabled = rbListagemProdutos.Checked;
         }
@@ -76,17 +193,18 @@ namespace GVC.View
         private void btnGerar_Click(object sender, EventArgs e)
         {
             var bll = new RelatorioProdutoBLL();
-
             dgvProdutos.DataSource = null;
 
+            _dadosEstoque = null;
+            _dadosLucro = null;
+
             // ===============================
-            // 1️⃣ LISTAGEM DE PRODUTOS
+            // LISTAGEM DE PRODUTOS
             // ===============================
             if (rbListagemProdutos.Checked)
             {
                 var lista = bll.ObterProdutosEstoque();
 
-                // Filtros visuais
                 if (chkSomenteComEstoque.Checked)
                     lista = lista.Where(p => p.Estoque > 0).ToList();
 
@@ -94,36 +212,19 @@ namespace GVC.View
                     lista = lista.Where(p => p.Estoque > 0 && p.Estoque <= 5).ToList();
 
                 dgvProdutos.DataSource = lista;
+                _dadosEstoque = lista;
 
                 AtualizarCardsProdutos(lista);
             }
-
             // ===============================
-            // 2️⃣ LUCRO POR PRODUTO
+            // LUCRO / RESUMO
             // ===============================
-            else if (rbLucroProduto.Checked)
+            else
             {
-                var lista = bll.ObterLucroPorProduto(
-                    dtpInicio.Value.Date,
-                    dtpFim.Value.Date
-                );
+                var lista = bll.ObterLucroPorProduto(chkSomenteComEstoque.Checked);
 
                 dgvProdutos.DataSource = lista;
-
-                AtualizarCardsLucro(lista);
-            }
-
-            // ===============================
-            // 3️⃣ RESUMO GERAL
-            // ===============================
-            else if (rbResumoGeral.Checked)
-            {
-                var lista = bll.ObterLucroPorProduto(
-                    dtpInicio.Value.Date,
-                    dtpFim.Value.Date
-                );
-
-                dgvProdutos.DataSource = lista;
+                _dadosLucro = lista;
 
                 AtualizarCardsLucro(lista);
             }
@@ -172,12 +273,6 @@ namespace GVC.View
 
         private void btnPdf_Click(object sender, EventArgs e)
         {
-            if (_dadosRelatorio == null || !_dadosRelatorio.Any())
-            {
-                MessageBox.Show("Nenhum dado para gerar o relatório.");
-                return;
-            }
-
             using var sfd = new SaveFileDialog
             {
                 Filter = "PDF (*.pdf)|*.pdf",
@@ -189,12 +284,42 @@ namespace GVC.View
 
             var empresa = new EmpresaBll().ObterDadosParaPdf();
 
-            PDFGenerator.GerarRelatorioProdutos(
-                _dadosRelatorio,
-                empresa,
-                "Relatório de Produtos",
-                sfd.FileName
-            );
+            // ===============================
+            // LISTAGEM DE PRODUTOS
+            // ===============================
+            if (rbListagemProdutos.Checked)
+            {
+                if (_dadosEstoque == null || !_dadosEstoque.Any())
+                {
+                    MessageBox.Show("Nenhum dado para gerar o relatório.");
+                    return;
+                }
+
+                PDFGenerator.GerarRelatorioProdutosEstoque(
+                    _dadosEstoque.ToList(),
+                    empresa,
+                    sfd.FileName);
+            }
+            // ===============================
+            // LUCRO / RESUMO
+            // ===============================
+            else
+            {
+                if (_dadosLucro == null || !_dadosLucro.Any())
+                {
+                    MessageBox.Show("Nenhum dado para gerar o relatório.");
+                    return;
+                }
+
+                PDFGenerator.GerarRelatorioLucroProduto(_dadosLucro.ToList(),
+                    empresa,
+                    sfd.FileName);
+            }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

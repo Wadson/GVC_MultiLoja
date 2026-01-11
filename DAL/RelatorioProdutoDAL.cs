@@ -32,9 +32,7 @@ ORDER BY NomeProduto";
         // ============================
         // 2️⃣ LUCRO POR PRODUTO (VENDAS)
         // ============================
-        public List<RelatorioLucroProdutoDTO> ObterLucroPorProduto(
-            DateTime? dataInicial,
-            DateTime? dataFinal)
+        public List<RelatorioLucroProdutoDTO> ObterLucroPorProduto(bool somenteComEstoque)
         {
             var sql = @"
 SELECT
@@ -42,28 +40,24 @@ SELECT
     p.NomeProduto AS Produto,
     SUM(iv.Quantidade) AS QuantidadeVendida,
     SUM(iv.Quantidade * p.PrecoCusto) AS CustoTotal,
-    SUM(iv.Subtotal) AS VendaTotal
+    SUM(iv.Subtotal) AS VendaTotal,
+    (SUM(iv.Subtotal) - SUM(iv.Quantidade * p.PrecoCusto)) AS LucroTotal
 FROM ItemVenda iv
 INNER JOIN Produtos p ON p.ProdutoID = iv.ProdutoID
 INNER JOIN Venda v ON v.VendaID = iv.VendaID
-WHERE 1 = 1";
+WHERE v.StatusVenda <> 'Cancelada'";
 
-            if (dataInicial.HasValue)
-                sql += " AND v.DataVenda >= @DataInicial";
-
-            if (dataFinal.HasValue)
-                sql += " AND v.DataVenda < DATEADD(DAY,1,@DataFinal)";
+            if (somenteComEstoque)
+                sql += " AND p.Estoque > 0";
 
             sql += @"
 GROUP BY p.ProdutoID, p.NomeProduto
-ORDER BY Lucro DESC";
+ORDER BY LucroTotal DESC";
 
             using var conn = Conexao.Conex();
-            return conn.Query<RelatorioLucroProdutoDTO>(sql, new
-            {
-                DataInicial = dataInicial,
-                DataFinal = dataFinal
-            }).ToList();
+            return conn.Query<RelatorioLucroProdutoDTO>(sql).ToList();
         }
+
+
     }
 }

@@ -8,9 +8,13 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<ApplicationIcon>Resources\GVC.ico</ApplicationIcon>
+		<ApplicationIcon>Resources\Icons\SGVendas.ico</ApplicationIcon>
 		<StartupObject>GVC.Program</StartupObject>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Icons\SGVendas.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<!-- ESSENCIAIS -->

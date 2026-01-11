@@ -14,8 +14,9 @@ namespace GVC.MODEL.Relatorios
         public decimal CustoTotal { get; set; }
         public decimal VendaTotal { get; set; }
 
-        public decimal Lucro =>
-            VendaTotal - CustoTotal;
+        public decimal Lucro => VendaTotal - CustoTotal;
+        // ✅ ESTA PROPRIEDADE PRECISA EXISTIR
+        public decimal LucroTotal { get; set; }
     }
 
 }

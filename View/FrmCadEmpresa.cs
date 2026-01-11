@@ -377,11 +377,6 @@ namespace GVC.View
         // =============================================
         // EVENTOS DOS BOTÕES
         // =============================================
-        private void btnNovo_Click(object sender, EventArgs e)
-        {
-            LimparCampos();
-            txtRazaoSocial.Focus();
-        }
 
         private void GerarNovoCodigo()
         {
@@ -412,7 +407,7 @@ namespace GVC.View
         private void SalvarRegistro()
         {
             try
-            {             
+            {
                 if (string.IsNullOrWhiteSpace(txtRazaoSocial.Text))
                 {
                     Utilitario.Mensagens.Aviso("Razão Social é obrigatória!");
@@ -426,7 +421,7 @@ namespace GVC.View
                     txtCnpj.Focus();
                     return;
                 }
-               
+
 
                 var empresa = MontarObjetoEmpresa();
                 _empresaBll.Inserir(empresa);
@@ -550,7 +545,7 @@ namespace GVC.View
 
             return empresa;
         }
-       
+
         private void txtCep_Leave(object sender, EventArgs e)
         {
             // Auto-formata ao sair do campo
@@ -568,27 +563,7 @@ namespace GVC.View
         {
             await BuscarEnderecoPorCep();
         }
-        private void btnNovo_Click_1(object sender, EventArgs e)
-        {
-            LimparCampos();
-            GerarNovoCodigo();
-            txtRazaoSocial.Focus();
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            if (StatusOperacao == "NOVO")
-                SalvarRegistro();
-            else if (StatusOperacao == "ALTERAR")
-                AlterarRegistro();
-            else if (StatusOperacao == "EXCLUSAO")
-                ExcluirRegistro(); btnSalvar.Enabled = true;
-        }
-
+     
         private void FrmCadEmpresa_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
@@ -797,6 +772,28 @@ namespace GVC.View
             {
                 txtCertificadoDigital.Text = ofd.FileName;
             }
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (StatusOperacao == "NOVO")
+                SalvarRegistro();
+            else if (StatusOperacao == "ALTERAR")
+                AlterarRegistro();
+            else if (StatusOperacao == "EXCLUSAO")
+                ExcluirRegistro(); btnSalvar.Enabled = true;
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+            GerarNovoCodigo();
+            txtRazaoSocial.Focus();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

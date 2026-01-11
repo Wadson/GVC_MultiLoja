@@ -21,11 +21,12 @@ namespace GVC.BLL
         // ============================
         // LUCRO POR PRODUTO
         // ============================
-        public List<RelatorioLucroProdutoDTO> ObterLucroPorProduto(
-            DateTime? inicio,
-            DateTime? fim)
+
+
+
+        public List<RelatorioLucroProdutoDTO> ObterLucroPorProduto(bool somenteComEstoque)
         {
-            return _dal.ObterLucroPorProduto(inicio, fim);
+            return _dal.ObterLucroPorProduto(somenteComEstoque);
         }
 
         // ============================

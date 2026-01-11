@@ -371,11 +371,66 @@ namespace GVC.UTIL
         }
 
 
-        public static void GerarRelatorioProdutos(
-     IEnumerable<RelatorioProdutoDTO> dados,
-     DadosEmpresaPdf empresa,
-     string titulo,
-     string caminhoArquivo)
+      //  public static void GerarRelatorioLucroProduto(
+      //IEnumerable<RelatorioLucroProdutoDTO> dados,
+      //DadosEmpresaPdf empresa,
+      //string caminhoArquivo)
+      //  {
+      //      Document.Create(container =>
+      //      {
+      //          container.Page(page =>
+      //          {
+      //              page.Size(PageSizes.A4);
+      //              page.Margin(40);
+
+      //              page.Content().Column(col =>
+      //              {
+      //                  col.Item().AlignCenter().Text(empresa.NomeEmpresa)
+      //                      .FontSize(16).Bold();
+
+      //                  col.Item().PaddingVertical(10)
+      //                      .AlignCenter().Text("Relatório de Lucro por Produto")
+      //                      .FontSize(14).Bold();
+
+      //                  col.Item().LineHorizontal(1);
+
+      //                  col.Item().Table(table =>
+      //                  {
+      //                      table.ColumnsDefinition(c =>
+      //                      {
+      //                          c.RelativeColumn();     // Produto
+      //                          c.ConstantColumn(60);   // Qtde
+      //                          c.ConstantColumn(80);   // Custo
+      //                          c.ConstantColumn(80);   // Venda
+      //                          c.ConstantColumn(80);   // Lucro
+      //                      });
+
+      //                      Header(table,
+      //                          "Produto",
+      //                          "Qtd",
+      //                          "Custo",
+      //                          "Venda",
+      //                          "Lucro");
+
+      //                      foreach (var p in dados)
+      //                      {
+      //                          Row(table,
+      //                              p.Produto,
+      //                              p.QuantidadeVendida,
+      //                              p.CustoTotal.ToString("C2"),
+      //                              p.VendaTotal.ToString("C2"),
+      //                              p.LucroTotal.ToString("C2"));
+      //                      }
+      //                  });
+      //              });
+      //          });
+      //      })
+      //      .GeneratePdf(caminhoArquivo);
+      //  }
+        public static void GerarRelatorioProdutosEstoque(
+    IEnumerable<RelatorioProdutoEstoqueDTO> dados,
+    DadosEmpresaPdf empresa,
+    string caminhoArquivo)
         {
             Document.Create(container =>
             {
@@ -386,16 +441,14 @@ namespace GVC.UTIL
 
                     page.Content().Column(col =>
                     {
-                        col.Item()
-                            .AlignCenter()
+                        col.Item().AlignCenter()
                             .Text(empresa.NomeEmpresa)
                             .FontSize(16)
                             .Bold();
 
-                        col.Item()
-                            .PaddingVertical(10)
+                        col.Item().PaddingVertical(10)
                             .AlignCenter()
-                            .Text(titulo)
+                            .Text("Relatório de Produtos – Estoque")
                             .FontSize(14)
                             .Bold();
 
@@ -405,33 +458,82 @@ namespace GVC.UTIL
                         {
                             table.ColumnsDefinition(c =>
                             {
-                                c.RelativeColumn();     // Produto
-                                c.ConstantColumn(70);   // Qtde
-                                c.ConstantColumn(90);   // Venda
-                                c.ConstantColumn(90);   // Lucro
+                                c.RelativeColumn();   // Produto
+                                c.ConstantColumn(70); // Estoque
+                                c.ConstantColumn(80); // Custo
+                                c.ConstantColumn(80); // Venda
                             });
 
-                            table.Header(header =>
-                            {
-                                header.Cell().Element(c => c.Text("Produto").Bold());
-                                header.Cell().Element(c => c.Text("Qtd").Bold());
-                                header.Cell().Element(c => c.Text("Preço Venda").Bold());
-                                header.Cell().Element(c => c.Text("Lucro").Bold());
-                            });
+                            Header(table, "Produto", "Estoque", "Custo", "Venda");
 
-                            foreach (var item in dados)
+                            foreach (var p in dados)
                             {
-                                table.Cell().Element(c => c.Text(item.NomeProduto));
-                                table.Cell().Element(c => c.Text(item.Quantidade.ToString()));
-                                table.Cell().Element(c => c.Text(item.PrecoDeVenda.ToString("C2")));
-                                table.Cell().Element(c => c.Text(item.LucroTotal.ToString("C2")));
+                                Row(table,
+                                    p.Produto,
+                                    p.Estoque,
+                                    p.PrecoCusto.ToString("C2"),
+                                    p.PrecoVenda.ToString("C2"));
                             }
                         });
                     });
                 });
-            })
-            .GeneratePdf(caminhoArquivo);
+            }).GeneratePdf(caminhoArquivo);
         }
+        public static void GerarRelatorioLucroProduto(
+    IEnumerable<RelatorioLucroProdutoDTO> dados,
+    DadosEmpresaPdf empresa,
+    string caminhoArquivo)
+        {
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(40);
+
+                    page.Content().Column(col =>
+                    {
+                        col.Item().AlignCenter()
+                            .Text(empresa.NomeEmpresa)
+                            .FontSize(16)
+                            .Bold();
+
+                        col.Item().PaddingVertical(10)
+                            .AlignCenter()
+                            .Text("Relatório de Lucro por Produto")
+                            .FontSize(14)
+                            .Bold();
+
+                        col.Item().LineHorizontal(1);
+
+                        col.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(c =>
+                            {
+                                c.RelativeColumn();   // Produto
+                                c.ConstantColumn(60); // Qtde
+                                c.ConstantColumn(80); // Custo
+                                c.ConstantColumn(80); // Venda
+                                c.ConstantColumn(80); // Lucro
+                            });
+
+                            Header(table, "Produto", "Qtd", "Custo", "Venda", "Lucro");
+
+                            foreach (var p in dados)
+                            {
+                                Row(table,
+                                    p.Produto,
+                                    p.QuantidadeVendida,
+                                    p.CustoTotal.ToString("C2"),
+                                    p.VendaTotal.ToString("C2"),
+                                    p.LucroTotal.ToString("C2"));
+                            }
+                        });
+                    });
+                });
+            }).GeneratePdf(caminhoArquivo);
+        }
+
 
 
 

@@ -906,6 +906,7 @@
             btnSair.StateTracking.Content.ShortText.Color1 = Color.White;
             btnSair.TabIndex = 1083;
             btnSair.Values.Text = "Sair";
+            btnSair.Click += btnSair_Click;
             // 
             // btnSalvar
             // 
@@ -971,6 +972,7 @@
             btnSalvar.StateTracking.Content.ShortText.Color1 = Color.FromArgb(22, 121, 206);
             btnSalvar.TabIndex = 1082;
             btnSalvar.Values.Text = "Salvar";
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnNovo
             // 
@@ -1035,6 +1037,7 @@
             btnNovo.StateTracking.Content.ShortText.Color1 = Color.White;
             btnNovo.TabIndex = 1081;
             btnNovo.Values.Text = "Novo";
+            btnNovo.Click += btnNovo_Click;
             // 
             // FrmCadEmpresa
             // 

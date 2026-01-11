@@ -54,6 +54,7 @@
             vendasToolStripMenuItem1 = new ToolStripMenuItem();
             financeiroToolStripMenuItem1 = new ToolStripMenuItem();
             estoqueToolStripMenuItem = new ToolStripMenuItem();
+            produtosToolStripMenuItem1 = new ToolStripMenuItem();
             configuraçõesToolStripMenuItem = new ToolStripMenuItem();
             usuáriosToolStripMenuItem1 = new ToolStripMenuItem();
             parâmetrosToolStripMenuItem = new ToolStripMenuItem();
@@ -91,7 +92,6 @@
             panelBackground = new Panel();
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
-            produtosToolStripMenuItem1 = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -282,23 +282,29 @@
             // vendasToolStripMenuItem1
             // 
             vendasToolStripMenuItem1.Name = "vendasToolStripMenuItem1";
-            vendasToolStripMenuItem1.Size = new Size(180, 22);
+            vendasToolStripMenuItem1.Size = new Size(129, 22);
             vendasToolStripMenuItem1.Text = "Vendas";
             vendasToolStripMenuItem1.Click += vendasToolStripMenuItem1_Click;
             // 
             // financeiroToolStripMenuItem1
             // 
             financeiroToolStripMenuItem1.Name = "financeiroToolStripMenuItem1";
-            financeiroToolStripMenuItem1.Size = new Size(180, 22);
+            financeiroToolStripMenuItem1.Size = new Size(129, 22);
             financeiroToolStripMenuItem1.Text = "Financeiro";
             financeiroToolStripMenuItem1.Click += financeiroToolStripMenuItem1_Click;
             // 
             // estoqueToolStripMenuItem
             // 
             estoqueToolStripMenuItem.Name = "estoqueToolStripMenuItem";
-            estoqueToolStripMenuItem.Size = new Size(180, 22);
+            estoqueToolStripMenuItem.Size = new Size(129, 22);
             estoqueToolStripMenuItem.Text = "Estoque";
             estoqueToolStripMenuItem.Click += estoqueToolStripMenuItem_Click;
+            // 
+            // produtosToolStripMenuItem1
+            // 
+            produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
+            produtosToolStripMenuItem1.Size = new Size(129, 22);
+            produtosToolStripMenuItem1.Text = "Produtos";
             // 
             // configuraçõesToolStripMenuItem
             // 
@@ -351,7 +357,7 @@
             iconMenuItem5.IconColor = Color.Black;
             iconMenuItem5.IconFont = FontAwesome.Sharp.IconFont.Regular;
             iconMenuItem5.Name = "iconMenuItem5";
-            iconMenuItem5.Size = new Size(180, 22);
+            iconMenuItem5.Size = new Size(158, 22);
             iconMenuItem5.Text = "Produtos";
             iconMenuItem5.Click += iconMenuItem5_Click;
             // 
@@ -361,7 +367,7 @@
             iconMenuItem6.IconColor = Color.Black;
             iconMenuItem6.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconMenuItem6.Name = "iconMenuItem6";
-            iconMenuItem6.Size = new Size(180, 22);
+            iconMenuItem6.Size = new Size(158, 22);
             iconMenuItem6.Text = "iconMenuItem6";
             // 
             // iconMenuItem3
@@ -652,12 +658,6 @@
             iconMenuItem1.Size = new Size(32, 19);
             iconMenuItem1.Text = "iconMenuItem1";
             // 
-            // produtosToolStripMenuItem1
-            // 
-            produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
-            produtosToolStripMenuItem1.Size = new Size(180, 22);
-            produtosToolStripMenuItem1.Text = "Produtos";
-            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -668,6 +668,7 @@
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 3, 4, 3);
