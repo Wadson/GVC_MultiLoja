@@ -38,7 +38,7 @@ namespace GVC.View
             ProdutosBLL objetoBll = new ProdutosBLL();
             dgvProdutos.DataSource = objetoBll.ListarTodos();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvProdutos);
+            Utilitario.AtualizarTotalKrypton(lblTotalRegistros, dgvProdutos);
         }
         public void PersonalizarDataGridView()
         {
@@ -283,27 +283,19 @@ namespace GVC.View
         {
             string texto = txtPesquisa.Text.Trim();
 
-            FormaPagamentoDal dao = new FormaPagamentoDal();
-            DataTable dt;
-
             if (string.IsNullOrEmpty(texto))
             {
-                // Lista todos os registros se não houver texto
-                dt = dao.ListaFormaPgto();
-            }
-            else if (int.TryParse(texto, out int id))
-            {
-                // Se for número → pesquisa por código
-                dt = dao.PesquisarPorCodigo(id);
-            }
-            else
-            {
-                // Caso contrário → pesquisa por nome
-                dt = dao.PesquisarPorNome(texto);
+                ListarProduto();
+                return;
             }
 
-            dgvProdutos.DataSource = dt ?? new DataTable();
-            Utilitario.AtualizarTotalToolStatusStrip(toolStripStatusLabelTotalRegistros, dgvProdutos);
+            var dao = new ProdutoDALL();
+            List<ProdutoModel> lista = dao.PesquisarProdutoPorNome(texto);
+
+            dgvProdutos.DataSource = lista ?? new List<ProdutoModel>();
+
+            PersonalizarDataGridView();
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvProdutos);
         }
 
         private void btnNovo_Click(object sender, EventArgs e)

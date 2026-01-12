@@ -33,7 +33,7 @@
             dgvProdutos = new Krypton.Toolkit.KryptonDataGridView();
             btnEstoque = new Krypton.Toolkit.KryptonButton();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
-            toolStripStatusLabelTotalRegistros = new ToolStripStatusLabel();
+            lblTotalRegistros = new ToolStripStatusLabel();
             btnSair = new Krypton.Toolkit.KryptonButton();
             btnExcluir = new Krypton.Toolkit.KryptonButton();
             btnNovo = new Krypton.Toolkit.KryptonButton();
@@ -143,7 +143,7 @@
             // kryptonStatusStrip1
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabelTotalRegistros });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblTotalRegistros });
             kryptonStatusStrip1.Location = new Point(0, 385);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
@@ -152,11 +152,11 @@
             kryptonStatusStrip1.TabIndex = 604;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
-            // toolStripStatusLabelTotalRegistros
+            // lblTotalRegistros
             // 
-            toolStripStatusLabelTotalRegistros.Name = "toolStripStatusLabelTotalRegistros";
-            toolStripStatusLabelTotalRegistros.Size = new Size(100, 17);
-            toolStripStatusLabelTotalRegistros.Text = "Total de Registros";
+            lblTotalRegistros.Name = "lblTotalRegistros";
+            lblTotalRegistros.Size = new Size(100, 17);
+            lblTotalRegistros.Text = "Total de Registros";
             // 
             // btnSair
             // 
@@ -567,7 +567,7 @@
         private Krypton.Toolkit.KryptonDataGridView dgvProdutos;
         private Krypton.Toolkit.KryptonButton btnEstoque;
         private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
-        private ToolStripStatusLabel toolStripStatusLabelTotalRegistros;
+        private ToolStripStatusLabel lblTotalRegistros;
         public Krypton.Toolkit.KryptonButton btnSair;
         public Krypton.Toolkit.KryptonButton btnExcluir;
         public Krypton.Toolkit.KryptonButton btnNovo;

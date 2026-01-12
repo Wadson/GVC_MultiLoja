@@ -261,6 +261,10 @@ namespace GVC
 
         private void iconMenuItem5_Click(object sender, EventArgs e)
         {
+        }
+
+        private void produtosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             FrmRelatorioProdutos frm = new FrmRelatorioProdutos();
             frm.Show();
         }

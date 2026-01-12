@@ -21,12 +21,9 @@ namespace GVC.BLL
         // ============================
         // LUCRO POR PRODUTO
         // ============================
-
-
-
-        public List<RelatorioLucroProdutoDTO> ObterLucroPorProduto(bool somenteComEstoque)
+        public List<RelatorioLucroProdutoDTO> ObterLucroPorProduto(DateTime? inicio, DateTime? fim, bool somenteComEstoque)
         {
-            return _dal.ObterLucroPorProduto(somenteComEstoque);
+            return _dal.ObterLucroPorProduto(inicio, fim);
         }
 
         // ============================
@@ -42,4 +39,5 @@ namespace GVC.BLL
             return (custo, venda, lucro);
         }
     }
+
 }

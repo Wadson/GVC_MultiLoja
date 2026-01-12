@@ -1,18 +1,89 @@
-﻿using GVC.Model;
-using ClosedXML.Excel;
-using System;
+﻿using ClosedXML.Excel;
+using GVC.Model;
+using GVC.MODEL.Relatorios;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Data;
+using System.IO;
 
 namespace GVC.UTIL
 {
     public static class ExcelGenerator
     {
+        // ============================
+        // 📦 ESTOQUE
+        // ============================
+        public static void ExportarProdutosEstoque(
+            List<RelatorioProdutoEstoqueDTO> dados,
+            string caminho)
+        {
+            using var wb = new XLWorkbook();
+            var ws = wb.Worksheets.Add("Produtos");
+
+            ws.Cell(1, 1).Value = "Produto";
+            ws.Cell(1, 2).Value = "Estoque";
+            ws.Cell(1, 3).Value = "Preço Custo";
+            ws.Cell(1, 4).Value = "Preço Venda";
+            ws.Cell(1, 5).Value = "Lucro Estoque";
+
+            int row = 2;
+            foreach (var p in dados)
+            {
+                ws.Cell(row, 1).Value = p.Produto;
+                ws.Cell(row, 2).Value = p.Estoque;
+                ws.Cell(row, 3).Value = p.PrecoCusto;
+                ws.Cell(row, 4).Value = p.PrecoVenda;
+                ws.Cell(row, 5).Value = p.LucroEstoque;
+                row++;
+            }
+
+            ws.Columns().AdjustToContents();
+            wb.SaveAs(caminho);
+        }
+
+        // ============================
+        // 💰 LUCRO
+        // ============================
+        public static void ExportarLucroProduto(
+            List<RelatorioLucroProdutoDTO> dados,
+            string caminho)
+        {
+            using var wb = new XLWorkbook();
+            var ws = wb.Worksheets.Add("Lucro por Produto");
+
+            ws.Cell(1, 1).Value = "Produto";
+            ws.Cell(1, 2).Value = "Quantidade Vendida";
+            ws.Cell(1, 3).Value = "Custo Total";
+            ws.Cell(1, 4).Value = "Venda Total";
+            ws.Cell(1, 5).Value = "Lucro Total";
+
+            int row = 2;
+            foreach (var p in dados)
+            {
+                ws.Cell(row, 1).Value = p.Produto;
+                ws.Cell(row, 2).Value = p.QuantidadeVendida;
+                ws.Cell(row, 3).Value = p.CustoTotal;
+                ws.Cell(row, 4).Value = p.VendaTotal;
+                ws.Cell(row, 5).Value = p.LucroTotal;
+                row++;
+            }
+
+            ws.Columns().AdjustToContents();
+            wb.SaveAs(caminho);
+        }
+        public static void Exportar(DataTable tabela, string caminhoArquivo)
+        {
+            using var workbook = new XLWorkbook();
+            var ws = workbook.Worksheets.Add("Relatório");
+
+            ws.Cell(1, 1).InsertTable(tabela, "Dados", true);
+
+            ws.Columns().AdjustToContents();
+
+            workbook.SaveAs(caminhoArquivo);
+        }
         public static void GerarContasReceberAgrupadoPorClienteExcel(
-            List<ExtratoCliente> extratos,
-            string caminhoArquivo)
+           List<ExtratoCliente> extratos,
+           string caminhoArquivo)
         {
             if (extratos == null || extratos.Count == 0)
                 throw new Exception("Nenhum dado para gerar o relatório.");
@@ -106,18 +177,6 @@ namespace GVC.UTIL
             // =========================
             // AJUSTES FINAIS
             // =========================
-            ws.Columns().AdjustToContents();
-
-            workbook.SaveAs(caminhoArquivo);
-        }
-
-        public static void Exportar(DataTable tabela, string caminhoArquivo)
-        {
-            using var workbook = new XLWorkbook();
-            var ws = workbook.Worksheets.Add("Relatório");
-
-            ws.Cell(1, 1).InsertTable(tabela, "Dados", true);
-
             ws.Columns().AdjustToContents();
 
             workbook.SaveAs(caminhoArquivo);
