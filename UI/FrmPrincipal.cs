@@ -255,7 +255,8 @@ namespace GVC
             timerBackupAtomatico.Stop();
             timerBackupAtomatico.Tick -= timerBackupAtomatico_Tick;
 
-            timerBackupAtomatico.Interval = 10000; // 10 segundos (teste)
+            timerBackupAtomatico.Interval = 1000 * 60 * 60 * 6; // a cada 6 horas
+
             timerBackupAtomatico.Tick += timerBackupAtomatico_Tick;
             timerBackupAtomatico.Start();
         }
@@ -297,6 +298,7 @@ namespace GVC
 
             // Configuração do timer para atualizar a hora e a data
             timer = new System.Timers.Timer(1000); // Atualiza a cada segundo
+
             timer.Elapsed += OnTimedEvent;
             timer.AutoReset = true;
             timer.Enabled = true;
@@ -341,12 +343,7 @@ namespace GVC
             _backupEmExecucao = true;
 
             try
-            {
-                File.AppendAllText(
-                    @"C:\BackupsGVC\timer.log",
-                    DateTime.Now + " - Timer disparou\n"
-                );
-
+            {   
                 if (JaExisteBackupHoje())
                     return;
 
