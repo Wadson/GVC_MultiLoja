@@ -47,9 +47,6 @@
     <Compile Update="UI\FrmDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="UI\FrmEntradaEstoque.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="UI\FrmEntradaFiscal.cs">
       <SubType>Form</SubType>
     </Compile>

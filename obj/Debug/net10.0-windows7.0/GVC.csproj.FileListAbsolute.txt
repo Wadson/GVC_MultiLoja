@@ -266,7 +266,6 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.FrmCadUser.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConsultaMovimentacaoEstoque.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmContasReceber.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmDashboard.resources
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmEntradaEstoque.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmEntradaFiscal.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmEstornarPagamento.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmFinanceiro.resources

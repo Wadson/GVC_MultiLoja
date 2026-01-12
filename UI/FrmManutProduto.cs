@@ -328,7 +328,7 @@ namespace GVC.View
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
-            FrmEntradaEstoque frm = new FrmEntradaEstoque();
+           FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
             frm.ShowDialog();
         }
 

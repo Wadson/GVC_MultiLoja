@@ -42,6 +42,9 @@
             fornecedoresToolStripMenuItem = new ToolStripMenuItem();
             empresasToolStripMenuItem = new ToolStripMenuItem();
             usuáriosToolStripMenuItem = new ToolStripMenuItem();
+            estoqueToolStripMenuItem1 = new ToolStripMenuItem();
+            entradaDeEstoqueNFeOuManualToolStripMenuItem = new ToolStripMenuItem();
+            correçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
             vendasToolStripMenuItem = new ToolStripMenuItem();
             pDVToolStripMenuItem = new ToolStripMenuItem();
             orçamentosToolStripMenuItem = new ToolStripMenuItem();
@@ -135,7 +138,7 @@
             // 
             menuStrip1.BackColor = Color.FromArgb(8, 142, 254);
             menuStrip1.Font = new Font("Segoe UI", 9F);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { arquivoToolStripMenuItem, cadastrosToolStripMenuItem, vendasToolStripMenuItem, financeiroToolStripMenuItem, relatóriosToolStripMenuItem, configuraçõesToolStripMenuItem, ajudaToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { arquivoToolStripMenuItem, cadastrosToolStripMenuItem, estoqueToolStripMenuItem1, vendasToolStripMenuItem, financeiroToolStripMenuItem, relatóriosToolStripMenuItem, configuraçõesToolStripMenuItem, ajudaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(829, 24);
@@ -211,6 +214,26 @@
             usuáriosToolStripMenuItem.Size = new Size(145, 22);
             usuáriosToolStripMenuItem.Text = "Usuários";
             usuáriosToolStripMenuItem.Click += usuáriosToolStripMenuItem_Click;
+            // 
+            // estoqueToolStripMenuItem1
+            // 
+            estoqueToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { entradaDeEstoqueNFeOuManualToolStripMenuItem, correçãoDeEstoqueToolStripMenuItem });
+            estoqueToolStripMenuItem1.Name = "estoqueToolStripMenuItem1";
+            estoqueToolStripMenuItem1.Size = new Size(61, 20);
+            estoqueToolStripMenuItem1.Text = "Estoque";
+            // 
+            // entradaDeEstoqueNFeOuManualToolStripMenuItem
+            // 
+            entradaDeEstoqueNFeOuManualToolStripMenuItem.Name = "entradaDeEstoqueNFeOuManualToolStripMenuItem";
+            entradaDeEstoqueNFeOuManualToolStripMenuItem.Size = new Size(264, 22);
+            entradaDeEstoqueNFeOuManualToolStripMenuItem.Text = "Entrada de Estoque(NFe ou Manual)";
+            // 
+            // correçãoDeEstoqueToolStripMenuItem
+            // 
+            correçãoDeEstoqueToolStripMenuItem.Name = "correçãoDeEstoqueToolStripMenuItem";
+            correçãoDeEstoqueToolStripMenuItem.Size = new Size(264, 22);
+            correçãoDeEstoqueToolStripMenuItem.Text = "Entrada de Estoque";
+            correçãoDeEstoqueToolStripMenuItem.Click += correçãoDeEstoqueToolStripMenuItem_Click_1;
             // 
             // vendasToolStripMenuItem
             // 
@@ -708,5 +731,8 @@
         private FontAwesome.Sharp.IconMenuItem iconMenuItem1;
         private ToolStripMenuItem produtosToolStripMenuItem1;
         private System.Windows.Forms.Timer timerBackupAtomatico;
+        private ToolStripMenuItem estoqueToolStripMenuItem1;
+        private ToolStripMenuItem entradaDeEstoqueNFeOuManualToolStripMenuItem;
+        private ToolStripMenuItem correçãoDeEstoqueToolStripMenuItem;
     }
 }

@@ -67,7 +67,7 @@ namespace GVC
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
-            FrmEntradaEstoque frm = new FrmEntradaEstoque();
+            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
             frm.Show();
         }
 
@@ -343,7 +343,7 @@ namespace GVC
             _backupEmExecucao = true;
 
             try
-            {   
+            {
                 if (JaExisteBackupHoje())
                     return;
 
@@ -353,6 +353,18 @@ namespace GVC
             {
                 _backupEmExecucao = false;
             }
+        }
+
+        private void correçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
+            frm.Show();
+        }
+
+        private void correçãoDeEstoqueToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
+            frm.Show();
         }
     }
 }

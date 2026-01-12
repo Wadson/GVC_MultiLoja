@@ -24,6 +24,55 @@ namespace GVC.View
         {
             InitializeComponent();
         }
+        private void ConfigurarHeader()
+        {
+            pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229); // Azul ERP
+            pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
+
+            lblTitulo.Text = "Movimentação de Estoque";
+            lblTitulo.StateCommon.ShortText.Color1 = Color.White;
+            lblTitulo.StateCommon.ShortText.Font =
+                new Font("Segoe UI", 13, FontStyle.Bold);
+
+            lblSubTitulo.Text = "Entrada, saída ou ajuste manual de produtos";
+            lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
+            lblSubTitulo.StateCommon.ShortText.Font =
+                new Font("Segoe UI", 9);
+        }
+        private void EstilizarCard(GroupBox grupo)
+        {
+            grupo.BackColor = Color.White;
+            grupo.Paint += (s, e) =>
+            {
+                var g = e.Graphics;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+                Rectangle rect = grupo.ClientRectangle;
+                rect.Inflate(-1, -1);
+
+                using (var pen = new Pen(Color.Gainsboro, 1))
+                using (var brush = new SolidBrush(grupo.BackColor))
+                {
+                    var path = RoundedRect(rect, 8); // raio 8
+                    g.FillPath(brush, path);
+                    g.DrawPath(pen, path);
+                }
+            };
+        }
+
+        // Função auxiliar para criar retângulo arredondado
+        private System.Drawing.Drawing2D.GraphicsPath RoundedRect(Rectangle bounds, int radius)
+        {
+            int d = radius * 2;
+            var path = new System.Drawing.Drawing2D.GraphicsPath();
+            path.AddArc(bounds.X, bounds.Y, d, d, 180, 90);
+            path.AddArc(bounds.Right - d, bounds.Y, d, d, 270, 90);
+            path.AddArc(bounds.Right - d, bounds.Bottom - d, d, d, 0, 90);
+            path.AddArc(bounds.X, bounds.Bottom - d, d, d, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+
 
         private void btnListarControlesDoForm_Click(object sender, EventArgs e)
         {
@@ -34,9 +83,25 @@ namespace GVC.View
 
             Utilitario.Mensagens.Info("Lista de controles salva em: " + caminho);
         }
+        private void AtualizarEstoqueVisual(int estoque)
+        {
+            lblEstoqueAtual.Text = estoque.ToString();
+
+            lblEstoqueAtual.StateCommon.ShortText.Font =
+                new Font("Segoe UI", 11, FontStyle.Bold);
+
+            if (estoque > 0)
+                lblEstoqueAtual.StateCommon.ShortText.Color1 = Color.ForestGreen;
+            else
+                lblEstoqueAtual.StateCommon.ShortText.Color1 = Color.Firebrick;
+        }
 
         private void FrmMovimentacaoEstoque_Load(object sender, EventArgs e)
         {
+            EstilizarCard(grpProduto);
+            EstilizarCard(grpMovimentacao);
+
+            ConfigurarHeader();
             // Tipo de movimentação
             cmbTipoMovimentacao.Items.Clear();
             cmbTipoMovimentacao.Items.Add("Entrada");
@@ -55,6 +120,10 @@ namespace GVC.View
 
             numQuantidade.Minimum = 0;
             numQuantidade.Value = 1;
+
+            // 🔹 AQUI
+            txtProdutoBuscar.CueHint.CueHintText =
+                "Digite o nome ou código do produto...";
         }
         private void ValidarFormulario()
         {
@@ -141,24 +210,32 @@ namespace GVC.View
 
                 if (pesquisaProduto.ShowDialog() == DialogResult.OK)
                 {
-                    // Ativa flag para bloquear reentrância
                     _ignorandoBuscar = true;
                     try
                     {
                         txtProdutoBuscar.Text = pesquisaProduto.ProdutoSelecionado;
-                        lblEstoqueAtual.Text = pesquisaProduto.Estoque.ToString();
+
                         ProdutoID = pesquisaProduto.ProdutoID;
                         lblIdProduto.Text = ProdutoID.ToString();
+
+                        // 🔹 AQUI
+                        AtualizarEstoqueVisual((int)pesquisaProduto.Estoque);
+
                         txtProdutoBuscar.SelectionStart = txtProdutoBuscar.Text.Length;
                     }
                     finally
                     {
-                        // Libera flag após atualização
                         _ignorandoBuscar = false;
                         cmbTipoMovimentacao.Select();
                     }
                 }
+
             }
+        }
+
+        private void txtProdutoBuscar_Enter(object sender, EventArgs e)
+        {
+            txtProdutoBuscar.SelectAll();
         }
     }
 }

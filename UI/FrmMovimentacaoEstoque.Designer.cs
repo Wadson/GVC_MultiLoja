@@ -30,7 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
-            btnListarControlesDoForm = new Krypton.Toolkit.KryptonButton();
             bnCancelar = new Krypton.Toolkit.KryptonButton();
             btnConfirmar = new Krypton.Toolkit.KryptonButton();
             cmbTipoMovimentacao = new Krypton.Toolkit.KryptonComboBox();
@@ -38,20 +37,26 @@
             txtProdutoBuscar = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloTipoMovimentacao = new Label();
             lblRotuloDescricaoProduto = new Label();
-            lblEstoqueAtual = new Label();
             lblRotuloQuantidade = new Label();
             txtObservacao = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloObservacoes = new Label();
             cmbOrigem = new Krypton.Toolkit.KryptonComboBox();
             grpProduto = new GroupBox();
-            lblIdProduto = new Label();
+            lblIdProduto = new Krypton.Toolkit.KryptonLabel();
+            lblEstoqueAtual = new Krypton.Toolkit.KryptonLabel();
             lblRotuloEstoque = new Label();
-            grpMovimentacao = new GroupBox();
             lblRotuloOrigem = new Label();
             numQuantidade = new Krypton.Toolkit.KryptonNumericUpDown();
+            pnlHeader = new Krypton.Toolkit.KryptonPanel();
+            lblTitulo = new Krypton.Toolkit.KryptonLabel();
+            lblSubTitulo = new Krypton.Toolkit.KryptonLabel();
+            grpMovimentacao = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)cmbTipoMovimentacao).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbOrigem).BeginInit();
             grpProduto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
+            pnlHeader.SuspendLayout();
+            grpMovimentacao.SuspendLayout();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -90,67 +95,11 @@
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
-            // btnListarControlesDoForm
-            // 
-            btnListarControlesDoForm.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnListarControlesDoForm.CornerRoundingRadius = 6F;
-            btnListarControlesDoForm.Location = new Point(10, 262);
-            btnListarControlesDoForm.Margin = new Padding(4, 3, 4, 3);
-            btnListarControlesDoForm.Name = "btnListarControlesDoForm";
-            btnListarControlesDoForm.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnListarControlesDoForm.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnListarControlesDoForm.OverrideDefault.Back.ColorAngle = 45F;
-            btnListarControlesDoForm.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
-            btnListarControlesDoForm.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnListarControlesDoForm.OverrideDefault.Border.ColorAngle = 45F;
-            btnListarControlesDoForm.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnListarControlesDoForm.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnListarControlesDoForm.OverrideDefault.Border.Rounding = 20F;
-            btnListarControlesDoForm.OverrideDefault.Border.Width = 1;
-            btnListarControlesDoForm.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnListarControlesDoForm.Size = new Size(120, 30);
-            btnListarControlesDoForm.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnListarControlesDoForm.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnListarControlesDoForm.StateCommon.Back.ColorAngle = 45F;
-            btnListarControlesDoForm.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnListarControlesDoForm.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnListarControlesDoForm.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnListarControlesDoForm.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnListarControlesDoForm.StateCommon.Border.Rounding = 6F;
-            btnListarControlesDoForm.StateCommon.Border.Width = 1;
-            btnListarControlesDoForm.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            btnListarControlesDoForm.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnListarControlesDoForm.StateCommon.Content.ShortText.Font = new Font("Segoe UI Semilight", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnListarControlesDoForm.StatePressed.Back.Color1 = Color.Red;
-            btnListarControlesDoForm.StatePressed.Back.Color2 = Color.Red;
-            btnListarControlesDoForm.StatePressed.Back.ColorAngle = 135F;
-            btnListarControlesDoForm.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnListarControlesDoForm.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnListarControlesDoForm.StatePressed.Border.ColorAngle = 135F;
-            btnListarControlesDoForm.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnListarControlesDoForm.StatePressed.Border.Rounding = 20F;
-            btnListarControlesDoForm.StatePressed.Border.Width = 1;
-            btnListarControlesDoForm.StateTracking.Back.Color1 = Color.Red;
-            btnListarControlesDoForm.StateTracking.Back.Color2 = Color.Red;
-            btnListarControlesDoForm.StateTracking.Back.ColorAngle = 45F;
-            btnListarControlesDoForm.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnListarControlesDoForm.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnListarControlesDoForm.StateTracking.Border.ColorAngle = 45F;
-            btnListarControlesDoForm.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnListarControlesDoForm.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnListarControlesDoForm.StateTracking.Border.Rounding = 20F;
-            btnListarControlesDoForm.StateTracking.Border.Width = 1;
-            btnListarControlesDoForm.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnListarControlesDoForm.TabIndex = 1089;
-            btnListarControlesDoForm.TabStop = false;
-            btnListarControlesDoForm.Values.Text = "Listar Controles";
-            btnListarControlesDoForm.Click += btnListarControlesDoForm_Click;
-            // 
             // bnCancelar
             // 
             bnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             bnCancelar.CornerRoundingRadius = 6F;
-            bnCancelar.Location = new Point(775, 263);
+            bnCancelar.Location = new Point(795, 445);
             bnCancelar.Name = "bnCancelar";
             bnCancelar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             bnCancelar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -162,7 +111,7 @@
             bnCancelar.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             bnCancelar.OverrideDefault.Border.Rounding = 20F;
             bnCancelar.OverrideDefault.Border.Width = 1;
-            bnCancelar.Size = new Size(150, 30);
+            bnCancelar.Size = new Size(116, 30);
             bnCancelar.StateCommon.Back.Color1 = Color.Red;
             bnCancelar.StateCommon.Back.Color2 = Color.Red;
             bnCancelar.StateCommon.Back.ColorAngle = 45F;
@@ -205,7 +154,7 @@
             // 
             btnConfirmar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnConfirmar.CornerRoundingRadius = 6F;
-            btnConfirmar.Location = new Point(619, 263);
+            btnConfirmar.Location = new Point(673, 445);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnConfirmar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -217,7 +166,7 @@
             btnConfirmar.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             btnConfirmar.OverrideDefault.Border.Rounding = 20F;
             btnConfirmar.OverrideDefault.Border.Width = 1;
-            btnConfirmar.Size = new Size(150, 30);
+            btnConfirmar.Size = new Size(116, 30);
             btnConfirmar.StateCommon.Back.Color1 = Color.FromArgb(8, 142, 254);
             btnConfirmar.StateCommon.Back.Color2 = Color.FromArgb(8, 142, 254);
             btnConfirmar.StateCommon.Back.ColorAngle = 45F;
@@ -263,7 +212,7 @@
             cmbTipoMovimentacao.DropDownWidth = 115;
             cmbTipoMovimentacao.IntegralHeight = false;
             cmbTipoMovimentacao.Items.AddRange(new object[] { "Entrada", "Saída", "Ajuste" });
-            cmbTipoMovimentacao.Location = new Point(142, 123);
+            cmbTipoMovimentacao.Location = new Point(156, 21);
             cmbTipoMovimentacao.Name = "cmbTipoMovimentacao";
             cmbTipoMovimentacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             cmbTipoMovimentacao.Size = new Size(164, 25);
@@ -303,13 +252,14 @@
             txtProdutoBuscar.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
             txtProdutoBuscar.TabIndex = 1044;
             txtProdutoBuscar.TextChanged += txtProdutoBuscar_TextChanged;
+            txtProdutoBuscar.Enter += txtProdutoBuscar_Enter;
             // 
             // lblRotuloTipoMovimentacao
             // 
             lblRotuloTipoMovimentacao.AutoSize = true;
             lblRotuloTipoMovimentacao.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRotuloTipoMovimentacao.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloTipoMovimentacao.Location = new Point(6, 127);
+            lblRotuloTipoMovimentacao.Location = new Point(23, 25);
             lblRotuloTipoMovimentacao.Name = "lblRotuloTipoMovimentacao";
             lblRotuloTipoMovimentacao.Size = new Size(130, 16);
             lblRotuloTipoMovimentacao.TabIndex = 1065;
@@ -325,25 +275,13 @@
             lblRotuloDescricaoProduto.TabIndex = 1057;
             lblRotuloDescricaoProduto.Text = "Descrição do produto";
             // 
-            // lblEstoqueAtual
-            // 
-            lblEstoqueAtual.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblEstoqueAtual.AutoSize = true;
-            lblEstoqueAtual.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            lblEstoqueAtual.ForeColor = Color.FromArgb(0, 76, 172);
-            lblEstoqueAtual.Location = new Point(866, 40);
-            lblEstoqueAtual.Name = "lblEstoqueAtual";
-            lblEstoqueAtual.Size = new Size(15, 17);
-            lblEstoqueAtual.TabIndex = 1080;
-            lblEstoqueAtual.Text = "0";
-            // 
             // lblRotuloQuantidade
             // 
             lblRotuloQuantidade.Anchor = AnchorStyles.Top;
             lblRotuloQuantidade.AutoSize = true;
             lblRotuloQuantidade.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRotuloQuantidade.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloQuantidade.Location = new Point(56, 159);
+            lblRotuloQuantidade.Location = new Point(73, 57);
             lblRotuloQuantidade.Name = "lblRotuloQuantidade";
             lblRotuloQuantidade.Size = new Size(80, 16);
             lblRotuloQuantidade.TabIndex = 1082;
@@ -353,9 +291,9 @@
             // 
             txtObservacao.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtObservacao.CharacterCasing = CharacterCasing.Upper;
-            txtObservacao.Location = new Point(142, 217);
+            txtObservacao.Location = new Point(156, 115);
             txtObservacao.Name = "txtObservacao";
-            txtObservacao.Size = new Size(771, 24);
+            txtObservacao.Size = new Size(737, 24);
             txtObservacao.StateCommon.Back.Color1 = Color.White;
             txtObservacao.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtObservacao.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -373,7 +311,7 @@
             lblRotuloObservacoes.AutoSize = true;
             lblRotuloObservacoes.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRotuloObservacoes.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloObservacoes.Location = new Point(54, 218);
+            lblRotuloObservacoes.Location = new Point(68, 116);
             lblRotuloObservacoes.Name = "lblRotuloObservacoes";
             lblRotuloObservacoes.Size = new Size(85, 16);
             lblRotuloObservacoes.TabIndex = 1084;
@@ -386,7 +324,7 @@
             cmbOrigem.DropDownWidth = 115;
             cmbOrigem.IntegralHeight = false;
             cmbOrigem.Items.AddRange(new object[] { "Ajuste Manual", "Inventário", "Perda", "Devolução" });
-            cmbOrigem.Location = new Point(142, 186);
+            cmbOrigem.Location = new Point(156, 84);
             cmbOrigem.Name = "cmbOrigem";
             cmbOrigem.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             cmbOrigem.Size = new Size(164, 25);
@@ -399,13 +337,12 @@
             // grpProduto
             // 
             grpProduto.Controls.Add(lblIdProduto);
+            grpProduto.Controls.Add(lblEstoqueAtual);
             grpProduto.Controls.Add(lblRotuloEstoque);
             grpProduto.Controls.Add(txtProdutoBuscar);
             grpProduto.Controls.Add(lblRotuloDescricaoProduto);
             grpProduto.Controls.Add(lblRotuloProdutoID);
-            grpProduto.Controls.Add(lblEstoqueAtual);
-            grpProduto.Dock = DockStyle.Top;
-            grpProduto.Location = new Point(0, 0);
+            grpProduto.Location = new Point(0, 91);
             grpProduto.Name = "grpProduto";
             grpProduto.Size = new Size(925, 71);
             grpProduto.TabIndex = 1086;
@@ -414,14 +351,19 @@
             // 
             // lblIdProduto
             // 
-            lblIdProduto.AutoSize = true;
-            lblIdProduto.BackColor = Color.Transparent;
-            lblIdProduto.ForeColor = Color.FromArgb(0, 76, 172);
-            lblIdProduto.Location = new Point(9, 40);
+            lblIdProduto.Location = new Point(6, 44);
             lblIdProduto.Name = "lblIdProduto";
-            lblIdProduto.Size = new Size(13, 15);
-            lblIdProduto.TabIndex = 1084;
-            lblIdProduto.Text = "0";
+            lblIdProduto.Size = new Size(17, 20);
+            lblIdProduto.TabIndex = 1095;
+            lblIdProduto.Values.Text = "0";
+            // 
+            // lblEstoqueAtual
+            // 
+            lblEstoqueAtual.Location = new Point(880, 44);
+            lblEstoqueAtual.Name = "lblEstoqueAtual";
+            lblEstoqueAtual.Size = new Size(17, 20);
+            lblEstoqueAtual.TabIndex = 1094;
+            lblEstoqueAtual.Values.Text = "0";
             // 
             // lblRotuloEstoque
             // 
@@ -435,23 +377,13 @@
             lblRotuloEstoque.TabIndex = 1083;
             lblRotuloEstoque.Text = "Estoque ";
             // 
-            // grpMovimentacao
-            // 
-            grpMovimentacao.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grpMovimentacao.Location = new Point(0, 101);
-            grpMovimentacao.Name = "grpMovimentacao";
-            grpMovimentacao.Size = new Size(925, 15);
-            grpMovimentacao.TabIndex = 1087;
-            grpMovimentacao.TabStop = false;
-            grpMovimentacao.Text = "Movimentações";
-            // 
             // lblRotuloOrigem
             // 
             lblRotuloOrigem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblRotuloOrigem.AutoSize = true;
             lblRotuloOrigem.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRotuloOrigem.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloOrigem.Location = new Point(82, 187);
+            lblRotuloOrigem.Location = new Point(99, 88);
             lblRotuloOrigem.Name = "lblRotuloOrigem";
             lblRotuloOrigem.Size = new Size(54, 16);
             lblRotuloOrigem.TabIndex = 1087;
@@ -460,7 +392,7 @@
             // numQuantidade
             // 
             numQuantidade.Anchor = AnchorStyles.Top;
-            numQuantidade.Location = new Point(142, 154);
+            numQuantidade.Location = new Point(156, 52);
             numQuantidade.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQuantidade.Name = "numQuantidade";
             numQuantidade.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
@@ -470,25 +402,60 @@
             numQuantidade.TabIndex = 1086;
             numQuantidade.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
+            // pnlHeader
+            // 
+            pnlHeader.Controls.Add(lblTitulo);
+            pnlHeader.Controls.Add(lblSubTitulo);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(936, 70);
+            pnlHeader.TabIndex = 1090;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.Location = new Point(377, 11);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(41, 20);
+            lblTitulo.TabIndex = 1091;
+            lblTitulo.Values.Text = "Titulo";
+            // 
+            // lblSubTitulo
+            // 
+            lblSubTitulo.Location = new Point(377, 37);
+            lblSubTitulo.Name = "lblSubTitulo";
+            lblSubTitulo.Size = new Size(62, 20);
+            lblSubTitulo.TabIndex = 0;
+            lblSubTitulo.Values.Text = "SubTitulo";
+            // 
+            // grpMovimentacao
+            // 
+            grpMovimentacao.Controls.Add(cmbOrigem);
+            grpMovimentacao.Controls.Add(lblRotuloQuantidade);
+            grpMovimentacao.Controls.Add(txtObservacao);
+            grpMovimentacao.Controls.Add(lblRotuloObservacoes);
+            grpMovimentacao.Controls.Add(lblRotuloTipoMovimentacao);
+            grpMovimentacao.Controls.Add(cmbTipoMovimentacao);
+            grpMovimentacao.Controls.Add(lblRotuloOrigem);
+            grpMovimentacao.Controls.Add(numQuantidade);
+            grpMovimentacao.Location = new Point(0, 168);
+            grpMovimentacao.Name = "grpMovimentacao";
+            grpMovimentacao.Size = new Size(925, 153);
+            grpMovimentacao.TabIndex = 1091;
+            grpMovimentacao.TabStop = false;
+            grpMovimentacao.Text = "groupBox1";
+            // 
             // FrmMovimentacaoEstoque
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(925, 305);
-            Controls.Add(txtObservacao);
-            Controls.Add(btnListarControlesDoForm);
-            Controls.Add(lblRotuloObservacoes);
+            ClientSize = new Size(936, 499);
             Controls.Add(grpMovimentacao);
-            Controls.Add(lblRotuloOrigem);
+            Controls.Add(pnlHeader);
             Controls.Add(bnCancelar);
-            Controls.Add(numQuantidade);
             Controls.Add(grpProduto);
-            Controls.Add(cmbTipoMovimentacao);
             Controls.Add(btnConfirmar);
-            Controls.Add(lblRotuloTipoMovimentacao);
-            Controls.Add(cmbOrigem);
-            Controls.Add(lblRotuloQuantidade);
             KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -503,8 +470,12 @@
             ((System.ComponentModel.ISupportInitialize)cmbOrigem).EndInit();
             grpProduto.ResumeLayout(false);
             grpProduto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
+            pnlHeader.ResumeLayout(false);
+            pnlHeader.PerformLayout();
+            grpMovimentacao.ResumeLayout(false);
+            grpMovimentacao.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -543,10 +514,12 @@
         public Krypton.Toolkit.KryptonButton bnCancelar;
         public Krypton.Toolkit.KryptonComboBox cmbOrigem;
         private GroupBox grpProduto;
-        private GroupBox grpMovimentacao;
         private Label lblRotuloEstoque;
-        private Krypton.Toolkit.KryptonButton btnListarControlesDoForm;
-        public Label lblEstoqueAtual;
-        private Label lblIdProduto;
+        private Krypton.Toolkit.KryptonPanel pnlHeader;
+        private Krypton.Toolkit.KryptonLabel lblTitulo;
+        private Krypton.Toolkit.KryptonLabel lblSubTitulo;
+        private Krypton.Toolkit.KryptonLabel lblIdProduto;
+        private Krypton.Toolkit.KryptonLabel lblEstoqueAtual;
+        private GroupBox grpMovimentacao;
     }
 }
