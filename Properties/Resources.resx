@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="AdicionarProuto" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AdicionarProuto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Maximize" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Maximize.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,17 +139,11 @@
   <data name="Senhas24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Senhas24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="fechando" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fechando.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SenhasBlue24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SenhasBlue24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cpfAzul24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cpfAzul24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="excluir32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\excluir32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="redefinir_senha" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\redefinir-senha.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,23 +154,11 @@
   <data name="Sairr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sairr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cartao_de_credito" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cartao-de-credito.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Receber34" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Receber34.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Novo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Novo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Minimize" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Minimize.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="autenticacao_do_usuario" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\autenticacao-do-usuario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Novo24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Novo24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Pesquisar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pesquisar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,9 +172,6 @@
   <data name="calendarioBranco24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendarioBranco24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UsuarioBlue24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UsuarioBlue24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Usuario24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Usuario24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -208,13 +184,11 @@
   <data name="pasta" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pasta.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="copia_de_seguranca" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\copia-de-seguranca.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Iconnect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Iconnect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IconeSGV" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\IconeSGV.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icons\icon.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Ìcone Oficial do Sistema</comment>
   </data>
 </root>

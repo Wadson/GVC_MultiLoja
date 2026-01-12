@@ -8,12 +8,12 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<ApplicationIcon>Resources\Icons\SGVendas.ico</ApplicationIcon>
+		<ApplicationIcon>Resources\Icons\icon.ico</ApplicationIcon>
 		<StartupObject>GVC.Program</StartupObject>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="Resources\Icons\SGVendas.ico" />
+	  <Content Include="Resources\Icons\icon.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -47,64 +47,67 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="UTIL\FrmConfigCertificado.cs">
+	  <Compile Update="UI\FrmConfigCertificado.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="UTIL\FrmConfigLogo.cs">
+	  <Compile Update="UI\FrmConfigLogo.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmCadFormaPgto.cs">
+	  <Compile Update="UI\FrmCadFormaPgto.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmFinanceiro.cs">
+	  <Compile Update="UI\FrmFinanceiro.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmPrincipal.cs">
+	  <Compile Update="UI\FrmPrincipal.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmItensVenda.cs">
+	  <Compile Update="UI\FrmItensVenda.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmCadEmpresa.cs">
+	  <Compile Update="UI\FrmCadEmpresa.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmCadFornecedor.cs">
+	  <Compile Update="UI\FrmCadFornecedor.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmContasReceber.cs">
+	  <Compile Update="UI\FrmContasReceber.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmLocalizarVendedor.cs">
+	  <Compile Update="UI\FrmLocalizarVendedor.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmManutFormaPgto.cs">
+	  <Compile Update="UI\FrmManutFormaPgto.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmManutEmpresa.cs">
+	  <Compile Update="UI\FrmManutEmpresa.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmMotivoOperacao.cs">
+	  <Compile Update="UI\FrmMotivoOperacao.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmLocalizarFornecedor.cs">
+	  <Compile Update="UI\FrmLocalizarFornecedor.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmManutFornecedor.cs">
+	  <Compile Update="UI\FrmManutFornecedor.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmPDVendas.cs">
+	  <Compile Update="UI\FrmPDVendas.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmModelo.cs">
+	  <Compile Update="UI\FrmModelo.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="View\FrmRelatoriosFinanceiros.cs">
+	  <Compile Update="UI\FrmRelatoriosFinanceiros.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="View\NovaPasta\" />
+	  <Folder Include="Infra\" />
+	  <Folder Include="Logs\" />
+	  <Folder Include="Services\" />
+	  <Folder Include="UI\NovaPasta\" />
 	</ItemGroup>
 
 </Project>

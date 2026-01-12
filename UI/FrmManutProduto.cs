@@ -1,0 +1,340 @@
+﻿using GVC.BLL;
+using GVC.DAL;
+using GVC.DAL;
+using GVC.Model;
+using GVC.UTIL;
+using Krypton.Toolkit;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
+using Font = System.Drawing.Font;
+using Image = System.Drawing.Image;
+
+namespace GVC.View
+{
+    public partial class FrmManutProduto : KryptonForm
+    {
+        private new string StatusOperacao;
+        private readonly ProdutosBLL _produtosBll = new ProdutosBLL();
+
+        public FrmManutProduto(string statusOperacao)
+        {
+            InitializeComponent();         
+        }
+
+        public void HabilitarTimer(bool habilitar)
+        {
+            timer1.Enabled = habilitar;
+        }
+        public void ListarProduto()
+        {
+            ProdutosBLL objetoBll = new ProdutosBLL();
+            dgvProdutos.DataSource = objetoBll.ListarTodos();
+            PersonalizarDataGridView();
+            Utilitario.AtualizarTotalKrypton(lblTotalRegistros, dgvProdutos);
+        }
+        public void PersonalizarDataGridView()
+        {
+            dgvProdutos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // 1. Ocultar colunas primeiro
+            string[] colunasParaOcultar = { "ProdutoID", "FornecedorID", "DataDeEntrada" };
+            foreach (var nome in colunasParaOcultar)
+            {
+                if (dgvProdutos.Columns[nome] != null)
+                    dgvProdutos.Columns[nome].Visible = false;
+            }
+
+            // 2. Reordenar colunas visíveis
+            ReordenarColunas();
+
+            // 3. Cabeçalhos
+            if (dgvProdutos.Columns["NomeProduto"] != null)
+                dgvProdutos.Columns["NomeProduto"].HeaderText = "Nome Produto";
+            // ... demais cabeçalhos
+
+            // 4. Colunas fixas
+            var colunasFixas = new (string nome, int largura)[]
+            {
+        ("NomeProduto", 400),
+        ("PrecoCusto", 80),
+        ("Lucro", 80),
+        ("PrecoDeVenda", 80),
+        ("Estoque", 80),
+        ("DataValidade", 100)
+            };
+
+            foreach (var (nome, largura) in colunasFixas)
+            {
+                if (dgvProdutos.Columns[nome] != null)
+                {
+                    var col = dgvProdutos.Columns[nome];
+                    col.Width = largura;
+                    col.Resizable = DataGridViewTriState.False;
+                    col.ReadOnly = true;
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                }
+            }
+
+            // 6. Colunas dinâmicas
+            foreach (var nome in new[] { "Referencia", "Marca" })
+            {
+                if (dgvProdutos.Columns[nome] != null)
+                {
+                    var col = dgvProdutos.Columns[nome];
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    col.ReadOnly = true;
+                }
+            }
+
+            // 7. Estilo cabeçalho
+            dgvProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvProdutos.ColumnHeadersHeight = 35;
+            dgvProdutos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            dgvProdutos.RowHeadersWidth = 30;
+
+            // 8. Formatações especiais
+            if (dgvProdutos.Columns["PrecoDeVenda"] != null)
+            {
+                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new Font("Arial", 10F, FontStyle.Bold);
+                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.ForeColor = Color.DarkGreen;
+                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
+            }
+
+            // 9. Atualizar grid
+            dgvProdutos.Refresh();
+        }
+
+
+        // 🔹 Método para reordenar as colunas
+        private void ReordenarColunas()
+        {
+            // Ordem desejada das colunas (da esquerda para direita)
+            string[] ordemColunas =
+            {
+        "ProdutoID",           // Oculto, mas fica à esquerda
+        "NomeProduto",         // Primeira coluna visível (congelada)
+        "Referencia",
+        "PrecoCusto",
+        "Lucro",
+        "PrecoDeVenda",
+        "Estoque",
+        "DataDeEntrada",       // Oculto
+        "DataValidade",
+        "NomeFornecedor",
+        "Marca",
+        "FornecedorID"         // Oculto
+    };
+
+            // Aplica a ordem
+            for (int i = 0; i < ordemColunas.Length; i++)
+            {
+                if (dgvProdutos.Columns.Contains(ordemColunas[i]))
+                {
+                    dgvProdutos.Columns[ordemColunas[i]].DisplayIndex = i;
+                }
+            }
+        }
+
+
+        private void CarregaDados()
+        {
+            FrmCadProdutos frm = new FrmCadProdutos(StatusOperacao);
+
+            // Se for NOVO, não precisa de linha selecionada
+            if (StatusOperacao == "NOVO")
+            {
+                frm.btnSalvar.Text = "&Salvar";
+                StatusOperacao = "NOVO";
+
+                // Personalização do título
+                frm.Text = "Novo Produto";
+                frm.StateCommon.Header.Content.ShortText.Color1 = Color.Green;
+                frm.StateCommon.Header.Content.ShortText.Color2 = Color.White;
+                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+
+                HabilitarTimer(true);
+                frm.ShowDialog();
+                return;
+            }
+
+            // Para ALTERAR ou EXCLUSÃO, precisa ter linha selecionada
+            if (dgvProdutos.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione um registro primeiro.");
+                return;
+            }
+
+            // Carregar dados do produto selecionado
+            var produto = (ProdutoModel)dgvProdutos.CurrentRow.DataBoundItem;
+
+            frm.txtProdutoID.Text = produto.ProdutoID.ToString();
+            frm.txtReferencia.Text = produto.Referencia ?? "";
+            frm.txtNomeProduto.Text = produto.NomeProduto;
+            frm.txtPrecoCusto.Text = produto.PrecoCusto.ToString("N2");
+            frm.txtLucro.Text = produto.Lucro.ToString("N2");
+            frm.txtPrecoDeVenda.Text = produto.PrecoDeVenda.ToString("N2");
+            frm.txtEstoque.Text = produto.Estoque.ToString();
+            frm.txtUnidade.Text = produto.Unidade ?? "";
+            frm.txtMarca.Text = produto.Marca ?? "";
+            frm.txtDataValidade.Text = produto.DataValidade.HasValue ? produto.DataValidade.Value.ToString("dd/MM/yyyy") : "";
+            frm.txtGtinEan.Text = produto.GtinEan ?? "";            
+            frm.txtFornecedor.Text = produto.Fornecedor?.Nome ?? "";
+            frm.txtFornecedorID.Text = produto.FornecedorID.ToString();
+            frm.cmbSituacao.Text = produto.Situacao ?? "";
+            frm.cmbStatus.Text = produto.Status;
+
+            // Carregar imagem
+            if (!string.IsNullOrWhiteSpace(produto.Imagem) && File.Exists(produto.Imagem))
+            {
+                try
+                {
+                    frm.pbImagem.Image?.Dispose();
+                    using (var fs = new FileStream(produto.Imagem, FileMode.Open, FileAccess.Read))
+                        frm.pbImagem.Image = Image.FromStream(fs);
+                    frm.txtEnderecoImagem.Text = produto.Imagem;
+                    frm.pbImagem.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                catch { }
+            }
+
+            if (StatusOperacao == "ALTERAR")
+            {               
+                frm.btnSalvar.Text = "&Alterar";
+                frm.btnNovo.Enabled = false;
+                // Personalização do título
+                frm.Text = "Alterar Produto";
+                frm.StateCommon.Header.Content.ShortText.Color1 = Color.Orange;
+                frm.StateCommon.Header.Content.ShortText.Color2 = Color.White;
+                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+            }
+            else if (StatusOperacao == "EXCLUSÃO")
+            {                
+                frm.btnSalvar.Text = "&Excluir";
+
+                // Personalização do título
+                frm.Text = "Excluir Produto";
+                frm.StateCommon.Header.Content.ShortText.Color1 = Color.Red;
+                frm.StateCommon.Header.Content.ShortText.Color2 = Color.White;
+                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                // Desabilitar campos
+                frm.btnNovo.Enabled = false;
+                frm.txtNomeProduto.Enabled = false;
+                frm.txtReferencia.Enabled = false;
+                frm.txtPrecoCusto.Enabled = false;
+                frm.txtLucro.Enabled = false;
+                frm.txtPrecoDeVenda.Enabled = false;
+                frm.txtEstoque.Enabled = false;
+                frm.txtUnidade.Enabled = false;
+                frm.txtMarca.Enabled = false;
+                frm.txtDataValidade.Enabled = false;
+                frm.txtGtinEan.Enabled = false;
+                frm.txtFornecedor.Enabled = false;
+                frm.cmbSituacao.Enabled = false;
+                frm.cmbStatus.Enabled = false;
+                frm.btnLocalizarImagem.Enabled = false;
+            }
+
+            frm.ShowDialog();
+        }
+
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ListarProduto();
+            timer1.Enabled = false;
+        }
+
+        private void FrmManutProduto_Load(object sender, EventArgs e)
+        {
+            ListarProduto();
+        }
+
+        private void dataGridPesquisar_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if ((dgvProdutos.Columns[e.ColumnIndex].Name == "PrecoCusto" || dgvProdutos.Columns[e.ColumnIndex].Name == "PrecoVenda") && e.Value != null)
+            {
+                decimal valor = (decimal)e.Value;
+                e.Value = valor.ToString("C", CultureInfo.CurrentCulture);
+                e.FormattingApplied = true;
+            }
+        }
+
+        private void rbtDescricao_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPesquisa.Text = "";
+            txtPesquisa.Focus();
+        }
+
+        private void rbtCodigo_CheckedChanged(object sender, EventArgs e)
+        {
+            txtPesquisa.Text = "";
+            txtPesquisa.Focus();
+        }
+
+        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            string texto = txtPesquisa.Text.Trim();
+
+            if (string.IsNullOrEmpty(texto))
+            {
+                ListarProduto();
+                return;
+            }
+
+            var dao = new ProdutoDALL();
+            List<ProdutoModel> lista = dao.PesquisarProdutoPorNome(texto);
+
+            dgvProdutos.DataSource = lista ?? new List<ProdutoModel>();
+
+            PersonalizarDataGridView();
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvProdutos);
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            StatusOperacao = "NOVO";
+            CarregaDados();
+        }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            if (dgvProdutos.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione um usuário para alterar!");
+                return;
+            }
+            StatusOperacao = "ALTERAR";
+            CarregaDados();
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (dgvProdutos.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione um usuário para excluir!");
+                return;
+            }
+            StatusOperacao = "EXCLUSÃO";
+            CarregaDados();
+        }
+
+        private void btnEstoque_Click(object sender, EventArgs e)
+        {
+            FrmEntradaEstoque frm = new FrmEntradaEstoque();
+            frm.ShowDialog();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
