@@ -19,40 +19,42 @@ namespace GVC.View
             _empresaId = empresaId;
         }
 
-        private void txtBackup_Click(object sender, EventArgs e)
+        private void icbtnBackup_Click(object sender, EventArgs e)
         {
             FrmBackup frmBackup = new FrmBackup();
             frmBackup.ShowDialog();
         }
 
-        private void btnSair_Click(object sender, EventArgs e)
+        private void icbtnInsertBanco_Click(object sender, EventArgs e)
         {
-            this.Close();
+
         }
 
-        private void InsertBanco_Click(object sender, EventArgs e)
+        private void icbtnModeloUi_Click(object sender, EventArgs e)
         {
+
         }
 
-        private void FrmModeloUI_Click(object sender, EventArgs e)
-        {           
-        }
-
-        private void btnLogo_Click(object sender, EventArgs e)
-        {
-            int empresaId = 1; // ou pegar a empresa selecionada do sistema
-            FrmConfigLogo frm = new FrmConfigLogo();
-            frm.ShowDialog();
-        }
-
-        private void btnCertificadoDigital_Click(object sender, EventArgs e)
+        private void icbtnCertificadoDigital_Click(object sender, EventArgs e)
         {
             new FrmConfigCertificado(_empresaId).ShowDialog();
         }
 
-        private void btnDadosFiscais_Click(object sender, EventArgs e)
+        private void icbtnDadosFiscais_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void icbtnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void icbtnLogo_Click(object sender, EventArgs e)
+        {
+            int empresaId = 1; // ou pegar a empresa selecionada do sistema
+            FrmConfigLogo frm = new FrmConfigLogo();
+            frm.ShowDialog();
         }
     }
 }

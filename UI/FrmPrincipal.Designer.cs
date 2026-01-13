@@ -40,6 +40,7 @@
             clientesToolStripMenuItem = new ToolStripMenuItem();
             produtosToolStripMenuItem = new ToolStripMenuItem();
             fornecedoresToolStripMenuItem = new ToolStripMenuItem();
+            formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
             empresasToolStripMenuItem = new ToolStripMenuItem();
             usuáriosToolStripMenuItem = new ToolStripMenuItem();
             estoqueToolStripMenuItem1 = new ToolStripMenuItem();
@@ -91,7 +92,7 @@
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
-            formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
+            btnFerramentas = new ToolStripButton();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -201,6 +202,13 @@
             fornecedoresToolStripMenuItem.Size = new Size(188, 22);
             fornecedoresToolStripMenuItem.Text = "Fornecedores";
             fornecedoresToolStripMenuItem.Click += fornecedoresToolStripMenuItem_Click;
+            // 
+            // formaDePagamentoToolStripMenuItem
+            // 
+            formaDePagamentoToolStripMenuItem.Name = "formaDePagamentoToolStripMenuItem";
+            formaDePagamentoToolStripMenuItem.Size = new Size(188, 22);
+            formaDePagamentoToolStripMenuItem.Text = "Forma de Pagamento";
+            formaDePagamentoToolStripMenuItem.Click += formaDePagamentoToolStripMenuItem_Click;
             // 
             // empresasToolStripMenuItem
             // 
@@ -368,7 +376,7 @@
             toolStrip1.Font = new Font("Segoe UI", 9F);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(32, 32);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuarios, btnClientes, btnFornecedor, btnProdutos, btnPDV, btnContasAReceber, btnCaixa, btnEstoque, btnRelatorios, btnBackup, btnSair });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuarios, btnClientes, btnFornecedor, btnProdutos, btnPDV, btnContasAReceber, btnCaixa, btnEstoque, btnRelatorios, btnFerramentas, btnBackup, btnSair });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
@@ -636,12 +644,18 @@
             timerBackupAtomatico.Interval = 1000;
             timerBackupAtomatico.Tick += timerBackupAtomatico_Tick;
             // 
-            // formaDePagamentoToolStripMenuItem
+            // btnFerramentas
             // 
-            formaDePagamentoToolStripMenuItem.Name = "formaDePagamentoToolStripMenuItem";
-            formaDePagamentoToolStripMenuItem.Size = new Size(188, 22);
-            formaDePagamentoToolStripMenuItem.Text = "Forma de Pagamento";
-            formaDePagamentoToolStripMenuItem.Click += formaDePagamentoToolStripMenuItem_Click;
+            btnFerramentas.AutoSize = false;
+            btnFerramentas.Image = (Image)resources.GetObject("btnFerramentas.Image");
+            btnFerramentas.ImageAlign = ContentAlignment.TopCenter;
+            btnFerramentas.ImageTransparentColor = Color.Magenta;
+            btnFerramentas.Name = "btnFerramentas";
+            btnFerramentas.Size = new Size(63, 51);
+            btnFerramentas.Text = "Ferram.";
+            btnFerramentas.TextAlign = ContentAlignment.BottomCenter;
+            btnFerramentas.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnFerramentas.Click += btnFerramentas_Click;
             // 
             // FrmPrincipal
             // 
@@ -743,5 +757,6 @@
         private ToolStripMenuItem entradaDeEstoqueNFeOuManualToolStripMenuItem;
         private ToolStripMenuItem correçãoDeEstoqueToolStripMenuItem;
         private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
+        private ToolStripButton btnFerramentas;
     }
 }

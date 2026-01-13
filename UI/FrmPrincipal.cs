@@ -20,6 +20,7 @@ namespace GVC
         private string StatusOperacao = "";
         private System.Timers.Timer timer;
         private bool _backupEmExecucao = false;
+        private int _empresaId;
 
         private string PastaBackupAutomatica => @"C:\BackupsGVC";
 
@@ -260,10 +261,28 @@ namespace GVC
             timerBackupAtomatico.Tick += timerBackupAtomatico_Tick;
             timerBackupAtomatico.Start();
         }
+        private int BuscarPrimeiraEmpresaId()
+        {           
+            string sql = "SELECT TOP 1 EmpresaID FROM Empresa ORDER BY EmpresaID ASC";
+
+            using (var con = Conexao.Conex())
+            using (var cmd = new SqlCommand(sql, con))
+            {
+                con.Open();
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    _empresaId = Convert.ToInt32(result);
+                }
+            }
+
+            return _empresaId;
+        }
 
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
+            BuscarPrimeiraEmpresaId();
             IniciarBackupAutomatico();
             AtualizaBarraStatus();
             // Corrigido: converte Icon para Bitmap antes de atribuir à propriedade Image
@@ -371,6 +390,12 @@ namespace GVC
         {
             FrmCadFormaPgto frm = new FrmCadFormaPgto();
             frm.StatusOperacao = "NOVO";
+            frm.Show();
+        }
+
+        private void btnFerramentas_Click(object sender, EventArgs e)
+        {
+            FrmConfiguracoes frm = new FrmConfiguracoes(_empresaId);
             frm.Show();
         }
     }
