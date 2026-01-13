@@ -75,7 +75,7 @@
             dgvFornecedor.Name = "dgvFornecedor";
             dgvFornecedor.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvFornecedor.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvFornecedor.Size = new Size(701, 266);
+            dgvFornecedor.Size = new Size(999, 420);
             dgvFornecedor.TabIndex = 597;
             dgvFornecedor.CellFormatting += dataGridPesquisar_CellFormatting;
             // 
@@ -87,7 +87,7 @@
             txtPesquisa.Margin = new Padding(5, 6, 5, 6);
             txtPesquisa.Name = "txtPesquisa";
             txtPesquisa.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisa.Size = new Size(600, 27);
+            txtPesquisa.Size = new Size(898, 27);
             txtPesquisa.StateCommon.Back.Color1 = Color.White;
             txtPesquisa.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPesquisa.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -105,7 +105,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 10F;
-            btnSair.Location = new Point(617, 2);
+            btnSair.Location = new Point(915, 2);
             btnSair.Margin = new Padding(5, 3, 5, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -159,7 +159,7 @@
             // 
             btnAlterar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnAlterar.CornerRoundingRadius = 10F;
-            btnAlterar.Location = new Point(425, 2);
+            btnAlterar.Location = new Point(723, 2);
             btnAlterar.Margin = new Padding(5, 3, 5, 3);
             btnAlterar.Name = "btnAlterar";
             btnAlterar.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -214,7 +214,7 @@
             // 
             btnExcluir.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnExcluir.CornerRoundingRadius = 10F;
-            btnExcluir.Location = new Point(521, 2);
+            btnExcluir.Location = new Point(819, 2);
             btnExcluir.Margin = new Padding(5, 3, 5, 3);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -270,7 +270,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 10F;
-            btnNovo.Location = new Point(329, 2);
+            btnNovo.Location = new Point(627, 2);
             btnNovo.Margin = new Padding(5, 3, 5, 3);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -372,7 +372,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel1.Size = new Size(709, 382);
+            tableLayoutPanel1.Size = new Size(1007, 536);
             tableLayoutPanel1.TabIndex = 625;
             // 
             // kryptonPanel2
@@ -382,7 +382,7 @@
             kryptonPanel2.Location = new Point(3, 3);
             kryptonPanel2.Name = "kryptonPanel2";
             kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonPanel2.Size = new Size(703, 29);
+            kryptonPanel2.Size = new Size(1001, 29);
             kryptonPanel2.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
             kryptonPanel2.TabIndex = 0;
             // 
@@ -391,7 +391,7 @@
             kryptonLabel1.Dock = DockStyle.Fill;
             kryptonLabel1.Location = new Point(0, 0);
             kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(703, 29);
+            kryptonLabel1.Size = new Size(1001, 29);
             kryptonLabel1.StateCommon.ShortText.Color1 = Color.White;
             kryptonLabel1.StateCommon.ShortText.Color2 = Color.White;
             kryptonLabel1.StateCommon.ShortText.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -408,7 +408,7 @@
             kryptonPanel3.Location = new Point(3, 38);
             kryptonPanel3.Name = "kryptonPanel3";
             kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
-            kryptonPanel3.Size = new Size(703, 29);
+            kryptonPanel3.Size = new Size(1001, 29);
             kryptonPanel3.TabIndex = 1;
             // 
             // pictureBox1
@@ -436,19 +436,19 @@
             kryptonPanel4.Controls.Add(btnAlterar);
             kryptonPanel4.Controls.Add(btnNovo);
             kryptonPanel4.Dock = DockStyle.Fill;
-            kryptonPanel4.Location = new Point(3, 345);
+            kryptonPanel4.Location = new Point(3, 499);
             kryptonPanel4.Name = "kryptonPanel4";
             kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
-            kryptonPanel4.Size = new Size(703, 34);
+            kryptonPanel4.Size = new Size(1001, 34);
             kryptonPanel4.TabIndex = 2;
             // 
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { lblTotalRegistros });
-            statusStrip1.Location = new Point(0, 385);
+            statusStrip1.Location = new Point(0, 539);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            statusStrip1.Size = new Size(710, 22);
+            statusStrip1.Size = new Size(1008, 22);
             statusStrip1.TabIndex = 626;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -461,7 +461,7 @@
             // FrmManutFornecedor
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(710, 407);
+            ClientSize = new Size(1008, 561);
             Controls.Add(statusStrip1);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.FixedDialog;

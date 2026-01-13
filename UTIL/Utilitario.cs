@@ -1340,9 +1340,30 @@ namespace GVC.UTIL{
             cep = ApenasNumeros(cep);
             return Convert.ToUInt64(cep).ToString(@"00000\-000");
         }
+
         /// <summary>
-        /// Aplica comportamento de foco em KryptonTextBox:
-        /// Verde claro ao ganhar foco, branco ao perder.
+        /// Aplica cor de foco em todos os KryptonTextBox dentro do container informado.
+        /// Funciona recursivamente em Panel, KryptonPanel, GroupBox, TabPage etc.
+        /// </summary>
+        public static void AplicarCorFocoNosTextBox(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is KryptonTextBox kryptonTxt)
+                {
+                    AplicarCorFoco(kryptonTxt);
+                }
+
+                // Se o controle tiver filhos, percorre também
+                if (ctrl.HasChildren)
+                {
+                    AplicarCorFocoNosTextBox(ctrl);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Aplica eventos de Enter/Leave para mudar cor de fundo do KryptonTextBox.
         /// </summary>
         public static void AplicarCorFoco(KryptonTextBox txt)
         {
@@ -1356,6 +1377,27 @@ namespace GVC.UTIL{
                 txt.StateCommon.Back.Color1 = Color.White;
             };
         }
+
+
+
+        ///// <summary>
+        ///// Aplica comportamento de foco em KryptonTextBox:
+        ///// Verde claro ao ganhar foco, branco ao perder.
+        ///// </summary>
+        //public static void AplicarCorFoco(KryptonTextBox txt)
+        //{
+        //    txt.Enter += (s, e) =>
+        //    {
+        //        txt.StateCommon.Back.Color1 = Color.LightGreen;
+        //    };
+
+        //    txt.Leave += (s, e) =>
+        //    {
+        //        txt.StateCommon.Back.Color1 = Color.White;
+        //    };
+        //}
+
+
         public static string ZerosEsquerda(int numero, int tamanho) => numero.ToString().PadLeft(tamanho, '0');
         //public static string ZerosEsquerda(string texto, int tamanho) => texto.PadLeft(tamanho, '0');
 

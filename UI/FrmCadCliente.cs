@@ -37,8 +37,9 @@ namespace GVC.View
         public FrmCadCliente()
         {
             InitializeComponent();
+                       
             ConfigurarEventosCep();
-
+            //Utilitario.ConfigurarEnterComoTab(this);
             cmbTipoCliente.Items.Clear();
             cmbTipoCliente.Items.AddRange(new[] { "Física", "Jurídica", "Operador", "Administrador", "Consumidor Final" });
             // Adicione esta linha para garantir um valor padrão
@@ -1122,11 +1123,7 @@ namespace GVC.View
 
         private void FrmCadCliente_Shown(object sender, EventArgs e)
         {
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is KryptonTextBox kryptonTxt)
-                    Utilitario.AplicarCorFoco(kryptonTxt);
-            }
+            Utilitario.AplicarCorFocoNosTextBox(this);
         }
 
         private void FrmCadCliente_KeyDown(object sender, KeyEventArgs e)

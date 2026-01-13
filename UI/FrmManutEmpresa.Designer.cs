@@ -77,7 +77,7 @@
             dgvEmpresa.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvEmpresa.ReadOnly = true;
             dgvEmpresa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEmpresa.Size = new Size(706, 273);
+            dgvEmpresa.Size = new Size(1000, 423);
             dgvEmpresa.TabIndex = 597;
             dgvEmpresa.CellFormatting += dgvEmpresa_CellFormatting;
             // 
@@ -89,7 +89,7 @@
             txtPesquisa.Margin = new Padding(5, 6, 5, 6);
             txtPesquisa.Name = "txtPesquisa";
             txtPesquisa.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisa.Size = new Size(604, 27);
+            txtPesquisa.Size = new Size(898, 27);
             txtPesquisa.StateCommon.Back.Color1 = Color.White;
             txtPesquisa.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPesquisa.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -107,7 +107,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 10F;
-            btnSair.Location = new Point(624, 2);
+            btnSair.Location = new Point(918, 2);
             btnSair.Margin = new Padding(5, 3, 5, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -161,7 +161,7 @@
             // 
             btnAlterar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnAlterar.CornerRoundingRadius = 10F;
-            btnAlterar.Location = new Point(444, 2);
+            btnAlterar.Location = new Point(738, 2);
             btnAlterar.Margin = new Padding(5, 3, 5, 3);
             btnAlterar.Name = "btnAlterar";
             btnAlterar.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -216,7 +216,7 @@
             // 
             btnExcluir.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnExcluir.CornerRoundingRadius = 10F;
-            btnExcluir.Location = new Point(534, 2);
+            btnExcluir.Location = new Point(828, 2);
             btnExcluir.Margin = new Padding(5, 3, 5, 3);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -272,7 +272,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 10F;
-            btnNovo.Location = new Point(354, 2);
+            btnNovo.Location = new Point(648, 2);
             btnNovo.Margin = new Padding(5, 3, 5, 3);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -374,7 +374,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 62F));
-            tableLayoutPanel1.Size = new Size(714, 411);
+            tableLayoutPanel1.Size = new Size(1008, 561);
             tableLayoutPanel1.TabIndex = 625;
             // 
             // kryptonPanel2
@@ -384,7 +384,7 @@
             kryptonPanel2.Location = new Point(3, 3);
             kryptonPanel2.Name = "kryptonPanel2";
             kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonPanel2.Size = new Size(708, 29);
+            kryptonPanel2.Size = new Size(1002, 29);
             kryptonPanel2.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
             kryptonPanel2.TabIndex = 0;
             // 
@@ -393,7 +393,7 @@
             kryptonLabel1.Dock = DockStyle.Fill;
             kryptonLabel1.Location = new Point(0, 0);
             kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(708, 29);
+            kryptonLabel1.Size = new Size(1002, 29);
             kryptonLabel1.StateCommon.ShortText.Color1 = Color.White;
             kryptonLabel1.StateCommon.ShortText.Color2 = Color.White;
             kryptonLabel1.StateCommon.ShortText.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -410,7 +410,7 @@
             kryptonPanel3.Location = new Point(3, 38);
             kryptonPanel3.Name = "kryptonPanel3";
             kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
-            kryptonPanel3.Size = new Size(708, 29);
+            kryptonPanel3.Size = new Size(1002, 29);
             kryptonPanel3.TabIndex = 1;
             // 
             // pictureBox1
@@ -438,10 +438,10 @@
             kryptonPanel4.Controls.Add(btnSair);
             kryptonPanel4.Controls.Add(btnNovo);
             kryptonPanel4.Dock = DockStyle.Fill;
-            kryptonPanel4.Location = new Point(3, 352);
+            kryptonPanel4.Location = new Point(3, 502);
             kryptonPanel4.Name = "kryptonPanel4";
             kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
-            kryptonPanel4.Size = new Size(708, 56);
+            kryptonPanel4.Size = new Size(1002, 56);
             kryptonPanel4.TabIndex = 2;
             // 
             // timer2
@@ -457,16 +457,16 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { lblTotalRegistros });
-            statusStrip1.Location = new Point(0, 389);
+            statusStrip1.Location = new Point(0, 539);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(714, 22);
+            statusStrip1.Size = new Size(1008, 22);
             statusStrip1.TabIndex = 626;
             statusStrip1.Text = "statusStrip1";
             // 
             // FrmManutEmpresa
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(714, 411);
+            ClientSize = new Size(1008, 561);
             Controls.Add(statusStrip1);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
