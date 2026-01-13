@@ -74,6 +74,7 @@
             btnCaixa = new ToolStripButton();
             btnEstoque = new ToolStripButton();
             btnRelatorios = new ToolStripButton();
+            btnFerramentas = new ToolStripButton();
             btnBackup = new ToolStripButton();
             btnSair = new ToolStripButton();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
@@ -92,7 +93,7 @@
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
-            btnFerramentas = new ToolStripButton();
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -226,7 +227,7 @@
             // 
             // estoqueToolStripMenuItem1
             // 
-            estoqueToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { entradaDeEstoqueNFeOuManualToolStripMenuItem, correçãoDeEstoqueToolStripMenuItem });
+            estoqueToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { entradaDeEstoqueNFeOuManualToolStripMenuItem, correçãoDeEstoqueToolStripMenuItem, consultarMovimentaçãoDeEstoqueToolStripMenuItem });
             estoqueToolStripMenuItem1.Name = "estoqueToolStripMenuItem1";
             estoqueToolStripMenuItem1.Size = new Size(61, 20);
             estoqueToolStripMenuItem1.Text = "Estoque";
@@ -234,13 +235,13 @@
             // entradaDeEstoqueNFeOuManualToolStripMenuItem
             // 
             entradaDeEstoqueNFeOuManualToolStripMenuItem.Name = "entradaDeEstoqueNFeOuManualToolStripMenuItem";
-            entradaDeEstoqueNFeOuManualToolStripMenuItem.Size = new Size(264, 22);
+            entradaDeEstoqueNFeOuManualToolStripMenuItem.Size = new Size(269, 22);
             entradaDeEstoqueNFeOuManualToolStripMenuItem.Text = "Entrada de Estoque(NFe ou Manual)";
             // 
             // correçãoDeEstoqueToolStripMenuItem
             // 
             correçãoDeEstoqueToolStripMenuItem.Name = "correçãoDeEstoqueToolStripMenuItem";
-            correçãoDeEstoqueToolStripMenuItem.Size = new Size(264, 22);
+            correçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
             correçãoDeEstoqueToolStripMenuItem.Text = "Entrada de Estoque";
             correçãoDeEstoqueToolStripMenuItem.Click += correçãoDeEstoqueToolStripMenuItem_Click_1;
             // 
@@ -509,6 +510,19 @@
             btnRelatorios.TextImageRelation = TextImageRelation.ImageAboveText;
             btnRelatorios.Click += btnRelatorios_Click;
             // 
+            // btnFerramentas
+            // 
+            btnFerramentas.AutoSize = false;
+            btnFerramentas.Image = (Image)resources.GetObject("btnFerramentas.Image");
+            btnFerramentas.ImageAlign = ContentAlignment.TopCenter;
+            btnFerramentas.ImageTransparentColor = Color.Magenta;
+            btnFerramentas.Name = "btnFerramentas";
+            btnFerramentas.Size = new Size(63, 51);
+            btnFerramentas.Text = "Ferram.";
+            btnFerramentas.TextAlign = ContentAlignment.BottomCenter;
+            btnFerramentas.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnFerramentas.Click += btnFerramentas_Click;
+            // 
             // btnBackup
             // 
             btnBackup.AutoSize = false;
@@ -644,18 +658,12 @@
             timerBackupAtomatico.Interval = 1000;
             timerBackupAtomatico.Tick += timerBackupAtomatico_Tick;
             // 
-            // btnFerramentas
+            // consultarMovimentaçãoDeEstoqueToolStripMenuItem
             // 
-            btnFerramentas.AutoSize = false;
-            btnFerramentas.Image = (Image)resources.GetObject("btnFerramentas.Image");
-            btnFerramentas.ImageAlign = ContentAlignment.TopCenter;
-            btnFerramentas.ImageTransparentColor = Color.Magenta;
-            btnFerramentas.Name = "btnFerramentas";
-            btnFerramentas.Size = new Size(63, 51);
-            btnFerramentas.Text = "Ferram.";
-            btnFerramentas.TextAlign = ContentAlignment.BottomCenter;
-            btnFerramentas.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnFerramentas.Click += btnFerramentas_Click;
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Name = "consultarMovimentaçãoDeEstoqueToolStripMenuItem";
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Text = "Consultar Movimentação de Estoque";
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Click += consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click;
             // 
             // FrmPrincipal
             // 
@@ -758,5 +766,6 @@
         private ToolStripMenuItem correçãoDeEstoqueToolStripMenuItem;
         private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
         private ToolStripButton btnFerramentas;
+        private ToolStripMenuItem consultarMovimentaçãoDeEstoqueToolStripMenuItem;
     }
 }

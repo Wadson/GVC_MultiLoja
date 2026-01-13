@@ -161,6 +161,7 @@
             icbtnBackup.IconColor = Color.FromArgb(30, 136, 229);
             icbtnBackup.IconFont = FontAwesome.Sharp.IconFont.Auto;
             icbtnBackup.IconSize = 22;
+            icbtnBackup.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnBackup.Location = new Point(89, 118);
             icbtnBackup.Name = "icbtnBackup";
             icbtnBackup.Size = new Size(200, 46);
@@ -180,6 +181,7 @@
             icbtnInsertBanco.IconColor = Color.FromArgb(30, 136, 229);
             icbtnInsertBanco.IconFont = FontAwesome.Sharp.IconFont.Auto;
             icbtnInsertBanco.IconSize = 22;
+            icbtnInsertBanco.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnInsertBanco.Location = new Point(295, 118);
             icbtnInsertBanco.Name = "icbtnInsertBanco";
             icbtnInsertBanco.Size = new Size(200, 46);
@@ -199,6 +201,7 @@
             icbtnModeloUi.IconColor = Color.FromArgb(30, 136, 229);
             icbtnModeloUi.IconFont = FontAwesome.Sharp.IconFont.Auto;
             icbtnModeloUi.IconSize = 22;
+            icbtnModeloUi.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnModeloUi.Location = new Point(89, 170);
             icbtnModeloUi.Name = "icbtnModeloUi";
             icbtnModeloUi.Size = new Size(200, 46);
@@ -218,6 +221,7 @@
             icbtnLogo.IconColor = Color.FromArgb(30, 136, 229);
             icbtnLogo.IconFont = FontAwesome.Sharp.IconFont.Auto;
             icbtnLogo.IconSize = 22;
+            icbtnLogo.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnLogo.Location = new Point(295, 170);
             icbtnLogo.Name = "icbtnLogo";
             icbtnLogo.Size = new Size(200, 46);
@@ -237,6 +241,7 @@
             icbtnCertificadoDigital.IconColor = Color.FromArgb(30, 136, 229);
             icbtnCertificadoDigital.IconFont = FontAwesome.Sharp.IconFont.Auto;
             icbtnCertificadoDigital.IconSize = 22;
+            icbtnCertificadoDigital.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnCertificadoDigital.Location = new Point(89, 222);
             icbtnCertificadoDigital.Name = "icbtnCertificadoDigital";
             icbtnCertificadoDigital.Size = new Size(200, 46);
@@ -256,6 +261,7 @@
             icbtnDadosFiscais.IconColor = Color.FromArgb(30, 136, 229);
             icbtnDadosFiscais.IconFont = FontAwesome.Sharp.IconFont.Auto;
             icbtnDadosFiscais.IconSize = 22;
+            icbtnDadosFiscais.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnDadosFiscais.Location = new Point(295, 222);
             icbtnDadosFiscais.Name = "icbtnDadosFiscais";
             icbtnDadosFiscais.Size = new Size(200, 46);
@@ -284,6 +290,7 @@
             icbtnSair.Size = new Size(200, 46);
             icbtnSair.TabIndex = 1104;
             icbtnSair.Text = "Sair";
+            icbtnSair.TextAlign = ContentAlignment.MiddleRight;
             icbtnSair.TextImageRelation = TextImageRelation.TextBeforeImage;
             icbtnSair.UseVisualStyleBackColor = false;
             icbtnSair.Click += icbtnSair_Click;

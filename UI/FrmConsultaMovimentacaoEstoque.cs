@@ -31,6 +31,7 @@ namespace GVC.View
                 if (pesquisaProduto.ShowDialog() == DialogResult.OK)
                 {
                     txtNomeProduto.Text = pesquisaProduto.ProdutoSelecionado;
+                    txtProdutoID.Text = pesquisaProduto.ProdutoID.ToString();
                     txtNomeProduto.SelectionStart = txtNomeProduto.Text.Length;
                 }
             }
@@ -42,11 +43,11 @@ namespace GVC.View
        ? null
        : Convert.ToInt32(txtProdutoID.Text);
 
-            string tipo = cmbTipoMovimentacao.SelectedIndex <= 0
+            string? tipo = cmbTipoMovimentacao.SelectedIndex <= 0
                 ? null
                 : cmbTipoMovimentacao.Text;
 
-            string origem = cmbOrigem.SelectedIndex <= 0
+            string? origem = cmbOrigem.SelectedIndex <= 0
                 ? null
                 : cmbOrigem.Text;
 

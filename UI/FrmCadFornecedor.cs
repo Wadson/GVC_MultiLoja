@@ -355,11 +355,7 @@ namespace GVC.View
 
         private void FrmCadFornecedor_Shown(object sender, EventArgs e)
         {
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is KryptonTextBox kryptonTxt)
-                    Utilitario.AplicarCorFoco(kryptonTxt);
-            }
+            Utilitario.AplicarCorFocoNosTextBox(this);
         }
 
         private void FrmCadFornecedor_KeyDown(object sender, KeyEventArgs e)

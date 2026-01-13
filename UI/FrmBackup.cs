@@ -1,9 +1,10 @@
-﻿using Krypton.Toolkit;
+﻿using FontAwesome.Sharp;
+using GVC.UTIL;
+using Krypton.Toolkit;
+using Microsoft.Data.SqlClient;
 using System;
 using System.IO;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using GVC.UTIL;
 
 namespace GVC.View
 {
@@ -15,6 +16,13 @@ namespace GVC.View
         {
             InitializeComponent();
         }
+        private enum ModoBackup
+        {
+            Gerar,
+            Restaurar
+        }
+
+        private ModoBackup _modoAtual;
 
         // ================================
         // CONFIGURAÇÕES
@@ -238,6 +246,26 @@ ALTER DATABASE [{NomeBanco}] SET MULTI_USER;";
             }
         }
 
+        private void AtualizarLayoutBackup(
+    string rotulo,
+    string textoBotao,
+    IconChar iconeAcao,
+    IconChar iconeCaminho,
+    IconChar iconeBotao,
+    Color corAcao)
+        {
+            lblRotulo.Text = rotulo;
+            btnExecutar.Text = textoBotao;
+
+            iconAcao.IconChar = iconeAcao;
+            iconAcao.IconColor = corAcao;
+
+            iconCaminho.IconChar = iconeCaminho;
+            iconCaminho.IconColor = Color.Gray;
+
+            btnExecutar.IconChar = iconeBotao;
+            btnExecutar.IconColor = Color.White;
+        }
 
         // ================================
         // EVENTOS
@@ -256,18 +284,64 @@ ALTER DATABASE [{NomeBanco}] SET MULTI_USER;";
         {
             if (!rbtGerarBackup.Checked) return;
 
-            lblRotulo.Text = "Local onde o backup será salvo";
+            _modoAtual = ModoBackup.Gerar;
             txtCaminhoBackup.Text = GetDefaultBackupFolder();
-            btnExecutar.Text = "Gerar Backup";
+
+            AtualizarLayoutBackup(
+                "Local onde o backup será salvo",
+                "Gerar",
+                IconChar.Upload,
+                IconChar.FolderOpen,
+                IconChar.Save,
+                Color.DodgerBlue
+            );
         }
 
         private void rbtRestaurarBackup_CheckedChanged(object sender, EventArgs e)
         {
             if (!rbtRestaurarBackup.Checked) return;
 
-            lblRotulo.Text = "Selecione o arquivo de backup";
+            _modoAtual = ModoBackup.Restaurar;
             txtCaminhoBackup.Clear();
-            btnExecutar.Text = "Restaurar Backup";
+
+            AtualizarLayoutBackup(
+                "Selecione o arquivo de backup",
+                "Restaurar",
+                IconChar.Download,
+                IconChar.FileArchive,
+                IconChar.Database,
+                Color.SeaGreen
+            );
+        }
+
+        private void btnExecutar_Click(object sender, EventArgs e)
+        {
+            string caminho = txtCaminhoBackup.Text?.Trim();
+
+            if (string.IsNullOrWhiteSpace(caminho))
+            {
+                MessageBox.Show(
+                    "Informe o caminho do backup.",
+                    "Atenção",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            if (rbtRestaurarBackup.Checked)
+            {
+                RestaurarBackupSqlServer(caminho);
+            }
+            else
+            {
+                RealizarBackupSqlServer(caminho, silencioso: false);
+            }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         private void btnLocalBackup_Click(object sender, EventArgs e)
@@ -290,23 +364,6 @@ ALTER DATABASE [{NomeBanco}] SET MULTI_USER;";
                         txtCaminhoBackup.Text = dialog.FileName;
                 }
             }
-        }
-
-        private void btnExecutar_Click(object sender, EventArgs e)
-        {
-            if (!rbtGerarBackup.Checked)
-            {
-                RestaurarBackupSqlServer(txtCaminhoBackup.Text?.Trim());
-                return;
-            }
-
-            string pasta = txtCaminhoBackup.Text?.Trim();
-            RealizarBackupSqlServer(pasta, silencioso: false);
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            Close();
         }
     }
 }

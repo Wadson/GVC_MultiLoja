@@ -120,4 +120,16 @@
   <metadata name="kryptonPalette1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>174, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="tlpTitulo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAA3AAAAAvCAYAAACi2ihoAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEpSURBVHhe7dcxDQAgAMAwlKAXo+iAHwUs6dFnDjbm2gcA
+        AID/jTcAAADwJwMHAAAQYeAAAAAiDBwAAECEgQMAAIgwcAAAABEGDgAAIMLAAQAARBg4AACACAMHAAAQ
+        YeAAAAAiDBwAAECEgQMAAIgwcAAAABEGDgAAIMLAAQAARBg4AACACAMHAAAQYeAAAAAiDBwAAECEgQMA
+        AIgwcAAAABEGDgAAIMLAAQAARBg4AACACAMHAAAQYeAAAAAiDBwAAECEgQMAAIgwcAAAABEGDgAAIMLA
+        AQAARBg4AACACAMHAAAQYeAAAAAiDBwAAECEgQMAAIgwcAAAABEGDgAAIMLAAQAARBg4AACACAMHAAAQ
+        YeAAAAAiDBwAAECEgQMAAIgwcAAAABEXu5dPpyUMYnoAAAAASUVORK5CYII=
+</value>
+  </data>
 </root>

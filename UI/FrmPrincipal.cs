@@ -262,7 +262,7 @@ namespace GVC
             timerBackupAtomatico.Start();
         }
         private int BuscarPrimeiraEmpresaId()
-        {           
+        {
             string sql = "SELECT TOP 1 EmpresaID FROM Empresa ORDER BY EmpresaID ASC";
 
             using (var con = Conexao.Conex())
@@ -396,6 +396,12 @@ namespace GVC
         private void btnFerramentas_Click(object sender, EventArgs e)
         {
             FrmConfiguracoes frm = new FrmConfiguracoes(_empresaId);
+            frm.Show();
+        }
+
+        private void consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmConsultaMovimentacaoEstoque frm = new FrmConsultaMovimentacaoEstoque();
             frm.Show();
         }
     }

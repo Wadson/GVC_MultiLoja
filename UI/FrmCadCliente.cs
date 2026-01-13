@@ -37,13 +37,13 @@ namespace GVC.View
         public FrmCadCliente()
         {
             InitializeComponent();
-                       
+
             ConfigurarEventosCep();
             //Utilitario.ConfigurarEnterComoTab(this);
-            cmbTipoCliente.Items.Clear();
-            cmbTipoCliente.Items.AddRange(new[] { "Física", "Jurídica", "Operador", "Administrador", "Consumidor Final" });
+            cmbTipoPessoa.Items.Clear();
+            cmbTipoPessoa.Items.AddRange(new[] { "Física", "Jurídica", "Operador", "Administrador", "Consumidor Final" });
             // Adicione esta linha para garantir um valor padrão
-            cmbTipoCliente.SelectedIndex = 0;
+            cmbTipoPessoa.SelectedIndex = 0;
         }
         private void txtCep_Leave(object sender, EventArgs e)
         {
@@ -558,28 +558,28 @@ namespace GVC.View
 
             // Se for um tipo que usa CPF, mas não está na lista, mapeia para "Física"
             string tipoParaBuscar = tipoCliente;
-            if (isTipoComCpf && !cmbTipoCliente.Items.Cast<string>().Any(x => x.Equals(tipoCliente, StringComparison.OrdinalIgnoreCase)))
+            if (isTipoComCpf && !cmbTipoPessoa.Items.Cast<string>().Any(x => x.Equals(tipoCliente, StringComparison.OrdinalIgnoreCase)))
             {
                 tipoParaBuscar = "Física";
             }
 
             // Procura o item correspondente
-            for (int i = 0; i < cmbTipoCliente.Items.Count; i++)
+            for (int i = 0; i < cmbTipoPessoa.Items.Count; i++)
             {
-                if (cmbTipoCliente.Items[i].ToString().Equals(tipoParaBuscar, StringComparison.OrdinalIgnoreCase))
+                if (cmbTipoPessoa.Items[i].ToString().Equals(tipoParaBuscar, StringComparison.OrdinalIgnoreCase))
                 {
-                    cmbTipoCliente.SelectedIndex = i;
+                    cmbTipoPessoa.SelectedIndex = i;
                     return;
                 }
             }
 
             // Se não encontrou, usa o primeiro item
-            cmbTipoCliente.SelectedIndex = 0;
+            cmbTipoPessoa.SelectedIndex = 0;
         }
         private void VerificarConfiguracaoCampos()
         {
             Debug.WriteLine($"=== CONFIGURAÇÃO DE CAMPOS ===");
-            Debug.WriteLine($"Tipo Cliente: {cmbTipoCliente.Text}");
+            Debug.WriteLine($"Tipo Cliente: {cmbTipoPessoa.Text}");
             Debug.WriteLine($"CPF Visible: {txtCpf.Visible}");
             Debug.WriteLine($"Cnpj Visible: {txtCnpj.Visible}");
             Debug.WriteLine($"RG Visible: {txtRg.Visible}");
@@ -638,14 +638,15 @@ namespace GVC.View
         // 👉 aqui entra o seu método
         private void FrmCadCliente_Load(object sender, EventArgs e)
         {
+            txtNomeCliente.Focus();
             {
                 if (CarregandoDados)
                 {
                     // apenas garante máscara/Tag sem limpar o campo
-                    bool isCpf = cmbTipoCliente.Text == "Física" ||
-                                 cmbTipoCliente.Text == "Operador" ||
-                                 cmbTipoCliente.Text == "Administrador" ||
-                                 cmbTipoCliente.Text == "Consumidor Final";
+                    bool isCpf = cmbTipoPessoa.Text == "Física" ||
+                                 cmbTipoPessoa.Text == "Operador" ||
+                                 cmbTipoPessoa.Text == "Administrador" ||
+                                 cmbTipoPessoa.Text == "Consumidor Final";
 
                     // CPF sempre usa máscara de CPF
                     txtCpf.Tag = "CPF";
@@ -673,23 +674,23 @@ namespace GVC.View
                     toolStripStatusLabelUsuarioAtualizacao.Text = "-";
                     ToolStripLabelDataUtimaCompra.Text = "-";
 
-                    cmbTipoCliente.SelectedValue = 1;
+                    cmbTipoPessoa.SelectedValue = 1;
                     // Fallback caso ainda não esteja selecionado (ex.: DataSource não preparado)
                     if (cmbStatus.SelectedValue == null || !cmbStatus.SelectedValue.Equals(1))
                         cmbStatus.SelectedIndex = 0; // índice do item "Ativo" na sua lista
 
 
                     // Fallback caso ainda não esteja selecionado (ex.: DataSource não preparado)
-                    if (cmbTipoCliente.SelectedValue == null || !cmbTipoCliente.SelectedValue.Equals(1))
-                        cmbTipoCliente.SelectedIndex = 0; // índice do item "Ativo" na sua lista
+                    if (cmbTipoPessoa.SelectedValue == null || !cmbTipoPessoa.SelectedValue.Equals(1))
+                        cmbTipoPessoa.SelectedIndex = 0; // índice do item "Ativo" na sua lista
 
                 }
 
                 // Ajusta rótulo e máscara normalmente
-                bool isCpf2 = cmbTipoCliente.Text == "Física" ||
-                              cmbTipoCliente.Text == "Operador" ||
-                              cmbTipoCliente.Text == "Administrador" ||
-                              cmbTipoCliente.Text == "Consumidor Final";
+                bool isCpf2 = cmbTipoPessoa.Text == "Física" ||
+                              cmbTipoPessoa.Text == "Operador" ||
+                              cmbTipoPessoa.Text == "Administrador" ||
+                              cmbTipoPessoa.Text == "Consumidor Final";
 
                 CarregandoDados = false;
             }
@@ -786,7 +787,7 @@ namespace GVC.View
             cliente.Nome = txtNomeCliente.Text.Trim();
 
             // ========== TRATAMENTO CORRETO DO CPF/Cnpj ==========
-            string tipoCliente = cmbTipoCliente.Text;
+            string tipoCliente = cmbTipoPessoa.Text;
             bool isPessoaFisica = tipoCliente == "Física" ||
                                  tipoCliente == "Operador" ||
                                  tipoCliente == "Administrador" ||
@@ -910,12 +911,12 @@ namespace GVC.View
             {
                 if (doc.Length == 11)
                 {
-                    cmbTipoCliente.Text = "Física";
+                    cmbTipoPessoa.Text = "Física";
                     txtCpf.Text = Utilitario.FormatarCPF(doc);
                 }
                 else if (doc.Length == 14)
                 {
-                    cmbTipoCliente.Text = "Jurídica";
+                    cmbTipoPessoa.Text = "Jurídica";
                     txtCpf.Text = Utilitario.FormatarCNPJ(doc);
                 }
                 else
@@ -936,7 +937,7 @@ namespace GVC.View
                 txtDataNascimento.Text = cliente.DataNascimento.Value.ToString("dd/MM/yyyy");
 
             txtRg.Text = cliente.RG;
-            cmbTipoCliente.Text = cliente.TipoCliente ?? "Física";
+            cmbTipoPessoa.Text = cliente.TipoCliente ?? "Física";
             cmbStatus.Text = cliente.Status == 1 ? "Ativo" : "Inativo";
 
             txtObservacoes.Text = cliente.Observacoes;
@@ -968,13 +969,7 @@ namespace GVC.View
         private void LimparCampos() => Utilitario.LimparCampos(this);
 
 
-        private void cmbTipoCliente_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (CarregandoDados) return;
 
-            string tipoSelecionado = cmbTipoCliente.Text;
-            AplicarConfiguracaoTipoCliente(tipoSelecionado);
-        }
         private void ConfigurarCamposPorTipoCliente(string tipoCliente)
         {
             if (CarregandoDados) return;
@@ -1076,7 +1071,7 @@ namespace GVC.View
         private void txtCpfCnpjJ_Leave(object sender, EventArgs e)
         {
             // Preferência: leia o modo do Tag (mais confiável)
-            string modo = (txtCpf.Tag as string) ?? cmbTipoCliente.Text;
+            string modo = (txtCpf.Tag as string) ?? cmbTipoPessoa.Text;
             bool isCpf = modo.Equals("CPF", StringComparison.OrdinalIgnoreCase)
                          || modo.Equals("Física", StringComparison.OrdinalIgnoreCase);
 
@@ -1220,6 +1215,14 @@ namespace GVC.View
         private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cmbTipoPessoa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CarregandoDados) return;
+
+            string tipoSelecionado = cmbTipoPessoa.Text;
+            AplicarConfiguracaoTipoCliente(tipoSelecionado);
         }
     }
 }
