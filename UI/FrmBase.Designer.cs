@@ -56,6 +56,8 @@
             iconButton2 = new FontAwesome.Sharp.IconButton();
             iconButton6 = new FontAwesome.Sharp.IconButton();
             iconButton7 = new FontAwesome.Sharp.IconButton();
+            iconButton8 = new FontAwesome.Sharp.IconButton();
+            btnConfirmar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)cmbTipoUsuario).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
@@ -548,7 +550,7 @@
             kryptonPanel1.Location = new Point(9, 96);
             kryptonPanel1.Name = "kryptonPanel1";
             kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            kryptonPanel1.Size = new Size(720, 79);
+            kryptonPanel1.Size = new Size(244, 79);
             kryptonPanel1.TabIndex = 1097;
             // 
             // kryptonLabel1
@@ -556,7 +558,7 @@
             kryptonLabel1.Dock = DockStyle.Top;
             kryptonLabel1.Location = new Point(0, 0);
             kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(720, 20);
+            kryptonLabel1.Size = new Size(244, 20);
             kryptonLabel1.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel1.TabIndex = 1038;
             kryptonLabel1.Values.Text = "Perfil do Usuário";
@@ -831,12 +833,51 @@
             iconButton7.Text = "Cancelar";
             iconButton7.UseVisualStyleBackColor = false;
             // 
+            // iconButton8
+            // 
+            iconButton8.BackColor = Color.White;
+            iconButton8.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            iconButton8.ForeColor = Color.FromArgb(30, 136, 229);
+            iconButton8.IconChar = FontAwesome.Sharp.IconChar.ArrowLeft;
+            iconButton8.IconColor = Color.FromArgb(30, 136, 229);
+            iconButton8.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton8.IconSize = 28;
+            iconButton8.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton8.Location = new Point(237, 242);
+            iconButton8.Name = "iconButton8";
+            iconButton8.Padding = new Padding(10, 0, 10, 0);
+            iconButton8.Size = new Size(120, 38);
+            iconButton8.TabIndex = 1122;
+            iconButton8.Text = " Voltar";
+            iconButton8.UseVisualStyleBackColor = false;
+            // 
+            // btnConfirmar
+            // 
+            btnConfirmar.BackColor = Color.FromArgb(30, 136, 229);
+            btnConfirmar.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            btnConfirmar.ForeColor = Color.White;
+            btnConfirmar.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnConfirmar.IconColor = Color.White;
+            btnConfirmar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnConfirmar.IconSize = 28;
+            btnConfirmar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConfirmar.Location = new Point(364, 242);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.Padding = new Padding(10, 0, 10, 0);
+            btnConfirmar.Size = new Size(120, 38);
+            btnConfirmar.TabIndex = 1123;
+            btnConfirmar.Text = "    Confirmar";
+            btnConfirmar.TextAlign = ContentAlignment.MiddleRight;
+            btnConfirmar.UseVisualStyleBackColor = false;
+            // 
             // FrmBase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(723, 430);
+            Controls.Add(btnConfirmar);
+            Controls.Add(iconButton8);
             Controls.Add(iconButton5);
             Controls.Add(iconButton4);
             Controls.Add(iconButton3);
@@ -906,5 +947,7 @@
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButton6;
         private FontAwesome.Sharp.IconButton iconButton7;
+        private FontAwesome.Sharp.IconButton iconButton8;
+        private FontAwesome.Sharp.IconButton btnConfirmar;
     }
 }

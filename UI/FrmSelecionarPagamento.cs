@@ -67,7 +67,7 @@ namespace GVC.View
             numParcelas.Enabled = false;
             dtpPrimeiraParcela.Enabled = false;
             numIntervalo.Enabled = false;
-            btnGerarParcelas.Enabled = false;
+            btnGerar.Enabled = false;
 
             // Apenas forma de pagamento liberada
             cmbFormaPagamento.Enabled = true;
@@ -152,59 +152,9 @@ namespace GVC.View
             });
         }
 
-        private void btnConfirmar_Click(object sender, EventArgs e)
-        {
-            var forma = cmbFormaPagamento.SelectedItem as FormaPagamentoItem;
 
-            if (forma == null || forma.FormaPgtoID == 0)
-            {
-                Utilitario.Mensagens.Aviso("Selecione a forma de pagamento.");
-                return;
-            }
 
-            // Apenas define dados, NÃO salva
-            _dto.Venda.FormaPgtoID = forma.FormaPgtoID;
 
-            VendaFinal = _dto.Venda;
-            Itens = _dto.Itens;
-            Parcelas = _parcelasGeradas;
-
-            // 🔴 EVITA IndexOutOfRange no fechamento
-            dgvParcelas.DataSource = null;
-
-            DialogResult = DialogResult.OK;
-            Close();
-
-        }
-
-        private void btnVoltar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnGerarParcelas_Click(object sender, EventArgs e)
-        {
-            _parcelasGeradas = _financeiroService.GerarParcelas(
-         _dto.Total,
-         (int)numParcelas.Value,
-         (int)numIntervalo.Value,
-         dtpPrimeiraParcela.Value.Date);
-
-            // 🔧 CORREÇÃO AQUI: Força status correto para crediário/cheque
-            foreach (var p in _parcelasGeradas)
-            {
-                p.ValorParcela = Math.Round(p.ValorParcela, 2);
-
-                // Garante que não venha pago por engano
-                p.ValorRecebido = 0m;           // ou null, se preferir
-                p.Status = EnumStatusParcela.Pendente;
-                p.DataPagamento = null;
-                p.Juros = 0;
-                p.Multa = 0;
-            }
-
-            CarregarGridParcelas(_parcelasGeradas);
-        }
 
         private void FrmFinalizarVenda_Load(object sender, EventArgs e)
         {
@@ -221,12 +171,6 @@ namespace GVC.View
             AtualizarBotaoConfirmar();
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
-
         private void cmbFormaPagamento_SelectedIndexChanged(object sender, EventArgs e)
         {
             var forma = cmbFormaPagamento.SelectedItem as FormaPagamentoItem;
@@ -238,28 +182,27 @@ namespace GVC.View
             // PAGAMENTO À VISTA
             // ===============================
             var formasAVista = new[]
-            {
-        "Dinheiro",
-        "PIX",
-        "Transferência",
-        "Cartão de Débito",
-        "À Vista"
-    };
+                            {
+                        "Dinheiro",
+                        "PIX",
+                        "Transferência",
+                        "Cartão de Débito",
+                        "À Vista" };
 
             if (formasAVista.Contains(forma.NomeFormaPagamento, StringComparer.OrdinalIgnoreCase))
             {
                 _parcelasGeradas = new List<ParcelaModel>
-        {
-            new ParcelaModel
-            {
-                NumeroParcela = 1,
-                DataVencimento = DateTime.Now,
-                DataPagamento = DateTime.Now,
-                ValorParcela = _dto.Total,
-                ValorRecebido = _dto.Total,
-                Status = EnumStatusParcela.Pago
-            }
-        };
+                {
+                    new ParcelaModel
+                    {
+                        NumeroParcela = 1,
+                        DataVencimento = DateTime.Now,
+                        DataPagamento = DateTime.Now,
+                        ValorParcela = _dto.Total,
+                        ValorRecebido = _dto.Total,
+                        Status = EnumStatusParcela.Pago
+                    }
+                };
 
                 foreach (var p in _parcelasGeradas)
                 {
@@ -284,33 +227,81 @@ namespace GVC.View
                 numParcelas.Enabled = true;
                 dtpPrimeiraParcela.Enabled = true;
                 numIntervalo.Enabled = true;
-                btnGerarParcelas.Enabled = true;
+                btnGerar.Enabled = true;
 
                 // ✅ PARCELA PADRÃO PENDENTE (garantia)
                 _parcelasGeradas = new List<ParcelaModel>
-        {
-            new ParcelaModel
-            {
-                NumeroParcela = 1,
-                DataVencimento = DateTime.Now.AddDays(30),
-                ValorParcela = _dto.Total,
-                ValorRecebido = null,
-                DataPagamento = null,
-                Status = EnumStatusParcela.Pendente
-            }
-        };
+                {
+                    new ParcelaModel
+                    {
+                        NumeroParcela = 1,
+                        DataVencimento = DateTime.Now.AddDays(30),
+                        ValorParcela = _dto.Total,
+                        ValorRecebido = null,
+                        DataPagamento = null,
+                        Status = EnumStatusParcela.Pendente
+                    } };
 
                 CarregarGridParcelas(_parcelasGeradas);
             }
+
         }
 
-        private void gbParcelamento_Enter(object sender, EventArgs e)
+        private void btnGerar_Click(object sender, EventArgs e)
+        {
+            _parcelasGeradas = _financeiroService.GerarParcelas(
+        _dto.Total,
+        (int)numParcelas.Value,
+        (int)numIntervalo.Value,
+        dtpPrimeiraParcela.Value.Date);
+
+            // 🔧 CORREÇÃO AQUI: Força status correto para crediário/cheque
+            foreach (var p in _parcelasGeradas)
+            {
+                p.ValorParcela = Math.Round(p.ValorParcela, 2);
+
+                // Garante que não venha pago por engano
+                p.ValorRecebido = 0m;           // ou null, se preferir
+                p.Status = EnumStatusParcela.Pendente;
+                p.DataPagamento = null;
+                p.Juros = 0;
+                p.Multa = 0;
+            }
+
+            CarregarGridParcelas(_parcelasGeradas);
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
         }
 
-        private void pnlPagamentoVista_Paint(object sender, PaintEventArgs e)
+        private void btnConfirmar_Click(object sender, EventArgs e)
         {
+            var forma = cmbFormaPagamento.SelectedItem as FormaPagamentoItem;
 
+            if (forma == null || forma.FormaPgtoID == 0)
+            {
+                Utilitario.Mensagens.Aviso("Selecione a forma de pagamento.");
+                return;
+            }
+
+            // Apenas define dados, NÃO salva
+            _dto.Venda.FormaPgtoID = forma.FormaPgtoID;
+
+            VendaFinal = _dto.Venda;
+            Itens = _dto.Itens;
+            Parcelas = _parcelasGeradas;
+
+            // 🔴 EVITA IndexOutOfRange no fechamento
+            dgvParcelas.DataSource = null;
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
