@@ -43,6 +43,7 @@ namespace GVC.View
         }
         private void FrmCadProdutos_Load(object sender, EventArgs e)
         {
+            txtNomeProduto.Select();
             Utilitario.FormatarMoeda(txtPrecoCusto);
             Utilitario.FormatarMoeda(txtLucro);
             Utilitario.FormatarMoeda(txtPrecoDeVenda);
@@ -58,6 +59,7 @@ namespace GVC.View
 
                 cmbStatus.SelectedIndex = 1;
                 cmbSituacao.SelectedIndex = 0;
+                txtNomeProduto.Focus();
             }
         }
         private void CalcularPrecoVenda()
@@ -298,11 +300,7 @@ namespace GVC.View
         }
         private void FrmCadProdutos_Shown(object sender, EventArgs e)
         {
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is KryptonTextBox kryptonTxt)
-                    Utilitario.AplicarCorFoco(kryptonTxt);
-            }
+            Utilitario.AplicarCorFocoNosTextBox(this);
         }
         private void btnLocalizarImagem_Click(object sender, EventArgs e)
         {

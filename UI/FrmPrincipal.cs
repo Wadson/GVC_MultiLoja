@@ -366,5 +366,12 @@ namespace GVC
             FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
             frm.Show();
         }
+
+        private void formaDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCadFormaPgto frm = new FrmCadFormaPgto();
+            frm.StatusOperacao = "NOVO";
+            frm.Show();
+        }
     }
 }

@@ -364,11 +364,7 @@ namespace GVC
 
         private void FrmCadUser_Shown(object sender, EventArgs e)
         {
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is KryptonTextBox kryptonTxt)
-                    Utilitario.AplicarCorFoco(kryptonTxt);
-            }
+            Utilitario.AplicarCorFocoNosTextBox(this);
         }
 
         private void txtCPF_TextChanged(object sender, EventArgs e)

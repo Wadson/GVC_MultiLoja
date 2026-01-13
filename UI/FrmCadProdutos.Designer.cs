@@ -118,6 +118,8 @@
             kryptonTextBox13 = new Krypton.Toolkit.KryptonTextBox();
             label33 = new Label();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
+            cmbSituacao = new Krypton.Toolkit.KryptonComboBox();
+            cmbStatus = new Krypton.Toolkit.KryptonComboBox();
             kryptonTextBox9 = new Krypton.Toolkit.KryptonTextBox();
             label29 = new Label();
             kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
@@ -149,8 +151,6 @@
             kryptonTextBox24 = new Krypton.Toolkit.KryptonTextBox();
             kryptonTextBox25 = new Krypton.Toolkit.KryptonTextBox();
             label47 = new Label();
-            cmbStatus = new Krypton.Toolkit.KryptonComboBox();
-            cmbSituacao = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)pbImagem).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
@@ -163,10 +163,10 @@
             kryptonPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
             kryptonPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cmbSituacao).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel5).BeginInit();
             kryptonPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)cmbStatus).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)cmbSituacao).BeginInit();
             SuspendLayout();
             // 
             // label21
@@ -777,6 +777,7 @@
             btnSair.StateTracking.Border.Width = 1;
             btnSair.StateTracking.Content.ShortText.Color1 = Color.White;
             btnSair.TabIndex = 1031;
+            btnSair.TabStop = false;
             btnSair.Values.Text = "Sair";
             btnSair.Click += btnSair_Click;
             // 
@@ -907,7 +908,7 @@
             btnNovo.StateTracking.Border.Rounding = 20F;
             btnNovo.StateTracking.Border.Width = 1;
             btnNovo.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnNovo.TabIndex = 1029;
+            btnNovo.TabIndex = 12;
             btnNovo.Values.Text = "Novo";
             btnNovo.Click += btnNovo_Click;
             // 
@@ -1780,6 +1781,90 @@
             kryptonPanel4.Size = new Size(1004, 74);
             kryptonPanel4.TabIndex = 1098;
             // 
+            // cmbSituacao
+            // 
+            cmbSituacao.CornerRoundingRadius = 6F;
+            cmbSituacao.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSituacao.DropDownWidth = 115;
+            cmbSituacao.IntegralHeight = false;
+            cmbSituacao.Items.AddRange(new object[] { "Ativo", "Inativo" });
+            cmbSituacao.Location = new Point(499, 43);
+            cmbSituacao.Name = "cmbSituacao";
+            cmbSituacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
+            cmbSituacao.Size = new Size(487, 25);
+            cmbSituacao.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbSituacao.StateActive.ComboBox.Content.Color1 = Color.White;
+            cmbSituacao.StateActive.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbSituacao.StateCommon.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbSituacao.StateCommon.ComboBox.Border.Rounding = 6F;
+            cmbSituacao.StateCommon.ComboBox.Content.Color1 = Color.White;
+            cmbSituacao.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbSituacao.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            cmbSituacao.StateNormal.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateNormal.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateNormal.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateNormal.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbSituacao.StateNormal.ComboBox.Content.Color1 = Color.White;
+            cmbSituacao.StateNormal.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbSituacao.StateTracking.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateTracking.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateTracking.Item.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateTracking.Item.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbSituacao.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbSituacao.StateTracking.Item.Content.ShortText.Color1 = Color.White;
+            cmbSituacao.StateTracking.Item.Content.ShortText.Color2 = Color.White;
+            cmbSituacao.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
+            cmbSituacao.TabIndex = 1068;
+            cmbSituacao.TabStop = false;
+            // 
+            // cmbStatus
+            // 
+            cmbStatus.CornerRoundingRadius = 6F;
+            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbStatus.DropDownWidth = 115;
+            cmbStatus.IntegralHeight = false;
+            cmbStatus.Items.AddRange(new object[] { "Descontinuado", "Disponível", "Em Espera", "Em Produção", "Indisponível" });
+            cmbStatus.Location = new Point(8, 44);
+            cmbStatus.Name = "cmbStatus";
+            cmbStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
+            cmbStatus.Size = new Size(487, 25);
+            cmbStatus.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbStatus.StateActive.ComboBox.Content.Color1 = Color.White;
+            cmbStatus.StateActive.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbStatus.StateCommon.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbStatus.StateCommon.ComboBox.Border.Rounding = 6F;
+            cmbStatus.StateCommon.ComboBox.Content.Color1 = Color.White;
+            cmbStatus.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            cmbStatus.StateNormal.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateNormal.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateNormal.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateNormal.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbStatus.StateNormal.ComboBox.Content.Color1 = Color.White;
+            cmbStatus.StateNormal.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbStatus.StateTracking.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateTracking.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateTracking.Item.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateTracking.Item.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbStatus.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbStatus.StateTracking.Item.Content.ShortText.Color1 = Color.White;
+            cmbStatus.StateTracking.Item.Content.ShortText.Color2 = Color.White;
+            cmbStatus.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
+            cmbStatus.TabIndex = 1067;
+            cmbStatus.TabStop = false;
+            // 
             // kryptonTextBox9
             // 
             kryptonTextBox9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -2265,90 +2350,6 @@
             label47.Text = "IE (Inscrição Estadual)";
             label47.Visible = false;
             // 
-            // cmbStatus
-            // 
-            cmbStatus.CornerRoundingRadius = 6F;
-            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbStatus.DropDownWidth = 115;
-            cmbStatus.IntegralHeight = false;
-            cmbStatus.Items.AddRange(new object[] { "Descontinuado", "Disponível", "Em Espera", "Em Produção", "Indisponível" });
-            cmbStatus.Location = new Point(8, 44);
-            cmbStatus.Name = "cmbStatus";
-            cmbStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbStatus.Size = new Size(487, 25);
-            cmbStatus.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbStatus.StateActive.ComboBox.Content.Color1 = Color.White;
-            cmbStatus.StateActive.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbStatus.StateCommon.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbStatus.StateCommon.ComboBox.Border.Rounding = 6F;
-            cmbStatus.StateCommon.ComboBox.Content.Color1 = Color.White;
-            cmbStatus.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            cmbStatus.StateNormal.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateNormal.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateNormal.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateNormal.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbStatus.StateNormal.ComboBox.Content.Color1 = Color.White;
-            cmbStatus.StateNormal.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbStatus.StateTracking.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateTracking.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateTracking.Item.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateTracking.Item.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbStatus.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbStatus.StateTracking.Item.Content.ShortText.Color1 = Color.White;
-            cmbStatus.StateTracking.Item.Content.ShortText.Color2 = Color.White;
-            cmbStatus.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
-            cmbStatus.TabIndex = 1067;
-            cmbStatus.TabStop = false;
-            // 
-            // cmbSituacao
-            // 
-            cmbSituacao.CornerRoundingRadius = 6F;
-            cmbSituacao.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbSituacao.DropDownWidth = 115;
-            cmbSituacao.IntegralHeight = false;
-            cmbSituacao.Items.AddRange(new object[] { "Ativo", "Inativo" });
-            cmbSituacao.Location = new Point(499, 43);
-            cmbSituacao.Name = "cmbSituacao";
-            cmbSituacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbSituacao.Size = new Size(487, 25);
-            cmbSituacao.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbSituacao.StateActive.ComboBox.Content.Color1 = Color.White;
-            cmbSituacao.StateActive.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbSituacao.StateCommon.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbSituacao.StateCommon.ComboBox.Border.Rounding = 6F;
-            cmbSituacao.StateCommon.ComboBox.Content.Color1 = Color.White;
-            cmbSituacao.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbSituacao.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            cmbSituacao.StateNormal.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateNormal.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateNormal.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateNormal.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbSituacao.StateNormal.ComboBox.Content.Color1 = Color.White;
-            cmbSituacao.StateNormal.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbSituacao.StateTracking.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateTracking.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateTracking.Item.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateTracking.Item.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbSituacao.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbSituacao.StateTracking.Item.Content.ShortText.Color1 = Color.White;
-            cmbSituacao.StateTracking.Item.Content.ShortText.Color2 = Color.White;
-            cmbSituacao.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
-            cmbSituacao.TabIndex = 1068;
-            cmbSituacao.TabStop = false;
-            // 
             // FrmCadProdutos
             // 
             BackColor = Color.FromArgb(252, 252, 250);
@@ -2392,11 +2393,11 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
             kryptonPanel4.ResumeLayout(false);
             kryptonPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)cmbSituacao).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbStatus).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel5).EndInit();
             kryptonPanel5.ResumeLayout(false);
             kryptonPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)cmbStatus).EndInit();
-            ((System.ComponentModel.ISupportInitialize)cmbSituacao).EndInit();
             ResumeLayout(false);
 
         }
@@ -2432,8 +2433,7 @@
         public Krypton.Toolkit.KryptonButton btnLocalizarImagem;
         public Krypton.Toolkit.KryptonTextBox txtEnderecoImagem;
         private Label label10;
-        public Krypton.Toolkit.KryptonTextBox txtDataValidade;
-        public Krypton.Toolkit.KryptonComboBox cmbStatus;
+        public Krypton.Toolkit.KryptonTextBox txtDataValidade;        
         public Krypton.Toolkit.KryptonComboBox cmbSituacao;
         public PictureBox pbImagem;
         public Krypton.Toolkit.KryptonTextBox txtFornecedorID;

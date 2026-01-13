@@ -588,11 +588,7 @@ namespace GVC.View
         }
         private void FrmCadEmpresa_Shown(object sender, EventArgs e)
         {
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is KryptonTextBox kryptonTxt)
-                    Utilitario.AplicarCorFoco(kryptonTxt);
-            }
+            Utilitario.AplicarCorFocoNosTextBox(this);
         }
 
         private void txtCnpj_Leave(object sender, EventArgs e)
@@ -730,6 +726,7 @@ namespace GVC.View
             {
                 GerarNovoCodigo();
                 BloquearTextBoxRecursivo(this, true);
+                txtNomeFantasia.Focus();
             }
 
             // 🔹 Sempre configurar máscaras e padrões

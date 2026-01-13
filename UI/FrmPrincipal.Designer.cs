@@ -91,6 +91,7 @@
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
+            formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -175,7 +176,7 @@
             // 
             // cadastrosToolStripMenuItem
             // 
-            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, produtosToolStripMenuItem, fornecedoresToolStripMenuItem, empresasToolStripMenuItem, usuáriosToolStripMenuItem });
+            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, produtosToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, empresasToolStripMenuItem, usuáriosToolStripMenuItem });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -183,35 +184,35 @@
             // clientesToolStripMenuItem
             // 
             clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            clientesToolStripMenuItem.Size = new Size(145, 22);
+            clientesToolStripMenuItem.Size = new Size(188, 22);
             clientesToolStripMenuItem.Text = "Clientes";
             clientesToolStripMenuItem.Click += clientesToolStripMenuItem_Click;
             // 
             // produtosToolStripMenuItem
             // 
             produtosToolStripMenuItem.Name = "produtosToolStripMenuItem";
-            produtosToolStripMenuItem.Size = new Size(145, 22);
+            produtosToolStripMenuItem.Size = new Size(188, 22);
             produtosToolStripMenuItem.Text = "Produtos";
             produtosToolStripMenuItem.Click += produtosToolStripMenuItem_Click;
             // 
             // fornecedoresToolStripMenuItem
             // 
             fornecedoresToolStripMenuItem.Name = "fornecedoresToolStripMenuItem";
-            fornecedoresToolStripMenuItem.Size = new Size(145, 22);
+            fornecedoresToolStripMenuItem.Size = new Size(188, 22);
             fornecedoresToolStripMenuItem.Text = "Fornecedores";
             fornecedoresToolStripMenuItem.Click += fornecedoresToolStripMenuItem_Click;
             // 
             // empresasToolStripMenuItem
             // 
             empresasToolStripMenuItem.Name = "empresasToolStripMenuItem";
-            empresasToolStripMenuItem.Size = new Size(145, 22);
+            empresasToolStripMenuItem.Size = new Size(188, 22);
             empresasToolStripMenuItem.Text = "Empresas";
             empresasToolStripMenuItem.Click += empresasToolStripMenuItem_Click;
             // 
             // usuáriosToolStripMenuItem
             // 
             usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
-            usuáriosToolStripMenuItem.Size = new Size(145, 22);
+            usuáriosToolStripMenuItem.Size = new Size(188, 22);
             usuáriosToolStripMenuItem.Text = "Usuários";
             usuáriosToolStripMenuItem.Click += usuáriosToolStripMenuItem_Click;
             // 
@@ -635,6 +636,13 @@
             timerBackupAtomatico.Interval = 1000;
             timerBackupAtomatico.Tick += timerBackupAtomatico_Tick;
             // 
+            // formaDePagamentoToolStripMenuItem
+            // 
+            formaDePagamentoToolStripMenuItem.Name = "formaDePagamentoToolStripMenuItem";
+            formaDePagamentoToolStripMenuItem.Size = new Size(188, 22);
+            formaDePagamentoToolStripMenuItem.Text = "Forma de Pagamento";
+            formaDePagamentoToolStripMenuItem.Click += formaDePagamentoToolStripMenuItem_Click;
+            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -734,5 +742,6 @@
         private ToolStripMenuItem estoqueToolStripMenuItem1;
         private ToolStripMenuItem entradaDeEstoqueNFeOuManualToolStripMenuItem;
         private ToolStripMenuItem correçãoDeEstoqueToolStripMenuItem;
+        private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
     }
 }
