@@ -25,99 +25,6 @@ namespace GVC.View
             InitializeComponent();
         }
 
-        private void btnVisualizar_Click(object sender, EventArgs e)
-        {
-            if (dgvVendas.CurrentRow == null)
-            {
-                Utilitario.Mensagens.Aviso("Selecione uma venda para visualizar.");
-                return;
-            }
-
-            int vendaId = Convert.ToInt32( dgvVendas.CurrentRow.Cells["VendaID"].Value);
-            var frm = new FrmPDVendas(vendaId);
-            frm.ShowDialog();
-        }
-
-        private void btnAlterar_Click(object sender, EventArgs e)
-        {
-            if (dgvVendas.CurrentRow == null)
-            {
-                Utilitario.Mensagens.Aviso("Selecione uma venda para alterar.");
-                return;
-            }
-
-            int vendaId = Convert.ToInt32( dgvVendas.CurrentRow.Cells["VendaID"].Value);
-
-            var frm = new FrmPDVendas(vendaId);
-           //Falta implementação de mais botões e controles aqui
-            frm.txtClienteBuscar.Enabled = false;
-            frm.txtProdutoBuscar.Enabled = false;                       
-            frm.btnNovaVenda.Enabled = false;   
-            frm.ShowDialog();
-
-            // opcional e comum:
-            // Recarregar a lista após fechar
-            // CarregarVendas();
-        }
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            int vendaId = ObterVendaSelecionada();
-
-            using (var frmMotivo = new FrmMotivoOperacao("Cancelamento de Venda"))
-            {
-                if (frmMotivo.ShowDialog() != DialogResult.OK)
-                    return;
-
-                try
-                {
-                    new VendaBLL().CancelarVenda(vendaId, frmMotivo.Motivo);
-                    Utilitario.Mensagens.Aviso("Venda cancelada com sucesso.");
-                    CarregarVendas();
-                }
-                catch (Exception ex)
-                {
-                    Utilitario.Mensagens.Aviso(ex.Message);
-                }
-            }
-        }
-
-        private void btnExcluir_Click(object sender, EventArgs e)
-        {
-            int vendaId = ObterVendaSelecionada();
-
-            var confirmacao = MessageBox.Show(
-                "⚠️ ATENÇÃO – EXCLUSÃO TOTAL ⚠️\n\n" +
-                "Esta ação irá EXCLUIR DEFINITIVAMENTE:\n" +
-                "• A VENDA\n" +
-                "• TODOS OS ITENS\n" +
-                "• TODAS AS PARCELAS\n\n" +
-                "❌ ESTA OPERAÇÃO NÃO PODERÁ SER DESFEITA ❌\n\n" +
-                "Deseja continuar?",
-                "CONFIRMAÇÃO CRÍTICA",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning,
-                MessageBoxDefaultButton.Button2
-            );
-
-            if (confirmacao != DialogResult.Yes)
-                return;
-
-            try
-            {
-                new VendaBLL().ExcluirVendaFisicamente(vendaId);
-                Utilitario.Mensagens.Aviso("Venda excluída definitivamente.");
-                CarregarVendas();
-            }
-            catch (Exception ex)
-            {
-                Utilitario.Mensagens.Aviso(ex.Message);
-            }
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
         private int ObterVendaSelecionada()
         {
             if (dgvVendas.SelectedRows.Count == 0)
@@ -256,9 +163,9 @@ namespace GVC.View
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            CarregarVendas();
         }
-        private void btnLocalizarCliente_Click(object sender, EventArgs e)
+
+        private void btnLocalizar_Click(object sender, EventArgs e)
         {
             // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
             string textoDigitado = txtCliente.Text;
@@ -283,6 +190,105 @@ namespace GVC.View
                 Utilitario.Mensagens.Aviso(ex.Message);
             }
         }
-       
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            CarregarVendas();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            int vendaId = ObterVendaSelecionada();
+
+            var confirmacao = MessageBox.Show(
+                "⚠️ ATENÇÃO – EXCLUSÃO TOTAL ⚠️\n\n" +
+                "Esta ação irá EXCLUIR DEFINITIVAMENTE:\n" +
+                "• A VENDA\n" +
+                "• TODOS OS ITENS\n" +
+                "• TODAS AS PARCELAS\n\n" +
+                "❌ ESTA OPERAÇÃO NÃO PODERÁ SER DESFEITA ❌\n\n" +
+                "Deseja continuar?",
+                "CONFIRMAÇÃO CRÍTICA",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2
+            );
+
+            if (confirmacao != DialogResult.Yes)
+                return;
+
+            try
+            {
+                new VendaBLL().ExcluirVendaFisicamente(vendaId);
+                Utilitario.Mensagens.Aviso("Venda excluída definitivamente.");
+                CarregarVendas();
+            }
+            catch (Exception ex)
+            {
+                Utilitario.Mensagens.Aviso(ex.Message);
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            int vendaId = ObterVendaSelecionada();
+
+            using (var frmMotivo = new FrmMotivoOperacao("Cancelamento de Venda"))
+            {
+                if (frmMotivo.ShowDialog() != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    new VendaBLL().CancelarVenda(vendaId, frmMotivo.Motivo);
+                    Utilitario.Mensagens.Aviso("Venda cancelada com sucesso.");
+                    CarregarVendas();
+                }
+                catch (Exception ex)
+                {
+                    Utilitario.Mensagens.Aviso(ex.Message);
+                }
+            }
+        }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            if (dgvVendas.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione uma venda para alterar.");
+                return;
+            }
+
+            int vendaId = Convert.ToInt32(dgvVendas.CurrentRow.Cells["VendaID"].Value);
+
+            var frm = new FrmPDVendas(vendaId);
+            //Falta implementação de mais botões e controles aqui
+            frm.txtClienteBuscar.Enabled = false;
+            frm.txtProdutoBuscar.Enabled = false;
+            frm.btnNovaVenda.Enabled = false;
+            frm.ShowDialog();
+
+            // opcional e comum:
+            // Recarregar a lista após fechar
+            // CarregarVendas();
+        }
+
+        private void btnVisualizar_Click(object sender, EventArgs e)
+        {
+            if (dgvVendas.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione uma venda para visualizar.");
+                return;
+            }
+
+            int vendaId = Convert.ToInt32(dgvVendas.CurrentRow.Cells["VendaID"].Value);
+            var frm = new FrmPDVendas(vendaId);
+            frm.ShowDialog();
+        }
     }
 }

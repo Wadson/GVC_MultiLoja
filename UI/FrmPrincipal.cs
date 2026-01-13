@@ -404,5 +404,11 @@ namespace GVC
             FrmConsultaMovimentacaoEstoque frm = new FrmConsultaMovimentacaoEstoque();
             frm.Show();
         }
+
+        private void gerenciamentoDeVendasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmGerenciarVendas frm = new FrmGerenciarVendas();
+            frm.Show();
+        }
     }
 }

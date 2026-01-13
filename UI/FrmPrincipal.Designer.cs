@@ -46,6 +46,7 @@
             estoqueToolStripMenuItem1 = new ToolStripMenuItem();
             entradaDeEstoqueNFeOuManualToolStripMenuItem = new ToolStripMenuItem();
             correçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
             vendasToolStripMenuItem = new ToolStripMenuItem();
             pDVToolStripMenuItem = new ToolStripMenuItem();
             orçamentosToolStripMenuItem = new ToolStripMenuItem();
@@ -93,7 +94,7 @@
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
-            consultarMovimentaçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
+            gerenciamentoDeVendasToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -245,9 +246,16 @@
             correçãoDeEstoqueToolStripMenuItem.Text = "Entrada de Estoque";
             correçãoDeEstoqueToolStripMenuItem.Click += correçãoDeEstoqueToolStripMenuItem_Click_1;
             // 
+            // consultarMovimentaçãoDeEstoqueToolStripMenuItem
+            // 
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Name = "consultarMovimentaçãoDeEstoqueToolStripMenuItem";
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Text = "Consultar Movimentação de Estoque";
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Click += consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click;
+            // 
             // vendasToolStripMenuItem
             // 
-            vendasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { pDVToolStripMenuItem, orçamentosToolStripMenuItem, pedidosToolStripMenuItem });
+            vendasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { pDVToolStripMenuItem, orçamentosToolStripMenuItem, pedidosToolStripMenuItem, gerenciamentoDeVendasToolStripMenuItem });
             vendasToolStripMenuItem.Name = "vendasToolStripMenuItem";
             vendasToolStripMenuItem.Size = new Size(56, 20);
             vendasToolStripMenuItem.Text = "Vendas";
@@ -255,21 +263,21 @@
             // pDVToolStripMenuItem
             // 
             pDVToolStripMenuItem.Name = "pDVToolStripMenuItem";
-            pDVToolStripMenuItem.Size = new Size(139, 22);
+            pDVToolStripMenuItem.Size = new Size(211, 22);
             pDVToolStripMenuItem.Text = "PDV";
             pDVToolStripMenuItem.Click += pDVToolStripMenuItem_Click;
             // 
             // orçamentosToolStripMenuItem
             // 
             orçamentosToolStripMenuItem.Name = "orçamentosToolStripMenuItem";
-            orçamentosToolStripMenuItem.Size = new Size(139, 22);
+            orçamentosToolStripMenuItem.Size = new Size(211, 22);
             orçamentosToolStripMenuItem.Text = "Orçamentos";
             orçamentosToolStripMenuItem.Click += orçamentosToolStripMenuItem_Click;
             // 
             // pedidosToolStripMenuItem
             // 
             pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
-            pedidosToolStripMenuItem.Size = new Size(139, 22);
+            pedidosToolStripMenuItem.Size = new Size(211, 22);
             pedidosToolStripMenuItem.Text = "Pedidos";
             pedidosToolStripMenuItem.Click += pedidosToolStripMenuItem_Click;
             // 
@@ -658,12 +666,12 @@
             timerBackupAtomatico.Interval = 1000;
             timerBackupAtomatico.Tick += timerBackupAtomatico_Tick;
             // 
-            // consultarMovimentaçãoDeEstoqueToolStripMenuItem
+            // gerenciamentoDeVendasToolStripMenuItem
             // 
-            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Name = "consultarMovimentaçãoDeEstoqueToolStripMenuItem";
-            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
-            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Text = "Consultar Movimentação de Estoque";
-            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Click += consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click;
+            gerenciamentoDeVendasToolStripMenuItem.Name = "gerenciamentoDeVendasToolStripMenuItem";
+            gerenciamentoDeVendasToolStripMenuItem.Size = new Size(211, 22);
+            gerenciamentoDeVendasToolStripMenuItem.Text = "Gerenciamento de Vendas";
+            gerenciamentoDeVendasToolStripMenuItem.Click += gerenciamentoDeVendasToolStripMenuItem_Click;
             // 
             // FrmPrincipal
             // 
@@ -767,5 +775,6 @@
         private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
         private ToolStripButton btnFerramentas;
         private ToolStripMenuItem consultarMovimentaçãoDeEstoqueToolStripMenuItem;
+        private ToolStripMenuItem gerenciamentoDeVendasToolStripMenuItem;
     }
 }
