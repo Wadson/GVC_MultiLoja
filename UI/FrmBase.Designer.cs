@@ -44,6 +44,7 @@
             cmbTipoUsuario = new Krypton.Toolkit.KryptonComboBox();
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
+            dtInicio = new Krypton.Toolkit.KryptonDateTimePicker();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
             tlpTitulo.SuspendLayout();
@@ -602,12 +603,51 @@
             kryptonLabel1.TabIndex = 1038;
             kryptonLabel1.Values.Text = "Perfil do Usuário";
             // 
+            // dtInicio
+            // 
+            dtInicio.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dtInicio.CornerRoundingRadius = 3F;
+            dtInicio.Format = DateTimePickerFormat.Short;
+            dtInicio.Location = new Point(26, 370);
+            dtInicio.Name = "dtInicio";
+            dtInicio.Size = new Size(158, 29);
+            dtInicio.StateActive.Back.Color1 = Color.FromArgb(6, 174, 244);
+            dtInicio.StateActive.Border.Color1 = Color.FromArgb(6, 174, 244);
+            dtInicio.StateActive.Border.Color2 = Color.FromArgb(8, 142, 254);
+            dtInicio.StateActive.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            dtInicio.StateActive.Border.Rounding = 3F;
+            dtInicio.StateActive.Content.Color1 = Color.White;
+            dtInicio.StateActive.Content.Font = new Font("Poppins", 9F);
+            dtInicio.StateCommon.Back.Color1 = Color.FromArgb(8, 142, 254);
+            dtInicio.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
+            dtInicio.StateCommon.Border.Color2 = Color.FromArgb(6, 174, 244);
+            dtInicio.StateCommon.Border.ColorAngle = 45F;
+            dtInicio.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            dtInicio.StateCommon.Border.Rounding = 3F;
+            dtInicio.StateCommon.Border.Width = 1;
+            dtInicio.StateCommon.Content.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dtInicio.StateCommon.Content.Padding = new Padding(1);
+            dtInicio.StateDisabled.Border.ColorAngle = 45F;
+            dtInicio.StateDisabled.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            dtInicio.StateDisabled.Border.Rounding = 3F;
+            dtInicio.StateDisabled.Border.Width = 1;
+            dtInicio.StateNormal.Back.Color1 = Color.FromArgb(8, 142, 254);
+            dtInicio.StateNormal.Border.Color1 = Color.FromArgb(8, 142, 254);
+            dtInicio.StateNormal.Border.Color2 = Color.FromArgb(6, 174, 244);
+            dtInicio.StateNormal.Border.ColorAngle = 45F;
+            dtInicio.StateNormal.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            dtInicio.StateNormal.Border.Rounding = 3F;
+            dtInicio.StateNormal.Border.Width = 1;
+            dtInicio.StateNormal.Content.Color1 = Color.White;
+            dtInicio.TabIndex = 1098;
+            // 
             // FrmBase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(833, 447);
+            Controls.Add(dtInicio);
             Controls.Add(kryptonPanel1);
             Controls.Add(cmbTipoUsuario);
             Controls.Add(pnlHeader);
@@ -651,5 +691,6 @@
         public Krypton.Toolkit.KryptonComboBox cmbTipoUsuario;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        public Krypton.Toolkit.KryptonDateTimePicker dtInicio;
     }
 }

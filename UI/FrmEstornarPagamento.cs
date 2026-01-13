@@ -28,25 +28,6 @@ namespace GVC.View
             // Opcional: calcular saldo total das parcelas selecionadas para sugerir valor máximo
         }
 
-        private void btnConfirmarEstorno_Click(object sender, EventArgs e)
-        {
-            if (!decimal.TryParse(txtValorEstornado.Text, out decimal valor) || valor <= 0)
-            {
-                Utilitario.Mensagens.Aviso("Informe um valor válido para estorno.");
-                return;
-            }
-
-            ValorEstorno = valor;
-            Motivo = txtMotivo.Text.Trim();
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void FrmEstornarPagamento_Load(object sender, EventArgs e)
         {
             txtValorEstornado.Focus();
@@ -68,6 +49,26 @@ namespace GVC.View
                 e.SuppressKeyPress = true;
                 SendKeys.Send("{TAB}");
             }
+        }
+
+
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            if (!decimal.TryParse(txtValorEstornado.Text, out decimal valor) || valor <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Informe um valor válido para estorno.");
+                return;
+            }
+
+            ValorEstorno = valor;
+            Motivo = txtMotivo.Text.Trim();
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
