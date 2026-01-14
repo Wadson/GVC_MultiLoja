@@ -47,7 +47,7 @@ namespace GVC.View
         }
         private void WireTipoPesquisa()
         {
-            foreach (Control ctrl in grpTipoPesquisa.Controls)
+            foreach (Control ctrl in panelTipoPesquisa.Controls)
             {
                 if (ctrl is RadioButton rb)
                 {
@@ -64,18 +64,12 @@ namespace GVC.View
             AtualizarEstadoPesquisa();
         }
 
-
-
-
-
         private TipoPesquisaContasReceber ObterTipoPesquisaSelecionado()
         {
-            if (rbTodos.Checked) return TipoPesquisaContasReceber.Todos;
-            if (rbNomeCliente.Checked) return TipoPesquisaContasReceber.NomeCliente;
-            if (rbNumeroVenda.Checked) return TipoPesquisaContasReceber.NumeroVenda;
-            if (rbDataVenda.Checked) return TipoPesquisaContasReceber.DataVenda;
-            if (rbPeriodoVenda.Checked) return TipoPesquisaContasReceber.PeriodoVenda;
-            if (rbVencimento.Checked) return TipoPesquisaContasReceber.Vencimento;
+           
+            if (rbNomeCliente.Checked) return TipoPesquisaContasReceber.NomeCliente;         
+          
+            if (rbPeriodoVenda.Checked) return TipoPesquisaContasReceber.PeriodoVenda;           
             if (rbPeriodoVencimento.Checked) return TipoPesquisaContasReceber.PeriodoVencimento;
             if (rbStatusParcela.Checked) return TipoPesquisaContasReceber.StatusParcela;
 
@@ -83,12 +77,10 @@ namespace GVC.View
         }
 
 
-
         private void AtualizarEstadoPesquisa()
         {
             // 🔒 Desliga tudo
-            txtNomeCliente.Enabled = false;
-            txtNumeroVenda.Enabled = false;
+            txtNomeCliente.Enabled = false;           
             dtpInicial.Enabled = false;
             dtpFinal.Enabled = false;
             lblAte.Enabled = false;
@@ -106,11 +98,6 @@ namespace GVC.View
                 case TipoPesquisaContasReceber.NomeCliente:
                     txtNomeCliente.Enabled = true;
                     txtNomeCliente.Focus();
-                    break;
-
-                case TipoPesquisaContasReceber.NumeroVenda:
-                    txtNumeroVenda.Enabled = true;
-                    txtNumeroVenda.Focus();
                     break;
 
                 case TipoPesquisaContasReceber.DataVenda:
@@ -147,12 +134,8 @@ namespace GVC.View
 
         private void WirePesquisaEvents()
         {
-            rbTodos.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-            rbNomeCliente.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-            rbNumeroVenda.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-            rbDataVenda.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-            rbDataVenda.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-            rbVencimento.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
+           
+            rbNomeCliente.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();          
             rbPeriodoVencimento.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
             rbStatusParcela.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
         }
@@ -173,11 +156,6 @@ namespace GVC.View
 
             return lista;
         }
-
-
-
-
-
 
         private void ConfigurarGridContasAReceber()
         {
@@ -459,9 +437,7 @@ namespace GVC.View
                 ? txtNomeCliente.Text.Trim()
                 : null;
 
-            string numeroVenda = txtNumeroVenda.Enabled
-                ? txtNumeroVenda.Text.Trim()
-                : null;
+          
 
             DateTime? dataInicial = null;
             DateTime? dataFinal = null;
@@ -475,8 +451,7 @@ namespace GVC.View
             // 🔑 4️⃣ Chamada única ao DAL
             var lista = dal.ListarContasAReceber(
                 tipoPesquisa,
-                nomeCliente,
-                numeroVenda,
+                nomeCliente,             
                 dataInicial,
                 dataFinal,
                 statusSelecionados
@@ -774,8 +749,6 @@ namespace GVC.View
         }
         private void LimparAreaVenda()
         {
-            lblNumeroVenda.Text = "-";
-
             // Contas a receber
             if (dgvContasAReceber.DataSource != null)
             {
@@ -1128,12 +1101,7 @@ namespace GVC.View
             }
         }
         private void LimparFiltro_Click(object sender, EventArgs e)
-        {
-            // =========================
-            // 1️⃣ TIPO DE PESQUISA
-            // =========================
-            rbTodos.Checked = true;
-
+        {            
             // =========================
             // 2️⃣ STATUS DA PARCELA
             // (nenhum marcado = todos)
@@ -1148,8 +1116,6 @@ namespace GVC.View
             // 3️⃣ CAMPOS DE TEXTO
             // =========================
             txtNomeCliente.Clear();
-            txtNumeroVenda.Clear();
-
             // =========================
             // 4️⃣ DATAS (APENAS DOIS PICKERS)
             // =========================
@@ -1240,10 +1206,7 @@ namespace GVC.View
         }
 
         private void btnLimparFiltro_Click(object sender, EventArgs e)
-        {
-            // 🔹 Tipo de pesquisa
-            rbTodos.Checked = true;
-
+        {           
             // 🔹 Status (nenhum = todos)
             chkPendente.Checked = false;
             chkParcial.Checked = false;
@@ -1253,8 +1216,6 @@ namespace GVC.View
 
             // 🔹 Campos
             txtNomeCliente.Clear();
-            txtNumeroVenda.Clear();
-
             // 🔹 Datas (somente 2)
             dtpInicial.Value = DateTime.Today;
             dtpFinal.Value = DateTime.Today;

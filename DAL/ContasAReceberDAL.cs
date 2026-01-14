@@ -15,8 +15,7 @@ namespace GVC.DAL
     {
         public List<ContaAReceberDTO> ListarContasAReceber(
             TipoPesquisaContasReceber tipoPesquisa,
-            string nomeCliente,
-            string numeroVenda,
+            string nomeCliente,           
             DateTime? dataInicial,
             DateTime? dataFinal,
             List<EnumStatusParcela> statusSelecionados
@@ -66,12 +65,7 @@ namespace GVC.DAL
                 case TipoPesquisaContasReceber.NomeCliente:
                     sql.Append(" AND c.Nome LIKE @NomeCliente ");
                     param.Add("@NomeCliente", $"%{nomeCliente}%");
-                    break;
-
-                case TipoPesquisaContasReceber.NumeroVenda:
-                    sql.Append(" AND v.VendaID = @VendaID ");
-                    param.Add("@VendaID", int.Parse(numeroVenda));
-                    break;
+                    break;                
 
                 case TipoPesquisaContasReceber.DataVenda:
                     sql.Append(" AND CAST(v.DataVenda AS DATE) = @DataVenda ");
