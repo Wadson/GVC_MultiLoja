@@ -509,7 +509,7 @@ namespace GVC.View
 
             lblTotalVencido.Text = totalVencido.ToString("C2");
         }
-               
+
         private List<PagamentoExtratoModel> ObterPagamentosDoGrid()
         {
             var lista = new List<PagamentoExtratoModel>();
@@ -804,7 +804,7 @@ namespace GVC.View
             }
             return false;
         }
-        
+
         private ExtratoCliente ObterExtratoCliente(bool detalhado)
         {
             if (dgvContasAReceber.CurrentRow?.DataBoundItem is not ContaAReceberDTO dto)
@@ -1572,6 +1572,11 @@ namespace GVC.View
                     }
                 }
             }
+        }
+
+        private void rbPeriodoVencimento_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

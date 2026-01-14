@@ -473,7 +473,7 @@
             btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelar.IconSize = 22;
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelar.Location = new Point(248, 558);
+            btnCancelar.Location = new Point(226, 562);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(120, 32);
             btnCancelar.TabIndex = 1111;
@@ -487,7 +487,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(534, 81);
+            pnlHeader.Size = new Size(486, 81);
             pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             pnlHeader.TabIndex = 1113;
@@ -506,7 +506,7 @@
             tlpTitulo.RowCount = 2;
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 59.0909081F));
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 40.9090919F));
-            tlpTitulo.Size = new Size(534, 81);
+            tlpTitulo.Size = new Size(486, 81);
             tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             tlpTitulo.TabIndex = 0;
@@ -521,14 +521,14 @@
             panelSubTitulo.Dock = DockStyle.Fill;
             panelSubTitulo.Location = new Point(3, 50);
             panelSubTitulo.Name = "panelSubTitulo";
-            panelSubTitulo.Size = new Size(528, 28);
+            panelSubTitulo.Size = new Size(480, 28);
             panelSubTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             panelSubTitulo.TabIndex = 2;
             // 
             // kryptonLabel5
             // 
             kryptonLabel5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            kryptonLabel5.Location = new Point(184, 1);
+            kryptonLabel5.Location = new Point(148, 1);
             kryptonLabel5.Name = "kryptonLabel5";
             kryptonLabel5.Size = new Size(67, 31);
             kryptonLabel5.StateCommon.ShortText.Color1 = Color.White;
@@ -550,7 +550,7 @@
             // 
             // lblTotal
             // 
-            lblTotal.Location = new Point(262, 1);
+            lblTotal.Location = new Point(225, 1);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(85, 31);
             lblTotal.StateCommon.ShortText.Color1 = Color.White;
@@ -562,7 +562,7 @@
             // kryptonLabel8
             // 
             kryptonLabel8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            kryptonLabel8.Location = new Point(1216, 0);
+            kryptonLabel8.Location = new Point(1168, 0);
             kryptonLabel8.Name = "kryptonLabel8";
             kryptonLabel8.Size = new Size(42, 27);
             kryptonLabel8.StateCommon.ShortText.Color1 = Color.White;
@@ -575,7 +575,7 @@
             // kryptonLabel9
             // 
             kryptonLabel9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            kryptonLabel9.Location = new Point(1119, 0);
+            kryptonLabel9.Location = new Point(1071, 0);
             kryptonLabel9.Name = "kryptonLabel9";
             kryptonLabel9.Size = new Size(91, 27);
             kryptonLabel9.StateCommon.ShortText.Color1 = Color.White;
@@ -594,7 +594,7 @@
             panelTitulo.Dock = DockStyle.Fill;
             panelTitulo.Location = new Point(3, 3);
             panelTitulo.Name = "panelTitulo";
-            panelTitulo.Size = new Size(528, 41);
+            panelTitulo.Size = new Size(480, 41);
             panelTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             panelTitulo.TabIndex = 1;
             // 
@@ -614,7 +614,7 @@
             // lblVendaNumero
             // 
             lblVendaNumero.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblVendaNumero.Location = new Point(416, 0);
+            lblVendaNumero.Location = new Point(377, 4);
             lblVendaNumero.Name = "lblVendaNumero";
             lblVendaNumero.Size = new Size(42, 27);
             lblVendaNumero.StateCommon.ShortText.Color1 = Color.White;
@@ -627,7 +627,7 @@
             // lblVendaN
             // 
             lblVendaN.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblVendaN.Location = new Point(329, 0);
+            lblVendaN.Location = new Point(290, 4);
             lblVendaN.Name = "lblVendaN";
             lblVendaN.Size = new Size(91, 27);
             lblVendaN.StateCommon.ShortText.Color1 = Color.White;
@@ -639,12 +639,12 @@
             // 
             // lblTitulo
             // 
-            lblTitulo.Location = new Point(45, 2);
+            lblTitulo.Location = new Point(45, 4);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(260, 34);
+            lblTitulo.Size = new Size(197, 26);
             lblTitulo.StateCommon.ShortText.Color1 = Color.White;
             lblTitulo.StateCommon.ShortText.Color2 = Color.White;
-            lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblTitulo.TabIndex = 1091;
             lblTitulo.Values.Text = "Detalhes do Pagamento";
@@ -679,7 +679,7 @@
             btnConfirmar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnConfirmar.IconSize = 22;
             btnConfirmar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConfirmar.Location = new Point(372, 558);
+            btnConfirmar.Location = new Point(350, 562);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Padding = new Padding(10, 0, 10, 0);
             btnConfirmar.Size = new Size(120, 32);
@@ -703,7 +703,7 @@
             panelParcelamento.Controls.Add(numIntervalo);
             panelParcelamento.Controls.Add(numParcelas);
             panelParcelamento.Controls.Add(lblIntervalo);
-            panelParcelamento.Location = new Point(30, 171);
+            panelParcelamento.Location = new Point(8, 171);
             panelParcelamento.Name = "panelParcelamento";
             panelParcelamento.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelParcelamento.Size = new Size(466, 115);
@@ -767,7 +767,7 @@
             kryptonPanel1.Controls.Add(kryptonLabel2);
             kryptonPanel1.Controls.Add(cmbFormaPagamento);
             kryptonPanel1.Controls.Add(kryptonBorderEdge14);
-            kryptonPanel1.Location = new Point(27, 101);
+            kryptonPanel1.Location = new Point(5, 101);
             kryptonPanel1.Name = "kryptonPanel1";
             kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel1.Size = new Size(469, 57);
@@ -834,7 +834,7 @@
             panelRecebimento.Controls.Add(lblValorRecebido);
             panelRecebimento.Controls.Add(txtTroco);
             panelRecebimento.Controls.Add(lblTroco);
-            panelRecebimento.Location = new Point(29, 172);
+            panelRecebimento.Location = new Point(7, 172);
             panelRecebimento.Name = "panelRecebimento";
             panelRecebimento.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelRecebimento.Size = new Size(469, 115);
@@ -898,7 +898,7 @@
             panelDatagrid.Controls.Add(kryptonBorderEdge8);
             panelDatagrid.Controls.Add(kryptonLabel4);
             panelDatagrid.Controls.Add(kryptonBorderEdge9);
-            panelDatagrid.Location = new Point(28, 292);
+            panelDatagrid.Location = new Point(6, 292);
             panelDatagrid.Name = "panelDatagrid";
             panelDatagrid.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelDatagrid.Size = new Size(468, 160);
@@ -962,7 +962,7 @@
             panelObservacoes.Controls.Add(kryptonBorderEdge19);
             panelObservacoes.Controls.Add(lblObservacoes);
             panelObservacoes.Controls.Add(kryptonBorderEdge20);
-            panelObservacoes.Location = new Point(27, 454);
+            panelObservacoes.Location = new Point(5, 454);
             panelObservacoes.Name = "panelObservacoes";
             panelObservacoes.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelObservacoes.Size = new Size(469, 84);
@@ -1023,7 +1023,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(534, 615);
+            ClientSize = new Size(486, 603);
             Controls.Add(panelObservacoes);
             Controls.Add(panelDatagrid);
             Controls.Add(panelRecebimento);

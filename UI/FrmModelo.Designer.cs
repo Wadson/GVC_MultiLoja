@@ -369,7 +369,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 20F;
-            btnNovo.Location = new Point(221, 278);
+            btnNovo.Location = new Point(221, 274);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1165,7 +1165,7 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.CornerRoundingRadius = 20F;
-            btnSalvar.Location = new Point(115, 278);
+            btnSalvar.Location = new Point(115, 274);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -1335,7 +1335,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 20F;
-            btnSair.Location = new Point(727, 314);
+            btnSair.Location = new Point(727, 310);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1463,7 +1463,7 @@
             // 
             kryptonButton13.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kryptonButton13.CornerRoundingRadius = 20F;
-            kryptonButton13.Location = new Point(9, 278);
+            kryptonButton13.Location = new Point(9, 274);
             kryptonButton13.Name = "kryptonButton13";
             kryptonButton13.OverrideDefault.Back.Color1 = Color.Red;
             kryptonButton13.OverrideDefault.Back.Color2 = Color.Red;
@@ -1529,7 +1529,7 @@
             // 
             btnVerItensVenda.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnVerItensVenda.CornerRoundingRadius = 20F;
-            btnVerItensVenda.Location = new Point(217, 314);
+            btnVerItensVenda.Location = new Point(217, 310);
             btnVerItensVenda.Name = "btnVerItensVenda";
             btnVerItensVenda.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnVerItensVenda.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1593,7 +1593,7 @@
             // 
             btnBaixarParcela.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnBaixarParcela.CornerRoundingRadius = 20F;
-            btnBaixarParcela.Location = new Point(319, 314);
+            btnBaixarParcela.Location = new Point(319, 310);
             btnBaixarParcela.Name = "btnBaixarParcela";
             btnBaixarParcela.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnBaixarParcela.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -1658,7 +1658,7 @@
             // 
             btnExtrato.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnExtrato.CornerRoundingRadius = 20F;
-            btnExtrato.Location = new Point(421, 314);
+            btnExtrato.Location = new Point(421, 310);
             btnExtrato.Name = "btnExtrato";
             btnExtrato.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnExtrato.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1722,7 +1722,7 @@
             // 
             btnRecibo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnRecibo.CornerRoundingRadius = 20F;
-            btnRecibo.Location = new Point(523, 314);
+            btnRecibo.Location = new Point(523, 310);
             btnRecibo.Name = "btnRecibo";
             btnRecibo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnRecibo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1786,7 +1786,7 @@
             // 
             btnEstornarPagamento.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnEstornarPagamento.CornerRoundingRadius = 20F;
-            btnEstornarPagamento.Location = new Point(625, 314);
+            btnEstornarPagamento.Location = new Point(625, 310);
             btnEstornarPagamento.Name = "btnEstornarPagamento";
             btnEstornarPagamento.OverrideDefault.Back.Color1 = Color.Red;
             btnEstornarPagamento.OverrideDefault.Back.Color2 = Color.Red;
@@ -1852,7 +1852,7 @@
             // 
             btnPesquisar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnPesquisar.CornerRoundingRadius = 20F;
-            btnPesquisar.Location = new Point(13, 314);
+            btnPesquisar.Location = new Point(13, 310);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnPesquisar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -1917,7 +1917,7 @@
             // 
             btnLimparFiltro.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnLimparFiltro.CornerRoundingRadius = 20F;
-            btnLimparFiltro.Location = new Point(115, 314);
+            btnLimparFiltro.Location = new Point(115, 310);
             btnLimparFiltro.Name = "btnLimparFiltro";
             btnLimparFiltro.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnLimparFiltro.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -2045,7 +2045,7 @@
             // 
             kryptonButton15.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kryptonButton15.CornerRoundingRadius = 20F;
-            kryptonButton15.Location = new Point(619, 268);
+            kryptonButton15.Location = new Point(619, 264);
             kryptonButton15.Name = "kryptonButton15";
             kryptonButton15.OverrideDefault.Back.Color1 = Color.Red;
             kryptonButton15.OverrideDefault.Back.Color2 = Color.Red;
@@ -2111,7 +2111,7 @@
             // 
             kryptonButton16.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kryptonButton16.CornerRoundingRadius = 20F;
-            kryptonButton16.Location = new Point(517, 268);
+            kryptonButton16.Location = new Point(517, 264);
             kryptonButton16.Name = "kryptonButton16";
             kryptonButton16.OverrideDefault.Back.Color1 = Color.FromArgb(255, 171, 0);
             kryptonButton16.OverrideDefault.Back.Color2 = Color.FromArgb(255, 171, 0);
@@ -2183,7 +2183,7 @@
             // 
             kryptonButton17.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kryptonButton17.CornerRoundingRadius = 20F;
-            kryptonButton17.Location = new Point(415, 268);
+            kryptonButton17.Location = new Point(415, 264);
             kryptonButton17.Name = "kryptonButton17";
             kryptonButton17.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             kryptonButton17.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -2248,7 +2248,7 @@
             // 
             kryptonButton18.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kryptonButton18.CornerRoundingRadius = 20F;
-            kryptonButton18.Location = new Point(313, 268);
+            kryptonButton18.Location = new Point(313, 264);
             kryptonButton18.Name = "kryptonButton18";
             kryptonButton18.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             kryptonButton18.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -2313,7 +2313,7 @@
             // 
             kryptonButton19.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             kryptonButton19.CornerRoundingRadius = 20F;
-            kryptonButton19.Location = new Point(721, 268);
+            kryptonButton19.Location = new Point(721, 264);
             kryptonButton19.Name = "kryptonButton19";
             kryptonButton19.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             kryptonButton19.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -2380,16 +2380,16 @@
             panelParcelamento.Controls.Add(kryptonBorderEdge3);
             panelParcelamento.Controls.Add(lblParcelamento);
             panelParcelamento.Controls.Add(kryptonBorderEdge1);
-            panelParcelamento.Location = new Point(530, 121);
+            panelParcelamento.Location = new Point(644, 36);
             panelParcelamento.Name = "panelParcelamento";
             panelParcelamento.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            panelParcelamento.Size = new Size(297, 115);
+            panelParcelamento.Size = new Size(177, 115);
             panelParcelamento.TabIndex = 1128;
             // 
             // kryptonBorderEdge6
             // 
             kryptonBorderEdge6.Dock = DockStyle.Right;
-            kryptonBorderEdge6.Location = new Point(294, 21);
+            kryptonBorderEdge6.Location = new Point(174, 21);
             kryptonBorderEdge6.Name = "kryptonBorderEdge6";
             kryptonBorderEdge6.Size = new Size(3, 93);
             kryptonBorderEdge6.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
@@ -2401,7 +2401,7 @@
             kryptonBorderEdge4.Dock = DockStyle.Top;
             kryptonBorderEdge4.Location = new Point(3, 20);
             kryptonBorderEdge4.Name = "kryptonBorderEdge4";
-            kryptonBorderEdge4.Size = new Size(294, 1);
+            kryptonBorderEdge4.Size = new Size(174, 1);
             kryptonBorderEdge4.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge4.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge4.Text = "kryptonBorderEdge4";
@@ -2421,7 +2421,7 @@
             lblParcelamento.Dock = DockStyle.Top;
             lblParcelamento.Location = new Point(0, 0);
             lblParcelamento.Name = "lblParcelamento";
-            lblParcelamento.Size = new Size(297, 20);
+            lblParcelamento.Size = new Size(177, 20);
             lblParcelamento.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblParcelamento.TabIndex = 1038;
             lblParcelamento.Values.Text = "Parcelamento";
@@ -2431,7 +2431,7 @@
             kryptonBorderEdge1.Dock = DockStyle.Bottom;
             kryptonBorderEdge1.Location = new Point(0, 114);
             kryptonBorderEdge1.Name = "kryptonBorderEdge1";
-            kryptonBorderEdge1.Size = new Size(297, 1);
+            kryptonBorderEdge1.Size = new Size(177, 1);
             kryptonBorderEdge1.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge1.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge1.Text = "kryptonBorderEdge1";
@@ -2441,7 +2441,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(833, 366);
+            ClientSize = new Size(833, 362);
             Controls.Add(panelParcelamento);
             Controls.Add(kryptonButton15);
             Controls.Add(kryptonButton16);
