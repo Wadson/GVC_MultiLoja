@@ -13,6 +13,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Infra\**" />
+	  <Compile Remove="Logs\**" />
+	  <Compile Remove="Services\**" />
+	  <Compile Remove="UI\NovaPasta\**" />
+	  <EmbeddedResource Remove="Infra\**" />
+	  <EmbeddedResource Remove="Logs\**" />
+	  <EmbeddedResource Remove="Services\**" />
+	  <EmbeddedResource Remove="UI\NovaPasta\**" />
+	  <None Remove="Infra\**" />
+	  <None Remove="Logs\**" />
+	  <None Remove="Services\**" />
+	  <None Remove="UI\NovaPasta\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Include="Resources\Icons\icon.ico" />
 	</ItemGroup>
 
@@ -104,13 +119,6 @@
 	  <Compile Update="UI\FrmRelatoriosFinanceiros.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Infra\" />
-	  <Folder Include="Logs\" />
-	  <Folder Include="Services\" />
-	  <Folder Include="UI\NovaPasta\" />
 	</ItemGroup>
 
 </Project>

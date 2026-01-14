@@ -1206,122 +1206,38 @@ namespace GVC.View
             AtualizarTotalSelecionado();
         }
 
-        private void btnLimparFiltro_Click(object sender, EventArgs e)
+        private void btnEstornarPagamento_Click(object sender, EventArgs e)
         {
+
         }
 
-        private void btnRecibo_Click(object sender, EventArgs e)
+        private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            CarregarContasAReceber();
+        }
 
-            // ======================================================
-            // 🔹 VALIDA PARCELA
-            // ======================================================
-            if (dgvContasAReceber.CurrentRow == null)
-            {
-                Utilitario.Mensagens.Aviso("Selecione uma parcela.");
-                return;
-            }
+        private void btnLimparFiltros_Click(object sender, EventArgs e)
+        {
+            // 🔹 Status (nenhum = todos)
+            chkPendente.Checked = false;
+            chkParcial.Checked = false;
+            chkPago.Checked = false;
+            chkAtrasada.Checked = false;
+            chkCancelada.Checked = false;
 
-            var parcela = dgvContasAReceber.CurrentRow.DataBoundItem as ContaAReceberDTO;
+            // 🔹 Campos
+            txtNomeCliente.Clear();
 
-            if (parcela == null)
-            {
-                Utilitario.Mensagens.Aviso("Parcela inválida.");
-                return;
-            }
+            // 🔹 Datas (somente 2)
+            dtpInicial.Value = DateTime.Today;
+            dtpFinal.Value = DateTime.Today;
 
-            var extratoBLL = new ExtratoBLL();
-            var pagamentoBLL = new PagamentoBLL();
-
-            // 🔹 Extrato sempre vem da parcela
-            var extrato = extratoBLL.ObterExtratoPorParcela(parcela.ParcelaID);
-
-            // ======================================================
-            // 🔥 BUSCA PAGAMENTOS SELECIONADOS NO GRID
-            // ======================================================
-            var pagamentosSelecionados = new List<PagamentoExtratoModel>();
-
-            foreach (DataGridViewRow row in dgvPagamentos.Rows)
-            {
-                bool marcado = row.Cells["Selecionar"]?.Value is bool b && b;
-
-                if (!marcado)
-                    continue;
-
-                if (row.DataBoundItem is PagamentoExtratoModel pagamento)
-                    pagamentosSelecionados.Add(pagamento);
-            }
-
-            List<PagamentoExtratoModel> pagamentosParaRecibo;
-            string nomeArquivo;
-
-            // ======================================================
-            // 🔥 DECISÃO AUTOMÁTICA
-            // ======================================================
-            if (pagamentosSelecionados.Count > 0)
-            {
-                // 👉 Recibo SOMENTE dos pagamentos marcados
-                pagamentosParaRecibo = pagamentosSelecionados;
-
-                nomeArquivo = pagamentosSelecionados.Count == 1
-                    ? $"Recibo_Pagamento_{pagamentosSelecionados[0].PagamentoID}.pdf"
-                    : $"Recibo_Pagamentos_{parcela.ParcelaID}.pdf";
-            }
-            else
-            {
-                // 👉 Recibo da PARCELA INTEIRA
-                pagamentosParaRecibo =
-                    pagamentoBLL.ListarPagamentosPorParcela(parcela.ParcelaID);
-
-                if (pagamentosParaRecibo == null || pagamentosParaRecibo.Count == 0)
-                {
-                    Utilitario.Mensagens.Aviso("Nenhum pagamento encontrado para esta parcela.");
-                    return;
-                }
-
-                nomeArquivo = $"Recibo_Parcela_{parcela.ParcelaID}.pdf";
-            }
-
-            // ======================================================
-            // 🔹 EMPRESA
-            // ======================================================
-            var empresa = new EmpresaBll().ObterDadosParaPdf();
-
-            using SaveFileDialog sfd = new SaveFileDialog
-            {
-                Filter = "Arquivo PDF (*.pdf)|*.pdf",
-                FileName = nomeArquivo
-            };
-
-            if (sfd.ShowDialog() != DialogResult.OK)
-                return;
-
-            // ======================================================
-            // 🔹 GERAR PDF
-            // ======================================================
-            PDFGenerator.GerarReciboPagamentos(
-                extrato,
-                pagamentosParaRecibo,
-                empresa,
-                sfd.FileName
-            );
-
-            // ======================================================
-            // 🔹 CONFIRMAR ABERTURA
-            // ======================================================
-            if (Utilitario.Mensagens.Confirmacao("Recibo gerado com sucesso. Deseja abrir agora?"))
-            {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = sfd.FileName,
-                    UseShellExecute = true
-                });
-            }
+            AtualizarEstadoPesquisa();
+            CarregarContasAReceber();
         }
 
         private void btnVerItensVenda_Click(object sender, EventArgs e)
         {
-
             if (dgvContasAReceber.CurrentRow == null)
             {
                 Utilitario.Mensagens.Aviso("Selecione uma venda para visualizar os itens.");
@@ -1343,7 +1259,7 @@ namespace GVC.View
             }
         }
 
-        private void btnBaixarParcela_Click_1(object sender, EventArgs e)
+        private void btnBaixarParcela_Click(object sender, EventArgs e)
         {
             var selecionadas = ObterParcelasSelecionadas();
             if (!selecionadas.Any())
@@ -1456,12 +1372,116 @@ namespace GVC.View
             }
         }
 
-        private void btnSair_Click(object sender, EventArgs e)
+        private void btnRecibo_Click(object sender, EventArgs e)
         {
-            this.Close();
+
+            // ======================================================
+            // 🔹 VALIDA PARCELA
+            // ======================================================
+            if (dgvContasAReceber.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione uma parcela.");
+                return;
+            }
+
+            var parcela = dgvContasAReceber.CurrentRow.DataBoundItem as ContaAReceberDTO;
+
+            if (parcela == null)
+            {
+                Utilitario.Mensagens.Aviso("Parcela inválida.");
+                return;
+            }
+
+            var extratoBLL = new ExtratoBLL();
+            var pagamentoBLL = new PagamentoBLL();
+
+            // 🔹 Extrato sempre vem da parcela
+            var extrato = extratoBLL.ObterExtratoPorParcela(parcela.ParcelaID);
+
+            // ======================================================
+            // 🔥 BUSCA PAGAMENTOS SELECIONADOS NO GRID
+            // ======================================================
+            var pagamentosSelecionados = new List<PagamentoExtratoModel>();
+
+            foreach (DataGridViewRow row in dgvPagamentos.Rows)
+            {
+                bool marcado = row.Cells["Selecionar"]?.Value is bool b && b;
+
+                if (!marcado)
+                    continue;
+
+                if (row.DataBoundItem is PagamentoExtratoModel pagamento)
+                    pagamentosSelecionados.Add(pagamento);
+            }
+
+            List<PagamentoExtratoModel> pagamentosParaRecibo;
+            string nomeArquivo;
+
+            // ======================================================
+            // 🔥 DECISÃO AUTOMÁTICA
+            // ======================================================
+            if (pagamentosSelecionados.Count > 0)
+            {
+                // 👉 Recibo SOMENTE dos pagamentos marcados
+                pagamentosParaRecibo = pagamentosSelecionados;
+
+                nomeArquivo = pagamentosSelecionados.Count == 1
+                    ? $"Recibo_Pagamento_{pagamentosSelecionados[0].PagamentoID}.pdf"
+                    : $"Recibo_Pagamentos_{parcela.ParcelaID}.pdf";
+            }
+            else
+            {
+                // 👉 Recibo da PARCELA INTEIRA
+                pagamentosParaRecibo =
+                    pagamentoBLL.ListarPagamentosPorParcela(parcela.ParcelaID);
+
+                if (pagamentosParaRecibo == null || pagamentosParaRecibo.Count == 0)
+                {
+                    Utilitario.Mensagens.Aviso("Nenhum pagamento encontrado para esta parcela.");
+                    return;
+                }
+
+                nomeArquivo = $"Recibo_Parcela_{parcela.ParcelaID}.pdf";
+            }
+
+            // ======================================================
+            // 🔹 EMPRESA
+            // ======================================================
+            var empresa = new EmpresaBll().ObterDadosParaPdf();
+
+            using SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "Arquivo PDF (*.pdf)|*.pdf",
+                FileName = nomeArquivo
+            };
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            // ======================================================
+            // 🔹 GERAR PDF
+            // ======================================================
+            PDFGenerator.GerarReciboPagamentos(
+                extrato,
+                pagamentosParaRecibo,
+                empresa,
+                sfd.FileName
+            );
+
+            // ======================================================
+            // 🔹 CONFIRMAR ABERTURA
+            // ======================================================
+            if (Utilitario.Mensagens.Confirmacao("Recibo gerado com sucesso. Deseja abrir agora?"))
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = sfd.FileName,
+                    UseShellExecute = true
+                });
+            }
         }
 
-        private void btnEstornarPagamento_Click(object sender, EventArgs e)
+        private void btnEstornar_Click(object sender, EventArgs e)
         {
             var selecionadas = ObterParcelasSelecionadas();
 
@@ -1521,29 +1541,9 @@ namespace GVC.View
             }
         }
 
-        private void btnFiltrar_Click(object sender, EventArgs e)
+        private void btnSair_Click(object sender, EventArgs e)
         {
-            CarregarContasAReceber();
-        }
-
-        private void btnLimparFiltros_Click(object sender, EventArgs e)
-        {
-            // 🔹 Status (nenhum = todos)
-            chkPendente.Checked = false;
-            chkParcial.Checked = false;
-            chkPago.Checked = false;
-            chkAtrasada.Checked = false;
-            chkCancelada.Checked = false;
-
-            // 🔹 Campos
-            txtNomeCliente.Clear();
-
-            // 🔹 Datas (somente 2)
-            dtpInicial.Value = DateTime.Today;
-            dtpFinal.Value = DateTime.Today;
-
-            AtualizarEstadoPesquisa();
-            CarregarContasAReceber();
+            this.Close();
         }
     }
 }
