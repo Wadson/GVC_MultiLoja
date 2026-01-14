@@ -581,6 +581,7 @@ namespace GVC.View
             {
                 Venda = new VendaModel
                 {
+                    VendaID = int.TryParse(txtVendaID.Text, out int id) ? id : 0,
                     ClienteID = ClienteID,
                     NomeCliente = txtClienteBuscar.Text,
                     VendedorID = VendedorID,

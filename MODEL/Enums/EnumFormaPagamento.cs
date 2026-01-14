@@ -69,4 +69,48 @@ namespace GVC.Model.Enums
             StatusParcela
         }
     }
+    public class FormaPagamentoItem
+    {
+        // 🔑 Banco
+        public int FormaPgtoID { get; set; }
+        public bool Ativo { get; set; } = true;
+
+        // 🧠 Regra
+       
+
+        // 🎨 UI (compatível com código antigo)
+        public string NomeFormaPagamento { get; set; }
+
+        // 🔁 Alias para novos formulários
+        public string Descricao
+        {
+            get => NomeFormaPagamento;
+            set => NomeFormaPagamento = value;
+        }
+
+        public override string ToString()
+        {
+            return NomeFormaPagamento;
+        }
+        public EnumFormaPagamento FormaEnum
+        {
+            get
+            {
+                var nome = NomeFormaPagamento.ToUpper();
+
+                if (nome.Contains("DINHEIRO")) return EnumFormaPagamento.Dinheiro;
+                if (nome.Contains("PIX")) return EnumFormaPagamento.Pix;
+                if (nome.Contains("TRANSFER")) return EnumFormaPagamento.Transferencia;
+                if (nome.Contains("DÉBITO")) return EnumFormaPagamento.CartaoDebito;
+                if (nome.Contains("CRÉDITO")) return EnumFormaPagamento.CartaoCredito;
+                if (nome.Contains("CREDIÁRIO")) return EnumFormaPagamento.Crediario;
+                if (nome.Contains("CHEQUE")) return EnumFormaPagamento.Cheque;
+                if (nome.Contains("BOLETO")) return EnumFormaPagamento.Boleto;
+
+                throw new Exception("Forma de pagamento não mapeada: " + NomeFormaPagamento);
+            }
+        }
+
+    }
+
 }

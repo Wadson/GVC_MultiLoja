@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             lblEsqueciSenha = new Label();
             btnCancelar = new Krypton.Toolkit.KryptonButton();
             panel3 = new Panel();
@@ -323,8 +324,8 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.GVC_Gestao_de_Vendas_e_Cobrancas;
-            pictureBox1.Location = new Point(96, -9);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(96, 5);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(100, 100);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;

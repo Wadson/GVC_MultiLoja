@@ -120,28 +120,18 @@
   <metadata name="kryptonPalette1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>174, 17</value>
   </metadata>
-  <metadata name="kryptonPalette2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>311, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tlpTitulo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAbwAAAAtCAYAAADV/d6NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADJSURBVHhe7dUhAQAgAMAwkpCXouQATwQ+MfMCH3PtAwC/
-        G28AgB8ZHgAJhgdAguEBkGB4ACQYHgAJhgdAguEBkGB4ACQYHgAJhgdAguEBkGB4ACQYHgAJhgdAguEB
-        kGB4ACQYHgAJhgdAguEBkGB4ACQYHgAJhgdAguEBkGB4ACQYHgAJhgdAguEBkGB4ACQYHgAJhgdAguEB
-        kGB4ACQYHgAJhgdAguEBkGB4ACQYHgAJhgdAguEBkGB4ACQYHgAJhgdAguEBkHAB2Lg2E03g9qwAAAAA
-        SUVORK5CYII=
-</value>
-  </data>
-  <data name="kryptonTableLayoutPanel1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD8SURBVHhe7dGhAQAwDICw/v906/fAEInEMkvKvIG/DIkx
-        JMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENi
-        DIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQ
-        GENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkx
-        JMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJMaQGENiDIkxJOYA+Cus1lprDEMAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAAhYAAABRCAYAAACOhe8uAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF4SURBVHhe7dYhEQAgAMBAkpCXouQAj+QmX7xZgo259gEA
+        KIw3AAD8MhYAQMZYAAAZYwEAZIwFAJAxFgBAxlgAABljAQBkjAUAkDEWAEDGWAAAGWMBAGSMBQCQMRYA
+        QMZYAAAZYwEAZIwFAJAxFgBAxlgAABljAQBkjAUAkDEWAEDGWAAAGWMBAGSMBQCQMRYAQMZYAAAZYwEA
+        ZIwFAJAxFgBAxlgAABljAQBkjAUAkDEWAEDGWAAAGWMBAGSMBQCQMRYAQMZYAAAZYwEAZIwFAJAxFgBA
+        xlgAABljAQBkjAUAkDEWAEDGWAAAGWMBAGSMBQCQMRYAQMZYAAAZYwEAZIwFAJAxFgBAxlgAABljAQBk
+        jAUAkDEWAEDGWAAAGWMBAGSMBQCQMRYAQMZYAAAZYwEAZIwFAJAxFgBAxlgAABljAQBkjAUAkDEWAEDG
+        WAAAGWMBAGSMBQCQMRYAQMZYAAAZYwEAZIwFAJAxFgBAxlgAABljAQBkLuBWGcDmzurPAAAAAElFTkSu
+        QmCC
 </value>
   </data>
 </root>

@@ -1,11 +1,12 @@
 using Dapper;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
 using GVC.Model;
+using GVC.Model.Enums;
 using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;
 using OfficeOpenXml;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ using System.Windows.Forms;
 using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
 
-namespace GVC.UTIL{
+namespace GVC.UTIL {
     public static class Utilitario
     {
         private static readonly CultureInfo CulturaBR = new CultureInfo("pt-BR");
@@ -170,7 +171,7 @@ namespace GVC.UTIL{
             return true;
         }
 
-      
+
         // ==============================================================
         // 1. FORMATAR MOEDA (TextBox e KryptonTextBox)
         // ==============================================================
@@ -179,7 +180,7 @@ namespace GVC.UTIL{
 
         public static void PesquisarPorCodigoRetornarNomeTexBox(string query, string nomeParametro, string parametro, KryptonTextBox txtResultado)
         {
-                using (var connection = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var connection = Conexao.Conex(Sessao.AmbienteSelecionado))
                 try
                 {
                     connection.Open();
@@ -365,8 +366,8 @@ namespace GVC.UTIL{
                     txtProdutoID.Text = produto.ProdutoID.ToString();
                     txtNomeProduto.Text = produto.NomeProduto?.ToString() ?? "";
                     //txtPrecoVend.Text = produto.PrecoVenda != null
-                        //? Convert.ToDecimal(produto.PrecoVenda).ToString("F2")
-                        //: "";
+                    //? Convert.ToDecimal(produto.PrecoVenda).ToString("F2")
+                    //: "";
                 }
                 else
                 {
@@ -516,7 +517,7 @@ namespace GVC.UTIL{
                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 grid.DataSource = null;
             }
-        }      
+        }
 
         public static int ContaRegistros(KryptonDataGridView grid)
         {
@@ -759,18 +760,18 @@ namespace GVC.UTIL{
         {
             // Cor quando ganha foco
             textBox.StateActive.Back.Color1 = System.Drawing.Color.PaleTurquoise;
-            
+
 
             // Evento Enter
             textBox.Enter += (s, e) =>
             {
-                textBox.StateActive.Back.Color1 = System.Drawing.Color.PaleTurquoise;                
+                textBox.StateActive.Back.Color1 = System.Drawing.Color.PaleTurquoise;
             };
 
             // Evento Leave (volta ao normal)
             textBox.Leave += (s, e) =>
             {
-                textBox.StateActive.Back.Color1 = textBox.StateCommon.Back.Color1;                
+                textBox.StateActive.Back.Color1 = textBox.StateCommon.Back.Color1;
             };
         }
         private static void FormatarMoeda(Control txt, string valor)
@@ -812,7 +813,7 @@ namespace GVC.UTIL{
         /// Versão estática do ToDecimal (caso não queira usar extensão)
         /// </summary>
         public static decimal RemoverMascaraMoeda(string valor) => valor.ToDecimal();
-               
+
         public static int ProximoId(string query)
         {
             using var conn = Conexao.Conex();
@@ -839,59 +840,6 @@ namespace GVC.UTIL{
             return $"({tel.Substring(0, 2)}) {tel.Substring(2, 5)}-{tel.Substring(7, Math.Min(4, tel.Length - 7))}";
         }
 
-
-        //public static void FormatarTelefone(KryptonTextBox txtTelefone)
-        //{
-        //    txtTelefone.Leave += (sender, e) =>
-        //    {
-        //        string textoOriginal = txtTelefone.Text.Trim();
-        //        string apenasNumeros = Regex.Replace(textoOriginal, @"\D", ""); // remove tudo que não for número
-
-        //        // Se vazio → aceita
-        //        if (string.IsNullOrWhiteSpace(apenasNumeros))
-        //        {
-        //            txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Gray;
-        //            txtTelefone.Text = "";
-        //            return;
-        //        }
-        //        // Celular com DDD deve ter exatamente 11 dígitos
-        //        if (apenasNumeros.Length != 11)
-        //        {
-        //            txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Crimson;
-        //            MessageBox.Show("Telefone deve conter 11 dígitos (DDD + número).", "Telefone Inválido",
-        //                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //            txtTelefone.Focus();
-        //            return;
-        //        }
-        //        // Verifica se o DDD é válido (não começa com 0 e está entre 11 e 99)
-        //        string ddd = apenasNumeros.Substring(0, 2);
-        //        if (ddd == "00" || !int.TryParse(ddd, out int n) || n < 11 || n > 99)
-        //        {
-        //            txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.Crimson;
-        //            MessageBox.Show("DDD inválido. Use um DDD válido (ex: 11, 21, 31...)", "Telefone Inválido",
-        //                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //            txtTelefone.Focus();
-        //            return;
-        //        }
-        //        // Se já estiver perfeitamente formatado → mantém como o usuário digitou
-        //        if (Regex.IsMatch(textoOriginal, @"^\(\d{2}\) \d{5}-\d{4}$"))
-        //        {
-        //            txtTelefone.Text = textoOriginal;
-        //        }
-        //        else
-        //        {
-        //            // Formata automaticamente: (11) 98765-4321
-        //            txtTelefone.Text = $"({apenasNumeros.Substring(0, 2)}) " +
-        //                               $"{apenasNumeros.Substring(2, 5)}-" +
-        //                               $"{apenasNumeros.Substring(7, 4)}";
-        //        }
-        //        // Telefone válido → borda verde
-        //        txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.MediumSeaGreen;
-        //    };
-        //    // Cor ao entrar no campo
-        //    txtTelefone.Enter += (s, e) => txtTelefone.StateCommon.Border.Color1 = System.Drawing.Color.DeepSkyBlue;
-        //}
-     
         public static void LimparCampos(Control container)
         {
             foreach (Control c in container.Controls)
@@ -914,7 +862,7 @@ namespace GVC.UTIL{
                             pb.Image.Dispose();
                             pb.Image = null;
                         }
-                        break;                  
+                        break;
                 }
 
                 if (c.HasChildren) LimparCampos(c);
@@ -989,7 +937,7 @@ namespace GVC.UTIL{
                 if (c.HasChildren) AplicarEfeitoFoco(c);
             }
         }
-    
+
         public static ProdutoModel? BuscarProdutoPorRef(string referencia)
         {
             if (string.IsNullOrWhiteSpace(referencia)) return null;
@@ -997,8 +945,8 @@ namespace GVC.UTIL{
             const string sql = "SELECT * FROM Produtos WHERE Referencia = @Ref LIMIT 1";
             using var conn = Conexao.Conex();
             return conn.QueryFirstOrDefault<ProdutoModel>(sql, new { Ref = referencia });
-        }      
-      
+        }
+
         // WRAPPER para TELEFONE -------------------------------------------
         public static void MascaraTelefone(object sender, KeyPressEventArgs e)
         {
@@ -1235,7 +1183,7 @@ namespace GVC.UTIL{
                 AplicarMascaraCPF(e, txt); // chama sua função original
         }
 
-       
+
         public static bool ValidarEFormatarCEPnoTextbox(KryptonTextBox txt)
         {
             var original = txt.Text.Trim();
@@ -1292,7 +1240,7 @@ namespace GVC.UTIL{
                 AplicarMascaraCEP(e, txt);
         }
 
-      
+
         public static void MascaraIE(KeyPressEventArgs e, Krypton.Toolkit.KryptonTextBox txt)
         {
             // Permite somente números e Backspace
@@ -1333,7 +1281,7 @@ namespace GVC.UTIL{
             return cep;
         }
 
-      
+
 
         public static string FormatarCepTexto(string cep)
         {
@@ -1378,133 +1326,47 @@ namespace GVC.UTIL{
             };
         }
 
-
-
-        ///// <summary>
-        ///// Aplica comportamento de foco em KryptonTextBox:
-        ///// Verde claro ao ganhar foco, branco ao perder.
-        ///// </summary>
-        //public static void AplicarCorFoco(KryptonTextBox txt)
-        //{
-        //    txt.Enter += (s, e) =>
-        //    {
-        //        txt.StateCommon.Back.Color1 = Color.LightGreen;
-        //    };
-
-        //    txt.Leave += (s, e) =>
-        //    {
-        //        txt.StateCommon.Back.Color1 = Color.White;
-        //    };
-        //}
-
-
         public static string ZerosEsquerda(int numero, int tamanho) => numero.ToString().PadLeft(tamanho, '0');
         //public static string ZerosEsquerda(string texto, int tamanho) => texto.PadLeft(tamanho, '0');
+       
 
-        
+
         public static void CarregarFormasPagamento(KryptonComboBox cmb)
         {
-            try
+            cmb.Items.Clear();
+
+            cmb.Items.Add(new FormaPagamentoItem
             {
-                cmb.Items.Clear();
+                FormaPgtoID = 0,
+                NomeFormaPagamento = "Selecione uma forma de pagamento",
+                Ativo = true
+            });
 
-                // Item padrão tipado (NUNCA string solta)
-                cmb.Items.Add(new FormaPagamentoItem(0, "Selecione uma forma de pagamento"));
-                cmb.SelectedIndex = 0;
+            string sql = @"
+        SELECT FormaPgtoID, NomeFormaPagamento, Ativo
+        FROM FormaPagamento
+        WHERE Ativo = 1
+        ORDER BY NomeFormaPagamento";
 
-                string query = @"
-            SELECT FormaPgtoID, NomeFormaPagamento 
-            FROM FormaPagamento 
-            WHERE Ativo = 1 
-            ORDER BY 
-                CASE 
-                    WHEN NomeFormaPagamento LIKE 'Dinheiro%' THEN 1
-                    WHEN NomeFormaPagamento LIKE 'PIX%' THEN 2
-                    WHEN NomeFormaPagamento LIKE 'Cartão Débito%' THEN 3
-                    WHEN NomeFormaPagamento LIKE 'Cartão Crédito%' THEN 4
-                    ELSE 5
-                END,
-                NomeFormaPagamento";
+            using var conn = Conexao.Conex(Sessao.AmbienteSelecionado);
+            using var cmd = new SqlCommand(sql, conn);
 
-                using (var connection = Conexao.Conex(Sessao.AmbienteSelecionado))
-                using (var command = new SqlCommand(query, connection))
+            conn.Open();
+            using var dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                cmb.Items.Add(new FormaPagamentoItem
                 {
-                    connection.Open();
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            cmb.Items.Add(new FormaPagamentoItem(
-                                Convert.ToInt32(reader["FormaPgtoID"]),
-                                reader["NomeFormaPagamento"].ToString()
-                            ));
-                        }
-                    }
-                }
-
-                // Exibe Descricao corretamente
-                cmb.DisplayMember = nameof(FormaPagamentoItem.NomeFormaPagamento);
+                    FormaPgtoID = Convert.ToInt32(dr["FormaPgtoID"]),
+                    NomeFormaPagamento = dr["NomeFormaPagamento"].ToString(),
+                    Ativo = Convert.ToBoolean(dr["Ativo"])
+                });
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"Erro ao carregar formas de pagamento:\n{ex.Message}",
-                    "Erro",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
 
-    }
-
-    /// <summary>
-    /// Classe auxiliar para representar item de forma de pagamento.
-    /// </summary>
-    public class FormaPagamentoItem
-    {
-        // Campos iguais aos da tabela FormaPagamento
-        public int FormaPgtoID { get; set; }
-        public string NomeFormaPagamento { get; set; }
-        public bool Ativo { get; set; } = true;
-
-        // Construtor opcional
-        public FormaPagamentoItem() { }
-
-        public FormaPagamentoItem(int formaPgtoID, string nomeFormaPagamento, bool ativo = true)
-        {
-            FormaPgtoID = formaPgtoID;
-            NomeFormaPagamento = nomeFormaPagamento;
-            Ativo = ativo;
-        }
-
-        // Mostra no ComboBox o nome da forma de pagamento
-        public override string ToString() => NomeFormaPagamento;
-
-        // Método para salvar nomes dos controles de um form
-        public static void SalvarNomesControles(Form form, string caminhoArquivo)
-        {
-            var nomes = new List<string>();
-            PercorrerControles(form.Controls, nomes);
-
-            // Salva todos os nomes no arquivo .txt
-            File.WriteAllLines(caminhoArquivo, nomes);
-        }
-
-        private static void PercorrerControles(Control.ControlCollection controls, List<string> nomes)
-        {
-            foreach (Control ctrl in controls)
-            {
-                nomes.Add(ctrl.Name);
-
-                if (ctrl.HasChildren)
-                {
-                    PercorrerControles(ctrl.Controls, nomes);
-                }
-            }
+            cmb.DisplayMember = nameof(FormaPagamentoItem.NomeFormaPagamento);
+            cmb.SelectedIndex = -1;
         }
     }
-
-
 }
+

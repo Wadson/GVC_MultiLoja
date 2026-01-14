@@ -69,8 +69,16 @@
             kryptonButton17 = new Krypton.Toolkit.KryptonButton();
             kryptonButton18 = new Krypton.Toolkit.KryptonButton();
             kryptonButton19 = new Krypton.Toolkit.KryptonButton();
+            panelParcelamento = new Krypton.Toolkit.KryptonPanel();
+            kryptonBorderEdge6 = new Krypton.Toolkit.KryptonBorderEdge();
+            kryptonBorderEdge4 = new Krypton.Toolkit.KryptonBorderEdge();
+            kryptonBorderEdge3 = new Krypton.Toolkit.KryptonBorderEdge();
+            lblParcelamento = new Krypton.Toolkit.KryptonLabel();
+            kryptonBorderEdge1 = new Krypton.Toolkit.KryptonBorderEdge();
             ((System.ComponentModel.ISupportInitialize)kryptonComboBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonComboBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelParcelamento).BeginInit();
+            panelParcelamento.SuspendLayout();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -2365,12 +2373,76 @@
             kryptonButton19.TabIndex = 1018;
             kryptonButton19.Values.Text = "Sair";
             // 
+            // panelParcelamento
+            // 
+            panelParcelamento.Controls.Add(kryptonBorderEdge6);
+            panelParcelamento.Controls.Add(kryptonBorderEdge4);
+            panelParcelamento.Controls.Add(kryptonBorderEdge3);
+            panelParcelamento.Controls.Add(lblParcelamento);
+            panelParcelamento.Controls.Add(kryptonBorderEdge1);
+            panelParcelamento.Location = new Point(530, 121);
+            panelParcelamento.Name = "panelParcelamento";
+            panelParcelamento.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
+            panelParcelamento.Size = new Size(297, 115);
+            panelParcelamento.TabIndex = 1128;
+            // 
+            // kryptonBorderEdge6
+            // 
+            kryptonBorderEdge6.Dock = DockStyle.Right;
+            kryptonBorderEdge6.Location = new Point(294, 21);
+            kryptonBorderEdge6.Name = "kryptonBorderEdge6";
+            kryptonBorderEdge6.Size = new Size(3, 93);
+            kryptonBorderEdge6.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge6.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge6.Text = "kryptonBorderEdge6";
+            // 
+            // kryptonBorderEdge4
+            // 
+            kryptonBorderEdge4.Dock = DockStyle.Top;
+            kryptonBorderEdge4.Location = new Point(3, 20);
+            kryptonBorderEdge4.Name = "kryptonBorderEdge4";
+            kryptonBorderEdge4.Size = new Size(294, 1);
+            kryptonBorderEdge4.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge4.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge4.Text = "kryptonBorderEdge4";
+            // 
+            // kryptonBorderEdge3
+            // 
+            kryptonBorderEdge3.Dock = DockStyle.Left;
+            kryptonBorderEdge3.Location = new Point(0, 20);
+            kryptonBorderEdge3.Name = "kryptonBorderEdge3";
+            kryptonBorderEdge3.Size = new Size(3, 94);
+            kryptonBorderEdge3.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge3.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge3.Text = "kryptonBorderEdge3";
+            // 
+            // lblParcelamento
+            // 
+            lblParcelamento.Dock = DockStyle.Top;
+            lblParcelamento.Location = new Point(0, 0);
+            lblParcelamento.Name = "lblParcelamento";
+            lblParcelamento.Size = new Size(297, 20);
+            lblParcelamento.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblParcelamento.TabIndex = 1038;
+            lblParcelamento.Values.Text = "Parcelamento";
+            // 
+            // kryptonBorderEdge1
+            // 
+            kryptonBorderEdge1.Dock = DockStyle.Bottom;
+            kryptonBorderEdge1.Location = new Point(0, 114);
+            kryptonBorderEdge1.Name = "kryptonBorderEdge1";
+            kryptonBorderEdge1.Size = new Size(297, 1);
+            kryptonBorderEdge1.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge1.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge1.Text = "kryptonBorderEdge1";
+            // 
             // FrmModelo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(833, 366);
+            Controls.Add(panelParcelamento);
             Controls.Add(kryptonButton15);
             Controls.Add(kryptonButton16);
             Controls.Add(kryptonButton17);
@@ -2419,6 +2491,9 @@
             Text = "FrmModelo";
             ((System.ComponentModel.ISupportInitialize)kryptonComboBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonComboBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelParcelamento).EndInit();
+            panelParcelamento.ResumeLayout(false);
+            panelParcelamento.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -2465,5 +2540,11 @@
         public Krypton.Toolkit.KryptonButton kryptonButton17;
         public Krypton.Toolkit.KryptonButton kryptonButton18;
         public Krypton.Toolkit.KryptonButton kryptonButton19;
+        private Krypton.Toolkit.KryptonPanel panelParcelamento;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge6;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge4;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge3;
+        private Krypton.Toolkit.KryptonLabel lblParcelamento;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
     }
 }
