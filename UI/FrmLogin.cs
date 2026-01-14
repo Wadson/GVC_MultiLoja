@@ -1,4 +1,5 @@
-﻿using GVC.UTIL;
+﻿using FontAwesome.Sharp;
+using GVC.UTIL;
 using GVC.View;
 using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;
@@ -24,9 +25,6 @@ namespace GVC.MUI
         {
             InitializeComponent();
 
-            //Utilitario.AdicionarEfeitoFocoEmTodos(this);
-            Utilitario.ConfigurarEnterComoTab(this);
-
             this.KeyPreview = true; // habilita o preview das teclas
 
             // Preenche opções
@@ -34,6 +32,25 @@ namespace GVC.MUI
             cmbAmbiente.Items.Add("Teste");
             cmbAmbiente.SelectedIndex = 0; // padrão
         }
+        private void ResetarCampos()
+        {
+            // Usuário
+            iconPictureBoxUser.IconChar = IconChar.User;
+            iconPictureBoxUser.Visible = false;
+            iconPictureBoxUser.IconColor = Color.Blue; // já define azul para quando for ativado
+            panel1.BackColor = Color.White;
+            txtUsuario.ForeColor = Color.White;
+            txtUsuario.StateCommon.Back.Color1 = Color.White;
+
+            // Senha
+            iconPictureBoxPassword.IconChar = IconChar.UnlockKeyhole;
+            iconPictureBoxPassword.Visible = false;
+            iconPictureBoxPassword.IconColor = Color.Blue;
+            panel3.BackColor = Color.White;
+            txtSenha.ForeColor = Color.White;
+            txtSenha.StateCommon.Back.Color1 = Color.White;
+        }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -60,20 +77,6 @@ namespace GVC.MUI
             textBox.StateCommon.Back.Color1 = Color.White;
         }
 
-        private void ResetarCampos()
-        {
-            // Usuário
-            pictureBoxUser.Image = Properties.Resources.Usuario24;
-            panel1.BackColor = Color.White;
-            txtUsuario.ForeColor = Color.White;
-            txtUsuario.StateCommon.Back.Color1 = Color.White;
-
-            // Senha
-            pictureBoxRepetePassWord.Image = Properties.Resources.Senhas24;
-            panel3.BackColor = Color.White;
-            txtSenha.ForeColor = Color.White;
-            txtSenha.StateCommon.Back.Color1 = Color.White;
-        }
         private void txtRepetPass_Leave(object sender, EventArgs e)
         {
             ResetarCampos();
@@ -175,7 +178,7 @@ namespace GVC.MUI
             }
         }
         private void btnLogin_Click(object sender, EventArgs e)
-        {          
+        {
             string usuario = txtUsuario.Text.Trim();
             string password = txtSenha.Text;
 
@@ -201,7 +204,7 @@ namespace GVC.MUI
                 {
                     Utilitario.Mensagens.Erro(resultado);
                 }
-            }      
+            }
 
         }
         private void txtRepetPass_Validating(object sender, CancelEventArgs e)
@@ -224,24 +227,24 @@ namespace GVC.MUI
         }
         private void txtUsuario_Enter(object sender, EventArgs e)
         {
-            AtivarCampo(txtUsuario, pictureBoxUser, panel1,
-                Properties.Resources.UsuarioBlue24);
+            iconPictureBoxUser.Visible = true;
+            panel1.BackColor = Color.White;          
         }
         private void txtUsuario_Leave(object sender, EventArgs e)
         {
-            DesativarCampo(txtUsuario, pictureBoxUser, panel1,
-                   Properties.Resources.Usuario24);
+            iconPictureBoxUser.Visible = false;
+            panel1.BackColor = Color.White;           
         }
         private void txtSenha_Enter(object sender, EventArgs e)
         {
-            AtivarCampo(txtSenha, pictureBoxRepetePassWord, panel3,
-                Properties.Resources.SenhasBlue24);
+            iconPictureBoxPassword.Visible = true;
+            panel3.BackColor = Color.White;           
         }
         private void txtSenha_Leave(object sender, EventArgs e)
         {
-            DesativarCampo(txtSenha, pictureBoxRepetePassWord, panel3,
-                  Properties.Resources.Senhas24);
-        }   
+            iconPictureBoxPassword.Visible = false;
+            panel3.BackColor = Color.White;           
+        }
         private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -279,6 +282,11 @@ namespace GVC.MUI
             // Define o primeiro como padrão
             if (cmbAmbiente.Items.Count > 0)
                 cmbAmbiente.SelectedIndex = 0;
-        }       
+        }
+
+        private void FrmLogin_Shown(object sender, EventArgs e)
+        {
+            Utilitario.AplicarCorFocoNosTextBox(this);
+        }
     }
 }

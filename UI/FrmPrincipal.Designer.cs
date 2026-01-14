@@ -51,6 +51,8 @@
             pDVToolStripMenuItem = new ToolStripMenuItem();
             orçamentosToolStripMenuItem = new ToolStripMenuItem();
             pedidosToolStripMenuItem = new ToolStripMenuItem();
+            gerenciamentoDeVendasToolStripMenuItem = new ToolStripMenuItem();
+            pesquisarPreçosToolStripMenuItem = new ToolStripMenuItem();
             financeiroToolStripMenuItem = new ToolStripMenuItem();
             contasAReceberToolStripMenuItem = new ToolStripMenuItem();
             contasAPagarToolStripMenuItem = new ToolStripMenuItem();
@@ -66,18 +68,18 @@
             ajudaToolStripMenuItem = new ToolStripMenuItem();
             sobreToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1 = new ToolStrip();
-            btnUsuarios = new ToolStripButton();
-            btnClientes = new ToolStripButton();
-            btnFornecedor = new ToolStripButton();
-            btnProdutos = new ToolStripButton();
-            btnPDV = new ToolStripButton();
-            btnContasAReceber = new ToolStripButton();
-            btnCaixa = new ToolStripButton();
-            btnEstoque = new ToolStripButton();
-            btnRelatorios = new ToolStripButton();
-            btnFerramentas = new ToolStripButton();
-            btnBackup = new ToolStripButton();
-            btnSair = new ToolStripButton();
+            btnUsuario = new FontAwesome.Sharp.IconToolStripButton();
+            btnCliente = new FontAwesome.Sharp.IconToolStripButton();
+            btnFornecedor = new FontAwesome.Sharp.IconToolStripButton();
+            btnProdutos = new FontAwesome.Sharp.IconToolStripButton();
+            btnVendas = new FontAwesome.Sharp.IconToolStripButton();
+            btnContasReceber = new FontAwesome.Sharp.IconToolStripButton();
+            btnContasPagar = new FontAwesome.Sharp.IconToolStripButton();
+            btnEstoque = new FontAwesome.Sharp.IconToolStripButton();
+            btnCaixa = new FontAwesome.Sharp.IconToolStripButton();
+            btnFerramentas = new FontAwesome.Sharp.IconToolStripButton();
+            btnRelatorios = new FontAwesome.Sharp.IconToolStripButton();
+            btnSair = new FontAwesome.Sharp.IconToolStripButton();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
             lblEstacao = new ToolStripStatusLabel();
             toolStripStatusLabel4 = new ToolStripStatusLabel();
@@ -94,7 +96,7 @@
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
-            gerenciamentoDeVendasToolStripMenuItem = new ToolStripMenuItem();
+            iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -145,7 +147,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { arquivoToolStripMenuItem, cadastrosToolStripMenuItem, estoqueToolStripMenuItem1, vendasToolStripMenuItem, financeiroToolStripMenuItem, relatóriosToolStripMenuItem, configuraçõesToolStripMenuItem, ajudaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(829, 24);
+            menuStrip1.Size = new Size(890, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -161,7 +163,6 @@
             trocarEmpresaToolStripMenuItem.Name = "trocarEmpresaToolStripMenuItem";
             trocarEmpresaToolStripMenuItem.Size = new Size(155, 22);
             trocarEmpresaToolStripMenuItem.Text = "Trocar Empresa";
-            trocarEmpresaToolStripMenuItem.Click += trocarEmpresaToolStripMenuItem_Click;
             // 
             // backupToolStripMenuItem
             // 
@@ -210,7 +211,6 @@
             formaDePagamentoToolStripMenuItem.Name = "formaDePagamentoToolStripMenuItem";
             formaDePagamentoToolStripMenuItem.Size = new Size(188, 22);
             formaDePagamentoToolStripMenuItem.Text = "Forma de Pagamento";
-            formaDePagamentoToolStripMenuItem.Click += formaDePagamentoToolStripMenuItem_Click;
             // 
             // empresasToolStripMenuItem
             // 
@@ -244,18 +244,16 @@
             correçãoDeEstoqueToolStripMenuItem.Name = "correçãoDeEstoqueToolStripMenuItem";
             correçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
             correçãoDeEstoqueToolStripMenuItem.Text = "Entrada de Estoque";
-            correçãoDeEstoqueToolStripMenuItem.Click += correçãoDeEstoqueToolStripMenuItem_Click_1;
             // 
             // consultarMovimentaçãoDeEstoqueToolStripMenuItem
             // 
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Name = "consultarMovimentaçãoDeEstoqueToolStripMenuItem";
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Text = "Consultar Movimentação de Estoque";
-            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Click += consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click;
             // 
             // vendasToolStripMenuItem
             // 
-            vendasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { pDVToolStripMenuItem, orçamentosToolStripMenuItem, pedidosToolStripMenuItem, gerenciamentoDeVendasToolStripMenuItem });
+            vendasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { pDVToolStripMenuItem, orçamentosToolStripMenuItem, pedidosToolStripMenuItem, gerenciamentoDeVendasToolStripMenuItem, pesquisarPreçosToolStripMenuItem });
             vendasToolStripMenuItem.Name = "vendasToolStripMenuItem";
             vendasToolStripMenuItem.Size = new Size(56, 20);
             vendasToolStripMenuItem.Text = "Vendas";
@@ -272,14 +270,24 @@
             orçamentosToolStripMenuItem.Name = "orçamentosToolStripMenuItem";
             orçamentosToolStripMenuItem.Size = new Size(211, 22);
             orçamentosToolStripMenuItem.Text = "Orçamentos";
-            orçamentosToolStripMenuItem.Click += orçamentosToolStripMenuItem_Click;
             // 
             // pedidosToolStripMenuItem
             // 
             pedidosToolStripMenuItem.Name = "pedidosToolStripMenuItem";
             pedidosToolStripMenuItem.Size = new Size(211, 22);
             pedidosToolStripMenuItem.Text = "Pedidos";
-            pedidosToolStripMenuItem.Click += pedidosToolStripMenuItem_Click;
+            // 
+            // gerenciamentoDeVendasToolStripMenuItem
+            // 
+            gerenciamentoDeVendasToolStripMenuItem.Name = "gerenciamentoDeVendasToolStripMenuItem";
+            gerenciamentoDeVendasToolStripMenuItem.Size = new Size(211, 22);
+            gerenciamentoDeVendasToolStripMenuItem.Text = "Gerenciamento de Vendas";
+            // 
+            // pesquisarPreçosToolStripMenuItem
+            // 
+            pesquisarPreçosToolStripMenuItem.Name = "pesquisarPreçosToolStripMenuItem";
+            pesquisarPreçosToolStripMenuItem.Size = new Size(211, 22);
+            pesquisarPreçosToolStripMenuItem.Text = "Pesquisar Preços ";
             // 
             // financeiroToolStripMenuItem
             // 
@@ -300,14 +308,12 @@
             contasAPagarToolStripMenuItem.Name = "contasAPagarToolStripMenuItem";
             contasAPagarToolStripMenuItem.Size = new Size(165, 22);
             contasAPagarToolStripMenuItem.Text = "Contas a Pagar";
-            contasAPagarToolStripMenuItem.Click += contasAPagarToolStripMenuItem_Click;
             // 
             // caixaToolStripMenuItem
             // 
             caixaToolStripMenuItem.Name = "caixaToolStripMenuItem";
             caixaToolStripMenuItem.Size = new Size(165, 22);
             caixaToolStripMenuItem.Text = "Caixa";
-            caixaToolStripMenuItem.Click += caixaToolStripMenuItem_Click;
             // 
             // relatóriosToolStripMenuItem
             // 
@@ -321,7 +327,6 @@
             vendasToolStripMenuItem1.Name = "vendasToolStripMenuItem1";
             vendasToolStripMenuItem1.Size = new Size(129, 22);
             vendasToolStripMenuItem1.Text = "Vendas";
-            vendasToolStripMenuItem1.Click += vendasToolStripMenuItem1_Click;
             // 
             // financeiroToolStripMenuItem1
             // 
@@ -342,7 +347,7 @@
             produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
             produtosToolStripMenuItem1.Size = new Size(129, 22);
             produtosToolStripMenuItem1.Text = "Produtos";
-            produtosToolStripMenuItem1.Click += produtosToolStripMenuItem1_Click;
+           
             // 
             // configuraçõesToolStripMenuItem
             // 
@@ -356,14 +361,12 @@
             usuáriosToolStripMenuItem1.Name = "usuáriosToolStripMenuItem1";
             usuáriosToolStripMenuItem1.Size = new Size(134, 22);
             usuáriosToolStripMenuItem1.Text = "Usuários";
-            usuáriosToolStripMenuItem1.Click += usuáriosToolStripMenuItem1_Click;
             // 
             // parâmetrosToolStripMenuItem
             // 
             parâmetrosToolStripMenuItem.Name = "parâmetrosToolStripMenuItem";
             parâmetrosToolStripMenuItem.Size = new Size(134, 22);
             parâmetrosToolStripMenuItem.Text = "Parâmetros";
-            parâmetrosToolStripMenuItem.Click += parâmetrosToolStripMenuItem_Click;
             // 
             // ajudaToolStripMenuItem
             // 
@@ -377,7 +380,6 @@
             sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
             sobreToolStripMenuItem.Size = new Size(104, 22);
             sobreToolStripMenuItem.Text = "Sobre";
-            sobreToolStripMenuItem.Click += sobreToolStripMenuItem_Click;
             // 
             // toolStrip1
             // 
@@ -385,48 +387,52 @@
             toolStrip1.Font = new Font("Segoe UI", 9F);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(32, 32);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuarios, btnClientes, btnFornecedor, btnProdutos, btnPDV, btnContasAReceber, btnCaixa, btnEstoque, btnRelatorios, btnFerramentas, btnBackup, btnSair });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuario, btnCliente, btnFornecedor, btnProdutos, btnVendas, btnContasReceber, btnContasPagar, btnEstoque, btnCaixa, btnFerramentas, btnRelatorios, btnSair });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
-            toolStrip1.Size = new Size(829, 54);
+            toolStrip1.Size = new Size(890, 54);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
-            // btnUsuarios
+            // btnUsuario
             // 
-            btnUsuarios.AutoSize = false;
-            btnUsuarios.BackgroundImageLayout = ImageLayout.None;
-            btnUsuarios.Image = (Image)resources.GetObject("btnUsuarios.Image");
-            btnUsuarios.ImageAlign = ContentAlignment.TopCenter;
-            btnUsuarios.ImageTransparentColor = Color.Magenta;
-            btnUsuarios.Name = "btnUsuarios";
-            btnUsuarios.Size = new Size(63, 51);
-            btnUsuarios.Text = "Usuarios";
-            btnUsuarios.TextAlign = ContentAlignment.BottomCenter;
-            btnUsuarios.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnUsuarios.Click += btnUsuarios_Click;
+            btnUsuario.AutoSize = false;
+            btnUsuario.ForeColor = Color.WhiteSmoke;
+            btnUsuario.IconChar = FontAwesome.Sharp.IconChar.User;
+            btnUsuario.IconColor = Color.White;
+            btnUsuario.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnUsuario.IconSize = 64;
+            btnUsuario.ImageTransparentColor = Color.Magenta;
+            btnUsuario.Name = "btnUsuario";
+            btnUsuario.Size = new Size(63, 51);
+            btnUsuario.Text = "Usuários";
+            btnUsuario.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnUsuario.Click += btnUsuario_Click;
             // 
-            // btnClientes
+            // btnCliente
             // 
-            btnClientes.AutoSize = false;
-            btnClientes.BackgroundImageLayout = ImageLayout.None;
-            btnClientes.Image = (Image)resources.GetObject("btnClientes.Image");
-            btnClientes.ImageAlign = ContentAlignment.TopCenter;
-            btnClientes.ImageTransparentColor = Color.Magenta;
-            btnClientes.Name = "btnClientes";
-            btnClientes.Size = new Size(63, 51);
-            btnClientes.Text = "Clientes";
-            btnClientes.TextAlign = ContentAlignment.BottomCenter;
-            btnClientes.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnClientes.Click += btnClientes_Click;
+            btnCliente.AutoSize = false;
+            btnCliente.ForeColor = Color.WhiteSmoke;
+            btnCliente.IconChar = FontAwesome.Sharp.IconChar.Users;
+            btnCliente.IconColor = Color.White;
+            btnCliente.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCliente.IconSize = 64;
+            btnCliente.ImageTransparentColor = Color.Magenta;
+            btnCliente.Name = "btnCliente";
+            btnCliente.Size = new Size(63, 51);
+            btnCliente.Text = "Clientes";
+            btnCliente.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnCliente.Click += btnCliente_Click;
             // 
             // btnFornecedor
             // 
             btnFornecedor.AutoSize = false;
-            btnFornecedor.BackgroundImageLayout = ImageLayout.Center;
-            btnFornecedor.Image = (Image)resources.GetObject("btnFornecedor.Image");
-            btnFornecedor.ImageAlign = ContentAlignment.TopCenter;
+            btnFornecedor.ForeColor = Color.WhiteSmoke;
+            btnFornecedor.IconChar = FontAwesome.Sharp.IconChar.Truck;
+            btnFornecedor.IconColor = Color.White;
+            btnFornecedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnFornecedor.IconSize = 64;
             btnFornecedor.ImageTransparentColor = Color.Magenta;
             btnFornecedor.Name = "btnFornecedor";
             btnFornecedor.Size = new Size(63, 51);
@@ -438,9 +444,10 @@
             // btnProdutos
             // 
             btnProdutos.AutoSize = false;
-            btnProdutos.BackgroundImageLayout = ImageLayout.Center;
-            btnProdutos.Image = (Image)resources.GetObject("btnProdutos.Image");
-            btnProdutos.ImageAlign = ContentAlignment.TopCenter;
+            btnProdutos.ForeColor = Color.WhiteSmoke;
+            btnProdutos.IconChar = FontAwesome.Sharp.IconChar.Box;
+            btnProdutos.IconColor = Color.White;
+            btnProdutos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnProdutos.ImageTransparentColor = Color.Magenta;
             btnProdutos.Name = "btnProdutos";
             btnProdutos.Size = new Size(63, 51);
@@ -449,54 +456,62 @@
             btnProdutos.TextImageRelation = TextImageRelation.ImageAboveText;
             btnProdutos.Click += btnProdutos_Click;
             // 
-            // btnPDV
+            // btnVendas
             // 
-            btnPDV.AutoSize = false;
-            btnPDV.BackgroundImageLayout = ImageLayout.Center;
-            btnPDV.Image = (Image)resources.GetObject("btnPDV.Image");
-            btnPDV.ImageAlign = ContentAlignment.TopCenter;
-            btnPDV.ImageTransparentColor = Color.Magenta;
-            btnPDV.Name = "btnPDV";
-            btnPDV.Size = new Size(63, 51);
-            btnPDV.Text = "PDV";
-            btnPDV.TextAlign = ContentAlignment.BottomCenter;
-            btnPDV.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnPDV.Click += btnPDV_Click;
+            btnVendas.AutoSize = false;
+            btnVendas.ForeColor = Color.WhiteSmoke;
+            btnVendas.IconChar = FontAwesome.Sharp.IconChar.CartShopping;
+            btnVendas.IconColor = Color.White;
+            btnVendas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnVendas.IconSize = 64;
+            btnVendas.ImageTransparentColor = Color.Magenta;
+            btnVendas.Name = "btnVendas";
+            btnVendas.Size = new Size(63, 51);
+            btnVendas.Text = "PDV";
+            btnVendas.TextAlign = ContentAlignment.BottomCenter;
+            btnVendas.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnVendas.Click += btnVendas_Click;
             // 
-            // btnContasAReceber
+            // btnContasReceber
             // 
-            btnContasAReceber.AutoSize = false;
-            btnContasAReceber.BackgroundImageLayout = ImageLayout.Center;
-            btnContasAReceber.Image = (Image)resources.GetObject("btnContasAReceber.Image");
-            btnContasAReceber.ImageAlign = ContentAlignment.TopCenter;
-            btnContasAReceber.ImageTransparentColor = Color.Magenta;
-            btnContasAReceber.Name = "btnContasAReceber";
-            btnContasAReceber.Size = new Size(63, 51);
-            btnContasAReceber.Text = "Receber";
-            btnContasAReceber.TextAlign = ContentAlignment.BottomCenter;
-            btnContasAReceber.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnContasAReceber.Click += btnContasAReceber_Click;
+            btnContasReceber.AutoSize = false;
+            btnContasReceber.ForeColor = Color.WhiteSmoke;
+            btnContasReceber.IconChar = FontAwesome.Sharp.IconChar.Coins;
+            btnContasReceber.IconColor = Color.White;
+            btnContasReceber.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnContasReceber.IconSize = 64;
+            btnContasReceber.ImageTransparentColor = Color.Magenta;
+            btnContasReceber.Name = "btnContasReceber";
+            btnContasReceber.Size = new Size(63, 51);
+            btnContasReceber.Text = "Receber";
+            btnContasReceber.TextAlign = ContentAlignment.BottomCenter;
+            btnContasReceber.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnContasReceber.Click += btnContasReceber_Click;
             // 
-            // btnCaixa
+            // btnContasPagar
             // 
-            btnCaixa.AutoSize = false;
-            btnCaixa.BackgroundImageLayout = ImageLayout.Center;
-            btnCaixa.Image = (Image)resources.GetObject("btnCaixa.Image");
-            btnCaixa.ImageAlign = ContentAlignment.TopCenter;
-            btnCaixa.ImageTransparentColor = Color.Magenta;
-            btnCaixa.Name = "btnCaixa";
-            btnCaixa.Size = new Size(63, 51);
-            btnCaixa.Text = "Caixa";
-            btnCaixa.TextAlign = ContentAlignment.BottomCenter;
-            btnCaixa.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnCaixa.Click += btnCaixa_Click;
+            btnContasPagar.AutoSize = false;
+            btnContasPagar.ForeColor = Color.WhiteSmoke;
+            btnContasPagar.IconChar = FontAwesome.Sharp.IconChar.HandHoldingUsd;
+            btnContasPagar.IconColor = Color.White;
+            btnContasPagar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnContasPagar.IconSize = 64;
+            btnContasPagar.ImageTransparentColor = Color.Magenta;
+            btnContasPagar.Name = "btnContasPagar";
+            btnContasPagar.Size = new Size(63, 51);
+            btnContasPagar.Text = "Pagar";
+            btnContasPagar.TextAlign = ContentAlignment.BottomCenter;
+            btnContasPagar.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnContasPagar.Click += btnContasPagar_Click;
             // 
             // btnEstoque
             // 
             btnEstoque.AutoSize = false;
-            btnEstoque.BackgroundImageLayout = ImageLayout.Center;
-            btnEstoque.Image = (Image)resources.GetObject("btnEstoque.Image");
-            btnEstoque.ImageAlign = ContentAlignment.TopCenter;
+            btnEstoque.ForeColor = Color.WhiteSmoke;
+            btnEstoque.IconChar = FontAwesome.Sharp.IconChar.BoxesStacked;
+            btnEstoque.IconColor = Color.White;
+            btnEstoque.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEstoque.IconSize = 64;
             btnEstoque.ImageTransparentColor = Color.Magenta;
             btnEstoque.Name = "btnEstoque";
             btnEstoque.Size = new Size(63, 51);
@@ -505,11 +520,46 @@
             btnEstoque.TextImageRelation = TextImageRelation.ImageAboveText;
             btnEstoque.Click += btnEstoque_Click;
             // 
+            // btnCaixa
+            // 
+            btnCaixa.AutoSize = false;
+            btnCaixa.ForeColor = Color.WhiteSmoke;
+            btnCaixa.IconChar = FontAwesome.Sharp.IconChar.FileInvoiceDollar;
+            btnCaixa.IconColor = Color.White;
+            btnCaixa.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCaixa.IconSize = 64;
+            btnCaixa.ImageTransparentColor = Color.Magenta;
+            btnCaixa.Name = "btnCaixa";
+            btnCaixa.Size = new Size(63, 51);
+            btnCaixa.Text = "Caixa";
+            btnCaixa.TextAlign = ContentAlignment.BottomCenter;
+            btnCaixa.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnCaixa.Click += btnCaixa_Click;
+            // 
+            // btnFerramentas
+            // 
+            btnFerramentas.AutoSize = false;
+            btnFerramentas.ForeColor = Color.WhiteSmoke;
+            btnFerramentas.IconChar = FontAwesome.Sharp.IconChar.Cogs;
+            btnFerramentas.IconColor = Color.White;
+            btnFerramentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnFerramentas.IconSize = 64;
+            btnFerramentas.ImageTransparentColor = Color.Magenta;
+            btnFerramentas.Name = "btnFerramentas";
+            btnFerramentas.Size = new Size(63, 51);
+            btnFerramentas.Text = "Ferrament";
+            btnFerramentas.TextAlign = ContentAlignment.BottomCenter;
+            btnFerramentas.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnFerramentas.Click += btnFerramentas_Click;
+            // 
             // btnRelatorios
             // 
             btnRelatorios.AutoSize = false;
-            btnRelatorios.Image = (Image)resources.GetObject("btnRelatorios.Image");
-            btnRelatorios.ImageAlign = ContentAlignment.TopCenter;
+            btnRelatorios.ForeColor = Color.WhiteSmoke;
+            btnRelatorios.IconChar = FontAwesome.Sharp.IconChar.ChartLine;
+            btnRelatorios.IconColor = Color.White;
+            btnRelatorios.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnRelatorios.IconSize = 64;
             btnRelatorios.ImageTransparentColor = Color.Magenta;
             btnRelatorios.Name = "btnRelatorios";
             btnRelatorios.Size = new Size(63, 51);
@@ -518,38 +568,14 @@
             btnRelatorios.TextImageRelation = TextImageRelation.ImageAboveText;
             btnRelatorios.Click += btnRelatorios_Click;
             // 
-            // btnFerramentas
-            // 
-            btnFerramentas.AutoSize = false;
-            btnFerramentas.Image = (Image)resources.GetObject("btnFerramentas.Image");
-            btnFerramentas.ImageAlign = ContentAlignment.TopCenter;
-            btnFerramentas.ImageTransparentColor = Color.Magenta;
-            btnFerramentas.Name = "btnFerramentas";
-            btnFerramentas.Size = new Size(63, 51);
-            btnFerramentas.Text = "Ferram.";
-            btnFerramentas.TextAlign = ContentAlignment.BottomCenter;
-            btnFerramentas.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnFerramentas.Click += btnFerramentas_Click;
-            // 
-            // btnBackup
-            // 
-            btnBackup.AutoSize = false;
-            btnBackup.Image = (Image)resources.GetObject("btnBackup.Image");
-            btnBackup.ImageAlign = ContentAlignment.TopCenter;
-            btnBackup.ImageTransparentColor = Color.Magenta;
-            btnBackup.Name = "btnBackup";
-            btnBackup.Size = new Size(63, 51);
-            btnBackup.Text = "Backup";
-            btnBackup.TextAlign = ContentAlignment.BottomCenter;
-            btnBackup.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnBackup.Click += btnBackup_Click;
-            // 
             // btnSair
             // 
-            btnSair.Alignment = ToolStripItemAlignment.Right;
             btnSair.AutoSize = false;
-            btnSair.Image = (Image)resources.GetObject("btnSair.Image");
-            btnSair.ImageAlign = ContentAlignment.TopCenter;
+            btnSair.ForeColor = Color.WhiteSmoke;
+            btnSair.IconChar = FontAwesome.Sharp.IconChar.SignOutAlt;
+            btnSair.IconColor = Color.White;
+            btnSair.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnSair.IconSize = 64;
             btnSair.ImageTransparentColor = Color.Magenta;
             btnSair.Name = "btnSair";
             btnSair.Size = new Size(63, 51);
@@ -567,7 +593,7 @@
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
             kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            kryptonStatusStrip1.Size = new Size(829, 22);
+            kryptonStatusStrip1.Size = new Size(890, 22);
             kryptonStatusStrip1.TabIndex = 609;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
@@ -633,12 +659,11 @@
             // 
             // picBackground
             // 
-            picBackground.Dock = DockStyle.Fill;
             picBackground.Enabled = false;
             picBackground.Image = (Image)resources.GetObject("picBackground.Image");
-            picBackground.Location = new Point(0, 0);
+            picBackground.Location = new Point(0, 3);
             picBackground.Name = "picBackground";
-            picBackground.Size = new Size(829, 330);
+            picBackground.Size = new Size(829, 324);
             picBackground.SizeMode = PictureBoxSizeMode.Zoom;
             picBackground.TabIndex = 610;
             picBackground.TabStop = false;
@@ -646,10 +671,9 @@
             // panelBackground
             // 
             panelBackground.Controls.Add(picBackground);
-            panelBackground.Dock = DockStyle.Fill;
-            panelBackground.Location = new Point(0, 78);
+            panelBackground.Location = new Point(0, 235);
             panelBackground.Name = "panelBackground";
-            panelBackground.Size = new Size(829, 330);
+            panelBackground.Size = new Size(829, 173);
             panelBackground.TabIndex = 611;
             // 
             // iconMenuItem1
@@ -666,18 +690,20 @@
             timerBackupAtomatico.Interval = 1000;
             timerBackupAtomatico.Tick += timerBackupAtomatico_Tick;
             // 
-            // gerenciamentoDeVendasToolStripMenuItem
+            // iconToolStripButton1
             // 
-            gerenciamentoDeVendasToolStripMenuItem.Name = "gerenciamentoDeVendasToolStripMenuItem";
-            gerenciamentoDeVendasToolStripMenuItem.Size = new Size(211, 22);
-            gerenciamentoDeVendasToolStripMenuItem.Text = "Gerenciamento de Vendas";
-            gerenciamentoDeVendasToolStripMenuItem.Click += gerenciamentoDeVendasToolStripMenuItem_Click;
+            iconToolStripButton1.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconToolStripButton1.IconColor = Color.Black;
+            iconToolStripButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconToolStripButton1.Name = "iconToolStripButton1";
+            iconToolStripButton1.Size = new Size(23, 23);
+            iconToolStripButton1.Text = "iconToolStripButton1";
             // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 252, 252);
-            ClientSize = new Size(829, 430);
+            ClientSize = new Size(890, 430);
             Controls.Add(panelBackground);
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(toolStrip1);
@@ -741,14 +767,6 @@
         private ToolStripMenuItem ajudaToolStripMenuItem;
         private ToolStripMenuItem sobreToolStripMenuItem;
         private ToolStrip toolStrip1;
-        private ToolStripButton btnClientes;
-        private ToolStripButton btnProdutos;
-        private ToolStripButton btnPDV;
-        private ToolStripButton btnCaixa;
-        private ToolStripButton btnEstoque;
-        private ToolStripButton btnRelatorios;
-        private ToolStripButton btnBackup;
-        private ToolStripButton btnSair;
         private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
         private ToolStripStatusLabel lblEstacao;
         private ToolStripStatusLabel toolStripStatusLabel4;
@@ -761,11 +779,8 @@
         private ToolStripStatusLabel toolStripStatusLabel8;
         private ToolStripStatusLabel lblAmbienteStatus;
         private PictureBox picBackground;
-        private Panel panelBackground;
-        private ToolStripButton btnUsuarios;
-        private ToolStripButton btnFornecedor;
+        private Panel panelBackground;      
         private Krypton.Toolkit.KryptonContextMenu kryptonContextMenu1;
-        private ToolStripButton btnContasAReceber;
         private FontAwesome.Sharp.IconMenuItem iconMenuItem1;
         private ToolStripMenuItem produtosToolStripMenuItem1;
         private System.Windows.Forms.Timer timerBackupAtomatico;
@@ -773,8 +788,22 @@
         private ToolStripMenuItem entradaDeEstoqueNFeOuManualToolStripMenuItem;
         private ToolStripMenuItem correçãoDeEstoqueToolStripMenuItem;
         private ToolStripMenuItem formaDePagamentoToolStripMenuItem;
-        private ToolStripButton btnFerramentas;
         private ToolStripMenuItem consultarMovimentaçãoDeEstoqueToolStripMenuItem;
         private ToolStripMenuItem gerenciamentoDeVendasToolStripMenuItem;
+        private ToolStripMenuItem pesquisarPreçosToolStripMenuItem;
+        private FontAwesome.Sharp.IconToolStripButton btnUsuario;
+        private FontAwesome.Sharp.IconToolStripButton iconToolStripButton1;
+        private FontAwesome.Sharp.IconToolStripButton btnCliente;
+        private FontAwesome.Sharp.IconToolStripButton btnFornecedor;
+        private FontAwesome.Sharp.IconToolStripButton btnProduto;
+        private FontAwesome.Sharp.IconToolStripButton btnVendas;
+        private FontAwesome.Sharp.IconToolStripButton btnContasReceber;
+        private FontAwesome.Sharp.IconToolStripButton btnContasPagar;
+        private FontAwesome.Sharp.IconToolStripButton btnEstoque;
+        private FontAwesome.Sharp.IconToolStripButton btnCaixa;
+        private FontAwesome.Sharp.IconToolStripButton btnFerramentas;
+        private FontAwesome.Sharp.IconToolStripButton btnRelatorios;
+        private FontAwesome.Sharp.IconToolStripButton btnSair;
+        private FontAwesome.Sharp.IconToolStripButton btnProdutos;
     }
 }

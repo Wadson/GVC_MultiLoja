@@ -237,5 +237,6 @@ namespace GVC.View
         {
             txtProdutoBuscar.SelectAll();
         }
+
     }
 }

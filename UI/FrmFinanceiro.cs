@@ -27,6 +27,8 @@ namespace GVC.View
 {
     public partial class FrmFinanceiro : KryptonForm
     {
+        private bool _formCarregado = false;
+
         private bool bloqueiaPesquisa = false;
         private readonly PagamentoParcialDal _pagamentoDal = new PagamentoParcialDal();
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -45,38 +47,105 @@ namespace GVC.View
             InitializeComponent();
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
 
-        }
-        private void WireTipoPesquisa()
-        {
-            var radios = this.Controls
-                .OfType<Control>()
-                .SelectMany(GetAllControls)
-                .OfType<RadioButton>()
-                .Where(rb => rb.Tag?.ToString() == "TipoPesquisa");
 
-            foreach (var rb in radios)
+            rbPeriodoVenda.CheckedChanged += TipoPesquisa_CheckedChanged;
+            rbPeriodoVencimento.CheckedChanged += TipoPesquisa_CheckedChanged;
+            rbNomeCliente.CheckedChanged += TipoPesquisa_CheckedChanged;
+            rbStatusParcela.CheckedChanged += TipoPesquisa_CheckedChanged;
+
+        }
+        private void ResetarPanelsFiltro()
+        {
+            if (panelPeriodo != null)
             {
-                rb.CheckedChanged += (_, __) =>
-                {
-                    if (rb.Checked)
-                        AtualizarEstadoPesquisa();
-                };
+                panelPeriodo.Visible = false;
+                panelPeriodo.Enabled = false;
+            }
+
+            if (panelCliente != null)
+            {
+                panelCliente.Visible = false;
+                panelCliente.Enabled = false;
+            }
+
+            // panelStatus SEMPRE fica visível e ativo
+            if (panelStatus != null)
+            {
+                panelStatus.Visible = true;
+                panelStatus.Enabled = true;
             }
         }
-        private IEnumerable<Control> GetAllControls(Control parent)
-        {
-            foreach (Control ctrl in parent.Controls)
-            {
-                yield return ctrl;
 
-                foreach (var child in GetAllControls(ctrl))
-                    yield return child;
+        private void AtualizarEstadoPesquisa()
+        {
+            if (!_formCarregado)
+                return;
+
+            // 🔒 painel mãe SEMPRE ativo
+            panelFiltros.Enabled = true;
+            panelFiltros.Visible = true;
+
+            // =========================
+            // RESET APENAS DOS PAINÉIS CONDICIONAIS
+            // =========================
+            panelPeriodo.Visible = false;
+            panelPeriodo.Enabled = false;
+
+            panelCliente.Visible = false;
+            panelCliente.Enabled = false;
+
+            // NÃO RESETA O panelStatus - ele fica sempre ativo
+            // panelStatus.Visible = true;  // REMOVER ESTA LINHA se existir
+            // panelStatus.Enabled = true;  // REMOVER ESTA LINHA se existir
+
+            btnFiltrar.Enabled = false;
+
+            // =========================
+            // TIPO SELECIONADO
+            // =========================
+            var tipo = ObterTipoPesquisaSelecionado();
+
+            // =========================
+            // ATIVA CONFORME O TIPO
+            // =========================
+            switch (tipo)
+            {
+                case TipoPesquisaContasReceber.PeriodoVenda:
+                case TipoPesquisaContasReceber.PeriodoVencimento:
+                    panelPeriodo.Visible = true;
+                    panelPeriodo.Enabled = true;
+
+                    btnFiltrar.Enabled =
+                        dtpInicial.Value.Date <= dtpFinal.Value.Date;
+                    break;
+
+                case TipoPesquisaContasReceber.NomeCliente:
+                    panelCliente.Visible = true;
+                    panelCliente.Enabled = true;
+
+                    btnFiltrar.Enabled =
+                        !string.IsNullOrWhiteSpace(txtNomeCliente.Text);
+                    break;
+
+                case TipoPesquisaContasReceber.StatusParcela:
+                    // Para StatusParcela, apenas o panelStatus já está visível
+                    // e permanece ativo
+                    btnFiltrar.Enabled = true;
+                    break;
+            }
+
+            // GARANTE que panelStatus está visível e ativo em TODOS os casos
+            if (panelStatus != null)
+            {
+                panelStatus.Visible = true;
+                panelStatus.Enabled = true;
             }
         }
+
 
         private void TipoPesquisa_CheckedChanged(object sender, EventArgs e)
         {
-            if (sender is not RadioButton rb || !rb.Checked)
+            if (!_formCarregado)
                 return;
 
             AtualizarEstadoPesquisa();
@@ -84,83 +153,23 @@ namespace GVC.View
 
         private TipoPesquisaContasReceber ObterTipoPesquisaSelecionado()
         {
+            if (rbPeriodoVenda.Checked)
+                return TipoPesquisaContasReceber.PeriodoVenda;
 
-            if (rbNomeCliente.Checked) return TipoPesquisaContasReceber.NomeCliente;
-            if (rbPeriodoVenda.Checked) return TipoPesquisaContasReceber.PeriodoVenda;
-            if (rbPeriodoVencimento.Checked) return TipoPesquisaContasReceber.PeriodoVencimento;
-            if (rbStatusParcela.Checked) return TipoPesquisaContasReceber.StatusParcela;
+            if (rbPeriodoVencimento.Checked)
+                return TipoPesquisaContasReceber.PeriodoVencimento;
 
-            return TipoPesquisaContasReceber.Todos;
-        }
-        private void AtualizarEstadoPesquisa()
-        {
-            // ======================================================
-            // 1️⃣ DESLIGA TUDO (estado neutro)
-            // ======================================================
-            txtNomeCliente.Enabled = false;
+            if (rbNomeCliente.Checked)
+                return TipoPesquisaContasReceber.NomeCliente;
 
-            dtpInicial.Enabled = false;
-            dtpFinal.Enabled = false;
-            lblAte.Enabled = false;
+            if (rbStatusParcela.Checked)
+                return TipoPesquisaContasReceber.StatusParcela;
 
-            // Limpa foco anterior
-            this.ActiveControl = null;
-
-            // ======================================================
-            // 2️⃣ IDENTIFICA O TIPO SELECIONADO
-            // ======================================================
-            var tipo = ObterTipoPesquisaSelecionado();
-
-            // ======================================================
-            // 3️⃣ ATIVA SOMENTE O NECESSÁRIO
-            // ======================================================
-            switch (tipo)
-            {
-                case TipoPesquisaContasReceber.Todos:
-                    // Nenhum campo habilitado
-                    break;
-
-                case TipoPesquisaContasReceber.NomeCliente:
-                    txtNomeCliente.Enabled = true;
-                    txtNomeCliente.Focus();
-                    break;
-
-                case TipoPesquisaContasReceber.DataVenda:
-                    dtpInicial.Enabled = true;
-                    break;
-
-                case TipoPesquisaContasReceber.PeriodoVenda:
-
-                    lblAte.Enabled = true;
-                    dtpInicial.Enabled = true;
-                    dtpFinal.Enabled = true;
-                    break;
-
-                case TipoPesquisaContasReceber.Vencimento:
-                    dtpInicial.Enabled = true;
-                    break;
-
-                case TipoPesquisaContasReceber.PeriodoVencimento:
-                    lblAte.Enabled = true;
-                    dtpInicial.Enabled = true;
-                    dtpFinal.Enabled = true;
-                    break;
-
-                case TipoPesquisaContasReceber.StatusParcela:
-                    // Nenhum campo adicional
-                    break;
-            }
+            // 🔥 FALLBACK SEGURO
+            return TipoPesquisaContasReceber.PeriodoVenda;
         }
 
 
-
-        private void WirePesquisaEvents()
-        {
-            rbNomeCliente.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-            rbPeriodoVencimento.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-            rbPeriodoVencimento.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-            rbStatusParcela.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
-        }
         private List<EnumStatusParcela> ObterStatusSelecionados()
         {
             var lista = new List<EnumStatusParcela>();
@@ -199,17 +208,16 @@ namespace GVC.View
                 Width = 60,
                 Visible = false
             };
-            dgvContasAReceber.Columns.Add(colParcelaID); // Coluna ID (oculta)
+            dgvContasAReceber.Columns.Add(colParcelaID);
 
             var colVendaID = new DataGridViewTextBoxColumn
             {
-                Name = "VendaID",               // OBRIGATÓRIO
+                Name = "VendaID",
                 DataPropertyName = "VendaID",
                 HeaderText = "IDVenda",
                 Width = 60,
                 Visible = false
             };
-
             dgvContasAReceber.Columns.Add(colVendaID);
 
             var colParcela = new DataGridViewTextBoxColumn
@@ -232,7 +240,6 @@ namespace GVC.View
                 ValueType = typeof(string)
             });
 
-            // Datas: assegure o tipo DateTime e o formato
             dgvContasAReceber.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "DataVenda",
@@ -251,14 +258,12 @@ namespace GVC.View
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" }
             });
 
-            // Valores: tipo decimal e formato moeda
             dgvContasAReceber.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "ValorParcela",
                 HeaderText = "Valor Parcela",
                 Width = 100,
-                ValueType = typeof(decimal
-                ),
+                ValueType = typeof(decimal),
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", Alignment = DataGridViewContentAlignment.MiddleRight }
             });
 
@@ -295,23 +300,23 @@ namespace GVC.View
                 Width = 120,
                 ValueType = typeof(string)
             });
+
             dgvContasAReceber.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Observacoes",
                 HeaderText = "Observações da Venda",
-                Width = 500, // ← AUMENTE a largura (200 é muito pouco para seu texto)
+                Width = 500,
                 ValueType = typeof(string),
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     WrapMode = DataGridViewTriState.False,
-                    Alignment = DataGridViewContentAlignment.MiddleLeft // ← ESSENCIAL
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
                 }
             });
 
-            // Opcional: estilo geral
+            // Estilo geral
             dgvContasAReceber.AllowUserToAddRows = false;
             dgvContasAReceber.AllowUserToDeleteRows = false;
-            dgvContasAReceber.ReadOnly = true;
             dgvContasAReceber.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvContasAReceber.MultiSelect = false;
             dgvContasAReceber.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
@@ -321,9 +326,19 @@ namespace GVC.View
             foreach (DataGridViewColumn col in dgvContasAReceber.Columns)
             {
                 if (col.Name != "Selecionar")
-                    col.ReadOnly = true; // bloqueia todas as outras colunas
+                    col.ReadOnly = true;
             }
+
+            // >>> Configurações visuais adicionadas <<<
+            dgvContasAReceber.EnableHeadersVisualStyles = false;
+            dgvContasAReceber.ColumnHeadersDefaultCellStyle.BackColor = ThemeERP.AzulPrimario;
+            dgvContasAReceber.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvContasAReceber.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
+            dgvContasAReceber.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
+            dgvContasAReceber.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 247, 250);
+            dgvContasAReceber.BorderStyle = BorderStyle.None;
         }
+
         private void AtualizarCoresGridPagamentos()
         {
             foreach (DataGridViewRow row in dgvPagamentos.Rows)
@@ -426,7 +441,17 @@ namespace GVC.View
                 if (col.Name != "Selecionar")
                     col.ReadOnly = true;
             }
+
+            // >>> Configurações visuais adicionadas <<<
+            dgvPagamentos.EnableHeadersVisualStyles = false;
+            dgvPagamentos.ColumnHeadersDefaultCellStyle.BackColor = ThemeERP.AzulPrimario;
+            dgvPagamentos.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvPagamentos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
+            dgvPagamentos.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
+            dgvPagamentos.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 247, 250);
+            dgvPagamentos.BorderStyle = BorderStyle.None;
         }
+
 
 
         private List<ContaAReceberDTO> ObterParcelasSelecionadas()
@@ -518,15 +543,28 @@ namespace GVC.View
 
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
+            // 🔒 GARANTE QUE O PANEL MÃE ESTEJA ATIVO
+            panelFiltros.Enabled = true;
+            panelFiltros.Visible = true;
+
             lblTotalSelecionado.Text = "R$ 0,00";
             ConfigurarGridContasAReceber();
-            ConfigurarGridPagamentos(); // 🔴 ESSENCIAL
-            AtualizarParcelasAtrasadasNoBanco(); // ← Atualiza ao abrir
-            WireTipoPesquisa();
+            ConfigurarGridPagamentos();
+            AtualizarParcelasAtrasadasNoBanco();
+
+            _formCarregado = true;
+            AtualizarEstadoPesquisa();
+
+            // GARANTE que panelStatus esteja visível
+            if (panelStatus != null)
+            {
+                panelStatus.Visible = true;
+                panelStatus.Enabled = true;
+            }
         }
         private void txtNomeCliente_TextChanged(object sender, EventArgs e)
         {
-
+            AtualizarEstadoPesquisa();
             if (_ignorarEventosBusca || _ignorandoBuscar)
                 return;
 
@@ -1108,11 +1146,7 @@ namespace GVC.View
 
         private void FrmContasAReceber_Shown(object sender, EventArgs e)
         {
-            foreach (Control ctrl in this.Controls)
-            {
-                if (ctrl is KryptonTextBox kryptonTxt)
-                    Utilitario.AplicarCorFoco(kryptonTxt);
-            }
+            Utilitario.AplicarCorFocoNosTextBox(this);
         }
 
         private void FrmContasAReceber_KeyDown(object sender, KeyEventArgs e)
@@ -1205,12 +1239,7 @@ namespace GVC.View
 
             AtualizarTotalSelecionado();
         }
-
-        private void btnEstornarPagamento_Click(object sender, EventArgs e)
-        {
-
-        }
-
+    
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
             CarregarContasAReceber();
@@ -1218,21 +1247,24 @@ namespace GVC.View
 
         private void btnLimparFiltros_Click(object sender, EventArgs e)
         {
-            // 🔹 Status (nenhum = todos)
+            // Status
             chkPendente.Checked = false;
             chkParcial.Checked = false;
             chkPago.Checked = false;
             chkAtrasada.Checked = false;
             chkCancelada.Checked = false;
 
-            // 🔹 Campos
+            // Campos
             txtNomeCliente.Clear();
 
-            // 🔹 Datas (somente 2)
+            // Datas
             dtpInicial.Value = DateTime.Today;
             dtpFinal.Value = DateTime.Today;
 
-            AtualizarEstadoPesquisa();
+           
+            btnFiltrar.Enabled = false;
+
+            // Recarrega tudo (sem filtro)
             CarregarContasAReceber();
         }
 
@@ -1545,5 +1577,6 @@ namespace GVC.View
         {
             this.Close();
         }
+      
     }
 }

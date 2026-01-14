@@ -41,19 +41,6 @@ namespace GVC
             }));
 
         }
-        private void btnClientes_Click(object sender, EventArgs e)
-        {
-            FrmManutCliente frm = new FrmManutCliente(StatusOperacao);
-            StatusOperacao = "NOVO";
-            frm.Show();
-        }
-
-        private void btnProdutos_Click(object sender, EventArgs e)
-        {
-            FrmManutProduto frm = new FrmManutProduto(StatusOperacao);
-            StatusOperacao = "NOVO";
-            frm.Show();
-        }
 
         private void btnPDV_Click(object sender, EventArgs e)
         {
@@ -61,36 +48,11 @@ namespace GVC
             frm.Show();
         }
 
-        private void btnCaixa_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEstoque_Click(object sender, EventArgs e)
-        {
-            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
-            frm.Show();
-        }
-
-        private void btnRelatorios_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
             FrmBackup frm = new FrmBackup();
             frm.Show();
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void trocarEmpresaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void backupToolStripMenuItem_Click(object sender, EventArgs e)
@@ -146,35 +108,11 @@ namespace GVC
             frm.Show();
         }
 
-        private void orçamentosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pedidosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void contasAReceberToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmContasReceber frm = new FrmContasReceber();
             frm.Show();
-        }
-
-        private void contasAPagarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void caixaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void vendasToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void financeiroToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -189,20 +127,6 @@ namespace GVC
             frm.Show();
         }
 
-        private void usuáriosToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void parâmetrosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
         private bool JaExisteBackupHoje()
         {
             string flag = Path.Combine(PastaBackupAutomatica, "backup.ok");
@@ -323,35 +247,11 @@ namespace GVC
             timer.Enabled = true;
         }
 
-        private void btnUsuarios_Click(object sender, EventArgs e)
-        {
-            FrmManutUsuario frm = new FrmManutUsuario(StatusOperacao);
-            StatusOperacao = "NOVO";
-            frm.Show();
-        }
-
-        private void btnFornecedor_Click(object sender, EventArgs e)
-        {
-            FrmManutFornecedor frm = new FrmManutFornecedor(StatusOperacao);
-            StatusOperacao = "NOVO";
-            frm.Show();
-        }
-
         private void btnContasAReceber_Click(object sender, EventArgs e)
         {
             FrmFinanceiro frm = new FrmFinanceiro();
             frm.Show();
 
-        }
-
-        private void iconMenuItem5_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void produtosToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            FrmRelatorioProdutos frm = new FrmRelatorioProdutos();
-            frm.Show();
         }
 
         private void timerBackupAtomatico_Tick(object sender, EventArgs e)
@@ -374,41 +274,82 @@ namespace GVC
             }
         }
 
-        private void correçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+
+
+
+        private void btnCliente_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
+            FrmManutCliente frm = new FrmManutCliente(StatusOperacao);
+            StatusOperacao = "NOVO";
             frm.Show();
         }
 
-        private void correçãoDeEstoqueToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void btnUsuario_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
+            FrmManutUsuario frm = new FrmManutUsuario(StatusOperacao);
+            StatusOperacao = "NOVO";
             frm.Show();
         }
 
-        private void formaDePagamentoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnFornecedor_Click(object sender, EventArgs e)
         {
-            FrmCadFormaPgto frm = new FrmCadFormaPgto();
-            frm.StatusOperacao = "NOVO";
+            FrmManutFornecedor frm = new FrmManutFornecedor(StatusOperacao);
+            StatusOperacao = "NOVO";
+            frm.Show();
+        }
+
+        private void btnProdutos_Click(object sender, EventArgs e)
+        {
+            FrmManutProduto frm = new  FrmManutProduto(StatusOperacao);
+            StatusOperacao = "NOVO";
+            frm.Show();
+        }
+
+        private void btnVendas_Click(object sender, EventArgs e)
+        {
+            FrmPDVendas frm = new FrmPDVendas();
+            frm.Show();
+        }
+
+        private void btnContasReceber_Click(object sender, EventArgs e)
+        {
+            FrmFinanceiro frm = new FrmFinanceiro();
+            frm.Show();
+        }
+
+        private void btnContasPagar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCaixa_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnRelatorios_Click(object sender, EventArgs e)
+        {
+            FrmRelatoriosFinanceiros frm = new FrmRelatoriosFinanceiros();
+            frm.Show();
+        }
+              
+
+        private void btnEstoque_Click(object sender, EventArgs e)
+        {
+            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
             frm.Show();
         }
 
         private void btnFerramentas_Click(object sender, EventArgs e)
         {
-            FrmConfiguracoes frm = new FrmConfiguracoes(_empresaId);
+            FrmConfiguracoes frm = new FrmConfiguracoes( _empresaId);
             frm.Show();
         }
 
-        private void consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnSair_Click(object sender, EventArgs e)
         {
-            FrmConsultaMovimentacaoEstoque frm = new FrmConsultaMovimentacaoEstoque();
-            frm.Show();
-        }
-
-        private void gerenciamentoDeVendasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmGerenciarVendas frm = new FrmGerenciarVendas();
-            frm.Show();
+            this.Close();
         }
     }
 }

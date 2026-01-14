@@ -10,14 +10,14 @@
         "projectUniqueName": "C:\\GVCSqlExpress\\GVC.csproj",
         "projectName": "GVC",
         "projectPath": "C:\\GVCSqlExpress\\GVC.csproj",
-        "packagesPath": "C:\\Users\\iConnect\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\wadso\\.nuget\\packages\\",
         "outputPath": "C:\\GVCSqlExpress\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\iConnect\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wadso\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
