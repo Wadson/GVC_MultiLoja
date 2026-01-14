@@ -44,7 +44,7 @@ namespace GVC.View
         {
             InitializeComponent();
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
-           
+
         }
         private void WireTipoPesquisa()
         {
@@ -84,9 +84,9 @@ namespace GVC.View
 
         private TipoPesquisaContasReceber ObterTipoPesquisaSelecionado()
         {
-           
+
             if (rbNomeCliente.Checked) return TipoPesquisaContasReceber.NomeCliente;
-            if (rbPeriodoVenda.Checked) return TipoPesquisaContasReceber.PeriodoVenda;           
+            if (rbPeriodoVenda.Checked) return TipoPesquisaContasReceber.PeriodoVenda;
             if (rbPeriodoVencimento.Checked) return TipoPesquisaContasReceber.PeriodoVencimento;
             if (rbStatusParcela.Checked) return TipoPesquisaContasReceber.StatusParcela;
 
@@ -97,7 +97,7 @@ namespace GVC.View
             // ======================================================
             // 1️⃣ DESLIGA TUDO (estado neutro)
             // ======================================================
-            txtNomeCliente.Enabled = false;       
+            txtNomeCliente.Enabled = false;
 
             dtpInicial.Enabled = false;
             dtpFinal.Enabled = false;
@@ -123,24 +123,24 @@ namespace GVC.View
                 case TipoPesquisaContasReceber.NomeCliente:
                     txtNomeCliente.Enabled = true;
                     txtNomeCliente.Focus();
-                    break;             
+                    break;
 
-                case TipoPesquisaContasReceber.DataVenda:                   
+                case TipoPesquisaContasReceber.DataVenda:
                     dtpInicial.Enabled = true;
                     break;
 
                 case TipoPesquisaContasReceber.PeriodoVenda:
-                  
+
                     lblAte.Enabled = true;
                     dtpInicial.Enabled = true;
                     dtpFinal.Enabled = true;
                     break;
 
-                case TipoPesquisaContasReceber.Vencimento:                   
+                case TipoPesquisaContasReceber.Vencimento:
                     dtpInicial.Enabled = true;
                     break;
 
-                case TipoPesquisaContasReceber.PeriodoVencimento:                  
+                case TipoPesquisaContasReceber.PeriodoVencimento:
                     lblAte.Enabled = true;
                     dtpInicial.Enabled = true;
                     dtpFinal.Enabled = true;
@@ -155,8 +155,8 @@ namespace GVC.View
 
 
         private void WirePesquisaEvents()
-        {           
-            rbNomeCliente.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();         
+        {
+            rbNomeCliente.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
             rbPeriodoVencimento.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
             rbPeriodoVencimento.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
             rbStatusParcela.CheckedChanged += (_, __) => AtualizarEstadoPesquisa();
@@ -458,7 +458,7 @@ namespace GVC.View
             string nomeCliente = txtNomeCliente.Enabled
                 ? txtNomeCliente.Text.Trim()
                 : null;
-          
+
             DateTime? dataInicial = null;
             DateTime? dataFinal = null;
 
@@ -471,7 +471,7 @@ namespace GVC.View
             // 🔑 4️⃣ Chamada única ao DAL
             var lista = dal.ListarContasAReceber(
                 tipoPesquisa,
-                nomeCliente,              
+                nomeCliente,
                 dataInicial,
                 dataFinal,
                 statusSelecionados
@@ -554,7 +554,7 @@ namespace GVC.View
                     try
                     {
                         ClienteID = pesquisaCliente.ClienteID;
-                        txtNomeCliente.Text = pesquisaCliente.ClienteSelecionado;  
+                        txtNomeCliente.Text = pesquisaCliente.ClienteSelecionado;
                     }
                     finally
                     {
@@ -1134,7 +1134,7 @@ namespace GVC.View
             // =========================
             // 3️⃣ CAMPOS DE TEXTO
             // =========================
-            txtNomeCliente.Clear();   
+            txtNomeCliente.Clear();
             // =========================
             // 4️⃣ DATAS (APENAS DOIS PICKERS)
             // =========================
@@ -1206,42 +1206,8 @@ namespace GVC.View
             AtualizarTotalSelecionado();
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private void btnPesquisar_Click(object sender, EventArgs e)
-        {
-            CarregarContasAReceber();
-        }
-
         private void btnLimparFiltro_Click(object sender, EventArgs e)
         {
-            // 🔹 Status (nenhum = todos)
-            chkPendente.Checked = false;
-            chkParcial.Checked = false;
-            chkPago.Checked = false;
-            chkAtrasada.Checked = false;
-            chkCancelada.Checked = false;
-
-            // 🔹 Campos
-            txtNomeCliente.Clear();
-
-            // 🔹 Datas (somente 2)
-            dtpInicial.Value = DateTime.Today;
-            dtpFinal.Value = DateTime.Today;
-
-            AtualizarEstadoPesquisa();
-            CarregarContasAReceber();
         }
 
         private void btnRecibo_Click(object sender, EventArgs e)
@@ -1555,8 +1521,29 @@ namespace GVC.View
             }
         }
 
-        private void lblNumeroVenda_Click(object sender, EventArgs e)
+        private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            CarregarContasAReceber();
+        }
+
+        private void btnLimparFiltros_Click(object sender, EventArgs e)
+        {
+            // 🔹 Status (nenhum = todos)
+            chkPendente.Checked = false;
+            chkParcial.Checked = false;
+            chkPago.Checked = false;
+            chkAtrasada.Checked = false;
+            chkCancelada.Checked = false;
+
+            // 🔹 Campos
+            txtNomeCliente.Clear();
+
+            // 🔹 Datas (somente 2)
+            dtpInicial.Value = DateTime.Today;
+            dtpFinal.Value = DateTime.Today;
+
+            AtualizarEstadoPesquisa();
+            CarregarContasAReceber();
         }
     }
 }

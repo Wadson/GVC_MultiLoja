@@ -2664,7 +2664,7 @@
             panelStatusParcela.Controls.Add(kryptonBorderEdge7);
             panelStatusParcela.Controls.Add(kryptonLabel3);
             panelStatusParcela.Controls.Add(kryptonBorderEdge8);
-            panelStatusParcela.Location = new Point(285, 202);
+            panelStatusParcela.Location = new Point(526, 222);
             panelStatusParcela.Name = "panelStatusParcela";
             panelStatusParcela.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelStatusParcela.Size = new Size(412, 54);
