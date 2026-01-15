@@ -350,9 +350,9 @@ namespace GVC
         }
 
 
-        private void btnEstoque_Click(object sender, EventArgs e)
+        private void btnPesquisarPrecos_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
+            FrmPesquisarPreco frm = new FrmPesquisarPreco();
             frm.Show();
         }
 

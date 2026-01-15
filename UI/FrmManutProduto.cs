@@ -108,9 +108,17 @@ namespace GVC.View
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
             }
 
+            // Centralizar e negritar coluna Estoque
+            if (dgvProdutos.Columns["Estoque"] != null)
+            {
+                dgvProdutos.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvProdutos.Columns["Estoque"].DefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            }
+
             // 9. Atualizar grid
             dgvProdutos.Refresh();
         }
+
 
 
         // 🔹 Método para reordenar as colunas

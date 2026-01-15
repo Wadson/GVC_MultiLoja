@@ -75,7 +75,7 @@
             btnVendas = new FontAwesome.Sharp.IconToolStripButton();
             btnContasReceber = new FontAwesome.Sharp.IconToolStripButton();
             btnContasPagar = new FontAwesome.Sharp.IconToolStripButton();
-            btnEstoque = new FontAwesome.Sharp.IconToolStripButton();
+            btnPesquisarPrecos = new FontAwesome.Sharp.IconToolStripButton();
             btnCaixa = new FontAwesome.Sharp.IconToolStripButton();
             btnFerramentas = new FontAwesome.Sharp.IconToolStripButton();
             btnRelatorios = new FontAwesome.Sharp.IconToolStripButton();
@@ -389,7 +389,7 @@
             toolStrip1.Font = new Font("Segoe UI", 9F);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(32, 32);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuario, btnCliente, btnFornecedor, btnProdutos, btnVendas, btnContasReceber, btnContasPagar, btnEstoque, btnCaixa, btnFerramentas, btnRelatorios, btnSair });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuario, btnCliente, btnFornecedor, btnProdutos, btnVendas, btnContasReceber, btnContasPagar, btnPesquisarPrecos, btnCaixa, btnFerramentas, btnRelatorios, btnSair });
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
@@ -506,21 +506,21 @@
             btnContasPagar.TextImageRelation = TextImageRelation.ImageAboveText;
             btnContasPagar.Click += btnContasPagar_Click;
             // 
-            // btnEstoque
+            // btnPesquisarPrecos
             // 
-            btnEstoque.AutoSize = false;
-            btnEstoque.ForeColor = Color.WhiteSmoke;
-            btnEstoque.IconChar = FontAwesome.Sharp.IconChar.BoxesStacked;
-            btnEstoque.IconColor = Color.White;
-            btnEstoque.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnEstoque.IconSize = 64;
-            btnEstoque.ImageTransparentColor = Color.Magenta;
-            btnEstoque.Name = "btnEstoque";
-            btnEstoque.Size = new Size(63, 51);
-            btnEstoque.Text = "Estoque";
-            btnEstoque.TextAlign = ContentAlignment.BottomCenter;
-            btnEstoque.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnEstoque.Click += btnEstoque_Click;
+            btnPesquisarPrecos.AutoSize = false;
+            btnPesquisarPrecos.ForeColor = Color.WhiteSmoke;
+            btnPesquisarPrecos.IconChar = FontAwesome.Sharp.IconChar.Tags;
+            btnPesquisarPrecos.IconColor = Color.White;
+            btnPesquisarPrecos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnPesquisarPrecos.IconSize = 64;
+            btnPesquisarPrecos.ImageTransparentColor = Color.Magenta;
+            btnPesquisarPrecos.Name = "btnPesquisarPrecos";
+            btnPesquisarPrecos.Size = new Size(63, 51);
+            btnPesquisarPrecos.Text = "Preços";
+            btnPesquisarPrecos.TextAlign = ContentAlignment.BottomCenter;
+            btnPesquisarPrecos.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnPesquisarPrecos.Click += btnPesquisarPrecos_Click;
             // 
             // btnCaixa
             // 
@@ -802,7 +802,7 @@
         private FontAwesome.Sharp.IconToolStripButton btnVendas;
         private FontAwesome.Sharp.IconToolStripButton btnContasReceber;
         private FontAwesome.Sharp.IconToolStripButton btnContasPagar;
-        private FontAwesome.Sharp.IconToolStripButton btnEstoque;
+        private FontAwesome.Sharp.IconToolStripButton btnPesquisarPrecos;
         private FontAwesome.Sharp.IconToolStripButton btnCaixa;
         private FontAwesome.Sharp.IconToolStripButton btnFerramentas;
         private FontAwesome.Sharp.IconToolStripButton btnRelatorios;
