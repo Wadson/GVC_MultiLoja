@@ -51,6 +51,8 @@
             btnAdicionarItem = new Krypton.Toolkit.KryptonButton();
             txtTotalItens = new Krypton.Toolkit.KryptonTextBox();
             label1 = new Label();
+            btnConfirmar = new FontAwesome.Sharp.IconButton();
+            iconButton7 = new FontAwesome.Sharp.IconButton();
             grpDocumento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbFornecedor).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbTipoDocumento).BeginInit();
@@ -325,9 +327,9 @@
             // 
             // dgvItensDocumento
             // 
-            dgvItensDocumento.Location = new Point(12, 31);
+            dgvItensDocumento.Location = new Point(0, 12);
             dgvItensDocumento.Name = "dgvItensDocumento";
-            dgvItensDocumento.Size = new Size(866, 183);
+            dgvItensDocumento.Size = new Size(866, 194);
             dgvItensDocumento.TabIndex = 0;
             // 
             // grpTotais
@@ -593,12 +595,50 @@
             label1.TabIndex = 1091;
             label1.Text = "Totail itens";
             // 
+            // btnConfirmar
+            // 
+            btnConfirmar.BackColor = Color.FromArgb(30, 136, 229);
+            btnConfirmar.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            btnConfirmar.ForeColor = Color.White;
+            btnConfirmar.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnConfirmar.IconColor = Color.White;
+            btnConfirmar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnConfirmar.IconSize = 28;
+            btnConfirmar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConfirmar.Location = new Point(578, 461);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.Padding = new Padding(10, 0, 10, 0);
+            btnConfirmar.Size = new Size(120, 38);
+            btnConfirmar.TabIndex = 1125;
+            btnConfirmar.Text = "    Confirmar";
+            btnConfirmar.TextAlign = ContentAlignment.MiddleRight;
+            btnConfirmar.UseVisualStyleBackColor = false;
+            // 
+            // iconButton7
+            // 
+            iconButton7.BackColor = Color.FromArgb(255, 152, 0);
+            iconButton7.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            iconButton7.ForeColor = Color.White;
+            iconButton7.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconButton7.IconColor = Color.White;
+            iconButton7.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton7.IconSize = 28;
+            iconButton7.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton7.Location = new Point(746, 461);
+            iconButton7.Name = "iconButton7";
+            iconButton7.Size = new Size(120, 38);
+            iconButton7.TabIndex = 1124;
+            iconButton7.Text = "Cancelar";
+            iconButton7.UseVisualStyleBackColor = false;
+            // 
             // FrmEntradaFiscal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(884, 530);
+            Controls.Add(btnConfirmar);
+            Controls.Add(iconButton7);
             Controls.Add(grpTotais);
             Controls.Add(grpItens);
             Controls.Add(grpDocumento);
@@ -645,5 +685,7 @@
         public Krypton.Toolkit.KryptonButton btnCancelar;
         public Krypton.Toolkit.KryptonButton bnRemoverItem;
         public Krypton.Toolkit.KryptonButton btnAdicionarItem;
+        private FontAwesome.Sharp.IconButton iconButton7;
+        private FontAwesome.Sharp.IconButton btnConfirmar;
     }
 }

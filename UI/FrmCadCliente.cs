@@ -150,12 +150,12 @@ namespace GVC.View
             {
                 this.Cursor = Cursors.WaitCursor;
                 // Opcional: desabilitar botão durante a busca
-                btnBuscarEnderecoPorCep.Enabled = false;
+                btnPesquisarCep.Enabled = false;
             }
             else
             {
                 this.Cursor = Cursors.Default;
-                btnBuscarEnderecoPorCep.Enabled = true;
+                btnPesquisarCep.Enabled = true;
             }
         }
 
@@ -960,12 +960,7 @@ namespace GVC.View
 
         }
 
-        private void btnLocalizar_Click(object sender, EventArgs e)
-        {
-            AbrirFrmLocalizarCidadeDinamico();
-        }
-
-
+       
         private void LimparCampos() => Utilitario.LimparCampos(this);
 
 
@@ -1190,10 +1185,6 @@ namespace GVC.View
             }));
         }
 
-        private async void btnBuscarEnderecoPorCep_Click(object sender, EventArgs e)
-        {
-            await BuscarEnderecoPorCep();
-        }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
@@ -1223,6 +1214,16 @@ namespace GVC.View
 
             string tipoSelecionado = cmbTipoPessoa.Text;
             AplicarConfiguracaoTipoCliente(tipoSelecionado);
+        }
+
+        private async void btnPesquisarCep_Click(object sender, EventArgs e)
+        {
+            await BuscarEnderecoPorCep();
+        }
+
+        private void btnLocalizarCidade_Click(object sender, EventArgs e)
+        {
+            AbrirFrmLocalizarCidadeDinamico();            
         }
     }
 }

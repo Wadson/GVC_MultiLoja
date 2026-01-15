@@ -48,7 +48,6 @@
             lblRotuloEmail = new Label();
             txtUF = new Krypton.Toolkit.KryptonTextBox();
             lblUf = new Label();
-            btnLocalizar = new Krypton.Toolkit.KryptonButton();
             lblCep = new Label();
             txtCep = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloDtNascDtCriacao = new Label();
@@ -80,7 +79,6 @@
             lblRotuloStatus = new Label();
             toolTip = new ToolTip(components);
             Timer1 = new System.Windows.Forms.Timer(components);
-            btnBuscarEnderecoPorCep = new Krypton.Toolkit.KryptonButton();
             txtCnpj = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloCnpj = new Label();
             txtIE = new Krypton.Toolkit.KryptonTextBox();
@@ -101,9 +99,11 @@
             dtpDataNascimento = new Krypton.Toolkit.KryptonDateTimePicker();
             lblRotuloDadosAdicionais = new Krypton.Toolkit.KryptonLabel();
             pnlEndereco = new Krypton.Toolkit.KryptonPanel();
+            btnPesquisarCep = new FontAwesome.Sharp.IconButton();
             lblEndereco = new Krypton.Toolkit.KryptonLabel();
             pnlObservacao = new Krypton.Toolkit.KryptonPanel();
             lblObservacao = new Krypton.Toolkit.KryptonLabel();
+            btnLocalizarCidade = new FontAwesome.Sharp.IconButton();
             kryptonStatusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
@@ -403,63 +403,6 @@
             lblUf.Size = new Size(20, 16);
             lblUf.TabIndex = 183;
             lblUf.Text = "Uf";
-            // 
-            // btnLocalizar
-            // 
-            btnLocalizar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnLocalizar.CornerRoundingRadius = 10F;
-            btnLocalizar.Location = new Point(844, 144);
-            btnLocalizar.Name = "btnLocalizar";
-            btnLocalizar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
-            btnLocalizar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizar.OverrideDefault.Back.ColorAngle = 45F;
-            btnLocalizar.OverrideDefault.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnLocalizar.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizar.OverrideDefault.Border.ColorAngle = 45F;
-            btnLocalizar.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizar.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizar.OverrideDefault.Border.Rounding = 20F;
-            btnLocalizar.OverrideDefault.Border.Width = 1;
-            btnLocalizar.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnLocalizar.Size = new Size(30, 29);
-            btnLocalizar.StateCommon.Back.Color1 = Color.FromArgb(252, 252, 250);
-            btnLocalizar.StateCommon.Back.Color2 = Color.FromArgb(252, 252, 250);
-            btnLocalizar.StateCommon.Back.ColorAngle = 45F;
-            btnLocalizar.StateCommon.Back.ImageAlign = Krypton.Toolkit.PaletteRectangleAlign.Local;
-            btnLocalizar.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnLocalizar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizar.StateCommon.Border.ImageStyle = Krypton.Toolkit.PaletteImageStyle.TopLeft;
-            btnLocalizar.StateCommon.Border.Rounding = 10F;
-            btnLocalizar.StateCommon.Border.Width = 1;
-            btnLocalizar.StateCommon.Content.ShortText.Color1 = Color.White;
-            btnLocalizar.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnLocalizar.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLocalizar.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
-            btnLocalizar.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
-            btnLocalizar.StatePressed.Back.ColorAngle = 135F;
-            btnLocalizar.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnLocalizar.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnLocalizar.StatePressed.Border.ColorAngle = 135F;
-            btnLocalizar.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizar.StatePressed.Border.Rounding = 20F;
-            btnLocalizar.StatePressed.Border.Width = 1;
-            btnLocalizar.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnLocalizar.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
-            btnLocalizar.StateTracking.Back.ColorAngle = 45F;
-            btnLocalizar.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnLocalizar.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizar.StateTracking.Border.ColorAngle = 45F;
-            btnLocalizar.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizar.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizar.StateTracking.Border.Rounding = 20F;
-            btnLocalizar.StateTracking.Border.Width = 1;
-            btnLocalizar.TabIndex = 120;
-            btnLocalizar.TabStop = false;
-            btnLocalizar.Values.Image = Properties.Resources.Pesquisar;
-            btnLocalizar.Values.Text = "";
-            btnLocalizar.Click += btnLocalizar_Click;
             // 
             // lblCep
             // 
@@ -824,61 +767,6 @@
             // Timer1
             // 
             Timer1.Interval = 500;
-            // 
-            // btnBuscarEnderecoPorCep
-            // 
-            btnBuscarEnderecoPorCep.CornerRoundingRadius = 10F;
-            btnBuscarEnderecoPorCep.Location = new Point(226, 45);
-            btnBuscarEnderecoPorCep.Name = "btnBuscarEnderecoPorCep";
-            btnBuscarEnderecoPorCep.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
-            btnBuscarEnderecoPorCep.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
-            btnBuscarEnderecoPorCep.OverrideDefault.Back.ColorAngle = 45F;
-            btnBuscarEnderecoPorCep.OverrideDefault.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnBuscarEnderecoPorCep.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnBuscarEnderecoPorCep.OverrideDefault.Border.ColorAngle = 45F;
-            btnBuscarEnderecoPorCep.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnBuscarEnderecoPorCep.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnBuscarEnderecoPorCep.OverrideDefault.Border.Rounding = 20F;
-            btnBuscarEnderecoPorCep.OverrideDefault.Border.Width = 1;
-            btnBuscarEnderecoPorCep.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnBuscarEnderecoPorCep.Size = new Size(30, 29);
-            btnBuscarEnderecoPorCep.StateCommon.Back.Color1 = Color.FromArgb(252, 252, 250);
-            btnBuscarEnderecoPorCep.StateCommon.Back.Color2 = Color.FromArgb(252, 252, 250);
-            btnBuscarEnderecoPorCep.StateCommon.Back.ColorAngle = 45F;
-            btnBuscarEnderecoPorCep.StateCommon.Back.ImageAlign = Krypton.Toolkit.PaletteRectangleAlign.Local;
-            btnBuscarEnderecoPorCep.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnBuscarEnderecoPorCep.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnBuscarEnderecoPorCep.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnBuscarEnderecoPorCep.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnBuscarEnderecoPorCep.StateCommon.Border.ImageStyle = Krypton.Toolkit.PaletteImageStyle.TopLeft;
-            btnBuscarEnderecoPorCep.StateCommon.Border.Rounding = 10F;
-            btnBuscarEnderecoPorCep.StateCommon.Border.Width = 1;
-            btnBuscarEnderecoPorCep.StateCommon.Content.ShortText.Color1 = Color.White;
-            btnBuscarEnderecoPorCep.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnBuscarEnderecoPorCep.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBuscarEnderecoPorCep.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
-            btnBuscarEnderecoPorCep.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
-            btnBuscarEnderecoPorCep.StatePressed.Back.ColorAngle = 135F;
-            btnBuscarEnderecoPorCep.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnBuscarEnderecoPorCep.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnBuscarEnderecoPorCep.StatePressed.Border.ColorAngle = 135F;
-            btnBuscarEnderecoPorCep.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnBuscarEnderecoPorCep.StatePressed.Border.Rounding = 20F;
-            btnBuscarEnderecoPorCep.StatePressed.Border.Width = 1;
-            btnBuscarEnderecoPorCep.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnBuscarEnderecoPorCep.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
-            btnBuscarEnderecoPorCep.StateTracking.Back.ColorAngle = 45F;
-            btnBuscarEnderecoPorCep.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnBuscarEnderecoPorCep.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnBuscarEnderecoPorCep.StateTracking.Border.ColorAngle = 45F;
-            btnBuscarEnderecoPorCep.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnBuscarEnderecoPorCep.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnBuscarEnderecoPorCep.StateTracking.Border.Rounding = 20F;
-            btnBuscarEnderecoPorCep.StateTracking.Border.Width = 1;
-            btnBuscarEnderecoPorCep.TabIndex = 9;
-            btnBuscarEnderecoPorCep.Values.Image = Properties.Resources.Pesquisar;
-            btnBuscarEnderecoPorCep.Values.Text = "";
-            btnBuscarEnderecoPorCep.Click += btnBuscarEnderecoPorCep_Click;
             // 
             // txtCnpj
             // 
@@ -1376,17 +1264,17 @@
             // pnlEndereco
             // 
             pnlEndereco.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            pnlEndereco.Controls.Add(btnLocalizarCidade);
+            pnlEndereco.Controls.Add(btnPesquisarCep);
             pnlEndereco.Controls.Add(lblEndereco);
             pnlEndereco.Controls.Add(txtNomeCidade);
             pnlEndereco.Controls.Add(lblCep);
             pnlEndereco.Controls.Add(lblUf);
-            pnlEndereco.Controls.Add(btnLocalizar);
             pnlEndereco.Controls.Add(lblBairro);
             pnlEndereco.Controls.Add(lblNumero);
             pnlEndereco.Controls.Add(lblRotEndereco);
             pnlEndereco.Controls.Add(txtBairro);
             pnlEndereco.Controls.Add(txtNumero);
-            pnlEndereco.Controls.Add(btnBuscarEnderecoPorCep);
             pnlEndereco.Controls.Add(txtCep);
             pnlEndereco.Controls.Add(lblRotCidade);
             pnlEndereco.Controls.Add(txtLogradouro);
@@ -1396,6 +1284,22 @@
             pnlEndereco.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             pnlEndereco.Size = new Size(1023, 180);
             pnlEndereco.TabIndex = 1097;
+            // 
+            // btnPesquisarCep
+            // 
+            btnPesquisarCep.BackColor = Color.Transparent;
+            btnPesquisarCep.FlatAppearance.BorderSize = 0;
+            btnPesquisarCep.FlatStyle = FlatStyle.Flat;
+            btnPesquisarCep.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnPesquisarCep.IconColor = Color.FromArgb(30, 136, 229);
+            btnPesquisarCep.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnPesquisarCep.IconSize = 30;
+            btnPesquisarCep.Location = new Point(225, 46);
+            btnPesquisarCep.Name = "btnPesquisarCep";
+            btnPesquisarCep.Size = new Size(25, 25);
+            btnPesquisarCep.TabIndex = 9;
+            btnPesquisarCep.UseVisualStyleBackColor = false;
+            btnPesquisarCep.Click += btnPesquisarCep_Click;
             // 
             // lblEndereco
             // 
@@ -1427,6 +1331,22 @@
             lblObservacao.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblObservacao.TabIndex = 1040;
             lblObservacao.Values.Text = "Observação";
+            // 
+            // btnLocalizarCidade
+            // 
+            btnLocalizarCidade.BackColor = Color.Transparent;
+            btnLocalizarCidade.FlatAppearance.BorderSize = 0;
+            btnLocalizarCidade.FlatStyle = FlatStyle.Flat;
+            btnLocalizarCidade.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnLocalizarCidade.IconColor = Color.FromArgb(30, 136, 229);
+            btnLocalizarCidade.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnLocalizarCidade.IconSize = 30;
+            btnLocalizarCidade.Location = new Point(846, 144);
+            btnLocalizarCidade.Name = "btnLocalizarCidade";
+            btnLocalizarCidade.Size = new Size(25, 25);
+            btnLocalizarCidade.TabIndex = 1040;
+            btnLocalizarCidade.UseVisualStyleBackColor = false;
+            btnLocalizarCidade.Click += btnLocalizarCidade_Click;
             // 
             // FrmCadCliente
             // 
@@ -1501,7 +1421,6 @@
         public Krypton.Toolkit.KryptonTextBox txtUF;
         private System.Windows.Forms.Label lblUf;
         public Krypton.Toolkit.KryptonButton btnSair;
-        public Krypton.Toolkit.KryptonButton btnLocalizar;
         private Label lblCep;
         public Krypton.Toolkit.KryptonTextBox txtCep;
         private Label lblRotuloDtNascDtCriacao;
@@ -1533,7 +1452,6 @@
         private ToolTip toolTip;
         private System.Windows.Forms.Timer Timer1;
         private ToolStripStatusLabel lblStatus;
-        public Krypton.Toolkit.KryptonButton btnBuscarEnderecoPorCep;
         public Krypton.Toolkit.KryptonTextBox txtCnpj;
         private Label lblRotuloCnpj;
         public Krypton.Toolkit.KryptonTextBox txtIE;
@@ -1558,6 +1476,8 @@
         private Krypton.Toolkit.KryptonLabel lblEndereco;
         private Krypton.Toolkit.KryptonLabel lblObservacao;
         public Krypton.Toolkit.KryptonDateTimePicker dtpDataNascimento;
-        public Krypton.Toolkit.KryptonComboBox cmbTipoPessoa;        
+        public Krypton.Toolkit.KryptonComboBox cmbTipoPessoa;
+        private FontAwesome.Sharp.IconButton btnPesquisarCep;
+        private FontAwesome.Sharp.IconButton btnLocalizarCidade;
     }
 }

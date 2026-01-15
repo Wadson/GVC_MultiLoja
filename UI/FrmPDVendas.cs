@@ -65,7 +65,7 @@ namespace GVC.View
         // ----------------------
         private FrmLocalizarCliente frmPesquisaCliente;
         private bool formularioPesquisaAberto = false;
-        
+
         private readonly string QueryVenda = "SELECT MAX(VendaID) FROM Venda";
 
 
@@ -106,7 +106,7 @@ namespace GVC.View
             _vendaId = vendaId;
 
             InicializarFormulario();
-        }        
+        }
 
         private void InicializarFormulario()
         {
@@ -130,7 +130,7 @@ namespace GVC.View
             txtVendedorBuscar.Enabled = false;
             txtProdutoBuscar.Enabled = false;
             dgvItensVenda.Enabled = false;
-                        
+
             btnFinalizarVenda.Enabled = false;
             btnSair.Enabled = true;
 
@@ -248,8 +248,8 @@ namespace GVC.View
             if (_modo == ModoVenda.Nova)
             {
                 int proximaVendaID = Utilitario.ProximoId(QueryVenda);
-                txtVendaID.Text = Utilitario.ZerosEsquerda(proximaVendaID, 4);
-                txtDataVenda.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                lblVendaID.Text = Utilitario.ZerosEsquerda(proximaVendaID, 4);
+                lblDataVenda.Text = DateTime.Now.ToString("dd/MM/yyyy");
             }
             else if (_modo == ModoVenda.Edicao)
             {
@@ -265,7 +265,7 @@ namespace GVC.View
                 txtClienteBuscar.Focus();
                 txtClienteBuscar.SelectAll();
             }
-        }    
+        }
 
         private void ConfigurarGridItensVenda()
         {
@@ -286,7 +286,7 @@ namespace GVC.View
                 },
                 HeaderCell = { Style = { Alignment = DataGridViewContentAlignment.MiddleCenter } }
             });
-           
+
             // 🔹 Coluna Descrição
             dgvItensVenda.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -390,7 +390,7 @@ namespace GVC.View
             dgvItensVenda.DefaultCellStyle.SelectionForeColor = Color.Black;
         }
 
-       
+
 
         private void btnAdicionarItem_Click(object sender, EventArgs e)
         {
@@ -527,7 +527,7 @@ namespace GVC.View
 
             // ===== NOVO ID DE VENDA =====
             int vendaID = Utilitario.ProximoId(QueryVenda);
-            txtVendaID.Text = Utilitario.ZerosEsquerda(vendaID, 4);
+            lblVendaID.Text = Utilitario.ZerosEsquerda(vendaID, 4);
 
             // ===== FOCO =====
             txtClienteBuscar.Focus();
@@ -539,7 +539,7 @@ namespace GVC.View
             AtualizarTotais();
         }
 
-      
+
         private bool ValidarEstoqueAntesFinalizar()
         {
             foreach (var item in _itensBinding)
@@ -581,7 +581,7 @@ namespace GVC.View
             {
                 Venda = new VendaModel
                 {
-                    VendaID = int.TryParse(txtVendaID.Text, out int id) ? id : 0,
+                    VendaID = int.TryParse(lblVendaID.Text, out int id) ? id : 0,
                     ClienteID = ClienteID,
                     NomeCliente = txtClienteBuscar.Text,
                     VendedorID = VendedorID,
@@ -652,7 +652,7 @@ namespace GVC.View
                     Utilitario.AplicarCorFoco(kryptonTxt);
             }
         }
-       
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             // Limpa todos os TextBox da tela
@@ -677,10 +677,7 @@ namespace GVC.View
             AtualizarTotais();
             LimparFormulario();
         }
-        private void btnFinalizarVenda_Click(object sender, EventArgs e)
-        {
-            FinalizarVenda();
-        }
+
         private void AjustarCamposEdicao()
         {
             bool possuiPagamento = new VendaBLL().ExistePagamento(_vendaId);
@@ -727,7 +724,7 @@ namespace GVC.View
                 txtVendedorBuscar.Focus();
             }
         }
-       
+
         private void txtClienteBuscar_TextChanged(object sender, EventArgs e)
         {
             if (_ignorarEventosBusca || _ignorandoBuscar)
@@ -902,10 +899,6 @@ namespace GVC.View
             }
         }
 
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
         private void AbrirBuscaCliente()
         {
             if (_ignorarEventosBusca || _ignorandoBuscar)
@@ -1065,7 +1058,7 @@ namespace GVC.View
 
         private void FrmPDVendas_KeyDown(object sender, KeyEventArgs e)
         {
-           // Debug: mostra qual tecla está sendo pressionada
+            // Debug: mostra qual tecla está sendo pressionada
             Console.WriteLine($"Tecla pressionada: {e.KeyCode}");
             Debug.WriteLine($"Tecla pressionada: {e.KeyCode}");
 
@@ -1076,42 +1069,42 @@ namespace GVC.View
 
             switch (e.KeyCode)
             {
-                case Keys.F2:                  
+                case Keys.F2:
                     AbrirBuscaCliente();
                     e.SuppressKeyPress = true;
                     e.Handled = true; // Adiciona esta linha
                     break;
 
-                case Keys.F3:                  
+                case Keys.F3:
                     AbrirBuscaVendedor();
                     e.SuppressKeyPress = true;
                     e.Handled = true; // Adiciona esta linha
                     break;
 
-                case Keys.F4:                  
+                case Keys.F4:
                     AbrirBuscaProduto();
                     e.SuppressKeyPress = true;
                     e.Handled = true; // Adiciona esta linha
                     break;
 
-                case Keys.F6:                   
+                case Keys.F6:
                     btnAdicionarItem.PerformClick();
                     e.SuppressKeyPress = true;
                     e.Handled = true;
                     break;
 
-                case Keys.F12:                   
+                case Keys.F12:
                     FinalizarVenda();
                     e.SuppressKeyPress = true;
                     e.Handled = true;
                     break;
 
-                case Keys.Escape:                  
+                case Keys.Escape:
                     e.SuppressKeyPress = true;
                     e.Handled = true;
                     break;
             }
-        
+
         }
 
         private void dgvItensVenda_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -1149,6 +1142,12 @@ namespace GVC.View
             AtualizarTotais();
         }
 
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void btnNovaVenda_Click(object sender, EventArgs e)
         {
             // Limpa todos os dados
@@ -1162,6 +1161,11 @@ namespace GVC.View
 
             _estadoVenda = EstadoVenda.Inicial;
             AtualizarEstadoTela();
+        }
+
+        private void btnFinalizarVenda_Click(object sender, EventArgs e)
+        {
+            FinalizarVenda();
         }
     }
 }

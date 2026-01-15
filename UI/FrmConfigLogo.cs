@@ -130,6 +130,54 @@ namespace GVC.View
                 picLogo.Image = Properties.Resources.UsuarioBlue24;
             }
         }
+       
+       
+        private void ConfigurarEstadoInicial()
+        {
+            bool temEmpresa = _empresaId > 0;
+
+            if (_emModoEdicao)
+            {
+                btnSalvar.Text = "Salvar";
+                btnSelecionarLogo.Enabled = true;
+                lblInstrucao.Text = "Selecione uma nova imagem e clique em Salvar";
+            }
+            else
+            {
+                btnSalvar.Text = "Alterar";
+                btnSelecionarLogo.Enabled = false;
+                lblInstrucao.Text = temEmpresa
+                    ? "Clique em 'Alterar' para modificar a logo"
+                    : "Selecione uma empresa na lista acima";
+            }
+
+            btnSalvar.Enabled = temEmpresa || _emModoEdicao;  // Habilita se tem empresa OU está editando
+        }
+
+       
+
+        private void cmbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbEmpresa.SelectedIndex < 0)
+            {
+                _empresaId = 0;
+            }
+            else
+            {
+                // Pega direto da lista para garantir
+                var empresas = (List<EmpresaSimples>)cmbEmpresa.DataSource;
+                var empresaSelecionada = empresas[cmbEmpresa.SelectedIndex];
+                _empresaId = empresaSelecionada.EmpresaID;
+            }
+
+            _emModoEdicao = false;
+            _logoAlterada = false;
+            _logoBytesNovos = null;
+
+            CarregarLogo();
+            ConfigurarEstadoInicial();  // Ou copie a lógica de habilitação aqui se preferir
+        }
+
         private void btnSelecionarLogo_Click(object sender, EventArgs e)
         {
             using OpenFileDialog ofd = new OpenFileDialog
@@ -156,6 +204,37 @@ namespace GVC.View
                 }
             }
         }
+
+        private void btnRemoverLogo_Click(object sender, EventArgs e)
+        {
+            if (!_emModoEdicao)
+            {
+                Mensagens.Aviso("Clique em 'Alterar' antes de remover a logomarca.");
+                return;
+            }
+
+            var resp = MessageBox.Show(
+                "Deseja remover a logomarca desta empresa?",
+                "Confirmação",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (resp != DialogResult.Yes)
+                return;
+
+            // Remove imagem do PictureBox
+            picLogo.Image?.Dispose();
+            picLogo.Image = Properties.Resources.UsuarioBlue24; // imagem padrão (ou null se preferir)
+            picLogo.SizeMode = PictureBoxSizeMode.Zoom;
+
+            // Marca como alteração válida SEM imagem
+            _logoBytesNovos = null;
+            _logoAlterada = true;
+
+            lblInstrucao.Text = "Logomarca removida. Clique em Salvar para confirmar.";
+        }
+
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             // Modo "Alterar" → entra em edição
@@ -204,83 +283,9 @@ namespace GVC.View
             }
         }
 
-
-        private void btnSair_Click(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-        private void ConfigurarEstadoInicial()
-        {
-            bool temEmpresa = _empresaId > 0;
-
-            if (_emModoEdicao)
-            {
-                btnSalvar.Text = "Salvar";
-                btnSelecionarLogo.Enabled = true;
-                lblInstrucao.Text = "Selecione uma nova imagem e clique em Salvar";
-            }
-            else
-            {
-                btnSalvar.Text = "Alterar";
-                btnSelecionarLogo.Enabled = false;
-                lblInstrucao.Text = temEmpresa
-                    ? "Clique em 'Alterar' para modificar a logo"
-                    : "Selecione uma empresa na lista acima";
-            }
-
-            btnSalvar.Enabled = temEmpresa || _emModoEdicao;  // Habilita se tem empresa OU está editando
-        }
-       
-        private void btnRemoverLogo_Click(object sender, EventArgs e)
-        {
-            if (!_emModoEdicao)
-            {
-                Mensagens.Aviso("Clique em 'Alterar' antes de remover a logomarca.");
-                return;
-            }
-
-            var resp = MessageBox.Show(
-                "Deseja remover a logomarca desta empresa?",
-                "Confirmação",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (resp != DialogResult.Yes)
-                return;
-
-            // Remove imagem do PictureBox
-            picLogo.Image?.Dispose();
-            picLogo.Image = Properties.Resources.UsuarioBlue24; // imagem padrão (ou null se preferir)
-            picLogo.SizeMode = PictureBoxSizeMode.Zoom;
-
-            // Marca como alteração válida SEM imagem
-            _logoBytesNovos = null;
-            _logoAlterada = true;
-
-            lblInstrucao.Text = "Logomarca removida. Clique em Salvar para confirmar.";
-        }
-
-        private void cmbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbEmpresa.SelectedIndex < 0)
-            {
-                _empresaId = 0;
-            }
-            else
-            {
-                // Pega direto da lista para garantir
-                var empresas = (List<EmpresaSimples>)cmbEmpresa.DataSource;
-                var empresaSelecionada = empresas[cmbEmpresa.SelectedIndex];
-                _empresaId = empresaSelecionada.EmpresaID;
-            }
-
-            _emModoEdicao = false;
-            _logoAlterada = false;
-            _logoBytesNovos = null;
-
-            CarregarLogo();
-            ConfigurarEstadoInicial();  // Ou copie a lógica de habilitação aqui se preferir
         }
     }
 }
