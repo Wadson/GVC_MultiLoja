@@ -394,76 +394,6 @@ namespace GVC.View
 
         private void btnAdicionarItem_Click(object sender, EventArgs e)
         {
-            if (ProdutoID <= 0)
-            {
-                Utilitario.Mensagens.Aviso("Produto inválido.");
-                return;
-            }
-
-            if (!int.TryParse(txtQuantidade.Text, out int qtd) || qtd <= 0)
-                return;
-
-            if (!decimal.TryParse(txtPrecoUnitario.Text, out decimal preco))
-                return;
-
-            int estoqueAtual = new EstoqueDAL().ObterEstoqueAtualizado(ProdutoID);
-
-            if (estoqueAtual <= 0)
-            {
-                Utilitario.Mensagens.Aviso("Produto sem estoque.");
-                return;
-            }
-
-            if (qtd > estoqueAtual)
-            {
-                Utilitario.Mensagens.Aviso(
-                    $"Estoque insuficiente. Disponível: {estoqueAtual}"
-                );
-                return;
-            }
-
-            var item = _itensBinding.FirstOrDefault(i => i.ProdutoID == ProdutoID);
-
-            if (item != null)
-            {
-                if (item.Quantidade + qtd > estoqueAtual)
-                {
-                    Utilitario.Mensagens.Aviso(
-                        $"Quantidade total excede o estoque ({estoqueAtual})."
-                    );
-                    return;
-                }
-
-                item.Quantidade += qtd; // Subtotal será recalculado automaticamente
-                // ✅ CORREÇÃO 2: força atualização do DataGrid
-
-                _itensBindingSource.ResetBindings(false);
-
-            }
-            else
-            {
-                _itensBinding.Add(new ItemVendaModel
-                {
-                    VendaID = venda.VendaID,
-                    ProdutoID = ProdutoID,
-                    Quantidade = qtd,
-                    PrecoUnitario = preco,
-                    EstoqueAtual = estoqueAtual,
-                    ProdutoDescricao = txtProdutoBuscar.Text
-                });
-            }
-
-
-            AtualizarTotais();
-            // 🔥 AQUI: Volta o foco para buscar o próximo produto
-            LimparCamposProduto(); // já zera ProdutoID e limpa os textos
-
-            // Garante que o campo esteja habilitado (deve estar, pois já tem itens ou vendedor)
-            if (txtProdutoBuscar.CanFocus)
-            {
-                txtProdutoBuscar.Focus();
-                txtProdutoBuscar.SelectAll(); // seleciona tudo para digitar por cima rapidamente
-            }
         }
 
         private void AtualizarTotais()
@@ -1157,6 +1087,7 @@ namespace GVC.View
             txtClienteBuscar.Clear();
             txtVendedorBuscar.Clear();
             txtProdutoBuscar.Clear();
+            lblSubTotal.Text = "0,00";
             // Limpe outros campos (totais, descontos, etc.)
 
             _estadoVenda = EstadoVenda.Inicial;
@@ -1166,6 +1097,80 @@ namespace GVC.View
         private void btnFinalizarVenda_Click(object sender, EventArgs e)
         {
             FinalizarVenda();
+        }
+
+        private void btnAdicionarItem_Click_1(object sender, EventArgs e)
+        {
+            if (ProdutoID <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Produto inválido.");
+                return;
+            }
+
+            if (!int.TryParse(txtQuantidade.Text, out int qtd) || qtd <= 0)
+                return;
+
+            if (!decimal.TryParse(txtPrecoUnitario.Text, out decimal preco))
+                return;
+
+            int estoqueAtual = new EstoqueDAL().ObterEstoqueAtualizado(ProdutoID);
+
+            if (estoqueAtual <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Produto sem estoque.");
+                return;
+            }
+
+            if (qtd > estoqueAtual)
+            {
+                Utilitario.Mensagens.Aviso(
+                    $"Estoque insuficiente. Disponível: {estoqueAtual}"
+                );
+                return;
+            }
+
+            var item = _itensBinding.FirstOrDefault(i => i.ProdutoID == ProdutoID);
+
+            if (item != null)
+            {
+                if (item.Quantidade + qtd > estoqueAtual)
+                {
+                    Utilitario.Mensagens.Aviso(
+                        $"Quantidade total excede o estoque ({estoqueAtual})."
+                    );
+                    return;
+                }
+
+                item.Quantidade += qtd; // Subtotal será recalculado automaticamente
+                // ✅ CORREÇÃO 2: força atualização do DataGrid
+
+                _itensBindingSource.ResetBindings(false);
+
+            }
+            else
+            {
+                _itensBinding.Add(new ItemVendaModel
+                {
+                    VendaID = venda.VendaID,
+                    ProdutoID = ProdutoID,
+                    Quantidade = qtd,
+                    PrecoUnitario = preco,
+                    EstoqueAtual = estoqueAtual,
+                    ProdutoDescricao = txtProdutoBuscar.Text
+                });
+            }
+
+
+            AtualizarTotais();
+            // 🔥 AQUI: Volta o foco para buscar o próximo produto
+            LimparCamposProduto(); // já zera ProdutoID e limpa os textos
+
+            // Garante que o campo esteja habilitado (deve estar, pois já tem itens ou vendedor)
+            if (txtProdutoBuscar.CanFocus)
+            {
+                txtProdutoBuscar.Focus();
+                txtProdutoBuscar.SelectAll(); // seleciona tudo para digitar por cima rapidamente
+            }
         }
     }
 }

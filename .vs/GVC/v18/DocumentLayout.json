@@ -7,11 +7,7 @@
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\ui\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmpdvendas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvcsqlexpress\\ui\\frmbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|C:\\GVCSqlExpress\\ui\\frmbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -22,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 24,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -118,19 +114,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmPDVendas.cs",
-              "DocumentMoniker": "C:\\GVCSqlExpress\\UI\\FrmPDVendas.cs",
-              "RelativeDocumentMoniker": "UI\\FrmPDVendas.cs",
-              "ToolTip": "C:\\GVCSqlExpress\\UI\\FrmPDVendas.cs",
-              "RelativeToolTip": "UI\\FrmPDVendas.cs",
-              "ViewState": "AgIAADYCAAAAAAAAAAAqwEcCAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T10:09:42.719Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "FrmPDVendas.cs [Projeto]",
               "DocumentMoniker": "C:\\GVCSqlExpress\\UI\\FrmPDVendas.cs",
@@ -143,7 +126,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "FrmBase.cs [Projeto]",
               "DocumentMoniker": "C:\\GVCSqlExpress\\UI\\FrmBase.cs",
               "RelativeDocumentMoniker": "UI\\FrmBase.cs",
