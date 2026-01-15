@@ -41,8 +41,8 @@ namespace GVC.View
                 if (empresas == null || empresas.Count == 0)
                 {
                     Utilitario.Mensagens.Aviso("Nenhuma empresa cadastrada no sistema.");
-                    cmbEmpresas.Items.Clear();
-                    cmbEmpresas.Enabled = false;
+                    cmbEmpresa.Items.Clear();
+                    cmbEmpresa.Enabled = false;
                     _empresaId = 0;
                     btnSalvar.Enabled = false;
                     btnSelecionarLogo.Enabled = false;
@@ -52,18 +52,18 @@ namespace GVC.View
                 }
 
                 // Configura o ComboBox
-                cmbEmpresas.DataSource = null;
-                cmbEmpresas.DataSource = empresas;
-                cmbEmpresas.DisplayMember = "NomeFantasia";
-                cmbEmpresas.ValueMember = "EmpresaID";
-                cmbEmpresas.DropDownStyle = ComboBoxStyle.DropDownList;
-                cmbEmpresas.Enabled = true;
+                cmbEmpresa.DataSource = null;
+                cmbEmpresa.DataSource = empresas;
+                cmbEmpresa.DisplayMember = "NomeFantasia";
+                cmbEmpresa.ValueMember = "EmpresaID";
+                cmbEmpresa.DropDownStyle = ComboBoxStyle.DropDownList;
+                cmbEmpresa.Enabled = true;
 
                 // === SELECIONA A PRIMEIRA EMPRESA DIRETAMENTE DA LISTA (SEM DEPENDER DO COMBOBOX) ===
                 var empresaSelecionada = empresas[0];  // Pega o primeiro item da lista (índice 0)
                 _empresaId = empresaSelecionada.EmpresaID;
 
-                cmbEmpresas.SelectedIndex = 0;  // Apenas para exibir visualmente
+                cmbEmpresa.SelectedIndex = 0;  // Apenas para exibir visualmente
 
                 // === ATUALIZA TUDO MANUALMENTE ===
                 _emModoEdicao = false;
@@ -81,7 +81,7 @@ namespace GVC.View
             catch (Exception ex)
             {
                 Utilitario.Mensagens.Erro("Erro ao carregar empresas: " + ex.Message);
-                cmbEmpresas.Enabled = false;
+                cmbEmpresa.Enabled = false;
                 btnSalvar.Enabled = false;
             }
         }
@@ -230,28 +230,7 @@ namespace GVC.View
 
             btnSalvar.Enabled = temEmpresa || _emModoEdicao;  // Habilita se tem empresa OU está editando
         }
-        private void cmbEmpresas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbEmpresas.SelectedIndex < 0)
-            {
-                _empresaId = 0;
-            }
-            else
-            {
-                // Pega direto da lista para garantir
-                var empresas = (List<EmpresaSimples>)cmbEmpresas.DataSource;
-                var empresaSelecionada = empresas[cmbEmpresas.SelectedIndex];
-                _empresaId = empresaSelecionada.EmpresaID;
-            }
-
-            _emModoEdicao = false;
-            _logoAlterada = false;
-            _logoBytesNovos = null;
-
-            CarregarLogo();
-            ConfigurarEstadoInicial();  // Ou copie a lógica de habilitação aqui se preferir
-        }
-
+       
         private void btnRemoverLogo_Click(object sender, EventArgs e)
         {
             if (!_emModoEdicao)
@@ -280,6 +259,28 @@ namespace GVC.View
             _logoAlterada = true;
 
             lblInstrucao.Text = "Logomarca removida. Clique em Salvar para confirmar.";
+        }
+
+        private void cmbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbEmpresa.SelectedIndex < 0)
+            {
+                _empresaId = 0;
+            }
+            else
+            {
+                // Pega direto da lista para garantir
+                var empresas = (List<EmpresaSimples>)cmbEmpresa.DataSource;
+                var empresaSelecionada = empresas[cmbEmpresa.SelectedIndex];
+                _empresaId = empresaSelecionada.EmpresaID;
+            }
+
+            _emModoEdicao = false;
+            _logoAlterada = false;
+            _logoBytesNovos = null;
+
+            CarregarLogo();
+            ConfigurarEstadoInicial();  // Ou copie a lógica de habilitação aqui se preferir
         }
     }
 }

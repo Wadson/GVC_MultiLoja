@@ -29,23 +29,31 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMotivoOperacao));
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             txtMotivo = new Krypton.Toolkit.KryptonTextBox();
-            btnCancelar = new Krypton.Toolkit.KryptonButton();
-            btnConfirmar = new Krypton.Toolkit.KryptonButton();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
-            kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
+            btnConfirma = new FontAwesome.Sharp.IconButton();
+            btnCancela = new FontAwesome.Sharp.IconButton();
+            pnlHeader = new Krypton.Toolkit.KryptonPanel();
+            tlpTitulo = new Krypton.Toolkit.KryptonTableLayoutPanel();
+            lblSubTitulo = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
-            kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
-            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
-            tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
-            kryptonPanel2.SuspendLayout();
+            lblTitulo = new Krypton.Toolkit.KryptonLabel();
+            iconAcao = new FontAwesome.Sharp.IconPictureBox();
+            panelMotivo = new Krypton.Toolkit.KryptonPanel();
+            kryptonBorderEdge6 = new Krypton.Toolkit.KryptonBorderEdge();
+            kryptonBorderEdge4 = new Krypton.Toolkit.KryptonBorderEdge();
+            kryptonBorderEdge3 = new Krypton.Toolkit.KryptonBorderEdge();
+            lblParcelamento = new Krypton.Toolkit.KryptonLabel();
+            kryptonBorderEdge1 = new Krypton.Toolkit.KryptonBorderEdge();
+            ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
+            pnlHeader.SuspendLayout();
+            tlpTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
-            kryptonPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconAcao).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelMotivo).BeginInit();
+            panelMotivo.SuspendLayout();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -86,12 +94,12 @@
             // 
             // txtMotivo
             // 
-            txtMotivo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtMotivo.CharacterCasing = CharacterCasing.Upper;
-            txtMotivo.Location = new Point(1, 24);
+            txtMotivo.Dock = DockStyle.Fill;
+            txtMotivo.Location = new Point(0, 20);
             txtMotivo.Multiline = true;
             txtMotivo.Name = "txtMotivo";
-            txtMotivo.Size = new Size(311, 60);
+            txtMotivo.Size = new Size(481, 126);
             txtMotivo.StateCommon.Back.Color1 = Color.White;
             txtMotivo.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtMotivo.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -104,195 +112,200 @@
             txtMotivo.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
             txtMotivo.TabIndex = 0;
             // 
-            // btnCancelar
+            // btnConfirma
             // 
-            btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancelar.CornerRoundingRadius = 6F;
-            btnCancelar.Location = new Point(228, 1);
-            btnCancelar.Margin = new Padding(4, 3, 4, 3);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnCancelar.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnCancelar.OverrideDefault.Back.ColorAngle = 45F;
-            btnCancelar.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
-            btnCancelar.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnCancelar.OverrideDefault.Border.ColorAngle = 45F;
-            btnCancelar.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelar.OverrideDefault.Border.Rounding = 20F;
-            btnCancelar.OverrideDefault.Border.Width = 1;
-            btnCancelar.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnCancelar.Size = new Size(80, 27);
-            btnCancelar.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnCancelar.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnCancelar.StateCommon.Back.ColorAngle = 45F;
-            btnCancelar.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnCancelar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnCancelar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelar.StateCommon.Border.Rounding = 6F;
-            btnCancelar.StateCommon.Border.Width = 1;
-            btnCancelar.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            btnCancelar.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnCancelar.StateCommon.Content.ShortText.Font = new Font("Segoe UI Semilight", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCancelar.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
-            btnCancelar.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
-            btnCancelar.StatePressed.Back.ColorAngle = 135F;
-            btnCancelar.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnCancelar.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnCancelar.StatePressed.Border.ColorAngle = 135F;
-            btnCancelar.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.StatePressed.Border.Rounding = 20F;
-            btnCancelar.StatePressed.Border.Width = 1;
-            btnCancelar.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnCancelar.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
-            btnCancelar.StateTracking.Back.ColorAngle = 45F;
-            btnCancelar.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnCancelar.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnCancelar.StateTracking.Border.ColorAngle = 45F;
-            btnCancelar.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelar.StateTracking.Border.Rounding = 20F;
-            btnCancelar.StateTracking.Border.Width = 1;
-            btnCancelar.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnCancelar.TabIndex = 2;
-            btnCancelar.Values.Text = "Cancelar";
-            btnCancelar.Click += btnCancelar_Click;
+            btnConfirma.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnConfirma.BackColor = Color.FromArgb(30, 136, 229);
+            btnConfirma.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            btnConfirma.ForeColor = Color.White;
+            btnConfirma.IconChar = FontAwesome.Sharp.IconChar.Check;
+            btnConfirma.IconColor = Color.White;
+            btnConfirma.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnConfirma.IconSize = 28;
+            btnConfirma.ImageAlign = ContentAlignment.MiddleLeft;
+            btnConfirma.Location = new Point(366, 257);
+            btnConfirma.Name = "btnConfirma";
+            btnConfirma.Padding = new Padding(10, 0, 10, 0);
+            btnConfirma.Size = new Size(120, 38);
+            btnConfirma.TabIndex = 1125;
+            btnConfirma.Text = "    Confirmar";
+            btnConfirma.TextAlign = ContentAlignment.MiddleRight;
+            btnConfirma.UseVisualStyleBackColor = false;
+            btnConfirma.Click += btnConfirma_Click;
             // 
-            // btnConfirmar
+            // btnCancela
             // 
-            btnConfirmar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnConfirmar.CornerRoundingRadius = 6F;
-            btnConfirmar.Location = new Point(141, 1);
-            btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
-            btnConfirmar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
-            btnConfirmar.OverrideDefault.Back.ColorAngle = 45F;
-            btnConfirmar.OverrideDefault.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnConfirmar.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnConfirmar.OverrideDefault.Border.ColorAngle = 45F;
-            btnConfirmar.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnConfirmar.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnConfirmar.OverrideDefault.Border.Rounding = 20F;
-            btnConfirmar.OverrideDefault.Border.Width = 1;
-            btnConfirmar.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnConfirmar.Size = new Size(80, 27);
-            btnConfirmar.StateCommon.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnConfirmar.StateCommon.Back.Color2 = Color.FromArgb(6, 180, 240);
-            btnConfirmar.StateCommon.Back.ColorAngle = 45F;
-            btnConfirmar.StateCommon.Border.Color1 = Color.FromArgb(0, 76, 172);
-            btnConfirmar.StateCommon.Border.Color2 = Color.FromArgb(0, 76, 172);
-            btnConfirmar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnConfirmar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnConfirmar.StateCommon.Border.Rounding = 6F;
-            btnConfirmar.StateCommon.Border.Width = 1;
-            btnConfirmar.StateCommon.Content.ShortText.Color1 = Color.White;
-            btnConfirmar.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnConfirmar.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 9.75F);
-            btnConfirmar.StatePressed.Back.Color1 = Color.FromArgb(119, 221, 119);
-            btnConfirmar.StatePressed.Back.Color2 = Color.FromArgb(119, 221, 119);
-            btnConfirmar.StatePressed.Back.ColorAngle = 135F;
-            btnConfirmar.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnConfirmar.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnConfirmar.StatePressed.Border.ColorAngle = 135F;
-            btnConfirmar.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnConfirmar.StatePressed.Border.Rounding = 20F;
-            btnConfirmar.StatePressed.Border.Width = 1;
-            btnConfirmar.StatePressed.Content.ShortText.Color1 = Color.Black;
-            btnConfirmar.StatePressed.Content.ShortText.Color2 = Color.Black;
-            btnConfirmar.StateTracking.Back.Color1 = Color.FromArgb(119, 221, 119);
-            btnConfirmar.StateTracking.Back.Color2 = Color.FromArgb(119, 221, 119);
-            btnConfirmar.StateTracking.Back.ColorAngle = 45F;
-            btnConfirmar.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnConfirmar.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnConfirmar.StateTracking.Border.ColorAngle = 45F;
-            btnConfirmar.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnConfirmar.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnConfirmar.StateTracking.Border.Rounding = 20F;
-            btnConfirmar.StateTracking.Border.Width = 1;
-            btnConfirmar.StateTracking.Content.ShortText.Color1 = Color.Black;
-            btnConfirmar.StateTracking.Content.ShortText.Color2 = Color.Black;
-            btnConfirmar.TabIndex = 1;
-            btnConfirmar.Values.Text = "Confirmar";
-            btnConfirmar.Click += btnConfirmar_Click;
+            btnCancela.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancela.BackColor = Color.FromArgb(255, 152, 0);
+            btnCancela.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            btnCancela.ForeColor = Color.White;
+            btnCancela.IconChar = FontAwesome.Sharp.IconChar.Close;
+            btnCancela.IconColor = Color.White;
+            btnCancela.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancela.IconSize = 28;
+            btnCancela.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCancela.Location = new Point(246, 257);
+            btnCancela.Name = "btnCancela";
+            btnCancela.Size = new Size(120, 38);
+            btnCancela.TabIndex = 1124;
+            btnCancela.Text = "Cancelar";
+            btnCancela.UseVisualStyleBackColor = false;
+            btnCancela.Click += btnCancela_Click;
             // 
-            // tableLayoutPanel1
+            // pnlHeader
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(kryptonPanel2, 0, 1);
-            tableLayoutPanel1.Controls.Add(kryptonPanel3, 0, 2);
-            tableLayoutPanel1.Controls.Add(kryptonPanel1, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 22.1311474F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 77.86885F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
-            tableLayoutPanel1.Size = new Size(321, 159);
-            tableLayoutPanel1.TabIndex = 1045;
+            pnlHeader.Controls.Add(tlpTitulo);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(497, 62);
+            pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
+            pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
+            pnlHeader.TabIndex = 1126;
             // 
-            // kryptonPanel2
+            // tlpTitulo
             // 
-            kryptonPanel2.Controls.Add(kryptonLabel2);
-            kryptonPanel2.Controls.Add(txtMotivo);
-            kryptonPanel2.Dock = DockStyle.Fill;
-            kryptonPanel2.Location = new Point(3, 30);
-            kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            kryptonPanel2.Size = new Size(315, 89);
-            kryptonPanel2.TabIndex = 1;
+            tlpTitulo.BackgroundImage = (Image)resources.GetObject("tlpTitulo.BackgroundImage");
+            tlpTitulo.BackgroundImageLayout = ImageLayout.None;
+            tlpTitulo.ColumnCount = 1;
+            tlpTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlpTitulo.Controls.Add(lblSubTitulo, 0, 1);
+            tlpTitulo.Controls.Add(kryptonPanel3, 0, 0);
+            tlpTitulo.Dock = DockStyle.Fill;
+            tlpTitulo.Location = new Point(0, 0);
+            tlpTitulo.Name = "tlpTitulo";
+            tlpTitulo.RowCount = 2;
+            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 67.7419357F));
+            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 32.2580643F));
+            tlpTitulo.Size = new Size(497, 62);
+            tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
+            tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
+            tlpTitulo.TabIndex = 0;
             // 
-            // kryptonLabel2
+            // lblSubTitulo
             // 
-            kryptonLabel2.Location = new Point(3, 0);
-            kryptonLabel2.Name = "kryptonLabel2";
-            kryptonLabel2.Size = new Size(49, 20);
-            kryptonLabel2.TabIndex = 252;
-            kryptonLabel2.TabStop = false;
-            kryptonLabel2.Values.Text = "Motivo";
+            lblSubTitulo.Dock = DockStyle.Fill;
+            lblSubTitulo.Location = new Point(3, 45);
+            lblSubTitulo.Name = "lblSubTitulo";
+            lblSubTitulo.Size = new Size(491, 14);
+            lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
+            lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
+            lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSubTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            lblSubTitulo.TabIndex = 0;
+            lblSubTitulo.Values.Text = "Informe o motivo do cancelamento para registro e auditoria do sistema";
             // 
             // kryptonPanel3
             // 
-            kryptonPanel3.Controls.Add(btnCancelar);
-            kryptonPanel3.Controls.Add(btnConfirmar);
+            kryptonPanel3.Controls.Add(lblTitulo);
+            kryptonPanel3.Controls.Add(iconAcao);
             kryptonPanel3.Dock = DockStyle.Fill;
-            kryptonPanel3.Location = new Point(3, 125);
+            kryptonPanel3.Location = new Point(3, 3);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            kryptonPanel3.Size = new Size(315, 31);
-            kryptonPanel3.TabIndex = 2;
+            kryptonPanel3.Size = new Size(491, 36);
+            kryptonPanel3.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
+            kryptonPanel3.TabIndex = 1;
             // 
-            // kryptonPanel1
+            // lblTitulo
             // 
-            kryptonPanel1.Controls.Add(kryptonLabel1);
-            kryptonPanel1.Dock = DockStyle.Fill;
-            kryptonPanel1.Location = new Point(3, 3);
-            kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            kryptonPanel1.Size = new Size(315, 21);
-            kryptonPanel1.TabIndex = 0;
+            lblTitulo.Location = new Point(152, 3);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(211, 27);
+            lblTitulo.StateCommon.ShortText.Color1 = Color.White;
+            lblTitulo.StateCommon.ShortText.Color2 = Color.White;
+            lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            lblTitulo.TabIndex = 1091;
+            lblTitulo.Values.Text = "Cancelamento de Venda";
             // 
-            // kryptonLabel1
+            // iconAcao
             // 
-            kryptonLabel1.Dock = DockStyle.Fill;
-            kryptonLabel1.Location = new Point(0, 0);
-            kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(315, 21);
-            kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(60, 60, 60);
-            kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel1.TabIndex = 100;
-            kryptonLabel1.TabStop = false;
-            kryptonLabel1.Values.Text = "Motivo do cancelamento / alteração:";
+            iconAcao.BackColor = Color.Transparent;
+            iconAcao.IconChar = FontAwesome.Sharp.IconChar.Close;
+            iconAcao.IconColor = Color.White;
+            iconAcao.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconAcao.IconSize = 28;
+            iconAcao.Location = new Point(118, 5);
+            iconAcao.Name = "iconAcao";
+            iconAcao.Size = new Size(28, 28);
+            iconAcao.TabIndex = 1110;
+            iconAcao.TabStop = false;
+            // 
+            // panelMotivo
+            // 
+            panelMotivo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelMotivo.Controls.Add(kryptonBorderEdge6);
+            panelMotivo.Controls.Add(kryptonBorderEdge4);
+            panelMotivo.Controls.Add(kryptonBorderEdge3);
+            panelMotivo.Controls.Add(txtMotivo);
+            panelMotivo.Controls.Add(lblParcelamento);
+            panelMotivo.Controls.Add(kryptonBorderEdge1);
+            panelMotivo.Location = new Point(3, 86);
+            panelMotivo.Name = "panelMotivo";
+            panelMotivo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
+            panelMotivo.Size = new Size(481, 147);
+            panelMotivo.TabIndex = 1130;
+            // 
+            // kryptonBorderEdge6
+            // 
+            kryptonBorderEdge6.Dock = DockStyle.Right;
+            kryptonBorderEdge6.Location = new Point(478, 21);
+            kryptonBorderEdge6.Name = "kryptonBorderEdge6";
+            kryptonBorderEdge6.Size = new Size(3, 125);
+            kryptonBorderEdge6.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge6.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge6.Text = "kryptonBorderEdge6";
+            // 
+            // kryptonBorderEdge4
+            // 
+            kryptonBorderEdge4.Dock = DockStyle.Top;
+            kryptonBorderEdge4.Location = new Point(3, 20);
+            kryptonBorderEdge4.Name = "kryptonBorderEdge4";
+            kryptonBorderEdge4.Size = new Size(478, 1);
+            kryptonBorderEdge4.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge4.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge4.Text = "kryptonBorderEdge4";
+            // 
+            // kryptonBorderEdge3
+            // 
+            kryptonBorderEdge3.Dock = DockStyle.Left;
+            kryptonBorderEdge3.Location = new Point(0, 20);
+            kryptonBorderEdge3.Name = "kryptonBorderEdge3";
+            kryptonBorderEdge3.Size = new Size(3, 126);
+            kryptonBorderEdge3.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge3.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge3.Text = "kryptonBorderEdge3";
+            // 
+            // lblParcelamento
+            // 
+            lblParcelamento.Dock = DockStyle.Top;
+            lblParcelamento.Location = new Point(0, 0);
+            lblParcelamento.Name = "lblParcelamento";
+            lblParcelamento.Size = new Size(481, 20);
+            lblParcelamento.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblParcelamento.TabIndex = 1038;
+            lblParcelamento.Values.Text = "Motivo do cancelamento / alteração:";
+            // 
+            // kryptonBorderEdge1
+            // 
+            kryptonBorderEdge1.Dock = DockStyle.Bottom;
+            kryptonBorderEdge1.Location = new Point(0, 146);
+            kryptonBorderEdge1.Name = "kryptonBorderEdge1";
+            kryptonBorderEdge1.Size = new Size(481, 1);
+            kryptonBorderEdge1.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge1.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge1.Text = "kryptonBorderEdge1";
             // 
             // FrmMotivoOperacao
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(321, 159);
-            Controls.Add(tableLayoutPanel1);
+            ClientSize = new Size(497, 298);
+            Controls.Add(panelMotivo);
+            Controls.Add(pnlHeader);
+            Controls.Add(btnConfirma);
+            Controls.Add(btnCancela);
             KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -305,15 +318,17 @@
             Load += FrmMotivoOperacao_Load;
             Shown += FrmMotivoOperacao_Shown;
             KeyDown += FrmMotivoOperacao_KeyDown;
-            tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
-            kryptonPanel2.ResumeLayout(false);
-            kryptonPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
+            pnlHeader.ResumeLayout(false);
+            tlpTitulo.ResumeLayout(false);
+            tlpTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
             kryptonPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();
-            kryptonPanel1.ResumeLayout(false);
-            kryptonPanel1.PerformLayout();
+            kryptonPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconAcao).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelMotivo).EndInit();
+            panelMotivo.ResumeLayout(false);
+            panelMotivo.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -321,13 +336,19 @@
 
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
         public Krypton.Toolkit.KryptonTextBox txtMotivo;
-        private Krypton.Toolkit.KryptonButton btnCancelar;
-        public Krypton.Toolkit.KryptonButton btnConfirmar;
-        private TableLayoutPanel tableLayoutPanel1;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel2;
+        private FontAwesome.Sharp.IconButton btnConfirma;
+        private FontAwesome.Sharp.IconButton btnCancela;
+        private Krypton.Toolkit.KryptonPanel pnlHeader;
+        private Krypton.Toolkit.KryptonTableLayoutPanel tlpTitulo;
+        private Krypton.Toolkit.KryptonLabel lblSubTitulo;
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private Krypton.Toolkit.KryptonLabel lblTitulo;
+        private FontAwesome.Sharp.IconPictureBox iconAcao;
+        private Krypton.Toolkit.KryptonPanel panelMotivo;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge6;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge4;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge3;
+        private Krypton.Toolkit.KryptonLabel lblParcelamento;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
     }
 }

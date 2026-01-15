@@ -21,24 +21,7 @@ namespace GVC.View
             InitializeComponent();
             this.Text = titulo;
         }
-        private void btnConfirmar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtMotivo.Text))
-            {
-                Utilitario.Mensagens.Aviso("Informe o motivo da operação.");
-                return;
-            }
-
-            Motivo = txtMotivo.Text.Trim();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
+       
         private void FrmMotivoOperacao_Shown(object sender, EventArgs e)
         {
             foreach (Control ctrl in this.Controls)
@@ -60,6 +43,25 @@ namespace GVC.View
         private void FrmMotivoOperacao_Load(object sender, EventArgs e)
         {
             txtMotivo.Focus();
+        }
+
+        private void btnConfirma_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMotivo.Text))
+            {
+                Utilitario.Mensagens.Aviso("Informe o motivo da operação.");
+                return;
+            }
+
+            Motivo = txtMotivo.Text.Trim();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void btnCancela_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

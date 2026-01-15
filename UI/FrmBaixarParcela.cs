@@ -387,7 +387,6 @@ namespace GVC.View
 
         private void txtValorParcela_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

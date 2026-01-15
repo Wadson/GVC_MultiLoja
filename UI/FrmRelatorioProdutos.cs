@@ -251,35 +251,6 @@ namespace GVC.View
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         private void AjustarOrdemColunas()
         {
             int ordem = 0;
@@ -372,68 +343,7 @@ namespace GVC.View
             lblCard4Valor.Text = totalLucro.ToString("C2");
         }
 
-        private void btnGerar_Click(object sender, EventArgs e)
-        {
-            var bll = new RelatorioProdutoBLL();
-            dgvProdutos.DataSource = null;
 
-            // ===============================
-            // 📦 LISTAGEM DE PRODUTOS
-            // ===============================
-            if (rbListagemProdutos.Checked)
-            {
-                if (_dadosEstoque == null ||
-                DateTime.Now.Subtract(_cacheEstoqueTime).TotalMinutes > CACHE_MINUTOS)
-                {
-                    _dadosEstoque = bll.ObterProdutosEstoque();
-                    _cacheEstoqueTime = DateTime.Now;
-                }
-
-
-                if (chkSomenteComEstoque.Checked)
-                    _dadosEstoque = _dadosEstoque.Where(p => p.Estoque > 0);
-
-                if (chkEstoqueBaixo.Checked)
-                    _dadosEstoque = _dadosEstoque.Where(p => p.Estoque > 0 && p.Estoque <= 5);
-
-                dgvProdutos.DataSource = _dadosEstoque.ToList();
-                MostrarCardsProdutos();
-                AjustarGridPorTipo();
-            }
-            // ===============================
-            // 💰 LUCRO / RESUMO
-            // ===============================
-            else
-            {
-                if (_dadosLucro == null ||
-                DateTime.Now.Subtract(_cacheLucroTime).TotalMinutes > CACHE_MINUTOS)
-                {
-                    _dadosLucro = bll.ObterLucroPorProduto(null, null, false);
-                    _cacheLucroTime = DateTime.Now;
-                }
-
-                dgvProdutos.DataSource = _dadosLucro.ToList();
-                MostrarCardsLucro();
-                AjustarGridPorTipo();
-            }
-        }
-
-        private void btnExcel_Click(object sender, EventArgs e)
-        {
-            using var sfd = new SaveFileDialog
-            {
-                Filter = "Excel (*.xlsx)|*.xlsx",
-                FileName = "Relatorio_Produtos.xlsx"
-            };
-
-            if (sfd.ShowDialog() != DialogResult.OK)
-                return;
-
-            if (rbListagemProdutos.Checked)
-                ExcelGenerator.ExportarProdutosEstoque(_dadosEstoque.ToList(), sfd.FileName);
-            else
-                ExcelGenerator.ExportarLucroProduto(_dadosLucro.ToList(), sfd.FileName);
-        }
         private DataTable ConverterGridParaDataTable(DataGridView dgv)
         {
             var dt = new DataTable();
@@ -452,51 +362,6 @@ namespace GVC.View
             return dt;
         }
 
-        private void btnPdf_Click(object sender, EventArgs e)
-        {
-            using var sfd = new SaveFileDialog
-            {
-                Filter = "PDF (*.pdf)|*.pdf",
-                FileName = "Relatorio_Produtos.pdf"
-            };
-
-            if (sfd.ShowDialog() != DialogResult.OK)
-                return;
-
-            var empresa = new EmpresaBll().ObterDadosParaPdf();
-
-            if (rbListagemProdutos.Checked)
-            {
-                if (_dadosEstoque == null || !_dadosEstoque.Any())
-                {
-                    MessageBox.Show("Nenhum dado para gerar o relatório.");
-                    return;
-                }
-
-                PDFGenerator.GerarRelatorioProdutosEstoque(
-                    _dadosEstoque.ToList(),
-                    empresa,
-                    sfd.FileName);
-            }
-            else
-            {
-                if (_dadosLucro == null || !_dadosLucro.Any())
-                {
-                    MessageBox.Show("Nenhum dado para gerar o relatório.");
-                    return;
-                }
-
-                PDFGenerator.GerarRelatorioLucroProduto(
-                    _dadosLucro.ToList(),
-                    empresa,
-                    sfd.FileName);
-            }
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void rbListagemProdutos_CheckedChanged(object sender, EventArgs e)
         {
@@ -543,6 +408,110 @@ namespace GVC.View
 
                 e.CellStyle.Font =
                     new Font(dgvProdutos.Font, FontStyle.Bold);
+            }
+        }
+
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            using var sfd = new SaveFileDialog
+            {
+                Filter = "Excel (*.xlsx)|*.xlsx",
+                FileName = "Relatorio_Produtos.xlsx"
+            };
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            if (rbListagemProdutos.Checked)
+                ExcelGenerator.ExportarProdutosEstoque(_dadosEstoque.ToList(), sfd.FileName);
+            else
+                ExcelGenerator.ExportarLucroProduto(_dadosLucro.ToList(), sfd.FileName);
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            var bll = new RelatorioProdutoBLL();
+            dgvProdutos.DataSource = null;
+
+            // ===============================
+            // 📦 LISTAGEM DE PRODUTOS
+            // ===============================
+            if (rbListagemProdutos.Checked)
+            {
+                if (_dadosEstoque == null ||
+                DateTime.Now.Subtract(_cacheEstoqueTime).TotalMinutes > CACHE_MINUTOS)
+                {
+                    _dadosEstoque = bll.ObterProdutosEstoque();
+                    _cacheEstoqueTime = DateTime.Now;
+                }
+
+
+                if (chkSomenteComEstoque.Checked)
+                    _dadosEstoque = _dadosEstoque.Where(p => p.Estoque > 0);
+
+                if (chkEstoqueBaixo.Checked)
+                    _dadosEstoque = _dadosEstoque.Where(p => p.Estoque > 0 && p.Estoque <= 5);
+
+                dgvProdutos.DataSource = _dadosEstoque.ToList();
+                MostrarCardsProdutos();
+                AjustarGridPorTipo();
+            }
+            // ===============================
+            // 💰 LUCRO / RESUMO
+            // ===============================
+            else
+            {
+                if (_dadosLucro == null ||
+                DateTime.Now.Subtract(_cacheLucroTime).TotalMinutes > CACHE_MINUTOS)
+                {
+                    _dadosLucro = bll.ObterLucroPorProduto(null, null, false);
+                    _cacheLucroTime = DateTime.Now;
+                }
+
+                dgvProdutos.DataSource = _dadosLucro.ToList();
+                MostrarCardsLucro();
+                AjustarGridPorTipo();
+            }
+        }
+
+        private void btnExportarPdf_Click(object sender, EventArgs e)
+        {
+            using var sfd = new SaveFileDialog
+            {
+                Filter = "PDF (*.pdf)|*.pdf",
+                FileName = "Relatorio_Produtos.pdf"
+            };
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            var empresa = new EmpresaBll().ObterDadosParaPdf();
+
+            if (rbListagemProdutos.Checked)
+            {
+                if (_dadosEstoque == null || !_dadosEstoque.Any())
+                {
+                    MessageBox.Show("Nenhum dado para gerar o relatório.");
+                    return;
+                }
+
+                PDFGenerator.GerarRelatorioProdutosEstoque(
+                    _dadosEstoque.ToList(),
+                    empresa,
+                    sfd.FileName);
+            }
+            else
+            {
+                if (_dadosLucro == null || !_dadosLucro.Any())
+                {
+                    MessageBox.Show("Nenhum dado para gerar o relatório.");
+                    return;
+                }
+
+                PDFGenerator.GerarRelatorioLucroProduto(
+                    _dadosLucro.ToList(),
+                    empresa,
+                    sfd.FileName);
             }
         }
     }

@@ -106,7 +106,53 @@ namespace GVC.View
             return lista;
         }
 
+        private void txtCliente_TextChanged(object sender, EventArgs e)
+        {
+            if (_ignorarEventosBusca || _ignorandoBuscar)
+                return;
 
+            var texto = txtCliente.Text.Trim();
+            if (string.IsNullOrEmpty(texto))
+                return;
+
+            using (var pesquisaCliente = new FrmLocalizarCliente(this, texto))
+            {
+                // Calcula posição logo abaixo do TextBox
+                var textBoxLocation = txtCliente.PointToScreen(Point.Empty);
+
+                pesquisaCliente.StartPosition = FormStartPosition.Manual;
+                pesquisaCliente.Location = new Point(
+                    textBoxLocation.X,
+                    textBoxLocation.Y + txtCliente.Height
+                );
+
+                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
+                pesquisaCliente.Width = txtCliente.Width;
+
+                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
+                {
+                    _ignorandoBuscar = true;
+                    try
+                    {
+                        ClienteID = pesquisaCliente.ClienteID;
+                        txtCliente.Text = pesquisaCliente.ClienteSelecionado;
+                        txtCliente.Tag = ClienteID; // 🔴 ESSENCIAL
+                        NomeCliente = pesquisaCliente.ClienteSelecionado;
+
+
+                    }
+                    finally
+                    {
+                        _ignorandoBuscar = false;
+                    }
+                }
+            }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
         private void btnGerar_Click(object sender, EventArgs e)
         {
@@ -231,59 +277,6 @@ namespace GVC.View
                 Utilitario.Mensagens.Erro(
                     $"Erro ao gerar relatório: {ex.Message}");
             }
-        }
-
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnLimpar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCliente_TextChanged(object sender, EventArgs e)
-        {
-            if (_ignorarEventosBusca || _ignorandoBuscar)
-                return;
-
-            var texto = txtCliente.Text.Trim();
-            if (string.IsNullOrEmpty(texto))
-                return;
-
-            using (var pesquisaCliente = new FrmLocalizarCliente(this, texto))
-            {
-                // Calcula posição logo abaixo do TextBox
-                var textBoxLocation = txtCliente.PointToScreen(Point.Empty);
-
-                pesquisaCliente.StartPosition = FormStartPosition.Manual;
-                pesquisaCliente.Location = new Point(
-                    textBoxLocation.X,
-                    textBoxLocation.Y + txtCliente.Height
-                );
-
-                // 🔑 Ajusta largura do formulário para acompanhar o TextBox
-                pesquisaCliente.Width = txtCliente.Width;
-
-                if (pesquisaCliente.ShowDialog() == DialogResult.OK)
-                {
-                    _ignorandoBuscar = true;
-                    try
-                    {
-                        ClienteID = pesquisaCliente.ClienteID;
-                        txtCliente.Text = pesquisaCliente.ClienteSelecionado;
-                        txtCliente.Tag = ClienteID; // 🔴 ESSENCIAL
-                        NomeCliente = pesquisaCliente.ClienteSelecionado;
-
-
-                    }
-                    finally
-                    {
-                        _ignorandoBuscar = false;
-                    }
-                }
-            }           
         }
     }
 }

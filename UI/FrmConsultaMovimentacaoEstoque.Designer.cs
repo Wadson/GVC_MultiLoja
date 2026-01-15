@@ -33,21 +33,19 @@
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             txtNomeProduto = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloDescricaoProduto = new Label();
-            btnBuscarProduto = new Krypton.Toolkit.KryptonButton();
             lblRotuloProdutoID = new Label();
             txtProdutoID = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloDataFim = new Label();
             lblRotuloDataInicio = new Label();
             lblRotuloOrigem = new Label();
             lblRotuloTipoMovimentacao = new Label();
-            btnCancelar = new Krypton.Toolkit.KryptonButton();
-            btnPesquisar = new Krypton.Toolkit.KryptonButton();
             dgvMovimentacoes = new Krypton.Toolkit.KryptonDataGridView();
             pnlHeader = new Krypton.Toolkit.KryptonPanel();
             tlpTitulo = new Krypton.Toolkit.KryptonTableLayoutPanel();
             lblSubTitulo = new Krypton.Toolkit.KryptonLabel();
             lblTitulo = new Krypton.Toolkit.KryptonLabel();
             panelDadosDoProduto = new Krypton.Toolkit.KryptonPanel();
+            btnBuscarProduto = new FontAwesome.Sharp.IconButton();
             lblDadosProduto = new Krypton.Toolkit.KryptonLabel();
             cmbTipoMovimentacao = new Krypton.Toolkit.KryptonComboBox();
             panelMovimentacao = new Krypton.Toolkit.KryptonPanel();
@@ -55,6 +53,8 @@
             dtFim = new Krypton.Toolkit.KryptonDateTimePicker();
             dtInicio = new Krypton.Toolkit.KryptonDateTimePicker();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
+            btnCancelar = new FontAwesome.Sharp.IconButton();
+            btnFiltrar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvMovimentacoes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
@@ -133,61 +133,6 @@
             lblRotuloDescricaoProduto.Size = new Size(137, 16);
             lblRotuloDescricaoProduto.TabIndex = 1080;
             lblRotuloDescricaoProduto.Text = "Descrição do produto";
-            // 
-            // btnBuscarProduto
-            // 
-            btnBuscarProduto.CornerRoundingRadius = 10F;
-            btnBuscarProduto.Location = new Point(838, 41);
-            btnBuscarProduto.Name = "btnBuscarProduto";
-            btnBuscarProduto.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnBuscarProduto.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnBuscarProduto.OverrideDefault.Back.ColorAngle = 45F;
-            btnBuscarProduto.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
-            btnBuscarProduto.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnBuscarProduto.OverrideDefault.Border.ColorAngle = 45F;
-            btnBuscarProduto.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnBuscarProduto.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnBuscarProduto.OverrideDefault.Border.Rounding = 20F;
-            btnBuscarProduto.OverrideDefault.Border.Width = 1;
-            btnBuscarProduto.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnBuscarProduto.Size = new Size(30, 29);
-            btnBuscarProduto.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnBuscarProduto.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnBuscarProduto.StateCommon.Back.ColorAngle = 45F;
-            btnBuscarProduto.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnBuscarProduto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnBuscarProduto.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnBuscarProduto.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnBuscarProduto.StateCommon.Border.Rounding = 10F;
-            btnBuscarProduto.StateCommon.Border.Width = 1;
-            btnBuscarProduto.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            btnBuscarProduto.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnBuscarProduto.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBuscarProduto.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
-            btnBuscarProduto.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
-            btnBuscarProduto.StatePressed.Back.ColorAngle = 135F;
-            btnBuscarProduto.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnBuscarProduto.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnBuscarProduto.StatePressed.Border.ColorAngle = 135F;
-            btnBuscarProduto.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnBuscarProduto.StatePressed.Border.Rounding = 20F;
-            btnBuscarProduto.StatePressed.Border.Width = 1;
-            btnBuscarProduto.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnBuscarProduto.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
-            btnBuscarProduto.StateTracking.Back.ColorAngle = 45F;
-            btnBuscarProduto.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnBuscarProduto.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnBuscarProduto.StateTracking.Border.ColorAngle = 45F;
-            btnBuscarProduto.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnBuscarProduto.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnBuscarProduto.StateTracking.Border.Rounding = 20F;
-            btnBuscarProduto.StateTracking.Border.Width = 1;
-            btnBuscarProduto.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnBuscarProduto.TabIndex = 1083;
-            btnBuscarProduto.TabStop = false;
-            btnBuscarProduto.Values.Image = Properties.Resources.Pesquisar;
-            btnBuscarProduto.Values.Text = "";
-            btnBuscarProduto.Click += btnBuscarProduto_Click;
             // 
             // lblRotuloProdutoID
             // 
@@ -271,139 +216,6 @@
             lblRotuloTipoMovimentacao.TabIndex = 1065;
             lblRotuloTipoMovimentacao.Text = "Tipo movimentação";
             // 
-            // btnCancelar
-            // 
-            btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancelar.CornerRoundingRadius = 20F;
-            btnCancelar.Location = new Point(767, 515);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.OverrideDefault.Back.Color1 = Color.Red;
-            btnCancelar.OverrideDefault.Back.Color2 = Color.Red;
-            btnCancelar.OverrideDefault.Back.ColorAngle = 45F;
-            btnCancelar.OverrideDefault.Border.Color1 = Color.Red;
-            btnCancelar.OverrideDefault.Border.Color2 = Color.Red;
-            btnCancelar.OverrideDefault.Border.ColorAngle = 45F;
-            btnCancelar.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelar.OverrideDefault.Border.Rounding = 20F;
-            btnCancelar.OverrideDefault.Border.Width = 1;
-            btnCancelar.OverrideDefault.Content.ShortText.Color1 = Color.White;
-            btnCancelar.OverrideDefault.Content.ShortText.Color2 = Color.White;
-            btnCancelar.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnCancelar.Size = new Size(100, 30);
-            btnCancelar.StateCommon.Back.Color1 = Color.Red;
-            btnCancelar.StateCommon.Back.Color2 = Color.Red;
-            btnCancelar.StateCommon.Back.ColorAngle = 45F;
-            btnCancelar.StateCommon.Border.Color1 = Color.Red;
-            btnCancelar.StateCommon.Border.Color2 = Color.Red;
-            btnCancelar.StateCommon.Border.ColorAngle = 45F;
-            btnCancelar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelar.StateCommon.Border.Rounding = 20F;
-            btnCancelar.StateCommon.Border.Width = 1;
-            btnCancelar.StateCommon.Content.ShortText.Color1 = Color.White;
-            btnCancelar.StateCommon.Content.ShortText.Font = new Font("Poppins Medium", 9.75F, FontStyle.Bold);
-            btnCancelar.StateNormal.Back.Color1 = Color.Red;
-            btnCancelar.StateNormal.Back.Color2 = Color.Red;
-            btnCancelar.StateNormal.Back.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelar.StateNormal.Border.Color1 = Color.Red;
-            btnCancelar.StateNormal.Border.Color2 = Color.Red;
-            btnCancelar.StateNormal.Border.ColorAngle = 45F;
-            btnCancelar.StateNormal.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.StateNormal.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelar.StateNormal.Border.Rounding = 20F;
-            btnCancelar.StateNormal.Border.Width = 1;
-            btnCancelar.StateNormal.Content.ShortText.Color1 = Color.White;
-            btnCancelar.StateNormal.Content.ShortText.Color2 = Color.White;
-            btnCancelar.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
-            btnCancelar.StatePressed.Back.ColorAngle = 135F;
-            btnCancelar.StatePressed.Border.Color1 = Color.Red;
-            btnCancelar.StatePressed.Border.Color2 = Color.Red;
-            btnCancelar.StatePressed.Border.ColorAngle = 135F;
-            btnCancelar.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.StatePressed.Border.Rounding = 20F;
-            btnCancelar.StatePressed.Border.Width = 1;
-            btnCancelar.StatePressed.Content.ShortText.Color1 = Color.White;
-            btnCancelar.StateTracking.Back.Color1 = Color.Salmon;
-            btnCancelar.StateTracking.Back.ColorAngle = 45F;
-            btnCancelar.StateTracking.Border.Color1 = Color.Red;
-            btnCancelar.StateTracking.Border.Color2 = Color.Red;
-            btnCancelar.StateTracking.Border.ColorAngle = 45F;
-            btnCancelar.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnCancelar.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnCancelar.StateTracking.Border.Rounding = 20F;
-            btnCancelar.StateTracking.Border.Width = 1;
-            btnCancelar.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnCancelar.TabIndex = 1094;
-            btnCancelar.Values.Text = "Cancelar";
-            btnCancelar.Click += btnCancelar_Click;
-            // 
-            // btnPesquisar
-            // 
-            btnPesquisar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnPesquisar.CornerRoundingRadius = 20F;
-            btnPesquisar.Location = new Point(661, 515);
-            btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
-            btnPesquisar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
-            btnPesquisar.OverrideDefault.Back.ColorAngle = 45F;
-            btnPesquisar.OverrideDefault.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnPesquisar.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnPesquisar.OverrideDefault.Border.ColorAngle = 45F;
-            btnPesquisar.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnPesquisar.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnPesquisar.OverrideDefault.Border.Rounding = 20F;
-            btnPesquisar.OverrideDefault.Border.Width = 1;
-            btnPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnPesquisar.Size = new Size(100, 30);
-            btnPesquisar.StateCommon.Back.Color1 = Color.FromArgb(6, 174, 244);
-            btnPesquisar.StateCommon.Back.Color2 = Color.FromArgb(8, 142, 254);
-            btnPesquisar.StateCommon.Back.ColorAngle = 45F;
-            btnPesquisar.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnPesquisar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnPesquisar.StateCommon.Border.ColorAngle = 45F;
-            btnPesquisar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnPesquisar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnPesquisar.StateCommon.Border.Rounding = 20F;
-            btnPesquisar.StateCommon.Border.Width = 1;
-            btnPesquisar.StateCommon.Content.ShortText.Color1 = Color.White;
-            btnPesquisar.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnPesquisar.StateCommon.Content.ShortText.Font = new Font("Poppins Medium", 9.75F, FontStyle.Bold);
-            btnPesquisar.StateNormal.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnPesquisar.StateNormal.Back.Color2 = Color.FromArgb(6, 174, 244);
-            btnPesquisar.StateNormal.Back.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnPesquisar.StateNormal.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnPesquisar.StateNormal.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnPesquisar.StateNormal.Border.ColorAngle = 45F;
-            btnPesquisar.StateNormal.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnPesquisar.StateNormal.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnPesquisar.StateNormal.Border.Rounding = 20F;
-            btnPesquisar.StateNormal.Border.Width = 1;
-            btnPesquisar.StatePressed.Back.Color1 = Color.White;
-            btnPesquisar.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
-            btnPesquisar.StatePressed.Back.ColorAngle = 135F;
-            btnPesquisar.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnPesquisar.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnPesquisar.StatePressed.Border.ColorAngle = 135F;
-            btnPesquisar.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnPesquisar.StatePressed.Border.Rounding = 20F;
-            btnPesquisar.StatePressed.Border.Width = 1;
-            btnPesquisar.StatePressed.Content.ShortText.Color1 = Color.FromArgb(22, 121, 206);
-            btnPesquisar.StateTracking.Back.Color1 = Color.White;
-            btnPesquisar.StateTracking.Back.Color2 = Color.White;
-            btnPesquisar.StateTracking.Back.ColorAngle = 45F;
-            btnPesquisar.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnPesquisar.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnPesquisar.StateTracking.Border.ColorAngle = 45F;
-            btnPesquisar.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnPesquisar.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnPesquisar.StateTracking.Border.Rounding = 20F;
-            btnPesquisar.StateTracking.Border.Width = 1;
-            btnPesquisar.StateTracking.Content.ShortText.Color1 = Color.FromArgb(22, 121, 206);
-            btnPesquisar.TabIndex = 1093;
-            btnPesquisar.Values.Text = "Pesquisar";
-            btnPesquisar.Click += btnPesquisar_Click;
-            // 
             // dgvMovimentacoes
             // 
             dgvMovimentacoes.Location = new Point(0, 265);
@@ -470,10 +282,10 @@
             // panelDadosDoProduto
             // 
             panelDadosDoProduto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panelDadosDoProduto.Controls.Add(btnBuscarProduto);
             panelDadosDoProduto.Controls.Add(lblDadosProduto);
             panelDadosDoProduto.Controls.Add(txtNomeProduto);
             panelDadosDoProduto.Controls.Add(lblRotuloDescricaoProduto);
-            panelDadosDoProduto.Controls.Add(btnBuscarProduto);
             panelDadosDoProduto.Controls.Add(lblRotuloProdutoID);
             panelDadosDoProduto.Controls.Add(txtProdutoID);
             panelDadosDoProduto.Location = new Point(0, 68);
@@ -481,6 +293,23 @@
             panelDadosDoProduto.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             panelDadosDoProduto.Size = new Size(880, 86);
             panelDadosDoProduto.TabIndex = 1096;
+            // 
+            // btnBuscarProduto
+            // 
+            btnBuscarProduto.BackColor = Color.Transparent;
+            btnBuscarProduto.FlatAppearance.BorderColor = Color.FromArgb(30, 136, 229);
+            btnBuscarProduto.FlatAppearance.BorderSize = 0;
+            btnBuscarProduto.FlatStyle = FlatStyle.Flat;
+            btnBuscarProduto.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnBuscarProduto.IconColor = Color.FromArgb(30, 136, 229);
+            btnBuscarProduto.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnBuscarProduto.IconSize = 28;
+            btnBuscarProduto.Location = new Point(835, 44);
+            btnBuscarProduto.Name = "btnBuscarProduto";
+            btnBuscarProduto.Size = new Size(28, 28);
+            btnBuscarProduto.TabIndex = 1118;
+            btnBuscarProduto.UseVisualStyleBackColor = false;
+            btnBuscarProduto.Click += btnBuscarProduto_Click;
             // 
             // lblDadosProduto
             // 
@@ -680,14 +509,50 @@
             kryptonLabel2.TabIndex = 1038;
             kryptonLabel2.Values.Text = "Movimentações";
             // 
+            // btnCancelar
+            // 
+            btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancelar.BackColor = Color.FromArgb(255, 152, 0);
+            btnCancelar.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            btnCancelar.ForeColor = Color.White;
+            btnCancelar.IconChar = FontAwesome.Sharp.IconChar.Close;
+            btnCancelar.IconColor = Color.White;
+            btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCancelar.IconSize = 28;
+            btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCancelar.Location = new Point(757, 507);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(120, 38);
+            btnCancelar.TabIndex = 1122;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
+            // 
+            // btnFiltrar
+            // 
+            btnFiltrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnFiltrar.BackColor = Color.FromArgb(76, 175, 80);
+            btnFiltrar.IconChar = FontAwesome.Sharp.IconChar.Filter;
+            btnFiltrar.IconColor = Color.White;
+            btnFiltrar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnFiltrar.IconSize = 28;
+            btnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnFiltrar.Location = new Point(631, 510);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(120, 35);
+            btnFiltrar.TabIndex = 1123;
+            btnFiltrar.Text = "Filtrar";
+            btnFiltrar.UseVisualStyleBackColor = false;
+            btnFiltrar.Click += btnFiltrar_Click;
+            // 
             // FrmConsultaMovimentacaoEstoque
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(880, 557);
+            Controls.Add(btnFiltrar);
             Controls.Add(btnCancelar);
-            Controls.Add(btnPesquisar);
             Controls.Add(panelMovimentacao);
             Controls.Add(panelDadosDoProduto);
             Controls.Add(pnlHeader);
@@ -723,7 +588,6 @@
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
         public Krypton.Toolkit.KryptonTextBox txtNomeProduto;
         private Label lblRotuloDescricaoProduto;
-        public Krypton.Toolkit.KryptonButton btnBuscarProduto;
         private Label lblRotuloProdutoID;
         public Krypton.Toolkit.KryptonTextBox txtProdutoID;
         private GroupBox grpMovimentacao;        
@@ -733,9 +597,7 @@
         private Label lblRotuloDataFim;
         private Label lblRotuloDataInicio;
         private Label lblRotuloOrigem;
-        private Krypton.Toolkit.KryptonDataGridView dgvMovimentacoes;
-        public Krypton.Toolkit.KryptonButton btnCancelar;
-        public Krypton.Toolkit.KryptonButton btnPesquisar;
+        private Krypton.Toolkit.KryptonDataGridView dgvMovimentacoes;        
         private Krypton.Toolkit.KryptonPanel pnlHeader;
         private Krypton.Toolkit.KryptonTableLayoutPanel tlpTitulo;
         private Krypton.Toolkit.KryptonLabel lblSubTitulo;
@@ -748,5 +610,8 @@
         public Krypton.Toolkit.KryptonComboBox cmbOrigem;
         public Krypton.Toolkit.KryptonDateTimePicker dtFim;
         public Krypton.Toolkit.KryptonDateTimePicker dtInicio;
+        private FontAwesome.Sharp.IconButton btnBuscarProduto;
+        private FontAwesome.Sharp.IconButton btnCancelar;
+        private FontAwesome.Sharp.IconButton btnFiltrar;
     }
 }

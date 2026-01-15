@@ -59,9 +59,6 @@
     <Compile Update="UI\FrmRelatorioProdutos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="UI\FrmReport.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="UI\FrmSelecionarPagamento.cs">
       <SubType>Form</SubType>
     </Compile>

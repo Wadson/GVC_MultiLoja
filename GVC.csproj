@@ -92,9 +92,6 @@
 	  <Compile Update="UI\FrmCadFornecedor.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="UI\FrmContasReceber.cs">
-	    <SubType>Form</SubType>
-	  </Compile>
 	  <Compile Update="UI\FrmLocalizarVendedor.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

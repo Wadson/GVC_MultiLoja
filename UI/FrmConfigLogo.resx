@@ -121,15 +121,15 @@
     <value>492, 12</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="kryptonTableLayoutPanel1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="tlpTitulo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEBSURBVHhe7dGhAQAgAIAw/z/UajZp9wEJCytUxlz70DHe
-        wF+GxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgS
-        Y0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGG
-        xBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iM
-        ITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgSY0iMITGGxBgScwFdmYB9krqsEgAAAABJRU5E
-        rkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAAbkAAAA+CAYAAAC2lmX8AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEISURBVHhe7dUxEQAgEMCwV4JejKIDdiT0MmSpgc7a5wJA
+        0fwBACpMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QA
+        yDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QA
+        yDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QA
+        yDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QAyDI5ALJMDoAskwMgy+QAyDI5ALIeqXg+7pIwz3kA
+        AAAASUVORK5CYII=
 </value>
   </data>
 </root>

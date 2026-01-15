@@ -1,4 +1,3 @@
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.csproj.AssemblyReference.cache
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\BuildHost-net472\Microsoft.Build.Locator.dll
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config
@@ -247,6 +246,7 @@ C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\runtimes\win-x86\native\libstdc++-
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\runtimes\win-x86\native\libwinpthread-1.dll
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\runtimes\win-x86\native\qpdf.dll
 C:\GVCSqlExpress\bin\Debug\net10.0-windows7.0\runtimes\win-x86\native\zlib1.dll
+C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.csproj.AssemblyReference.cache
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.Properties.Resources.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmBackup.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmBaixarParcela.resources
@@ -261,7 +261,6 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConfigCertificado.reso
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConfigLogo.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConfiguracoes.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmConsultaMovimentacaoEstoque.resources
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmContasReceber.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmDashboard.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmEntradaFiscal.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmEstornarPagamento.resources
@@ -288,12 +287,12 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmMotivoOperacao.resourc
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmMovimentacaoEstoque.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.UTIL.FrmOpcoesExtrato.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmPDVendas.resources
+C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmPesquisarPreco.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.FrmPrincipal.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.MUI.FrmRecuperarSenhaOffline.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmRelatorioEstoque.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmRelatorioProdutos.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmRelatoriosFinanceiros.resources
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmReport.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmSelecionarPagamento.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.Sobre.resources
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.csproj.GenerateResource.cache
@@ -308,4 +307,3 @@ C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\refint\GVC.dll
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.pdb
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.genruntimeconfig.cache
 C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\ref\GVC.dll
-C:\GVCSqlExpress\obj\Debug\net10.0-windows7.0\GVC.View.FrmPesquisarPreco.resources

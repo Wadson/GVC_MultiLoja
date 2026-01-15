@@ -18,7 +18,7 @@ namespace GVC.View
         {
             InitializeComponent();
         }
-
+       
         private void btnBuscarProduto_Click(object sender, EventArgs e)
         {
             // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
@@ -37,8 +37,9 @@ namespace GVC.View
             }
         }
 
-        private void btnPesquisar_Click(object sender, EventArgs e)
+        private void btnFiltrar_Click(object sender, EventArgs e)
         {
+
             int? produtoId = string.IsNullOrWhiteSpace(txtProdutoID.Text)
        ? null
        : Convert.ToInt32(txtProdutoID.Text);
@@ -60,7 +61,8 @@ namespace GVC.View
             );
 
             dgvMovimentacoes.DataSource = dt;
-        }    
+        }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();

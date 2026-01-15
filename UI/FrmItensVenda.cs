@@ -5,19 +5,46 @@ using System;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace GVC.View
 {
     public partial class FrmItensVenda : KryptonForm
     {
         private readonly ItensVendaBLL _itensVendaBll = new ItensVendaBLL();
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public long VendaId { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string SubTitulo { get; set; }
+
+
         public FrmItensVenda()
         {
             InitializeComponent();
         }
+        private void ConfigurarCabecalho()
+        {
+            panelHeader.BackColor = System.Drawing.Color.FromArgb(0, 120, 215);
+
+            lblTitulo.Text = "ITENS DA VENDA";
+            lblTitulo.ForeColor = System.Drawing.Color.White;
+            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTitulo.AutoSize = true;
+
+            lblSubTitulo.ForeColor = System.Drawing.Color.WhiteSmoke;
+            lblSubTitulo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            lblSubTitulo.AutoSize = true;
+        }
+
+
+
+
+
+
+
         private void btnSair_Click(object sender, EventArgs e)
         {
-            this.Close();
         }
         private void ConfigurarGridItensVenda()
         {
@@ -116,7 +143,7 @@ namespace GVC.View
             dgvItensVenda.MultiSelect = false;
             dgvItensVenda.RowHeadersVisible = false;
         }
-      
+
         private void AplicarFormatacaoItensVenda()
         {
             // Garante que os valores monetários sejam formatados corretamente
@@ -144,10 +171,15 @@ namespace GVC.View
                 }
             }
         }
-        public void CarregarItensVenda(long vendaId)
+        private void CarregarItensVenda()
         {
-            var itens = _itensVendaBll.ListarItensPorVenda(vendaId);
+            if (VendaId <= 0)
+                return;
+
+            var itens = _itensVendaBll.ListarItensPorVenda(VendaId);
             dgvItensVenda.DataSource = itens;
+
+            lblSubTitulo.Text = SubTitulo;
         }
 
         private void dgvItensVenda_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -157,6 +189,13 @@ namespace GVC.View
         private void FrmItensVenda_Load(object sender, EventArgs e)
         {
             ConfigurarGridItensVenda();
+            ConfigurarCabecalho();
+            CarregarItensVenda(); // 🔥 ESTA LINHA É A CHAVE
+        }
+
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

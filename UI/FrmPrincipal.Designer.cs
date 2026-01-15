@@ -250,6 +250,7 @@
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Name = "consultarMovimentaçãoDeEstoqueToolStripMenuItem";
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Text = "Consultar Movimentação de Estoque";
+            consultarMovimentaçãoDeEstoqueToolStripMenuItem.Click += consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click;
             // 
             // vendasToolStripMenuItem
             // 
@@ -282,6 +283,7 @@
             gerenciamentoDeVendasToolStripMenuItem.Name = "gerenciamentoDeVendasToolStripMenuItem";
             gerenciamentoDeVendasToolStripMenuItem.Size = new Size(211, 22);
             gerenciamentoDeVendasToolStripMenuItem.Text = "Gerenciamento de Vendas";
+            gerenciamentoDeVendasToolStripMenuItem.Click += gerenciamentoDeVendasToolStripMenuItem_Click;
             // 
             // pesquisarPreçosToolStripMenuItem
             // 
@@ -347,7 +349,7 @@
             produtosToolStripMenuItem1.Name = "produtosToolStripMenuItem1";
             produtosToolStripMenuItem1.Size = new Size(129, 22);
             produtosToolStripMenuItem1.Text = "Produtos";
-           
+            produtosToolStripMenuItem1.Click += produtosToolStripMenuItem1_Click;
             // 
             // configuraçõesToolStripMenuItem
             // 
@@ -722,6 +724,7 @@
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Text = "SGVendas - Sistema de Gestão Comercial ";
             WindowState = FormWindowState.Maximized;
+            FormClosing += FrmPrincipal_FormClosing;
             Load += FrmPrincipal_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

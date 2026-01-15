@@ -40,6 +40,7 @@
             cmbTipoUsuario = new Krypton.Toolkit.KryptonComboBox();
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             dtInicio = new Krypton.Toolkit.KryptonDateTimePicker();
             btnExecutar = new FontAwesome.Sharp.IconButton();
             iconButton1 = new FontAwesome.Sharp.IconButton();
@@ -53,22 +54,31 @@
             iconButton5 = new FontAwesome.Sharp.IconButton();
             iconButton4 = new FontAwesome.Sharp.IconButton();
             iconButton3 = new FontAwesome.Sharp.IconButton();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
             iconButton6 = new FontAwesome.Sharp.IconButton();
             iconButton7 = new FontAwesome.Sharp.IconButton();
             iconButton8 = new FontAwesome.Sharp.IconButton();
             btnConfirmar = new FontAwesome.Sharp.IconButton();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            panelParcelamento = new Krypton.Toolkit.KryptonPanel();
+            kryptonBorderEdge6 = new Krypton.Toolkit.KryptonBorderEdge();
+            kryptonBorderEdge4 = new Krypton.Toolkit.KryptonBorderEdge();
+            kryptonBorderEdge3 = new Krypton.Toolkit.KryptonBorderEdge();
+            lblParcelamento = new Krypton.Toolkit.KryptonLabel();
+            kryptonBorderEdge1 = new Krypton.Toolkit.KryptonBorderEdge();
+            iconButton9 = new FontAwesome.Sharp.IconButton();
+            btnPesquisar = new FontAwesome.Sharp.IconButton();
+            btnFiltrar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)cmbTipoUsuario).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconAcao).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
             tlpTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelParcelamento).BeginInit();
+            panelParcelamento.SuspendLayout();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -565,6 +575,20 @@
             kryptonLabel1.TabIndex = 1038;
             kryptonLabel1.Values.Text = "Perfil do Usuário";
             // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.BackColor = Color.Transparent;
+            iconPictureBox1.ForeColor = Color.FromArgb(30, 136, 229);
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Upload;
+            iconPictureBox1.IconColor = Color.FromArgb(30, 136, 229);
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 28;
+            iconPictureBox1.Location = new Point(692, 68);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(28, 28);
+            iconPictureBox1.TabIndex = 1124;
+            iconPictureBox1.TabStop = false;
+            // 
             // dtInicio
             // 
             dtInicio.CornerRoundingRadius = 3F;
@@ -642,7 +666,7 @@
             btnLocalBackup.IconColor = Color.FromArgb(30, 136, 229);
             btnLocalBackup.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLocalBackup.IconSize = 32;
-            btnLocalBackup.Location = new Point(400, 335);
+            btnLocalBackup.Location = new Point(602, 67);
             btnLocalBackup.Name = "btnLocalBackup";
             btnLocalBackup.Size = new Size(34, 32);
             btnLocalBackup.TabIndex = 1111;
@@ -781,24 +805,6 @@
             iconButton3.Text = "Excluir";
             iconButton3.UseVisualStyleBackColor = false;
             // 
-            // iconButton2
-            // 
-            iconButton2.BackColor = Color.FromArgb(76, 175, 80);
-            iconButton2.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
-            iconButton2.ForeColor = Color.White;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton2.IconColor = Color.Black;
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 18;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(9, 198);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Padding = new Padding(10, 0, 10, 0);
-            iconButton2.Size = new Size(120, 38);
-            iconButton2.TabIndex = 1118;
-            iconButton2.Text = "Gerar";
-            iconButton2.UseVisualStyleBackColor = false;
-            // 
             // iconButton6
             // 
             iconButton6.BackColor = Color.FromArgb(30, 136, 229);
@@ -872,19 +878,118 @@
             btnConfirmar.TextAlign = ContentAlignment.MiddleRight;
             btnConfirmar.UseVisualStyleBackColor = false;
             // 
-            // iconPictureBox1
+            // panelParcelamento
             // 
-            iconPictureBox1.BackColor = Color.Transparent;
-            iconPictureBox1.ForeColor = Color.FromArgb(30, 136, 229);
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Upload;
-            iconPictureBox1.IconColor = Color.FromArgb(30, 136, 229);
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 28;
-            iconPictureBox1.Location = new Point(336, 134);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(28, 28);
-            iconPictureBox1.TabIndex = 1124;
-            iconPictureBox1.TabStop = false;
+            panelParcelamento.Controls.Add(kryptonBorderEdge6);
+            panelParcelamento.Controls.Add(kryptonBorderEdge4);
+            panelParcelamento.Controls.Add(kryptonBorderEdge3);
+            panelParcelamento.Controls.Add(lblParcelamento);
+            panelParcelamento.Controls.Add(kryptonBorderEdge1);
+            panelParcelamento.Location = new Point(277, 96);
+            panelParcelamento.Name = "panelParcelamento";
+            panelParcelamento.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
+            panelParcelamento.Size = new Size(177, 79);
+            panelParcelamento.TabIndex = 1129;
+            // 
+            // kryptonBorderEdge6
+            // 
+            kryptonBorderEdge6.Dock = DockStyle.Right;
+            kryptonBorderEdge6.Location = new Point(174, 21);
+            kryptonBorderEdge6.Name = "kryptonBorderEdge6";
+            kryptonBorderEdge6.Size = new Size(3, 57);
+            kryptonBorderEdge6.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge6.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge6.Text = "kryptonBorderEdge6";
+            // 
+            // kryptonBorderEdge4
+            // 
+            kryptonBorderEdge4.Dock = DockStyle.Top;
+            kryptonBorderEdge4.Location = new Point(3, 20);
+            kryptonBorderEdge4.Name = "kryptonBorderEdge4";
+            kryptonBorderEdge4.Size = new Size(174, 1);
+            kryptonBorderEdge4.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge4.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge4.Text = "kryptonBorderEdge4";
+            // 
+            // kryptonBorderEdge3
+            // 
+            kryptonBorderEdge3.Dock = DockStyle.Left;
+            kryptonBorderEdge3.Location = new Point(0, 20);
+            kryptonBorderEdge3.Name = "kryptonBorderEdge3";
+            kryptonBorderEdge3.Size = new Size(3, 58);
+            kryptonBorderEdge3.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge3.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge3.Text = "kryptonBorderEdge3";
+            // 
+            // lblParcelamento
+            // 
+            lblParcelamento.Dock = DockStyle.Top;
+            lblParcelamento.Location = new Point(0, 0);
+            lblParcelamento.Name = "lblParcelamento";
+            lblParcelamento.Size = new Size(177, 20);
+            lblParcelamento.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblParcelamento.TabIndex = 1038;
+            lblParcelamento.Values.Text = "Parcelamento";
+            // 
+            // kryptonBorderEdge1
+            // 
+            kryptonBorderEdge1.Dock = DockStyle.Bottom;
+            kryptonBorderEdge1.Location = new Point(0, 78);
+            kryptonBorderEdge1.Name = "kryptonBorderEdge1";
+            kryptonBorderEdge1.Size = new Size(177, 1);
+            kryptonBorderEdge1.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge1.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
+            kryptonBorderEdge1.Text = "kryptonBorderEdge1";
+            // 
+            // iconButton9
+            // 
+            iconButton9.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            iconButton9.BackColor = Color.FromArgb(76, 175, 80);
+            iconButton9.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            iconButton9.ForeColor = Color.White;
+            iconButton9.IconChar = FontAwesome.Sharp.IconChar.ChartLine;
+            iconButton9.IconColor = Color.White;
+            iconButton9.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton9.IconSize = 28;
+            iconButton9.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton9.Location = new Point(9, 198);
+            iconButton9.Name = "iconButton9";
+            iconButton9.Padding = new Padding(10, 0, 10, 0);
+            iconButton9.Size = new Size(120, 38);
+            iconButton9.TabIndex = 1139;
+            iconButton9.Text = "Gerar";
+            iconButton9.UseVisualStyleBackColor = false;
+            // 
+            // btnPesquisar
+            // 
+            btnPesquisar.BackColor = Color.Transparent;
+            btnPesquisar.FlatAppearance.BorderSize = 0;
+            btnPesquisar.FlatStyle = FlatStyle.Flat;
+            btnPesquisar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnPesquisar.IconColor = Color.FromArgb(30, 136, 229);
+            btnPesquisar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnPesquisar.IconSize = 32;
+            btnPesquisar.Location = new Point(653, 71);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.Size = new Size(25, 25);
+            btnPesquisar.TabIndex = 1140;
+            btnPesquisar.UseVisualStyleBackColor = false;
+            // 
+            // btnFiltrar
+            // 
+            btnFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnFiltrar.BackColor = Color.FromArgb(76, 175, 80);
+            btnFiltrar.IconChar = FontAwesome.Sharp.IconChar.Filter;
+            btnFiltrar.IconColor = Color.White;
+            btnFiltrar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnFiltrar.IconSize = 28;
+            btnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnFiltrar.Location = new Point(506, 286);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(98, 35);
+            btnFiltrar.TabIndex = 1141;
+            btnFiltrar.Text = "Filtrar";
+            btnFiltrar.UseVisualStyleBackColor = false;
             // 
             // FrmBase
             // 
@@ -892,13 +997,16 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(723, 430);
+            Controls.Add(btnFiltrar);
             Controls.Add(iconPictureBox1);
+            Controls.Add(btnPesquisar);
+            Controls.Add(iconButton9);
+            Controls.Add(panelParcelamento);
             Controls.Add(btnConfirmar);
             Controls.Add(iconButton8);
             Controls.Add(iconButton5);
             Controls.Add(iconButton4);
             Controls.Add(iconButton3);
-            Controls.Add(iconButton2);
             Controls.Add(iconButton6);
             Controls.Add(iconButton7);
             Controls.Add(pnlHeader);
@@ -925,6 +1033,7 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();
             kryptonPanel1.ResumeLayout(false);
             kryptonPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconAcao).EndInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
             pnlHeader.ResumeLayout(false);
@@ -933,7 +1042,9 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelParcelamento).EndInit();
+            panelParcelamento.ResumeLayout(false);
+            panelParcelamento.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -962,11 +1073,19 @@
         private FontAwesome.Sharp.IconButton iconButton5;
         private FontAwesome.Sharp.IconButton iconButton4;
         private FontAwesome.Sharp.IconButton iconButton3;
-        private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton iconButton6;
         private FontAwesome.Sharp.IconButton iconButton7;
         private FontAwesome.Sharp.IconButton iconButton8;
         private FontAwesome.Sharp.IconButton btnConfirmar;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private Krypton.Toolkit.KryptonPanel panelParcelamento;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge6;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge4;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge3;
+        private Krypton.Toolkit.KryptonLabel lblParcelamento;
+        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
+        private FontAwesome.Sharp.IconButton iconButton9;
+        private FontAwesome.Sharp.IconButton btnPesquisar;
+        private FontAwesome.Sharp.IconButton btnFiltrar;
     }
 }

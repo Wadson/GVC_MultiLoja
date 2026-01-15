@@ -19,6 +19,8 @@ namespace GVC
     {
         private string StatusOperacao = "";
         private System.Timers.Timer timer;
+
+
         private bool _backupEmExecucao = false;
         private int _empresaId;
 
@@ -29,18 +31,39 @@ namespace GVC
             InitializeComponent();
             StatusOperacao = "";
         }
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        private void InicializarRelogio()
         {
-            if (this.IsDisposed || !this.IsHandleCreated)
+            if (timer != null)
+                return; // 🔒 impede duplicidade
+
+            timer = new System.Timers.Timer(1000);
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Start();
+        }
+
+
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            if (IsDisposed || !IsHandleCreated)
                 return;
 
-            this.Invoke(new Action(() =>
+            try
             {
-                lblData.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                lblHoraAtual.Text = DateTime.Now.ToString("HH:mm:ss");
-            }));
+                BeginInvoke(new Action(() =>
+                {
+                    if (IsDisposed) return;
 
+                    lblData.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                    lblHoraAtual.Text = DateTime.Now.ToString("HH:mm:ss");
+                }));
+            }
+            catch (ObjectDisposedException)
+            {
+                // ignora – formulário já foi fechado
+            }
         }
+
 
         private void btnPDV_Click(object sender, EventArgs e)
         {
@@ -111,7 +134,7 @@ namespace GVC
 
         private void contasAReceberToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmContasReceber frm = new FrmContasReceber();
+            FrmFinanceiro frm = new FrmFinanceiro();
             frm.Show();
         }
 
@@ -209,8 +232,7 @@ namespace GVC
             BuscarPrimeiraEmpresaId();
             IniciarBackupAutomatico();
             AtualizaBarraStatus();
-            // Corrigido: converte Icon para Bitmap antes de atribuir à propriedade Image
-            //picBackground.Image = Properties.Resources.GVC.ToBitmap();
+            InicializarRelogio(); // ✅ inicia UMA vez
         }
         private void AtualizaBarraStatus()
         {
@@ -238,13 +260,6 @@ namespace GVC
             lblEstacao.Text = nomeComputador;
             lblData.Text = DateTime.Now.ToString("dd/MM/yyyy");
             lblHoraAtual.Text = DateTime.Now.ToString("HH:mm:ss");
-
-            // Configuração do timer para atualizar a hora e a data
-            timer = new System.Timers.Timer(1000); // Atualiza a cada segundo
-
-            timer.Elapsed += OnTimedEvent;
-            timer.AutoReset = true;
-            timer.Enabled = true;
         }
 
         private void btnContasAReceber_Click(object sender, EventArgs e)
@@ -302,7 +317,7 @@ namespace GVC
 
         private void btnProdutos_Click(object sender, EventArgs e)
         {
-            FrmManutProduto frm = new  FrmManutProduto(StatusOperacao);
+            FrmManutProduto frm = new FrmManutProduto(StatusOperacao);
             StatusOperacao = "NOVO";
             frm.Show();
         }
@@ -333,7 +348,7 @@ namespace GVC
             FrmRelatoriosFinanceiros frm = new FrmRelatoriosFinanceiros();
             frm.Show();
         }
-              
+
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
@@ -343,13 +358,42 @@ namespace GVC
 
         private void btnFerramentas_Click(object sender, EventArgs e)
         {
-            FrmConfiguracoes frm = new FrmConfiguracoes( _empresaId);
+            FrmConfiguracoes frm = new FrmConfiguracoes(_empresaId);
             frm.Show();
         }
 
         private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmConsultaMovimentacaoEstoque frm = new FrmConsultaMovimentacaoEstoque();
+            frm.Show();
+        }
+
+        private void produtosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmRelatorioProdutos frm = new FrmRelatorioProdutos();
+            frm.Show();
+        }
+
+        private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Elapsed -= OnTimedEvent;
+                timer.Dispose();
+                timer = null;
+            }
+        }
+
+        private void gerenciamentoDeVendasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmGerenciarVendas frm = new FrmGerenciarVendas();
+            frm.Show();
         }
     }
 }

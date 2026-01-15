@@ -1282,13 +1282,16 @@ namespace GVC.View
                 return;
             }
 
-            long vendaId = dto.VendaID;
-
             using (var frm = new FrmItensVenda())
             {
-                frm.CarregarItensVenda(vendaId);
+                frm.VendaId = dto.VendaID;
+
+                frm.SubTitulo =
+                    $"Venda nº {dto.VendaID} • Cliente: {dto.NomeCliente} • {dto.DataVenda:dd/MM/yyyy}";
+
                 frm.ShowDialog(this);
             }
+
         }
 
         private void btnBaixarParcela_Click(object sender, EventArgs e)
@@ -1311,8 +1314,6 @@ namespace GVC.View
 
             using var frm = new FrmBaixarParcela();
             frm.Text = nomeCliente;
-            frm.lblInfo.Text = selecionadas.Count == 1
-                ? nomeCliente : "Múltiplas parcelas selecionadas";
 
             // Passa a versão dynamic
             frm.CarregarDados(selecionadasDto, nomeCliente, totalParcelas, totalRecebido, saldoTotal);
