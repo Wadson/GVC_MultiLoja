@@ -661,11 +661,12 @@
             // 
             // picBackground
             // 
+            picBackground.Dock = DockStyle.Fill;
             picBackground.Enabled = false;
             picBackground.Image = (Image)resources.GetObject("picBackground.Image");
-            picBackground.Location = new Point(0, 3);
+            picBackground.Location = new Point(0, 0);
             picBackground.Name = "picBackground";
-            picBackground.Size = new Size(829, 324);
+            picBackground.Size = new Size(890, 330);
             picBackground.SizeMode = PictureBoxSizeMode.Zoom;
             picBackground.TabIndex = 610;
             picBackground.TabStop = false;
@@ -673,9 +674,10 @@
             // panelBackground
             // 
             panelBackground.Controls.Add(picBackground);
-            panelBackground.Location = new Point(0, 235);
+            panelBackground.Dock = DockStyle.Fill;
+            panelBackground.Location = new Point(0, 78);
             panelBackground.Name = "panelBackground";
-            panelBackground.Size = new Size(829, 173);
+            panelBackground.Size = new Size(890, 330);
             panelBackground.TabIndex = 611;
             // 
             // iconMenuItem1

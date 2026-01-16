@@ -250,8 +250,7 @@
             lblSaldo.Name = "lblSaldo";
             lblSaldo.Size = new Size(62, 28);
             lblSaldo.TabIndex = 1065;
-            lblSaldo.Text = "Saldo";
-            lblSaldo.Click += txtValorParcela_Click;
+            lblSaldo.Text = "Saldo";           
             // 
             // btnConfirmarBaixa
             // 
@@ -271,6 +270,7 @@
             btnConfirmarBaixa.Text = "    Confirmar";
             btnConfirmarBaixa.TextAlign = ContentAlignment.MiddleRight;
             btnConfirmarBaixa.UseVisualStyleBackColor = false;
+            btnConfirmarBaixa.Click += btnConfirmarBaixa_Click;
             // 
             // btnCancelar
             // 
@@ -288,6 +288,7 @@
             btnCancelar.TabIndex = 1124;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // pnlHeader
             // 

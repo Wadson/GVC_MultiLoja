@@ -159,7 +159,7 @@ namespace GVC.View
             if (rbPeriodoVencimento.Checked)
                 return TipoPesquisaContasReceber.PeriodoVencimento;
 
-            if (rbNomeCliente.Checked)
+            if (rbNomeCliente.Checked)               
                 return TipoPesquisaContasReceber.NomeCliente;
 
             if (rbStatusParcela.Checked)

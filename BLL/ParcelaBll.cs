@@ -155,18 +155,14 @@ namespace GVC.BLL
         // 3. BAIXA EM LOTE (várias parcelas selecionadas no grid)
         // ==========================================================
 
-        public void BaixarParcelasEmLote(
-     List<long> parcelasIds,
-     DateTime dataPagamento,
-     long formaPgtoId,
+        public void BaixarParcelasEmLote( List<long> parcelasIds,DateTime dataPagamento, long formaPgtoId,
      string? observacao = null)
         {
             if (parcelasIds == null || parcelasIds.Count == 0)
                 throw new Exception("Nenhuma parcela selecionada.");
 
             string obsFinal = string.IsNullOrWhiteSpace(observacao)
-                ? "Baixa total em lote"
-                : $"Baixa total em lote – {observacao.Trim()}";
+                ? "Baixa total em lote"  : $"Baixa total em lote – {observacao.Trim()}";
 
             using var conn = Conexao.Conex();
             conn.Open();
@@ -181,25 +177,28 @@ SELECT
     ParcelaID,
     @DataPagamento,
     @FormaPgtoID,
-    (ValorParcela + Juros + Multa - ValorRecebido),
+    (ValorParcela
+        + ISNULL(Juros, 0)
+        + ISNULL(Multa, 0)
+        - ISNULL(ValorRecebido, 0)),
     @Observacao
 FROM Parcela
 WHERE ParcelaID = @ParcelaID";
 
+
                 const string sqlBaixa = @"
-UPDATE Parcela
-SET ValorRecebido = ValorParcela + Juros + Multa,
-    DataPagamento = @DataPagamento
-WHERE ParcelaID = @ParcelaID";
+                    UPDATE Parcela
+                    SET ValorRecebido =
+                            ValorParcela
+                            + ISNULL(Juros, 0)
+                            + ISNULL(Multa, 0),
+                        DataPagamento = @DataPagamento
+                    WHERE ParcelaID = @ParcelaID";
+
 
                 foreach (var parcelaId in parcelasIds)
                 {
-                    conn.Execute(sqlBaixa, new
-                    {
-                        ParcelaID = parcelaId,
-                        DataPagamento = dataPagamento
-                    }, transaction);
-
+                    // 1️⃣ INSERE O HISTÓRICO (usa saldo ANTES da baixa)
                     conn.Execute(sqlHistorico, new
                     {
                         ParcelaID = parcelaId,
@@ -207,7 +206,15 @@ WHERE ParcelaID = @ParcelaID";
                         FormaPgtoID = formaPgtoId,
                         Observacao = obsFinal
                     }, transaction);
+
+                    // 2️⃣ ATUALIZA A PARCELA
+                    conn.Execute(sqlBaixa, new
+                    {
+                        ParcelaID = parcelaId,
+                        DataPagamento = dataPagamento
+                    }, transaction);
                 }
+
 
                 transaction.Commit();
             }

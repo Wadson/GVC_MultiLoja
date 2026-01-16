@@ -25,7 +25,7 @@ namespace GVC.View
         private List<int> _parcelasIds = new();
         private decimal _saldoTotal;
         private readonly ParcelaBLL parcelaBLL = new ParcelaBLL();
-       
+
 
         private int? FormaPgtoIDSelecionada => cmbFormaPagamento.SelectedValue == null
         ? (int?)null : Convert.ToInt32(cmbFormaPagamento.SelectedValue);
@@ -177,67 +177,6 @@ namespace GVC.View
             if (_parcelasIds.Count == 1)
                 txtValorRecebido.Focus();
         }
-
-
-
-        private void btnConfirmarBaixa_Click(object sender, EventArgs e)
-        {
-            string _valorRecebido = txtValorRecebido.Text.Replace("R$", "").Replace(" ", "").Trim();
-
-            if (FormaPgtoIDSelecionada == null)
-            {
-                Utilitario.Mensagens.Aviso("Selecione a forma de pagamento.");
-                cmbFormaPagamento.Focus();
-                return;
-            }
-
-            if (!decimal.TryParse(_valorRecebido, NumberStyles.Any, _culturaBR, out decimal valorBaixa) || valorBaixa <= 0)
-            {
-                Utilitario.Mensagens.Aviso("Informe um valor válido maior que zero.");
-                return;
-            }
-
-
-            string textoParcela = lblSaldo.Text
-                            .Replace("R$", "")
-                            .Replace(".", "")
-                            .Replace(",", ".")
-                            .Trim();
-
-            if (!decimal.TryParse(textoParcela, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorParcela))
-            {
-                Utilitario.Mensagens.Aviso("Valor da parcela inválido.");
-                return;
-            }
-
-            if (valorBaixa > valorParcela)
-            {
-                Utilitario.Mensagens.Aviso("O valor pago não pode ser maior que o valor da parcela.");
-                return;
-            }
-
-            // 🔹 OBSERVAÇÃO VEM DO FORM
-            string? observacao = string.IsNullOrWhiteSpace(txtObservacao.Text)
-                ? null : txtObservacao.Text.Trim();
-
-            if (_parcelasIds.Count == 1)
-            {
-                parcelaBLL.BaixarParcelaParcial(_parcelasIds[0], valorBaixa, FormaPgtoIDSelecionada.Value, observacao);
-            }
-            else
-            {
-                var parcelasLong = _parcelasIds.Select(id => (long)id).ToList();
-
-                parcelaBLL.BaixarParcelasEmLote(
-                    parcelasLong,
-                    DateTime.Now,
-                    FormaPgtoIDSelecionada.Value
-                );
-            }
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
         public static void SalvarNomesControles(Form form, string caminhoArquivo)
         {
             var nomes = new List<string>();
@@ -363,10 +302,7 @@ namespace GVC.View
                 }
             }
         }
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
         private void CarregarFormasPagamento()
         {
             var dal = new FormaPagamentoDal();
@@ -383,10 +319,65 @@ namespace GVC.View
         private void FrmBaixarParcela_Load(object sender, EventArgs e)
         {
             CarregarFormasPagamento();
+        }              
+
+        private void btnConfirmarBaixa_Click(object sender, EventArgs e)
+        {
+            string _valorRecebido = txtValorRecebido.Text.Replace("R$", "").Replace(" ", "").Trim();
+
+            if (FormaPgtoIDSelecionada == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione a forma de pagamento.");
+                cmbFormaPagamento.Focus();
+                return;
+            }
+
+            if (!decimal.TryParse(_valorRecebido, NumberStyles.Any, _culturaBR, out decimal valorBaixa) || valorBaixa <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Informe um valor válido maior que zero.");
+                return;
+            }
+
+
+            string textoParcela = lblSaldo.Text
+                            .Replace("R$", "")
+                            .Replace(".", "")
+                            .Replace(",", ".")
+                            .Trim();
+
+            if (!decimal.TryParse(textoParcela, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorParcela))
+            {
+                Utilitario.Mensagens.Aviso("Valor da parcela inválido.");
+                return;
+            }
+
+            if (valorBaixa > valorParcela)
+            {
+                Utilitario.Mensagens.Aviso("O valor pago não pode ser maior que o valor da parcela.");
+                return;
+            }
+
+            // 🔹 OBSERVAÇÃO VEM DO FORM
+            string? observacao = string.IsNullOrWhiteSpace(txtObservacao.Text)
+                ? null : txtObservacao.Text.Trim();
+
+            if (_parcelasIds.Count == 1)
+            {
+                parcelaBLL.BaixarParcelaParcial(_parcelasIds[0], valorBaixa, FormaPgtoIDSelecionada.Value, observacao);
+            }
+            else
+            {
+                var parcelasLong = _parcelasIds.Select(id => (long)id).ToList();
+
+                parcelaBLL.BaixarParcelasEmLote(parcelasLong, DateTime.Now, FormaPgtoIDSelecionada.Value);
+            }
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
-        private void txtValorParcela_Click(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
+            this.Close();
         }
     }
 }
