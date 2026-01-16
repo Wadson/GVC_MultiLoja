@@ -149,7 +149,22 @@ namespace GVC.View
                 return;
 
             AtualizarEstadoPesquisa();
+
+            BeginInvoke(new Action(() =>
+            {
+                if (rbNomeCliente.Checked)
+                {
+                    txtNomeCliente.Focus();
+                    txtNomeCliente.SelectAll();
+                }
+                else if (rbPeriodoVenda.Checked || rbPeriodoVencimento.Checked)
+                {
+                    dtpInicial.Focus();
+                }
+            }));
         }
+
+
 
         private TipoPesquisaContasReceber ObterTipoPesquisaSelecionado()
         {

@@ -159,7 +159,7 @@
             // 
             txtNomeCliente.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtNomeCliente.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtNomeCliente.Location = new Point(9, 28);
+            txtNomeCliente.Location = new Point(9, 26);
             txtNomeCliente.Name = "txtNomeCliente";
             txtNomeCliente.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             txtNomeCliente.Size = new Size(477, 24);
@@ -194,7 +194,7 @@
             panelFiltros.Controls.Add(panelPeriodo);
             panelFiltros.Controls.Add(panelStatus);
             panelFiltros.Dock = DockStyle.Top;
-            panelFiltros.Location = new Point(0, 62);
+            panelFiltros.Location = new Point(0, 50);
             panelFiltros.Name = "panelFiltros";
             panelFiltros.Padding = new Padding(12);
             panelFiltros.Size = new Size(940, 159);
@@ -294,7 +294,7 @@
             panelCliente.Location = new Point(18, 79);
             panelCliente.Name = "panelCliente";
             panelCliente.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            panelCliente.Size = new Size(495, 60);
+            panelCliente.Size = new Size(495, 57);
             panelCliente.TabIndex = 1136;
             // 
             // kryptonBorderEdge13
@@ -302,7 +302,7 @@
             kryptonBorderEdge13.Dock = DockStyle.Right;
             kryptonBorderEdge13.Location = new Point(492, 21);
             kryptonBorderEdge13.Name = "kryptonBorderEdge13";
-            kryptonBorderEdge13.Size = new Size(3, 38);
+            kryptonBorderEdge13.Size = new Size(3, 35);
             kryptonBorderEdge13.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge13.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge13.Text = "kryptonBorderEdge13";
@@ -322,7 +322,7 @@
             kryptonBorderEdge15.Dock = DockStyle.Left;
             kryptonBorderEdge15.Location = new Point(0, 20);
             kryptonBorderEdge15.Name = "kryptonBorderEdge15";
-            kryptonBorderEdge15.Size = new Size(3, 39);
+            kryptonBorderEdge15.Size = new Size(3, 36);
             kryptonBorderEdge15.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge15.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge15.Text = "kryptonBorderEdge15";
@@ -340,7 +340,7 @@
             // kryptonBorderEdge16
             // 
             kryptonBorderEdge16.Dock = DockStyle.Bottom;
-            kryptonBorderEdge16.Location = new Point(0, 59);
+            kryptonBorderEdge16.Location = new Point(0, 56);
             kryptonBorderEdge16.Name = "kryptonBorderEdge16";
             kryptonBorderEdge16.Size = new Size(495, 1);
             kryptonBorderEdge16.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
@@ -1193,7 +1193,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(940, 62);
+            pnlHeader.Size = new Size(940, 50);
             pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             pnlHeader.TabIndex = 1113;
@@ -1210,9 +1210,9 @@
             tlpTitulo.Location = new Point(0, 0);
             tlpTitulo.Name = "tlpTitulo";
             tlpTitulo.RowCount = 2;
-            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 67.7419357F));
-            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 32.2580643F));
-            tlpTitulo.Size = new Size(940, 62);
+            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 62F));
+            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 38F));
+            tlpTitulo.Size = new Size(940, 50);
             tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             tlpTitulo.TabIndex = 0;
@@ -1220,9 +1220,9 @@
             // lblSubTitulo
             // 
             lblSubTitulo.Dock = DockStyle.Fill;
-            lblSubTitulo.Location = new Point(3, 45);
+            lblSubTitulo.Location = new Point(3, 34);
             lblSubTitulo.Name = "lblSubTitulo";
-            lblSubTitulo.Size = new Size(934, 14);
+            lblSubTitulo.Size = new Size(934, 13);
             lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -1237,7 +1237,7 @@
             kryptonPanel3.Dock = DockStyle.Fill;
             kryptonPanel3.Location = new Point(3, 3);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.Size = new Size(934, 36);
+            kryptonPanel3.Size = new Size(934, 25);
             kryptonPanel3.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             kryptonPanel3.TabIndex = 1;
             // 
@@ -1262,7 +1262,7 @@
             iconAcao.IconColor = Color.White;
             iconAcao.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconAcao.IconSize = 28;
-            iconAcao.Location = new Point(364, 5);
+            iconAcao.Location = new Point(364, 1);
             iconAcao.Name = "iconAcao";
             iconAcao.Size = new Size(28, 28);
             iconAcao.TabIndex = 1110;

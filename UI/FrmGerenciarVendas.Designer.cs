@@ -642,6 +642,7 @@
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
             Text = "Gerenciar Vendas";
+            WindowState = FormWindowState.Maximized;
             Load += FrmGerenciarVendas_Load;
             kryptonStatusStrip1.ResumeLayout(false);
             kryptonStatusStrip1.PerformLayout();
