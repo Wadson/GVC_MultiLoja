@@ -574,6 +574,12 @@ namespace GVC.View
 
         private void dgvContasAReceber_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (e.ColumnIndex >= 0 && dgvContasAReceber.Columns[e.ColumnIndex].Name == "Selecionar")
+            {
+                AtualizarTotalSelecionado();
+                AtualizarEstadoBotoesFinanceiros(); // 🔥 AQUI
+            }
+
             // Proteger índices inválidos
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
@@ -684,12 +690,22 @@ namespace GVC.View
 
         private void dgvContasAReceber_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            if (dgvContasAReceber.IsCurrentCellDirty) { dgvContasAReceber.CommitEdit(DataGridViewDataErrorContexts.Commit); }
+            if (dgvContasAReceber.IsCurrentCellDirty)
+            {
+                dgvContasAReceber.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
 
         private void dgvContasAReceber_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex >= 0 && dgvContasAReceber.Columns[e.ColumnIndex].Name == "Selecionar") { AtualizarTotalSelecionado(); }
+            if (e.RowIndex < 0)
+                return;
+
+            if (dgvContasAReceber.Columns[e.ColumnIndex].Name == "Selecionar")
+            {
+                AtualizarTotalSelecionado();
+                AtualizarEstadoBotoesFinanceiros(); // 🔥 AQUI É IMEDIATO
+            }
         }
         private void AtualizarResumoGeral(IEnumerable<ContaAReceberDTO> dados)
         {
@@ -767,6 +783,8 @@ namespace GVC.View
         }
         private void dgvContasAReceber_SelectionChanged(object sender, EventArgs e)
         {
+
+            AtualizarEstadoBotoesFinanceiros(); // 🔥 AQUI
 
             dgvPagamentos.DataSource = null;
 
@@ -1209,6 +1227,49 @@ namespace GVC.View
 
             AtualizarTotalSelecionado();
         }
+        private void AtualizarEstadoBotoesFinanceiros()
+        {
+            // Estado padrão
+            btnBaixarParcela.Enabled = false;
+            btnEstornar.Enabled = false;
+
+            var selecionadas = ObterParcelasSelecionadas();
+
+            // Nenhuma parcela selecionada
+            if (!selecionadas.Any())
+                return;
+
+            // 🔒 Se houver MAIS DE UMA selecionada
+            if (selecionadas.Count > 1)
+            {
+                // Baixa em lote só se nenhuma estiver paga
+                bool existePaga = selecionadas.Any(p =>
+                    p.StatusParcela.ToEnumStatusParcela() == EnumStatusParcela.Pago ||
+                    p.StatusParcela.ToEnumStatusParcela() == EnumStatusParcela.Cancelada);
+
+                btnBaixarParcela.Enabled = !existePaga;
+
+                // Estorno nunca é em lote
+                btnEstornar.Enabled = false;
+                return;
+            }
+
+            // 🔑 Caso de UMA única parcela
+            var parcela = selecionadas.First();
+            var status = parcela.StatusParcela.ToEnumStatusParcela();
+
+            // ❌ CANCELADA: nada permitido
+            if (status == EnumStatusParcela.Cancelada)
+                return;
+
+            // 🔹 BAIXA
+            btnBaixarParcela.Enabled =
+                status != EnumStatusParcela.Pago;
+
+            // 🔹 ESTORNO
+            btnEstornar.Enabled =
+                parcela.ValorRecebido > 0;
+        }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
@@ -1289,14 +1350,28 @@ namespace GVC.View
         private void btnBaixarParcela_Click(object sender, EventArgs e)
         {
             var selecionadas = ObterParcelasSelecionadas();
+
             if (!selecionadas.Any())
             {
-                Utilitario.Mensagens.Aviso("Por favor, marque a caixa de seleção ao lado para escolher ao menos uma parcela");
-
+                Utilitario.Mensagens.Aviso(
+                    "Por favor, selecione ao menos uma parcela.");
                 return;
             }
 
-            // Converte para List<dynamic> apenas para compatibilidade
+            // 🔒 BLOQUEIO: nenhuma parcela pode estar PAGA
+            var parcelaPaga = selecionadas.FirstOrDefault(p =>
+                p.StatusParcela.ToEnumStatusParcela() == EnumStatusParcela.Pago);
+
+            if (parcelaPaga != null)
+            {
+                Utilitario.Mensagens.Aviso(
+                    "Esta parcela já está quitada e não pode mais ser alterada.");
+                return;
+            }
+
+            // =========================
+            // SEGUE FLUXO NORMAL
+            // =========================
             var selecionadasDto = selecionadas.ToList();
 
             decimal totalParcelas = selecionadas.Sum(p => p.ValorParcela);
@@ -1307,8 +1382,13 @@ namespace GVC.View
             using var frm = new FrmBaixarParcela();
             frm.Text = nomeCliente;
 
-            // Passa a versão dynamic
-            frm.CarregarDados(selecionadasDto, nomeCliente, totalParcelas, totalRecebido, saldoTotal);
+            frm.CarregarDados(
+                selecionadasDto,
+                nomeCliente,
+                totalParcelas,
+                totalRecebido,
+                saldoTotal
+            );
 
             if (frm.ShowDialog() == DialogResult.OK)
                 CarregarContasAReceber();
@@ -1510,35 +1590,48 @@ namespace GVC.View
         {
             var selecionadas = ObterParcelasSelecionadas();
 
-            // 🔴 CORREÇÃO: Verifica se há exatamente UMA parcela selecionada
             if (selecionadas.Count == 0)
             {
-                Utilitario.Mensagens.Aviso("Selecione uma parcela para estornar.");
+                Utilitario.Mensagens.Aviso(
+                    "Selecione uma parcela para estornar.");
                 return;
             }
 
-            // 🔴 NOVA VERIFICAÇÃO: Bloqueia se mais de uma parcela estiver selecionada
+            // 🔒 REGRA: estorno é SEMPRE de UMA única parcela
             if (selecionadas.Count > 1)
             {
-                Utilitario.Mensagens.Aviso("Selecione apenas UMA parcela para estornar.");
+                Utilitario.Mensagens.Aviso(
+                    "Selecione apenas UMA parcela para estornar.");
                 return;
             }
 
-            // Agora temos certeza que é apenas uma parcela
             var parcela = selecionadas.First();
 
-            // Verifica se a parcela tem valor recebido > 0
-            if ((decimal)parcela.ValorRecebido <= 0)
+            var status = parcela.StatusParcela.ToEnumStatusParcela();
+
+            // ❌ BLOQUEIO: parcela cancelada
+            if (status == EnumStatusParcela.Cancelada)
             {
-                Utilitario.Mensagens.Aviso("Esta parcela não possui pagamentos para estornar.");
+                Utilitario.Mensagens.Aviso(
+                    "Parcela cancelada não pode ser estornada.");
                 return;
             }
 
-            // Form para informar o valor e motivo
+            // ❌ BLOQUEIO: não há valor recebido
+            if (parcela.ValorRecebido <= 0)
+            {
+                Utilitario.Mensagens.Aviso(
+                    "Esta parcela não possui valores para estorno.");
+                return;
+            }
+
+            // =========================
+            // SEGUE FLUXO NORMAL
+            // =========================
             using (var frm = new FrmEstornarPagamento())
             {
-                // 🔴 AJUSTE: Passa apenas o ID da única parcela
-                frm.CarregarDados(new List<long> { (long)parcela.ParcelaID },
+                frm.CarregarDados(
+                    new List<long> { parcela.ParcelaID },
                     parcela.NomeCliente ?? "Cliente"
                 );
 
@@ -1548,19 +1641,21 @@ namespace GVC.View
                     {
                         var bll = new ParcelaBLL();
 
-                        // 🔴 AGORA ESTORNA APENAS A PARCELA ÚNICA
                         bll.EstornarPagamento(
-                            (long)parcela.ParcelaID,
+                            parcela.ParcelaID,
                             frm.ValorEstorno,
                             frm.Motivo
                         );
 
-                        Utilitario.Mensagens.Info("Estorno realizado com sucesso!");
-                        CarregarContasAReceber(); // atualiza o grid
+                        Utilitario.Mensagens.Info(
+                            "Estorno realizado com sucesso!");
+
+                        CarregarContasAReceber();
                     }
                     catch (Exception ex)
                     {
-                        Utilitario.Mensagens.Erro("Erro ao estornar: " + ex.Message);
+                        Utilitario.Mensagens.Erro(
+                            "Erro ao estornar: " + ex.Message);
                     }
                 }
             }

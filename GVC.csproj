@@ -77,6 +77,9 @@
 	  <Compile Update="UI\FrmBase.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="UI\FrmPagamentosParcela.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="UI\FrmPesquisarPreco.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
