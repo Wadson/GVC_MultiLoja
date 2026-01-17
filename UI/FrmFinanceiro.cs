@@ -46,100 +46,65 @@ namespace GVC.View
         {
             InitializeComponent();
             dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
-
-
-            rbPeriodoVenda.CheckedChanged += TipoPesquisa_CheckedChanged;
-            rbPeriodoVencimento.CheckedChanged += TipoPesquisa_CheckedChanged;
-            rbNomeCliente.CheckedChanged += TipoPesquisa_CheckedChanged;
-            rbStatusParcela.CheckedChanged += TipoPesquisa_CheckedChanged;
+            cmbTipoPesquisa.SelectedIndexChanged += cmbTipoPesquisa_SelectedIndexChanged;
 
         }
         private void ResetarPanelsFiltro()
         {
-            if (panelPeriodo != null)
+            if (pnlPeriodo != null)
             {
-                panelPeriodo.Visible = false;
-                panelPeriodo.Enabled = false;
+                pnlPeriodo.Visible = false;
+                pnlPeriodo.Enabled = false;
             }
 
-            if (panelCliente != null)
+            if (pnlCliente != null)
             {
-                panelCliente.Visible = false;
-                panelCliente.Enabled = false;
+                pnlCliente.Visible = false;
+                pnlCliente.Enabled = false;
             }
 
-            // panelStatus SEMPRE fica visível e ativo
-            if (panelStatus != null)
-            {
-                panelStatus.Visible = true;
-                panelStatus.Enabled = true;
-            }
+            // ❌ panelStatus REMOVIDO
         }
-
         private void AtualizarEstadoPesquisa()
         {
             if (!_formCarregado)
                 return;
 
-            // 🔒 painel mãe SEMPRE ativo
-            panelFiltros.Enabled = true;
-            panelFiltros.Visible = true;
-
-            // =========================
-            // RESET APENAS DOS PAINÉIS CONDICIONAIS
-            // =========================
-            panelPeriodo.Visible = false;
-            panelPeriodo.Enabled = false;
-
-            panelCliente.Visible = false;
-            panelCliente.Enabled = false;
-
-            // NÃO RESETA O panelStatus - ele fica sempre ativo
-            // panelStatus.Visible = true;  // REMOVER ESTA LINHA se existir
-            // panelStatus.Enabled = true;  // REMOVER ESTA LINHA se existir
+            // 🔒 Esconde tudo
+            pnlPeriodo.Visible = false;
+            pnlCliente.Visible = false;
 
             btnFiltrar.Enabled = false;
 
-            // =========================
-            // TIPO SELECIONADO
-            // =========================
             var tipo = ObterTipoPesquisaSelecionado();
 
-            // =========================
-            // ATIVA CONFORME O TIPO
-            // =========================
             switch (tipo)
             {
                 case TipoPesquisaContasReceber.PeriodoVenda:
+                case TipoPesquisaContasReceber.DataVenda:
                 case TipoPesquisaContasReceber.PeriodoVencimento:
-                    panelPeriodo.Visible = true;
-                    panelPeriodo.Enabled = true;
-
-                    btnFiltrar.Enabled =
-                        dtpInicial.Value.Date <= dtpFinal.Value.Date;
+                    pnlPeriodo.Visible = true;
+                    btnFiltrar.Enabled = dtpInicial.Value.Date <= dtpFinal.Value.Date;
                     break;
 
                 case TipoPesquisaContasReceber.NomeCliente:
-                    panelCliente.Visible = true;
-                    panelCliente.Enabled = true;
-
-                    btnFiltrar.Enabled =
-                        !string.IsNullOrWhiteSpace(txtNomeCliente.Text);
+                    pnlCliente.Visible = true;
+                    btnFiltrar.Enabled = !string.IsNullOrWhiteSpace(txtNomeCliente.Text);
                     break;
 
                 case TipoPesquisaContasReceber.StatusParcela:
-                    // Para StatusParcela, apenas o panelStatus já está visível
-                    // e permanece ativo
                     btnFiltrar.Enabled = true;
                     break;
             }
+        }
 
-            // GARANTE que panelStatus está visível e ativo em TODOS os casos
-            if (panelStatus != null)
-            {
-                panelStatus.Visible = true;
-                panelStatus.Enabled = true;
-            }
+
+        private TipoPesquisaContasReceber ObterTipoPesquisaSelecionado()
+        {
+            if (cmbTipoPesquisa.SelectedValue is TipoPesquisaContasReceber tipo)
+                return tipo;
+
+            return TipoPesquisaContasReceber.PeriodoVenda;
         }
 
 
@@ -152,56 +117,43 @@ namespace GVC.View
 
             BeginInvoke(new Action(() =>
             {
-                if (rbNomeCliente.Checked)
+                var tipo = ObterTipoPesquisaSelecionado();
+
+                if (tipo == TipoPesquisaContasReceber.NomeCliente)
                 {
                     txtNomeCliente.Focus();
                     txtNomeCliente.SelectAll();
                 }
-                else if (rbPeriodoVenda.Checked || rbPeriodoVencimento.Checked)
+                else if (tipo == TipoPesquisaContasReceber.PeriodoVenda ||
+                         tipo == TipoPesquisaContasReceber.PeriodoVencimento)
                 {
                     dtpInicial.Focus();
                 }
             }));
         }
-
-
-
-        private TipoPesquisaContasReceber ObterTipoPesquisaSelecionado()
-        {
-            if (rbPeriodoVenda.Checked)
-                return TipoPesquisaContasReceber.PeriodoVenda;
-
-            if (rbPeriodoVencimento.Checked)
-                return TipoPesquisaContasReceber.PeriodoVencimento;
-
-            if (rbNomeCliente.Checked)               
-                return TipoPesquisaContasReceber.NomeCliente;
-
-            if (rbStatusParcela.Checked)
-                return TipoPesquisaContasReceber.StatusParcela;
-
-            // 🔥 FALLBACK SEGURO
-            return TipoPesquisaContasReceber.PeriodoVenda;
-        }
-
-
         private List<EnumStatusParcela> ObterStatusSelecionados()
         {
-            var lista = new List<EnumStatusParcela>();
-
-            if (chkPendente.Checked) lista.Add(EnumStatusParcela.Pendente);
-            if (chkParcial.Checked) lista.Add(EnumStatusParcela.ParcialmentePago);
-            if (chkPago.Checked) lista.Add(EnumStatusParcela.Pago);
-            if (chkAtrasada.Checked) lista.Add(EnumStatusParcela.Atrasada);
-            if (chkCancelada.Checked) lista.Add(EnumStatusParcela.Cancelada);
+            var lista = chkStatusParcela.CheckedItems
+                .Cast<object>()
+                .Select(item => (EnumStatusParcela)Enum.Parse(
+                    typeof(EnumStatusParcela),
+                    item.ToString()!))
+                .ToList();
 
             // Nenhum marcado = TODOS
             if (!lista.Any())
+            {
                 lista.AddRange(Enum.GetValues(typeof(EnumStatusParcela))
                     .Cast<EnumStatusParcela>());
+            }
 
             return lista;
         }
+
+
+
+
+
 
         private void ConfigurarGridContasAReceber()
         {
@@ -488,13 +440,13 @@ namespace GVC.View
         {
             var dal = new ContasAReceberDAL();
 
-            // 🔑 1️⃣ Tipo de pesquisa (RadioButton)
+            // 🔑 1️⃣ Tipo de pesquisa
             var tipoPesquisa = ObterTipoPesquisaSelecionado();
 
-            // 🔑 2️⃣ Status selecionados (CheckBox)
+            // 🔑 2️⃣ Status selecionados (CheckedListBox → Enum)
             var statusSelecionados = ObterStatusSelecionados();
 
-            // 🔑 3️⃣ Filtros opcionais (somente se habilitados)
+            // 🔑 3️⃣ Filtros opcionais
             string nomeCliente = txtNomeCliente.Enabled
                 ? txtNomeCliente.Text.Trim()
                 : null;
@@ -508,7 +460,7 @@ namespace GVC.View
             if (dtpFinal.Enabled)
                 dataFinal = dtpFinal.Value.Date;
 
-            // 🔑 4️⃣ Chamada única ao DAL
+            // 🔑 4️⃣ Chamada ao DAL
             var lista = dal.ListarContasAReceber(
                 tipoPesquisa,
                 nomeCliente,
@@ -527,6 +479,7 @@ namespace GVC.View
             AtualizarTotalSelecionado();
             AtualizarParcelasAtrasadasNoBanco();
         }
+
 
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
         {
@@ -558,24 +511,26 @@ namespace GVC.View
 
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
-            // 🔒 GARANTE QUE O PANEL MÃE ESTEJA ATIVO
-            panelFiltros.Enabled = true;
-            panelFiltros.Visible = true;
+            cmbTipoPesquisa.DisplayMember = "Texto";
+            cmbTipoPesquisa.ValueMember = "Valor";
 
-            lblTotalSelecionado.Text = "R$ 0,00";
+            cmbTipoPesquisa.DataSource = new List<TipoPesquisaItem>
+            {
+                new() { Valor = TipoPesquisaContasReceber.PeriodoVenda, Texto = "Período da Venda" },
+                new() { Valor = TipoPesquisaContasReceber.DataVenda, Texto = "Data da Venda" },
+                new() { Valor = TipoPesquisaContasReceber.PeriodoVencimento, Texto = "Período de Vencimento" },
+                new() { Valor = TipoPesquisaContasReceber.NomeCliente, Texto = "Nome do Cliente" },
+                new() { Valor = TipoPesquisaContasReceber.StatusParcela, Texto = "Status da Parcela" }
+            };                     
+
             ConfigurarGridContasAReceber();
             ConfigurarGridPagamentos();
             AtualizarParcelasAtrasadasNoBanco();
 
             _formCarregado = true;
-            AtualizarEstadoPesquisa();
 
-            // GARANTE que panelStatus esteja visível
-            if (panelStatus != null)
-            {
-                panelStatus.Visible = true;
-                panelStatus.Enabled = true;
-            }
+            cmbTipoPesquisa.SelectedValue = TipoPesquisaContasReceber.PeriodoVenda;
+            AtualizarEstadoPesquisa();
         }
         private void txtNomeCliente_TextChanged(object sender, EventArgs e)
         {
@@ -1171,14 +1126,14 @@ namespace GVC.View
                 e.SuppressKeyPress = true;
                 SendKeys.Send("{TAB}");
             }
+            if (e.KeyCode == Keys.Escape && pnlStatusPopup.Visible)
+            {
+                pnlStatusPopup.Visible = false;
+                txtStatusParcela.Focus();
+            }
         }
         private void LimparFiltro_Click(object sender, EventArgs e)
         {
-            chkPendente.Checked = false;
-            chkParcial.Checked = false;
-            chkPago.Checked = false;
-            chkAtrasada.Checked = false;
-            chkCancelada.Checked = false;
 
             // =========================
             // 3️⃣ CAMPOS DE TEXTO
@@ -1254,7 +1209,7 @@ namespace GVC.View
 
             AtualizarTotalSelecionado();
         }
-    
+
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
             CarregarContasAReceber();
@@ -1262,24 +1217,46 @@ namespace GVC.View
 
         private void btnLimparFiltros_Click(object sender, EventArgs e)
         {
-            // Status
-            chkPendente.Checked = false;
-            chkParcial.Checked = false;
-            chkPago.Checked = false;
-            chkAtrasada.Checked = false;
-            chkCancelada.Checked = false;
+            // =========================
+            // 1️⃣ LIMPA STATUS (CheckedListBox)
+            // =========================
+            for (int i = 0; i < chkStatusParcela.Items.Count; i++)
+            {
+                chkStatusParcela.SetItemChecked(i, false);
+            }
 
-            // Campos
+            // Texto padrão do "combo" de status
+            txtStatusParcela.Text = "Todos os status";
+
+            // =========================
+            // 2️⃣ LIMPA CAMPOS DE TEXTO
+            // =========================
             txtNomeCliente.Clear();
 
-            // Datas
+            // =========================
+            // 3️⃣ DATAS
+            // =========================
             dtpInicial.Value = DateTime.Today;
             dtpFinal.Value = DateTime.Today;
 
-           
-            btnFiltrar.Enabled = false;
+            // =========================
+            // 4️⃣ TIPO DE PESQUISA (VOLTA AO PADRÃO)
+            // =========================
+            cmbTipoPesquisa.SelectedItem = TipoPesquisaContasReceber.PeriodoVenda;
 
-            // Recarrega tudo (sem filtro)
+            // =========================
+            // 5️⃣ FECHA POPUP DE STATUS (SE ABERTO)
+            // =========================
+            pnlStatusPopup.Visible = false;
+
+            // =========================
+            // 6️⃣ ATUALIZA ESTADO DA TELA
+            // =========================
+            AtualizarEstadoPesquisa();
+
+            // =========================
+            // 7️⃣ RECARREGA O GRID
+            // =========================
             CarregarContasAReceber();
         }
 
@@ -1593,6 +1570,76 @@ namespace GVC.View
         {
             this.Close();
         }
-      
+
+        private void txtStatusParcela_Click(object sender, EventArgs e)
+        {
+            pnlStatusPopup.Visible = !pnlStatusPopup.Visible;
+            pnlStatusPopup.BringToFront();
+        }
+
+        private void chkStatusParcela_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            BeginInvoke(new Action(AtualizarTextoStatus));
+        }
+
+        private void FrmFinanceiro_Click(object sender, EventArgs e)
+        {
+            pnlStatusPopup.Visible = false;
+        }
+        private void AtualizarTextoStatus()
+        {
+            if (chkStatusParcela.CheckedItems.Count == 0)
+            {
+                txtStatusParcela.Text = "Todos os status";
+                return;
+            }
+
+            var itens = chkStatusParcela.CheckedItems
+                .Cast<object>()
+                .Select(i => i.ToString());
+
+            txtStatusParcela.Text = string.Join(", ", itens);
+        }
+        private void InicializarEstadoFiltros()
+        {
+            cmbTipoPesquisa.SelectedItem = TipoPesquisaContasReceber.PeriodoVenda;
+            AtualizarEstadoPesquisa();
+        }
+
+        private void cmbTipoPesquisa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!_formCarregado)
+                return;
+
+            AtualizarEstadoPesquisa();
+
+            BeginInvoke(new Action(() =>
+            {
+                var tipo = ObterTipoPesquisaSelecionado();
+
+                if (tipo == TipoPesquisaContasReceber.NomeCliente)
+                {
+                    txtNomeCliente.Focus();
+                    txtNomeCliente.SelectAll();
+                }
+                else if (tipo == TipoPesquisaContasReceber.PeriodoVenda ||
+                         tipo == TipoPesquisaContasReceber.DataVenda ||
+                    tipo == TipoPesquisaContasReceber.PeriodoVencimento)
+                {
+                    dtpInicial.Focus();
+                }
+            }));
+        }
+        private class TipoPesquisaItem
+        {
+            public TipoPesquisaContasReceber Valor { get; set; }
+            public string Texto { get; set; }
+        }
+
+        private void chkStatusParcela_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
+
 }

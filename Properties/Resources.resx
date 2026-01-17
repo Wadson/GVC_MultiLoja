@@ -124,9 +124,6 @@
   <data name="Minimiza24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Minimiza24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SenhaBlue24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SenhaBlue24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -136,17 +133,8 @@
   <data name="cpfBranco24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cpfBranco24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Senhas24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Senhas24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SenhasBlue24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SenhasBlue24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="cpfAzul24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cpfAzul24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="redefinir_senha" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\redefinir-senha.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="calendarioAzul24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendarioAzul24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,12 +160,6 @@
   <data name="calendarioBranco24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendarioBranco24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Usuario24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Usuario24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Senha24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Senha24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Minimizar24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Minimizar24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -190,5 +172,8 @@
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icons\icon.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>Ìcone Oficial do Sistema</comment>
+  </data>
+  <data name="Down24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Down24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

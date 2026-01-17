@@ -1296,6 +1296,7 @@
             kryptonComboBox2.CornerRoundingRadius = 20F;
             kryptonComboBox2.DropDownWidth = 185;
             kryptonComboBox2.IntegralHeight = false;
+            kryptonComboBox2.Items.AddRange(new object[] { "Período da Venda", "", "", "Período de Vencimento", "", "", "Nome do Cliente", "", "", "Status da Parcela" });
             kryptonComboBox2.Location = new Point(324, 48);
             kryptonComboBox2.Name = "kryptonComboBox2";
             kryptonComboBox2.Size = new Size(197, 35);

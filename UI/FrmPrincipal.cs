@@ -395,5 +395,11 @@ namespace GVC
             FrmGerenciarVendas frm = new FrmGerenciarVendas();
             frm.Show();
         }
+
+        private void testeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmModelo frm = new FrmModelo();
+            frm.Show();
+        }
     }
 }

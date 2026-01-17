@@ -58,13 +58,11 @@ namespace GVC.Model.Enums
 
 
         public enum TipoPesquisaContasReceber
-        {
+        {           
             Todos,
-            NomeCliente,
-            NumeroVenda,
+            NomeCliente,           
             DataVenda,
-            PeriodoVenda,
-            Vencimento,
+            PeriodoVenda,            
             PeriodoVencimento,
             StatusParcela
         }

@@ -97,6 +97,7 @@
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
             iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
+            testeToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -180,7 +181,7 @@
             // 
             // cadastrosToolStripMenuItem
             // 
-            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, produtosToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, empresasToolStripMenuItem, usuáriosToolStripMenuItem });
+            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, produtosToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, empresasToolStripMenuItem, usuáriosToolStripMenuItem, testeToolStripMenuItem });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -703,6 +704,13 @@
             iconToolStripButton1.Size = new Size(23, 23);
             iconToolStripButton1.Text = "iconToolStripButton1";
             // 
+            // testeToolStripMenuItem
+            // 
+            testeToolStripMenuItem.Name = "testeToolStripMenuItem";
+            testeToolStripMenuItem.Size = new Size(188, 22);
+            testeToolStripMenuItem.Text = "Teste";
+            testeToolStripMenuItem.Click += testeToolStripMenuItem_Click;
+            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -810,5 +818,6 @@
         private FontAwesome.Sharp.IconToolStripButton btnRelatorios;
         private FontAwesome.Sharp.IconToolStripButton btnSair;
         private FontAwesome.Sharp.IconToolStripButton btnProdutos;
+        private ToolStripMenuItem testeToolStripMenuItem;
     }
 }

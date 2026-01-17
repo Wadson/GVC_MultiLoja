@@ -77,11 +77,7 @@ namespace GVC.DAL
                     param.Add("@VendaIni", dataInicial.Value.Date);
                     param.Add("@VendaFim", dataFinal.Value.Date.AddDays(1));
                     break;
-
-                case TipoPesquisaContasReceber.Vencimento:
-                    sql.Append(" AND CAST(p.DataVencimento AS DATE) = @Vencimento ");
-                    param.Add("@Vencimento", dataInicial.Value.Date);
-                    break;
+               
 
                 case TipoPesquisaContasReceber.PeriodoVencimento:
                     sql.Append(" AND p.DataVencimento >= @VencIni AND p.DataVencimento < @VencFim ");
