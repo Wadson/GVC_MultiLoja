@@ -41,11 +41,11 @@ namespace GVC.View
         private bool _ignorarEventosBusca = false;
         private bool _ignorandoBuscar = false;
 
+        private int _parcelaId; private int _vendaId; private int _clienteId; private string _nomeCliente; private int _numeroParcela; private string _statusParcela;
 
         public FrmFinanceiro()
         {
             InitializeComponent();
-            dgvPagamentos.CurrentCellDirtyStateChanged += dgvPagamentos_CurrentCellDirtyStateChanged;
             cmbTipoPesquisa.SelectedIndexChanged += cmbTipoPesquisa_SelectedIndexChanged;
 
         }
@@ -306,118 +306,8 @@ namespace GVC.View
             dgvContasAReceber.BorderStyle = BorderStyle.None;
         }
 
-        private void AtualizarCoresGridPagamentos()
-        {
-            foreach (DataGridViewRow row in dgvPagamentos.Rows)
-            {
-                bool marcado = Convert.ToBoolean(row.Cells["Selecionar"].Value);
-                row.DefaultCellStyle.BackColor =
-                    marcado ? _corSelecionado : Color.White;
-            }
-        }
-        private void ConfigurarGridPagamentos()
-        {
-            dgvPagamentos.AutoGenerateColumns = false;
-            dgvPagamentos.Columns.Clear();
 
-            // 🔹 MUITO IMPORTANTE
-            dgvPagamentos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
-            // ======================================================
-            // 🔹 COLUNA CHECKBOX (SELEÇÃO)
-            // ======================================================
-            var chk = new DataGridViewCheckBoxColumn
-            {
-                Name = "Selecionar",
-                HeaderText = "",
-                Width = 30
-            };
-            dgvPagamentos.Columns.Add(chk);
-
-            // ======================================================
-            // 🔹 COLUNAS FIXAS
-            // ======================================================
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "PagamentoID",
-                HeaderText = "ID",
-                Visible = false
-            });
-
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DataPagamento",
-                HeaderText = "Data",
-                Width = 90,
-                ValueType = typeof(DateTime),
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "dd/MM/yyyy"
-                }
-            });
-
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "FormaPagamento",
-                HeaderText = "Forma",
-                Width = 120
-            });
-
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "ValorPago",
-                HeaderText = "Valor Pago",
-                Width = 100,
-                ValueType = typeof(decimal),
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "C2",
-                    Alignment = DataGridViewContentAlignment.MiddleRight
-                }
-            });
-
-            // ======================================================
-            // 🔥 COLUNA DINÂMICA (FILL)
-            // ======================================================
-            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Observacao",
-                HeaderText = "Observação",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, // 🔥 ocupa o resto
-                MinimumWidth = 200,                                 // segurança
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Alignment = DataGridViewContentAlignment.MiddleLeft,
-                    WrapMode = DataGridViewTriState.False
-                }
-            });
-
-            // ======================================================
-            // 🔹 CONFIGURAÇÕES GERAIS
-            // ======================================================
-            dgvPagamentos.AllowUserToAddRows = false;
-            dgvPagamentos.AllowUserToDeleteRows = false;
-            dgvPagamentos.MultiSelect = false;
-            dgvPagamentos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-            dgvPagamentos.ReadOnly = false; // libera checkbox
-
-            // 🔒 Bloqueia todas as colunas exceto o checkbox
-            foreach (DataGridViewColumn col in dgvPagamentos.Columns)
-            {
-                if (col.Name != "Selecionar")
-                    col.ReadOnly = true;
-            }
-
-            // >>> Configurações visuais adicionadas <<<
-            dgvPagamentos.EnableHeadersVisualStyles = false;
-            dgvPagamentos.ColumnHeadersDefaultCellStyle.BackColor = ThemeERP.AzulPrimario;
-            dgvPagamentos.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvPagamentos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
-            dgvPagamentos.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
-            dgvPagamentos.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 247, 250);
-            dgvPagamentos.BorderStyle = BorderStyle.None;
-        }
 
 
 
@@ -496,18 +386,7 @@ namespace GVC.View
             lblTotalVencido.Text = totalVencido.ToString("C2");
         }
 
-        private List<PagamentoExtratoModel> ObterPagamentosDoGrid()
-        {
-            var lista = new List<PagamentoExtratoModel>();
 
-            foreach (DataGridViewRow row in dgvPagamentos.Rows)
-            {
-                if (row.DataBoundItem is PagamentoExtratoModel pagamento)
-                    lista.Add(pagamento);
-            }
-
-            return lista;
-        }
 
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
@@ -521,10 +400,9 @@ namespace GVC.View
                 new() { Valor = TipoPesquisaContasReceber.PeriodoVencimento, Texto = "Período de Vencimento" },
                 new() { Valor = TipoPesquisaContasReceber.NomeCliente, Texto = "Nome do Cliente" },
                 new() { Valor = TipoPesquisaContasReceber.StatusParcela, Texto = "Status da Parcela" }
-            };                     
+            };
 
             ConfigurarGridContasAReceber();
-            ConfigurarGridPagamentos();
             AtualizarParcelasAtrasadasNoBanco();
 
             _formCarregado = true;
@@ -784,17 +662,11 @@ namespace GVC.View
         private void dgvContasAReceber_SelectionChanged(object sender, EventArgs e)
         {
 
-            AtualizarEstadoBotoesFinanceiros(); // 🔥 AQUI
-
-            dgvPagamentos.DataSource = null;
+            AtualizarEstadoBotoesFinanceiros(); // 🔥 AQUI           
 
             if (dgvContasAReceber.CurrentRow?.DataBoundItem is not ContaAReceberDTO parcela)
                 return;
 
-            var pagamentos = _pagamentoDal
-                .ListarPagamentosPorParcelaCompleto(parcela.ParcelaID);
-
-            dgvPagamentos.DataSource = pagamentos;
         }
         private void LimparAreaVenda()
         {
@@ -1108,29 +980,6 @@ namespace GVC.View
                 }
             }
         }
-        private List<PagamentoExtratoModel> ObterPagamentosSelecionados()
-        {
-            var parcelas = ObterParcelasSelecionadas();
-            if (!parcelas.Any()) return new List<PagamentoExtratoModel>();
-
-            using var conn = Conexao.Conex();
-
-            var ids = parcelas.Select(p => p.ParcelaID).ToArray();
-
-            string sql = @"
-        SELECT
-            pp.PagamentoID,
-            pp.ParcelaID,
-            pp.DataPagamento,
-            pp.ValorPago,
-            fp.NomeFormaPagamento AS NomeFormaPagamento,
-            pp.Observacao
-        FROM PagamentosParciais pp
-        LEFT JOIN FormaPagamento fp ON fp.FormaPgtoID = pp.FormaPgtoID
-        WHERE pp.ParcelaID IN @ids";
-
-            return conn.Query<PagamentoExtratoModel>(sql, new { ids }).ToList();
-        }
 
         private void FrmContasAReceber_Shown(object sender, EventArgs e)
         {
@@ -1174,59 +1023,9 @@ namespace GVC.View
             CarregarContasAReceber();
         }
 
-        private void dgvPagamentos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
-        {
-            if (dgvPagamentos.IsCurrentCellDirty)
-                dgvPagamentos.CommitEdit(DataGridViewDataErrorContexts.Commit);
-        }
 
-        private void dgvPagamentos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
 
-            if (dgvPagamentos.Columns[e.ColumnIndex].Name != "Selecionar")
-                return;
 
-            dgvPagamentos.CommitEdit(DataGridViewDataErrorContexts.Commit);
-
-            var row = dgvPagamentos.Rows[e.RowIndex];
-            bool marcado = Convert.ToBoolean(row.Cells["Selecionar"].Value);
-
-            var pagamento = row.DataBoundItem as PagamentoExtratoModel;
-            if (pagamento == null)
-                return;
-
-            // 🔹 Se está marcando
-            if (marcado)
-            {
-                if (_parcelaSelecionadaParaRecibo == null)
-                {
-                    _parcelaSelecionadaParaRecibo = pagamento.ParcelaID;
-                }
-                else if (_parcelaSelecionadaParaRecibo != pagamento.ParcelaID)
-                {
-                    Utilitario.Mensagens.Aviso(
-                        "Você só pode selecionar pagamentos da mesma parcela.");
-
-                    row.Cells["Selecionar"].Value = false;
-                    return;
-                }
-            }
-            else
-            {
-                // 🔹 Se desmarcou tudo, libera novamente
-                bool aindaTemMarcado = dgvPagamentos.Rows
-                    .Cast<DataGridViewRow>()
-                    .Any(r => Convert.ToBoolean(r.Cells["Selecionar"].Value));
-
-                if (!aindaTemMarcado)
-                    _parcelaSelecionadaParaRecibo = null;
-            }
-            AtualizarCoresGridPagamentos();
-
-            AtualizarTotalSelecionado();
-        }
         private void AtualizarEstadoBotoesFinanceiros()
         {
             // Estado padrão
@@ -1508,16 +1307,6 @@ namespace GVC.View
             // ======================================================
             var pagamentosSelecionados = new List<PagamentoExtratoModel>();
 
-            foreach (DataGridViewRow row in dgvPagamentos.Rows)
-            {
-                bool marcado = row.Cells["Selecionar"]?.Value is bool b && b;
-
-                if (!marcado)
-                    continue;
-
-                if (row.DataBoundItem is PagamentoExtratoModel pagamento)
-                    pagamentosSelecionados.Add(pagamento);
-            }
 
             List<PagamentoExtratoModel> pagamentosParaRecibo;
             string nomeArquivo;
@@ -1734,6 +1523,28 @@ namespace GVC.View
         private void chkStatusParcela_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDetalheParcela_Click(object sender, EventArgs e)
+        {
+            if (dgvContasAReceber.CurrentRow == null)
+            {
+                Utilitario.Mensagens.Aviso("Selecione uma parcela.");
+                return;
+            }
+
+            if (dgvContasAReceber.CurrentRow.DataBoundItem is not ContaAReceberDTO parcela)
+            {
+                Utilitario.Mensagens.Aviso("Parcela inválida.");
+                return;
+            }
+
+            using var frm = new FrmPagamentosParcela(parcela.ParcelaID);
+
+            if (frm.ShowDialog(this) == DialogResult.OK)
+            {
+                CarregarContasAReceber();
+            }
         }
     }
 

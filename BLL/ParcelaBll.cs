@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using GVC.DAL;
+using GVC.DTO;
 using GVC.Model;
 using GVC.Model.Enums.GVC.Model.Enums;
 using GVC.Model.Extensions;
@@ -335,5 +336,35 @@ WHERE ParcelaID = @ParcelaID";
 
             _vendaDal.AtualizarStatusVenda(parcela.VendaID, statusVendaEnum);
         }
+        public ParcelaDetalheDTO ObterDetalheParcela(long parcelaId)
+        {
+            using var conn = Conexao.Conex();
+
+            const string sql = @"
+                       SELECT
+                    p.ParcelaID,
+                    p.VendaID,
+                    p.NumeroParcela,
+                    c.Nome AS NomeCliente,
+                    v.DataVenda,
+                    p.DataVencimento,
+                    p.ValorParcela,
+                    ISNULL(p.ValorRecebido, 0) AS ValorRecebido,
+                    (ISNULL(p.ValorParcela,0)
+                     + ISNULL(p.Juros,0)
+                     + ISNULL(p.Multa,0)
+                     - ISNULL(p.ValorRecebido,0)) AS Saldo,
+                    p.Status AS Status        -- 🔥 ESTA LINHA ESTAVA FALTANDO
+                FROM Parcela p
+                INNER JOIN Venda v ON v.VendaID = p.VendaID
+                INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
+                WHERE p.ParcelaID = @ParcelaID";
+
+            return conn.QueryFirstOrDefault<ParcelaDetalheDTO>(
+                sql,
+                new { parcelaId }
+            );
+        }
+
     }
 }

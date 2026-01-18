@@ -1,27 +1,33 @@
 ﻿using GVC.BLL;
+using GVC.UTIL;
 using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
-using System.ComponentModel;
 
 namespace GVC.View
 {
     public partial class FrmPagamentosParcela : KryptonForm
     {
+        private readonly ParcelaBLL _parcelaBll = new ParcelaBLL();
+        private readonly PagamentoBLL _pagamentoBll = new PagamentoBLL();
         private readonly ItensVendaBLL _itensVendaBll = new ItensVendaBLL();
+
+        private readonly int _parcelaId;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public long VendaId { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SubTitulo { get; set; }
 
-
-        public FrmPagamentosParcela()
+        public FrmPagamentosParcela(int parcelaId)
         {
             InitializeComponent();
+
+            _parcelaId = parcelaId;
         }
         private void ConfigurarCabecalho()
         {
@@ -32,19 +38,130 @@ namespace GVC.View
             lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, FontStyle.Bold);
             lblTitulo.AutoSize = true;
 
-            lblSubTitulo.ForeColor = System.Drawing.Color.WhiteSmoke;
-            lblSubTitulo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            lblSubTitulo.AutoSize = true;
+        }
+        private void CarregarParcela()
+        {
+            var parcela = _parcelaBll.ObterDetalheParcela(_parcelaId);
+
+            if (parcela == null)
+            {
+                Utilitario.Mensagens.Erro("Parcela não encontrada.");
+                DialogResult = DialogResult.Cancel;
+                Close();
+                return;
+            }
+
+            lblVendaId.Text = parcela.VendaID.ToString();
+            lblNomeCliente.Text = parcela.NomeCliente;
+            lblNumeroParcela.Text = parcela.NumeroParcela.ToString();
+            lblDataVenda.Text = parcela.DataVenda.ToString("dd/MM/yyyy");
+            lblVencimento.Text = parcela.DataVencimento.ToString("dd/MM/yyyy");
+
+            lblValorParcela.Text = parcela.ValorParcela.ToString("C2");
+            lblTotalRecebido.Text = parcela.ValorRecebido.ToString("C2");
+            lblSaldo.Text = parcela.Saldo.ToString("C2");
+
+            lblStatusParcela.Text = parcela.Status;
+
+            AplicarCorStatus(parcela.Status);
         }
 
+        private void AplicarCorStatus(string? status)
+        {
+            if (string.IsNullOrWhiteSpace(status))
+            {
+                lblStatusParcela.ForeColor = Color.Black;
+                lblStatusParcela.Text = "—";
+                return;
+            }
 
+            switch (status.Trim())
+            {
+                case "Pago":
+                    lblStatusParcela.StateCommon.ShortText.Color1 = Color.ForestGreen;
+                    break;
 
+                case "ParcialmentePago":
+                    lblStatusParcela.StateCommon.ShortText.Color1 = Color.RoyalBlue;
+                    break;
 
+                case "Atrasada":
+                    lblStatusParcela.StateCommon.ShortText.Color1 = Color.DarkRed;
+                    break;
 
+                case "Cancelada":
+                    lblStatusParcela.StateCommon.ShortText.Color1 = Color.Gray;
+                    break;
 
+                default:
+                    lblStatusParcela.StateCommon.ShortText.Color1 = Color.Black;
+                    break;
+            }
+        }
+
+        private void ConfigurarGridPagamentos()
+        {
+            dgvPagamentos.AutoGenerateColumns = false;
+            dgvPagamentos.Columns.Clear();
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DataPagamento",
+                HeaderText = "Data",
+                Width = 90,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" }
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NomeFormaPagamento",
+                HeaderText = "Forma",
+                Width = 120
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ValorPago",
+                HeaderText = "Valor Pago",
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
+            });
+
+            dgvPagamentos.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Observacao",
+                HeaderText = "Observação",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+
+            dgvPagamentos.ReadOnly = true;
+            dgvPagamentos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPagamentos.MultiSelect = false;
+            dgvPagamentos.AllowUserToAddRows = false;
+
+            // 🔹 Configurações visuais do cabeçalho
+            dgvPagamentos.ColumnHeadersVisible = true;
+            dgvPagamentos.EnableHeadersVisualStyles = false;
+            dgvPagamentos.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 120, 215);
+            dgvPagamentos.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvPagamentos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
+            dgvPagamentos.ColumnHeadersHeight = 32;
+            dgvPagamentos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+        }
+
+        private void CarregarPagamentos()
+        {
+            var pagamentos = _pagamentoBll.ListarPagamentosPorParcela(_parcelaId);
+            dgvPagamentos.DataSource = pagamentos;
+        }       
 
         private void btnSair_Click(object sender, EventArgs e)
         {
+            this.Close();
         }
         private void ConfigurarGridItensVenda()
         {
@@ -179,7 +296,7 @@ namespace GVC.View
             var itens = _itensVendaBll.ListarItensPorVenda(VendaId);
             dgvPagamentos.DataSource = itens;
 
-            lblSubTitulo.Text = SubTitulo;
+            //lblSubTitulo.Text = SubTitulo;
         }
 
         private void dgvItensVenda_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -188,14 +305,20 @@ namespace GVC.View
 
         private void FrmItensVenda_Load(object sender, EventArgs e)
         {
-            ConfigurarGridItensVenda();
-            ConfigurarCabecalho();
-            CarregarItensVenda(); // 🔥 ESTA LINHA É A CHAVE
+            CarregarParcela();
+            ConfigurarGridPagamentos();
+            CarregarPagamentos();            
         }
 
         private void btnFechar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        private void btnGerarPdf_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

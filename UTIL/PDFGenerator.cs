@@ -11,6 +11,40 @@ namespace GVC.UTIL
 {
     public static class PDFGenerator
     {
+
+        private static void CriarDocumentoBase(
+    DadosEmpresaPdf empresa,
+    string titulo,
+    Action<ColumnDescriptor> conteudo,
+    string caminhoArquivo)
+        {
+            if (empresa == null)
+                throw new ArgumentNullException(nameof(empresa));
+
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    ConfigurarPagina(page);
+
+                    page.Content().Column(col =>
+                    {
+                        AdicionarCabecalho(col, empresa, titulo);
+
+                        // 🔥 Conteúdo específico do PDF
+                        conteudo(col);
+
+                        AdicionarRodape(col);
+                    });
+                });
+            })
+            .GeneratePdf(caminhoArquivo);
+        }
+
+
+
+
+
         public static void GerarRelatorioContasPorCliente(
     List<ExtratoCliente> extratos,
     DadosEmpresaPdf empresa,
@@ -222,7 +256,7 @@ namespace GVC.UTIL
                     Row(table,
                         p.DataPagamento.ToString("dd/MM/yyyy"),
                         p.ValorPago.ToString("C2"),
-                        p.FormaPagamento ?? "-",
+                        p.NomeFormaPagamento ?? "-",
                         p.Observacao ?? "-");
                 }
             });

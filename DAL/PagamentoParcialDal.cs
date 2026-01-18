@@ -51,7 +51,7 @@ namespace GVC.DAL
         SELECT
             pp.DataPagamento,
             pp.ValorPago,
-            fp.NomeFormaPagamento AS NOmeFormaPagamento,
+            fp.NomeFormaPagamento AS NomeFormaPagamento,
             pp.Observacao
         FROM PagamentosParciais pp
         LEFT JOIN FormaPagamento fp ON fp.FormaPgtoID = pp.FormaPgtoID

@@ -12,7 +12,7 @@ namespace GVC.Model
         public long ParcelaID { get; set; }
         public DateTime DataPagamento { get; set; }
         public decimal ValorPago { get; set; }
-        public string FormaPagamento { get; set; }
+        public string NomeFormaPagamento { get; set; }
         public string Observacao { get; set; }
     }
 
