@@ -13,22 +13,29 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Infra\**" />
 	  <Compile Remove="Logs\**" />
 	  <Compile Remove="Services\**" />
 	  <Compile Remove="UI\NovaPasta\**" />
-	  <EmbeddedResource Remove="Infra\**" />
 	  <EmbeddedResource Remove="Logs\**" />
 	  <EmbeddedResource Remove="Services\**" />
 	  <EmbeddedResource Remove="UI\NovaPasta\**" />
-	  <None Remove="Infra\**" />
 	  <None Remove="Logs\**" />
 	  <None Remove="Services\**" />
 	  <None Remove="UI\NovaPasta\**" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Infra\Database\ScriptCriacaoBanco.sql" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Include="Resources\Icons\icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Infra\Database\ScriptCriacaoBanco.sql">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -62,6 +69,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="UI\FrmSqlBatchGenerator.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="UI\FrmConfigCertificado.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
@@ -122,6 +132,12 @@
 	  <Compile Update="UI\FrmRelatoriosFinanceiros.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Infra\Database\Scripts\ScriptCriacaoBanco.sql">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

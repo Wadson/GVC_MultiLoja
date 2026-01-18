@@ -37,7 +37,7 @@
             lblSubTitulo = new Krypton.Toolkit.KryptonLabel();
             lblTitulo = new Krypton.Toolkit.KryptonLabel();
             icbtnBackup = new FontAwesome.Sharp.IconButton();
-            icbtnInsertBanco = new FontAwesome.Sharp.IconButton();
+            icbConvertScript = new FontAwesome.Sharp.IconButton();
             icbtnModeloUi = new FontAwesome.Sharp.IconButton();
             icbtnLogo = new FontAwesome.Sharp.IconButton();
             icbtnCertificadoDigital = new FontAwesome.Sharp.IconButton();
@@ -172,25 +172,25 @@
             icbtnBackup.UseVisualStyleBackColor = true;
             icbtnBackup.Click += icbtnBackup_Click;
             // 
-            // icbtnInsertBanco
+            // icbConvertScript
             // 
-            icbtnInsertBanco.Cursor = Cursors.Hand;
-            icbtnInsertBanco.FlatStyle = FlatStyle.Flat;
-            icbtnInsertBanco.ForeColor = Color.FromArgb(55, 71, 79);
-            icbtnInsertBanco.IconChar = FontAwesome.Sharp.IconChar.Server;
-            icbtnInsertBanco.IconColor = Color.FromArgb(30, 136, 229);
-            icbtnInsertBanco.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icbtnInsertBanco.IconSize = 22;
-            icbtnInsertBanco.ImageAlign = ContentAlignment.MiddleLeft;
-            icbtnInsertBanco.Location = new Point(295, 118);
-            icbtnInsertBanco.Name = "icbtnInsertBanco";
-            icbtnInsertBanco.Size = new Size(200, 46);
-            icbtnInsertBanco.TabIndex = 1099;
-            icbtnInsertBanco.Text = "Inserir Banco";
-            icbtnInsertBanco.TextAlign = ContentAlignment.MiddleRight;
-            icbtnInsertBanco.TextImageRelation = TextImageRelation.TextBeforeImage;
-            icbtnInsertBanco.UseVisualStyleBackColor = true;
-            icbtnInsertBanco.Click += icbtnInsertBanco_Click;
+            icbConvertScript.Cursor = Cursors.Hand;
+            icbConvertScript.FlatStyle = FlatStyle.Flat;
+            icbConvertScript.ForeColor = Color.FromArgb(55, 71, 79);
+            icbConvertScript.IconChar = FontAwesome.Sharp.IconChar.Server;
+            icbConvertScript.IconColor = Color.FromArgb(30, 136, 229);
+            icbConvertScript.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            icbConvertScript.IconSize = 22;
+            icbConvertScript.ImageAlign = ContentAlignment.MiddleLeft;
+            icbConvertScript.Location = new Point(295, 118);
+            icbConvertScript.Name = "icbConvertScript";
+            icbConvertScript.Size = new Size(200, 46);
+            icbConvertScript.TabIndex = 1099;
+            icbConvertScript.Text = "Converter Script";
+            icbConvertScript.TextAlign = ContentAlignment.MiddleRight;
+            icbConvertScript.TextImageRelation = TextImageRelation.TextBeforeImage;
+            icbConvertScript.UseVisualStyleBackColor = true;
+            icbConvertScript.Click += icbConvertScript_Click;
             // 
             // icbtnModeloUi
             // 
@@ -210,7 +210,6 @@
             icbtnModeloUi.TextAlign = ContentAlignment.MiddleRight;
             icbtnModeloUi.TextImageRelation = TextImageRelation.TextBeforeImage;
             icbtnModeloUi.UseVisualStyleBackColor = true;
-            icbtnModeloUi.Click += icbtnModeloUi_Click;
             // 
             // icbtnLogo
             // 
@@ -305,7 +304,7 @@
             Controls.Add(icbtnCertificadoDigital);
             Controls.Add(icbtnLogo);
             Controls.Add(icbtnModeloUi);
-            Controls.Add(icbtnInsertBanco);
+            Controls.Add(icbConvertScript);
             Controls.Add(icbtnBackup);
             Controls.Add(label1);
             Controls.Add(pnlHeader);
@@ -339,7 +338,7 @@
         private Krypton.Toolkit.KryptonLabel lblSubTitulo;
         private Krypton.Toolkit.KryptonLabel lblTitulo;
         private FontAwesome.Sharp.IconButton icbtnBackup;
-        private FontAwesome.Sharp.IconButton icbtnInsertBanco;
+        private FontAwesome.Sharp.IconButton icbConvertScript;
         private FontAwesome.Sharp.IconButton icbtnModeloUi;
         private FontAwesome.Sharp.IconButton icbtnLogo;
         private FontAwesome.Sharp.IconButton icbtnCertificadoDigital;

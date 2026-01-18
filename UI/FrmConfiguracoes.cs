@@ -1,4 +1,5 @@
 ﻿
+using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
@@ -25,15 +26,7 @@ namespace GVC.View
             frmBackup.ShowDialog();
         }
 
-        private void icbtnInsertBanco_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void icbtnModeloUi_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void icbtnCertificadoDigital_Click(object sender, EventArgs e)
         {
@@ -55,6 +48,12 @@ namespace GVC.View
             int empresaId = 1; // ou pegar a empresa selecionada do sistema
             FrmConfigLogo frm = new FrmConfigLogo();
             frm.ShowDialog();
+        }
+
+        private void icbConvertScript_Click(object sender, EventArgs e)
+        {
+            FrmSqlBatchGenerator frmConverterScriptBancoSql = new FrmSqlBatchGenerator();
+            frmConverterScriptBancoSql.ShowDialog();
         }
     }
 }
