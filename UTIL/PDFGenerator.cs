@@ -1,4 +1,5 @@
-﻿using GVC.Model;
+﻿using GVC.DTO;
+using GVC.Model;
 using GVC.MODEL.Relatorios;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -39,7 +40,93 @@ namespace GVC.UTIL
                 });
             })
             .GeneratePdf(caminhoArquivo);
+
+            if (Utilitario.Mensagens.Confirmacao("PDF gerado com sucesso. Deseja abrir agora?"))
+            {
+                AbrirPdf(caminhoArquivo);
+            }
+
+
         }
+        public static void GerarPdfParcela(
+    ParcelaDetalheDTO parcela,
+    DadosEmpresaPdf empresa,
+    string caminhoArquivo)
+        {
+            if (parcela == null)
+                throw new ArgumentNullException(nameof(parcela));
+
+            CriarDocumentoBase(
+                empresa,
+                "DETALHE DA PARCELA",
+                col =>
+                {
+                    col.Item().Text($"Cliente: {parcela.NomeCliente}").Bold();
+                    col.Item().Text($"Venda: {parcela.VendaID}");
+                    col.Item().Text($"Parcela Nº: {parcela.NumeroParcela}");
+                    col.Item().Text($"Vencimento: {parcela.DataVencimento:dd/MM/yyyy}");
+                    col.Item().PaddingBottom(10);
+
+                    col.Item().Table(table =>
+                    {
+                        table.ColumnsDefinition(c =>
+                        {
+                            c.RelativeColumn();
+                            c.RelativeColumn();
+                        });
+
+                        Header(table, "Descrição", "Valor");
+
+                        Row(table, "Valor da Parcela", parcela.ValorParcela.ToString("C2"));
+                        Row(table, "Total Recebido", parcela.ValorRecebido.ToString("C2"));
+                        Row(table, "Saldo", parcela.Saldo.ToString("C2"));
+                        Row(table, "Status", parcela.Status);
+                    });
+                },
+                caminhoArquivo
+            );
+        }
+
+        public static void GerarPdfPagamentosParcela(
+    ParcelaDetalheDTO parcela,
+    List<PagamentoExtratoModel> pagamentos,
+    DadosEmpresaPdf empresa,
+    string caminhoArquivo)
+        {
+            if (pagamentos == null || pagamentos.Count == 0)
+                throw new Exception("Nenhum pagamento encontrado.");
+
+            CriarDocumentoBase(
+                empresa,
+                "HISTÓRICO DE PAGAMENTOS",
+                col =>
+                {
+                    col.Item().Text($"Cliente: {parcela.NomeCliente}").Bold();
+                    col.Item().Text($"Venda: {parcela.VendaID}");
+                    col.Item().Text($"Parcela Nº: {parcela.NumeroParcela}");
+                    col.Item().PaddingBottom(10);
+
+                    AdicionarTabelaPagamentos(col, pagamentos);
+                    AdicionarTotalPagamentos(col, pagamentos);
+                },
+                caminhoArquivo
+            );
+        }
+        private static void AbrirPdf(string caminhoArquivo)
+        {
+            if (!File.Exists(caminhoArquivo))
+                throw new FileNotFoundException("Arquivo PDF não encontrado.", caminhoArquivo);
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = caminhoArquivo,
+                UseShellExecute = true
+            });
+        }
+
+
+
+
 
 
 
@@ -57,30 +144,25 @@ namespace GVC.UTIL
         // EXTRATO FINANCEIRO
         // =========================
         public static void GerarExtratoPDF(
-            ExtratoCliente extrato,
-            DadosEmpresaPdf empresa,
-            string caminhoArquivo)
+      ExtratoCliente extrato,
+      DadosEmpresaPdf empresa,
+      string caminhoArquivo)
         {
             Validar(extrato, empresa);
 
-            Document.Create(container =>
-            {
-                container.Page(page =>
+            CriarDocumentoBase(
+                empresa,
+                "EXTRATO FINANCEIRO",
+                col =>
                 {
-                    ConfigurarPagina(page);
-
-                    page.Content().Column(col =>
-                    {
-                        AdicionarCabecalho(col, empresa, "EXTRATO FINANCEIRO");
-                        AdicionarDadosCliente(col, extrato);
-                        AdicionarTabelaExtrato(col, extrato);
-                        AdicionarResumoExtrato(col, extrato);
-                        AdicionarRodape(col);
-                    });
-                });
-            })
-            .GeneratePdf(caminhoArquivo);
+                    AdicionarDadosCliente(col, extrato);
+                    AdicionarTabelaExtrato(col, extrato);
+                    AdicionarResumoExtrato(col, extrato);
+                },
+                caminhoArquivo
+            );
         }
+
 
         // =========================
         // RECIBO COM HISTÓRICO

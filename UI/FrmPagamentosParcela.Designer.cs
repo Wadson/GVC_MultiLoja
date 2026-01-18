@@ -340,9 +340,9 @@
             btnGerarPdfParcela.Padding = new Padding(10, 0, 10, 0);
             btnGerarPdfParcela.Size = new Size(170, 38);
             btnGerarPdfParcela.TabIndex = 1131;
-            btnGerarPdfParcela.Text = "  PDF Parcela";
+            btnGerarPdfParcela.Text = "  PDF Parcelas";
             btnGerarPdfParcela.UseVisualStyleBackColor = false;
-            btnGerarPdfParcela.Click += btnGerarPdf_Click;
+            btnGerarPdfParcela.Click += btnGerarPdfParcela_Click;
             // 
             // btnGerarPdfPagamentos
             // 

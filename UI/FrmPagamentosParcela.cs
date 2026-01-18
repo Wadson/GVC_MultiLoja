@@ -315,9 +315,21 @@ namespace GVC.View
             this.Close();
         }
 
-        private void btnGerarPdf_Click(object sender, EventArgs e)
+        private void btnGerarPdfParcela_Click(object sender, EventArgs e)
         {
+            var parcela = _parcelaBll.ObterDetalheParcela(_parcelaId);
+            var empresa = new EmpresaBll().ObterDadosParaPdf();
 
+            using var sfd = new SaveFileDialog
+            {
+                Filter = "PDF (*.pdf)|*.pdf",
+                FileName = $"Parcela_{parcela.ParcelaID}.pdf"
+            };
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            PDFGenerator.GerarPdfParcela(parcela, empresa, sfd.FileName);
         }
 
     }
