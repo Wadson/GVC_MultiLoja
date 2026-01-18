@@ -26,6 +26,8 @@ namespace GVC.BLL
             _vendaDal = new VendaDal();
             _vendaBLL = new VendaBLL();
         }
+       
+
         public void GerarReciboAutomatico(long parcelaId)
         {
             // 🔹 1. Buscar extrato da parcela

@@ -124,6 +124,12 @@ namespace GVC.UTIL
             });
         }
 
+       
+
+
+
+
+
 
 
 
@@ -148,6 +154,7 @@ namespace GVC.UTIL
       DadosEmpresaPdf empresa,
       string caminhoArquivo)
         {
+            ValidarExtratoParcela(extrato);   // 🔒 AQUI
             Validar(extrato, empresa);
 
             CriarDocumentoBase(
@@ -168,35 +175,30 @@ namespace GVC.UTIL
         // RECIBO COM HISTÓRICO
         // =========================
         public static void GerarReciboPagamentos(
-            ExtratoCliente extrato,
-            List<PagamentoExtratoModel> pagamentos,
-            DadosEmpresaPdf empresa,
-            string caminhoArquivo)
+     ExtratoCliente extrato,
+     List<PagamentoExtratoModel> pagamentos,
+     DadosEmpresaPdf empresa,
+     string caminhoArquivo)
         {
-            Validar(extrato, empresa);
+            ValidarExtratoParcela(extrato);
 
             if (pagamentos == null || pagamentos.Count == 0)
                 throw new Exception("Nenhum pagamento encontrado.");
 
-            Document.Create(container =>
-            {
-                container.Page(page =>
+            CriarDocumentoBase(
+                empresa,
+                "RECIBO DE PAGAMENTO",
+                col =>
                 {
-                    ConfigurarPagina(page);
-
-                    page.Content().Column(col =>
-                    {
-                        AdicionarCabecalho(col, empresa, "RECIBO DE PAGAMENTO");
-                        AdicionarDadosCliente(col, extrato);
-                        AdicionarTabelaPagamentos(col, pagamentos);
-                        AdicionarTotalPagamentos(col, pagamentos);
-                        AdicionarAssinatura(col);
-                        AdicionarRodape(col);
-                    });
-                });
-            })
-            .GeneratePdf(caminhoArquivo);
+                    AdicionarDadosCliente(col, extrato);
+                    AdicionarTabelaPagamentos(col, pagamentos);
+                    AdicionarTotalPagamentos(col, pagamentos);
+                    AdicionarAssinatura(col);
+                },
+                caminhoArquivo
+            );
         }
+
 
         // =========================
         // NOVO: CONTAS A RECEBER AGRUPADO POR CLIENTE
@@ -293,13 +295,19 @@ namespace GVC.UTIL
 
                 foreach (var item in extrato.ItensExtrato)
                 {
-                    Row(table,
-                        item.VendaID,
-                        item.NumeroParcela,
-                        item.DataVencimento.ToString("dd/MM/yyyy"),
-                        item.ValorParcela.ToString("C2"),
-                        item.ValorRecebido.ToString("C2"),
-                        item.Saldo.ToString("C2"));
+                    var statusSeguro = NormalizarStatus(item.Status);
+
+                    table.Cell().Padding(5).Text(item.VendaID.ToString());
+                    table.Cell().Padding(5).Text(item.NumeroParcela.ToString());
+                    table.Cell().Padding(5).Text(item.DataVencimento.ToString("dd/MM/yyyy"));
+
+                    table.Cell()
+                        .Padding(5)
+                        .Text(statusSeguro)
+                        .Style(CorPorStatus(statusSeguro));   // 🔥 AQUI
+
+                    table.Cell().Padding(5).Text(item.Saldo.ToString("C2"));
+
                 }
             });
         }
@@ -348,7 +356,8 @@ namespace GVC.UTIL
             ColumnDescriptor col,
             List<PagamentoExtratoModel> pagamentos)
         {
-            decimal total = pagamentos.Sum(p => p.ValorPago);
+            decimal total = CalcularTotalPagoSeguro(pagamentos);
+
 
             col.Item().PaddingTop(15)
                 .AlignRight()
@@ -372,6 +381,83 @@ namespace GVC.UTIL
                 .Text("Documento gerado automaticamente pelo sistema GVC")
                 .FontSize(8);
         }
+
+
+
+
+        private static void ValidarExtratoParcela(ExtratoCliente extrato)
+        {
+            if (extrato == null)
+                throw new ArgumentNullException(nameof(extrato));
+
+            if (string.IsNullOrWhiteSpace(extrato.NomeCliente))
+                throw new Exception("Extrato sem nome do cliente.");
+
+            if (extrato.ItensExtrato == null || extrato.ItensExtrato.Count == 0)
+                throw new Exception("Extrato sem parcelas.");
+
+            foreach (var item in extrato.ItensExtrato)
+            {
+                if (item.ValorParcela < 0)
+                    throw new Exception("Valor da parcela inválido.");
+
+                if (item.ValorRecebido < 0)
+                    throw new Exception("Valor recebido inválido.");
+
+                if (item.Saldo < 0 && item.Status != "Pago")
+                    throw new Exception("Saldo negativo em parcela não paga.");
+
+                if (string.IsNullOrWhiteSpace(item.Status))
+                    throw new Exception("Status da parcela não informado.");
+            }
+        }
+
+
+        private static string NormalizarStatus(string statusDb)
+        {
+            return statusDb?.Trim().ToUpperInvariant() switch
+            {
+                "PAGA" => "Pago",
+                "PAGO" => "Pago",
+                "PARCIALMENTEPAGA" => "Parcialmente Pago",
+                "PARCIALMENTE PAGA" => "Parcialmente Pago",
+                "ATRASADA" => "Atrasada",
+                "CANCELADA" => "Cancelada",
+                _ => "Indefinido"
+            };
+        }
+
+
+        private static decimal CalcularTotalPagoSeguro(
+            IEnumerable<PagamentoExtratoModel> pagamentos)
+        {
+            if (pagamentos == null)
+                return 0m;
+
+            return pagamentos.Sum(p =>
+                p.ValorPago < 0 ? 0 : p.ValorPago);
+        }
+
+        private static decimal CalcularSaldoSeguro(
+            decimal valorParcela,
+            decimal recebido)
+        {
+            var saldo = valorParcela - recebido;
+            return saldo < 0 ? 0 : saldo;
+        }
+
+        private static TextStyle CorPorStatus(string status)
+        {
+            return status switch
+            {
+                "Pago" => TextStyle.Default.FontColor(Colors.Green.Medium),
+                "Parcialmente Pago" => TextStyle.Default.FontColor(Colors.Blue.Medium),
+                "Atrasada" => TextStyle.Default.FontColor(Colors.Red.Medium),
+                "Cancelada" => TextStyle.Default.FontColor(Colors.Grey.Medium),
+                _ => TextStyle.Default.FontColor(Colors.Black)
+            };
+        }
+
 
         // =========================
         // HELPERS TABELA
