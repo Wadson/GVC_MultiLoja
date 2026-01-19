@@ -27,10 +27,10 @@ namespace GVC.MUI
 
             this.KeyPreview = true; // habilita o preview das teclas
 
-            // Preenche opções
-            cmbAmbiente.Items.Add("Homologacao");
-            cmbAmbiente.Items.Add("Teste");
-            cmbAmbiente.SelectedIndex = 0; // padrão
+            //// Preenche opções
+            //cmbAmbiente.Items.Add("Homologacao");
+            //cmbAmbiente.Items.Add("Teste");
+            //cmbAmbiente.SelectedIndex = 0; // padrão
         }
         private void ResetarCampos()
         {
@@ -183,7 +183,7 @@ namespace GVC.MUI
             string password = txtSenha.Text;
 
             // pega o ambiente escolhido
-            Sessao.AmbienteSelecionado = cmbAmbiente.SelectedItem?.ToString();
+            Sessao.AmbienteSelecionado = "Homologacao";//cmbAmbiente.SelectedItem?.ToString();
 
             using (SqlConnection conn = Conexao.Conex())
             {
@@ -273,15 +273,15 @@ namespace GVC.MUI
         {
             txtUsuario.Focus();
 
-            // Lê todos os nomes de connectionStrings do App.config
-            foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
-            {
-                cmbAmbiente.Items.Add(cs.Name);
-            }
+            //// Lê todos os nomes de connectionStrings do App.config
+            //foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
+            //{
+            //    cmbAmbiente.Items.Add(cs.Name);
+            //}
 
-            // Define o primeiro como padrão
-            if (cmbAmbiente.Items.Count > 0)
-                cmbAmbiente.SelectedIndex = 0;
+            //// Define o primeiro como padrão
+            //if (cmbAmbiente.Items.Count > 0)
+            //    cmbAmbiente.SelectedIndex = 0;
         }
 
         private void FrmLogin_Shown(object sender, EventArgs e)

@@ -1,0 +1,29 @@
+LICENÇA DE USO DO SISTEMA GVC
+Sistema de Gestão de Vendas
+
+Copyright (c) 2026 Wadson WR Soft
+
+1. CONCESSÃO DE LICENÇA
+Este software é licenciado, não vendido. O autor concede ao usuário o direito não exclusivo de instalar e utilizar o Sistema GVC exclusivamente para fins de gestão de vendas em sua empresa ou organização.
+
+2. RESTRIÇÕES
+- É proibida a redistribuição, venda ou sublicenciamento do software sem autorização expressa do autor.
+- É proibida a modificação, engenharia reversa ou descompilação do código-fonte.
+- O uso é restrito ao ambiente interno da empresa que adquiriu ou recebeu autorização.
+
+3. PROPRIEDADE INTELECTUAL
+O Sistema GVC e toda a sua documentação são protegidos por leis de direitos autorais e tratados internacionais. Todos os direitos não concedidos explicitamente permanecem com o autor.
+
+4. ISENÇÃO DE GARANTIA
+O software é fornecido "no estado em que se encontra", sem garantias de qualquer tipo, expressas ou implícitas. O autor não se responsabiliza por perdas ou danos resultantes do uso do sistema.
+
+5. SUPORTE E ATUALIZAÇÕES
+O acesso a suporte técnico e atualizações poderá ser fornecido conforme acordos específicos entre o autor e o usuário.
+
+6. ACEITAÇÃO
+Ao instalar ou utilizar o Sistema GVC, o usuário declara estar ciente e de acordo com os termos desta licença.
+
+---
+
+Autor: Wadson  
+Data: Janeiro/2026

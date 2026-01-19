@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\GVC\\GVC.csproj": {}
+    "D:\\GVC\\GVC.csproj": {}
   },
   "projects": {
-    "C:\\GVC\\GVC.csproj": {
+    "D:\\GVC\\GVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\GVC\\GVC.csproj",
+        "projectUniqueName": "D:\\GVC\\GVC.csproj",
         "projectName": "GVC",
-        "projectPath": "C:\\GVC\\GVC.csproj",
+        "projectPath": "D:\\GVC\\GVC.csproj",
         "packagesPath": "C:\\Users\\iConnect\\.nuget\\packages\\",
-        "outputPath": "C:\\GVC\\obj\\",
+        "outputPath": "D:\\GVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

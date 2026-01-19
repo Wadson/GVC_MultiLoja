@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Timers;
@@ -225,17 +226,41 @@ namespace GVC
 
             return _empresaId;
         }
+        private async void BuscarAtualizacaoSistema()
+        {
+            var update = await UpdateChecker.VerificarAsync();
 
+            if (update != null)
+            {
+                MessageBox.Show(
+                    $"Nova versão disponível: {update.versao}\n\n{update.descricao}\n\n" +
+                    "Acesse o menu Sobre para baixar.",
+                    "Atualização disponível",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
+        }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
+            BuscarAtualizacaoSistema();
+
             BuscarPrimeiraEmpresaId();
             IniciarBackupAutomatico();
             AtualizaBarraStatus();
             InicializarRelogio(); // ✅ inicia UMA vez
         }
         private void AtualizaBarraStatus()
-        {
+        {          
+
+            var version = Assembly.GetExecutingAssembly()
+                                  .GetName()
+                                  .Version?.ToString();
+
+            lblVersaoSistema.Text = version; // Exibe AssemblyVersion
+
+
             lblAmbienteStatus.Text = $"Ambiente: {Sessao.AmbienteSelecionado}";
             // Obtém o caminho do diretório de execução
             string currentPath = Path.GetDirectoryName(Application.ExecutablePath);

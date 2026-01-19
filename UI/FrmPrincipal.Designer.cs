@@ -43,6 +43,7 @@
             formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
             empresasToolStripMenuItem = new ToolStripMenuItem();
             usuáriosToolStripMenuItem = new ToolStripMenuItem();
+            testeToolStripMenuItem = new ToolStripMenuItem();
             estoqueToolStripMenuItem1 = new ToolStripMenuItem();
             entradaDeEstoqueNFeOuManualToolStripMenuItem = new ToolStripMenuItem();
             correçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
@@ -97,7 +98,8 @@
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
             iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
-            testeToolStripMenuItem = new ToolStripMenuItem();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            lblVersaoSistema = new ToolStripStatusLabel();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -226,6 +228,13 @@
             usuáriosToolStripMenuItem.Size = new Size(188, 22);
             usuáriosToolStripMenuItem.Text = "Usuários";
             usuáriosToolStripMenuItem.Click += usuáriosToolStripMenuItem_Click;
+            // 
+            // testeToolStripMenuItem
+            // 
+            testeToolStripMenuItem.Name = "testeToolStripMenuItem";
+            testeToolStripMenuItem.Size = new Size(188, 22);
+            testeToolStripMenuItem.Text = "Teste";
+            testeToolStripMenuItem.Click += testeToolStripMenuItem_Click;
             // 
             // estoqueToolStripMenuItem1
             // 
@@ -591,7 +600,7 @@
             // 
             kryptonStatusStrip1.BackColor = Color.FromArgb(6, 174, 244);
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblAmbienteStatus });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblAmbienteStatus, toolStripStatusLabel1, lblVersaoSistema });
             kryptonStatusStrip1.Location = new Point(0, 408);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
@@ -704,12 +713,17 @@
             iconToolStripButton1.Size = new Size(23, 23);
             iconToolStripButton1.Text = "iconToolStripButton1";
             // 
-            // testeToolStripMenuItem
+            // toolStripStatusLabel1
             // 
-            testeToolStripMenuItem.Name = "testeToolStripMenuItem";
-            testeToolStripMenuItem.Size = new Size(188, 22);
-            testeToolStripMenuItem.Text = "Teste";
-            testeToolStripMenuItem.Click += testeToolStripMenuItem_Click;
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(10, 17);
+            toolStripStatusLabel1.Text = "|";
+            // 
+            // lblVersaoSistema
+            // 
+            lblVersaoSistema.Name = "lblVersaoSistema";
+            lblVersaoSistema.Size = new Size(41, 17);
+            lblVersaoSistema.Text = "Versão";
             // 
             // FrmPrincipal
             // 
@@ -819,5 +833,7 @@
         private FontAwesome.Sharp.IconToolStripButton btnSair;
         private FontAwesome.Sharp.IconToolStripButton btnProdutos;
         private ToolStripMenuItem testeToolStripMenuItem;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel lblVersaoSistema;
     }
 }
