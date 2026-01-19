@@ -1,4 +1,5 @@
 ﻿using GVC.Infra;
+using GVC.Infra.Update;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -10,43 +11,44 @@ public static class UpdateDownloader
 {
     public static async Task BaixarEAtualizarAsync(UpdateInfo info)
     {
-        try
-        {
-            var pastaTemp = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "GVC_Update");
+        if (info == null || string.IsNullOrWhiteSpace(info.url))
+            throw new Exception("URL de atualização inválida.");
 
-            Directory.CreateDirectory(pastaTemp);
+        var pastaTemp = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "GVC_Update");
 
-            var caminhoInstalador = Path.Combine(pastaTemp, "GVC_Setup.exe");
+        Directory.CreateDirectory(pastaTemp);
 
-            using var http = new HttpClient();
-            using var response = await http.GetAsync(info.url);
-            response.EnsureSuccessStatusCode();
+        var caminhoInstalador = Path.Combine(pastaTemp, "GVC_Setup.exe");
 
-            await using (var fs = new FileStream(caminhoInstalador, FileMode.Create, FileAccess.Write))
-            {
-                await response.Content.CopyToAsync(fs);
-            }
+        using var http = new HttpClient();
+        using var response = await http.GetAsync(
+            info.url,
+            HttpCompletionOption.ResponseHeadersRead);
 
-            // Abre o instalador
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = caminhoInstalador,
-                UseShellExecute = true
-            });
+        response.EnsureSuccessStatusCode();
 
-            // Fecha o sistema atual
-            Application.Exit();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(
-                "Erro ao baixar atualização:\n\n" + ex.Message,
-                "Erro",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
+        // 🔒 VALIDAÇÃO CRÍTICA
+        var contentType = response.Content.Headers.ContentType?.MediaType;
+        if (contentType != "application/octet-stream")
+            throw new Exception(
+                "Link inválido para atualização.\n" +
+                "O servidor não retornou um instalador válido."
             );
+
+        await using (var fs = new FileStream(caminhoInstalador, FileMode.Create, FileAccess.Write))
+        {
+            await response.Content.CopyToAsync(fs);
         }
+
+        Application.Exit();
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = caminhoInstalador,
+            UseShellExecute = true
+        });
     }
+
 }

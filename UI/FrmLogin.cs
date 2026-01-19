@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -272,6 +273,11 @@ namespace GVC.MUI
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             txtUsuario.Focus();
+            var version = Assembly.GetExecutingAssembly()
+                                 .GetName()
+                                 .Version?.ToString();
+
+            lblVersao.Text = "Versão: " + version;// Exibe AssemblyVersion
 
             //// Lê todos os nomes de connectionStrings do App.config
             //foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)

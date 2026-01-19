@@ -228,25 +228,7 @@ namespace GVC
         }
         private async void BuscarAtualizacaoSistema()
         {
-            var update = await UpdateChecker.VerificarAsync();
-
-            if (update == null)
-                return;
-
-            var resp = MessageBox.Show(
-                $"Nova versão disponível!\n\n" +
-                $"Versão: {update.versao}\n\n" +
-                $"{update.descricao}\n\n" +
-                "Deseja atualizar agora?",
-                "Atualização disponível",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            if (resp == DialogResult.Yes)
-            {
-                await UpdateDownloader.BaixarEAtualizarAsync(update);
-            }
+            await GVC.Infra.Update.UpdateService.VerificarAtualizacaoAsync(false);
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -259,12 +241,12 @@ namespace GVC
             InicializarRelogio(); // ✅ inicia UMA vez
         }
         private void AtualizaBarraStatus()
-        {          
+        {
 
             var version = Assembly.GetExecutingAssembly()
                                   .GetName()
                                   .Version?.ToString();
-                        
+
             lblVersaoSistema.Text = "Versão: " + version;// Exibe AssemblyVersion
 
 
@@ -432,6 +414,11 @@ namespace GVC
         {
             FrmModelo frm = new FrmModelo();
             frm.Show();
+        }
+
+        private async void verificarAtualizaçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await GVC.Infra.Update.UpdateService.VerificarAtualizacaoAsync(true);
         }
     }
 }

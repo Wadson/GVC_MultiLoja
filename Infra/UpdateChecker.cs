@@ -1,4 +1,5 @@
 ﻿using GVC.Infra;
+using GVC.Infra.Update;
 using System;
 using System.Net.Http;
 using System.Text.Json;

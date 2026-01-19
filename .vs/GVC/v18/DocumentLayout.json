@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "D:\\GVC\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\gvc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:gvc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\updateinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\updateinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\updatedownloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\updatedownloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|D:\\GVC\\ui\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\gvc.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:gvc.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\updatechecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\updatechecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -123,31 +135,71 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "GVC",
+              "DocumentMoniker": "D:\\GVC\\GVC.csproj",
+              "RelativeDocumentMoniker": "GVC.csproj",
+              "ToolTip": "D:\\GVC\\GVC.csproj",
+              "RelativeToolTip": "GVC.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-19T10:29:12.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UpdateDownloader.cs",
+              "DocumentMoniker": "D:\\GVC\\Infra\\UpdateDownloader.cs",
+              "RelativeDocumentMoniker": "Infra\\UpdateDownloader.cs",
+              "ToolTip": "D:\\GVC\\Infra\\UpdateDownloader.cs",
+              "RelativeToolTip": "Infra\\UpdateDownloader.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T01:28:03.741Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UpdateChecker.cs",
+              "DocumentMoniker": "D:\\GVC\\Infra\\UpdateChecker.cs",
+              "RelativeDocumentMoniker": "Infra\\UpdateChecker.cs",
+              "ToolTip": "D:\\GVC\\Infra\\UpdateChecker.cs",
+              "RelativeToolTip": "Infra\\UpdateChecker.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAcwAkAAABlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T01:27:43.325Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UpdateInfo.cs",
+              "DocumentMoniker": "D:\\GVC\\Infra\\UpdateInfo.cs",
+              "RelativeDocumentMoniker": "Infra\\UpdateInfo.cs",
+              "ToolTip": "D:\\GVC\\Infra\\UpdateInfo.cs",
+              "RelativeToolTip": "Infra\\UpdateInfo.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAmwFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T01:24:39.882Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "FrmPrincipal.cs",
               "DocumentMoniker": "D:\\GVC\\UI\\FrmPrincipal.cs",
               "RelativeDocumentMoniker": "UI\\FrmPrincipal.cs",
               "ToolTip": "D:\\GVC\\UI\\FrmPrincipal.cs",
               "RelativeToolTip": "UI\\FrmPrincipal.cs",
-              "ViewState": "AgIAAAQBAAAAAAAAAAAMwAoBAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAJcBAAAAAAAAAAAqwKYBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-19T01:13:33.571Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GVC",
-              "DocumentMoniker": "D:\\GVC\\GVC.csproj",
-              "RelativeDocumentMoniker": "GVC.csproj",
-              "ToolTip": "D:\\GVC\\GVC.csproj",
-              "RelativeToolTip": "GVC.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-01-19T01:05:54.599Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "FrmPrincipal.cs [Projeto]",
               "DocumentMoniker": "D:\\GVC\\UI\\FrmPrincipal.cs",
               "RelativeDocumentMoniker": "UI\\FrmPrincipal.cs",

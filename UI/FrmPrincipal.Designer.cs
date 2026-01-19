@@ -100,6 +100,7 @@
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
             iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
+            verificarAtualizaçãoToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -383,7 +384,7 @@
             // 
             // ajudaToolStripMenuItem
             // 
-            ajudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sobreToolStripMenuItem });
+            ajudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sobreToolStripMenuItem, verificarAtualizaçãoToolStripMenuItem });
             ajudaToolStripMenuItem.Name = "ajudaToolStripMenuItem";
             ajudaToolStripMenuItem.Size = new Size(50, 20);
             ajudaToolStripMenuItem.Text = "Ajuda";
@@ -391,7 +392,7 @@
             // sobreToolStripMenuItem
             // 
             sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            sobreToolStripMenuItem.Size = new Size(104, 22);
+            sobreToolStripMenuItem.Size = new Size(180, 22);
             sobreToolStripMenuItem.Text = "Sobre";
             // 
             // toolStrip1
@@ -726,6 +727,13 @@
             iconToolStripButton1.Size = new Size(23, 23);
             iconToolStripButton1.Text = "iconToolStripButton1";
             // 
+            // verificarAtualizaçãoToolStripMenuItem
+            // 
+            verificarAtualizaçãoToolStripMenuItem.Name = "verificarAtualizaçãoToolStripMenuItem";
+            verificarAtualizaçãoToolStripMenuItem.Size = new Size(180, 22);
+            verificarAtualizaçãoToolStripMenuItem.Text = "Verificar Atualização";
+            verificarAtualizaçãoToolStripMenuItem.Click += verificarAtualizaçãoToolStripMenuItem_Click;
+            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -835,5 +843,6 @@
         private ToolStripMenuItem testeToolStripMenuItem;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel lblVersaoSistema;
+        private ToolStripMenuItem verificarAtualizaçãoToolStripMenuItem;
     }
 }

@@ -43,6 +43,7 @@
             iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBoxPassword = new FontAwesome.Sharp.IconPictureBox();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
+            lblVersao = new Krypton.Toolkit.KryptonLabel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxPassword).BeginInit();
@@ -339,10 +340,19 @@
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
+            // lblVersao
+            // 
+            lblVersao.Location = new Point(33, 235);
+            lblVersao.Name = "lblVersao";
+            lblVersao.Size = new Size(48, 20);
+            lblVersao.TabIndex = 1127;
+            lblVersao.Values.Text = "Versao";
+            // 
             // FrmLogin
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(284, 334);
+            Controls.Add(lblVersao);
             Controls.Add(iconPictureBoxPassword);
             Controls.Add(iconPictureBoxUser);
             Controls.Add(pictureBox1);
@@ -401,5 +411,6 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxUser;
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxPassword;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
+        private Krypton.Toolkit.KryptonLabel lblVersao;
     }
 }
