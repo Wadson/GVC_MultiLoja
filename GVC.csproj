@@ -10,7 +10,12 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>Resources\Icons\icon.ico</ApplicationIcon>
 		<StartupObject>GVC.Program</StartupObject>
-		<Version>1.0.0.0</Version>
+		<!-- Versões -->
+		
+		<AssemblyVersion>1.2.1.0</AssemblyVersion>
+		<FileVersion>1.2.1.0</FileVersion>
+		<Version>1.2.1</Version>
+		
 	</PropertyGroup>
 
 	<ItemGroup>

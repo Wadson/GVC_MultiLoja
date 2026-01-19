@@ -230,15 +230,22 @@ namespace GVC
         {
             var update = await UpdateChecker.VerificarAsync();
 
-            if (update != null)
+            if (update == null)
+                return;
+
+            var resp = MessageBox.Show(
+                $"Nova versão disponível!\n\n" +
+                $"Versão: {update.versao}\n\n" +
+                $"{update.descricao}\n\n" +
+                "Deseja atualizar agora?",
+                "Atualização disponível",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (resp == DialogResult.Yes)
             {
-                MessageBox.Show(
-                    $"Nova versão disponível: {update.versao}\n\n{update.descricao}\n\n" +
-                    "Acesse o menu Sobre para baixar.",
-                    "Atualização disponível",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                await UpdateDownloader.BaixarEAtualizarAsync(update);
             }
         }
 
@@ -257,8 +264,8 @@ namespace GVC
             var version = Assembly.GetExecutingAssembly()
                                   .GetName()
                                   .Version?.ToString();
-
-            lblVersaoSistema.Text = version; // Exibe AssemblyVersion
+                        
+            lblVersaoSistema.Text = "Versão: " + version;// Exibe AssemblyVersion
 
 
             lblAmbienteStatus.Text = $"Ambiente: {Sessao.AmbienteSelecionado}";

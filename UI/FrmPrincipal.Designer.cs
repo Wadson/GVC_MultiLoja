@@ -92,14 +92,14 @@
             lblTipoUsuarioo = new ToolStripStatusLabel();
             toolStripStatusLabel8 = new ToolStripStatusLabel();
             lblAmbienteStatus = new ToolStripStatusLabel();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            lblVersaoSistema = new ToolStripStatusLabel();
             picBackground = new PictureBox();
             panelBackground = new Panel();
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
             iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
-            toolStripStatusLabel1 = new ToolStripStatusLabel();
-            lblVersaoSistema = new ToolStripStatusLabel();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -150,6 +150,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { arquivoToolStripMenuItem, cadastrosToolStripMenuItem, estoqueToolStripMenuItem1, vendasToolStripMenuItem, financeiroToolStripMenuItem, relatóriosToolStripMenuItem, configuraçõesToolStripMenuItem, ajudaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
+            menuStrip1.RenderMode = ToolStripRenderMode.Professional;
             menuStrip1.Size = new Size(890, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
@@ -669,6 +670,18 @@
             lblAmbienteStatus.Size = new Size(59, 17);
             lblAmbienteStatus.Text = "Ambiente";
             // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(10, 17);
+            toolStripStatusLabel1.Text = "|";
+            // 
+            // lblVersaoSistema
+            // 
+            lblVersaoSistema.Name = "lblVersaoSistema";
+            lblVersaoSistema.Size = new Size(41, 17);
+            lblVersaoSistema.Text = "Versão";
+            // 
             // picBackground
             // 
             picBackground.Dock = DockStyle.Fill;
@@ -713,18 +726,6 @@
             iconToolStripButton1.Size = new Size(23, 23);
             iconToolStripButton1.Text = "iconToolStripButton1";
             // 
-            // toolStripStatusLabel1
-            // 
-            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(10, 17);
-            toolStripStatusLabel1.Text = "|";
-            // 
-            // lblVersaoSistema
-            // 
-            lblVersaoSistema.Name = "lblVersaoSistema";
-            lblVersaoSistema.Size = new Size(41, 17);
-            lblVersaoSistema.Text = "Versão";
-            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -734,7 +735,6 @@
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
-            FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MainMenuStrip = menuStrip1;
