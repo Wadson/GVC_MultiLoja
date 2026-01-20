@@ -25,23 +25,21 @@ namespace GVC
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            using var frm = new FrmDatabaseSetup();
-            frm.Show();
+          
 
             Application.DoEvents(); // força pintura inicial
 
-            frm.Load += async (_, __) =>
-            {
-                await Task.Run(() =>
-                {
-                    DatabaseBootstrapper.EnsureDatabaseCreated(
-                        frm.AtualizarProgressoThreadSafe);
-                });
+            using var frm = new FrmDatabaseSetup();
 
+            frm.Shown += (_, __) =>
+            {
+                DatabaseInstaller.Run(frm.AtualizarProgressoThreadSafe);
                 frm.Close();
             };
 
             Application.Run(frm);
+
+
 
             using var login = new FrmLogin();
             if (login.ShowDialog() == DialogResult.OK)

@@ -1,5 +1,5 @@
 ﻿Infra/
- └─ Database/
+ └─ Database/Scripts
      ├─ 01_CreateDatabase.sql
      ├─ 02_Tables.sql
      ├─ 03_Functions.sql
