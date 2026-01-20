@@ -1,40 +1,39 @@
-﻿using System.Reflection;
-using System.Data.SqlClient;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using System.Reflection;
 
 namespace GVC.Infra.Database
 {
-    public static class ScriptSqlEmbeddedExecutor
+    internal static class ScriptSqlEmbeddedExecutor
     {
-        private const string SCRIPT_RESOURCE ="GVC.Infra.Database.ScriptCriacaoBanco.sql";
-
-        public static void EnsureDatabase(string connectionString)
+        public static void EnsureDatabase(string masterConnectionString)
         {
-            var script = LerScriptEmbedded();
+            foreach (var script in ScriptManifest.Scripts)
+            {
+                ExecutarScript(script, masterConnectionString);
+            }
+        }
 
-            using var conn = new SqlConnection(connectionString);
+        private static void ExecutarScript(string scriptName, string masterCs)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName =
+                $"GVC.Infra.Database.Scripts.{scriptName}";
+
+            using var stream = assembly.GetManifestResourceStream(resourceName)
+                ?? throw new InvalidOperationException($"Script não encontrado: {scriptName}");
+
+            using var reader = new StreamReader(stream);
+            var scriptSql = reader.ReadToEnd();
+
+            using var conn = new SqlConnection(masterCs);
             conn.Open();
 
-            using var cmd = new SqlCommand(script, conn)
+            using var cmd = new SqlCommand(scriptSql, conn)
             {
                 CommandTimeout = 0
             };
 
             cmd.ExecuteNonQuery();
         }
-
-        private static string LerScriptEmbedded()
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-
-            using var stream = assembly.GetManifestResourceStream(SCRIPT_RESOURCE);
-
-            if (stream == null)
-                throw new Exception("Script SQL não encontrado: " + SCRIPT_RESOURCE);
-
-            using var reader = new StreamReader(stream);
-            return reader.ReadToEnd();
-        }
     }
-
 }

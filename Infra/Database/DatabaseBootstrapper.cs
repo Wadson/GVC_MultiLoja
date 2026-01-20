@@ -1,32 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data.SqlClient;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 
 namespace GVC.Infra.Database
 {
     public static class DatabaseBootstrapper
     {
+        private const string DatabaseName = "bdsiscontrol";
+
         public static void EnsureDatabaseCreated()
         {
-            var csMaster = DatabaseConnectionResolver
-                           .ResolverMasterConnectionString();
+            var csMaster =
+                DatabaseConnectionResolver.ResolverMasterConnectionString();
 
             if (BancoExiste(csMaster))
                 return;
 
             ScriptSqlEmbeddedExecutor.EnsureDatabase(csMaster);
-        }
-
-
-        private static string AjustarParaMaster(string cs)
-        {
-            var builder = new SqlConnectionStringBuilder(cs)
-            {
-                InitialCatalog = "master"
-            };
-            return builder.ToString();
         }
 
         private static bool BancoExiste(string cs)
@@ -35,11 +23,12 @@ namespace GVC.Infra.Database
             conn.Open();
 
             using var cmd = new SqlCommand(
-                "SELECT 1 FROM sys.databases WHERE name = 'bdsiscontrol'",
+                "SELECT 1 FROM sys.databases WHERE name = @db",
                 conn);
+
+            cmd.Parameters.AddWithValue("@db", DatabaseName);
 
             return cmd.ExecuteScalar() != null;
         }
     }
 }
-

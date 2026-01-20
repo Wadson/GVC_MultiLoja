@@ -3,35 +3,14 @@
      ├─ 01_CreateDatabase.sql
      ├─ 02_Tables.sql
      ├─ 03_Functions.sql
-     ├─ 04_Views.sql
-     ├─ 05_Procedures.sql
-     └─ 06_Seed.sql
-
-
-     Infra/
- └─ Database/
-     ├─ 01_CreateDatabase.sql
-     ├─ 02_Tables.sql
-     ├─ 03_Functions.sql
-     ├─ 04_Views.sql
-     ├─ 05_Procedures.sql
-     └─ 06_Seed.sql
-
-
-ExecutarScript("01_CreateDatabase.sql");
-ExecutarScript("02_Tables.sql");
-ExecutarScript("03_Functions.sql");
-ExecutarScript("04_Views.sql");
-ExecutarScript("05_Procedures.sql");
-ExecutarScript("06_Seed.sql");
+     ├─ 04_Defaults.sql
+     ├─ 05_ForeignKeys.sql
+     ├─ 06_Checks.sql
+     ├─ 07_Views.sql         
+     ├─ 08_Procedures.sql     
+     ├─ 09_Seed.sql
+     ├─ 10_CargaEstado.sql
+     ├─ 11_CargaCidade.sql
 
 
 
-GVC
-  Infra
-      Database
-      > DatabaseBootstrapper.cs 
-      > DatabaseConnectionResolver.cs
-      > ScriptCriacaoBanco.sql
-      > ScriptSqlEmbeddedExecutor.cs
-      > SqlInsertBatchProcessor.cs
