@@ -46,6 +46,7 @@ namespace GVC
                 return;
             }
 
+
             // Exibe o formulário de login como diálogo
             using (FrmLogin frmLogin = new FrmLogin())
             {

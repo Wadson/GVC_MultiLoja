@@ -31,7 +31,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Infra\Database\01_CreateDatabase.sql" />
+	  <None Remove="Infra\Database\02_Tables.sql" />
+	  <None Remove="Infra\Database\03_Functions.sql" />
+	  <None Remove="Infra\Database\04_Defaults.sql" />
+	  <None Remove="Infra\Database\05_ForeignKeys.sql" />
+	  <None Remove="Infra\Database\06_Checks.sql" />
+	  <None Remove="Infra\Database\07_Views.sql" />
+	  <None Remove="Infra\Database\08_Procedures.sql" />
+	  <None Remove="Infra\Database\09_Seed.sql" />
+	  <None Remove="Infra\Database\10_Carga_Estado.sql" />
+	  <None Remove="Infra\Database\11_Carga_Cidade.sql" />
 	  <None Remove="Infra\Database\ScriptCriacaoBanco.sql" />
+	  <None Remove="Infra\Database\Scripts\00_ScriptLog.sql" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -39,6 +51,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Infra\Database\Scripts\00_ScriptLog.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\01_CreateDatabase.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\02_Tables.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\03_Functions.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\04_Defaults.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\05_ForeignKeys.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\06_Checks.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\07_Views.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\08_Procedures.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\09_Seed.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\10_Carga_Estado.sql" />
+	  <EmbeddedResource Include="Infra\Database\Scripts\11_Carga_Cidade.sql" />
 	  <EmbeddedResource Include="Infra\Database\ScriptCriacaoBanco.sql">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
