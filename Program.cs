@@ -25,46 +25,29 @@ namespace GVC
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            using var frm = new FrmDatabaseSetup();
+            frm.Show();
 
+            Application.DoEvents(); // força pintura inicial
 
-            // escolha um dos blocos abaixo, ou acima
-
-
-            ApplicationConfiguration.Initialize();
-
-            try
+            frm.Load += async (_, __) =>
             {
-                DatabaseBootstrapper.EnsureDatabaseCreated();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Erro ao preparar banco de dados:\n\n" + ex.Message,
-                    "Erro crítico",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return;
-            }
-
-
-            // Exibe o formulário de login como diálogo
-            using (FrmLogin frmLogin = new FrmLogin())
-            {
-                if (frmLogin.ShowDialog() == DialogResult.OK) // Se o login for bem-sucedido
+                await Task.Run(() =>
                 {
-                    Application.Run(new FrmPrincipal()); // Abre a tela principal
-                }
-                else
-                {
-                    Application.Exit(); // Fecha o aplicativo se o login for cancelado
-                }
-            }
+                    DatabaseBootstrapper.EnsureDatabaseCreated(
+                        frm.AtualizarProgressoThreadSafe);
+                });
 
+                frm.Close();
+            };
 
+            Application.Run(frm);
 
-
-            //Application.Run(new FrmPrincipal());
+            using var login = new FrmLogin();
+            if (login.ShowDialog() == DialogResult.OK)
+                Application.Run(new FrmPrincipal());
         }
+
 
 
     }

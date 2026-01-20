@@ -15,12 +15,11 @@ namespace GVC.Infra.Database
 
         public static string ResolverMasterConnectionString()
         {
-            var builder = new SqlConnectionStringBuilder(
-                ResolverConnectionString());
-
-            builder.InitialCatalog = "master";
-
-            return builder.ToString();
+            return
+                "Server=localhost\\SQLEXPRESS;" +
+                "Database=master;" +
+                "Integrated Security=True;" +
+                "TrustServerCertificate=True;";
         }
     }
 }

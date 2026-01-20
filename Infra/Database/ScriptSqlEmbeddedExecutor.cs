@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,44 +13,67 @@ namespace GVC.Infra.Database
         private const string LOG_TABLE = "__DatabaseScriptLog";
 
         // ===== PONTO DE ENTRADA =====
-        public static void ExecuteScriptsComLog()
+        public static void ExecuteScriptsComLog(
+     Action<int, int, string> onProgress)
         {
             GarantirTabelaLog();
 
             var scripts = ListarScriptsOrdenados();
+            int total = scripts.Count;
+            int atual = 0;
 
             foreach (var script in scripts)
             {
+                atual++;
+
+                onProgress?.Invoke(atual, total, script);
+
                 if (ScriptJaExecutado(script))
                     continue;
 
-                ExecutarScript(script);
+                ExecutarScript(script);     // 👈 EXECUÇÃO REAL
                 RegistrarExecucao(script);
             }
         }
 
+
+
+
         // ===== EXECUÇÃO =====
         private static void ExecutarScript(string scriptName)
         {
-            var connectionString =
+            var cs =
                 scriptName.StartsWith("01_")
                     ? DatabaseConnectionResolver.ResolverMasterConnectionString()
                     : DatabaseConnectionResolver.ResolverConnectionString();
 
-            using var conn = new SqlConnection(connectionString);
+            using var conn = new SqlConnection(cs);
             conn.Open();
 
-            var sql = LerScriptEmbedded(scriptName);
+            using var tx = conn.BeginTransaction();
 
-            foreach (var comando in QuebrarComandos(sql))
+            try
             {
-                using var cmd = new SqlCommand(comando, conn)
+                var sql = LerScriptEmbedded(scriptName);
+
+                foreach (var comando in QuebrarComandos(sql))
                 {
-                    CommandTimeout = 0
-                };
-                cmd.ExecuteNonQuery();
+                    using var cmd = new SqlCommand(comando, conn, tx)
+                    {
+                        CommandTimeout = 0
+                    };
+                    cmd.ExecuteNonQuery();
+                }
+
+                tx.Commit();
+            }
+            catch
+            {
+                tx.Rollback();
+                throw;
             }
         }
+
 
         // ===== LOG =====
         private static void GarantirTabelaLog()
@@ -61,25 +83,21 @@ namespace GVC.Infra.Database
 
             conn.Open();
 
-            var sql = $@"
-IF NOT EXISTS (
-    SELECT 1 FROM sys.tables WHERE name = '{LOG_TABLE}'
-)
+            var sql = @"IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = '__DatabaseScriptLog')
 BEGIN
-    CREATE TABLE {LOG_TABLE} (
+    CREATE TABLE __DatabaseScriptLog (
         ScriptName NVARCHAR(200) NOT NULL PRIMARY KEY,
-        DataExecucao DATETIME2 NOT NULL
-    );
+        DataExecucao DATETIME2 NOT NULL );
 END";
 
             using var cmd = new SqlCommand(sql, conn);
             cmd.ExecuteNonQuery();
         }
 
+
         private static bool ScriptJaExecutado(string script)
         {
-            using var conn = new SqlConnection(
-                DatabaseConnectionResolver.ResolverConnectionString());
+            using var conn = new SqlConnection(DatabaseConnectionResolver.ResolverConnectionString());
 
             conn.Open();
 

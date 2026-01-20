@@ -1,32 +1,41 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
-using System.Data.SqlClient;
 
 namespace GVC.Infra.Database
 {
     public static class DatabaseBootstrapper
     {
-        public static void EnsureDatabaseCreated()
-        {
-            var csMaster = DatabaseConnectionResolver.ResolverMasterConnectionString();
+        private const string DATABASE_NAME = "bdsiscontrol";
 
-            if (!BancoExiste(csMaster))
-            {
-                ScriptSqlEmbeddedExecutor.ExecuteScriptsComLog();
-            }
+        public static void EnsureDatabaseCreated(
+            Action<int, int, string> onProgress)
+        {
+            CriarBancoSeNaoExistir();
+
+            // A partir daqui o banco existe
+            ScriptSqlEmbeddedExecutor.ExecuteScriptsComLog(onProgress);
         }
 
-
-        private static bool BancoExiste(string csMaster)
+        private static void CriarBancoSeNaoExistir()
         {
-            using var conn = new SqlConnection(csMaster);
+            using var conn = new SqlConnection(DatabaseConnectionResolver.ResolverMasterConnectionString());
+
             conn.Open();
 
-            using var cmd = new SqlCommand(
-                "SELECT 1 FROM sys.databases WHERE name = 'bdsiscontrol'",
-                conn);
+            var sql = $@"
+IF NOT EXISTS (
+    SELECT 1 FROM sys.databases WHERE name = '{DATABASE_NAME}'
+)
+BEGIN
+    CREATE DATABASE [{DATABASE_NAME}];
+END";
 
-            return cmd.ExecuteScalar() != null;
+            using var cmd = new SqlCommand(sql, conn)
+            {
+                CommandTimeout = 0
+            };
+
+            cmd.ExecuteNonQuery();
         }
     }
 }

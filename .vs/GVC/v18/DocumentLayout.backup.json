@@ -3,60 +3,40 @@
   "WorkspaceRootPath": "D:\\GVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\02_tables.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\02_tables.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scriptsqlembeddedexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scriptsqlembeddedexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\databasebootstrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\databasebootstrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scriptsqlembeddedexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scriptsqlembeddedexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\databaseconnectionresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\databaseconnectionresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\01_createdatabase.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\01_createdatabase.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\sqlinsertbatchprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\sqlinsertbatchprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\00_scriptlog.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\00_scriptlog.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scriptmanifest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scriptmanifest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\04_defaults.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\04_defaults.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\databasescriptrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\databasescriptrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\05_foreignkeys.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\05_foreignkeys.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\frmdatabasesetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\frmdatabasesetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\06_checks.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\06_checks.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\11_carga_cidade.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\11_carga_cidade.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\10_carga_estado.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\10_carga_estado.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\09_seed.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\09_seed.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\08_procedures.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\08_procedures.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\07_views.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\07_views.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\scripts\\03_functions.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\03_functions.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\infra\\database\\frmdatabasesetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\frmdatabasesetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 24,
+          "SelectedChildIndex": 25,
           "Children": [
             {
               "$type": "Bookmark",
@@ -166,54 +146,28 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ScriptManifest.cs",
+              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\ScriptManifest.cs",
+              "RelativeDocumentMoniker": "Infra\\Database\\ScriptManifest.cs",
+              "ToolTip": "D:\\GVC\\Infra\\Database\\ScriptManifest.cs",
+              "RelativeToolTip": "Infra\\Database\\ScriptManifest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T18:05:48.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "02_Tables.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\02_Tables.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\02_Tables.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\02_Tables.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\02_Tables.sql",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:38.23Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "01_CreateDatabase.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\01_CreateDatabase.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\01_CreateDatabase.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\01_CreateDatabase.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\01_CreateDatabase.sql",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:32:20.393Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "ScriptSqlEmbeddedExecutor.cs",
               "DocumentMoniker": "D:\\GVC\\Infra\\Database\\ScriptSqlEmbeddedExecutor.cs",
               "RelativeDocumentMoniker": "Infra\\Database\\ScriptSqlEmbeddedExecutor.cs",
               "ToolTip": "D:\\GVC\\Infra\\Database\\ScriptSqlEmbeddedExecutor.cs",
               "RelativeToolTip": "Infra\\Database\\ScriptSqlEmbeddedExecutor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGAAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAiwDQAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T09:40:43.614Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "00_ScriptLog.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\00_ScriptLog.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\00_ScriptLog.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\00_ScriptLog.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\00_ScriptLog.sql",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:42:35.01Z",
+              "WhenOpened": "2026-01-20T17:45:24.66Z",
               "EditorCaption": ""
             },
             {
@@ -224,126 +178,86 @@
               "RelativeDocumentMoniker": "Infra\\Database\\DatabaseBootstrapper.cs",
               "ToolTip": "D:\\GVC\\Infra\\Database\\DatabaseBootstrapper.cs",
               "RelativeToolTip": "Infra\\Database\\DatabaseBootstrapper.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAiwBEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T09:33:09.644Z",
+              "WhenOpened": "2026-01-20T17:49:25.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DatabaseConnectionResolver.cs",
+              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\DatabaseConnectionResolver.cs",
+              "RelativeDocumentMoniker": "Infra\\Database\\DatabaseConnectionResolver.cs",
+              "ToolTip": "D:\\GVC\\Infra\\Database\\DatabaseConnectionResolver.cs",
+              "RelativeToolTip": "Infra\\Database\\DatabaseConnectionResolver.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T17:40:33.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SqlInsertBatchProcessor.cs",
+              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\SqlInsertBatchProcessor.cs",
+              "RelativeDocumentMoniker": "Infra\\Database\\SqlInsertBatchProcessor.cs",
+              "ToolTip": "D:\\GVC\\Infra\\Database\\SqlInsertBatchProcessor.cs",
+              "RelativeToolTip": "Infra\\Database\\SqlInsertBatchProcessor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T18:05:49.307Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "04_Defaults.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\04_Defaults.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\04_Defaults.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\04_Defaults.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\04_Defaults.sql",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAQwGcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:38.457Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "06_Checks.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\06_Checks.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\06_Checks.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\06_Checks.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\06_Checks.sql",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:38.674Z",
+              "Title": "DatabaseScriptRunner.cs",
+              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\DatabaseScriptRunner.cs",
+              "RelativeDocumentMoniker": "Infra\\Database\\DatabaseScriptRunner.cs",
+              "ToolTip": "D:\\GVC\\Infra\\Database\\DatabaseScriptRunner.cs",
+              "RelativeToolTip": "Infra\\Database\\DatabaseScriptRunner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T18:05:46.918Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "05_ForeignKeys.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\05_ForeignKeys.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\05_ForeignKeys.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\05_ForeignKeys.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\05_ForeignKeys.sql",
-              "ViewState": "AgIAACAAAAAAAAAAAAAQwEEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:38.565Z",
+              "Title": "FrmDatabaseSetup.cs",
+              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\FrmDatabaseSetup.cs",
+              "RelativeDocumentMoniker": "Infra\\Database\\FrmDatabaseSetup.cs",
+              "ToolTip": "D:\\GVC\\Infra\\Database\\FrmDatabaseSetup.cs",
+              "RelativeToolTip": "Infra\\Database\\FrmDatabaseSetup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T18:05:04.037Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "11_Carga_Cidade.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\11_Carga_Cidade.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\11_Carga_Cidade.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\11_Carga_Cidade.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\11_Carga_Cidade.sql",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:39.215Z",
-              "EditorCaption": ""
+              "Title": "FrmDatabaseSetup.cs [Projeto]",
+              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\FrmDatabaseSetup.cs",
+              "RelativeDocumentMoniker": "Infra\\Database\\FrmDatabaseSetup.cs",
+              "ToolTip": "D:\\GVC\\Infra\\Database\\FrmDatabaseSetup.cs [Projeto]",
+              "RelativeToolTip": "Infra\\Database\\FrmDatabaseSetup.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T17:40:55.741Z",
+              "EditorCaption": " [Projeto]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "10_Carga_Estado.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\10_Carga_Estado.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\10_Carga_Estado.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\10_Carga_Estado.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\10_Carga_Estado.sql",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:39.107Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "09_Seed.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\09_Seed.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\09_Seed.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\09_Seed.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\09_Seed.sql",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:38.999Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "08_Procedures.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\08_Procedures.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\08_Procedures.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\08_Procedures.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\08_Procedures.sql",
-              "ViewState": "AgIAAPwAAAAAAAAAAAAjwA0BAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:38.891Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "07_Views.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\07_Views.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\07_Views.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\07_Views.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\07_Views.sql",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAjwL8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:38.781Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "03_Functions.sql",
-              "DocumentMoniker": "D:\\GVC\\Infra\\Database\\Scripts\\03_Functions.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\03_Functions.sql",
-              "ToolTip": "D:\\GVC\\Infra\\Database\\Scripts\\03_Functions.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\03_Functions.sql",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAjwGoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T09:33:38.349Z",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\GVC\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\GVC\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAYwCQAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T17:32:02.71Z",
               "EditorCaption": ""
             }
           ]
