@@ -183,28 +183,19 @@ namespace GVC.MUI
             string usuario = txtUsuario.Text.Trim();
             string password = txtSenha.Text;
 
-            // pega o ambiente escolhido
-            Sessao.AmbienteSelecionado = "Homologacao";//cmbAmbiente.SelectedItem?.ToString();
+            Sessao.AmbienteSelecionado = "Homologacao";
 
-            using (SqlConnection conn = Conexao.Conex())
+            string resultado = ValidarLogin(usuario, password);
+
+            if (resultado == "OK")
             {
-                conn.Open();
-                Utilitario.Mensagens.Info($"Conectado ao ambiente: {Sessao.AmbienteSelecionado}");
-
-                string resultado = ValidarLogin(usuario, password);
-
-                if (resultado == "OK")
-                {
-                    Utilitario.Mensagens.Info("Login realizado com sucesso!");
-
-                    // Apenas retorna OK para quem chamou o login
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                else
-                {
-                    Utilitario.Mensagens.Erro(resultado);
-                }
+                Utilitario.Mensagens.Info("Login realizado com sucesso!");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                Utilitario.Mensagens.Erro(resultado);
             }
 
         }
@@ -273,21 +264,9 @@ namespace GVC.MUI
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             txtUsuario.Focus();
-            var version = Assembly.GetExecutingAssembly()
-                                 .GetName()
-                                 .Version?.ToString();
+            var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
 
             lblVersao.Text = "Versão: " + version;// Exibe AssemblyVersion
-
-            //// Lê todos os nomes de connectionStrings do App.config
-            //foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
-            //{
-            //    cmbAmbiente.Items.Add(cs.Name);
-            //}
-
-            //// Define o primeiro como padrão
-            //if (cmbAmbiente.Items.Count > 0)
-            //    cmbAmbiente.SelectedIndex = 0;
         }
 
         private void FrmLogin_Shown(object sender, EventArgs e)

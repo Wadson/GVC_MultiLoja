@@ -1,1 +1,37 @@
-ERROS A CORRIGIR GVC
+﻿Infra/
+ └─ Database/
+     ├─ 01_CreateDatabase.sql
+     ├─ 02_Tables.sql
+     ├─ 03_Functions.sql
+     ├─ 04_Views.sql
+     ├─ 05_Procedures.sql
+     └─ 06_Seed.sql
+
+
+     Infra/
+ └─ Database/
+     ├─ 01_CreateDatabase.sql
+     ├─ 02_Tables.sql
+     ├─ 03_Functions.sql
+     ├─ 04_Views.sql
+     ├─ 05_Procedures.sql
+     └─ 06_Seed.sql
+
+
+ExecutarScript("01_CreateDatabase.sql");
+ExecutarScript("02_Tables.sql");
+ExecutarScript("03_Functions.sql");
+ExecutarScript("04_Views.sql");
+ExecutarScript("05_Procedures.sql");
+ExecutarScript("06_Seed.sql");
+
+
+
+GVC
+  Infra
+      Database
+      > DatabaseBootstrapper.cs 
+      > DatabaseConnectionResolver.cs
+      > ScriptCriacaoBanco.sql
+      > ScriptSqlEmbeddedExecutor.cs
+      > SqlInsertBatchProcessor.cs

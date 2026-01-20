@@ -30,18 +30,35 @@ namespace GVC
             // escolha um dos blocos abaixo, ou acima
 
 
-            FrmLogin frmLogin = new FrmLogin();
+            ApplicationConfiguration.Initialize();
 
-            if (frmLogin.ShowDialog() == DialogResult.OK) // Se o login for bem-sucedido
+            try
             {
-                Application.Run(new FrmPrincipal()); // Abre a tela principal
+                DatabaseBootstrapper.EnsureDatabaseCreated();
             }
-            else
+            catch (Exception ex)
             {
-                Application.Exit(); // Fecha o aplicativo se o login for cancelado
+                MessageBox.Show(
+                    "Erro ao preparar banco de dados:\n\n" + ex.Message,
+                    "Erro crítico",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
             }
 
-            // só este abaixo ou um dos blocos acima
+            // Exibe o formulário de login como diálogo
+            using (FrmLogin frmLogin = new FrmLogin())
+            {
+                if (frmLogin.ShowDialog() == DialogResult.OK) // Se o login for bem-sucedido
+                {
+                    Application.Run(new FrmPrincipal()); // Abre a tela principal
+                }
+                else
+                {
+                    Application.Exit(); // Fecha o aplicativo se o login for cancelado
+                }
+            }
+
 
 
 

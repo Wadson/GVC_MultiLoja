@@ -1,14 +1,12 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
-using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace GVC.Infra.Database
 {
     public static class ScriptSqlEmbeddedExecutor
     {
-        private const string SCRIPT_RESOURCE =
-            "GVC.Infra.Database.ScriptCriacaoBanco.sql";
+        private const string SCRIPT_RESOURCE ="GVC.Infra.Database.ScriptCriacaoBanco.sql";
 
         public static void EnsureDatabase(string connectionString)
         {
@@ -19,7 +17,7 @@ namespace GVC.Infra.Database
 
             using var cmd = new SqlCommand(script, conn)
             {
-                CommandTimeout = 0 // scripts grandes
+                CommandTimeout = 0
             };
 
             cmd.ExecuteNonQuery();
@@ -32,14 +30,11 @@ namespace GVC.Infra.Database
             using var stream = assembly.GetManifestResourceStream(SCRIPT_RESOURCE);
 
             if (stream == null)
-            {
-                var recursos = string.Join("\n", assembly.GetManifestResourceNames());
-                throw new Exception(
-                    "Script SQL embedded não encontrado.\n\nRecursos disponíveis:\n" + recursos);
-            }
+                throw new Exception("Script SQL não encontrado: " + SCRIPT_RESOURCE);
 
             using var reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
     }
+
 }
