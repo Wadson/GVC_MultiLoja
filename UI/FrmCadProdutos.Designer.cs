@@ -998,7 +998,7 @@
             kryptonPanel1.Controls.Add(label21);
             kryptonPanel1.Location = new Point(4, 60);
             kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel1.Size = new Size(1004, 122);
             kryptonPanel1.TabIndex = 1095;
             // 
@@ -1255,7 +1255,7 @@
             kryptonPanel2.Controls.Add(label3);
             kryptonPanel2.Location = new Point(5, 198);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel2.Size = new Size(1004, 74);
             kryptonPanel2.TabIndex = 1096;
             // 
@@ -1520,7 +1520,7 @@
             kryptonPanel3.Controls.Add(txtPrecoCusto);
             kryptonPanel3.Location = new Point(2, 293);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel3.Size = new Size(1004, 117);
             kryptonPanel3.TabIndex = 1097;
             // 
@@ -1777,7 +1777,7 @@
             kryptonPanel4.Controls.Add(label40);
             kryptonPanel4.Location = new Point(4, 416);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel4.Size = new Size(1004, 74);
             kryptonPanel4.TabIndex = 1098;
             // 
@@ -2117,7 +2117,7 @@
             kryptonPanel5.Controls.Add(label47);
             kryptonPanel5.Location = new Point(3, 504);
             kryptonPanel5.Name = "kryptonPanel5";
-            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel5.Size = new Size(1004, 116);
             kryptonPanel5.TabIndex = 1099;
             // 

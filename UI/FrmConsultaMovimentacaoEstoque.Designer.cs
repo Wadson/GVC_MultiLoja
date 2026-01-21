@@ -290,7 +290,7 @@
             panelDadosDoProduto.Controls.Add(txtProdutoID);
             panelDadosDoProduto.Location = new Point(0, 68);
             panelDadosDoProduto.Name = "panelDadosDoProduto";
-            panelDadosDoProduto.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            panelDadosDoProduto.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelDadosDoProduto.Size = new Size(880, 86);
             panelDadosDoProduto.TabIndex = 1096;
             // 
@@ -377,7 +377,7 @@
             panelMovimentacao.Controls.Add(lblRotuloTipoMovimentacao);
             panelMovimentacao.Location = new Point(3, 160);
             panelMovimentacao.Name = "panelMovimentacao";
-            panelMovimentacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            panelMovimentacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelMovimentacao.Size = new Size(880, 86);
             panelMovimentacao.TabIndex = 1097;
             // 

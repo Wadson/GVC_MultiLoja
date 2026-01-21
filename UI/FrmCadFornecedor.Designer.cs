@@ -94,8 +94,8 @@
             txtCpf = new Krypton.Toolkit.KryptonTextBox();
             txtOrgaoExpedidorRG = new Krypton.Toolkit.KryptonTextBox();
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
-            kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             dtpDataCriacao = new Krypton.Toolkit.KryptonDateTimePicker();
+            kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
             label5 = new Label();
@@ -1132,7 +1132,7 @@
             kryptonPanel1.Controls.Add(label11);
             kryptonPanel1.Location = new Point(2, 58);
             kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel1.Size = new Size(1001, 81);
             kryptonPanel1.TabIndex = 1095;
             // 
@@ -1261,19 +1261,9 @@
             kryptonPanel3.Controls.Add(label18);
             kryptonPanel3.Location = new Point(3, 145);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel3.Size = new Size(1005, 81);
             kryptonPanel3.TabIndex = 1097;
-            // 
-            // kryptonLabel2
-            // 
-            kryptonLabel2.Dock = DockStyle.Top;
-            kryptonLabel2.Location = new Point(0, 0);
-            kryptonLabel2.Name = "kryptonLabel2";
-            kryptonLabel2.Size = new Size(1005, 20);
-            kryptonLabel2.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel2.TabIndex = 1039;
-            kryptonLabel2.Values.Text = "Dados adicionais";
             // 
             // dtpDataCriacao
             // 
@@ -1312,6 +1302,16 @@
             dtpDataCriacao.StateNormal.Content.Color1 = Color.White;
             dtpDataCriacao.TabIndex = 1040;
             // 
+            // kryptonLabel2
+            // 
+            kryptonLabel2.Dock = DockStyle.Top;
+            kryptonLabel2.Location = new Point(0, 0);
+            kryptonLabel2.Name = "kryptonLabel2";
+            kryptonLabel2.Size = new Size(1005, 20);
+            kryptonLabel2.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel2.TabIndex = 1039;
+            kryptonLabel2.Values.Text = "Dados adicionais";
+            // 
             // kryptonPanel4
             // 
             kryptonPanel4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -1335,7 +1335,7 @@
             kryptonPanel4.Controls.Add(label14);
             kryptonPanel4.Location = new Point(0, 238);
             kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel4.Size = new Size(1005, 185);
             kryptonPanel4.TabIndex = 1098;
             // 
@@ -1445,7 +1445,7 @@
             kryptonPanel5.Controls.Add(txtObservacoes);
             kryptonPanel5.Location = new Point(-3, 440);
             kryptonPanel5.Name = "kryptonPanel5";
-            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel5.Size = new Size(1005, 89);
             kryptonPanel5.TabIndex = 1099;
             // 
@@ -1454,6 +1454,7 @@
             kryptonLabel4.Dock = DockStyle.Top;
             kryptonLabel4.Location = new Point(0, 0);
             kryptonLabel4.Name = "kryptonLabel4";
+            kryptonLabel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonLabel4.Size = new Size(1005, 20);
             kryptonLabel4.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel4.TabIndex = 1040;

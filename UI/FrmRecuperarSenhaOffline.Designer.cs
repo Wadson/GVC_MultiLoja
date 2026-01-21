@@ -649,7 +649,6 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.redefinir_senha;
             pictureBox1.Location = new Point(129, 6);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(81, 86);

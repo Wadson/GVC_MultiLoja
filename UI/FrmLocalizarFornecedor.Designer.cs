@@ -104,7 +104,7 @@
             txtPesquisar.Margin = new Padding(5, 6, 5, 6);
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisar.Size = new Size(572, 27);
+            txtPesquisar.Size = new Size(569, 27);
             txtPesquisar.StateCommon.Back.Color1 = Color.White;
             txtPesquisar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPesquisar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);

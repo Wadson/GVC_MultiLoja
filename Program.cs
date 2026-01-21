@@ -45,8 +45,5 @@ namespace GVC
             if (login.ShowDialog() == DialogResult.OK)
                 Application.Run(new FrmPrincipal());
         }
-
-
-
     }
 }

@@ -42,10 +42,12 @@
             lblRotuloObservacoes = new Label();
             cmbOrigem = new Krypton.Toolkit.KryptonComboBox();
             grpProduto = new GroupBox();
+            pnlCard1 = new Krypton.Toolkit.KryptonPanel();
             tableLayoutPanel5 = new TableLayoutPanel();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             lblEstoqueAtual = new Krypton.Toolkit.KryptonLabel();
             lblRotuloEstoque = new Label();
+            pnlCard2 = new Krypton.Toolkit.KryptonPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             lblIdProduto = new Krypton.Toolkit.KryptonLabel();
@@ -57,31 +59,21 @@
             lblSubTitulo = new Krypton.Toolkit.KryptonLabel();
             lblTitulo = new Krypton.Toolkit.KryptonLabel();
             grpMovimentacao = new GroupBox();
-            pnlCard2 = new Krypton.Toolkit.KryptonPanel();
-            kryptonBorderEdge2 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge5 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge7 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge8 = new Krypton.Toolkit.KryptonBorderEdge();
-            pnlCard1 = new Krypton.Toolkit.KryptonPanel();
-            kryptonBorderEdge1 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge3 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge4 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge6 = new Krypton.Toolkit.KryptonBorderEdge();
             ((System.ComponentModel.ISupportInitialize)cmbTipoMovimentacao).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbOrigem).BeginInit();
             grpProduto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pnlCard1).BeginInit();
+            pnlCard1.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pnlCard2).BeginInit();
+            pnlCard2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
             tlpTitulo.SuspendLayout();
             grpMovimentacao.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pnlCard2).BeginInit();
-            pnlCard2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pnlCard1).BeginInit();
-            pnlCard1.SuspendLayout();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -411,6 +403,16 @@
             grpProduto.TabStop = false;
             grpProduto.Text = "Produto";
             // 
+            // pnlCard1
+            // 
+            pnlCard1.Controls.Add(tableLayoutPanel5);
+            pnlCard1.Dock = DockStyle.Right;
+            pnlCard1.Location = new Point(731, 19);
+            pnlCard1.Name = "pnlCard1";
+            pnlCard1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
+            pnlCard1.Size = new Size(96, 53);
+            pnlCard1.TabIndex = 1136;
+            // 
             // tableLayoutPanel5
             // 
             tableLayoutPanel5.ColumnCount = 2;
@@ -425,16 +427,16 @@
             tableLayoutPanel5.RowCount = 2;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 28F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel5.Size = new Size(96, 52);
+            tableLayoutPanel5.Size = new Size(96, 53);
             tableLayoutPanel5.TabIndex = 0;
             // 
             // iconPictureBox2
             // 
             iconPictureBox2.BackColor = Color.White;
             iconPictureBox2.Dock = DockStyle.Fill;
-            iconPictureBox2.ForeColor = Color.SteelBlue;
+            iconPictureBox2.ForeColor = Color.FromArgb(30, 136, 229);
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Box;
-            iconPictureBox2.IconColor = Color.SteelBlue;
+            iconPictureBox2.IconColor = Color.FromArgb(30, 136, 229);
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox2.IconSize = 22;
             iconPictureBox2.Location = new Point(3, 3);
@@ -450,9 +452,9 @@
             lblEstoqueAtual.Location = new Point(3, 31);
             lblEstoqueAtual.Name = "lblEstoqueAtual";
             lblEstoqueAtual.PaletteMode = Krypton.Toolkit.PaletteMode.Office365SilverLightMode;
-            lblEstoqueAtual.Size = new Size(90, 18);
-            lblEstoqueAtual.StateCommon.ShortText.Color1 = Color.SteelBlue;
-            lblEstoqueAtual.StateCommon.ShortText.Color2 = Color.SteelBlue;
+            lblEstoqueAtual.Size = new Size(90, 19);
+            lblEstoqueAtual.StateCommon.ShortText.Color1 = Color.FromArgb(30, 136, 229);
+            lblEstoqueAtual.StateCommon.ShortText.Color2 = Color.FromArgb(30, 136, 229);
             lblEstoqueAtual.StateCommon.ShortText.Font = new Font("Segoe UI Semibold", 16.25F, FontStyle.Bold);
             lblEstoqueAtual.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblEstoqueAtual.TabIndex = 3;
@@ -470,6 +472,16 @@
             lblRotuloEstoque.TabIndex = 1083;
             lblRotuloEstoque.Text = "Estoque ";
             // 
+            // pnlCard2
+            // 
+            pnlCard2.Controls.Add(tableLayoutPanel1);
+            pnlCard2.Dock = DockStyle.Right;
+            pnlCard2.Location = new Point(827, 19);
+            pnlCard2.Name = "pnlCard2";
+            pnlCard2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
+            pnlCard2.Size = new Size(95, 53);
+            pnlCard2.TabIndex = 1135;
+            // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 2;
@@ -479,21 +491,21 @@
             tableLayoutPanel1.Controls.Add(lblIdProduto, 0, 1);
             tableLayoutPanel1.Controls.Add(label1, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(1, 0);
+            tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(94, 52);
+            tableLayoutPanel1.Size = new Size(95, 53);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // iconPictureBox1
             // 
             iconPictureBox1.BackColor = Color.White;
             iconPictureBox1.Dock = DockStyle.Fill;
-            iconPictureBox1.ForeColor = Color.SteelBlue;
+            iconPictureBox1.ForeColor = Color.FromArgb(30, 136, 229);
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Key;
-            iconPictureBox1.IconColor = Color.SteelBlue;
+            iconPictureBox1.IconColor = Color.FromArgb(30, 136, 229);
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox1.IconSize = 24;
             iconPictureBox1.Location = new Point(3, 3);
@@ -509,9 +521,9 @@
             lblIdProduto.Location = new Point(3, 33);
             lblIdProduto.Name = "lblIdProduto";
             lblIdProduto.PaletteMode = Krypton.Toolkit.PaletteMode.Office365SilverLightMode;
-            lblIdProduto.Size = new Size(88, 16);
-            lblIdProduto.StateCommon.ShortText.Color1 = Color.SteelBlue;
-            lblIdProduto.StateCommon.ShortText.Color2 = Color.SteelBlue;
+            lblIdProduto.Size = new Size(89, 17);
+            lblIdProduto.StateCommon.ShortText.Color1 = Color.FromArgb(30, 136, 229);
+            lblIdProduto.StateCommon.ShortText.Color2 = Color.FromArgb(30, 136, 229);
             lblIdProduto.StateCommon.ShortText.Font = new Font("Segoe UI Semibold", 16.25F, FontStyle.Bold);
             lblIdProduto.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblIdProduto.TabIndex = 3;
@@ -525,7 +537,7 @@
             label1.ForeColor = Color.FromArgb(0, 76, 172);
             label1.Location = new Point(35, 0);
             label1.Name = "label1";
-            label1.Size = new Size(56, 17);
+            label1.Size = new Size(57, 17);
             label1.TabIndex = 1083;
             label1.Text = "Código";
             // 
@@ -636,115 +648,6 @@
             grpMovimentacao.TabIndex = 1091;
             grpMovimentacao.TabStop = false;
             grpMovimentacao.Text = "Movimentação";
-          
-            // 
-            // pnlCard2
-            // 
-            pnlCard2.Controls.Add(kryptonBorderEdge2);
-            pnlCard2.Controls.Add(kryptonBorderEdge5);
-            pnlCard2.Controls.Add(tableLayoutPanel1);
-            pnlCard2.Controls.Add(kryptonBorderEdge7);
-            pnlCard2.Controls.Add(kryptonBorderEdge8);
-            pnlCard2.Dock = DockStyle.Right;
-            pnlCard2.Location = new Point(827, 19);
-            pnlCard2.Name = "pnlCard2";
-            pnlCard2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            pnlCard2.Size = new Size(95, 53);
-            pnlCard2.TabIndex = 1135;
-            // 
-            // kryptonBorderEdge2
-            // 
-            kryptonBorderEdge2.Dock = DockStyle.Right;
-            kryptonBorderEdge2.Location = new Point(94, 1);
-            kryptonBorderEdge2.Name = "kryptonBorderEdge2";
-            kryptonBorderEdge2.Size = new Size(1, 51);
-            kryptonBorderEdge2.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge2.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge2.Text = "kryptonBorderEdge2";
-            // 
-            // kryptonBorderEdge5
-            // 
-            kryptonBorderEdge5.Dock = DockStyle.Top;
-            kryptonBorderEdge5.Location = new Point(1, 0);
-            kryptonBorderEdge5.Name = "kryptonBorderEdge5";
-            kryptonBorderEdge5.Size = new Size(94, 1);
-            kryptonBorderEdge5.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge5.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge5.Text = "kryptonBorderEdge5";
-            // 
-            // kryptonBorderEdge7
-            // 
-            kryptonBorderEdge7.Dock = DockStyle.Left;
-            kryptonBorderEdge7.Location = new Point(0, 0);
-            kryptonBorderEdge7.Name = "kryptonBorderEdge7";
-            kryptonBorderEdge7.Size = new Size(1, 52);
-            kryptonBorderEdge7.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge7.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge7.Text = "kryptonBorderEdge7";
-            // 
-            // kryptonBorderEdge8
-            // 
-            kryptonBorderEdge8.Dock = DockStyle.Bottom;
-            kryptonBorderEdge8.Location = new Point(0, 52);
-            kryptonBorderEdge8.Name = "kryptonBorderEdge8";
-            kryptonBorderEdge8.Size = new Size(95, 1);
-            kryptonBorderEdge8.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge8.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge8.Text = "kryptonBorderEdge8";
-            // 
-            // pnlCard1
-            // 
-            pnlCard1.Controls.Add(kryptonBorderEdge1);
-            pnlCard1.Controls.Add(kryptonBorderEdge3);
-            pnlCard1.Controls.Add(kryptonBorderEdge4);
-            pnlCard1.Controls.Add(tableLayoutPanel5);
-            pnlCard1.Controls.Add(kryptonBorderEdge6);
-            pnlCard1.Dock = DockStyle.Right;
-            pnlCard1.Location = new Point(731, 19);
-            pnlCard1.Name = "pnlCard1";
-            pnlCard1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            pnlCard1.Size = new Size(96, 53);
-            pnlCard1.TabIndex = 1136;
-            // 
-            // kryptonBorderEdge1
-            // 
-            kryptonBorderEdge1.Dock = DockStyle.Right;
-            kryptonBorderEdge1.Location = new Point(93, 1);
-            kryptonBorderEdge1.Name = "kryptonBorderEdge1";
-            kryptonBorderEdge1.Size = new Size(3, 51);
-            kryptonBorderEdge1.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge1.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge1.Text = "kryptonBorderEdge1";
-            // 
-            // kryptonBorderEdge3
-            // 
-            kryptonBorderEdge3.Dock = DockStyle.Top;
-            kryptonBorderEdge3.Location = new Point(1, 0);
-            kryptonBorderEdge3.Name = "kryptonBorderEdge3";
-            kryptonBorderEdge3.Size = new Size(95, 1);
-            kryptonBorderEdge3.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge3.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge3.Text = "kryptonBorderEdge3";
-            // 
-            // kryptonBorderEdge4
-            // 
-            kryptonBorderEdge4.Dock = DockStyle.Left;
-            kryptonBorderEdge4.Location = new Point(0, 0);
-            kryptonBorderEdge4.Name = "kryptonBorderEdge4";
-            kryptonBorderEdge4.Size = new Size(1, 52);
-            kryptonBorderEdge4.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge4.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge4.Text = "kryptonBorderEdge4";
-            // 
-            // kryptonBorderEdge6
-            // 
-            kryptonBorderEdge6.Dock = DockStyle.Bottom;
-            kryptonBorderEdge6.Location = new Point(0, 52);
-            kryptonBorderEdge6.Name = "kryptonBorderEdge6";
-            kryptonBorderEdge6.Size = new Size(96, 1);
-            kryptonBorderEdge6.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge6.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge6.Text = "kryptonBorderEdge6";
             // 
             // FrmMovimentacaoEstoque
             // 
@@ -771,9 +674,13 @@
             ((System.ComponentModel.ISupportInitialize)cmbOrigem).EndInit();
             grpProduto.ResumeLayout(false);
             grpProduto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pnlCard1).EndInit();
+            pnlCard1.ResumeLayout(false);
             tableLayoutPanel5.ResumeLayout(false);
             tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pnlCard2).EndInit();
+            pnlCard2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
@@ -783,12 +690,6 @@
             tlpTitulo.PerformLayout();
             grpMovimentacao.ResumeLayout(false);
             grpMovimentacao.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pnlCard2).EndInit();
-            pnlCard2.ResumeLayout(false);
-            pnlCard2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pnlCard1).EndInit();
-            pnlCard1.ResumeLayout(false);
-            pnlCard1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -843,14 +744,6 @@
         private Krypton.Toolkit.KryptonLabel lblSubTitulo;
         private Krypton.Toolkit.KryptonLabel lblTitulo;
         private Krypton.Toolkit.KryptonPanel pnlCard2;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge2;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge5;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge7;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge8;
         private Krypton.Toolkit.KryptonPanel pnlCard1;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge3;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge4;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge6;
     }
 }

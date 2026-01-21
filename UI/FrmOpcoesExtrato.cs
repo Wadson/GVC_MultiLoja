@@ -15,7 +15,7 @@ namespace GVC.UTIL
     {
         public DialogResult OpcaoSelecionada { get; private set; }
 
-            
+
         public FrmOpcoesExtrato(bool podeExtrato = true, bool podeRecibo = true)
         {
             InitializeComponent();
@@ -28,12 +28,21 @@ namespace GVC.UTIL
 
             if (!podeRecibo)
             {
-                btnRecibo.Enabled = false;
-                btnRecibo.Text = "Recibo (não disponível)";
+                btnRecibos.Enabled = false;
+                btnRecibos.Text = "Recibo (não disponível)";
             }
         }
 
-        private void btnExtrato_Click(object sender, EventArgs e)
+      
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.OpcaoSelecionada = DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void btnExtrato_Click_1(object sender, EventArgs e)
         {
             if (btnExtrato.Enabled)
             {
@@ -43,12 +52,13 @@ namespace GVC.UTIL
             }
             else
             {
-                Utilitario.Mensagens.Aviso("Selecione uma linha no grid para gerar extrato." );
+                Utilitario.Mensagens.Aviso("Selecione uma linha no grid para gerar extrato.");
             }
         }
 
-        private void btnRecibo_Click(object sender, EventArgs e)
+        private void btnRecibos_Click(object sender, EventArgs e)
         {
+
             if (btnRecibo.Enabled)
             {
                 this.OpcaoSelecionada = DialogResult.No;
@@ -59,13 +69,6 @@ namespace GVC.UTIL
             {
                 Utilitario.Mensagens.Aviso("Marque o checkbox das parcelas para gerar recibo.");
             }
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.OpcaoSelecionada = DialogResult.Cancel;
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
         }
     }
 }

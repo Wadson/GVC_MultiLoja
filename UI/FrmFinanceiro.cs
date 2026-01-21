@@ -150,11 +150,6 @@ namespace GVC.View
             return lista;
         }
 
-
-
-
-
-
         private void ConfigurarGridContasAReceber()
         {
             dgvContasAReceber.AutoGenerateColumns = false;
@@ -306,11 +301,6 @@ namespace GVC.View
             dgvContasAReceber.BorderStyle = BorderStyle.None;
         }
 
-
-
-
-
-
         private List<ContaAReceberDTO> ObterParcelasSelecionadas()
         {
             var lista = new List<ContaAReceberDTO>();
@@ -370,7 +360,6 @@ namespace GVC.View
             AtualizarParcelasAtrasadasNoBanco();
         }
 
-
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
         {
             decimal totalVencido = 0m;
@@ -385,8 +374,6 @@ namespace GVC.View
 
             lblTotalVencido.Text = totalVencido.ToString("C2");
         }
-
-
 
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {

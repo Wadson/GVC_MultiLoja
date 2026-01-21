@@ -42,8 +42,8 @@
             pictureBox1 = new PictureBox();
             iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBoxPassword = new FontAwesome.Sharp.IconPictureBox();
-            kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             lblVersao = new Krypton.Toolkit.KryptonLabel();
+            kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxPassword).BeginInit();
@@ -304,6 +304,14 @@
             iconPictureBoxPassword.TabStop = false;
             iconPictureBoxPassword.Visible = false;
             // 
+            // lblVersao
+            // 
+            lblVersao.Location = new Point(33, 235);
+            lblVersao.Name = "lblVersao";
+            lblVersao.Size = new Size(48, 20);
+            lblVersao.TabIndex = 1127;
+            lblVersao.Values.Text = "Versao";
+            // 
             // kryptonPalette1
             // 
             kryptonPalette1.ButtonSpecs.FormClose.Image = Properties.Resources.Exit;
@@ -340,14 +348,6 @@
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
-            // lblVersao
-            // 
-            lblVersao.Location = new Point(33, 235);
-            lblVersao.Name = "lblVersao";
-            lblVersao.Size = new Size(48, 20);
-            lblVersao.TabIndex = 1127;
-            lblVersao.Values.Text = "Versao";
-            // 
             // FrmLogin
             // 
             BackColor = Color.FromArgb(252, 252, 250);
@@ -366,7 +366,7 @@
             Controls.Add(lblEsqueciSenha);
             Controls.Add(panel3);
             ForeColor = Color.FromArgb(252, 252, 250);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -410,7 +410,7 @@
         private PictureBox pictureBox1;
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxUser;
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxPassword;
-        private Krypton.Toolkit.KryptonPalette kryptonPalette1;
         private Krypton.Toolkit.KryptonLabel lblVersao;
+        private Krypton.Toolkit.KryptonPalette kryptonPalette1;
     }
 }

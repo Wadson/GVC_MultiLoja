@@ -1,30 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\GVC\\",
+  "WorkspaceRootPath": "D:\\GVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvc\\infra\\database\\scripts\\04_checks.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\04_checks.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmfinanceiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmfinanceiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvc\\infra\\database\\scripts\\01_tables.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scripts\\01_tables.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmfinanceiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmfinanceiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvc\\infra\\database\\databaseinstaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\databaseinstaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvc\\infra\\database\\sqlinsertbatchprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\sqlinsertbatchprocessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvc\\infra\\database\\scriptcriacaobanco.sql||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\scriptcriacaobanco.sql||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvc\\infra\\database\\databaseconnectionresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:infra\\database\\databaseconnectionresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,8 +26,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 26,
+          "SelectedChildIndex": 24,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:5:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
@@ -114,92 +110,68 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:1061461490:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "01_Tables.sql",
-              "DocumentMoniker": "C:\\GVC\\Infra\\Database\\Scripts\\01_Tables.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\01_Tables.sql",
-              "ToolTip": "C:\\GVC\\Infra\\Database\\Scripts\\01_Tables.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\01_Tables.sql",
-              "ViewState": "AgIAALMAAAAAAAAAAAAYwMgAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T20:45:38.461Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ScriptCriacaoBanco.sql",
-              "DocumentMoniker": "C:\\GVC\\Infra\\Database\\ScriptCriacaoBanco.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\ScriptCriacaoBanco.sql",
-              "ToolTip": "C:\\GVC\\Infra\\Database\\ScriptCriacaoBanco.sql",
-              "RelativeToolTip": "Infra\\Database\\ScriptCriacaoBanco.sql",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T20:40:47.417Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DatabaseConnectionResolver.cs",
-              "DocumentMoniker": "C:\\GVC\\Infra\\Database\\DatabaseConnectionResolver.cs",
-              "RelativeDocumentMoniker": "Infra\\Database\\DatabaseConnectionResolver.cs",
-              "ToolTip": "C:\\GVC\\Infra\\Database\\DatabaseConnectionResolver.cs",
-              "RelativeToolTip": "Infra\\Database\\DatabaseConnectionResolver.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T20:40:39.378Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SqlInsertBatchProcessor.cs",
-              "DocumentMoniker": "C:\\GVC\\Infra\\Database\\SqlInsertBatchProcessor.cs",
-              "RelativeDocumentMoniker": "Infra\\Database\\SqlInsertBatchProcessor.cs",
-              "ToolTip": "C:\\GVC\\Infra\\Database\\SqlInsertBatchProcessor.cs",
-              "RelativeToolTip": "Infra\\Database\\SqlInsertBatchProcessor.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwBAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T20:40:18.027Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "04_Checks.sql",
-              "DocumentMoniker": "C:\\GVC\\Infra\\Database\\Scripts\\04_Checks.sql",
-              "RelativeDocumentMoniker": "Infra\\Database\\Scripts\\04_Checks.sql",
-              "ToolTip": "C:\\GVC\\Infra\\Database\\Scripts\\04_Checks.sql",
-              "RelativeToolTip": "Infra\\Database\\Scripts\\04_Checks.sql",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-01-20T20:39:59.686Z",
+              "Title": "FrmFinanceiro.cs",
+              "DocumentMoniker": "D:\\GVC\\UI\\FrmFinanceiro.cs",
+              "RelativeDocumentMoniker": "UI\\FrmFinanceiro.cs",
+              "ToolTip": "D:\\GVC\\UI\\FrmFinanceiro.cs",
+              "RelativeToolTip": "UI\\FrmFinanceiro.cs",
+              "ViewState": "AgIAAJECAAAAAAAAAAAIwHcBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T23:25:06.993Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DatabaseInstaller.cs",
-              "DocumentMoniker": "C:\\GVC\\Infra\\Database\\DatabaseInstaller.cs",
-              "RelativeDocumentMoniker": "Infra\\Database\\DatabaseInstaller.cs",
-              "ToolTip": "C:\\GVC\\Infra\\Database\\DatabaseInstaller.cs",
-              "RelativeToolTip": "Infra\\Database\\DatabaseInstaller.cs",
-              "ViewState": "AgIAAIwAAAAAAAAAAAAswKkAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "FrmFinanceiro.cs [Projeto]",
+              "DocumentMoniker": "D:\\GVC\\UI\\FrmFinanceiro.cs",
+              "RelativeDocumentMoniker": "UI\\FrmFinanceiro.cs",
+              "ToolTip": "D:\\GVC\\UI\\FrmFinanceiro.cs [Projeto]",
+              "RelativeToolTip": "UI\\FrmFinanceiro.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T20:36:03.576Z",
+              "WhenOpened": "2026-01-21T23:25:02.824Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FrmOpcoesExtrato.cs [Projeto]",
+              "DocumentMoniker": "D:\\GVC\\UI\\FrmOpcoesExtrato.cs",
+              "RelativeDocumentMoniker": "UI\\FrmOpcoesExtrato.cs",
+              "ToolTip": "D:\\GVC\\UI\\FrmOpcoesExtrato.cs [Projeto]",
+              "RelativeToolTip": "UI\\FrmOpcoesExtrato.cs [Projeto]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T23:17:57.651Z",
+              "EditorCaption": " [Projeto]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FrmOpcoesExtrato.cs",
+              "DocumentMoniker": "D:\\GVC\\UI\\FrmOpcoesExtrato.cs",
+              "RelativeDocumentMoniker": "UI\\FrmOpcoesExtrato.cs",
+              "ToolTip": "D:\\GVC\\UI\\FrmOpcoesExtrato.cs",
+              "RelativeToolTip": "UI\\FrmOpcoesExtrato.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAowB8AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T23:11:49.049Z",
               "EditorCaption": ""
             }
           ]

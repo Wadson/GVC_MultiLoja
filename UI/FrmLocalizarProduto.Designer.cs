@@ -121,7 +121,7 @@
             ClientSize = new Size(832, 301);
             Controls.Add(txtPesquisar);
             Controls.Add(dataGridPesquisar);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(5, 3, 5, 3);
             MaximizeBox = false;
             MinimizeBox = false;

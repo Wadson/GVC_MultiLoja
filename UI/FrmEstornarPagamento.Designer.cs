@@ -197,7 +197,7 @@
             kryptonPanel1.Controls.Add(lblCliente);
             kryptonPanel1.Location = new Point(3, 76);
             kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel1.Size = new Size(566, 82);
             kryptonPanel1.TabIndex = 1099;
             // 
@@ -302,7 +302,7 @@
             kryptonPanel2.Controls.Add(lblMotivo);
             kryptonPanel2.Location = new Point(3, 179);
             kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel2.Size = new Size(566, 143);
             kryptonPanel2.TabIndex = 1101;
             // 

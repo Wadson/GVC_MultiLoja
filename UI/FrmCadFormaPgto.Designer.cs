@@ -451,7 +451,7 @@
             kryptonPanel1.Controls.Add(lblRotuloCliente);
             kryptonPanel1.Location = new Point(3, 124);
             kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel1.Size = new Size(578, 147);
             kryptonPanel1.TabIndex = 1097;
             // 
