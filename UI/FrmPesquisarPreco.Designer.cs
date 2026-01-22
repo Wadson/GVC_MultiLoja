@@ -59,7 +59,7 @@
             dataGridPesquisar.ReadOnly = true;
             dataGridPesquisar.RowHeadersWidth = 25;
             dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPesquisar.Size = new Size(876, 351);
+            dataGridPesquisar.Size = new Size(1130, 351);
             dataGridPesquisar.TabIndex = 599;
             dataGridPesquisar.TabStop = false;
             dataGridPesquisar.CellDoubleClick += dataGridPesquisar_CellDoubleClick;
@@ -110,7 +110,7 @@
             txtPesquisar.Margin = new Padding(5, 6, 5, 6);
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisar.Size = new Size(876, 24);
+            txtPesquisar.Size = new Size(1130, 24);
             txtPesquisar.StateCommon.Back.Color1 = Color.LightGreen;
             txtPesquisar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPesquisar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -139,7 +139,7 @@
             tlpTitulo.RowCount = 2;
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 66.15385F));
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 33.8461533F));
-            tlpTitulo.Size = new Size(884, 65);
+            tlpTitulo.Size = new Size(1143, 65);
             tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             tlpTitulo.TabIndex = 601;
@@ -149,7 +149,7 @@
             lblSubTitulo.Dock = DockStyle.Fill;
             lblSubTitulo.Location = new Point(3, 46);
             lblSubTitulo.Name = "lblSubTitulo";
-            lblSubTitulo.Size = new Size(878, 16);
+            lblSubTitulo.Size = new Size(1137, 16);
             lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -165,14 +165,14 @@
             kryptonPanel3.Dock = DockStyle.Fill;
             kryptonPanel3.Location = new Point(3, 3);
             kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.Size = new Size(878, 37);
+            kryptonPanel3.Size = new Size(1137, 37);
             kryptonPanel3.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             kryptonPanel3.TabIndex = 1;
             // 
             // lblTitulo
             // 
             lblTitulo.Anchor = AnchorStyles.Top;
-            lblTitulo.Location = new Point(386, 4);
+            lblTitulo.Location = new Point(515, 4);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(172, 31);
             lblTitulo.StateCommon.ShortText.Color1 = Color.White;
@@ -190,7 +190,7 @@
             iconAcao.IconColor = Color.White;
             iconAcao.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconAcao.IconSize = 42;
-            iconAcao.Location = new Point(338, 2);
+            iconAcao.Location = new Point(467, 2);
             iconAcao.Name = "iconAcao";
             iconAcao.Size = new Size(48, 42);
             iconAcao.TabIndex = 1110;
@@ -199,7 +199,7 @@
             // FrmPesquisarPreco
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(884, 461);
+            ClientSize = new Size(1143, 461);
             Controls.Add(tlpTitulo);
             Controls.Add(txtPesquisar);
             Controls.Add(dataGridPesquisar);

@@ -99,11 +99,11 @@
             dtpDataNascimento = new Krypton.Toolkit.KryptonDateTimePicker();
             lblRotuloDadosAdicionais = new Krypton.Toolkit.KryptonLabel();
             pnlEndereco = new Krypton.Toolkit.KryptonPanel();
+            btnLocalizarCidade = new FontAwesome.Sharp.IconButton();
             btnPesquisarCep = new FontAwesome.Sharp.IconButton();
             lblEndereco = new Krypton.Toolkit.KryptonLabel();
             pnlObservacao = new Krypton.Toolkit.KryptonPanel();
             lblObservacao = new Krypton.Toolkit.KryptonLabel();
-            btnLocalizarCidade = new FontAwesome.Sharp.IconButton();
             kryptonStatusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
@@ -1126,7 +1126,7 @@
             pnlDadosCadastrais.Controls.Add(lblRotuloNome);
             pnlDadosCadastrais.Location = new Point(3, 56);
             pnlDadosCadastrais.Name = "pnlDadosCadastrais";
-            pnlDadosCadastrais.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            pnlDadosCadastrais.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             pnlDadosCadastrais.Size = new Size(1023, 128);
             pnlDadosCadastrais.TabIndex = 1094;
             // 
@@ -1210,7 +1210,7 @@
             pnlDadosAdicionais.Controls.Add(label7);
             pnlDadosAdicionais.Location = new Point(3, 188);
             pnlDadosAdicionais.Name = "pnlDadosAdicionais";
-            pnlDadosAdicionais.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            pnlDadosAdicionais.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             pnlDadosAdicionais.Size = new Size(1023, 123);
             pnlDadosAdicionais.TabIndex = 1096;
             // 
@@ -1281,9 +1281,25 @@
             pnlEndereco.Controls.Add(txtUF);
             pnlEndereco.Location = new Point(3, 328);
             pnlEndereco.Name = "pnlEndereco";
-            pnlEndereco.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            pnlEndereco.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             pnlEndereco.Size = new Size(1023, 180);
             pnlEndereco.TabIndex = 1097;
+            // 
+            // btnLocalizarCidade
+            // 
+            btnLocalizarCidade.BackColor = Color.Transparent;
+            btnLocalizarCidade.FlatAppearance.BorderSize = 0;
+            btnLocalizarCidade.FlatStyle = FlatStyle.Flat;
+            btnLocalizarCidade.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnLocalizarCidade.IconColor = Color.FromArgb(30, 136, 229);
+            btnLocalizarCidade.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnLocalizarCidade.IconSize = 30;
+            btnLocalizarCidade.Location = new Point(846, 144);
+            btnLocalizarCidade.Name = "btnLocalizarCidade";
+            btnLocalizarCidade.Size = new Size(25, 25);
+            btnLocalizarCidade.TabIndex = 1040;
+            btnLocalizarCidade.UseVisualStyleBackColor = false;
+            btnLocalizarCidade.Click += btnLocalizarCidade_Click;
             // 
             // btnPesquisarCep
             // 
@@ -1318,7 +1334,7 @@
             pnlObservacao.Controls.Add(txtObservacoes);
             pnlObservacao.Location = new Point(3, 513);
             pnlObservacao.Name = "pnlObservacao";
-            pnlObservacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            pnlObservacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             pnlObservacao.Size = new Size(1023, 78);
             pnlObservacao.TabIndex = 1098;
             // 
@@ -1331,22 +1347,6 @@
             lblObservacao.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblObservacao.TabIndex = 1040;
             lblObservacao.Values.Text = "Observação";
-            // 
-            // btnLocalizarCidade
-            // 
-            btnLocalizarCidade.BackColor = Color.Transparent;
-            btnLocalizarCidade.FlatAppearance.BorderSize = 0;
-            btnLocalizarCidade.FlatStyle = FlatStyle.Flat;
-            btnLocalizarCidade.IconChar = FontAwesome.Sharp.IconChar.Search;
-            btnLocalizarCidade.IconColor = Color.FromArgb(30, 136, 229);
-            btnLocalizarCidade.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnLocalizarCidade.IconSize = 30;
-            btnLocalizarCidade.Location = new Point(846, 144);
-            btnLocalizarCidade.Name = "btnLocalizarCidade";
-            btnLocalizarCidade.Size = new Size(25, 25);
-            btnLocalizarCidade.TabIndex = 1040;
-            btnLocalizarCidade.UseVisualStyleBackColor = false;
-            btnLocalizarCidade.Click += btnLocalizarCidade_Click;
             // 
             // FrmCadCliente
             // 

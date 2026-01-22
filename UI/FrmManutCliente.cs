@@ -63,8 +63,9 @@ namespace GVC.View
             if (dgvCliente.Columns["UsuarioAtualizacao"] != null) dgvCliente.Columns["UsuarioAtualizacao"].HeaderText = "Usuário Atualização";
             if (dgvCliente.Columns["NomeCidade"] != null) dgvCliente.Columns["NomeCidade"].HeaderText = "Cidade";
             if (dgvCliente.Columns["Estado"] != null) dgvCliente.Columns["Estado"].HeaderText = "Uf";
-
             if (dgvCliente.Columns["IsVendedor"] != null) dgvCliente.Columns["IsVendedor"].HeaderText = "Vendedor";
+            dgvCliente.Columns["Nome"].DefaultCellStyle.Font = new Font("Segoe UI", 9.5f, FontStyle.Bold);
+
 
             // Larguras fixas
             var largurasFixas = new (string nome, int largura)[]
@@ -96,15 +97,22 @@ namespace GVC.View
                 ("Estado",         60),
                 ("IsVendedor", 70)
             };
+            dgvCliente.AllowUserToResizeColumns = true;
 
             foreach (var (nome, largura) in largurasFixas)
             {
                 if (dgvCliente.Columns[nome] != null)
                 {
                     dgvCliente.Columns[nome].Width = largura;
-                    dgvCliente.Columns[nome].Resizable = DataGridViewTriState.False;
+
+                    // Somente a coluna "Nome" pode ser redimensionada
+                    if (nome == "Nome" || nome == "Logradouro" || nome == "Observacoes")
+                        dgvCliente.Columns[nome].Resizable = DataGridViewTriState.True;
+                    else
+                        dgvCliente.Columns[nome].Resizable = DataGridViewTriState.False;
                 }
             }
+
 
             // Estilo do cabeçalho
             dgvCliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -209,7 +217,7 @@ namespace GVC.View
             cad.StatusOperacao = StatusOperacao;
             cad.CarregandoDados = false;
             cad.Text = "Novo Cliente";
-            cad.ForeColor = Color.FromArgb(8, 142, 254);            
+            cad.ForeColor = Color.FromArgb(8, 142, 254);
 
             cad.ShowDialog();
         }
@@ -444,5 +452,14 @@ namespace GVC.View
 
         }
 
+        private void dgvCliente_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void FrmManutCliente_Shown(object sender, EventArgs e)
+        {
+            Utilitario.AplicarCorFocoNosTextBox(this);
+        }
     }
 }

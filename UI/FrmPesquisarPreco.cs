@@ -32,6 +32,8 @@ namespace GVC.View
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ProdutoSelecionado { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
+
         public string Referencia
         {
             get { return referencia; }
@@ -39,6 +41,8 @@ namespace GVC.View
         }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Form FormChamador { get; set; }
+
+        private bool _usuarioRedimensionando = false;
 
         public FrmPesquisarPreco()
         {
@@ -55,115 +59,133 @@ namespace GVC.View
         }
         public void PersonalizarDataGridView()
         {
-            // 1. Desliga o auto‑resize global
             dataGridPesquisar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
-            // 2. Oculta todas as colunas inicialmente
+            // 🔹 Oculta todas as colunas inicialmente
             foreach (DataGridViewColumn col in dataGridPesquisar.Columns)
             {
                 col.Visible = false;
             }
 
-            // 3. Cabeçalhos bonitos
+            // 🔹 Cabeçalhos bonitos + visibilidade
             if (dataGridPesquisar.Columns["ProdutoID"] != null)
             {
                 dataGridPesquisar.Columns["ProdutoID"].HeaderText = "Código";
                 dataGridPesquisar.Columns["ProdutoID"].Visible = true;
             }
+
             if (dataGridPesquisar.Columns["NomeProduto"] != null)
             {
                 dataGridPesquisar.Columns["NomeProduto"].HeaderText = "Produto";
                 dataGridPesquisar.Columns["NomeProduto"].Visible = true;
+                dataGridPesquisar.Columns["NomeProduto"].DefaultCellStyle.Font =
+                    new Font("Segoe UI", 9.5f, FontStyle.Bold);
             }
+
             if (dataGridPesquisar.Columns["Referencia"] != null)
             {
                 dataGridPesquisar.Columns["Referencia"].HeaderText = "Referência";
                 dataGridPesquisar.Columns["Referencia"].Visible = true;
             }
+
             if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
             {
                 dataGridPesquisar.Columns["PrecoDeVenda"].HeaderText = "Preço Venda";
                 dataGridPesquisar.Columns["PrecoDeVenda"].Visible = true;
             }
+
             if (dataGridPesquisar.Columns["Estoque"] != null)
             {
                 dataGridPesquisar.Columns["Estoque"].HeaderText = "Estoque";
                 dataGridPesquisar.Columns["Estoque"].Visible = true;
             }
+
             if (dataGridPesquisar.Columns["Unidade"] != null)
             {
                 dataGridPesquisar.Columns["Unidade"].HeaderText = "UN";
                 dataGridPesquisar.Columns["Unidade"].Visible = true;
             }
+
             if (dataGridPesquisar.Columns["Marca"] != null)
             {
                 dataGridPesquisar.Columns["Marca"].HeaderText = "Marca";
                 dataGridPesquisar.Columns["Marca"].Visible = true;
             }
 
-            // 4. Colunas fixas (largura definida e não mudam)
-            var colunasFixas = new (string nome, int largura)[]
+            // 🔹 Larguras fixas
+            var largurasFixas = new (string nome, int largura)[]
             {
-        ("ProdutoID", 50),
-        ("Referencia", 120),
+        ("ProdutoID",     50),
+        ("NomeProduto", 570),
+        ("Referencia",   120),
         ("PrecoDeVenda", 80),
-        ("Estoque", 60),
-        ("Unidade", 60),
-        ("Marca", 150)
+        ("Estoque",      60),
+        ("Unidade",      60),
+        ("Marca",       150)
             };
 
-            foreach (var (nome, largura) in colunasFixas)
+            dataGridPesquisar.AllowUserToResizeColumns = true;
+
+            foreach (var (nome, largura) in largurasFixas)
             {
                 if (dataGridPesquisar.Columns[nome] != null)
                 {
                     var col = dataGridPesquisar.Columns[nome];
                     col.Width = largura;
                     col.Resizable = DataGridViewTriState.False;
-                    col.ReadOnly = true;
-                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None; // 🔑 fixa
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 }
             }
-
-            // 5. NomeProduto dinâmico (ocupa espaço restante)
+            // 🔹 Configuração FINAL da coluna NomeProduto
             if (dataGridPesquisar.Columns["NomeProduto"] != null)
             {
                 var col = dataGridPesquisar.Columns["NomeProduto"];
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // 🔄 ajusta ao grid
+
+               
+                // permite redimensionar com o mouse
+                col.Resizable = DataGridViewTriState.True;
+
+                // evita colapsar ao arrastar
+                col.MinimumWidth = 150;
+
                 col.ReadOnly = true;
             }
 
-            // 6. Cabeçalho mais estreito
-            dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            // 🔹 Estilo do cabeçalho
+            dataGridPesquisar.ColumnHeadersHeightSizeMode =
+                DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
             dataGridPesquisar.ColumnHeadersHeight = 25;
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Bold);
 
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode =
+                DataGridViewTriState.False;
 
-            // ❗ Remover cabeçalho de linhas (sem alterar largura)
+            // 🔹 Remove cabeçalho de linhas
             dataGridPesquisar.RowHeadersVisible = false;
+            dataGridPesquisar.AdvancedRowHeadersBorderStyle.All =
+                DataGridViewAdvancedCellBorderStyle.None;
 
-            // (opcional) remove borda do cabeçalho de linhas, caso algum tema desenhe algo
-            dataGridPesquisar.AdvancedRowHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
-
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
-            dataGridPesquisar.RowHeadersWidth = 30;
-
-            // 7. Estilo especial para Preço e Estoque
+            // 🔹 Estilo especial para Preço e Estoque
             if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
             {
-                dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new System.Drawing.Font("Arial", 10F, FontStyle.Bold);
-                dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.ForeColor = Color.DarkGreen;
-                dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
-            }
-            if (dataGridPesquisar.Columns["Estoque"] != null)
-            {
-                dataGridPesquisar.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                var col = dataGridPesquisar.Columns["PrecoDeVenda"];
+                col.DefaultCellStyle.Font =
+                    new Font("Arial", 10F, FontStyle.Bold);
+                col.DefaultCellStyle.ForeColor = Color.DarkGreen;
+                col.DefaultCellStyle.BackColor = Color.LightYellow;
             }
 
-            // 8. Força o grid a respeitar tudo
+            if (dataGridPesquisar.Columns["Estoque"] != null)
+            {
+                dataGridPesquisar.Columns["Estoque"].DefaultCellStyle.Alignment =
+                    DataGridViewContentAlignment.MiddleCenter;
+            }
+
             dataGridPesquisar.PerformLayout();
         }
+
 
         public new int ObterLinhaAtual()
         {

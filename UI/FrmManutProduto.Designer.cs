@@ -74,7 +74,7 @@
             dgvProdutos.Margin = new Padding(4, 3, 4, 3);
             dgvProdutos.MultiSelect = false;
             dgvProdutos.Name = "dgvProdutos";
-            dgvProdutos.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueLightMode;
+            dgvProdutos.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
             dgvProdutos.ReadOnly = true;
             dgvProdutos.RowHeadersWidth = 20;
             dgvProdutos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

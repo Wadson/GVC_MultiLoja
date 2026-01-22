@@ -3,20 +3,8 @@
   "WorkspaceRootPath": "D:\\GVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmfinanceiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmfinanceiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmfinanceiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmfinanceiro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmopcoesextrato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\gvc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:gvc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -127,51 +115,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FrmFinanceiro.cs",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmFinanceiro.cs",
-              "RelativeDocumentMoniker": "UI\\FrmFinanceiro.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmFinanceiro.cs",
-              "RelativeToolTip": "UI\\FrmFinanceiro.cs",
-              "ViewState": "AgIAAJECAAAAAAAAAAAIwHcBAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T23:25:06.993Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmFinanceiro.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmFinanceiro.cs",
-              "RelativeDocumentMoniker": "UI\\FrmFinanceiro.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmFinanceiro.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmFinanceiro.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T23:25:02.824Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FrmOpcoesExtrato.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmOpcoesExtrato.cs",
-              "RelativeDocumentMoniker": "UI\\FrmOpcoesExtrato.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmOpcoesExtrato.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmOpcoesExtrato.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T23:17:57.651Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmOpcoesExtrato.cs",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmOpcoesExtrato.cs",
-              "RelativeDocumentMoniker": "UI\\FrmOpcoesExtrato.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmOpcoesExtrato.cs",
-              "RelativeToolTip": "UI\\FrmOpcoesExtrato.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAowB8AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-21T23:11:49.049Z",
+              "Title": "GVC",
+              "DocumentMoniker": "D:\\GVC\\GVC.csproj",
+              "RelativeDocumentMoniker": "GVC.csproj",
+              "ToolTip": "D:\\GVC\\GVC.csproj",
+              "RelativeToolTip": "GVC.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-22T01:25:15.882Z",
               "EditorCaption": ""
             }
           ]

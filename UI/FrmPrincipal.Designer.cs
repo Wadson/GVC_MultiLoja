@@ -68,6 +68,7 @@
             parâmetrosToolStripMenuItem = new ToolStripMenuItem();
             ajudaToolStripMenuItem = new ToolStripMenuItem();
             sobreToolStripMenuItem = new ToolStripMenuItem();
+            verificarAtualizaçãoToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1 = new ToolStrip();
             btnUsuario = new FontAwesome.Sharp.IconToolStripButton();
             btnCliente = new FontAwesome.Sharp.IconToolStripButton();
@@ -93,14 +94,13 @@
             toolStripStatusLabel8 = new ToolStripStatusLabel();
             lblAmbienteStatus = new ToolStripStatusLabel();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
-            lblVersaoSistema = new ToolStripStatusLabel();
             picBackground = new PictureBox();
             panelBackground = new Panel();
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
             iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
-            verificarAtualizaçãoToolStripMenuItem = new ToolStripMenuItem();
+            lblVersaoSistema = new Krypton.Toolkit.KryptonLabel();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -395,6 +395,13 @@
             sobreToolStripMenuItem.Size = new Size(180, 22);
             sobreToolStripMenuItem.Text = "Sobre";
             // 
+            // verificarAtualizaçãoToolStripMenuItem
+            // 
+            verificarAtualizaçãoToolStripMenuItem.Name = "verificarAtualizaçãoToolStripMenuItem";
+            verificarAtualizaçãoToolStripMenuItem.Size = new Size(180, 22);
+            verificarAtualizaçãoToolStripMenuItem.Text = "Verificar Atualização";
+            verificarAtualizaçãoToolStripMenuItem.Click += verificarAtualizaçãoToolStripMenuItem_Click;
+            // 
             // toolStrip1
             // 
             toolStrip1.BackColor = Color.FromArgb(6, 174, 244);
@@ -602,7 +609,7 @@
             // 
             kryptonStatusStrip1.BackColor = Color.FromArgb(6, 174, 244);
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblAmbienteStatus, toolStripStatusLabel1, lblVersaoSistema });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblAmbienteStatus, toolStripStatusLabel1 });
             kryptonStatusStrip1.Location = new Point(0, 408);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
@@ -677,12 +684,6 @@
             toolStripStatusLabel1.Size = new Size(10, 17);
             toolStripStatusLabel1.Text = "|";
             // 
-            // lblVersaoSistema
-            // 
-            lblVersaoSistema.Name = "lblVersaoSistema";
-            lblVersaoSistema.Size = new Size(41, 17);
-            lblVersaoSistema.Text = "Versão";
-            // 
             // picBackground
             // 
             picBackground.Dock = DockStyle.Fill;
@@ -690,18 +691,18 @@
             picBackground.Image = (Image)resources.GetObject("picBackground.Image");
             picBackground.Location = new Point(0, 0);
             picBackground.Name = "picBackground";
-            picBackground.Size = new Size(890, 330);
+            picBackground.Size = new Size(318, 265);
             picBackground.SizeMode = PictureBoxSizeMode.Zoom;
             picBackground.TabIndex = 610;
             picBackground.TabStop = false;
             // 
             // panelBackground
             // 
+            panelBackground.Anchor = AnchorStyles.None;
             panelBackground.Controls.Add(picBackground);
-            panelBackground.Dock = DockStyle.Fill;
-            panelBackground.Location = new Point(0, 78);
+            panelBackground.Location = new Point(292, 118);
             panelBackground.Name = "panelBackground";
-            panelBackground.Size = new Size(890, 330);
+            panelBackground.Size = new Size(318, 265);
             panelBackground.TabIndex = 611;
             // 
             // iconMenuItem1
@@ -727,18 +728,21 @@
             iconToolStripButton1.Size = new Size(23, 23);
             iconToolStripButton1.Text = "iconToolStripButton1";
             // 
-            // verificarAtualizaçãoToolStripMenuItem
+            // lblVersaoSistema
             // 
-            verificarAtualizaçãoToolStripMenuItem.Name = "verificarAtualizaçãoToolStripMenuItem";
-            verificarAtualizaçãoToolStripMenuItem.Size = new Size(180, 22);
-            verificarAtualizaçãoToolStripMenuItem.Text = "Verificar Atualização";
-            verificarAtualizaçãoToolStripMenuItem.Click += verificarAtualizaçãoToolStripMenuItem_Click;
+            lblVersaoSistema.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblVersaoSistema.Location = new Point(634, 374);
+            lblVersaoSistema.Name = "lblVersaoSistema";
+            lblVersaoSistema.Size = new Size(244, 20);
+            lblVersaoSistema.TabIndex = 612;
+            lblVersaoSistema.Values.Text = "SGVendas • Versão 1.0.0 • © 2026 WR Soft";
             // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 252, 252);
             ClientSize = new Size(890, 430);
+            Controls.Add(lblVersaoSistema);
             Controls.Add(panelBackground);
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(toolStrip1);
@@ -841,8 +845,9 @@
         private FontAwesome.Sharp.IconToolStripButton btnSair;
         private FontAwesome.Sharp.IconToolStripButton btnProdutos;
         private ToolStripMenuItem testeToolStripMenuItem;
-        private ToolStripStatusLabel toolStripStatusLabel1;
-        private ToolStripStatusLabel lblVersaoSistema;
+        private ToolStripStatusLabel toolStripStatusLabel1;      
         private ToolStripMenuItem verificarAtualizaçãoToolStripMenuItem;
+        private Krypton.Toolkit.KryptonLabel lblVersaoSistema;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
     }
 }

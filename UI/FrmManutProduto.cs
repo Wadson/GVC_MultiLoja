@@ -77,7 +77,7 @@ namespace GVC.View
                 {
                     var col = dgvProdutos.Columns[nome];
                     col.Width = largura;
-                    col.Resizable = DataGridViewTriState.False;
+                    //col.Resizable = DataGridViewTriState.False;
                     col.ReadOnly = true;
                     col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 }
@@ -89,7 +89,7 @@ namespace GVC.View
                 if (dgvProdutos.Columns[nome] != null)
                 {
                     var col = dgvProdutos.Columns[nome];
-                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;                    
                     col.ReadOnly = true;
                 }
             }

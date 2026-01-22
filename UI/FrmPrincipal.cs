@@ -247,7 +247,8 @@ namespace GVC
                                   .GetName()
                                   .Version?.ToString();
 
-            lblVersaoSistema.Text = "Versão: " + version;// Exibe AssemblyVersion
+            lblVersaoSistema.Text = $"SGVendas • Versão {version} • © 2026 WR Soft";
+
 
 
             lblAmbienteStatus.Text = $"Ambiente: {Sessao.AmbienteSelecionado}";

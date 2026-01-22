@@ -78,6 +78,7 @@
             dgvCliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCliente.Size = new Size(1000, 445);
             dgvCliente.TabIndex = 597;
+            dgvCliente.CellContentClick += dgvCliente_CellContentClick;
             dgvCliente.CellFormatting += dataGridPesquisar_CellFormatting;
             // 
             // lblTotalRegistros
@@ -484,6 +485,7 @@
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção e Clientes";
             Load += FrmManutCliente_Load;
+            Shown += FrmManutCliente_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvCliente).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
