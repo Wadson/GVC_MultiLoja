@@ -218,9 +218,9 @@
             // 
             // dgvMovimentacoes
             // 
-            dgvMovimentacoes.Location = new Point(0, 265);
+            dgvMovimentacoes.Location = new Point(0, 249);
             dgvMovimentacoes.Name = "dgvMovimentacoes";
-            dgvMovimentacoes.Size = new Size(877, 219);
+            dgvMovimentacoes.Size = new Size(877, 239);
             dgvMovimentacoes.TabIndex = 1094;
             // 
             // pnlHeader
@@ -277,7 +277,7 @@
             lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblTitulo.TabIndex = 1091;
-            lblTitulo.Values.Text = "Movimentação de Estoque";
+            lblTitulo.Values.Text = "Consulta de Movimentação de Estoque";
             // 
             // panelDadosDoProduto
             // 
@@ -520,9 +520,9 @@
             btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelar.IconSize = 28;
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelar.Location = new Point(757, 507);
+            btnCancelar.Location = new Point(749, 510);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(120, 38);
+            btnCancelar.Size = new Size(128, 35);
             btnCancelar.TabIndex = 1122;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
@@ -532,14 +532,15 @@
             // 
             btnFiltrar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnFiltrar.BackColor = Color.FromArgb(76, 175, 80);
+            btnFiltrar.ForeColor = Color.White;
             btnFiltrar.IconChar = FontAwesome.Sharp.IconChar.Filter;
             btnFiltrar.IconColor = Color.White;
             btnFiltrar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFiltrar.IconSize = 28;
             btnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFiltrar.Location = new Point(631, 510);
+            btnFiltrar.Location = new Point(615, 510);
             btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new Size(120, 35);
+            btnFiltrar.Size = new Size(128, 35);
             btnFiltrar.TabIndex = 1123;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = false;
@@ -567,6 +568,7 @@
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Consulta Movimentacao deEstoque";
+            Load += FrmConsultaMovimentacaoEstoque_Load;
             ((System.ComponentModel.ISupportInitialize)dgvMovimentacoes).EndInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
             pnlHeader.ResumeLayout(false);

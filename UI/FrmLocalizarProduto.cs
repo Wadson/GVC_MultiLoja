@@ -82,6 +82,7 @@ namespace GVC.View
             {
                 dataGridPesquisar.Columns["NomeProduto"].HeaderText = "Produto";
                 dataGridPesquisar.Columns["NomeProduto"].Visible = true;
+                dataGridPesquisar.Columns["NomeProduto"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Bold);
             }
             if (dataGridPesquisar.Columns["Referencia"] != null)
             {
@@ -120,25 +121,31 @@ namespace GVC.View
         ("Marca", 150)
             };
 
+            dataGridPesquisar.AllowUserToResizeColumns = true;
+
             foreach (var (nome, largura) in colunasFixas)
             {
                 if (dataGridPesquisar.Columns[nome] != null)
                 {
                     var col = dataGridPesquisar.Columns[nome];
                     col.Width = largura;
-                    col.Resizable = DataGridViewTriState.False;
+                    col.Resizable = DataGridViewTriState.True
+                        ;
                     col.ReadOnly = true;
                     col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None; // 🔑 fixa
                 }
             }
 
-            // 5. NomeProduto dinâmico (ocupa espaço restante)
             if (dataGridPesquisar.Columns["NomeProduto"] != null)
             {
                 var col = dataGridPesquisar.Columns["NomeProduto"];
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // 🔄 ajusta ao grid
+
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                col.MinimumWidth = 200; // 🔑 essencial
+                col.Resizable = DataGridViewTriState.True;
                 col.ReadOnly = true;
             }
+
 
             // 6. Cabeçalho mais estreito
             dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;

@@ -255,7 +255,8 @@
             // 
             correçãoDeEstoqueToolStripMenuItem.Name = "correçãoDeEstoqueToolStripMenuItem";
             correçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
-            correçãoDeEstoqueToolStripMenuItem.Text = "Entrada de Estoque";
+            correçãoDeEstoqueToolStripMenuItem.Text = "Movimentação de Estoque";
+            correçãoDeEstoqueToolStripMenuItem.Click += correçãoDeEstoqueToolStripMenuItem_Click;
             // 
             // consultarMovimentaçãoDeEstoqueToolStripMenuItem
             // 

@@ -18,7 +18,7 @@ namespace GVC.View
         {
             InitializeComponent();
         }
-       
+
         private void btnBuscarProduto_Click(object sender, EventArgs e)
         {
             // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
@@ -37,6 +37,18 @@ namespace GVC.View
             }
         }
 
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void FrmConsultaMovimentacaoEstoque_Load(object sender, EventArgs e)
+        {
+            cmbOrigem.SelectedIndex = 0;
+            cmbTipoMovimentacao.SelectedIndex = 0;
+        }
+      
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
 
@@ -61,11 +73,6 @@ namespace GVC.View
             );
 
             dgvMovimentacoes.DataSource = dt;
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

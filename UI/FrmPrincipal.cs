@@ -421,5 +421,12 @@ namespace GVC
         {
             await GVC.Infra.Update.UpdateService.VerificarAtualizacaoAsync(true);
         }
+
+        private void correçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
+            frm.Show();
+
+        }
     }
 }

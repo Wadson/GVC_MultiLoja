@@ -78,8 +78,7 @@ namespace GVC.View
             {
                 dataGridPesquisar.Columns["NomeProduto"].HeaderText = "Produto";
                 dataGridPesquisar.Columns["NomeProduto"].Visible = true;
-                dataGridPesquisar.Columns["NomeProduto"].DefaultCellStyle.Font =
-                    new Font("Segoe UI", 9.5f, FontStyle.Bold);
+                dataGridPesquisar.Columns["NomeProduto"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Bold);
             }
 
             if (dataGridPesquisar.Columns["Referencia"] != null)
@@ -98,6 +97,7 @@ namespace GVC.View
             {
                 dataGridPesquisar.Columns["Estoque"].HeaderText = "Estoque";
                 dataGridPesquisar.Columns["Estoque"].Visible = true;
+                dataGridPesquisar.Columns["Estoque"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Bold);
             }
 
             if (dataGridPesquisar.Columns["Unidade"] != null)
@@ -116,11 +116,11 @@ namespace GVC.View
             var largurasFixas = new (string nome, int largura)[]
             {
         ("ProdutoID",     50),
-        ("NomeProduto", 570),
+        ("NomeProduto", 450),
         ("Referencia",   120),
         ("PrecoDeVenda", 80),
         ("Estoque",      60),
-        ("Unidade",      60),
+        ("Unidade",      40),
         ("Marca",       150)
             };
 
@@ -139,40 +139,31 @@ namespace GVC.View
             // 🔹 Configuração FINAL da coluna NomeProduto
             if (dataGridPesquisar.Columns["NomeProduto"] != null)
             {
-                var col = dataGridPesquisar.Columns["NomeProduto"];
-
-               
+                var col = dataGridPesquisar.Columns["NomeProduto"];               
                 // permite redimensionar com o mouse
                 col.Resizable = DataGridViewTriState.True;
-
                 // evita colapsar ao arrastar
                 col.MinimumWidth = 150;
-
                 col.ReadOnly = true;
             }
 
             // 🔹 Estilo do cabeçalho
-            dataGridPesquisar.ColumnHeadersHeightSizeMode =
-                DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridPesquisar.ColumnHeadersHeightSizeMode =  DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 
             dataGridPesquisar.ColumnHeadersHeight = 25;
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 9, FontStyle.Bold);
-
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode =
-                DataGridViewTriState.False;
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
             // 🔹 Remove cabeçalho de linhas
             dataGridPesquisar.RowHeadersVisible = false;
-            dataGridPesquisar.AdvancedRowHeadersBorderStyle.All =
-                DataGridViewAdvancedCellBorderStyle.None;
+            dataGridPesquisar.AdvancedRowHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
 
             // 🔹 Estilo especial para Preço e Estoque
             if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
             {
                 var col = dataGridPesquisar.Columns["PrecoDeVenda"];
                 col.DefaultCellStyle.Font =
-                    new Font("Arial", 10F, FontStyle.Bold);
+                    new Font("Arial", 8F, FontStyle.Bold);
                 col.DefaultCellStyle.ForeColor = Color.DarkGreen;
                 col.DefaultCellStyle.BackColor = Color.LightYellow;
             }
@@ -182,6 +173,7 @@ namespace GVC.View
                 dataGridPesquisar.Columns["Estoque"].DefaultCellStyle.Alignment =
                     DataGridViewContentAlignment.MiddleCenter;
             }
+            dataGridPesquisar.DefaultCellStyle.Font = new Font("Segoe UI", 8);
 
             dataGridPesquisar.PerformLayout();
         }

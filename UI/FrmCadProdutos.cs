@@ -496,5 +496,14 @@ namespace GVC.View
         {
             this.Close();
         }
+
+        private void FrmCadProdutos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // Evita o som padrão do Windows
+                SendKeys.Send("{TAB}"); // Simula a tecla TAB
+            }
+        }
     }
 }

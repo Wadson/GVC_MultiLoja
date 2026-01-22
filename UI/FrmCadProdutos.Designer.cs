@@ -1298,6 +1298,7 @@
             kryptonLabel2.Size = new Size(1004, 20);
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel2.TabIndex = 1038;
+            kryptonLabel2.TabStop = false;
             kryptonLabel2.Values.Text = "Fornecedor";
             // 
             // kryptonTextBox2
@@ -1563,6 +1564,7 @@
             kryptonLabel3.Size = new Size(1004, 20);
             kryptonLabel3.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel3.TabIndex = 1038;
+            kryptonLabel3.TabStop = false;
             kryptonLabel3.Values.Text = "Preço e Estoque";
             // 
             // kryptonTextBox8
@@ -1904,6 +1906,7 @@
             kryptonLabel4.Size = new Size(1004, 20);
             kryptonLabel4.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel4.TabIndex = 1038;
+            kryptonLabel4.TabStop = false;
             kryptonLabel4.Values.Text = "Status e Situação";
             // 
             // kryptonTextBox14
@@ -2160,6 +2163,7 @@
             kryptonLabel5.Size = new Size(1004, 20);
             kryptonLabel5.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel5.TabIndex = 1038;
+            kryptonLabel5.TabStop = false;
             kryptonLabel5.Values.Text = "Imagem do Produto";
             // 
             // kryptonTextBox20
@@ -2376,6 +2380,7 @@
             Text = "Cadastro de Produtos";
             Load += FrmCadProdutos_Load;
             Shown += FrmCadProdutos_Shown;
+            KeyDown += FrmCadProdutos_KeyDown;
             ((System.ComponentModel.ISupportInitialize)pbImagem).EndInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
             pnlHeader.ResumeLayout(false);
