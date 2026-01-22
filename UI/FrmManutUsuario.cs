@@ -168,8 +168,8 @@ namespace GVC
 
             // 6. Estilo do cabeçalho
             dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvUsuarios.ColumnHeadersHeight = 35;
-            dgvUsuarios.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10, FontStyle.Bold);
+            dgvUsuarios.ColumnHeadersHeight = 25;
+            dgvUsuarios.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 8, FontStyle.Regular);
             dgvUsuarios.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dgvUsuarios.RowHeadersWidth = 30;
 

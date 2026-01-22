@@ -88,8 +88,8 @@ namespace GVC.View
 
             // Estilo do cabeçalho
             dgvFornecedor.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvFornecedor.ColumnHeadersHeight = 30; // altura ajustada
-            dgvFornecedor.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            dgvFornecedor.ColumnHeadersHeight = 25; // altura ajustada
+            dgvFornecedor.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             dgvFornecedor.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dgvFornecedor.RowHeadersWidth = 30;
 
@@ -111,7 +111,7 @@ namespace GVC.View
                 frmcadFornecedor.Text = "Novo Fornecedor";
                 frmcadFornecedor.StateCommon.Header.Content.ShortText.Color1 = Color.Green;
                 frmcadFornecedor.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadFornecedor.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frmcadFornecedor.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
                 frmcadFornecedor.ShowDialog();
                 return;
             }
@@ -134,7 +134,7 @@ namespace GVC.View
                 frmcadFornecedor.Text = "Alterar Fornecedor";
                 frmcadFornecedor.StateCommon.Header.Content.ShortText.Color1 = Color.Orange;
                 frmcadFornecedor.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadFornecedor.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frmcadFornecedor.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
                 frmcadFornecedor.btnSalvar.Text = "Alterar";
                 frmcadFornecedor.btnNovo.Enabled = false;
 
@@ -146,7 +146,7 @@ namespace GVC.View
                 frmcadFornecedor.Text = "Alterar Fornecedor";
                 frmcadFornecedor.StateCommon.Header.Content.ShortText.Color1 = Color.Red;
                 frmcadFornecedor.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadFornecedor.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frmcadFornecedor.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
                 frmcadFornecedor.btnSalvar.Text = "Excluir";
                 frmcadFornecedor.btnNovo.Enabled = false;
 

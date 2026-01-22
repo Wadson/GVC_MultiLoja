@@ -107,8 +107,8 @@ namespace GVC.View
 
             // Estilo
             dgvEmpresa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvEmpresa.ColumnHeadersHeight = 35;
-            dgvEmpresa.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dgvEmpresa.ColumnHeadersHeight = 25;
+            dgvEmpresa.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8);
             dgvEmpresa.RowHeadersWidth = 28;
         }
         private void CarregarEmpresas()

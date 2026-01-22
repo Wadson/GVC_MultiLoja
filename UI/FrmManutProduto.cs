@@ -96,14 +96,14 @@ namespace GVC.View
 
             // 7. Estilo cabeçalho
             dgvProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvProdutos.ColumnHeadersHeight = 35;
-            dgvProdutos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            dgvProdutos.ColumnHeadersHeight = 25;
+            dgvProdutos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             dgvProdutos.RowHeadersWidth = 30;
 
             // 8. Formatações especiais
             if (dgvProdutos.Columns["PrecoDeVenda"] != null)
             {
-                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new Font("Arial", 10F, FontStyle.Bold);
+                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new Font("Arial", 8F, FontStyle.Regular);
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.ForeColor = Color.DarkGreen;
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
             }
@@ -112,7 +112,7 @@ namespace GVC.View
             if (dgvProdutos.Columns["Estoque"] != null)
             {
                 dgvProdutos.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvProdutos.Columns["Estoque"].DefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+                dgvProdutos.Columns["Estoque"].DefaultCellStyle.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             }
 
             // 9. Atualizar grid
@@ -166,7 +166,7 @@ namespace GVC.View
                 frm.Text = "Novo Produto";
                 frm.StateCommon.Header.Content.ShortText.Color1 = Color.Green;
                 frm.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
 
                 HabilitarTimer(true);
                 frm.ShowDialog();
@@ -221,7 +221,7 @@ namespace GVC.View
                 frm.Text = "Alterar Produto";
                 frm.StateCommon.Header.Content.ShortText.Color1 = Color.Orange;
                 frm.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
             }
             else if (StatusOperacao == "EXCLUSÃO")
             {                
@@ -231,7 +231,7 @@ namespace GVC.View
                 frm.Text = "Excluir Produto";
                 frm.StateCommon.Header.Content.ShortText.Color1 = Color.Red;
                 frm.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
                 // Desabilitar campos
                 frm.btnNovo.Enabled = false;
                 frm.txtNomeProduto.Enabled = false;

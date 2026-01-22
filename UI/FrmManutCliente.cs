@@ -64,7 +64,7 @@ namespace GVC.View
             if (dgvCliente.Columns["NomeCidade"] != null) dgvCliente.Columns["NomeCidade"].HeaderText = "Cidade";
             if (dgvCliente.Columns["Estado"] != null) dgvCliente.Columns["Estado"].HeaderText = "Uf";
             if (dgvCliente.Columns["IsVendedor"] != null) dgvCliente.Columns["IsVendedor"].HeaderText = "Vendedor";
-            dgvCliente.Columns["Nome"].DefaultCellStyle.Font = new Font("Segoe UI", 9.5f, FontStyle.Bold);
+            dgvCliente.Columns["Nome"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Regular);
 
 
             // Larguras fixas
@@ -116,8 +116,8 @@ namespace GVC.View
 
             // Estilo do cabeçalho
             dgvCliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvCliente.ColumnHeadersHeight = 35;
-            dgvCliente.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            dgvCliente.ColumnHeadersHeight = 25;
+            dgvCliente.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             dgvCliente.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dgvCliente.RowHeadersWidth = 28;
 
@@ -139,7 +139,7 @@ namespace GVC.View
                 frmcadCliente.Text = "Novo Cliente";
                 frmcadCliente.StateCommon.Header.Content.ShortText.Color1 = Color.Green;
                 frmcadCliente.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadCliente.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frmcadCliente.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
 
                 frmcadCliente.ShowDialog();
                 return;
@@ -162,7 +162,7 @@ namespace GVC.View
                 frmcadCliente.Text = "Alterar Cliente";
                 frmcadCliente.StateCommon.Header.Content.ShortText.Color1 = Color.Orange;
                 frmcadCliente.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadCliente.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frmcadCliente.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
                 frmcadCliente.btnSalvar.Text = "Alterar";
                 frmcadCliente.btnNovo.Enabled = false;
             }
@@ -171,7 +171,7 @@ namespace GVC.View
                 frmcadCliente.Text = "Excluir Cliente";
                 frmcadCliente.StateCommon.Header.Content.ShortText.Color1 = Color.Red;
                 frmcadCliente.StateCommon.Header.Content.ShortText.Color2 = Color.White;
-                frmcadCliente.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 12);
+                frmcadCliente.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
                 frmcadCliente.btnSalvar.Text = "Excluir";
                 frmcadCliente.btnNovo.Enabled = false;
 

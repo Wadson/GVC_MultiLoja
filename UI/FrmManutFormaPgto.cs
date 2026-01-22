@@ -70,8 +70,8 @@ namespace GVC.View
 
             // Estilo
             dgvFormaPgto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvFormaPgto.ColumnHeadersHeight = 35;
-            dgvFormaPgto.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dgvFormaPgto.ColumnHeadersHeight = 25;
+            dgvFormaPgto.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8);
             dgvFormaPgto.RowHeadersWidth = 28;
         }
         private void CarregarFormaPgtos()

@@ -82,7 +82,7 @@ namespace GVC.View
             {
                 dataGridPesquisar.Columns["NomeProduto"].HeaderText = "Produto";
                 dataGridPesquisar.Columns["NomeProduto"].Visible = true;
-                dataGridPesquisar.Columns["NomeProduto"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Bold);
+                dataGridPesquisar.Columns["NomeProduto"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Regular);
             }
             if (dataGridPesquisar.Columns["Referencia"] != null)
             {
@@ -151,7 +151,7 @@ namespace GVC.View
             dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridPesquisar.ColumnHeadersHeight = 25;
 
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Regular);
             dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
             // ❗ Remover cabeçalho de linhas (sem alterar largura)
@@ -160,14 +160,14 @@ namespace GVC.View
             // (opcional) remove borda do cabeçalho de linhas, caso algum tema desenhe algo
             dataGridPesquisar.AdvancedRowHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
 
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Bold);
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9, FontStyle.Regular);
             dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
             dataGridPesquisar.RowHeadersWidth = 30;
 
             // 7. Estilo especial para Preço e Estoque
             if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
             {
-                dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new System.Drawing.Font("Arial", 10F, FontStyle.Bold);
+                dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new System.Drawing.Font("Arial", 10F, FontStyle.Regular);
                 dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.ForeColor = Color.DarkGreen;
                 dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
             }

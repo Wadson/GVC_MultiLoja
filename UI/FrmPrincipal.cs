@@ -349,11 +349,6 @@ namespace GVC
             frm.Show();
         }
 
-        private void btnContasPagar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCaixa_Click(object sender, EventArgs e)
         {
 
@@ -424,9 +419,15 @@ namespace GVC
 
         private void correçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
-            frm.Show();
+            FrmMovimentacaoEstoque frmMovimentacaoEstoq = new FrmMovimentacaoEstoque();
+            frmMovimentacaoEstoq.Show();
 
+        }
+
+        private void btnCorrecaoEstoque_Click(object sender, EventArgs e)
+        {
+            FrmMovimentacaoEstoque  frmMovimentacaoEstoque = new FrmMovimentacaoEstoque();
+            frmMovimentacaoEstoque.Show();
         }
     }
 }
