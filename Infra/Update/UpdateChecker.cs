@@ -1,7 +1,7 @@
-﻿using GVC.Infra;
-using GVC.Infra.Update;
+﻿using GVC.Infra.Update;
 using System;
 using System.Net.Http;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -9,7 +9,7 @@ public static class UpdateChecker
 {
     private const string URL_VERSAO = "https://raw.githubusercontent.com/Wadson/GVC/main/version.json";
 
-    public static async Task<UpdateInfo> VerificarAsync()
+    public static async Task<UpdateInfo?> VerificarAsync()
     {
         try
         {
@@ -17,18 +17,18 @@ public static class UpdateChecker
             var json = await http.GetStringAsync(URL_VERSAO);
 
             var info = JsonSerializer.Deserialize<UpdateInfo>(json);
+            if (info == null) return null;
 
-            var versaoAtual = new Version(Application.ProductVersion);
+            var versaoAtual =
+                Assembly.GetExecutingAssembly().GetName().Version;
+
             var versaoOnline = new Version(info.versao);
 
-            if (versaoOnline > versaoAtual)
-                return info;
-
-            return null;
+            return versaoOnline > versaoAtual ? info : null;
         }
         catch
         {
-            return null; // falha silenciosa
+            return null;
         }
     }
 }

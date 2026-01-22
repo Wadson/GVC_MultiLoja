@@ -1,14 +1,10 @@
 ﻿using GVC.Infra.Database;
-using GVC.Infra.Database;
+using GVC.Infra.Update;
 using GVC.MUI;
 using GVC.View;
 using QuestPDF.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GVC
@@ -22,28 +18,73 @@ namespace GVC
         static void Main()
         {
             QuestPDF.Settings.License = LicenseType.Community;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-          
+            Application.DoEvents();
 
-            Application.DoEvents(); // força pintura inicial
-
-            using var frm = new FrmDatabaseSetup();
-
-            frm.Shown += (_, __) =>
+            // =============================
+            // SETUP / BANCO DE DADOS
+            // =============================
+            using (var frm = new FrmDatabaseSetup())
             {
-                DatabaseInstaller.Run(frm.AtualizarProgressoThreadSafe);
-                frm.Close();
-            };
+                frm.Shown += (_, __) =>
+                {
+                    DatabaseInstaller.Run(frm.AtualizarProgressoThreadSafe);
+                    frm.Close();
+                };
 
-            Application.Run(frm);
+                Application.Run(frm);
+            }
 
+            // =============================
+            // LOGIN
+            // =============================
+            using (var login = new FrmLogin())
+            {
+                if (login.ShowDialog() != DialogResult.OK)
+                    return;
+            }
 
+            // =============================
+            // VERIFICAÇÃO DE ATUALIZAÇÃO
+            // =============================
+            try
+            {
+                var update =
+                    UpdateChecker.VerificarAsync()
+                                 .GetAwaiter()
+                                 .GetResult();
 
-            using var login = new FrmLogin();
-            if (login.ShowDialog() == DialogResult.OK)
-                Application.Run(new FrmPrincipal());
+                if (update != null)
+                {
+                    MessageBox.Show(
+                        $"Nova versão disponível!\n\n" +
+                        $"Versão: {update.versao}\n\n" +
+                        $"{update.descricao}",
+                        "Atualização do Sistema",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = update.url,
+                        UseShellExecute = true
+                    });
+
+                    return; // encerra o sistema
+                }
+            }
+            catch
+            {
+                // falha silenciosa
+            }
+
+            // =============================
+            // TELA PRINCIPAL
+            // =============================
+            Application.Run(new FrmPrincipal());
         }
     }
 }
