@@ -25,7 +25,7 @@ FROM Produtos
 WHERE Status = 'Disponível'
 ORDER BY NomeProduto";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<RelatorioProdutoEstoqueDTO>(sql).ToList();
         }
 
@@ -60,7 +60,7 @@ WHERE v.StatusVenda <> 'Cancelada'";
 GROUP BY p.ProdutoID, p.NomeProduto
 ORDER BY LucroTotal DESC";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<RelatorioLucroProdutoDTO>(sql, new
             {
                 DataInicial = dataInicial,

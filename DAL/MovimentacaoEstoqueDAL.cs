@@ -20,7 +20,7 @@ namespace GVC.DAL
         {
             var dt = new DataTable();
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             string sql = @"

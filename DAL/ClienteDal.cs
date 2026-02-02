@@ -48,7 +48,7 @@ namespace GVC.DAL
         private DataTable ExecuteReaderToDataTable(string sql, params SqlParameter[] parameters)
         {
             var dt = new DataTable();
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 if (parameters != null && parameters.Length > 0)
@@ -76,7 +76,7 @@ namespace GVC.DAL
                 FROM Clientes
                 WHERE (Nome = @Nome OR Cpf = @Cpf)";
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Nome", string.IsNullOrWhiteSpace(nome) ? (object)DBNull.Value : nome);
@@ -107,7 +107,7 @@ namespace GVC.DAL
                 );
                 SELECT SCOPE_IDENTITY();"; // SQL Server equivalente ao LAST_INSERT_ROWID()
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Nome", cliente.Nome ?? (object)DBNull.Value);
@@ -166,7 +166,7 @@ namespace GVC.DAL
                     UsuarioAtualizacao = @UsuarioAtualizacao,
                     IsVendedor = @IsVendedor WHERE ClienteID = @ClienteID";
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@ClienteID", cliente.ClienteID);
@@ -201,7 +201,7 @@ namespace GVC.DAL
         public void ExcluirCliente(int clienteID)
         {
             const string sql = "DELETE FROM Clientes WHERE ClienteID = @ClienteID";
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@ClienteID", clienteID);
@@ -289,7 +289,7 @@ namespace GVC.DAL
                 FROM Clientes
                 WHERE Cpf = @Cpf";
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Cpf", string.IsNullOrWhiteSpace(cpf) ? (object)DBNull.Value : cpf);
@@ -312,7 +312,7 @@ namespace GVC.DAL
                 FROM Clientes
                 WHERE Cnpj = @Cnpj";
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Cnpj", string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
@@ -331,7 +331,7 @@ namespace GVC.DAL
         public ClienteModel? BuscarPorId(int clienteID)
         {
             string sql = SqlBase + " WHERE c.ClienteID = @Id";
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Id", clienteID);
@@ -354,7 +354,7 @@ namespace GVC.DAL
                                  FROM Clientes ORDER BY Nome";
 
             var lista = new List<Cliente>();
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 conn.Open();
@@ -407,7 +407,7 @@ namespace GVC.DAL
         {
             var lista = new List<ClienteModel>();
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = @"
@@ -441,7 +441,7 @@ namespace GVC.DAL
         {
             var lista = new List<ClienteModel>();
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = @"

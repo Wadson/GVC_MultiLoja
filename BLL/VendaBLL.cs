@@ -140,7 +140,7 @@ namespace GVC.BLL
             var parcelaDal = new ParcelaDal();
             var parcelaBll = new ParcelaBLL();
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var tran = conn.BeginTransaction();
 
@@ -222,7 +222,7 @@ namespace GVC.BLL
         //Abaixo métodos para atualizar venda, 
         public bool VendaPossuiPagamento(int vendaId)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             string sql = @" SELECT COUNT(*)

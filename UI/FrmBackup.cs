@@ -86,7 +86,7 @@ namespace GVC.View
 
                 bool suportaCompression;
 
-                using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
+                using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
                 {
                     con.Open();
 
@@ -189,7 +189,7 @@ namespace GVC.View
                 // EXECUÇÃO SEGURA
                 // ================================
 
-                con = Conexao.Conex(Sessao.AmbienteSelecionado);
+                con = Conexao_.Conex(Sessao.AmbienteSelecionado);
                 con.Open();
 
                 // IMPORTANTE: usa master

@@ -14,7 +14,7 @@ namespace GVC.DAL
             const string sql = @"INSERT INTO HistoricoPreco (ProdutoID, DataRegistro, PrecoCusto, Lucro, PrecoVenda) 
             VALUES (@ProdutoID, @DataRegistro, @PrecoCusto, @Lucro, @PrecoVenda)";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, historico);
         }
 
@@ -32,7 +32,7 @@ namespace GVC.DAL
             WHERE ProdutoID = @ProdutoID 
             ORDER BY DataRegistro DESC";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<BLL.HistoricoPrecoBLL>(sql, new { ProdutoID = produtoID }).AsList();
         }
 
@@ -51,7 +51,7 @@ namespace GVC.DAL
             WHERE ProdutoID = @ProdutoID 
             ORDER BY DataRegistro DESC";   // ✅ Ajuste para SQL Server
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QueryFirstOrDefault<BLL.HistoricoPrecoBLL>(sql, new { ProdutoID = produtoID });
         }
 
@@ -59,7 +59,7 @@ namespace GVC.DAL
         public void ExcluirHistorico(int historicoID)
         {
             const string sql = "DELETE FROM HistoricoPreco WHERE HistoricoID = @HistoricoID";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, new { HistoricoID = historicoID });
         }
 
@@ -67,7 +67,7 @@ namespace GVC.DAL
         public void LimparHistoricoDoProduto(int produtoID)
         {
             const string sql = "DELETE FROM HistoricoPreco WHERE ProdutoID = @ProdutoID";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, new { ProdutoID = produtoID });
         }
     }

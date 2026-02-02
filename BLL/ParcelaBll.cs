@@ -167,7 +167,7 @@ namespace GVC.BLL
             string obsFinal = string.IsNullOrWhiteSpace(observacao)
                 ? "Baixa total em lote"  : $"Baixa total em lote – {observacao.Trim()}";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var transaction = conn.BeginTransaction();
 
@@ -340,7 +340,7 @@ WHERE ParcelaID = @ParcelaID";
         }
         public ParcelaDetalheDTO ObterDetalheParcela(long parcelaId)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
 
             const string sql = @"
                        SELECT

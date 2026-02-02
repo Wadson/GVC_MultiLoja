@@ -603,7 +603,7 @@ namespace GVC.View
                 const string sql = @" UPDATE Parcela SET Status = 'Atrasada' WHERE DataVencimento < CAST(GETDATE() AS DATE)
                                       AND Status NOT IN ('Paga', 'ParcialmentePaga', 'Cancelada', 'Atrasada')";
 
-                using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+                using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
                 using (var cmd = new SqlCommand(sql, conn))
                 {
                     conn.Open();
@@ -823,7 +823,7 @@ namespace GVC.View
 
             int vendaId = dto.VendaID;
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
 
             int? clienteId = conn.ExecuteScalar<int?>(@"
         SELECT ClienteID      FROM Venda

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "39Nyqu6/57w=",
+  "dgSpecHash": "B0HqJ7j/fzA=",
   "success": true,
-  "projectFilePath": "D:\\GVC\\GVC.csproj",
+  "projectFilePath": "C:\\GVC\\GVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\iConnect\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\iConnect\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

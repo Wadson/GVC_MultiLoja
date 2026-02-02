@@ -24,7 +24,7 @@ namespace GVC.DAL
         }
         public int ObterEstoqueAtualizado(long produtoId)
         {
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             {
                 string sql = "SELECT Estoque FROM Produtos WHERE ProdutoID = @id";
                 using (var cmd = new SqlCommand(sql, conn))

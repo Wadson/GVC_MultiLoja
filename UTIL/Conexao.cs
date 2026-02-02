@@ -1,45 +1,49 @@
-﻿using Microsoft.Data.SqlClient; // biblioteca para SQL Server
-using System;
+﻿using System;
 using System.Configuration;
+using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
+
 
 namespace GVC.UTIL
 {
-    internal class Conexao
+    internal static class Conexao
     {
-        public static SqlConnection Conex(string ambiente = null)
+        /// <summary>
+        /// Retorna uma conexão SQL Server baseada no ambiente informado
+        /// ou no ambiente selecionado na sessão.
+        /// </summary>
+        public static SqlConnection Conex(AmbienteBanco? ambiente = null)
         {
             try
             {
-                string ambienteFinal = ambiente ?? Sessao.AmbienteSelecionado;
-                string connString = ConfigurationManager.ConnectionStrings[ambienteFinal].ConnectionString;
-                return new SqlConnection(connString);
+                // Se não informar ambiente, usa o da sessão
+                string ambienteFinal = ambiente?.ToString()
+                    ?? Sessao.AmbienteSelecionado;
+
+                if (string.IsNullOrWhiteSpace(ambienteFinal))
+                    throw new Exception("Ambiente do banco de dados não foi definido.");
+
+                ConnectionStringSettings settings =
+                    ConfigurationManager.ConnectionStrings[ambienteFinal];
+
+                if (settings == null)
+                    throw new Exception($"ConnectionString '{ambienteFinal}' não encontrada no app.config.");
+
+                return new SqlConnection(settings.ConnectionString);
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro ao conectar ao banco SQL Server: " + ex.Message, ex);
+                throw new Exception("Erro ao criar conexão com o SQL Server.", ex);
             }
         }
     }
-    public enum ModoVenda
-    {
-        Nova = 1,
-        Edicao = 2
-    }
-}
 
-/*
- * // Para homologação
-using (SqlConnection conn = Conexao.Conex("Homologacao"))
-{
-    conn.Open();
-    // comandos SQL aqui
+    /// <summary>
+    /// Ambientes possíveis do banco de dados
+    /// </summary>
+    public enum AmbienteBanco
+    {       
+        Homologacao,
+        Teste
+    }   
 }
-
-// Para teste
-using (SqlConnection conn = Conexao.Conex("Teste"))
-{
-    conn.Open();
-    // comandos SQL aqui
-}
-
- * */

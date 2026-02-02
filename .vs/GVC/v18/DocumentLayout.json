@@ -1,42 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GVC\\",
+  "WorkspaceRootPath": "C:\\GVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutfornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutfornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutformapgto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutformapgto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutempresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutempresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|d:\\gvc\\ui\\frmmanutcidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmmanutcidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|c:\\gvc\\ui\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DBDB5375-4381-46B4-AD77-796E102800CD}|GVC.csproj|solutionrelative:ui\\frmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 70,
-          "SelectedChildIndex": 24,
+          "SelectedChildIndex": 25,
           "Children": [
             {
               "$type": "Bookmark",
@@ -145,112 +113,19 @@
               "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FrmManutProduto.cs",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutProduto.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutProduto.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutProduto.cs",
-              "RelativeToolTip": "UI\\FrmManutProduto.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Title": "FrmLogin.cs [Projeto]",
+              "DocumentMoniker": "C:\\GVC\\UI\\FrmLogin.cs",
+              "RelativeDocumentMoniker": "UI\\FrmLogin.cs",
+              "ToolTip": "C:\\GVC\\UI\\FrmLogin.cs [Projeto]",
+              "RelativeToolTip": "UI\\FrmLogin.cs [Projeto]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:16:46.479Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FrmManutUsuario.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutUsuario.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutUsuario.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutUsuario.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmManutUsuario.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:05:54.438Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FrmManutProduto.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutProduto.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutProduto.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutProduto.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmManutProduto.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:05:54.412Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FrmManutFornecedor.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutFornecedor.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutFornecedor.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutFornecedor.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmManutFornecedor.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:05:54.385Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FrmManutFormaPgto.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutFormaPgto.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutFormaPgto.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutFormaPgto.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmManutFormaPgto.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:05:54.355Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FrmManutEstado.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutEstado.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutEstado.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutEstado.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmManutEstado.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:05:54.321Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "FrmManutEmpresa.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutEmpresa.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutEmpresa.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutEmpresa.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmManutEmpresa.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:05:54.297Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "FrmManutCliente.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutCliente.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutCliente.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutCliente.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmManutCliente.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:05:54.268Z",
-              "EditorCaption": " [Projeto]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "FrmManutCidade.cs [Projeto]",
-              "DocumentMoniker": "D:\\GVC\\UI\\FrmManutCidade.cs",
-              "RelativeDocumentMoniker": "UI\\FrmManutCidade.cs",
-              "ToolTip": "D:\\GVC\\UI\\FrmManutCidade.cs [Projeto]",
-              "RelativeToolTip": "UI\\FrmManutCidade.cs [Projeto]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T21:05:54.236Z",
+              "WhenOpened": "2026-02-02T10:33:49.376Z",
               "EditorCaption": " [Projeto]"
             }
           ]

@@ -34,7 +34,7 @@ namespace GVC.DAL
 FROM Produtos p
 LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID";
 
-        private readonly string _connectionString = Conexao.Conex(Sessao.AmbienteSelecionado).ConnectionString;
+        private readonly string _connectionString = Conexao_.Conex(Sessao.AmbienteSelecionado).ConnectionString;
 
         // ==================== LISTAR TODOS ====================
         public List<ProdutoModel> ListarTodos()
@@ -103,7 +103,7 @@ ORDER BY p.NomeProduto;
         {
             var lista = new List<ProdutoModel>();
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = @"

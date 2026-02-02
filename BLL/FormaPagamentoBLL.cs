@@ -76,7 +76,7 @@ namespace GVC.BLL
         }
         public FormaPagamentoModel PesquisarNo(DataGridView DataGridPesquisa, string pesquisa)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 SqlCommand sql = new SqlCommand("SELECT * FROM FormaPagamento WHERE NomeFormaPagamento like '" + pesquisa + "%'", conn);
@@ -103,7 +103,7 @@ namespace GVC.BLL
         }
         public FormaPagamentoModel PesquisarCodigo(string pesquisa)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 SqlCommand sql = new SqlCommand("SELECT * FROM FormaPagamento WHERE FormaPgtoID like '" + pesquisa + "%'", conn);

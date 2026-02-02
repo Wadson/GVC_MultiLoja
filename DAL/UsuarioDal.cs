@@ -11,7 +11,7 @@ namespace GVC.DAL
     {
         public DataTable ListaUsuario()
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var comando = new SqlCommand("SELECT UsuarioID, NomeCompleto, Cpf, DataNascimento, Email, NomeUsuario, TipoUsuario, Senha, DataCriacao FROM Usuarios", conn);
@@ -31,7 +31,7 @@ namespace GVC.DAL
 
         public void GravaUsuario(UsuarioModel usuarios)
         {
-            using (var conn = Conexao.Conex())
+            using (var conn = Conexao_.Conex())
             {
                 try
                 {
@@ -61,7 +61,7 @@ namespace GVC.DAL
 
         public void ExcluiUsuario(UsuarioModel usuarios)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sqlcomando = new SqlCommand("DELETE FROM Usuarios WHERE UsuarioID = @UsuarioID", conn);
@@ -78,7 +78,7 @@ namespace GVC.DAL
 
         public void Atualizar(UsuarioModel usuarios)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sqlcomm = new SqlCommand(
@@ -106,7 +106,7 @@ namespace GVC.DAL
 
         public void AtualizaUsuarioSenha(UsuarioModel usuarios)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sqlcomm = new SqlCommand("UPDATE Usuarios SET Senha = @Senha WHERE UsuarioID = @UsuarioID", conn);
@@ -125,7 +125,7 @@ namespace GVC.DAL
 
         public DataTable PesquisarPorNome(string nome)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sqlconn = "SELECT UsuarioID, NomeCompleto, Cpf, DataNascimento, Email, NomeUsuario, TipoUsuario, Senha, DataCriacao FROM Usuarios WHERE NomeUsuario LIKE @NomeUsuario";
@@ -153,7 +153,7 @@ namespace GVC.DAL
 
         public DataTable PesquisarPorCodigo(int nome)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 DataTable dt = new DataTable();

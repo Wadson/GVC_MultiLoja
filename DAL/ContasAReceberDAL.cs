@@ -94,7 +94,7 @@ namespace GVC.DAL
 
             sql.Append(" ORDER BY c.Nome, p.DataVencimento ");
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<ContaAReceberDTO>(
                 sql.ToString(),
                 param

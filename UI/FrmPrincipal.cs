@@ -171,7 +171,7 @@ namespace GVC
                 string nomeArquivo = $"Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
                 string destino = Path.Combine(PastaBackupAutomatica, nomeArquivo);
 
-                using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
+                using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
                 {
                     con.Open();
 
@@ -213,7 +213,7 @@ namespace GVC
         {
             string sql = "SELECT TOP 1 EmpresaID FROM Empresa ORDER BY EmpresaID ASC";
 
-            using (var con = Conexao.Conex())
+            using (var con = Conexao_.Conex())
             using (var cmd = new SqlCommand(sql, con))
             {
                 con.Open();

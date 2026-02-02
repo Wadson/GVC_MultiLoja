@@ -67,7 +67,7 @@ namespace GVC.BLL
 
         public ItemVendaModel PesquisaItemVenda(string pesquisa)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             try
             {
                 SqlCommand sql = new SqlCommand("SELECT * FROM ItemVenda WHERE ItemVendaID like @Pesquisa + '%'", conn);

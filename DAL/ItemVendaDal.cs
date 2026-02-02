@@ -21,7 +21,7 @@ namespace GVC.DAL
                     @VendaID, @ProdutoID, @Quantidade, @PrecoUnitario, @Subtotal, @DescontoItem
                 )";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@VendaID", itemVenda.VendaID);
@@ -45,7 +45,7 @@ namespace GVC.DAL
                     DescontoItem = @DescontoItem
                 WHERE ItemVendaID = @ItemVendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@ItemVendaID", itemVenda.ItemVendaID);
@@ -62,7 +62,7 @@ namespace GVC.DAL
         {
             string sql = "DELETE FROM ItemVenda WHERE ItemVendaID = @ItemVendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@ItemVendaID", itemVendaId);
@@ -88,7 +88,7 @@ namespace GVC.DAL
 
             var lista = new List<ItemVendaModel>();
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@VendaID", vendaId);
@@ -121,7 +121,7 @@ namespace GVC.DAL
         {
             string sql = "DELETE FROM ItemVenda WHERE VendaID = @VendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@VendaID", vendaID);
@@ -133,7 +133,7 @@ namespace GVC.DAL
         {
             string sql = "SELECT * FROM ItemVenda ORDER BY VendaID, ItemVendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             var dt = new DataTable();
@@ -147,7 +147,7 @@ namespace GVC.DAL
         {
             string sql = "SELECT * FROM ItemVenda WHERE ItemVendaID = @Id";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@Id", itemVendaId);
@@ -187,7 +187,7 @@ namespace GVC.DAL
                 FROM ItemVenda
                 WHERE VendaID = @VendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@VendaID", vendaId);
@@ -214,7 +214,7 @@ namespace GVC.DAL
                 WHERE iv.VendaID = @VendaID
                 ORDER BY iv.ItemVendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@VendaID", vendaId);
@@ -243,7 +243,7 @@ namespace GVC.DAL
 
             var itens = new List<ItemVendaModel>();
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@VendaID", vendaId);
@@ -275,7 +275,7 @@ namespace GVC.DAL
         {
             string sql = "DELETE FROM ItemVenda WHERE VendaID = @VendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@VendaID", vendaId);

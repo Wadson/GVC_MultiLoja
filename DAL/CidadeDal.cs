@@ -13,7 +13,7 @@ namespace GVC.DAL
 
         public DataTable Listar_Cidades()
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 DataTable dt = new DataTable();
@@ -40,7 +40,7 @@ namespace GVC.DAL
 
         public void Salvar(CidadeModel Cidades)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 SqlCommand sqlcomando = new SqlCommand(
@@ -65,7 +65,7 @@ namespace GVC.DAL
 
         public void Excluir(CidadeModel Cidades)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 SqlCommand sqlcomando = new SqlCommand("DELETE FROM Cidade WHERE CidadeID = @CidadeID", conn);
@@ -85,7 +85,7 @@ namespace GVC.DAL
 
         public void Atualizar(CidadeModel Cidades)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 SqlCommand sqlcomando = new SqlCommand(
@@ -110,7 +110,7 @@ namespace GVC.DAL
 
         public DataTable PesquisarPorNome(string nome)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 DataTable dt = new DataTable();
@@ -144,7 +144,7 @@ namespace GVC.DAL
         {
             string sql = SqlBase + " WHERE CidadeID = @CidadeID";
             var dt = new DataTable();
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@CidadeID", codigo);
@@ -159,7 +159,7 @@ namespace GVC.DAL
 
         public DataTable PesquisarPorCodigo(string nome)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 DataTable dt = new DataTable();
@@ -197,7 +197,7 @@ namespace GVC.DAL
 
         public DataTable PesquisarGeral()
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 DataTable dt = new DataTable();

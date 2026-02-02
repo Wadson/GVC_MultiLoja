@@ -15,7 +15,7 @@ namespace GVC.DAL
         {
             const string sql = "SELECT TOP 1 * FROM Empresa";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QueryFirstOrDefault<EmpresaModel>(sql);
         }
         public EmpresaModel ObterEmpresa()
@@ -29,14 +29,14 @@ namespace GVC.DAL
             FROM Empresa
             ORDER BY EmpresaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QueryFirstOrDefault<EmpresaModel>(sql);
         }
         public static List<EmpresaSimples> ListarEmpresasSimples()
         {
             var lista = new List<EmpresaSimples>();
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             using var cmd = conn.CreateCommand();
             cmd.CommandText = "SELECT EmpresaID, NomeFantasia, RazaoSocial FROM Empresa ORDER BY NomeFantasia";
 
@@ -57,7 +57,7 @@ namespace GVC.DAL
         }
         public static byte[] ObterImagem(int empresaId)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
@@ -75,7 +75,7 @@ namespace GVC.DAL
             if (empresaId <= 0)
                 throw new ArgumentException("ID da empresa inválido.");
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
@@ -107,7 +107,7 @@ WHERE EmpresaID = @EmpresaID";
             if (empresaId <= 0)
                 throw new ArgumentException("ID da empresa inválido.");
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             using var cmd = conn.CreateCommand();
 
             cmd.CommandText = @"
@@ -154,7 +154,7 @@ WHERE EmpresaID = @EmpresaID";
         private DataTable ExecuteReaderToDataTable(string sql, params SqlParameter[] parameters)
         {
             var dt = new DataTable();
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 if (parameters != null && parameters.Length > 0)
@@ -201,7 +201,7 @@ WHERE EmpresaID = @EmpresaID";
             DataTable dt = new DataTable();
 
             // Exemplo de uso com SqlConnection (SQL Server)
-            using (SqlConnection conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (SqlConnection conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             {
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
@@ -222,7 +222,7 @@ WHERE EmpresaID = @EmpresaID";
                 FROM Empresa
                 WHERE (RazaoSocial = @RazaoSocial OR Cnpj = @Cnpj)";
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@RazaoSocial", string.IsNullOrWhiteSpace(razaoSocial) ? (object)DBNull.Value : razaoSocial);
@@ -257,7 +257,7 @@ WHERE EmpresaID = @EmpresaID";
                 );
                 SELECT SCOPE_IDENTITY();";
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@RazaoSocial", empresa.RazaoSocial ?? (object)DBNull.Value);
@@ -325,7 +325,7 @@ WHERE EmpresaID = @EmpresaID";
 
             sql.Append(" WHERE EmpresaID = @EmpresaID");
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql.ToString(), conn))
             {
                 cmd.Parameters.AddWithValue("@EmpresaID", empresa.EmpresaID);
@@ -356,7 +356,7 @@ WHERE EmpresaID = @EmpresaID";
         public void ExcluirEmpresa(int empresaID)
         {
             const string sql = "DELETE FROM Empresa WHERE EmpresaID = @EmpresaID";
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@EmpresaID", empresaID);
@@ -407,7 +407,7 @@ WHERE EmpresaID = @EmpresaID";
                 FROM Empresa
                 WHERE Cnpj = @Cnpj";
 
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Cnpj", string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
@@ -426,7 +426,7 @@ WHERE EmpresaID = @EmpresaID";
         public EmpresaModel? BuscarPorId(int empresaID)
         {
             string sql = SqlBase + " WHERE e.EmpresaID = @Id";
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Id", empresaID);
@@ -475,7 +475,7 @@ WHERE EmpresaID = @EmpresaID";
         {
             const string sql = "SELECT CertificadoDigital FROM Empresa WHERE EmpresaID = @EmpresaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@EmpresaID", empresaId);
 

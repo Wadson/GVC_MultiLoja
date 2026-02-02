@@ -33,7 +33,7 @@ namespace GVC.DAL
         public DataTable ListarFornecedores()
         {
             const string sql = SqlBase + " ORDER BY f.Nome";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.ExecuteReaderToDataTable(sql);
         }
 
@@ -50,7 +50,7 @@ namespace GVC.DAL
                 Cnpj = string.IsNullOrWhiteSpace(cnpj) ? null : cnpj
             };
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.ExecuteScalar<int?>(sql, p) != null;
         }
 
@@ -89,7 +89,7 @@ SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
                 Observacoes = NullIfEmpty(fornecedor.Observacoes)
             };
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             fornecedor.FornecedorID = (int)conn.QuerySingle<int>(sql, p);
         }
 
@@ -111,14 +111,14 @@ SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
                 DataCriacao = @DataCriacao
             WHERE FornecedorID = @FornecedorID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, fornecedor);
         }
 
         public void ExcluirFornecedor(int fornecedorID)
         {
             const string sql = "DELETE FROM Fornecedor WHERE FornecedorID = @FornecedorID";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, new { FornecedorID = fornecedorID });
         }
 
@@ -127,14 +127,14 @@ SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
         public DataTable PesquisarPorNome(string nome)
         {
             const string sql = SqlBase + " WHERE f.Nome LIKE @Nome ORDER BY f.Nome";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.ExecuteReaderToDataTable(sql, new { Nome = $"%{nome?.Trim()}%" });
         }
 
         public DataTable PesquisarPorCodigo(int codigo)
         {
             const string sql = SqlBase + " WHERE f.FornecedorID = @FornecedorID";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.ExecuteReaderToDataTable(sql, new { FornecedorID = codigo });
         }
 
@@ -152,7 +152,7 @@ SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
             OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY";  // ✅ SQL Server
 
             var filtro = $"%{texto?.Trim() ?? ""}%";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.ExecuteReaderToDataTable(sql, new { Texto = filtro });
         }
 
@@ -165,14 +165,14 @@ SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
 
             var p = new { Cnpj = string.IsNullOrWhiteSpace(cnpj) ? null : cnpj };
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QueryFirstOrDefault<FornecedorModel>(sql, p);
         }
 
         public FornecedorModel? BuscarPorId(int fornecedorID)
         {
             const string sql = SqlBase + " WHERE f.FornecedorID = @Id";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QueryFirstOrDefault<FornecedorModel>(sql, new { Id = fornecedorID });
         }
 
@@ -181,7 +181,7 @@ SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
             const string sql = @"SELECT FornecedorID, Nome, Telefone, Cnpj 
                  FROM Fornecedor ORDER BY Nome";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<FornecedorModel>(sql).ToList();
         }
     }

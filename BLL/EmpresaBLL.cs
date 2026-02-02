@@ -33,7 +33,7 @@ namespace GVC.BLL
         {
             var lista = new List<EmpresaModel>();
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             using var cmd = new SqlCommand("SELECT EmpresaID FROM Empresa", conn);
             conn.Open();
 

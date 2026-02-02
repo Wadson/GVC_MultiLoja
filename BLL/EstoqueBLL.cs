@@ -16,7 +16,7 @@ namespace GVC.BLL
 
         public void MovimentarEstoque(MovimentacaoEstoqueModel mov)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var tran = conn.BeginTransaction();
 

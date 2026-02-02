@@ -17,7 +17,7 @@ namespace GVC.DAL
             SELECT FormaPgtoID, NomeFormaPagamento FROM FormaPagamento";
         public DataTable ListaFormaPgto()
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var comando = new SqlCommand("SELECT FormaPgtoID, NomeFormaPagamento FROM FormaPagamento", conn);
@@ -37,7 +37,7 @@ namespace GVC.DAL
 
         public void GravaFormaPgto(FormaPagamentoModel formaPgtos)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sqlcomm = new SqlCommand("INSERT INTO FormaPagamento (NomeFormaPagamento) VALUES (@NomeFormaPagamento)", conn);
@@ -54,7 +54,7 @@ namespace GVC.DAL
 
         public void ExcluiFormaPgto(FormaPagamentoModel formaPgto)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sqlcomando = new SqlCommand("DELETE FROM FormaPagamento WHERE FormaPgtoID = @FormaPgtoID", conn);
@@ -71,7 +71,7 @@ namespace GVC.DAL
 
         public void Atualizar(FormaPagamentoModel formaPgto)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sqlcomm = new SqlCommand("UPDATE FormaPagamento SET NomeFormaPagamento = @NomeFormaPgto WHERE FormaPgtoID = @FormaPgtoID", conn);
@@ -90,7 +90,7 @@ namespace GVC.DAL
 
         public DataTable PesquisarPorNome(string nome)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sqlconn = "SELECT FormaPgtoID, NomeFormaPagamento FROM FormaPagamento WHERE NomeFormaPagamento LIKE @NomeFormaPgto";
@@ -118,7 +118,7 @@ namespace GVC.DAL
         public FormaPagamentoModel? BuscarPorId(int formaPgtoID)
         {
             string sql = SqlBase + " WHERE FormaPgtoID = @Id";
-            using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
             using (var cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.AddWithValue("@Id", formaPgtoID);
@@ -135,7 +135,7 @@ namespace GVC.DAL
         }
         public DataTable PesquisarPorCodigo(int nome)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 DataTable dt = new DataTable();
@@ -170,7 +170,7 @@ namespace GVC.DAL
         }
         public DataTable Listar()
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sql = "SELECT FormaPgtoID, NomeFormaPagamento FROM FormaPagamento";

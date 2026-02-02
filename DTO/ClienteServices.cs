@@ -26,7 +26,7 @@ namespace GVC.DTO
 
             try
             {
-                using (var conn = Conexao.Conex(Sessao.AmbienteSelecionado))
+                using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
                 {
                     await conn.OpenAsync();
 

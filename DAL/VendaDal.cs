@@ -50,7 +50,7 @@ namespace GVC.DAL
         WHERE ProdutoID = @ProdutoID
           AND Estoque >= @Quantidade";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var tran = conn.BeginTransaction();
 
@@ -173,7 +173,7 @@ namespace GVC.DAL
                     VendedorID  = @VendedorID
                 WHERE VendaID = @VendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
 
@@ -201,7 +201,7 @@ namespace GVC.DAL
        
         public void Excluir(int vendaID)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             var cmd = conn.CreateCommand();
             cmd.CommandText = "DELETE FROM Venda WHERE VendaID = @id";
@@ -215,7 +215,7 @@ namespace GVC.DAL
         SET StatusVenda = @Status
         WHERE VendaID = @VendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             using var cmd = new SqlCommand(sql, conn);
@@ -237,7 +237,7 @@ namespace GVC.DAL
                 END
         WHERE VendaID = @VendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             using var cmd = new SqlCommand(sql, conn);
@@ -262,7 +262,7 @@ namespace GVC.DAL
         FROM Venda
         WHERE VendaID = @VendaID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             using var cmd = new SqlCommand(sql, conn);
@@ -300,7 +300,7 @@ namespace GVC.DAL
                 Cliente = new ClienteModel()
             };
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             // =========================
@@ -435,7 +435,7 @@ WHERE v.VendaID = @VendaID";
             if (parcelas == null || !parcelas.Any())
                 throw new Exception("A venda deve possuir parcelas.");
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             using var tran = conn.BeginTransaction();

@@ -74,7 +74,7 @@ public class ExtratoBLL
     // ======================================================
     public ExtratoCliente ObterExtratoClientePorVenda(long vendaId, bool detalhado)
     {
-        using var conn = Conexao.Conex();
+        using var conn = Conexao_.Conex();
 
         int? clienteId = conn.ExecuteScalar<int?>(@"
             SELECT ClienteID
@@ -158,7 +158,7 @@ public class ExtratoBLL
     // ======================================================
     public ExtratoCliente ObterExtratoPorParcela(long parcelaId)
     {
-        using var conn = Conexao.Conex();
+        using var conn = Conexao_.Conex();
 
         int? clienteId = conn.ExecuteScalar<int?>(@"
         SELECT v.ClienteID
@@ -191,7 +191,7 @@ public class ExtratoBLL
       DateTime dataFim,
       List<EnumStatusParcela> statusSelecionados)
     {
-        using var conn = Conexao.Conex();
+        using var conn = Conexao_.Conex();
 
         var statusStrings = statusSelecionados
             .Select(s => s.ToString())

@@ -16,7 +16,7 @@ namespace GVC.DAL
         {
             const string sql = @"INSERT INTO PagamentosParciais (ParcelaID, ValorPago, DataPagamento) 
                 VALUES (@ParcelaID, @ValorPago, @DataPagamento)";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, pagamentoParcial);
         }
 
@@ -24,7 +24,7 @@ namespace GVC.DAL
         public void ExcluirPagamentoParcial(long pagamentoParcialId)
         {
             const string sql = "DELETE FROM PagamentosParciais WHERE PagamentoParcialID = @Id";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, new { Id = pagamentoParcialId });
         }
 
@@ -42,7 +42,7 @@ namespace GVC.DAL
                 WHERE ParcelaID = @ParcelaID 
                 ORDER BY DataPagamento DESC";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<PagamentosParcialModel>(sql, new { ParcelaID = parcelaId }).AsList();
         }
         public PagamentoExtratoModel ObterPagamentoPorId(long pagamentoId)
@@ -57,7 +57,7 @@ namespace GVC.DAL
         LEFT JOIN FormaPagamento fp ON fp.FormaPgtoID = pp.FormaPgtoID
         WHERE pp.PagamentoID = @PagamentoID";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QueryFirstOrDefault<PagamentoExtratoModel>(
                 sql, new { PagamentoID = pagamentoId });
         }
@@ -66,7 +66,7 @@ namespace GVC.DAL
         public void ExcluirPagamentosParciaisPorParcelaID(long parcelaId)
         {
             const string sql = "DELETE FROM PagamentosParciais WHERE ParcelaID = @ParcelaID";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, new { ParcelaID = parcelaId });
         }
 
@@ -85,7 +85,7 @@ namespace GVC.DAL
                 INNER JOIN Cliente c ON v.ClienteID = c.ClienteID
                 ORDER BY pp.DataPagamento DESC";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             var dt = new DataTable();
             dt.Load(conn.ExecuteReader(sql));
             return dt;
@@ -97,7 +97,7 @@ namespace GVC.DAL
             const string sql = @" SELECT ISNULL(SUM(ValorPago), 0) 
                 FROM PagamentosParciais WHERE ParcelaID = @ParcelaID";  // ✅ Ajuste para SQL Server
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QuerySingle<decimal>(sql, new { ParcelaID = parcelaId });
         }
 
@@ -109,7 +109,7 @@ namespace GVC.DAL
         (ParcelaID, ValorPago, DataPagamento, FormaPgtoID, Observacao)
         VALUES(@ParcelaID, @ValorPago, @DataPagamento, @FormaPgtoID, @Observacao)";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Execute(sql, new
             {
                 ParcelaID = parcelaId,
@@ -136,7 +136,7 @@ namespace GVC.DAL
                 WHERE pp.ParcelaID = @ParcelaID
                 ORDER BY pp.DataPagamento";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
         }
         public List<PagamentoExtratoModel> ListarPagamentosPorParcelaCompleto(long parcelaId)
@@ -152,7 +152,7 @@ namespace GVC.DAL
         WHERE pp.ParcelaID = @ParcelaID
         ORDER BY pp.DataPagamento";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
         }
 
@@ -163,7 +163,7 @@ namespace GVC.DAL
         public PagamentosParcialModel? BuscarPorId(long pagamentoId)
         {
             const string sql = "SELECT * FROM PagamentosParciais WHERE PagamentoID = @Id";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QueryFirstOrDefault<PagamentosParcialModel>(sql, new { Id = pagamentoId });
         }
         public void ExcluirPorVenda(long vendaId)
@@ -176,7 +176,7 @@ namespace GVC.DAL
                     WHERE VendaID = @VendaID
                 )";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
             using var cmd = new SqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@VendaID", vendaId);
@@ -196,7 +196,7 @@ LEFT JOIN FormaPagamento fp ON fp.FormaPgtoID = pp.FormaPgtoID
 WHERE pp.ParcelaID = @ParcelaID
 ORDER BY pp.DataPagamento";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<PagamentoExtratoModel>(sql, new { ParcelaID = parcelaId }).ToList();
         }
 

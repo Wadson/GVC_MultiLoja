@@ -70,7 +70,7 @@ namespace GVC.BLL
 
         public CidadeModel Pesquisar(string pesquisa)
         {
-            var conn = Conexao.Conex();
+            var conn = Conexao_.Conex();
             try
             {
                 var sql = new SqlCommand("SELECT TOP 1 * FROM Cidade WHERE Nome LIKE @Nome", conn);

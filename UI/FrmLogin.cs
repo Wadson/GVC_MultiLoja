@@ -29,9 +29,9 @@ namespace GVC.MUI
             this.KeyPreview = true; // habilita o preview das teclas
 
             //// Preenche opções
-            //cmbAmbiente.Items.Add("Homologacao");
-            //cmbAmbiente.Items.Add("Teste");
-            //cmbAmbiente.SelectedIndex = 0; // padrão
+            cmbAmbiente.Items.Add("Homologacao");
+            cmbAmbiente.Items.Add("Teste");
+            cmbAmbiente.SelectedIndex = 0; // padrão
         }
         private void ResetarCampos()
         {
@@ -87,7 +87,7 @@ namespace GVC.MUI
         {
             string query = "SELECT NomeUsuario, TipoUsuario FROM Usuarios WHERE NomeUsuario = @Usuario AND Senha = @Senha";
 
-            using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -109,7 +109,7 @@ namespace GVC.MUI
         {
             string senhaHash = GerarHashSHA256(password);
 
-            using (var con = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
             {
                 // Primeiro: verificar se o usuário existe
                 string queryUsuario = "SELECT Senha, TipoUsuario FROM Usuarios WHERE NomeUsuario = @Usuario";
@@ -266,7 +266,7 @@ namespace GVC.MUI
             txtUsuario.Focus();
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
 
-            lblVersao.Text = "Versão: " + version;// Exibe AssemblyVersion
+            this.Text = "Versão: " + version;// Exibe AssemblyVersion
         }
 
         private void FrmLogin_Shown(object sender, EventArgs e)

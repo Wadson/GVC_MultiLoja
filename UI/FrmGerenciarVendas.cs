@@ -50,7 +50,7 @@ namespace GVC.View
 
             sql += " AND v.DataVenda >= @DataInicio AND v.DataVenda < @DataFim\r\n";
 
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             using var cmd = new SqlCommand(sql, conn);

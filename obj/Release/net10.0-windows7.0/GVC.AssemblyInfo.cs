@@ -13,11 +13,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("GVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.3.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.3.0+a4f0dc1fa71ef282cb3b3fe782bee9c543e5d6e1")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.3.1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.3.1+02f594f90eaa5d9901ba15f494a2441155c01a81")]
 [assembly: System.Reflection.AssemblyProductAttribute("GVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GVC")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.3.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.3.1.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

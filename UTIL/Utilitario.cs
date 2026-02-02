@@ -180,7 +180,7 @@ namespace GVC.UTIL {
 
         public static void PesquisarPorCodigoRetornarNomeTexBox(string query, string nomeParametro, string parametro, KryptonTextBox txtResultado)
         {
-            using (var connection = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var connection = Conexao_.Conex(Sessao.AmbienteSelecionado))
                 try
                 {
                     connection.Open();
@@ -208,7 +208,7 @@ namespace GVC.UTIL {
         }
         public static string PesquisarPorCodigoRetornarNome(string query, string nomeParametro, object parametro)
         {
-            using (var connection = Conexao.Conex(Sessao.AmbienteSelecionado))
+            using (var connection = Conexao_.Conex(Sessao.AmbienteSelecionado))
             {
                 try
                 {
@@ -351,7 +351,7 @@ namespace GVC.UTIL {
 
             try
             {
-                using var conn = Conexao.Conex();
+                using var conn = Conexao_.Conex();
 
                 string sql = @"
             SELECT ProdutoID, NomeProduto, PrecoVenda 
@@ -398,7 +398,7 @@ namespace GVC.UTIL {
         {
             try
             {
-                using var conn = Conexao.Conex();
+                using var conn = Conexao_.Conex();
 
                 // Usa Dapper (muito mais rápido e limpo que SqlDataReader manual)
                 var resultado = conn.Query(sql, new { }, commandType: CommandType.Text)
@@ -469,7 +469,7 @@ namespace GVC.UTIL {
         {
             try
             {
-                using var conn = Conexao.Conex();
+                using var conn = Conexao_.Conex();
 
                 var parametros = new DynamicParameters();
                 parametros.Add(paramInicio, dataInicio.Date);           // .Date remove hora
@@ -567,7 +567,7 @@ namespace GVC.UTIL {
         {
             try
             {
-                using var conn = Conexao.Conex();
+                using var conn = Conexao_.Conex();
 
                 // Executa a consulta com Dapper
                 var resultado = conn.Query(sql, parametros);
@@ -816,7 +816,7 @@ namespace GVC.UTIL {
 
         public static int ProximoId(string query)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             var max = conn.ExecuteScalar<int?>(query);
             return (max ?? 0) + 1;
         }
@@ -898,7 +898,7 @@ namespace GVC.UTIL {
         // ==============================================================
         public static void Pesquisar(string query, object parametros, DataGridView dgv)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             var dt = new DataTable();
             dt.Load(conn.ExecuteReader(query, parametros));
             dgv.DataSource = dt.Rows.Count > 0 ? dt : null;
@@ -908,7 +908,7 @@ namespace GVC.UTIL {
         // ==============================================================
         public static void PreencherCombo(ComboBox cb, string query, string display, string value, object param = null)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             var lista = conn.Query(query, param).Select(x => new { Display = x.GetType().GetProperty(display).GetValue(x), Value = x.GetType().GetProperty(value).GetValue(x) });
             cb.DisplayMember = "Display"; cb.ValueMember = "Value"; cb.DataSource = lista.ToList();
         }
@@ -918,7 +918,7 @@ namespace GVC.UTIL {
         // ==============================================================
         public static bool Existe(string query, object parametros = null)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QuerySingle<int>(query, parametros) > 0;
         }
 
@@ -943,7 +943,7 @@ namespace GVC.UTIL {
             if (string.IsNullOrWhiteSpace(referencia)) return null;
 
             const string sql = "SELECT * FROM Produtos WHERE Referencia = @Ref LIMIT 1";
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.QueryFirstOrDefault<ProdutoModel>(sql, new { Ref = referencia });
         }
 
@@ -1348,7 +1348,7 @@ namespace GVC.UTIL {
         WHERE Ativo = 1
         ORDER BY NomeFormaPagamento";
 
-            using var conn = Conexao.Conex(Sessao.AmbienteSelecionado);
+            using var conn = Conexao_.Conex(Sessao.AmbienteSelecionado);
             using var cmd = new SqlCommand(sql, conn);
 
             conn.Open();

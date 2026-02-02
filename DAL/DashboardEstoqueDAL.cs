@@ -14,7 +14,7 @@ namespace GVC.DAL
     {
         public (decimal custo, decimal venda, decimal lucro) ObterResumo()
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             string sql = @" SELECT
@@ -40,7 +40,7 @@ namespace GVC.DAL
         }
         public List<ProdutoLucrativo> ObterTopProdutosLucrativos(int top = 10)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             string sql = @"SELECT TOP (@Top)
@@ -60,7 +60,7 @@ namespace GVC.DAL
 
         public List<ProdutoEstoqueBaixo> ObterEstoqueBaixo(int limite = 5)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             conn.Open();
 
             string sql = @"SELECT

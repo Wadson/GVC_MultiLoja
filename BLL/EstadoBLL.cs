@@ -65,7 +65,7 @@ namespace GVC.BLL
 
         public EstadoModel Pesquisar(string pesquisa)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             try
             {
                 var sql = new SqlCommand(

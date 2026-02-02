@@ -80,7 +80,7 @@ namespace GVC.DAL
         // ==============================
         public List<ParcelaExtratoDetalhado> ObterParcelas(int clienteId)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<ParcelaExtratoDetalhado>(
                 SQL_PARCELAS,
                 new { ClienteID = clienteId }
@@ -89,7 +89,7 @@ namespace GVC.DAL
 
         public List<PagamentoExtratoModel> ObterPagamentosPorParcela(long parcelaId)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<PagamentoExtratoModel>(
                 @"SELECT DataPagamento, ValorPago, Observacao
           FROM PagamentosParciais
@@ -100,7 +100,7 @@ namespace GVC.DAL
         }
         public List<PagamentoExtratoModel> ObterPagamentosPorCliente(int clienteId)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
 
             return conn.Query<PagamentoExtratoModel>(@"
         SELECT
@@ -119,7 +119,7 @@ namespace GVC.DAL
 
         public List<ParcelaExtrato> ObterExtratoResumido(int clienteId)
         {
-            using var conn = Conexao.Conex();
+            using var conn = Conexao_.Conex();
             return conn.Query<ParcelaExtrato>(
                 SQL_RESUMIDO,
                 new { ClienteID = clienteId }
