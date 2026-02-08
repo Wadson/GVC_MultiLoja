@@ -15,5 +15,12 @@ namespace GVC.UTIL
         {
             InitializeComponent();
         }
+
+        private void FrmModelo_Load(object sender, EventArgs e)
+        {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
+        }
     }
 }

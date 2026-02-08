@@ -1,6 +1,7 @@
 ﻿using GVC.BLL;
 using GVC.DAL;
 using GVC.DAL;
+using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.UTIL;
 using Krypton.Toolkit;
@@ -38,14 +39,14 @@ namespace GVC.View
             ProdutosBLL objetoBll = new ProdutosBLL();
             dgvProdutos.DataSource = objetoBll.ListarTodos();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotalKrypton(lblTotalRegistros, dgvProdutos);
+            Utilitario.AtualizarTotalKrypton(lblMensagemStatus, dgvProdutos);
         }
         public void PersonalizarDataGridView()
         {
             dgvProdutos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
             // 1. Ocultar colunas primeiro
-            string[] colunasParaOcultar = { "ProdutoID", "FornecedorID", "DataDeEntrada" };
+            string[] colunasParaOcultar = { "ProdutoID", "FornecedorID", "DataDeEntrada", "Imagem" };
             foreach (var nome in colunasParaOcultar)
             {
                 if (dgvProdutos.Columns[nome] != null)
@@ -58,17 +59,57 @@ namespace GVC.View
             // 3. Cabeçalhos
             if (dgvProdutos.Columns["NomeProduto"] != null)
                 dgvProdutos.Columns["NomeProduto"].HeaderText = "Nome Produto";
-            // ... demais cabeçalhos
+            if (dgvProdutos.Columns["PrecoCusto"] != null)
+                dgvProdutos.Columns["PrecoCusto"].HeaderText = "Preço Custo";
+            if (dgvProdutos.Columns["Lucro"] != null)
+                dgvProdutos.Columns["Lucro"].HeaderText = "Lucro";
+            if (dgvProdutos.Columns["PrecoDeVenda"] != null)
+                dgvProdutos.Columns["PrecoDeVenda"].HeaderText = "Preço Venda";
+            if (dgvProdutos.Columns["Estoque"] != null)
+                dgvProdutos.Columns["Estoque"].HeaderText = "Estoque";
+            if (dgvProdutos.Columns["DataValidade"] != null)
+                dgvProdutos.Columns["DataValidade"].HeaderText = "Validade";
+            if (dgvProdutos.Columns["Referencia"] != null)
+                dgvProdutos.Columns["Referencia"].HeaderText = "Referência";
+            if (dgvProdutos.Columns["Marca"] != null)
+                dgvProdutos.Columns["Marca"].HeaderText = "Marca";
+            if (dgvProdutos.Columns["Status"] != null)
+                dgvProdutos.Columns["Status"].HeaderText = "Status";
+            if (dgvProdutos.Columns["Situacao"] != null)
+                dgvProdutos.Columns["Situacao"].HeaderText = "Situação";
+            if (dgvProdutos.Columns["Unidade"] != null)
+                dgvProdutos.Columns["Unidade"].HeaderText = "Unidade";
+            if (dgvProdutos.Columns["GtinEan"] != null)
+                dgvProdutos.Columns["GtinEan"].HeaderText = "Código EAN";
+
+
+            if (dgvProdutos.Columns["Fornecedor"] != null)
+            {
+                dgvProdutos.Columns["Fornecedor"].HeaderText = "Fornecedor";
+                // Configurar para mostrar apenas o nome
+                dgvProdutos.Columns["Fornecedor"].DataPropertyName = "NomeFornecedor";
+            }
+
+
+
+            if (dgvProdutos.Columns["FornecedorID"] != null)
+                dgvProdutos.Columns["FornecedorID"].HeaderText = "Fornecedor ID";
 
             // 4. Colunas fixas
             var colunasFixas = new (string nome, int largura)[]
             {
-        ("NomeProduto", 400),
-        ("PrecoCusto", 80),
-        ("Lucro", 80),
-        ("PrecoDeVenda", 80),
-        ("Estoque", 80),
-        ("DataValidade", 100)
+                ("NomeProduto", 400),
+                ("PrecoCusto", 80),
+                ("Lucro", 80),
+                ("PrecoDeVenda", 80),
+                ("Estoque", 80),
+                ("DataValidade", 100),
+                ("Status", 100),
+                ("Situacao", 100),
+                ("Unidade", 80),
+                ("GtinEan", 120),
+                ("Fornecedor", 200),
+                ("FornecedorID", 80)
             };
 
             foreach (var (nome, largura) in colunasFixas)
@@ -77,7 +118,6 @@ namespace GVC.View
                 {
                     var col = dgvProdutos.Columns[nome];
                     col.Width = largura;
-                    //col.Resizable = DataGridViewTriState.False;
                     col.ReadOnly = true;
                     col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 }
@@ -89,7 +129,7 @@ namespace GVC.View
                 if (dgvProdutos.Columns[nome] != null)
                 {
                     var col = dgvProdutos.Columns[nome];
-                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;                    
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     col.ReadOnly = true;
                 }
             }
@@ -108,7 +148,6 @@ namespace GVC.View
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
             }
 
-            // Centralizar e negritar coluna Estoque
             if (dgvProdutos.Columns["Estoque"] != null)
             {
                 dgvProdutos.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -118,6 +157,8 @@ namespace GVC.View
             // 9. Atualizar grid
             dgvProdutos.Refresh();
         }
+
+
 
 
 
@@ -136,7 +177,7 @@ namespace GVC.View
         "Estoque",
         "DataDeEntrada",       // Oculto
         "DataValidade",
-        "NomeFornecedor",
+        "Fornecedor",
         "Marca",
         "FornecedorID"         // Oculto
     };
@@ -190,10 +231,10 @@ namespace GVC.View
             frm.txtLucro.Text = produto.Lucro.ToString("N2");
             frm.txtPrecoDeVenda.Text = produto.PrecoDeVenda.ToString("N2");
             frm.txtEstoque.Text = produto.Estoque.ToString();
-            frm.txtUnidade.Text = produto.Unidade ?? "";
+            frm.cmbUnidade.Text = produto.Unidade ?? "";
             frm.txtMarca.Text = produto.Marca ?? "";
             frm.txtDataValidade.Text = produto.DataValidade.HasValue ? produto.DataValidade.Value.ToString("dd/MM/yyyy") : "";
-            frm.txtGtinEan.Text = produto.GtinEan ?? "";            
+            frm.txtGtinEan.Text = produto.GtinEan ?? "";
             frm.txtFornecedor.Text = produto.Fornecedor?.Nome ?? "";
             frm.txtFornecedorID.Text = produto.FornecedorID.ToString();
             frm.cmbSituacao.Text = produto.Situacao ?? "";
@@ -240,7 +281,7 @@ namespace GVC.View
                 frm.txtLucro.Enabled = false;
                 frm.txtPrecoDeVenda.Enabled = false;
                 frm.txtEstoque.Enabled = false;
-                frm.txtUnidade.Enabled = false;
+                frm.cmbUnidade.Enabled = false;
                 frm.txtMarca.Enabled = false;
                 frm.txtDataValidade.Enabled = false;
                 frm.txtGtinEan.Enabled = false;
@@ -262,6 +303,9 @@ namespace GVC.View
 
         private void FrmManutProduto_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ListarProduto();
         }
 
@@ -286,7 +330,6 @@ namespace GVC.View
             txtPesquisa.Text = "";
             txtPesquisa.Focus();
         }
-
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
             string texto = txtPesquisa.Text.Trim();
@@ -294,17 +337,61 @@ namespace GVC.View
             if (string.IsNullOrEmpty(texto))
             {
                 ListarProduto();
+                AtualizarStatusBar("Mostrando todos os produtos", Color.Blue); // Cor azul para lista completa
                 return;
             }
 
-            var dao = new ProdutoDALL();
-            List<ProdutoModel> lista = dao.PesquisarProdutoPorNome(texto);
+            try
+            {
+                var produtoRepository = new ProdutoRepository();
+                List<ProdutoModel> lista = produtoRepository.PesquisarProdutoPorNome(texto);
 
-            dgvProdutos.DataSource = lista ?? new List<ProdutoModel>();
+                dgvProdutos.DataSource = lista ?? new List<ProdutoModel>();
+                PersonalizarDataGridView();
 
-            PersonalizarDataGridView();
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvProdutos);
+                // Atualizar contagem
+                int totalRegistros = lista?.Count ?? 0;
+                Utilitario.AtualizarTotalToolStatusStrip(lblMensagemStatus, dgvProdutos);
+
+                // Atualizar barra de status com cor apropriada
+                if (totalRegistros == 0)
+                {
+                    AtualizarStatusBar($"Nenhum produto encontrado para '{texto}'", Color.Red);
+                }
+                else
+                {
+                    AtualizarStatusBar($"{totalRegistros} produto(s) encontrado(s) para '{texto}'", Color.Green);
+                }
+            }
+            catch (Exception ex)
+            {
+                AtualizarStatusBar($"Erro na pesquisa: {ex.Message}", Color.DarkRed);
+            }
         }
+
+        // Método para atualizar a barra de status
+        private void AtualizarStatusBar(string mensagem, Color cor)
+        {
+            // Assumindo que você tem um StatusStrip com uma ToolStripStatusLabel
+            if (kryptonStatusStrip1 != null && kryptonStatusStrip1.Items.Count > 0)
+            {
+                // Exemplo se você tiver um ToolStripStatusLabel chamado lblStatus
+                if (kryptonStatusStrip1.Items[0] is ToolStripStatusLabel lblStatus)
+                {
+                    lblStatus.Text = mensagem;
+                    lblStatus.ForeColor = cor;
+                    lblStatus.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+                }
+            }
+
+            // Alternativa: se você estiver usando um Label comum
+            if (lblMensagemStatus != null)
+            {
+                lblMensagemStatus.Text = mensagem;
+                lblMensagemStatus.ForeColor = cor;
+                lblMensagemStatus.Visible = true;
+            }
+        }       
 
         private void btnNovo_Click(object sender, EventArgs e)
         {

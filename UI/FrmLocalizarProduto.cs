@@ -39,7 +39,7 @@ namespace GVC.View
         }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Form FormChamador { get; set; }
-
+        private ProdutosBLL _produtosBLL;
         public FrmLocalizarProduto(Form formChamador, string textoDigitado)
         {
             InitializeComponent();
@@ -187,12 +187,15 @@ namespace GVC.View
 
         public void ListarProduto()
         {
-            ProdutoDALL dao = new();
-            dataGridPesquisar.DataSource = dao.ListarProdutosVenda();
+            ProdutosBLL bll = new();
+            dataGridPesquisar.DataSource = bll.ListarTodos();
             PersonalizarDataGridView();
         }
         private void FrmLocalizarProduto_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ListarProduto();
             txtPesquisar.Focus();
 
@@ -213,10 +216,9 @@ namespace GVC.View
         private void PesquisarProduto()
         {
             string textoPesquisa = txtPesquisar.Text.Trim();
-            ProdutoDALL dao = new ProdutoDALL();
-
+            ProdutosBLL bll = new ProdutosBLL();
             // 🔹 Pesquisa apenas por nome
-            dataGridPesquisar.DataSource = dao.PesquisarProdutoPorNome(textoPesquisa);
+            dataGridPesquisar.DataSource = bll.BuscarPorNome(textoPesquisa);
         }
         private void SelecionarProduto()
         {

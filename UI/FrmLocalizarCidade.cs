@@ -149,6 +149,9 @@ namespace GVC.View
         }
         private void FrmLocalizarCliente_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ListarCidade();
 
             if (!string.IsNullOrEmpty(txtPesquisar.Text))

@@ -2501,6 +2501,7 @@
             StateActive.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateActive.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Text = "FrmModelo";
+            Load += FrmModelo_Load;
             ((System.ComponentModel.ISupportInitialize)kryptonComboBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonComboBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelTipoPesquisa).EndInit();

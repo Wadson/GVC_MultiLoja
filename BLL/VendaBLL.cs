@@ -1,123 +1,67 @@
-﻿using GVC.DAL;
-using GVC.DAL;
-using GVC.DTO;
+﻿using GVC.DTO;
+using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.Model.Enums;
 using GVC.Model.Enums.GVC.Model.Enums;
-using GVC.UTIL;
-using Microsoft.Data.SqlClient;
+using GVC.Model.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace GVC.BLL
 {
     internal class VendaBLL
     {
-        private readonly VendaDal vendaDAL;
-        // ✅ CONSTRUTOR OBRIGATÓRIO
+        private readonly VendaRepository _vendaRepository;
+        private readonly ParcelaRepository _parcelaRepository;
+        private readonly ItemVendaRepository _itemRepository;
+        private readonly ProdutoRepository _produtoRepository;
+
+        // =========================================
+        // CONSTRUTOR
+        // =========================================
         public VendaBLL()
         {
-            vendaDAL = new VendaDal();
-        }       
-        //🔹 Passo B — Criar método de cálculo na VendaBLL
-        public string CalcularStatusVendaPorParcelas(List<ParcelaModel> parcelas)
-        {
-            if (parcelas == null || parcelas.Count == 0)
-                return EnumStatusVenda.Aberta.ToString();
-
-            decimal? total = parcelas.Sum(p => p.ValorParcela + p.Juros + p.Multa);
-            decimal? recebido = parcelas.Sum(p => p.ValorRecebido);
-
-            if (recebido <= 0)
-                return EnumStatusVenda.Aberta.ToString();
-
-            if (recebido >= total)
-                return EnumStatusVenda.Concluida.ToString();
-
-            return EnumStatusVenda.Aberta.ToString();
+            _vendaRepository = new VendaRepository();
+            _parcelaRepository = new ParcelaRepository();
+            _itemRepository = new ItemVendaRepository();
+            _produtoRepository = new ProdutoRepository();
         }
-        public int SalvarVendaCompleta(VendaModel venda, List<ItemVendaModel> itens, List<ParcelaModel>? parcelas = null)
+        public ClienteModel BuscarClienteVenda(int clienteId)
         {
-            if (venda == null)
-                throw new ArgumentNullException(nameof(venda));
+            if (clienteId <= 0)
+                return null;
 
-            if (itens == null || !itens.Any())
-                throw new Exception("Adicione pelo menos um item à venda.");
-
-            // ====================
-            // REGRAS COMERCIAIS
-            // ====================
-            decimal descontoVenda = venda.Desconto ?? 0m;
-            if (descontoVenda < 0m) descontoVenda = 0m;
-
-            foreach (var item in itens)
-            {
-                if (item.DescontoItem < 0m)
-                    item.DescontoItem = 0m;
-
-                if (item.Quantidade <= 0)
-                    throw new Exception("Item com quantidade inválida.");
-
-                if (item.PrecoUnitario < 0)
-                    throw new Exception("Item com preço negativo não permitido.");
-
-                // ✅ Subtotal calculado automaticamente pelo model
-            }
-
-            decimal totalItens = itens.Sum(i => i.Subtotal);
-            venda.ValorTotal = Math.Max(0m, totalItens - descontoVenda);
-            venda.Desconto = descontoVenda;
-
-            // ====================
-            // FINANCEIRO (SERVIÇO)
-            // ====================
-            if (parcelas != null && parcelas.Any())
-            {
-                var financeiro = new FinanceiroService();
-                financeiro.ProcessarFinanceiroVenda(venda, parcelas);
-            }
-
-            // ====================
-            // SALVA
-            // ====================
-            return vendaDAL.AddVendaCompleta(venda, itens, parcelas);
+            using var repo = new ClienteRepository();
+            return repo.BuscarPorId(clienteId);
         }
-
-
-        public void ExcluirVenda(int vendaID)
+        public string CalcularStatusVendaPorParcelas(IEnumerable<ParcelaModel> parcelas)
         {
-            if (ExistePagamento(vendaID))
-                throw new Exception("Não é possível excluir venda com pagamentos.");
+            if (parcelas == null || !parcelas.Any())
+                return EnumStatusVenda.Aberta.ToDb();
 
-            new PagamentoParcialDal().ExcluirPorVenda(vendaID);
-            new ParcelaDal().ExcluirPorVenda(vendaID);
-            new ItemVendaDal().ExcluirPorVenda(vendaID);
-            new VendaDal().Excluir(vendaID);
-        }
-        public bool ExistePagamento(int vendaId)
-        {
-            return new ParcelaDal().ExistePagamentoPorVenda(vendaId);
-        }
+            bool todasPagas = parcelas.All(p =>
+                (p.ValorRecebido ?? 0) >=
+                (p.ValorParcela + (p.Juros ?? 0) + (p.Multa ?? 0))
+            );
 
-        public void Alterar(VendaModel venda)
-        {
-            vendaDAL.UpdateVenda(venda);
-        }
+            if (todasPagas)
+                return EnumStatusVenda.Concluida.ToDb();
 
-       
-        // ⚠️ SE PRECISAR MANTER int
-        public VendaModel ObterVendaPorId(int vendaId)
-        {
-            return vendaDAL.ObterPorId(vendaId);
-        }
+            bool algumaPaga = parcelas.Any(p => (p.ValorRecebido ?? 0) > 0);
 
+            if (algumaPaga)
+                return EnumStatusVenda.Aberta.ToDb();
+
+            return EnumStatusVenda.AguardandoPagamento.ToDb();
+        }
+        // =========================================
+        // STATUS DA VENDA
+        // =========================================
         public EnumStatusVenda CalcularStatusVenda(List<ParcelaModel> parcelas)
         {
-            if (parcelas == null || parcelas.Count == 0) return EnumStatusVenda.AguardandoPagamento;
+            if (parcelas == null || parcelas.Count == 0)
+                return EnumStatusVenda.AguardandoPagamento;
 
             if (parcelas.All(p => p.Status == EnumStatusParcela.Pago))
                 return EnumStatusVenda.Concluida;
@@ -128,120 +72,86 @@ namespace GVC.BLL
             return EnumStatusVenda.AguardandoPagamento;
         }
 
+        // =========================================
+        // SALVAR VENDA COMPLETA
+        // =========================================
+        public int SalvarVendaCompleta(
+            VendaModel venda,
+            List<ItemVendaModel> itens,
+            List<ParcelaModel>? parcelas = null)
+        {
+            if (venda == null)
+                throw new ArgumentNullException(nameof(venda));
 
+            if (itens == null || !itens.Any())
+                throw new Exception("Adicione pelo menos um item à venda.");
+
+            // =========================
+            // REGRAS COMERCIAIS
+            // =========================
+            venda.Desconto = Math.Max(0m, venda.Desconto ?? 0m);
+
+            foreach (var item in itens)
+            {
+                if (item.Quantidade <= 0)
+                    throw new Exception("Quantidade inválida.");
+
+                if (item.PrecoUnitario < 0)
+                    throw new Exception("Preço inválido.");
+
+                item.DescontoItem = Math.Max(0m, item.DescontoItem ?? 0m);
+                item.AtualizarSubtotal();
+            }
+
+            venda.ValorTotal = Math.Max(0m, itens.Sum(i => i.Subtotal) - venda.Desconto.Value);
+
+            // =========================
+            // FINANCEIRO
+            // =========================
+            if (parcelas != null && parcelas.Any())
+            {
+                var financeiro = new FinanceiroService();
+                financeiro.ProcessarFinanceiroVenda(venda, parcelas);
+            }
+
+            // =========================
+            // PERSISTÊNCIA
+            // =========================
+            return _vendaRepository.AddVendaCompleta(venda, itens, parcelas);
+        }
+
+        // =========================================
+        // EXCLUSÃO (LÓGICA)
+        // =========================================
+        public void ExcluirVenda(int vendaId)
+        {
+            if (_parcelaRepository.ExistePagamentoPorVenda(vendaId))
+                throw new Exception("Não é possível excluir venda com pagamentos.");
+
+            _vendaRepository.Excluir(vendaId);
+        }
+        public bool ExistePagamento(int vendaId)
+        {
+            return new ParcelaRepository().ExistePagamentoPorVenda(vendaId);
+        }
+        // =========================================
+        // CANCELAMENTO
+        // =========================================
         public void CancelarVenda(int vendaId, string motivo)
         {
             if (string.IsNullOrWhiteSpace(motivo))
                 throw new Exception("Motivo do cancelamento é obrigatório.");
 
-            var vendaDal = new VendaDal();
-            var itemDal = new ItemVendaDal();
-            var produtoDal = new ProdutoDALL();
-            var parcelaDal = new ParcelaDal();
-            var parcelaBll = new ParcelaBLL();
-
-            using var conn = Conexao_.Conex();
-            conn.Open();
-            using var tran = conn.BeginTransaction();
-
-            try
-            {
-                // ============================
-                // 1️⃣ ESTORNAR PAGAMENTOS
-                // ============================
-                var parcelas = parcelaDal.GetParcelas((int)vendaId);
-
-                foreach (var p in parcelas)
-                {
-                    if ((p.ValorRecebido ?? 0m) > 0m)
-                    {
-                        parcelaBll.EstornarPagamento(
-                            p.ParcelaID,
-                            p.ValorRecebido ?? 0m,
-                            motivo
-                        );
-                    }
-                }
-
-
-                // ============================
-                // 2️⃣ CANCELAR PARCELAS
-                // ============================
-                parcelaDal.CancelarParcelasPorVenda(vendaId);
-
-                // ============================
-                // 3️⃣ DEVOLVER ESTOQUE
-                // ============================
-                var itens = itemDal.ListarItensPorVenda(vendaId);
-
-                foreach (var item in itens)
-                {
-                    var produto = produtoDal.BuscarPorId(item.ProdutoID);
-
-                    if (produto == null)
-                        throw new Exception($"Produto ID {item.ProdutoID} não encontrado.");
-
-                    produto.Estoque += item.Quantidade;
-                    produtoDal.Alterar(produto);
-                }
-
-                // ============================
-                // 4️⃣ CANCELAR VENDA + MOTIVO
-                // ============================
-                vendaDal.AtualizarStatusVenda(vendaId,  EnumStatusVenda.Cancelada.ToString(), motivo );
-
-                tran.Commit();
-            }
-            catch
-            {
-                tran.Rollback();
-                throw;
-            }
+            _vendaRepository.CancelarVenda(vendaId, motivo);
         }
 
-
-
-        public bool PodeAlterarVenda(int vendaID)
-        {
-            return !ExistePagamento(vendaID);
-        }       
-        public void ExcluirVendaFisicamente(int vendaId)
-        {
-            var parcelaDal = new ParcelaDal();
-
-            if (parcelaDal.ExistePagamentoPorVenda(vendaId))
-                throw new Exception( "EXCLUSÃO BLOQUEADA!\n\n" +
-                    "Esta venda possui pagamentos registrados.\n" +
-                    "Remova os pagamentos antes de tentar excluir.");
-
-            new PagamentoParcialDal().ExcluirPorVenda(vendaId);
-            new ParcelaDal().ExcluirPorVenda(vendaId);
-            new ItemVendaDal().ExcluirPorVenda(vendaId);
-            new VendaDal().Excluir(vendaId);
-        }
-        //Abaixo métodos para atualizar venda, 
-        public bool VendaPossuiPagamento(int vendaId)
-        {
-            using var conn = Conexao_.Conex();
-            conn.Open();
-
-            string sql = @" SELECT COUNT(*)
-        FROM PagamentosParciais pp
-        INNER JOIN Parcela p ON p.ParcelaID = pp.ParcelaID
-        WHERE p.VendaID = @VendaID";
-
-            using var cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@VendaID", vendaId);
-
-            return (int)cmd.ExecuteScalar() > 0;
-        }
-       
-        public VendaModel ObterVendaCompleta(int vendaId)
-        {
-            return new VendaDal().ObterVendaCompleta(vendaId);
-        }
-
-        public void AtualizarVendaCompleta( VendaModel venda, List<ItemVendaModel> itens,  List<ParcelaModel> parcelas)
+        // =========================================
+        // ALTERAÇÃO
+        // =========================================
+        public void AtualizarVendaCompleta(
+            VendaModel venda,
+            List<ItemVendaModel> itens,
+            List<ParcelaModel> parcelas)
         {
             if (venda == null)
                 throw new ArgumentNullException(nameof(venda));
@@ -249,13 +159,29 @@ namespace GVC.BLL
             if (itens == null || !itens.Any())
                 throw new Exception("A venda deve possuir ao menos um item.");
 
-            if (ExistePagamento(venda.VendaID))
+            if (_parcelaRepository.ExistePagamentoPorVenda(venda.VendaID))
                 throw new Exception(
-                    "Não é possível alterar a venda.\n\n" +
-                    "Existem pagamentos registrados.");
+                    "Não é possível alterar a venda.\n\nExistem pagamentos registrados.");
 
-            // 🔹 Chama DAL (igual salvar)
-            new VendaDal().AtualizarVendaCompleta(venda, itens, parcelas);
+            _vendaRepository.AtualizarVendaCompleta(venda, itens, parcelas);
+        }
+
+        // =========================================
+        // CONSULTAS
+        // =========================================
+        public VendaModel ObterVendaPorId(int vendaId)
+        {
+            return _vendaRepository.ObterPorId(vendaId);
+        }
+
+        public VendaModel ObterVendaCompleta(int vendaId)
+        {
+            return _vendaRepository.ObterVendaCompleta(vendaId);
+        }
+
+        public bool PodeAlterarVenda(int vendaId)
+        {
+            return !_parcelaRepository.ExistePagamentoPorVenda(vendaId);
         }
     }
 }

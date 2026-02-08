@@ -1,13 +1,16 @@
 ﻿using Dapper;
-using GVC.DAL;
+using GVC.Infra.Conexao;
+using GVC.Infra.Repository;
 using GVC.Model;
-using GVC.UTIL;
 using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace GVC.DAL
 {
-    internal class FornecedorDal
+    internal class FornecedorDal : RepositoryBase
     {
         private const string SqlBase = @"
         SELECT
@@ -28,161 +31,228 @@ namespace GVC.DAL
             e.Uf AS Estado
         FROM Fornecedor f
         LEFT JOIN Cidade ci ON ci.CidadeID = f.CidadeID
-        LEFT JOIN Estado e ON e.EstadoID = ci.EstadoID";
+        LEFT JOIN Estado e ON e.EstadoID = ci.EstadoID
+        WHERE f.EmpresaID = @EmpresaID";
 
         public DataTable ListarFornecedores()
         {
-            const string sql = SqlBase + " ORDER BY f.Nome";
-            using var conn = Conexao_.Conex();
-            return conn.ExecuteReaderToDataTable(sql);
+            using var cmd = CreateCommand(SqlBase + " ORDER BY f.Nome");
+            var dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
+            return dt;
         }
 
         public bool FornecedorExiste(string? nome, string? cnpj)
         {
             const string sql = @"
-        SELECT TOP 1 1
-        FROM Fornecedor
-        WHERE (Nome = @Nome OR Cnpj = @Cnpj);";
+            SELECT 1 FROM Fornecedor
+            WHERE EmpresaID = @EmpresaID
+              AND (Nome = @Nome OR Cnpj = @Cnpj)";
 
-            var p = new
-            {
-                Nome = string.IsNullOrWhiteSpace(nome) ? null : nome,
-                Cnpj = string.IsNullOrWhiteSpace(cnpj) ? null : cnpj
-            };
-
-            using var conn = Conexao_.Conex();
-            return conn.ExecuteScalar<int?>(sql, p) != null;
+            return Connection.ExecuteScalar<int?>(
+                sql,
+                new { Nome = nome, Cnpj = cnpj, EmpresaID }
+            ) != null;
         }
 
         public void SalvarFornecedor(FornecedorModel fornecedor)
         {
-            if (fornecedor == null) throw new ArgumentNullException(nameof(fornecedor));
             if (FornecedorExiste(fornecedor.Nome, fornecedor.Cnpj))
-                throw new InvalidOperationException("Já existe um fornecedor com este nome ou Cnpj.");
+                throw new InvalidOperationException("Fornecedor já cadastrado.");
 
             const string sql = @"
-INSERT INTO Fornecedor (
-  Nome, Cnpj, IE, Telefone, Email, CidadeID,
-  Logradouro, Numero, Bairro, Cep, DataCriacao, Observacoes
-)
-VALUES (
-  @Nome, @Cnpj, @IE, @Telefone, @Email, @CidadeID,
-  @Logradouro, @Numero, @Bairro, @Cep, @DataCriacao, @Observacoes
-);
-SELECT SCOPE_IDENTITY();";   // ✅ SQL Server
+            INSERT INTO Fornecedor
+            (Nome, Cnpj, IE, Telefone, Email, CidadeID,
+             Logradouro, Numero, Bairro, Cep, DataCriacao, Observacoes, EmpresaID)
+            VALUES
+            (@Nome, @Cnpj, @IE, @Telefone, @Email, @CidadeID,
+             @Logradouro, @Numero, @Bairro, @Cep, @DataCriacao, @Observacoes, @EmpresaID)";
 
-            string? NullIfEmpty(string? s) => string.IsNullOrWhiteSpace(s) ? null : s;
-
-            var p = new
+            Connection.Execute(sql, new
             {
-                Nome = NullIfEmpty(fornecedor.Nome),
-                Cnpj = NullIfEmpty(fornecedor.Cnpj),
-               IE = NullIfEmpty(fornecedor.IE),
-                Telefone = NullIfEmpty(fornecedor.Telefone),
-                Email = NullIfEmpty(fornecedor.Email),
-                CidadeID = fornecedor.CidadeID,
-                Logradouro = NullIfEmpty(fornecedor.Logradouro),
-                Numero = NullIfEmpty(fornecedor.Numero),
-                Bairro = NullIfEmpty(fornecedor.Bairro),
-                Cep = NullIfEmpty(fornecedor.Cep),
-                DataCriacao = fornecedor.DataCriacao ?? DateTime.Now,
-                Observacoes = NullIfEmpty(fornecedor.Observacoes)
-            };
-
-            using var conn = Conexao_.Conex();
-            fornecedor.FornecedorID = (int)conn.QuerySingle<int>(sql, p);
+                fornecedor.Nome,
+                fornecedor.Cnpj,
+                fornecedor.IE,
+                fornecedor.Telefone,
+                fornecedor.Email,
+                fornecedor.CidadeID,
+                fornecedor.Logradouro,
+                fornecedor.Numero,
+                fornecedor.Bairro,
+                fornecedor.Cep,
+                fornecedor.DataCriacao,
+                fornecedor.Observacoes,
+                EmpresaID
+            });
         }
-
+       
         public void Atualizar(FornecedorModel fornecedor)
         {
             const string sql = @"
-            UPDATE Fornecedor SET
-                Nome = @Nome,
-                Cnpj = @Cnpj,
-               IE = @IE,
-                Telefone = @Telefone,
-                Email = @Email,
-                CidadeID = @CidadeID,
-                Logradouro = @Logradouro,
-                Numero = @Numero,
-                Bairro = @Bairro,
-                Cep = @Cep,
-                Observacoes = @Observacoes,
-                DataCriacao = @DataCriacao
-            WHERE FornecedorID = @FornecedorID";
+    UPDATE Fornecedor SET
+        Nome = @Nome,
+        Cnpj = @Cnpj,
+        IE = @IE,
+        Telefone = @Telefone,
+        Email = @Email,
+        CidadeID = @CidadeID,
+        Logradouro = @Logradouro,
+        Numero = @Numero,
+        Bairro = @Bairro,
+        Cep = @Cep,
+        Observacoes = @Observacoes,
+        DataCriacao = @DataCriacao
+    WHERE FornecedorID = @FornecedorID
+      AND EmpresaID = @EmpresaID";
 
-            using var conn = Conexao_.Conex();
-            conn.Execute(sql, fornecedor);
+            using var cmd = CreateCommand(sql);
+
+            cmd.Parameters.AddWithValue("@FornecedorID", fornecedor.FornecedorID);
+            cmd.Parameters.AddWithValue("@Nome", fornecedor.Nome ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Cnpj", fornecedor.Cnpj ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@IE", fornecedor.IE ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Telefone", fornecedor.Telefone ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Email", fornecedor.Email ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@CidadeID", fornecedor.CidadeID);
+            cmd.Parameters.AddWithValue("@Logradouro", fornecedor.Logradouro ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Numero", fornecedor.Numero ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Bairro", fornecedor.Bairro ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Cep", fornecedor.Cep ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Observacoes", fornecedor.Observacoes ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@DataCriacao", fornecedor.DataCriacao ?? DateTime.Now);
+
+            cmd.ExecuteNonQuery();
         }
-
         public void ExcluirFornecedor(int fornecedorID)
         {
-            const string sql = "DELETE FROM Fornecedor WHERE FornecedorID = @FornecedorID";
-            using var conn = Conexao_.Conex();
-            conn.Execute(sql, new { FornecedorID = fornecedorID });
+            const string sql = @"
+        DELETE FROM Fornecedor
+        WHERE FornecedorID = @FornecedorID
+          AND EmpresaID = @EmpresaID";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.AddWithValue("@FornecedorID", fornecedorID);
+            cmd.ExecuteNonQuery();
         }
-
-        public void ExcluirFornecedor(FornecedorModel fornecedor) => ExcluirFornecedor((int)fornecedor.FornecedorID);
-
-        public DataTable PesquisarPorNome(string nome)
-        {
-            const string sql = SqlBase + " WHERE f.Nome LIKE @Nome ORDER BY f.Nome";
-            using var conn = Conexao_.Conex();
-            return conn.ExecuteReaderToDataTable(sql, new { Nome = $"%{nome?.Trim()}%" });
-        }
-
         public DataTable PesquisarPorCodigo(int codigo)
         {
-            const string sql = SqlBase + " WHERE f.FornecedorID = @FornecedorID";
-            using var conn = Conexao_.Conex();
-            return conn.ExecuteReaderToDataTable(sql, new { FornecedorID = codigo });
-        }
+            const string sql = SqlBase + " AND f.FornecedorID = @FornecedorID";
 
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.AddWithValue("@FornecedorID", codigo);
+
+            using var da = new SqlDataAdapter(cmd);
+            var dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
         public DataTable PesquisarGeral(string texto = "")
         {
-            const string sql = SqlBase + @"
-            WHERE f.Nome LIKE @Texto
-               OR f.Cnpj LIKE @Texto
-               OR f.Telefone LIKE @Texto
-               OR f.Email LIKE @Texto
-               OR f.Logradouro LIKE @Texto
-               OR f.Bairro LIKE @Texto
-               OR ci.Nome LIKE @Texto
-            ORDER BY f.Nome
-            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY";  // ✅ SQL Server
+                    const string sql = SqlBase + @"
+                AND (
+                    f.Nome LIKE @Texto
+                    OR f.Cnpj LIKE @Texto
+                    OR f.Telefone LIKE @Texto
+                    OR f.Email LIKE @Texto
+                    OR f.Logradouro LIKE @Texto
+                    OR f.Bairro LIKE @Texto
+                    OR ci.Nome LIKE @Texto
+                )
+                ORDER BY f.Nome
+                OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY";
 
-            var filtro = $"%{texto?.Trim() ?? ""}%";
-            using var conn = Conexao_.Conex();
-            return conn.ExecuteReaderToDataTable(sql, new { Texto = filtro });
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.AddWithValue("@Texto", $"%{texto?.Trim() ?? ""}%");
+
+            using var da = new SqlDataAdapter(cmd);
+            var dt = new DataTable();
+            da.Fill(dt);
+            return dt;
         }
+        public DataTable PesquisarPorNome(string texto = "")
+        {
+            const string sql = SqlBase + @"
+            AND f.Nome LIKE @Texto
+            ORDER BY f.Nome
+            OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY";
 
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.AddWithValue("@Texto", $"%{texto?.Trim() ?? string.Empty}%");
+
+            using var da = new SqlDataAdapter(cmd);
+            var dt = new DataTable();
+            da.Fill(dt);
+
+            return dt;
+        }
         public FornecedorModel? BuscarPorCnpj(string? cnpj)
         {
             const string sql = @"
-            SELECT TOP 1 *
-            FROM Fornecedor
-            WHERE Cnpj = @Cnpj;";   // ✅ SQL Server
+        SELECT TOP 1 *
+        FROM Fornecedor
+        WHERE Cnpj = @Cnpj
+          AND EmpresaID = @EmpresaID";
 
-            var p = new { Cnpj = string.IsNullOrWhiteSpace(cnpj) ? null : cnpj };
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.AddWithValue("@Cnpj",
+                string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
 
-            using var conn = Conexao_.Conex();
-            return conn.QueryFirstOrDefault<FornecedorModel>(sql, p);
+            using var dr = cmd.ExecuteReader();
+            if (!dr.Read()) return null;
+
+            return new FornecedorModel
+            {
+                FornecedorID = Convert.ToInt32(dr["FornecedorID"]),
+                Nome = dr["Nome"].ToString(),
+                Cnpj = dr["Cnpj"].ToString(),
+                Telefone = dr["Telefone"].ToString(),
+                Email = dr["Email"].ToString()
+                // complete conforme seu model
+            };
         }
-
         public FornecedorModel? BuscarPorId(int fornecedorID)
         {
-            const string sql = SqlBase + " WHERE f.FornecedorID = @Id";
-            using var conn = Conexao_.Conex();
-            return conn.QueryFirstOrDefault<FornecedorModel>(sql, new { Id = fornecedorID });
-        }
+            const string sql = SqlBase + " AND f.FornecedorID = @Id";
 
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.AddWithValue("@Id", fornecedorID);
+
+            using var dr = cmd.ExecuteReader();
+            if (!dr.Read()) return null;
+
+            return new FornecedorModel
+            {
+                FornecedorID = Convert.ToInt32(dr["FornecedorID"]),
+                Nome = dr["Nome"].ToString(),
+                Cnpj = dr["Cnpj"].ToString(),
+                Telefone = dr["Telefone"].ToString()
+            };
+        }
         public List<FornecedorModel> Listar()
         {
-            const string sql = @"SELECT FornecedorID, Nome, Telefone, Cnpj 
-                 FROM Fornecedor ORDER BY Nome";
+            const string sql = @"
+        SELECT FornecedorID, Nome, Telefone, Cnpj
+        FROM Fornecedor
+        WHERE EmpresaID = @EmpresaID
+        ORDER BY Nome";
 
-            using var conn = Conexao_.Conex();
-            return conn.Query<FornecedorModel>(sql).ToList();
+            using var cmd = CreateCommand(sql);
+            using var dr = cmd.ExecuteReader();
+
+            var lista = new List<FornecedorModel>();
+            while (dr.Read())
+            {
+                lista.Add(new FornecedorModel
+                {
+                    FornecedorID = Convert.ToInt32(dr["FornecedorID"]),
+                    Nome = dr["Nome"].ToString(),
+                    Telefone = dr["Telefone"].ToString(),
+                    Cnpj = dr["Cnpj"].ToString()
+                });
+            }
+
+            return lista;
         }
+
     }
 }

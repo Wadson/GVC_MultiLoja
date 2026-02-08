@@ -4,6 +4,7 @@ using System;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using GVC.UTIL;
+using GVC.Infra.Conexao;
 
 namespace GVC.BLL
 {
@@ -65,7 +66,7 @@ namespace GVC.BLL
 
         public EstadoModel Pesquisar(string pesquisa)
         {
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             try
             {
                 var sql = new SqlCommand(

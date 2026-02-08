@@ -26,6 +26,7 @@ public partial class MovimentacaoEstoqueModel
     public DateTime DataMovimentacao { get; set; }
 
     public string? Usuario { get; set; }
+    public int EmpresaID { get; set; }
 
     public virtual ProdutoModel Produto { get; set; } = null!;
 }

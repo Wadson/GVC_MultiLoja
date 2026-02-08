@@ -1,15 +1,10 @@
-﻿using GVC.UTIL;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GVC.Infra.Repository;
 
 namespace GVC.DAL
 {
-    public class MovimentacaoEstoqueDAL
+    public class MovimentacaoEstoqueDAL : RepositoryBase
     {
         public DataTable Consultar(
             int? produtoId,
@@ -18,57 +13,27 @@ namespace GVC.DAL
             DateTime inicio,
             DateTime fim)
         {
-            var dt = new DataTable();
+            var sql = @"
+            SELECT me.*, p.NomeProduto
+            FROM MovimentacaoEstoque me
+            INNER JOIN Produtos p ON p.ProdutoID = me.ProdutoID
+            WHERE me.EmpresaID = @EmpresaID
+              AND me.DataMovimentacao BETWEEN @Inicio AND @Fim";
 
-            using var conn = Conexao_.Conex();
-            conn.Open();
+            if (produtoId.HasValue) sql += " AND me.ProdutoID = @ProdutoID";
+            if (!string.IsNullOrEmpty(tipo)) sql += " AND me.TipoMovimentacao = @Tipo";
+            if (!string.IsNullOrEmpty(origem)) sql += " AND me.Origem = @Origem";
 
-            string sql = @"
-        SELECT
-            me.MovimentacaoID,
-            me.DataMovimentacao,
-            me.TipoMovimentacao,
-            me.Quantidade,
-            me.EstoqueAnterior,
-            me.EstoqueAtual,
-            me.Origem,
-            me.Documento,
-            me.Observacao,
-            me.Usuario,
-            p.ProdutoID,
-            p.NomeProduto
-        FROM MovimentacaoEstoque me
-        INNER JOIN Produtos p ON p.ProdutoID = me.ProdutoID
-        WHERE me.DataMovimentacao BETWEEN @Inicio AND @Fim";
-
-            if (produtoId.HasValue)
-                sql += " AND me.ProdutoID = @ProdutoID";
-
-            if (!string.IsNullOrEmpty(tipo))
-                sql += " AND me.TipoMovimentacao = @Tipo";
-
-            if (!string.IsNullOrEmpty(origem))
-                sql += " AND me.Origem = @Origem";
-
-            using var cmd = new SqlCommand(sql, conn);
-
+            using var cmd = CreateCommand(sql);
             cmd.Parameters.AddWithValue("@Inicio", inicio);
             cmd.Parameters.AddWithValue("@Fim", fim);
+            if (produtoId.HasValue) cmd.Parameters.AddWithValue("@ProdutoID", produtoId);
+            if (!string.IsNullOrEmpty(tipo)) cmd.Parameters.AddWithValue("@Tipo", tipo);
+            if (!string.IsNullOrEmpty(origem)) cmd.Parameters.AddWithValue("@Origem", origem);
 
-            if (produtoId.HasValue)
-                cmd.Parameters.AddWithValue("@ProdutoID", produtoId.Value);
-
-            if (!string.IsNullOrEmpty(tipo))
-                cmd.Parameters.AddWithValue("@Tipo", tipo);
-
-            if (!string.IsNullOrEmpty(origem))
-                cmd.Parameters.AddWithValue("@Origem", origem);
-
-            using var da = new SqlDataAdapter(cmd);
-            da.Fill(dt);
-
+            var dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
             return dt;
         }
     }
-
 }

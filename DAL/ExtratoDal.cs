@@ -1,19 +1,14 @@
 ﻿using Dapper;
+using GVC.Infra.Conexao;
+using GVC.Infra.Repository;
 using GVC.Model;
-using GVC.UTIL;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GVC.DAL
 {
-    public class ExtratoDal
+    public class ExtratoDal : RepositoryBase
     {
-        // ==============================
-        // PARCELAS (posição financeira)
-        // ==============================
         private const string SQL_PARCELAS = @"
         SELECT
             pc.ParcelaID,
@@ -27,26 +22,9 @@ namespace GVC.DAL
         FROM Parcela pc
         INNER JOIN Venda v ON v.VendaID = pc.VendaID
         WHERE v.ClienteID = @ClienteID
-        ORDER BY v.DataVenda, pc.NumeroParcela;";
+          AND pc.EmpresaID = @EmpresaID
+        ORDER BY v.DataVenda, pc.NumeroParcela";
 
-        // ==============================
-        // PAGAMENTOS (histórico)
-        // ==============================
-        private const string SQL_PAGAMENTOS = @"
-        SELECT
-            pg.ParcelaID,
-            pg.DataPagamento,
-            pg.ValorPago,
-            pg.Observacao
-        FROM PagamentosParciais pg
-        INNER JOIN Parcela pc ON pc.ParcelaID = pg.ParcelaID
-        INNER JOIN Venda v ON v.VendaID = pc.VendaID
-        WHERE v.ClienteID = @ClienteID
-        ORDER BY pg.DataPagamento;";
-
-        // ==============================
-        // EXTRATO RESUMIDO (antigo)
-        // ==============================
         private const string SQL_RESUMIDO = @"
         SELECT
             pc.ParcelaID,
@@ -66,43 +44,29 @@ namespace GVC.DAL
         INNER JOIN Venda v ON v.VendaID = pc.VendaID
         LEFT JOIN PagamentosParciais pg ON pg.ParcelaID = pc.ParcelaID
         WHERE v.ClienteID = @ClienteID
+          AND pc.EmpresaID = @EmpresaID
         GROUP BY
-            pc.ParcelaID,
-            pc.VendaID,
-            pc.NumeroParcela,
-            v.DataVenda,
-            pc.DataVencimento,
-            pc.ValorParcela
-        ORDER BY v.DataVenda, pc.NumeroParcela;";
+            pc.ParcelaID, pc.VendaID, pc.NumeroParcela,
+            v.DataVenda, pc.DataVencimento, pc.ValorParcela
+        ORDER BY v.DataVenda, pc.NumeroParcela";
 
-        // ==============================
-        // MÉTODOS
-        // ==============================
         public List<ParcelaExtratoDetalhado> ObterParcelas(int clienteId)
-        {
-            using var conn = Conexao_.Conex();
-            return conn.Query<ParcelaExtratoDetalhado>(
+            => Connection.Query<ParcelaExtratoDetalhado>(
                 SQL_PARCELAS,
-                new { ClienteID = clienteId }
+                new { ClienteID = clienteId, EmpresaID }
             ).ToList();
-        }
 
-        public List<PagamentoExtratoModel> ObterPagamentosPorParcela(long parcelaId)
-        {
-            using var conn = Conexao_.Conex();
-            return conn.Query<PagamentoExtratoModel>(
-                @"SELECT DataPagamento, ValorPago, Observacao
-          FROM PagamentosParciais
-          WHERE ParcelaID = @ParcelaID
-          ORDER BY DataPagamento",
-                new { ParcelaID = parcelaId }
+        public List<ParcelaExtrato> ObterExtratoResumido(int clienteId)
+            => Connection.Query<ParcelaExtrato>(
+                SQL_RESUMIDO,
+                new { ClienteID = clienteId, EmpresaID }
             ).ToList();
-        }
+
+
+
         public List<PagamentoExtratoModel> ObterPagamentosPorCliente(int clienteId)
         {
-            using var conn = Conexao_.Conex();
-
-            return conn.Query<PagamentoExtratoModel>(@"
+            return Connection.Query<PagamentoExtratoModel>(@"
         SELECT
             pg.ParcelaID,
             pg.DataPagamento,
@@ -111,18 +75,20 @@ namespace GVC.DAL
         FROM PagamentosParciais pg
         INNER JOIN Parcela pc ON pc.ParcelaID = pg.ParcelaID
         INNER JOIN Venda v ON v.VendaID = pc.VendaID
-        WHERE v.ClienteID = @ClienteID
+        WHERE v.ClienteID = @ClienteID AND pc.EmpresaID = @EmpresaID
         ORDER BY pg.DataPagamento",
                 new { ClienteID = clienteId }
             ).ToList();
         }
 
-        public List<ParcelaExtrato> ObterExtratoResumido(int clienteId)
-        {
-            using var conn = Conexao_.Conex();
-            return conn.Query<ParcelaExtrato>(
-                SQL_RESUMIDO,
-                new { ClienteID = clienteId }
+        public List<PagamentoExtratoModel> ObterPagamentosPorParcela(long parcelaId)
+        {            
+            return Connection.Query<PagamentoExtratoModel>(
+                @"SELECT DataPagamento, ValorPago, Observacao
+                  FROM PagamentosParciais
+                  WHERE ParcelaID = @ParcelaID AND EmpresaID = @EmpresaID
+                  ORDER BY DataPagamento",
+                new { ParcelaID = parcelaId }
             ).ToList();
         }
     }

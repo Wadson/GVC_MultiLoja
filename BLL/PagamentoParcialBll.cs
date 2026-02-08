@@ -17,12 +17,11 @@ namespace GVC.BLL
         {
             try
             {
-                pagamentoParcialDAL = new PagamentoParcialDal();
-                pagamentoParcialDAL.Excluir(pagamentoParcial);
+                _dal.ExcluirPagamentosParciaisPorParcelaID(pagamentoParcial.ParcelaID);
             }
             catch (Exception erro)
             {
-                throw erro;
+                throw; // mantém a exceção original
             }
         }
         public PagamentoParcialBll()

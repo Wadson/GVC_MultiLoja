@@ -19,7 +19,5 @@ namespace GVC.BLL
         {
             return _pagamentoParcialDal.ObterPagamentoPorId(pagamentoId);
         }
-
-
     }
 }

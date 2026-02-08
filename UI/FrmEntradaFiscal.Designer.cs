@@ -650,6 +650,7 @@
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Entrada Fiscal";
+            Load += FrmEntradaFiscal_Load;
             grpDocumento.ResumeLayout(false);
             grpDocumento.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)cmbFornecedor).EndInit();

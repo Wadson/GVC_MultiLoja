@@ -1,4 +1,5 @@
 ﻿using GVC.DAL;
+using GVC.Infra.Repository;
 using GVC.Model;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,19 @@ namespace GVC
 {
     internal class VendaService
     {
-        private readonly VendaDal _vendaDal;
-        private readonly ItemVendaDal _itemDal;
-        private readonly ParcelaDal _parcelaDal;
+        private readonly VendaRepository _vendaRepository;
+        private readonly ItemVendaRepository _itemRepository;
+        private readonly ParcelaRepository _parcelaRepository;
 
         public VendaService()
         {
         }
 
-        public VendaService(VendaDal vendaDal, ItemVendaDal itemDal, ParcelaDal parcelaDal)
+        public VendaService(VendaRepository vendaRepository, ItemVendaRepository itemRepository, ParcelaRepository parcelaRepository)
         {
-            _vendaDal = vendaDal;
-            _itemDal = itemDal;
-            _parcelaDal = parcelaDal;
+            _vendaRepository = vendaRepository;
+            _itemRepository = itemRepository;
+            _parcelaRepository = parcelaRepository;
         }
 
         //public int CriarVenda(VendaModel venda, List<ItemVendaModel> itens, List<ParcelaModel> parcelas)

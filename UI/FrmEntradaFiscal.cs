@@ -17,5 +17,12 @@ namespace GVC.View
         {
             InitializeComponent();
         }
+
+        private void FrmEntradaFiscal_Load(object sender, EventArgs e)
+        {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
+        }
     }
 }

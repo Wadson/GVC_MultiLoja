@@ -29,6 +29,7 @@ public partial class ParcelaModel
     public decimal Saldo { get; set; }
 
     public string? Observacao { get; set; }
+    public int EmpresaID { get; set; }
 
     public virtual ICollection<PagamentosParcialModel> PagamentosParciais { get; set; } = new List<PagamentosParcialModel>();
 

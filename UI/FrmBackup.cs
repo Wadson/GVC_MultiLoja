@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using GVC.Infra.Conexao;
 
 namespace GVC.View
 {
@@ -86,7 +87,7 @@ namespace GVC.View
 
                 bool suportaCompression;
 
-                using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
+                using (var con = Conexao.Conex())
                 {
                     con.Open();
 
@@ -189,7 +190,7 @@ namespace GVC.View
                 // EXECUÇÃO SEGURA
                 // ================================
 
-                con = Conexao_.Conex(Sessao.AmbienteSelecionado);
+                con = Conexao.Conex();
                 con.Open();
 
                 // IMPORTANTE: usa master

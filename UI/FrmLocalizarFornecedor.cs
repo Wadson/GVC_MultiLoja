@@ -167,6 +167,9 @@ namespace GVC.View
         }
         private void FrmLocalizarFornecedor_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ListarFornecedor();
             txtPesquisar.Focus();
 

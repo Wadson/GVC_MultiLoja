@@ -38,11 +38,14 @@
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
             lblTitulo = new Krypton.Toolkit.KryptonLabel();
             iconAcao = new FontAwesome.Sharp.IconPictureBox();
+            kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
+            lblMensagem = new ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)dataGridPesquisar).BeginInit();
             tlpTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconAcao).BeginInit();
+            kryptonStatusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridPesquisar
@@ -59,7 +62,7 @@
             dataGridPesquisar.ReadOnly = true;
             dataGridPesquisar.RowHeadersWidth = 25;
             dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPesquisar.Size = new Size(936, 351);
+            dataGridPesquisar.Size = new Size(936, 332);
             dataGridPesquisar.TabIndex = 599;
             dataGridPesquisar.TabStop = false;
             dataGridPesquisar.CellDoubleClick += dataGridPesquisar_CellDoubleClick;
@@ -196,10 +199,29 @@
             iconAcao.TabIndex = 1110;
             iconAcao.TabStop = false;
             // 
+            // kryptonStatusStrip1
+            // 
+            kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblMensagem });
+            kryptonStatusStrip1.Location = new Point(0, 439);
+            kryptonStatusStrip1.Name = "kryptonStatusStrip1";
+            kryptonStatusStrip1.ProgressBars = null;
+            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
+            kryptonStatusStrip1.Size = new Size(941, 22);
+            kryptonStatusStrip1.TabIndex = 602;
+            kryptonStatusStrip1.Text = "kryptonStatusStrip1";
+            // 
+            // lblMensagem
+            // 
+            lblMensagem.Name = "lblMensagem";
+            lblMensagem.Size = new Size(39, 17);
+            lblMensagem.Text = "Status";
+            // 
             // FrmPesquisarPreco
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(941, 461);
+            Controls.Add(kryptonStatusStrip1);
             Controls.Add(tlpTitulo);
             Controls.Add(txtPesquisar);
             Controls.Add(dataGridPesquisar);
@@ -225,6 +247,8 @@
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconAcao).EndInit();
+            kryptonStatusStrip1.ResumeLayout(false);
+            kryptonStatusStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -239,5 +263,7 @@
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private Krypton.Toolkit.KryptonLabel lblTitulo;
         private FontAwesome.Sharp.IconPictureBox iconAcao;
+        private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
+        private ToolStripStatusLabel lblMensagem;
     }
 }

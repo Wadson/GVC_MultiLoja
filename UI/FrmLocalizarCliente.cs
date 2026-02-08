@@ -4,6 +4,7 @@ using Krypton.Toolkit;
 using System;
 using System.Windows.Forms;
 using System.ComponentModel;
+using GVC.Infra.Repository;
 
 namespace GVC.View
 {
@@ -37,7 +38,7 @@ namespace GVC.View
         private bool recebendoTextoExterno = false;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ClienteSelecionado { get; set; }
-
+        private readonly ClienteRepository _clienteRepository = new ClienteRepository();
         public FrmLocalizarCliente(Form formChamador, string textoDigitado)
         {
             InitializeComponent();
@@ -228,13 +229,15 @@ namespace GVC.View
             dataGridPesquisar.CurrentCell = firstRow.Cells[firstVisibleColIndex];
         }
         public void ListarCliente()
-        {
-            ClienteDal dao = new();
-            dataGridPesquisar.DataSource = dao.PesquisarGeral();
+        {            
+            dataGridPesquisar.DataSource = _clienteRepository.ListarClientes();
             PersonalizarDataGridView();
         }
         private void FrmLocalizarCliente_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             // Altura fixa
             this.MinimumSize = new Size(this.Width, this.Height); this.MaximumSize = new Size(int.MaxValue, this.Height);
             ListarCliente();
@@ -248,11 +251,10 @@ namespace GVC.View
 
         private void PesquisarCliente()
         {
-            string textoPesquisa = txtPesquisar.Text.Trim();
-            ClienteDal dao = new ClienteDal();
+            string textoPesquisa = txtPesquisar.Text.Trim();          
 
             // 🔹 Pesquisa apenas por nome
-            dataGridPesquisar.DataSource = dao.PesquisarGeral(textoPesquisa);
+            dataGridPesquisar.DataSource = _clienteRepository.PesquisarPorNome(textoPesquisa);
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -488,9 +490,7 @@ namespace GVC.View
                     //     ...
                     //     break;
             }
-
         }
-
         private void dataGridPesquisar_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             SelecionarPrimeiraLinhaSegura();

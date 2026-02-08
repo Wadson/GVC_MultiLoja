@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GVC.Infra.Conexao;
 
 namespace GVC.BLL
 {
@@ -16,7 +17,7 @@ namespace GVC.BLL
 
         public void MovimentarEstoque(MovimentacaoEstoqueModel mov)
         {
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             conn.Open();
             using var tran = conn.BeginTransaction();
 

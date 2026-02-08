@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using GVC.UTIL;
+using GVC.Infra.Conexao;
 
 namespace GVC.MUI
 {
@@ -26,7 +27,7 @@ namespace GVC.MUI
         // ====================== REDEFINIR SENHA ======================
         private bool RedefinirSenha(string token, string novaSenha)
         {
-            using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
+            using (var con = Conexao.Conex())
             {
                 string query = "SELECT UsuarioID, DataExpiracao FROM TokensRedefinicao WHERE Token = @Token";
                 using (var cmd = new SqlCommand(query, con))
@@ -92,7 +93,7 @@ namespace GVC.MUI
 
             try
             {
-                using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
+                using (var con = Conexao.Conex())
                 {
                     string sql = @"
                 SELECT UsuarioID, Email
@@ -165,7 +166,7 @@ namespace GVC.MUI
         {
             string tokenLower = token.ToLower();
 
-            using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
+            using (var con = Conexao.Conex())
             {
                 string query = @"
                 INSERT INTO TokensRedefinicao (UsuarioID, Token, DataExpiracao) 

@@ -318,6 +318,9 @@ namespace GVC.View
 
         private void FrmBaixarParcela_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             CarregarFormasPagamento();
         }              
 

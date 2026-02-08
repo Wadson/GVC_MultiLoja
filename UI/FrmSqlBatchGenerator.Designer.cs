@@ -476,6 +476,7 @@
             StateActive.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateActive.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Text = "Converter Script";
+            Load += FrmSqlBatchGenerator_Load;
             ((System.ComponentModel.ISupportInitialize)iconAcao).EndInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
             pnlHeader.ResumeLayout(false);

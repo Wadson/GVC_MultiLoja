@@ -96,6 +96,9 @@ namespace GVC.View
 
         private void FrmConfigLogo_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             btnSalvar.Text = "Alterar";
             CarregarComboEmpresas();     // <--- Essa linha chama o carregamento            
         }

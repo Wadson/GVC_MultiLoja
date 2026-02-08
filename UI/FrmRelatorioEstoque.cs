@@ -111,6 +111,9 @@ namespace GVC.View
 
         private void FrmRelatorioEstoque_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             // Configura colunas e estilos
             ConfigurarGridEstoque();            
             var bll = new RelatorioEstoqueBLL();

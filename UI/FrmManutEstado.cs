@@ -110,6 +110,9 @@ namespace GVC
         }
         private void FrmManutUsuario_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             Listar();
         }
         public void Listar()

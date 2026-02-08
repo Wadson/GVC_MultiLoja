@@ -205,6 +205,9 @@ namespace GVC.View
 
         private void FrmManutEmpresa_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ListarEmpresa();
         }
 

@@ -1,4 +1,6 @@
 ﻿using GVC.BLL;
+using GVC.DTO;
+using GVC.Infra.Conexao;
 using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
@@ -7,6 +9,7 @@ using Krypton.Toolkit;
 using Microsoft.Data.SqlClient;
 using System;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -24,14 +27,76 @@ namespace GVC
 
         private bool _backupEmExecucao = false;
         private int _empresaId;
-
         private string PastaBackupAutomatica => @"C:\BackupsGVC";
-
+        private bool _carregandoEmpresas = true;
         public FrmPrincipal()
         {
             InitializeComponent();
+            cmbEmpresa.SelectedIndexChanged += cmbEmpresa_SelectedIndexChanged;
+
             StatusOperacao = "";
         }
+        private void TrocarEmpresa(int empresaID, string nomeEmpresa)
+        {
+            // Se for a mesma empresa, não faz nada
+            if (Sessao.EmpresaID == empresaID)
+                return;
+
+            var result = MessageBox.Show(
+                "Trocar a empresa fechará todas as telas abertas.\nDeseja continuar?",
+                "Trocar Empresa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes)
+            {
+                // volta o combo para a empresa atual
+                _carregandoEmpresas = true;
+                SelecionarEmpresaAtualNoCombo();
+                _carregandoEmpresas = false;
+                return;
+            }
+
+            // 🔥 Atualiza sessão
+            Sessao.EmpresaID = empresaID;
+            Sessao.EmpresaNome = nomeEmpresa;
+
+            // 🔥 Fecha todas as telas abertas (exceto principal)
+            FecharTelasAbertas();
+
+            // 🔥 Atualiza UI
+            AtualizaBarraStatus();
+            AtualizarTituloFormulario();
+        }
+        private void SelecionarEmpresaAtualNoCombo()
+        {
+            foreach (var item in cmbEmpresa.Items)
+            {
+                if (item is EmpresaDTO empresa &&
+                    empresa.EmpresaID == Sessao.EmpresaID)
+                {
+                    cmbEmpresa.SelectedItem = item;
+                    break;
+                }
+            }
+        }
+
+        private void AtualizarTituloFormulario()
+        {
+            this.Text = $"GVC ERP - {Sessao.EmpresaNome}";
+        }
+
+
+        private void FecharTelasAbertas()
+        {
+            foreach (Form form in Application.OpenForms.Cast<Form>().ToList())
+            {
+                if (form != this)
+                    form.Close();
+            }
+        }
+
+
         private void InicializarRelogio()
         {
             if (timer != null)
@@ -114,8 +179,7 @@ namespace GVC
 
         private void empresasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmCadEmpresa frm = new FrmCadEmpresa();
-            frm.StatusOperacao = "NOVO";
+            FrmManutEmpresa frm = new FrmManutEmpresa("NOVO");
             frm.Show();
         }
 
@@ -171,7 +235,7 @@ namespace GVC
                 string nomeArquivo = $"Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
                 string destino = Path.Combine(PastaBackupAutomatica, nomeArquivo);
 
-                using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
+                using (var con = Conexao.Conex())
                 {
                     con.Open();
 
@@ -213,7 +277,7 @@ namespace GVC
         {
             string sql = "SELECT TOP 1 EmpresaID FROM Empresa ORDER BY EmpresaID ASC";
 
-            using (var con = Conexao_.Conex())
+            using (var con = Conexao.Conex())
             using (var cmd = new SqlCommand(sql, con))
             {
                 con.Open();
@@ -229,12 +293,15 @@ namespace GVC
         private async void BuscarAtualizacaoSistema()
         {
             await GVC.Infra.Update.UpdateService.VerificarAtualizacaoAsync(false);
-        }
+        }       
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            BuscarAtualizacaoSistema();
+            Utilitario.CarregarEmpresa(cmbEmpresa);
+            _carregandoEmpresas = false;
 
+            BuscarAtualizacaoSistema();
+            AtualizarTituloFormulario();
             BuscarPrimeiraEmpresaId();
             IniciarBackupAutomatico();
             AtualizaBarraStatus();
@@ -249,18 +316,17 @@ namespace GVC
 
             lblVersaoSistema.Text = $"SGVendas • Versão {version} • © 2026 WR Soft";
 
-
-
-            lblAmbienteStatus.Text = $"Ambiente: {Sessao.AmbienteSelecionado}";
             // Obtém o caminho do diretório de execução
             string currentPath = Path.GetDirectoryName(Application.ExecutablePath);
 
             // Atualiza a label de usuário na barra de status
-
             string usuarioLogado = FrmLogin.UsuarioConectado;
             string nivelAcesso = FrmLogin.NivelAcesso;
-            lblUsuarioLogadoo.Text = $"{usuarioLogado}";
+           
             lblTipoUsuarioo.Text = $"{nivelAcesso}";
+
+            lblUsuarioLogadoo.Text = Sessao.NomeUsuario;            
+            lblEmpresa.Text = $"Empresa: {Sessao.EmpresaNome}";
 
             // Atualiza a data
             string data = DateTime.Now.ToLongDateString();
@@ -283,7 +349,6 @@ namespace GVC
             frm.Show();
 
         }
-
         private void timerBackupAtomatico_Tick(object sender, EventArgs e)
         {
             if (_backupEmExecucao)
@@ -303,11 +368,6 @@ namespace GVC
                 _backupEmExecucao = false;
             }
         }
-
-
-
-
-
 
         private void btnCliente_Click(object sender, EventArgs e)
         {
@@ -347,11 +407,6 @@ namespace GVC
         {
             FrmFinanceiro frm = new FrmFinanceiro();
             frm.Show();
-        }
-
-        private void btnCaixa_Click(object sender, EventArgs e)
-        {
-
         }
         private void btnRelatorios_Click(object sender, EventArgs e)
         {
@@ -426,8 +481,22 @@ namespace GVC
 
         private void btnCorrecaoEstoque_Click(object sender, EventArgs e)
         {
-            FrmMovimentacaoEstoque  frmMovimentacaoEstoque = new FrmMovimentacaoEstoque();
+            FrmMovimentacaoEstoque frmMovimentacaoEstoque = new FrmMovimentacaoEstoque();
             frmMovimentacaoEstoque.Show();
+        }
+
+        private void cmbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_carregandoEmpresas)
+                return;
+
+            if (cmbEmpresa.SelectedItem is not EmpresaDTO empresa)
+                return;
+
+            if (empresa.EmpresaID <= 0)
+                return;
+
+            TrocarEmpresa(empresa.EmpresaID, empresa.NomeFantasia);
         }
     }
 }

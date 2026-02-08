@@ -278,5 +278,12 @@ namespace GVC.View
                     $"Erro ao gerar relatório: {ex.Message}");
             }
         }
+
+        private void FrmRelatoriosFinanceiros_Load(object sender, EventArgs e)
+        {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
+        }
     }
 }

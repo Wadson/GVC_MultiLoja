@@ -1,23 +1,92 @@
-﻿// ==================================================
-// 3. BLL - ProdutosBLL.cs
-// ==================================================
+﻿using System;
 using System.Collections.Generic;
 using GVC.Model;
-using GVC.DAL;
+using GVC.Infra.Repository;
 
 namespace GVC.BLL
 {
     public class ProdutosBLL
     {
-        private readonly ProdutoDALL _dal = new ProdutoDALL();
+        private readonly ProdutoRepository _repository;
 
-        public List<ProdutoModel> ListarTodos() => _dal.ListarTodos();
+        public ProdutosBLL()
+        {
+            _repository = new ProdutoRepository();
+        }
 
-        public ProdutoModel? BuscarPorId(long id) => _dal.BuscarPorId(id);
+        // =========================
+        // LISTAR
+        // =========================
+        public List<ProdutoModel> ListarTodos()
+        {
+            try
+            {
+                return _repository.ListarTodos();
+            }
+            catch (Exception erro)
+            {
+                throw; // mantém o stack trace original
+            }
+        }
 
+        // =========================
+        // BUSCAR
+        // =========================
+        public ProdutoModel? BuscarPorId(long id)
+        {
+            if (id <= 0)
+                throw new Exception("ID do produto inválido.");
+
+            return _repository.BuscarPorId(id);
+        }
+        public List<ProdutoModel> BuscarPorNome(string nome)
+        {
+            // Retorna lista vazia se nome for inválido
+            if (string.IsNullOrWhiteSpace(nome))
+            {
+                return new List<ProdutoModel>();
+            }
+
+            return _repository.PesquisarProdutoPorNome(nome);
+        }
+
+        // =========================
+        // INSERT
+        // =========================
         public long Inserir(ProdutoModel produto)
         {
-            // Validações básicas de negócio (você pode expandir)
+            ValidarProduto(produto, isInsert: true);
+            return _repository.Inserir(produto);
+        }
+
+        // =========================
+        // UPDATE
+        // =========================
+        public bool Alterar(ProdutoModel produto)
+        {
+            if (produto.ProdutoID <= 0)
+                throw new Exception("ID do produto inválido.");
+
+            ValidarProduto(produto, isInsert: false);
+            return _repository.Alterar(produto);
+        }
+
+        // =========================
+        // DELETE
+        // =========================
+        public bool Excluir(long id)
+        {
+            if (id <= 0)
+                throw new Exception("ID inválido.");
+
+            return _repository.Excluir(id);
+        }
+
+        // =========================
+        // REGRAS DE NEGÓCIO
+        // =========================
+        private static void ValidarProduto(ProdutoModel produto, bool isInsert)
+        {
             if (string.IsNullOrWhiteSpace(produto.NomeProduto))
                 throw new Exception("Nome do produto é obrigatório.");
 
@@ -27,23 +96,30 @@ namespace GVC.BLL
             if (produto.PrecoDeVenda < 0)
                 throw new Exception("Preço de venda não pode ser negativo.");
 
-            return _dal.Inserir(produto);
+            if (produto.Estoque < 0)
+                throw new Exception("Estoque não pode ser negativo.");
+
+            if (isInsert && produto.DataDeEntrada == DateTime.MinValue)
+                produto.DataDeEntrada = DateTime.Now;
         }
 
-        public bool Alterar(ProdutoModel produto)
+        // =========================
+        // AUXILIAR (DataTable → List)
+        // =========================
+        private static List<ProdutoModel> MapearLista(System.Data.DataTable dt)
         {
-            if (produto.ProdutoID <= 0)
-                throw new Exception("ID do produto inválido.");
+            var lista = new List<ProdutoModel>();
 
-            return _dal.Alterar(produto);
-        }
+            foreach (System.Data.DataRow r in dt.Rows)
+            {
+                lista.Add(new ProdutoModel
+                {
+                    ProdutoID = Convert.ToInt32(r["ProdutoID"]),
+                    NomeProduto = r["NomeProduto"].ToString()
+                });
+            }
 
-        public bool Excluir(long id)
-        {
-            if (id <= 0)
-                throw new Exception("ID inválido.");
-
-            return _dal.Excluir(id);
+            return lista;
         }
     }
 }

@@ -37,6 +37,9 @@ namespace GVC.View
 
         private void FrmConfigCertificado_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             txtCertificadoDigital.Text = EmpresaDal.ObterCaminhoCertificado(_empresaId);
         }
 

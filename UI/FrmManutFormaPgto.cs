@@ -176,6 +176,9 @@ namespace GVC.View
 
         private void FrmManutFormaPgto_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ListarFormaPgto();
         }
 

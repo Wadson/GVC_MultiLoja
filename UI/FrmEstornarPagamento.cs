@@ -30,6 +30,9 @@ namespace GVC.View
 
         private void FrmEstornarPagamento_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             txtValorEstornado.Focus();
         }
 

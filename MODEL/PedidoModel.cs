@@ -12,6 +12,7 @@ public partial class PedidoModel
     public DateOnly DataPedido { get; set; }
 
     public decimal ValorTotalPedido { get; set; }
+    public int EmpresaID { get; set; }
 
     public virtual FornecedorModel Fornecedor { get; set; } = null!;
 

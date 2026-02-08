@@ -284,6 +284,9 @@ namespace GVC
 
         private void FrmCadUser_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ConfigurarCamposPorOperacao();
 
             if (StatusOperacao == "NOVO")

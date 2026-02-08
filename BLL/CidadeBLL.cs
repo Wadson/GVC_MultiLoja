@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using GVC.UTIL;
-using GVC.Model;
+using GVC.Infra.Conexao;
 
 namespace GVC.BLL
 {
@@ -70,7 +70,7 @@ namespace GVC.BLL
 
         public CidadeModel Pesquisar(string pesquisa)
         {
-            var conn = Conexao_.Conex();
+            var conn = Conexao.Conex();
             try
             {
                 var sql = new SqlCommand("SELECT TOP 1 * FROM Cidade WHERE Nome LIKE @Nome", conn);

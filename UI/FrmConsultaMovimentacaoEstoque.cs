@@ -45,6 +45,9 @@ namespace GVC.View
 
         private void FrmConsultaMovimentacaoEstoque_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             cmbOrigem.SelectedIndex = 0;
             cmbTipoMovimentacao.SelectedIndex = 0;
         }

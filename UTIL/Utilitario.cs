@@ -1,4 +1,5 @@
 using Dapper;
+using GVC.DTO;
 using GVC.Model;
 using GVC.Model.Enums;
 using Krypton.Toolkit;
@@ -25,6 +26,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
+using GVC.Infra.Conexao;
 
 namespace GVC.UTIL {
     public static class Utilitario
@@ -180,7 +182,7 @@ namespace GVC.UTIL {
 
         public static void PesquisarPorCodigoRetornarNomeTexBox(string query, string nomeParametro, string parametro, KryptonTextBox txtResultado)
         {
-            using (var connection = Conexao_.Conex(Sessao.AmbienteSelecionado))
+            using (var connection = Conexao.Conex())
                 try
                 {
                     connection.Open();
@@ -208,7 +210,7 @@ namespace GVC.UTIL {
         }
         public static string PesquisarPorCodigoRetornarNome(string query, string nomeParametro, object parametro)
         {
-            using (var connection = Conexao_.Conex(Sessao.AmbienteSelecionado))
+            using (var connection = Conexao.Conex())
             {
                 try
                 {
@@ -351,7 +353,7 @@ namespace GVC.UTIL {
 
             try
             {
-                using var conn = Conexao_.Conex();
+                using var conn = Conexao.Conex();
 
                 string sql = @"
             SELECT ProdutoID, NomeProduto, PrecoVenda 
@@ -398,7 +400,7 @@ namespace GVC.UTIL {
         {
             try
             {
-                using var conn = Conexao_.Conex();
+                using var conn = Conexao.Conex();
 
                 // Usa Dapper (muito mais rápido e limpo que SqlDataReader manual)
                 var resultado = conn.Query(sql, new { }, commandType: CommandType.Text)
@@ -469,7 +471,7 @@ namespace GVC.UTIL {
         {
             try
             {
-                using var conn = Conexao_.Conex();
+                using var conn = Conexao.Conex();
 
                 var parametros = new DynamicParameters();
                 parametros.Add(paramInicio, dataInicio.Date);           // .Date remove hora
@@ -567,7 +569,7 @@ namespace GVC.UTIL {
         {
             try
             {
-                using var conn = Conexao_.Conex();
+                using var conn = Conexao.Conex();
 
                 // Executa a consulta com Dapper
                 var resultado = conn.Query(sql, parametros);
@@ -816,7 +818,7 @@ namespace GVC.UTIL {
 
         public static int ProximoId(string query)
         {
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             var max = conn.ExecuteScalar<int?>(query);
             return (max ?? 0) + 1;
         }
@@ -898,7 +900,7 @@ namespace GVC.UTIL {
         // ==============================================================
         public static void Pesquisar(string query, object parametros, DataGridView dgv)
         {
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             var dt = new DataTable();
             dt.Load(conn.ExecuteReader(query, parametros));
             dgv.DataSource = dt.Rows.Count > 0 ? dt : null;
@@ -908,7 +910,7 @@ namespace GVC.UTIL {
         // ==============================================================
         public static void PreencherCombo(ComboBox cb, string query, string display, string value, object param = null)
         {
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             var lista = conn.Query(query, param).Select(x => new { Display = x.GetType().GetProperty(display).GetValue(x), Value = x.GetType().GetProperty(value).GetValue(x) });
             cb.DisplayMember = "Display"; cb.ValueMember = "Value"; cb.DataSource = lista.ToList();
         }
@@ -918,7 +920,7 @@ namespace GVC.UTIL {
         // ==============================================================
         public static bool Existe(string query, object parametros = null)
         {
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             return conn.QuerySingle<int>(query, parametros) > 0;
         }
 
@@ -943,9 +945,31 @@ namespace GVC.UTIL {
             if (string.IsNullOrWhiteSpace(referencia)) return null;
 
             const string sql = "SELECT * FROM Produtos WHERE Referencia = @Ref LIMIT 1";
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             return conn.QueryFirstOrDefault<ProdutoModel>(sql, new { Ref = referencia });
         }
+        public static string? BuscarNomeCidadePorId(int cidadeId)
+        {
+            if (cidadeId <= 0) return null;
+
+            const string sql = "SELECT Nome FROM Cidade WHERE CidadeID = @Id";
+            using var conn = Conexao.Conex();
+            return conn.QueryFirstOrDefault<string>(sql, new { Id = cidadeId });
+        }
+        public static string? BuscarUfPorCidadeId(int cidadeId)
+        {
+            if (cidadeId <= 0) return null;
+
+            const string sql = @"
+        SELECT e.Uf
+        FROM Cidade c
+        INNER JOIN Estado e ON c.EstadoID = e.EstadoID
+        WHERE c.CidadeID = @Id";
+
+            using var conn = Conexao.Conex();
+            return conn.QueryFirstOrDefault<string>(sql, new { Id = cidadeId });
+        }
+
 
         // WRAPPER para TELEFONE -------------------------------------------
         public static void MascaraTelefone(object sender, KeyPressEventArgs e)
@@ -1348,7 +1372,7 @@ namespace GVC.UTIL {
         WHERE Ativo = 1
         ORDER BY NomeFormaPagamento";
 
-            using var conn = Conexao_.Conex(Sessao.AmbienteSelecionado);
+            using var conn = Conexao.Conex();
             using var cmd = new SqlCommand(sql, conn);
 
             conn.Open();
@@ -1366,6 +1390,43 @@ namespace GVC.UTIL {
 
             cmb.DisplayMember = nameof(FormaPagamentoItem.NomeFormaPagamento);
             cmb.SelectedIndex = -1;
+        }
+        public static void CarregarEmpresa(KryptonComboBox cmb)
+        {
+            cmb.Items.Clear();
+
+            // Item padrão
+            cmb.Items.Add(new EmpresaDTO
+            {
+                EmpresaID = 0,
+                NomeFantasia = "Selecione a empresa"
+            });
+
+            string sql = @"SELECT EmpresaID, NomeFantasia FROM Empresa ORDER BY NomeFantasia";
+
+            using var conn = Conexao.Conex();
+            using var cmd = new SqlCommand(sql, conn);
+
+            conn.Open();
+            using var dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                cmb.Items.Add(new EmpresaDTO
+                {
+                    EmpresaID = Convert.ToInt32(dr["EmpresaID"]),
+                    NomeFantasia = dr["NomeFantasia"].ToString()
+                });
+            }
+
+            cmb.DisplayMember = nameof(EmpresaDTO.NomeFantasia);
+            cmb.ValueMember = nameof(EmpresaDTO.EmpresaID);
+
+            // 🔥 Seleciona automaticamente a empresa da sessão
+            if (Sessao.EmpresaID > 0)
+                cmb.SelectedValue = Sessao.EmpresaID;
+            else
+                cmb.SelectedIndex = 0;
         }
     }
 }

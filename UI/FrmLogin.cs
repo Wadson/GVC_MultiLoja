@@ -1,4 +1,6 @@
 ﻿using FontAwesome.Sharp;
+using GVC.DTO;
+using GVC.Infra.Conexao;
 using GVC.UTIL;
 using GVC.View;
 using Krypton.Toolkit;
@@ -13,6 +15,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using GVC.Infra.Conexao;
 
 namespace GVC.MUI
 {
@@ -21,18 +24,16 @@ namespace GVC.MUI
         // Propriedades estáticas para armazenar os dados do usuário
         public static string UsuarioConectado { get; set; }
         public static string NivelAcesso { get; set; }
-
+        public static int EmpresaID { get; set; }
+        private bool _carregandoEmpresas = true;
         public FrmLogin()
         {
             InitializeComponent();
 
-            this.KeyPreview = true; // habilita o preview das teclas
-
-            //// Preenche opções
-            cmbAmbiente.Items.Add("Homologacao");
-            cmbAmbiente.Items.Add("Teste");
-            cmbAmbiente.SelectedIndex = 0; // padrão
+            this.KeyPreview = true; // habilita o preview das teclas            
         }
+
+
         private void ResetarCampos()
         {
             // Usuário
@@ -87,7 +88,7 @@ namespace GVC.MUI
         {
             string query = "SELECT NomeUsuario, TipoUsuario FROM Usuarios WHERE NomeUsuario = @Usuario AND Senha = @Senha";
 
-            using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
+            using (var con = Conexao.Conex())
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -105,14 +106,14 @@ namespace GVC.MUI
                 }
             }
         }
-        private string ValidarLogin(string usuario, string password)
+        private UsuarioDTO ValidarLogin(string usuario, string password)
         {
             string senhaHash = GerarHashSHA256(password);
 
-            using (var con = Conexao_.Conex(Sessao.AmbienteSelecionado))
+            using (var con = Conexao.Conex())
             {
                 // Primeiro: verificar se o usuário existe
-                string queryUsuario = "SELECT Senha, TipoUsuario FROM Usuarios WHERE NomeUsuario = @Usuario";
+                string queryUsuario = "SELECT UsuarioID, NomeUsuario, NomeCompleto, Senha, TipoUsuario FROM Usuarios WHERE NomeUsuario = @Usuario";
                 using (SqlCommand cmd = new SqlCommand(queryUsuario, con))
                 {
                     cmd.Parameters.AddWithValue("@Usuario", usuario);
@@ -134,28 +135,34 @@ namespace GVC.MUI
 
                             if (!senhaReader.Read())
                             {
-                                return "Usuário e senha incorretos!";
+                                return null; // Usuário e senha incorretos!
                             }
                             else
                             {
-                                return "Usuário incorreto!";
+                                return null; // Usuário incorreto!
                             }
                         }
                     }
 
                     // Usuário existe → verificar senha
                     string senhaBanco = reader["Senha"].ToString();
-                    string tipoUsuario = reader["TipoUsuario"].ToString();
 
                     if (senhaBanco != senhaHash)
                     {
-                        return "Senha incorreta!";
+                        return null; // Senha incorreta!
                     }
 
                     // Se chegou aqui, login válido
-                    UsuarioConectado = usuario;
-                    NivelAcesso = tipoUsuario;
-                    return "OK";
+                    var usuarioDto = new UsuarioDTO
+                    {
+                        UsuarioID = Convert.ToInt32(reader["UsuarioID"]),
+                        Usuario = reader["NomeUsuario"].ToString(),
+                        NomeCompleto = reader["NomeCompleto"].ToString()
+                    };
+
+                    UsuarioConectado = usuarioDto.Usuario;
+                    NivelAcesso = reader["TipoUsuario"].ToString();
+                    return usuarioDto;
                 }
             }
         }
@@ -180,22 +187,36 @@ namespace GVC.MUI
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string usuario = txtUsuario.Text.Trim();
+
+            string login = txtUsuario.Text.Trim();
             string password = txtSenha.Text;
 
-            Sessao.AmbienteSelecionado = "Homologacao";
+            if (EmpresaID <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Selecione uma empresa para continuar.");
+                cmbEmpresa.Focus();
+                return;
+            }
 
-            string resultado = ValidarLogin(usuario, password);
 
-            if (resultado == "OK")
+            UsuarioDTO usuarioLogado = ValidarLogin(login, password);
+
+            if (usuarioLogado != null)
             {
                 Utilitario.Mensagens.Info("Login realizado com sucesso!");
+
+                // 🔥 SETA SESSÃO
+                Sessao.UsuarioID = usuarioLogado.UsuarioID;
+                Sessao.NomeUsuario = usuarioLogado.NomeCompleto;
+                Sessao.EmpresaID = EmpresaID;
+                Sessao.EmpresaNome = cmbEmpresa.Text;
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else
             {
-                Utilitario.Mensagens.Erro(resultado);
+                Utilitario.Mensagens.Erro("Usuário ou senha inválidos.");
             }
 
         }
@@ -220,22 +241,22 @@ namespace GVC.MUI
         private void txtUsuario_Enter(object sender, EventArgs e)
         {
             iconPictureBoxUser.Visible = true;
-            panel1.BackColor = Color.White;          
+            panel1.BackColor = Color.White;
         }
         private void txtUsuario_Leave(object sender, EventArgs e)
         {
             iconPictureBoxUser.Visible = false;
-            panel1.BackColor = Color.White;           
+            panel1.BackColor = Color.White;
         }
         private void txtSenha_Enter(object sender, EventArgs e)
         {
             iconPictureBoxPassword.Visible = true;
-            panel3.BackColor = Color.White;           
+            panel3.BackColor = Color.White;
         }
         private void txtSenha_Leave(object sender, EventArgs e)
         {
             iconPictureBoxPassword.Visible = false;
-            panel3.BackColor = Color.White;           
+            panel3.BackColor = Color.White;
         }
         private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
         {
@@ -263,6 +284,8 @@ namespace GVC.MUI
         }
         private void FrmLogin_Load(object sender, EventArgs e)
         {
+            Utilitario.CarregarEmpresa(cmbEmpresa);
+            _carregandoEmpresas = false;
             txtUsuario.Focus();
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
 
@@ -272,6 +295,20 @@ namespace GVC.MUI
         private void FrmLogin_Shown(object sender, EventArgs e)
         {
             Utilitario.AplicarCorFocoNosTextBox(this);
+        }
+
+        private void cmbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_carregandoEmpresas)
+                return;
+
+            if (cmbEmpresa.SelectedItem is not EmpresaDTO empresa)
+                return;
+
+            if (empresa.EmpresaID <= 0)
+                return;
+
+            EmpresaID = empresa.EmpresaID;
         }
     }
 }

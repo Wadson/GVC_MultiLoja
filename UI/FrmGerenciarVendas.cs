@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GVC.Infra.Conexao;
 
 
 namespace GVC.View
@@ -50,7 +51,7 @@ namespace GVC.View
 
             sql += " AND v.DataVenda >= @DataInicio AND v.DataVenda < @DataFim\r\n";
 
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             conn.Open();
 
             using var cmd = new SqlCommand(sql, conn);
@@ -157,6 +158,9 @@ namespace GVC.View
         }
         private void FrmGerenciarVendas_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             dtpDataInicio.Value = DateTime.Today.AddMonths(-1);
             dtpDataFim.Value = DateTime.Today;
             CarregarVendas();
@@ -224,7 +228,7 @@ namespace GVC.View
 
             try
             {
-                new VendaBLL().ExcluirVendaFisicamente(vendaId);
+                new VendaBLL().ExcluirVenda(vendaId);
                 Utilitario.Mensagens.Aviso("Venda excluída definitivamente.");
                 CarregarVendas();
             }

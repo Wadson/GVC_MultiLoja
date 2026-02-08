@@ -22,6 +22,7 @@ public partial class UsuarioModel
     public string Senha { get; set; } = null!;
 
     public DateTime DataCriacao { get; set; }
+    public int EmpresaID { get; set; }
 
     public virtual ICollection<TokensRedefinicaoModel> TokensRedefinicaos { get; set; } = new List<TokensRedefinicaoModel>();
 }

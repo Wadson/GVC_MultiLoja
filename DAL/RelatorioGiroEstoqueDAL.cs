@@ -1,28 +1,21 @@
-﻿using GVC.UTIL;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+using GVC.Infra.Repository;
 
 namespace GVC.DAL
 {
-    public class RelatorioGiroEstoqueDAL
+    public class RelatorioGiroEstoqueDAL : RepositoryBase
     {
         public DataTable ObterGiro(DateTime inicio, DateTime fim)
         {
             var dt = new DataTable();
 
-            using var conn = Conexao_.Conex();
-            conn.Open();
+            const string sql = /* SQL acima */ "";
 
-            string sql = /* SQL acima */"";
-
-            using var cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@Inicio", inicio);
-            cmd.Parameters.AddWithValue("@Fim", fim);
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.Add("@Inicio", SqlDbType.DateTime).Value = inicio;
+            cmd.Parameters.Add("@Fim", SqlDbType.DateTime).Value = fim;
 
             using var da = new SqlDataAdapter(cmd);
             da.Fill(dt);
@@ -30,5 +23,4 @@ namespace GVC.DAL
             return dt;
         }
     }
-
 }

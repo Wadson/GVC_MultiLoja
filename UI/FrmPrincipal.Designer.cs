@@ -78,7 +78,6 @@
             btnContasReceber = new FontAwesome.Sharp.IconToolStripButton();
             btnCorrecaoEstoque = new FontAwesome.Sharp.IconToolStripButton();
             btnPesquisarPrecos = new FontAwesome.Sharp.IconToolStripButton();
-            btnCaixa = new FontAwesome.Sharp.IconToolStripButton();
             btnFerramentas = new FontAwesome.Sharp.IconToolStripButton();
             btnRelatorios = new FontAwesome.Sharp.IconToolStripButton();
             btnSair = new FontAwesome.Sharp.IconToolStripButton();
@@ -92,8 +91,7 @@
             toolStripStatusLabel6 = new ToolStripStatusLabel();
             lblTipoUsuarioo = new ToolStripStatusLabel();
             toolStripStatusLabel8 = new ToolStripStatusLabel();
-            lblAmbienteStatus = new ToolStripStatusLabel();
-            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            lblEmpresa = new ToolStripStatusLabel();
             picBackground = new PictureBox();
             panelBackground = new Panel();
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
@@ -101,11 +99,17 @@
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
             iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
             lblVersaoSistema = new Krypton.Toolkit.KryptonLabel();
+            kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
+            cmbEmpresa = new Krypton.Toolkit.KryptonComboBox();
+            label1 = new Label();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).BeginInit();
             panelBackground.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
+            kryptonPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cmbEmpresa).BeginInit();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -409,8 +413,8 @@
             toolStrip1.Font = new Font("Segoe UI", 9F);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(32, 32);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuario, btnCliente, btnFornecedor, btnProdutos, btnVendas, btnContasReceber, btnCorrecaoEstoque, btnPesquisarPrecos, btnCaixa, btnFerramentas, btnRelatorios, btnSair });
-            toolStrip1.Location = new Point(0, 24);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuario, btnCliente, btnFornecedor, btnProdutos, btnVendas, btnContasReceber, btnCorrecaoEstoque, btnPesquisarPrecos, btnFerramentas, btnRelatorios, btnSair });
+            toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
             toolStrip1.Size = new Size(890, 54);
@@ -543,22 +547,6 @@
             btnPesquisarPrecos.TextImageRelation = TextImageRelation.ImageAboveText;
             btnPesquisarPrecos.Click += btnPesquisarPrecos_Click;
             // 
-            // btnCaixa
-            // 
-            btnCaixa.AutoSize = false;
-            btnCaixa.ForeColor = Color.WhiteSmoke;
-            btnCaixa.IconChar = FontAwesome.Sharp.IconChar.FileInvoiceDollar;
-            btnCaixa.IconColor = Color.White;
-            btnCaixa.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnCaixa.IconSize = 64;
-            btnCaixa.ImageTransparentColor = Color.Magenta;
-            btnCaixa.Name = "btnCaixa";
-            btnCaixa.Size = new Size(63, 51);
-            btnCaixa.Text = "Caixa";
-            btnCaixa.TextAlign = ContentAlignment.BottomCenter;
-            btnCaixa.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnCaixa.Click += btnCaixa_Click;
-            // 
             // btnFerramentas
             // 
             btnFerramentas.AutoSize = false;
@@ -593,6 +581,7 @@
             // 
             // btnSair
             // 
+            btnSair.Alignment = ToolStripItemAlignment.Right;
             btnSair.AutoSize = false;
             btnSair.ForeColor = Color.WhiteSmoke;
             btnSair.IconChar = FontAwesome.Sharp.IconChar.SignOutAlt;
@@ -609,13 +598,12 @@
             // 
             // kryptonStatusStrip1
             // 
-            kryptonStatusStrip1.BackColor = Color.FromArgb(6, 174, 244);
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblAmbienteStatus, toolStripStatusLabel1 });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblEmpresa });
             kryptonStatusStrip1.Location = new Point(0, 408);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
-            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
+            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
             kryptonStatusStrip1.Size = new Size(890, 22);
             kryptonStatusStrip1.TabIndex = 609;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
@@ -674,17 +662,11 @@
             toolStripStatusLabel8.Size = new Size(16, 17);
             toolStripStatusLabel8.Text = " | ";
             // 
-            // lblAmbienteStatus
+            // lblEmpresa
             // 
-            lblAmbienteStatus.Name = "lblAmbienteStatus";
-            lblAmbienteStatus.Size = new Size(59, 17);
-            lblAmbienteStatus.Text = "Ambiente";
-            // 
-            // toolStripStatusLabel1
-            // 
-            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(10, 17);
-            toolStripStatusLabel1.Text = "|";
+            lblEmpresa.Name = "lblEmpresa";
+            lblEmpresa.Size = new Size(12, 17);
+            lblEmpresa.Text = "-";
             // 
             // picBackground
             // 
@@ -739,15 +721,90 @@
             lblVersaoSistema.TabIndex = 612;
             lblVersaoSistema.Values.Text = "SGVendas • Versão 1.0.0 • © 2026 WR Soft";
             // 
+            // kryptonPanel1
+            // 
+            kryptonPanel1.Controls.Add(cmbEmpresa);
+            kryptonPanel1.Controls.Add(label1);
+            kryptonPanel1.Controls.Add(toolStrip1);
+            kryptonPanel1.Dock = DockStyle.Top;
+            kryptonPanel1.Location = new Point(0, 24);
+            kryptonPanel1.Name = "kryptonPanel1";
+            kryptonPanel1.Size = new Size(890, 83);
+            kryptonPanel1.StateCommon.Color1 = Color.FromArgb(6, 174, 244);
+            kryptonPanel1.StateCommon.Color2 = Color.FromArgb(6, 174, 244);
+            kryptonPanel1.TabIndex = 613;
+            // 
+            // cmbEmpresa
+            // 
+            cmbEmpresa.CornerRoundingRadius = 6F;
+            cmbEmpresa.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbEmpresa.DropDownWidth = 115;
+            cmbEmpresa.IntegralHeight = false;
+            cmbEmpresa.Items.AddRange(new object[] { "Física", "Jurídica", "Operador", "Administrador", "Consumidor Final" });
+            cmbEmpresa.Location = new Point(67, 56);
+            cmbEmpresa.Name = "cmbEmpresa";
+            cmbEmpresa.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
+            cmbEmpresa.Size = new Size(190, 25);
+            cmbEmpresa.StateActive.ComboBox.Back.Color1 = Color.White;
+            cmbEmpresa.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbEmpresa.StateActive.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateActive.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbEmpresa.StateCommon.ComboBox.Back.Color1 = Color.White;
+            cmbEmpresa.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbEmpresa.StateCommon.ComboBox.Border.Rounding = 6F;
+            cmbEmpresa.StateCommon.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbEmpresa.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            cmbEmpresa.StateCommon.Item.Content.ShortText.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateCommon.Item.Content.ShortText.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateDisabled.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.ComboBox.Back.Color1 = Color.White;
+            cmbEmpresa.StateNormal.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbEmpresa.StateNormal.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbEmpresa.StateNormal.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.Item.Content.ShortText.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.Item.Content.ShortText.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbEmpresa.StateTracking.Item.Content.ShortText.Color1 = Color.White;
+            cmbEmpresa.StateTracking.Item.Content.ShortText.Color2 = Color.White;
+            cmbEmpresa.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
+            cmbEmpresa.TabIndex = 1071;
+            cmbEmpresa.TabStop = false;
+            cmbEmpresa.SelectedIndexChanged += cmbEmpresa_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Microsoft Sans Serif", 9.25F);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(3, 58);
+            label1.Name = "label1";
+            label1.Size = new Size(65, 16);
+            label1.TabIndex = 1070;
+            label1.Text = "Empresa:";
+            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(250, 252, 252);
             ClientSize = new Size(890, 430);
+            Controls.Add(kryptonPanel1);
             Controls.Add(lblVersaoSistema);
             Controls.Add(panelBackground);
             Controls.Add(kryptonStatusStrip1);
-            Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
@@ -772,6 +829,10 @@
             kryptonStatusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).EndInit();
             panelBackground.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();
+            kryptonPanel1.ResumeLayout(false);
+            kryptonPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)cmbEmpresa).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -818,7 +879,6 @@
         private ToolStripStatusLabel toolStripStatusLabel6;
         private ToolStripStatusLabel lblTipoUsuarioo;
         private ToolStripStatusLabel toolStripStatusLabel8;
-        private ToolStripStatusLabel lblAmbienteStatus;
         private PictureBox picBackground;
         private Panel panelBackground;      
         private Krypton.Toolkit.KryptonContextMenu kryptonContextMenu1;
@@ -841,15 +901,17 @@
         private FontAwesome.Sharp.IconToolStripButton btnContasReceber;
         private FontAwesome.Sharp.IconToolStripButton btnCorrecaoEstoque;
         private FontAwesome.Sharp.IconToolStripButton btnPesquisarPrecos;
-        private FontAwesome.Sharp.IconToolStripButton btnCaixa;
         private FontAwesome.Sharp.IconToolStripButton btnFerramentas;
         private FontAwesome.Sharp.IconToolStripButton btnRelatorios;
         private FontAwesome.Sharp.IconToolStripButton btnSair;
         private FontAwesome.Sharp.IconToolStripButton btnProdutos;
         private ToolStripMenuItem testeToolStripMenuItem;
-        private ToolStripStatusLabel toolStripStatusLabel1;      
         private ToolStripMenuItem verificarAtualizaçãoToolStripMenuItem;
         private Krypton.Toolkit.KryptonLabel lblVersaoSistema;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        private ToolStripStatusLabel lblEmpresa;
+        private Label label1;
+        private Krypton.Toolkit.KryptonPanel kryptonPanel1;
+        public Krypton.Toolkit.KryptonComboBox cmbEmpresa;
     }
 }

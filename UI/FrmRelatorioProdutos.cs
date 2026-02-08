@@ -514,5 +514,12 @@ namespace GVC.View
                     sfd.FileName);
             }
         }
+
+        private void FrmRelatorioProdutos_Load(object sender, EventArgs e)
+        {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
+        }
     }
 }

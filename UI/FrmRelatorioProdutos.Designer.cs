@@ -1186,6 +1186,7 @@
             ShowInTaskbar = false;
             Text = "Relatorio de Produtos";
             WindowState = FormWindowState.Maximized;
+            Load += FrmRelatorioProdutos_Load;
             ((System.ComponentModel.ISupportInitialize)pnlFiltros).EndInit();
             pnlFiltros.ResumeLayout(false);
             pnlFiltros.PerformLayout();

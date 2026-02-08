@@ -1,4 +1,5 @@
-﻿using GVC.DAL;
+﻿using GVC.BLL;
+using GVC.DAL;
 using GVC.Model;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -10,6 +11,7 @@ using System.IO;
 
 public static class CupomNaoFiscalPdf
 {
+    private static EmpresaBll _empresaBll = new EmpresaBll();
     private static void Linha(ColumnDescriptor col, string texto = "")
     {
         col.Item().Text(texto);
@@ -37,11 +39,53 @@ public static class CupomNaoFiscalPdf
         }
     }
 
+    // =====================================================
+    // ✅ SOBRECARGA SIMPLES (UI / Forms)
+    // =====================================================
+    public static void Gerar(
+        VendaModel venda,
+        List<ItemVendaModel> itens
+    )
+    {
+        if (venda == null)
+            throw new ArgumentNullException(nameof(venda));
 
+        if (itens == null || itens.Count == 0)
+            throw new Exception("Venda sem itens.");
 
+        // 🔹 BUSCA EMPRESA PELO BLL / REPOSITORY
+        var empresaBll = new EmpresaBll();
+        var empresa = empresaBll.ObterEmpresaAtual();
 
+        if (empresa == null)
+            throw new Exception("Empresa não cadastrada.");
 
-    public static void Gerar(VendaModel venda, List<ItemVendaModel> itens,
+        string nomeEmpresa =
+            string.IsNullOrWhiteSpace(empresa.NomeFantasia)
+                ? empresa.RazaoSocial
+                : empresa.NomeFantasia;
+
+        string endereco =
+            $"{empresa.Logradouro}, Nº {empresa.Numero} - " +
+            $"{empresa.Bairro} - {empresa.Cidade}/{empresa.UF}";
+
+        // 🔁 REDIRECIONA PARA O MÉTODO COMPLETO
+        Gerar(
+            venda,
+            itens,
+            nomeEmpresa,
+            empresa.CNPJ,
+            endereco,
+            empresa.Telefone
+        );
+    }
+
+    // =====================================================
+    // ✅ MÉTODO COMPLETO (CORE PDF)
+    // =====================================================
+    public static void Gerar(
+        VendaModel venda,
+        List<ItemVendaModel> itens,
         string nomeEmpresa,
         string cnpj,
         string endereco,
@@ -50,13 +94,18 @@ public static class CupomNaoFiscalPdf
     {
         QuestPDF.Settings.License = LicenseType.Community;
 
-        string pasta = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            "CuponsPDV");
+        string pasta = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "CuponsPDV"
+        );
 
         if (!Directory.Exists(pasta))
             Directory.CreateDirectory(pasta);
 
-        string arquivo = Path.Combine( pasta, $"CUPOM_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
+        string arquivo = Path.Combine(
+            pasta,
+            $"CUPOM_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
+        );
 
         Document.Create(container =>
         {
@@ -88,15 +137,21 @@ public static class CupomNaoFiscalPdf
                     int i = 1;
                     foreach (var item in itens)
                     {
-                        string desc = item.ProdutoDescricao.Length > 18? item.ProdutoDescricao[..18]: item.ProdutoDescricao;
+                        string desc = item.ProdutoDescricao.Length > 18
+                            ? item.ProdutoDescricao[..18]
+                            : item.ProdutoDescricao;
 
-                        LinhaQuebrada(col, string.Format("{0,-4} {1,-18} {2,3} {3,8:N2} {4,8:N2}",
-                            i,
-                            desc,
-                            item.Quantidade,
-                            item.PrecoUnitario,
-                            item.Subtotal,
-                        40));
+                        LinhaQuebrada(col,
+                            string.Format(
+                                "{0,-4} {1,-18} {2,3} {3,8:N2} {4,8:N2}",
+                                i,
+                                desc,
+                                item.Quantidade,
+                                item.PrecoUnitario,
+                                item.Subtotal
+                            ),
+                            40
+                        );
                         i++;
                     }
 
@@ -120,16 +175,10 @@ public static class CupomNaoFiscalPdf
     }
 
     // 🔹 SOBRECARGA (ERP)
-    public static void Gerar(
-        VendaModel venda,
-        List<ItemVendaModel> itens
-    )
+    public static void Gerar(VendaModel venda, List<ItemVendaModel> itens, EmpresaModel empresa )
     {
-        var empresaDal = new EmpresaDal();
-        var empresa = empresaDal.BuscarEmpresaPrincipal();
-
         if (empresa == null)
-            throw new Exception("Empresa não cadastrada.");
+            throw new Exception("Empresa não informada.");
 
         string nomeEmpresa =
             string.IsNullOrWhiteSpace(empresa.NomeFantasia)
@@ -148,4 +197,6 @@ public static class CupomNaoFiscalPdf
             empresa.Telefone
         );
     }
+
+
 }

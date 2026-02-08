@@ -35,6 +35,9 @@
             bnCancelar = new Krypton.Toolkit.KryptonButton();
             btnPesquisar = new Krypton.Toolkit.KryptonButton();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
+            txtTotalCusto = new Label();
+            txtTotalVenda = new Label();
+            txtTotalLucro = new Label();
             label1 = new Label();
             lblCliente = new Label();
             label2 = new Label();
@@ -46,9 +49,6 @@
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             tableLayoutPanel1 = new TableLayoutPanel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
-            txtTotalLucro = new Label();
-            txtTotalVenda = new Label();
-            txtTotalCusto = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
@@ -239,6 +239,45 @@
             kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007SilverDarkMode;
             kryptonPanel2.Size = new Size(965, 62);
             kryptonPanel2.TabIndex = 1103;
+            // 
+            // txtTotalCusto
+            // 
+            txtTotalCusto.Anchor = AnchorStyles.Left;
+            txtTotalCusto.AutoSize = true;
+            txtTotalCusto.BackColor = Color.Transparent;
+            txtTotalCusto.Font = new Font("Microsoft Sans Serif", 9.25F);
+            txtTotalCusto.ForeColor = Color.White;
+            txtTotalCusto.Location = new Point(7, 28);
+            txtTotalCusto.Name = "txtTotalCusto";
+            txtTotalCusto.Size = new Size(75, 16);
+            txtTotalCusto.TabIndex = 1105;
+            txtTotalCusto.Text = "Total Custo";
+            // 
+            // txtTotalVenda
+            // 
+            txtTotalVenda.Anchor = AnchorStyles.Left;
+            txtTotalVenda.AutoSize = true;
+            txtTotalVenda.BackColor = Color.Transparent;
+            txtTotalVenda.Font = new Font("Microsoft Sans Serif", 9.25F);
+            txtTotalVenda.ForeColor = Color.White;
+            txtTotalVenda.Location = new Point(163, 28);
+            txtTotalVenda.Name = "txtTotalVenda";
+            txtTotalVenda.Size = new Size(81, 16);
+            txtTotalVenda.TabIndex = 1104;
+            txtTotalVenda.Text = "Total Venda";
+            // 
+            // txtTotalLucro
+            // 
+            txtTotalLucro.Anchor = AnchorStyles.Left;
+            txtTotalLucro.AutoSize = true;
+            txtTotalLucro.BackColor = Color.Transparent;
+            txtTotalLucro.Font = new Font("Microsoft Sans Serif", 9.25F);
+            txtTotalLucro.ForeColor = Color.White;
+            txtTotalLucro.Location = new Point(318, 28);
+            txtTotalLucro.Name = "txtTotalLucro";
+            txtTotalLucro.Size = new Size(74, 16);
+            txtTotalLucro.TabIndex = 1103;
+            txtTotalLucro.Text = "Total Lucro";
             // 
             // label1
             // 
@@ -554,45 +593,6 @@
             kryptonPanel4.Size = new Size(965, 31);
             kryptonPanel4.TabIndex = 1105;
             // 
-            // txtTotalLucro
-            // 
-            txtTotalLucro.Anchor = AnchorStyles.Left;
-            txtTotalLucro.AutoSize = true;
-            txtTotalLucro.BackColor = Color.Transparent;
-            txtTotalLucro.Font = new Font("Microsoft Sans Serif", 9.25F);
-            txtTotalLucro.ForeColor = Color.White;
-            txtTotalLucro.Location = new Point(318, 28);
-            txtTotalLucro.Name = "txtTotalLucro";
-            txtTotalLucro.Size = new Size(74, 16);
-            txtTotalLucro.TabIndex = 1103;
-            txtTotalLucro.Text = "Total Lucro";
-            // 
-            // txtTotalVenda
-            // 
-            txtTotalVenda.Anchor = AnchorStyles.Left;
-            txtTotalVenda.AutoSize = true;
-            txtTotalVenda.BackColor = Color.Transparent;
-            txtTotalVenda.Font = new Font("Microsoft Sans Serif", 9.25F);
-            txtTotalVenda.ForeColor = Color.White;
-            txtTotalVenda.Location = new Point(163, 28);
-            txtTotalVenda.Name = "txtTotalVenda";
-            txtTotalVenda.Size = new Size(81, 16);
-            txtTotalVenda.TabIndex = 1104;
-            txtTotalVenda.Text = "Total Venda";
-            // 
-            // txtTotalCusto
-            // 
-            txtTotalCusto.Anchor = AnchorStyles.Left;
-            txtTotalCusto.AutoSize = true;
-            txtTotalCusto.BackColor = Color.Transparent;
-            txtTotalCusto.Font = new Font("Microsoft Sans Serif", 9.25F);
-            txtTotalCusto.ForeColor = Color.White;
-            txtTotalCusto.Location = new Point(7, 28);
-            txtTotalCusto.Name = "txtTotalCusto";
-            txtTotalCusto.Size = new Size(75, 16);
-            txtTotalCusto.TabIndex = 1105;
-            txtTotalCusto.Text = "Total Custo";
-            // 
             // FrmRelatorioEstoque
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -600,9 +600,6 @@
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(971, 523);
             Controls.Add(tableLayoutPanel1);
-            FormBorderStyle = FormBorderStyle.None;
-            MaximizeBox = false;
-            MinimizeBox = false;
             Name = "FrmRelatorioEstoque";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;

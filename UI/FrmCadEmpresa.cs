@@ -720,6 +720,9 @@ namespace GVC.View
         }
         private void FrmCadEmpresa_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             if (string.IsNullOrWhiteSpace(StatusOperacao))
                 throw new InvalidOperationException("StatusOperacao não definido.");
             if (StatusOperacao == "NOVO")

@@ -1,4 +1,5 @@
 ﻿using GVC.DAL;
+using GVC.Infra.Repository;
 using Krypton.Toolkit;  
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,13 @@ namespace GVC.View
 
         private void FrmDashboard_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             // 🔹 Configura títulos
             lblTituloTopProdutos.Text = "🔝 TOP 10 PRODUTOS MAIS LUCRATIVOS";
             lblTituloEstoqueBaixo.Text = "⚠️ PRODUTOS COM ESTOQUE BAIXO";
-            var dal = new DashboardEstoqueDAL();
+            var dal = new DashboardEstoqueRepository();
 
             // 🔹 Labels
             var resumo = dal.ObterResumo();

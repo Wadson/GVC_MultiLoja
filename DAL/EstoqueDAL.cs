@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GVC.UTIL;
+using GVC.Infra.Conexao;
 
 namespace GVC.DAL
 {
@@ -24,9 +25,9 @@ namespace GVC.DAL
         }
         public int ObterEstoqueAtualizado(long produtoId)
         {
-            using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
+            using (var conn = Conexao.Conex())
             {
-                string sql = "SELECT Estoque FROM Produtos WHERE ProdutoID = @id";
+                string sql = "SELECT Estoque FROM Produtos WHERE ProdutoID = @id AND EmpresaID = @EmpresaID";
                 using (var cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", produtoId);

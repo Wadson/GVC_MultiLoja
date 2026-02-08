@@ -42,6 +42,9 @@ namespace GVC.View
 
         private void FrmMotivoOperacao_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             txtMotivo.Focus();
         }
 

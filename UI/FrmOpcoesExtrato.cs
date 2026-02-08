@@ -33,7 +33,7 @@ namespace GVC.UTIL
             }
         }
 
-      
+
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -69,6 +69,13 @@ namespace GVC.UTIL
             {
                 Utilitario.Mensagens.Aviso("Marque o checkbox das parcelas para gerar recibo.");
             }
+        }
+
+        private void FrmOpcoesExtrato_Load(object sender, EventArgs e)
+        {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
         }
     }
 }

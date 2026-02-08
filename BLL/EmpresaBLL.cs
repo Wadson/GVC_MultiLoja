@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using GVC.Infra.Conexao;
 
 namespace GVC.BLL
 {
@@ -33,14 +34,14 @@ namespace GVC.BLL
         {
             var lista = new List<EmpresaModel>();
 
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
             using var cmd = new SqlCommand("SELECT EmpresaID FROM Empresa", conn);
             conn.Open();
 
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                var empresa = _empresaDal.BuscarPorId(reader.GetInt32(0));
+                var empresa = _empresaDal.BuscarEmpresaPorId(reader.GetInt32(0));
                 if (empresa != null)
                     lista.Add(empresa);
             }
@@ -62,7 +63,7 @@ namespace GVC.BLL
 
         public EmpresaModel? BuscarPorId(int empresaId)
         {
-            return _empresaDal.BuscarPorId(empresaId);
+            return _empresaDal.BuscarEmpresaPorId(empresaId);
         }
         public EmpresaBll()
         {
@@ -80,7 +81,18 @@ namespace GVC.BLL
                 throw new Exception($"Erro ao carregar Empresas: {ex.Message}", ex);
             }
         }
-
+     
+        // Obtém a primeira empresa cadastrada no banco.       
+        // <returns>Objeto EmpresaModel ou null se não houver empresa.</returns>
+        public EmpresaModel ObterEmpresaAtual()
+        {
+            return _empresaDal.ObterEmpresaAtual();
+        }
+        // Obtém uma empresa específica pelo ID.        
+        public EmpresaModel? ObterEmpresaPorId(int empresaId)
+        {
+            return _empresaDal.BuscarEmpresaPorId(empresaId);
+        }
 
         public void Inserir(EmpresaModel empresa)
         {

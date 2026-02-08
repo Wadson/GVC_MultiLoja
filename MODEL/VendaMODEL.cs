@@ -17,6 +17,7 @@ public partial class VendaModel
     public string NomeCliente { get; set; }
     public EnumStatusVenda StatusVenda { get; set; }
     public int? VendedorID { get; set; }
+    public int EmpresaID { get; set; }
     public virtual ClienteModel Cliente { get; set; } = null!;
     public virtual FormaPagamentoModel? FormaPgto { get; set; }
     public virtual ICollection<ItemVendaModel> ItemVenda { get; set; } = new List<ItemVendaModel>();

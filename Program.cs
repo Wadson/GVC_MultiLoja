@@ -1,5 +1,4 @@
-﻿using GVC.Infra.Database;
-using GVC.Infra.Update;
+﻿using GVC.Infra.Update;
 using GVC.MUI;
 using GVC.View;
 using QuestPDF.Infrastructure;
@@ -25,22 +24,9 @@ namespace GVC
             Application.DoEvents();
 
             // =============================
-            // SETUP / BANCO DE DADOS
-            // =============================
-            using (var frm = new FrmDatabaseSetup())
-            {
-                frm.Shown += (_, __) =>
-                {
-                    DatabaseInstaller.Run(frm.AtualizarProgressoThreadSafe);
-                    frm.Close();
-                };
-
-                Application.Run(frm);
-            }
-
-            // =============================
             // LOGIN
             // =============================
+
             using (var login = new FrmLogin())
             {
                 if (login.ShowDialog() != DialogResult.OK)

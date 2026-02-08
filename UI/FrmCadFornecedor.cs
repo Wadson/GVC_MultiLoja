@@ -151,6 +151,9 @@ namespace GVC.View
         // 👉 aqui entra o seu método
         private void FrmCadFornecedor_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             // Sempre configura máscaras necessárias
             txtCnpj.Tag = "Cnpj";
 

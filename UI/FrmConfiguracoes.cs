@@ -55,5 +55,12 @@ namespace GVC.View
             FrmSqlBatchGenerator frmConverterScriptBancoSql = new FrmSqlBatchGenerator();
             frmConverterScriptBancoSql.ShowDialog();
         }
+
+        private void FrmConfiguracoes_Load(object sender, EventArgs e)
+        {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
+        }
     }
 }

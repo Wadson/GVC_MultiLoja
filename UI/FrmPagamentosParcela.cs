@@ -305,6 +305,9 @@ namespace GVC.View
 
         private void FrmItensVenda_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             CarregarParcela();
             ConfigurarGridPagamentos();
             CarregarPagamentos();            

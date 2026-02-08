@@ -280,6 +280,9 @@ namespace GVC.View
 
         private void FrmManutFornecedor_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ListarFornecedor();           
             dgvFornecedor.CellFormatting += dataGridPesquisar_CellFormatting;
         }

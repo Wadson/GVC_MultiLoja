@@ -43,19 +43,20 @@
             iconPictureBoxUser = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBoxPassword = new FontAwesome.Sharp.IconPictureBox();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
-            cmbAmbiente = new Krypton.Toolkit.KryptonComboBox();
+            cmbEmpresa = new Krypton.Toolkit.KryptonComboBox();
             label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxPassword).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)cmbAmbiente).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbEmpresa).BeginInit();
             SuspendLayout();
             // 
             // lblEsqueciSenha
             // 
+            lblEsqueciSenha.Anchor = AnchorStyles.Bottom;
             lblEsqueciSenha.AutoSize = true;
             lblEsqueciSenha.ForeColor = Color.FromArgb(8, 142, 254);
-            lblEsqueciSenha.Location = new Point(164, 352);
+            lblEsqueciSenha.Location = new Point(164, 312);
             lblEsqueciSenha.Name = "lblEsqueciSenha";
             lblEsqueciSenha.Size = new Size(91, 15);
             lblEsqueciSenha.TabIndex = 10;
@@ -64,8 +65,9 @@
             // 
             // btnCancelar
             // 
+            btnCancelar.Anchor = AnchorStyles.Bottom;
             btnCancelar.CornerRoundingRadius = 20F;
-            btnCancelar.Location = new Point(152, 313);
+            btnCancelar.Location = new Point(157, 259);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnCancelar.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -119,7 +121,7 @@
             // panel3
             // 
             panel3.BackColor = Color.White;
-            panel3.Location = new Point(37, 227);
+            panel3.Location = new Point(37, 189);
             panel3.Name = "panel3";
             panel3.Size = new Size(230, 2);
             panel3.TabIndex = 15;
@@ -127,15 +129,16 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.Location = new Point(37, 162);
+            panel1.Location = new Point(37, 124);
             panel1.Name = "panel1";
             panel1.Size = new Size(230, 2);
             panel1.TabIndex = 17;
             // 
             // btnLogin
             // 
+            btnLogin.Anchor = AnchorStyles.Bottom;
             btnLogin.CornerRoundingRadius = 20F;
-            btnLogin.Location = new Point(30, 313);
+            btnLogin.Location = new Point(25, 259);
             btnLogin.Name = "btnLogin";
             btnLogin.OverrideDefault.Back.Color1 = Color.FromArgb(8, 142, 254);
             btnLogin.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -205,7 +208,7 @@
             label18.AutoSize = true;
             label18.Font = new Font("Microsoft Sans Serif", 9.25F);
             label18.ForeColor = Color.FromArgb(8, 142, 254);
-            label18.Location = new Point(30, 107);
+            label18.Location = new Point(30, 69);
             label18.Name = "label18";
             label18.Size = new Size(54, 16);
             label18.TabIndex = 185;
@@ -213,7 +216,7 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(28, 125);
+            txtUsuario.Location = new Point(28, 87);
             txtUsuario.MaxLength = 14;
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(249, 33);
@@ -235,7 +238,7 @@
             // txtSenha
             // 
             txtSenha.CharacterCasing = CharacterCasing.Lower;
-            txtSenha.Location = new Point(28, 190);
+            txtSenha.Location = new Point(28, 152);
             txtSenha.MaxLength = 100;
             txtSenha.Name = "txtSenha";
             txtSenha.PasswordChar = '*';
@@ -260,7 +263,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 9.25F);
             label1.ForeColor = Color.FromArgb(8, 142, 254);
-            label1.Location = new Point(30, 173);
+            label1.Location = new Point(30, 135);
             label1.Name = "label1";
             label1.Size = new Size(46, 16);
             label1.TabIndex = 186;
@@ -269,9 +272,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(96, 5);
+            pictureBox1.Location = new Point(111, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(100, 100);
+            pictureBox1.Size = new Size(64, 72);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 187;
             pictureBox1.TabStop = false;
@@ -284,7 +287,7 @@
             iconPictureBoxUser.IconColor = Color.FromArgb(30, 136, 229);
             iconPictureBoxUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBoxUser.IconSize = 28;
-            iconPictureBoxUser.Location = new Point(0, 127);
+            iconPictureBoxUser.Location = new Point(0, 89);
             iconPictureBoxUser.Name = "iconPictureBoxUser";
             iconPictureBoxUser.Size = new Size(28, 28);
             iconPictureBoxUser.TabIndex = 1125;
@@ -299,7 +302,7 @@
             iconPictureBoxPassword.IconColor = Color.FromArgb(30, 136, 229);
             iconPictureBoxPassword.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBoxPassword.IconSize = 28;
-            iconPictureBoxPassword.Location = new Point(-1, 192);
+            iconPictureBoxPassword.Location = new Point(-1, 154);
             iconPictureBoxPassword.Name = "iconPictureBoxPassword";
             iconPictureBoxPassword.Size = new Size(28, 28);
             iconPictureBoxPassword.TabIndex = 1126;
@@ -342,68 +345,74 @@
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
-            // cmbAmbiente
+            // cmbEmpresa
             // 
-            cmbAmbiente.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            cmbAmbiente.CornerRoundingRadius = 20F;
-            cmbAmbiente.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbAmbiente.DropDownWidth = 185;
-            cmbAmbiente.IntegralHeight = false;
-            cmbAmbiente.Location = new Point(30, 262);
-            cmbAmbiente.Name = "cmbAmbiente";
-            cmbAmbiente.Size = new Size(242, 35);
-            cmbAmbiente.StateActive.ComboBox.Back.Color1 = Color.FromArgb(8, 142, 254);
-            cmbAmbiente.StateActive.ComboBox.Border.Color1 = Color.FromArgb(6, 174, 244);
-            cmbAmbiente.StateActive.ComboBox.Border.Color2 = Color.FromArgb(8, 142, 254);
-            cmbAmbiente.StateActive.ComboBox.Border.ColorAngle = 45F;
-            cmbAmbiente.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbAmbiente.StateActive.ComboBox.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            cmbAmbiente.StateActive.ComboBox.Border.Rounding = 20F;
-            cmbAmbiente.StateActive.ComboBox.Border.Width = 1;
-            cmbAmbiente.StateActive.ComboBox.Content.Color1 = Color.White;
-            cmbAmbiente.StateActive.ComboBox.Content.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmbAmbiente.StateCommon.ComboBox.Back.Color1 = Color.FromArgb(8, 142, 254);
-            cmbAmbiente.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(6, 174, 244);
-            cmbAmbiente.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(8, 142, 254);
-            cmbAmbiente.StateCommon.ComboBox.Border.ColorAngle = 45F;
-            cmbAmbiente.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbAmbiente.StateCommon.ComboBox.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            cmbAmbiente.StateCommon.ComboBox.Border.Rounding = 20F;
-            cmbAmbiente.StateCommon.ComboBox.Border.Width = 1;
-            cmbAmbiente.StateCommon.ComboBox.Content.Color1 = Color.White;
-            cmbAmbiente.StateCommon.ComboBox.Content.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmbAmbiente.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            cmbAmbiente.StateCommon.DropBack.Color1 = Color.FromArgb(8, 142, 254);
-            cmbAmbiente.StateCommon.DropBack.Color2 = Color.FromArgb(8, 142, 254);
-            cmbAmbiente.StateCommon.Item.Back.Color1 = Color.Orange;
-            cmbAmbiente.StateCommon.Item.Border.Color1 = Color.FromArgb(6, 174, 244);
-            cmbAmbiente.StateCommon.Item.Border.Color2 = Color.FromArgb(8, 142, 254);
-            cmbAmbiente.StateCommon.Item.Border.ColorAngle = 45F;
-            cmbAmbiente.StateCommon.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbAmbiente.StateCommon.Item.Border.Rounding = 20F;
-            cmbAmbiente.StateCommon.Item.Border.Width = 1;
-            cmbAmbiente.StateCommon.Item.Content.ShortText.Color1 = Color.White;
-            cmbAmbiente.StateNormal.ComboBox.Back.Color1 = Color.FromArgb(8, 142, 254);
-            cmbAmbiente.StateNormal.ComboBox.Content.Color1 = Color.White;
-            cmbAmbiente.TabIndex = 1128;
+            cmbEmpresa.CornerRoundingRadius = 6F;
+            cmbEmpresa.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbEmpresa.DropDownWidth = 115;
+            cmbEmpresa.IntegralHeight = false;
+            cmbEmpresa.Items.AddRange(new object[] { "Física", "Jurídica", "Operador", "Administrador", "Consumidor Final" });
+            cmbEmpresa.Location = new Point(30, 222);
+            cmbEmpresa.Name = "cmbEmpresa";
+            cmbEmpresa.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
+            cmbEmpresa.Size = new Size(247, 25);
+            cmbEmpresa.StateActive.ComboBox.Back.Color1 = Color.White;
+            cmbEmpresa.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbEmpresa.StateActive.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateActive.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbEmpresa.StateCommon.ComboBox.Back.Color1 = Color.White;
+            cmbEmpresa.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbEmpresa.StateCommon.ComboBox.Border.Rounding = 6F;
+            cmbEmpresa.StateCommon.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbEmpresa.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            cmbEmpresa.StateCommon.Item.Content.ShortText.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateCommon.Item.Content.ShortText.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateDisabled.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.ComboBox.Back.Color1 = Color.White;
+            cmbEmpresa.StateNormal.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbEmpresa.StateNormal.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbEmpresa.StateNormal.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.Item.Content.ShortText.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateNormal.Item.Content.ShortText.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbEmpresa.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbEmpresa.StateTracking.Item.Content.ShortText.Color1 = Color.White;
+            cmbEmpresa.StateTracking.Item.Content.ShortText.Color2 = Color.White;
+            cmbEmpresa.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
+            cmbEmpresa.TabIndex = 1128;
+            cmbEmpresa.TabStop = false;
+            cmbEmpresa.SelectedIndexChanged += cmbEmpresa_SelectedIndexChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
             label2.Font = new Font("Microsoft Sans Serif", 9.25F);
             label2.ForeColor = Color.FromArgb(8, 142, 254);
-            label2.Location = new Point(38, 243);
+            label2.Location = new Point(31, 204);
             label2.Name = "label2";
-            label2.Size = new Size(71, 16);
-            label2.TabIndex = 1129;
-            label2.Text = "Ambiente?";
+            label2.Size = new Size(65, 16);
+            label2.TabIndex = 1127;
+            label2.Text = "Empresa:";
             // 
             // FrmLogin
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(284, 372);
+            ClientSize = new Size(284, 328);
+            Controls.Add(cmbEmpresa);
             Controls.Add(label2);
-            Controls.Add(cmbAmbiente);
             Controls.Add(iconPictureBoxPassword);
             Controls.Add(iconPictureBoxUser);
             Controls.Add(pictureBox1);
@@ -443,7 +452,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxUser).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBoxPassword).EndInit();
-            ((System.ComponentModel.ISupportInitialize)cmbAmbiente).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbEmpresa).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -463,7 +472,7 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxUser;
         private FontAwesome.Sharp.IconPictureBox iconPictureBoxPassword;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
-        public Krypton.Toolkit.KryptonComboBox cmbAmbiente;
+        public Krypton.Toolkit.KryptonComboBox cmbEmpresa;
         private Label label2;
     }
 }

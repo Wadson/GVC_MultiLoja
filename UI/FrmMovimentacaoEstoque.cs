@@ -98,6 +98,9 @@ namespace GVC.View
 
         private void FrmMovimentacaoEstoque_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             EstilizarCard(grpProduto);
             EstilizarCard(grpMovimentacao);
 

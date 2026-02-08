@@ -631,6 +631,7 @@
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Relatórios Financeiros";
+            Load += FrmRelatoriosFinanceiros_Load;
             ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
             pnlHeader.ResumeLayout(false);
             tlpTitulo.ResumeLayout(false);

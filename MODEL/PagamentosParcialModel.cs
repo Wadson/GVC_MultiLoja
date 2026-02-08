@@ -16,6 +16,7 @@ public partial class PagamentosParcialModel
     public int? FormaPgtoID { get; set; }
 
     public string? Observacao { get; set; }
+    public int EmpresaID { get; set; }
 
     public virtual FormaPagamentoModel? FormaPgto { get; set; }
 

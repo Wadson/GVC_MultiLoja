@@ -24,8 +24,8 @@ namespace GVC.View
         }
         public void ListarCliente()
         {
-            ClienteBLL objetoBll = new ClienteBLL();
-            dgvCliente.DataSource = objetoBll.Listar();
+            var bll = new ClienteBLL();
+            dgvCliente.DataSource = bll.Listar();
             PersonalizarDataGridView();
             Utilitario.AtualizarTotal(lblTotalRegistros, dgvCliente);
         }
@@ -277,22 +277,21 @@ namespace GVC.View
         {
             string texto = txtPesquisa.Text.Trim();
 
-            if (string.IsNullOrEmpty(texto))
-            {
-                ListarCliente();
-                return;
-            }
+            var bll = new ClienteBLL();
 
-            var dao = new ClienteDal();
-            DataTable dt = dao.PesquisarPorNome(texto);
+            dgvCliente.DataSource = string.IsNullOrEmpty(texto)
+                ? bll.Listar()
+                : bll.PesquisarPorNome(texto);
 
-            dgvCliente.DataSource = dt ?? new DataTable();
             PersonalizarDataGridView();
             Utilitario.AtualizarTotal(lblTotalRegistros, dgvCliente);
         }
 
         private void FrmManutCliente_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             timer1.Enabled = false; // 🔴 IMPORTANTE
             ListarCliente();
             dgvCliente.CellFormatting += dataGridPesquisar_CellFormatting;

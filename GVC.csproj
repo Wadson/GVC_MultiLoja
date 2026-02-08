@@ -31,6 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Infra\Conexao\appsettings.json" />
 	  <None Remove="Infra\Database\01_CreateDatabase.sql" />
 	  <None Remove="Infra\Database\02_Tables.sql" />
 	  <None Remove="Infra\Database\03_Functions.sql" />
@@ -63,6 +64,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="Infra\Conexao\appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <EmbeddedResource Include="Infra\Database\Scripts\00_ScriptLog.sql" />
 	  <EmbeddedResource Include="Infra\Database\Scripts\01_Tables.sql" />
 	  <EmbeddedResource Include="Infra\Database\Scripts\02_Defaults.sql" />

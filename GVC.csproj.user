@@ -20,6 +20,9 @@
     <Compile Update="Infra\Database\FrmDatabaseSetup.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UI\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="UI\FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>

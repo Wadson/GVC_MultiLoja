@@ -186,12 +186,15 @@ namespace GVC.View
 
         public void ListarProduto()
         {
-            ProdutoDALL dao = new();
-            dataGridPesquisar.DataSource = dao.ListarProdutosVenda();
+            ProdutosBLL  bll = new();
+            dataGridPesquisar.DataSource = bll.ListarTodos();
             PersonalizarDataGridView();
         }
         private void FrmLocalizarProduto_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             ListarProduto();
             txtPesquisar.Focus();
 
@@ -200,18 +203,54 @@ namespace GVC.View
                 txtPesquisar.Select(txtPesquisar.Text.Length, 0);
             }
         }
-      
+
         private void PesquisarProduto()
         {
-            string textoPesquisa = txtPesquisar.Text.Trim();
-            ProdutoDALL dao = new ProdutoDALL();
+            try
+            {
+                string termo = txtPesquisar.Text.Trim();
 
-            // 🔹 Pesquisa apenas por nome
-            dataGridPesquisar.DataSource = dao.PesquisarProdutoPorNome(textoPesquisa);
+                // Verificação adicional
+                if (string.IsNullOrWhiteSpace(termo))
+                {
+                    dataGridPesquisar.DataSource = null;
+                    return;
+                }
+
+                var bll = new ProdutosBLL();
+                var produtos = bll.BuscarPorNome(termo);
+
+                // Vincular os dados ao DataGridView
+                dataGridPesquisar.DataSource = produtos;
+                PersonalizarDataGridView();
+
+                // Mostrar mensagem se não encontrou
+                if (produtos.Count == 0)
+                {
+                    // Opcional: mensagem amigável
+                    lblMensagem.Text = $"Nenhum produto encontrado para '{termo}'";
+                    lblMensagem.Visible = true;
+                    lblMensagem.ForeColor = Color.Red;
+                }
+                else
+                {
+                    lblMensagem.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // ⭐ TRATE ESPECIFICAMENTE A EXCEÇÃO "Nome do produto inválido"
+                if (ex.Message.Contains("Nome do produto inválido"))
+                {
+                    // Isso não deve mais acontecer com as verificações acima
+                    dataGridPesquisar.DataSource = null;
+                    return;
+                }
+
+                MessageBox.Show($"Erro ao pesquisar: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-       
-
-
 
         private void dataGridPesquisar_KeyDown(object sender, KeyEventArgs e)
         {
@@ -264,7 +303,29 @@ namespace GVC.View
         }
         private void txtPesquisar_TextChanged(object sender, EventArgs e)
         {
-            PesquisarProduto();
+            try
+            {
+                string termo = txtPesquisar.Text.Trim();
+
+                // ⭐ IMPORTANTE: Se estiver vazio, limpe o grid ou mostre todos
+                if (string.IsNullOrWhiteSpace(termo))
+                {
+                    dataGridPesquisar.DataSource = null; // Limpa o grid
+                                                         // Ou: CarregarTodosProdutos();
+                    return;
+                }
+
+                // Só pesquisa se tiver pelo menos 2 caracteres (opcional)
+                if (termo.Length < 2)
+                    return;
+
+                PesquisarProduto();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro: {ex.Message}", "Erro",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void txtPesquisar_KeyDown(object sender, KeyEventArgs e)

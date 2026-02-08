@@ -33,7 +33,7 @@
             dgvProdutos = new Krypton.Toolkit.KryptonDataGridView();
             btnEstoque = new Krypton.Toolkit.KryptonButton();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
-            lblTotalRegistros = new ToolStripStatusLabel();
+            lblMensagemStatus = new ToolStripStatusLabel();
             btnSair = new Krypton.Toolkit.KryptonButton();
             btnExcluir = new Krypton.Toolkit.KryptonButton();
             btnNovo = new Krypton.Toolkit.KryptonButton();
@@ -143,7 +143,7 @@
             // kryptonStatusStrip1
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblTotalRegistros });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblMensagemStatus });
             kryptonStatusStrip1.Location = new Point(0, 539);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
@@ -152,11 +152,11 @@
             kryptonStatusStrip1.TabIndex = 604;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
-            // lblTotalRegistros
+            // lblMensagemStatus
             // 
-            lblTotalRegistros.Name = "lblTotalRegistros";
-            lblTotalRegistros.Size = new Size(100, 17);
-            lblTotalRegistros.Text = "Total de Registros";
+            lblMensagemStatus.Name = "lblMensagemStatus";
+            lblMensagemStatus.Size = new Size(100, 17);
+            lblMensagemStatus.Text = "Total de Registros";
             // 
             // btnSair
             // 
@@ -567,7 +567,7 @@
         private Krypton.Toolkit.KryptonDataGridView dgvProdutos;
         private Krypton.Toolkit.KryptonButton btnEstoque;
         private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
-        private ToolStripStatusLabel lblTotalRegistros;
+        private ToolStripStatusLabel lblMensagemStatus;
         public Krypton.Toolkit.KryptonButton btnSair;
         public Krypton.Toolkit.KryptonButton btnExcluir;
         public Krypton.Toolkit.KryptonButton btnNovo;

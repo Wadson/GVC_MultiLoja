@@ -7,11 +7,13 @@ using GVC.UTIL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GVC.Infra.Conexao;
+using GVC.Infra.Repository;
 
 public class ExtratoBLL
 {
     private readonly ExtratoDal _extratoDal = new();
-    private readonly ClienteDal _clienteDal = new();
+    private readonly ClienteRepository _clienteRepository = new();
 
     // ======================================================
     // EXTRATO POR VENDA (ANTIGO)
@@ -74,7 +76,7 @@ public class ExtratoBLL
     // ======================================================
     public ExtratoCliente ObterExtratoClientePorVenda(long vendaId, bool detalhado)
     {
-        using var conn = Conexao_.Conex();
+        using var conn = Conexao.Conex();
 
         int? clienteId = conn.ExecuteScalar<int?>(@"
             SELECT ClienteID
@@ -93,7 +95,7 @@ public class ExtratoBLL
     // ======================================================
     public ExtratoCliente ObterExtratoCliente(int clienteId, bool detalhado)
     {
-        var cliente = _clienteDal.BuscarPorId(clienteId)
+        var cliente = _clienteRepository.BuscarPorId(clienteId)
             ?? throw new Exception("Cliente não encontrado.");
 
         var parcelas = _extratoDal.ObterExtratoResumido(clienteId);
@@ -158,7 +160,7 @@ public class ExtratoBLL
     // ======================================================
     public ExtratoCliente ObterExtratoPorParcela(long parcelaId)
     {
-        using var conn = Conexao_.Conex();
+        using var conn = Conexao.Conex();
 
         int? clienteId = conn.ExecuteScalar<int?>(@"
         SELECT v.ClienteID
@@ -191,7 +193,7 @@ public class ExtratoBLL
       DateTime dataFim,
       List<EnumStatusParcela> statusSelecionados)
     {
-        using var conn = Conexao_.Conex();
+        using var conn = Conexao.Conex();
 
         var statusStrings = statusSelecionados
             .Select(s => s.ToString())
@@ -349,6 +351,4 @@ public class ExtratoBLL
             EnumStatusParcela.Pago
             });
     }
-
-
 }

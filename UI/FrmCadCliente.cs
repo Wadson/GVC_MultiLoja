@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using static GVC.UTIL.BrasilApiCepResponse;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.ComponentModel;
+using GVC.DTO;
 
 namespace GVC.View
 {
@@ -31,8 +32,9 @@ namespace GVC.View
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ClienteID { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int CidadeID { get; set; }
+        public int CidadeID { get; set; }       
         private bool isVendedor { get; set; }
+       
 
         public FrmCadCliente()
         {
@@ -445,9 +447,12 @@ namespace GVC.View
                 txtBairro.Text = row.Cells["Bairro"].Value?.ToString() ?? "";
                 txtCep.Text = row.Cells["Cep"].Value?.ToString() ?? "";
 
-                this.CidadeID = int.TryParse(row.Cells["CidadeID"].Value?.ToString(), out int cid) ? cid : 0;
-                txtNomeCidade.Text = row.Cells["NomeCidade"].Value?.ToString() ?? "";
-                txtUF.Text = row.Cells["Estado"].Value?.ToString() ?? "";
+                this.CidadeID = int.TryParse(row.Cells["CidadeID"].Value?.ToString(), out int cid) ? cid : 0;               
+                int cidadeId2 = int.TryParse(row.Cells["CidadeID"].Value?.ToString(), out int cid2) ? cid2 : 0;                
+                txtNomeCidade.Text = Utilitario.BuscarNomeCidadePorId(cidadeId2);
+
+
+                txtUF.Text = Utilitario.BuscarUfPorCidadeId(cidadeId2);
                 chkIsVendedor.Checked = row.Cells["IsVendedor"].Value is bool b && b;
 
                 // ========== 4. TIPO DE CLIENTE ==========
@@ -638,6 +643,10 @@ namespace GVC.View
         // 👉 aqui entra o seu método
         private void FrmCadCliente_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
+
             txtNomeCliente.Focus();
             {
                 if (CarregandoDados)
@@ -757,7 +766,6 @@ namespace GVC.View
                 else
                     Utilitario.Mensagens.Aviso("Erro inesperado: " + ex.Message);
             }
-
         }
 
         public void ExcluirRegistro()
@@ -862,6 +870,11 @@ namespace GVC.View
             cliente.TipoCliente = tipoCliente;
             cliente.Status = cmbStatus.Text == "Ativo" ? 1 : 0;
             cliente.Observacoes = StringParaNull(txtObservacoes.Text);
+            
+            
+            
+            cliente.EmpresaID = Sessao.EmpresaID;
+
 
             if (decimal.TryParse(txtLimiteCredito.Text, out decimal limite))
                 cliente.LimiteCredito = limite;
@@ -960,7 +973,7 @@ namespace GVC.View
 
         }
 
-       
+
         private void LimparCampos() => Utilitario.LimparCampos(this);
 
 
@@ -1223,7 +1236,8 @@ namespace GVC.View
 
         private void btnLocalizarCidade_Click(object sender, EventArgs e)
         {
-            AbrirFrmLocalizarCidadeDinamico();            
-        }
+            AbrirFrmLocalizarCidadeDinamico();
+        }      
+
     }
 }

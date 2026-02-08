@@ -169,6 +169,13 @@ namespace GVC.UTIL
         {
             this.Close();
         }
+
+        private void FrmSqlBatchGenerator_Load(object sender, EventArgs e)
+        {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
+        }
     }
 }
 

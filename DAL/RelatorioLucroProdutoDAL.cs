@@ -1,30 +1,22 @@
-﻿using GVC.UTIL;
+﻿using System.Data;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GVC.Infra.Repository;
 
 namespace GVC.DAL
 {
-    public class RelatorioLucroProdutoDAL
+    public class RelatorioLucroProdutoDAL : RepositoryBase
     {
         public DataTable RankingLucro()
         {
             var dt = new DataTable();
 
-            using var conn = Conexao_.Conex();
-            conn.Open();
+            const string sql = /* SQL acima */ "";
 
-            string sql = /* SQL acima */"";
-
-            using var da = new SqlDataAdapter(sql, conn);
+            using var cmd = CreateCommand(sql);
+            using var da = new SqlDataAdapter(cmd);
             da.Fill(dt);
 
             return dt;
         }
     }
-
 }

@@ -82,6 +82,9 @@ namespace GVC.View
 
         private void FrmLocalizarEstado_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             Listar();
         }
 

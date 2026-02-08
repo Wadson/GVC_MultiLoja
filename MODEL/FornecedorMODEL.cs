@@ -30,10 +30,11 @@ public partial class FornecedorModel
     public DateTime? DataCriacao { get; set; }
 
     public string? Observacoes { get; set; }
+    public int EmpresaID { get; set; }
 
     public virtual CidadeModel Cidade { get; set; } = null!;
 
     public virtual ICollection<PedidoModel> Pedidos { get; set; } = new List<PedidoModel>();
 
-    public virtual ICollection<ProdutoModel> Produtos { get; set; } = new List<ProdutoModel>();
+    public virtual ICollection<ProdutoModel> Produtos { get; set; } = new List<ProdutoModel>();   
 }

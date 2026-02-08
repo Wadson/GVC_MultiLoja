@@ -138,6 +138,9 @@ namespace GVC
 
         private void FrmManutCidade_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             Listar();
         }
 

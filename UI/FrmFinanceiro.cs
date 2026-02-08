@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static GVC.Model.Enums.FormaPagamentoExtensions;
 using ParcelaExtratoModel = GVC.Model.ParcelaExtrato;
+using GVC.Infra.Conexao;
 
 namespace GVC.View
 {
@@ -377,6 +378,9 @@ namespace GVC.View
 
         private void FrmContasAReceber_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             cmbTipoPesquisa.DisplayMember = "Texto";
             cmbTipoPesquisa.ValueMember = "Valor";
 
@@ -599,49 +603,36 @@ namespace GVC.View
         {
             try
             {
-                // ✅ Query ajustada para SQL Server
-                const string sql = @" UPDATE Parcela SET Status = 'Atrasada' WHERE DataVencimento < CAST(GETDATE() AS DATE)
-                                      AND Status NOT IN ('Paga', 'ParcialmentePaga', 'Cancelada', 'Atrasada')";
+                var bll = new ParcelaBLL();
+                int qtd = bll.AtualizarParcelasAtrasadas();
 
-                using (var conn = Conexao_.Conex(Sessao.AmbienteSelecionado))
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    conn.Open();
-                    int linhasAfetadas = cmd.ExecuteNonQuery();
-
-                    // Opcional: logar quantas linhas foram atualizadas
-                    System.Diagnostics.Debug.WriteLine($"Parcelas atrasadas atualizadas: {linhasAfetadas}");
-                }
+                Debug.WriteLine($"Parcelas atrasadas atualizadas: {qtd}");
             }
             catch (Exception ex)
             {
-                // Log silencioso ou opcional
-                System.Diagnostics.Debug.WriteLine("Erro ao atualizar parcelas atrasadas: " + ex.Message);
+                Debug.WriteLine("Erro ao atualizar parcelas atrasadas: " + ex.Message);
             }
         }
 
+
         private void CarregarVenda(int vendaId)
         {
-            var venda = _vendaBll.ObterVendaPorId((int)vendaId);
+            var venda = _vendaBll.ObterVendaPorId(vendaId);
 
             if (venda == null)
             {
                 LimparAreaVenda();
                 return;
             }
+
             if (venda.Cliente == null && venda.ClienteID > 0)
             {
-                string query = "SELECT Nome FROM Clientes WHERE ClienteID = @id";
-                string nomeCliente = Utilitario.PesquisarPorCodigoRetornarNome(query, "id", venda.ClienteID);
-
-                venda.Cliente = new ClienteModel
-                {
-                    ClienteID = venda.ClienteID,
-                    Nome = nomeCliente
-                };
+                venda.Cliente = _vendaBll.BuscarClienteVenda(venda.ClienteID);
             }
 
+            // continua preenchendo tela normalmente
         }
+
         private void BuscarNomeCliente(long clienteId)
         {
             string query = "SELECT Nome FROM Clientes WHERE ClienteID = @parametro";
@@ -823,7 +814,7 @@ namespace GVC.View
 
             int vendaId = dto.VendaID;
 
-            using var conn = Conexao_.Conex();
+            using var conn = Conexao.Conex();
 
             int? clienteId = conn.ExecuteScalar<int?>(@"
         SELECT ClienteID      FROM Venda

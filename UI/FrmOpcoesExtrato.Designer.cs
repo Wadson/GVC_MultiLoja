@@ -142,6 +142,7 @@
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Escolha uma opção";
+            Load += FrmOpcoesExtrato_Load;
             ResumeLayout(false);
         }
 

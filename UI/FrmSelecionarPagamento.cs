@@ -232,6 +232,9 @@ namespace GVC.View
 
         private void FrmFinalizarVenda_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             lblVendaNumero.Text =
           _dto.Venda.VendaID > 0
               ? _dto.Venda.VendaID.ToString()

@@ -1,4 +1,5 @@
-﻿using GVC.DAL;
+﻿using GVC.BLL;
+using GVC.DAL;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
@@ -20,10 +21,13 @@ namespace GVC.View
         private bool recebendoTextoExterno = false;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string VendedorSelecionado { get; set; }
+        private readonly ClienteBLL _bll;
 
         public FrmLocalizarVendedor(Form formChamador, string textoDigitado)
         {
             InitializeComponent();
+
+            _bll = new ClienteBLL();
             ConfigurarEventosTeclado();
             _formChamador = formChamador;
 
@@ -193,12 +197,14 @@ namespace GVC.View
         }
         public void ListarVendedor()
         {
-            ClienteDal dao = new();
-            dataGridPesquisar.DataSource = dao.PesquisarVendedores();
+            dataGridPesquisar.DataSource = _bll.ListarVendedores();
             PersonalizarDataGridView();
         }
         private void FrmLocalizarVendedor_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             // Altura fixa
             this.MinimumSize = new Size(this.Width, this.Height); this.MaximumSize = new Size(int.MaxValue, this.Height);
             ListarVendedor();
@@ -213,10 +219,9 @@ namespace GVC.View
         private void PesquisarVendedor()
         {
             string textoPesquisa = txtPesquisar.Text.Trim();
-            ClienteDal dao = new ClienteDal();
 
             // 🔹 Pesquisa apenas por nome
-            dataGridPesquisar.DataSource = dao.PesquisarVendedorPorNome(textoPesquisa);
+            dataGridPesquisar.DataSource = _bll.PesquisarVendedor(textoPesquisa);
         }
 
         private void btnSair_Click(object sender, EventArgs e)

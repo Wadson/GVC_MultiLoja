@@ -16,6 +16,7 @@ public partial class ItemVendaModel
 
     public int ProdutoID { get; set; }
     public string? ProdutoDescricao { get; set; }
+    public int EmpresaID { get; set; }
 
     public virtual ProdutoModel Produto { get; set; } = null!;
 

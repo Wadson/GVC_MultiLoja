@@ -1,7 +1,8 @@
 ﻿using GVC.BLL;
 using GVC.DAL;
-using GVC.DAL;
 using GVC.DTO;
+using GVC.Infra.Conexao;
+using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.Model.Enums;
 using GVC.UTIL;
@@ -211,6 +212,9 @@ namespace GVC.View
 
         private void FrmPDVendas_Load(object sender, EventArgs e)
         {
+            if (!ValidadorSessao.Validar(this))
+                return;
+
             dgvItensVenda.DataError += (s, e) => { e.ThrowException = false; };
 
             // Permite capturar teclas como F12 no form
@@ -247,7 +251,9 @@ namespace GVC.View
             // 3. Configurações iniciais para nova venda
             if (_modo == ModoVenda.Nova)
             {
-                int proximaVendaID = Utilitario.ProximoId(QueryVenda);
+                int proximaVendaID = new VendaRepository().ObterProximoNumeroVenda();
+
+
                 lblVendaID.Text = Utilitario.ZerosEsquerda(proximaVendaID, 4);
                 lblDataVenda.Text = DateTime.Now.ToString("dd/MM/yyyy");
             }
