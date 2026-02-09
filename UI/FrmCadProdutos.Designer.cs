@@ -52,7 +52,6 @@
             txtFornecedor = new Krypton.Toolkit.KryptonTextBox();
             label3 = new Label();
             label6 = new Label();
-            txtMarca = new Krypton.Toolkit.KryptonTextBox();
             label7 = new Label();
             label12 = new Label();
             btnLocalizarImagem = new Krypton.Toolkit.KryptonButton();
@@ -76,6 +75,7 @@
             kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
             kryptonLabel5 = new Krypton.Toolkit.KryptonLabel();
             cmbUnidade = new Krypton.Toolkit.KryptonComboBox();
+            cmbMarca = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)pbImagem).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
@@ -83,6 +83,7 @@
             ((System.ComponentModel.ISupportInitialize)cmbSituacao).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbUnidade).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbMarca).BeginInit();
             SuspendLayout();
             // 
             // label21
@@ -429,25 +430,6 @@
             label6.Size = new Size(91, 16);
             label6.TabIndex = 626;
             label6.Text = "DataValidade";
-            // 
-            // txtMarca
-            // 
-            txtMarca.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtMarca.CharacterCasing = CharacterCasing.Upper;
-            txtMarca.Location = new Point(345, 154);
-            txtMarca.Name = "txtMarca";
-            txtMarca.Size = new Size(320, 24);
-            txtMarca.StateCommon.Back.Color1 = Color.White;
-            txtMarca.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
-            txtMarca.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            txtMarca.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            txtMarca.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtMarca.StateCommon.Border.Rounding = 8F;
-            txtMarca.StateCommon.Border.Width = 1;
-            txtMarca.StateCommon.Content.Color1 = Color.Gray;
-            txtMarca.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
-            txtMarca.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtMarca.TabIndex = 2;
             // 
             // label7
             // 
@@ -1040,10 +1022,53 @@
             cmbUnidade.TabIndex = 3;
             cmbUnidade.Text = "UN";
             // 
+            // cmbMarca
+            // 
+            cmbMarca.CornerRoundingRadius = 6F;
+            cmbMarca.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMarca.DropDownWidth = 115;
+            cmbMarca.IntegralHeight = false;
+            cmbMarca.Items.AddRange(new object[] { "NATURA", "HREBOS", "BOTICARIO", "BASIK", "INOVA", "GENERICO", "SAMSUNG", "LENOVO" });
+            cmbMarca.Location = new Point(345, 154);
+            cmbMarca.Name = "cmbMarca";
+            cmbMarca.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
+            cmbMarca.Size = new Size(322, 25);
+            cmbMarca.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbMarca.StateActive.ComboBox.Content.Color1 = Color.White;
+            cmbMarca.StateActive.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbMarca.StateCommon.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbMarca.StateCommon.ComboBox.Border.Rounding = 6F;
+            cmbMarca.StateCommon.ComboBox.Content.Color1 = Color.White;
+            cmbMarca.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbMarca.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            cmbMarca.StateNormal.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateNormal.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateNormal.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateNormal.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbMarca.StateNormal.ComboBox.Content.Color1 = Color.White;
+            cmbMarca.StateNormal.ComboBox.Content.Font = new Font("Segoe UI", 9F);
+            cmbMarca.StateTracking.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateTracking.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateTracking.Item.Border.Color1 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateTracking.Item.Border.Color2 = Color.FromArgb(30, 136, 229);
+            cmbMarca.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            cmbMarca.StateTracking.Item.Content.ShortText.Color1 = Color.White;
+            cmbMarca.StateTracking.Item.Content.ShortText.Color2 = Color.White;
+            cmbMarca.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
+            cmbMarca.TabIndex = 1093;
+            cmbMarca.Text = "GENERICO";
+            // 
             // FrmCadProdutos
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(1008, 661);
+            Controls.Add(cmbMarca);
             Controls.Add(cmbUnidade);
             Controls.Add(cmbSituacao);
             Controls.Add(cmbStatus);
@@ -1060,7 +1085,6 @@
             Controls.Add(btnSalvar);
             Controls.Add(btnNovo);
             Controls.Add(btnLocalizarImagem);
-            Controls.Add(txtMarca);
             Controls.Add(label10);
             Controls.Add(label6);
             Controls.Add(label7);
@@ -1108,6 +1132,7 @@
             ((System.ComponentModel.ISupportInitialize)cmbSituacao).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbStatus).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbUnidade).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbMarca).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -1131,7 +1156,6 @@
         public Krypton.Toolkit.KryptonTextBox txtReferencia;
         public Krypton.Toolkit.KryptonTextBox txtNomeProduto;
         public Krypton.Toolkit.KryptonTextBox txtGtinEan;
-        public Krypton.Toolkit.KryptonTextBox txtMarca;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
         private Label label2;
         public Krypton.Toolkit.KryptonTextBox txtFornecedor;
@@ -1161,6 +1185,7 @@
         private Krypton.Toolkit.KryptonLabel kryptonLabel5;
         public Krypton.Toolkit.KryptonComboBox cmbStatus;
         public Krypton.Toolkit.KryptonComboBox cmbUnidade;
+        public Krypton.Toolkit.KryptonComboBox cmbMarca;
         //private System.Windows.Forms.DateTimePicker dtpDataDeEntrada;
     }
 }

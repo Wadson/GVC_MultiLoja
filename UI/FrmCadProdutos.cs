@@ -133,7 +133,7 @@
                     Status = cmbStatus.Text,
                     Situacao = cmbSituacao.Text,
                     Unidade = cmbUnidade.Text,
-                    Marca = txtMarca.Text,
+                    Marca = cmbMarca.Text,
                     DataValidade = DateTime.TryParseExact(txtDataValidade.Text, "dd/MM/yyyy",
                    CultureInfo.GetCultureInfo("pt-BR"), DateTimeStyles.None, out DateTime dataValida)
                    ? (DateTime?)dataValida : null,
@@ -215,7 +215,7 @@
                         // 🔹 Novos campos
                         Situacao = cmbSituacao.Text, // se for ComboBox
                         Unidade = cmbUnidade.Text, // TextBox ou ComboBox
-                        Marca = txtMarca.Text, // TextBox
+                        Marca = cmbMarca.Text, // TextBox
                         DataValidade = DateTime.TryParseExact(txtDataValidade.Text, "dd/MM/yyyy", CultureInfo.GetCultureInfo("pt-BR"), DateTimeStyles.None, out DateTime dataValida) ? (DateTime?)dataValida : null,
                         GtinEan = txtGtinEan.Text, // TextBox
                         Imagem = txtEnderecoImagem.Text, // TextBox com caminho da imagem                   

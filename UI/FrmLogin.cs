@@ -282,14 +282,41 @@ namespace GVC.MUI
                 btnLogin.PerformClick();
             }
         }
+       
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             Utilitario.CarregarEmpresa(cmbEmpresa);
             _carregandoEmpresas = false;
+
+            // Aguarda um momento para garantir que o combobox foi totalmente carregado
+            // Isso evita problemas de timing
+            this.BeginInvoke(new Action(() =>
+            {
+                // Verifica o que está selecionado atualmente
+                if (cmbEmpresa.SelectedItem is EmpresaDTO empresaSelecionada)
+                {
+                    // Se está selecionado "Selecione a empresa" (ID = 0)
+                    if (empresaSelecionada.EmpresaID == 0)
+                    {
+                        // Seleciona a primeira empresa REAL
+                        if (cmbEmpresa.Items.Count > 1)
+                        {
+                            cmbEmpresa.SelectedIndex = 2;
+                        }
+                    }
+                }
+            }));
+
             txtUsuario.Focus();
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+            this.Text = "Versão: " + version;
 
-            this.Text = "Versão: " + version;// Exibe AssemblyVersion
+            //Utilitario.CarregarEmpresa(cmbEmpresa);
+            //_carregandoEmpresas = false;
+            //txtUsuario.Focus();
+            //var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+
+            //this.Text = "Versão: " + version;// Exibe AssemblyVersion
         }
 
         private void FrmLogin_Shown(object sender, EventArgs e)

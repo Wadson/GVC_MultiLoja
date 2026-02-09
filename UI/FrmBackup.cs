@@ -29,7 +29,7 @@ namespace GVC.View
         // CONFIGURAÇÕES
         // ================================
 
-        private string NomeBanco => "bdsiscontrol";
+        private string NomeBanco => "bdgvc";
 
         private string PastaBackupPadrao => @"C:\GVCSqlExpress\Bkp";
 

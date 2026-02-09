@@ -45,76 +45,127 @@ namespace GVC.View
         {
             dgvProdutos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
-            // 1. Ocultar colunas primeiro
-            string[] colunasParaOcultar = { "ProdutoID", "FornecedorID", "DataDeEntrada", "Imagem" };
+            // ⭐⭐ PASSO 1: Remover TODAS as colunas de navegação/objetos complexos ⭐⭐
+            // Estas são as colunas que NÃO vêm do seu SQL direto
+            string[] colunasParaRemover = {
+        "ItemVenda",
+        "MovimentacaoEstoques",  // Note o "s" no final - está no plural no seu model
+        "Fornecedor"              // Objeto complexo FornecedorModel
+    };
+
+            foreach (var nome in colunasParaRemover)
+            {
+                if (dgvProdutos.Columns.Contains(nome))
+                {
+                    dgvProdutos.Columns.Remove(nome);
+                }
+            }
+
+            // ⭐⭐ PASSO 2: Garantir que só as colunas do SELECT permaneçam ⭐⭐
+            // Estas são as colunas que vêm do seu SQL (SqlBase)
+            var colunasDoSQL = new HashSet<string>
+    {
+        "ProdutoID", "NomeProduto", "Referencia", "PrecoCusto", "Lucro",
+        "PrecoDeVenda", "Estoque", "DataDeEntrada", "Status", "Situacao",
+        "Unidade", "Marca", "DataValidade", "GtinEan", "Imagem",
+        "FornecedorID", "NomeFornecedor", "EmpresaID"
+    };
+
+            // Remover do final para o início para não bagunçar os índices
+            for (int i = dgvProdutos.Columns.Count - 1; i >= 0; i--)
+            {
+                string nomeColuna = dgvProdutos.Columns[i].Name;
+                if (!colunasDoSQL.Contains(nomeColuna))
+                {
+                    dgvProdutos.Columns.RemoveAt(i);
+                }
+            }
+
+            // ⭐⭐ PASSO 3: Ocultar colunas primeiro ⭐⭐
+            string[] colunasParaOcultar = {
+        "ProdutoID",
+        "FornecedorID",
+        "DataDeEntrada",
+        "Imagem",
+        "EmpresaID"  // Se não quiser mostrar
+    };
+
             foreach (var nome in colunasParaOcultar)
             {
-                if (dgvProdutos.Columns[nome] != null)
+                if (dgvProdutos.Columns.Contains(nome))
+                {
                     dgvProdutos.Columns[nome].Visible = false;
+                }
             }
 
-            // 2. Reordenar colunas visíveis
+            // ⭐⭐ PASSO 4: Reordenar colunas visíveis ⭐⭐
             ReordenarColunas();
 
-            // 3. Cabeçalhos
-            if (dgvProdutos.Columns["NomeProduto"] != null)
+            // ⭐⭐ PASSO 5: Cabeçalhos ⭐⭐
+            // Use Contains para evitar exceções
+            if (dgvProdutos.Columns.Contains("NomeProduto"))
                 dgvProdutos.Columns["NomeProduto"].HeaderText = "Nome Produto";
-            if (dgvProdutos.Columns["PrecoCusto"] != null)
+
+            if (dgvProdutos.Columns.Contains("PrecoCusto"))
                 dgvProdutos.Columns["PrecoCusto"].HeaderText = "Preço Custo";
-            if (dgvProdutos.Columns["Lucro"] != null)
+
+            if (dgvProdutos.Columns.Contains("Lucro"))
                 dgvProdutos.Columns["Lucro"].HeaderText = "Lucro";
-            if (dgvProdutos.Columns["PrecoDeVenda"] != null)
+
+            if (dgvProdutos.Columns.Contains("PrecoDeVenda"))
                 dgvProdutos.Columns["PrecoDeVenda"].HeaderText = "Preço Venda";
-            if (dgvProdutos.Columns["Estoque"] != null)
+
+            if (dgvProdutos.Columns.Contains("Estoque"))
                 dgvProdutos.Columns["Estoque"].HeaderText = "Estoque";
-            if (dgvProdutos.Columns["DataValidade"] != null)
+
+            if (dgvProdutos.Columns.Contains("DataValidade"))
                 dgvProdutos.Columns["DataValidade"].HeaderText = "Validade";
-            if (dgvProdutos.Columns["Referencia"] != null)
+
+            if (dgvProdutos.Columns.Contains("Referencia"))
                 dgvProdutos.Columns["Referencia"].HeaderText = "Referência";
-            if (dgvProdutos.Columns["Marca"] != null)
+
+            if (dgvProdutos.Columns.Contains("Marca"))
                 dgvProdutos.Columns["Marca"].HeaderText = "Marca";
-            if (dgvProdutos.Columns["Status"] != null)
+
+            if (dgvProdutos.Columns.Contains("Status"))
                 dgvProdutos.Columns["Status"].HeaderText = "Status";
-            if (dgvProdutos.Columns["Situacao"] != null)
+
+            if (dgvProdutos.Columns.Contains("Situacao"))
                 dgvProdutos.Columns["Situacao"].HeaderText = "Situação";
-            if (dgvProdutos.Columns["Unidade"] != null)
+
+            if (dgvProdutos.Columns.Contains("Unidade"))
                 dgvProdutos.Columns["Unidade"].HeaderText = "Unidade";
-            if (dgvProdutos.Columns["GtinEan"] != null)
+
+            if (dgvProdutos.Columns.Contains("GtinEan"))
                 dgvProdutos.Columns["GtinEan"].HeaderText = "Código EAN";
 
-
-            if (dgvProdutos.Columns["Fornecedor"] != null)
+            // ⭐⭐ IMPORTANTE: Configurar a coluna NomeFornecedor ⭐⭐
+            if (dgvProdutos.Columns.Contains("NomeFornecedor"))
             {
-                dgvProdutos.Columns["Fornecedor"].HeaderText = "Fornecedor";
-                // Configurar para mostrar apenas o nome
-                dgvProdutos.Columns["Fornecedor"].DataPropertyName = "NomeFornecedor";
+                dgvProdutos.Columns["NomeFornecedor"].HeaderText = "Fornecedor";
+                // NÃO configure DataPropertyName - já está correto
             }
 
-
-
-            if (dgvProdutos.Columns["FornecedorID"] != null)
-                dgvProdutos.Columns["FornecedorID"].HeaderText = "Fornecedor ID";
-
-            // 4. Colunas fixas
+            // ⭐⭐ PASSO 6: Colunas fixas ⭐⭐
             var colunasFixas = new (string nome, int largura)[]
             {
-                ("NomeProduto", 400),
-                ("PrecoCusto", 80),
-                ("Lucro", 80),
-                ("PrecoDeVenda", 80),
-                ("Estoque", 80),
-                ("DataValidade", 100),
-                ("Status", 100),
-                ("Situacao", 100),
-                ("Unidade", 80),
-                ("GtinEan", 120),
-                ("Fornecedor", 200),
-                ("FornecedorID", 80)
+        ("NomeProduto", 400),
+        ("PrecoCusto", 80),
+        ("Lucro", 80),
+        ("PrecoDeVenda", 80),
+        ("Estoque", 80),
+        ("DataValidade", 100),
+        ("Status", 100),
+        ("Situacao", 100),
+        ("Unidade", 80),
+        ("GtinEan", 120),
+        ("NomeFornecedor", 200),
+        ("FornecedorID", 80)
             };
 
             foreach (var (nome, largura) in colunasFixas)
             {
-                if (dgvProdutos.Columns[nome] != null)
+                if (dgvProdutos.Columns.Contains(nome))
                 {
                     var col = dgvProdutos.Columns[nome];
                     col.Width = largura;
@@ -123,10 +174,10 @@ namespace GVC.View
                 }
             }
 
-            // 6. Colunas dinâmicas
+            // ⭐⭐ PASSO 7: Colunas dinâmicas ⭐⭐
             foreach (var nome in new[] { "Referencia", "Marca" })
             {
-                if (dgvProdutos.Columns[nome] != null)
+                if (dgvProdutos.Columns.Contains(nome))
                 {
                     var col = dgvProdutos.Columns[nome];
                     col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -134,42 +185,39 @@ namespace GVC.View
                 }
             }
 
-            // 7. Estilo cabeçalho
+            // ⭐⭐ PASSO 8: Estilo cabeçalho ⭐⭐
             dgvProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvProdutos.ColumnHeadersHeight = 25;
             dgvProdutos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             dgvProdutos.RowHeadersWidth = 30;
 
-            // 8. Formatações especiais
-            if (dgvProdutos.Columns["PrecoDeVenda"] != null)
+            // ⭐⭐ PASSO 9: Formatações especiais ⭐⭐
+            if (dgvProdutos.Columns.Contains("PrecoDeVenda"))
             {
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new Font("Arial", 8F, FontStyle.Regular);
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.ForeColor = Color.DarkGreen;
                 dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
             }
 
-            if (dgvProdutos.Columns["Estoque"] != null)
+            if (dgvProdutos.Columns.Contains("Estoque"))
             {
                 dgvProdutos.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgvProdutos.Columns["Estoque"].DefaultCellStyle.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
             }
 
-            // 9. Atualizar grid
+            // ⭐⭐ PASSO 10: Atualizar grid ⭐⭐
             dgvProdutos.Refresh();
         }
 
-
-
-
-
-        // 🔹 Método para reordenar as colunas
+        // ⭐⭐ Método ReordenarColunas ATUALIZADO ⭐⭐
         private void ReordenarColunas()
         {
             // Ordem desejada das colunas (da esquerda para direita)
+            // Apenas colunas que REALMENTE existem no DataGridView após a limpeza
             string[] ordemColunas =
             {
-        "ProdutoID",           // Oculto, mas fica à esquerda
-        "NomeProduto",         // Primeira coluna visível (congelada)
+        "ProdutoID",           // Oculto
+        "NomeProduto",         // Primeira coluna visível
         "Referencia",
         "PrecoCusto",
         "Lucro",
@@ -177,17 +225,25 @@ namespace GVC.View
         "Estoque",
         "DataDeEntrada",       // Oculto
         "DataValidade",
-        "Fornecedor",
+        "NomeFornecedor",      // Coluna do fornecedor
         "Marca",
-        "FornecedorID"         // Oculto
+        "Unidade",
+        "Status",
+        "Situacao",
+        "GtinEan",
+        "FornecedorID",        // Oculto
+        "Imagem",              // Oculto
+        "EmpresaID"            // Oculto
     };
 
-            // Aplica a ordem
-            for (int i = 0; i < ordemColunas.Length; i++)
+            // Aplica a ordem apenas para colunas que existem
+            int displayIndex = 0;
+            foreach (string nomeColuna in ordemColunas)
             {
-                if (dgvProdutos.Columns.Contains(ordemColunas[i]))
+                if (dgvProdutos.Columns.Contains(nomeColuna))
                 {
-                    dgvProdutos.Columns[ordemColunas[i]].DisplayIndex = i;
+                    dgvProdutos.Columns[nomeColuna].DisplayIndex = displayIndex;
+                    displayIndex++;
                 }
             }
         }
@@ -232,7 +288,7 @@ namespace GVC.View
             frm.txtPrecoDeVenda.Text = produto.PrecoDeVenda.ToString("N2");
             frm.txtEstoque.Text = produto.Estoque.ToString();
             frm.cmbUnidade.Text = produto.Unidade ?? "";
-            frm.txtMarca.Text = produto.Marca ?? "";
+            frm.cmbMarca.Text = produto.Marca ?? "";
             frm.txtDataValidade.Text = produto.DataValidade.HasValue ? produto.DataValidade.Value.ToString("dd/MM/yyyy") : "";
             frm.txtGtinEan.Text = produto.GtinEan ?? "";
             frm.txtFornecedor.Text = produto.Fornecedor?.Nome ?? "";
@@ -282,7 +338,7 @@ namespace GVC.View
                 frm.txtPrecoDeVenda.Enabled = false;
                 frm.txtEstoque.Enabled = false;
                 frm.cmbUnidade.Enabled = false;
-                frm.txtMarca.Enabled = false;
+                frm.cmbMarca.Enabled = false;
                 frm.txtDataValidade.Enabled = false;
                 frm.txtGtinEan.Enabled = false;
                 frm.txtFornecedor.Enabled = false;

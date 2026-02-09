@@ -127,6 +127,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Settings.settings</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\FrmManutMarca.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="UI\FrmSqlBatchGenerator.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

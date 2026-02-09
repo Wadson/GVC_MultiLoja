@@ -64,16 +64,8 @@ namespace GVC.Infra.Repository
         {
             var lista = new List<ProdutoModel>();
 
-            const string sql = @"
-    SELECT TOP 100 
-        p.ProdutoID, p.NomeProduto, p.Referencia, p.PrecoCusto, p.Lucro, 
-        p.PrecoDeVenda, p.Estoque, p.DataDeEntrada, p.Status, p.Situacao, 
-        p.Unidade, p.Marca, p.DataValidade, p.GtinEan, p.Imagem, p.FornecedorID,
-        COALESCE(f.Nome, '') AS NomeFornecedor  -- Altere aqui: AS Fornecedor -> AS NomeFornecedor
-    FROM Produtos p
-    LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID
-    WHERE p.EmpresaID = @EmpresaID
-    ORDER BY p.NomeProduto;";
+            // Reaproveita o SqlBase e adiciona TOP 100 + ORDER BY
+            string sql = SqlBase + " ORDER BY p.NomeProduto OFFSET 0 ROWS FETCH NEXT 100 ROWS ONLY";
 
             using var cmd = CreateCommand(sql);
             using var reader = cmd.ExecuteReader();
@@ -85,37 +77,6 @@ namespace GVC.Infra.Repository
 
             return lista;
         }
-        //public List<ProdutoModel> ListarTodos()
-        //{
-        //    var lista = new List<ProdutoModel>();
-
-        //    const string sql = @"
-        //    SELECT TOP 100 
-        //        p.ProdutoID, p.NomeProduto, p.Referencia, p.PrecoCusto, p.Lucro, 
-        //        p.PrecoDeVenda, p.Estoque, p.DataDeEntrada, p.Status, p.Situacao, 
-        //        p.Unidade, p.Marca, p.DataValidade, p.GtinEan, p.Imagem, p.FornecedorID,
-        //        COALESCE(f.Nome, '') AS Fornecedor
-        //    FROM Produtos p
-        //    LEFT JOIN Fornecedor f ON p.FornecedorID = f.FornecedorID
-        //    WHERE p.EmpresaID = @EmpresaID
-        //    ORDER BY p.NomeProduto;";
-
-        //    using var cmd = CreateCommand(sql);
-        //    using var reader = cmd.ExecuteReader();
-
-        //    while (reader.Read())
-        //    {
-        //        lista.Add(Mapear(reader));
-        //    }
-
-        //    return lista;
-        //}
-
-
-
-
-
-
 
         public List<ProdutoModel> ListarProdutosVenda()
         {
@@ -262,10 +223,7 @@ namespace GVC.Infra.Repository
         // PESQUISAS
         // =========================
         public List<ProdutoModel> PesquisarProdutoPorNome(string nome)
-            => MapearLista(
-                ExecuteDataTable(
-                    SqlBase + " AND p.NomeProduto LIKE @Nome ORDER BY p.NomeProduto",
-                    new SqlParameter("@Nome", $"%{nome}%")));
+            => MapearLista( ExecuteDataTable( SqlBase + " AND p.NomeProduto LIKE @Nome ORDER BY p.NomeProduto", new SqlParameter("@Nome", $"%{nome}%")));
 
         public List<ProdutoModel> PesquisarProdutoPorCodigo(string codigo)
             => MapearLista(
@@ -296,7 +254,43 @@ namespace GVC.Infra.Repository
             if (cmd.ExecuteNonQuery() == 0)
                 throw new Exception("Estoque insuficiente.");
         }
+        private static List<ProdutoModel> MapearLista(DataTable dt)
+        {
+            var lista = new List<ProdutoModel>();
+            foreach (DataRow r in dt.Rows)
+            {
+                lista.Add(Mapear(r));
+            }
+            return lista;
+        }
 
+        private static ProdutoModel Mapear(DataRow r)
+        {
+            return new ProdutoModel
+            {
+                ProdutoID = Convert.ToInt32(r["ProdutoID"]),
+                NomeProduto = r["NomeProduto"].ToString(),
+                Referencia = r["Referencia"] == DBNull.Value ? null : r["Referencia"].ToString(),
+                PrecoCusto = r["PrecoCusto"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoCusto"]),
+                Lucro = r["Lucro"] == DBNull.Value ? 0 : Convert.ToDecimal(r["Lucro"]),
+                PrecoDeVenda = r["PrecoDeVenda"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoDeVenda"]),
+                Estoque = r["Estoque"] == DBNull.Value ? 0 : Convert.ToInt32(r["Estoque"]),
+                DataDeEntrada = r["DataDeEntrada"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["DataDeEntrada"]),
+                Status = r["Status"] == DBNull.Value ? "" : r["Status"].ToString(),
+                Situacao = r["Situacao"] == DBNull.Value ? "" : r["Situacao"].ToString(),
+                Unidade = r["Unidade"] == DBNull.Value ? "" : r["Unidade"].ToString(),
+                Marca = r["Marca"] == DBNull.Value ? "" : r["Marca"].ToString(),
+                DataValidade = r["DataValidade"] == DBNull.Value ? null : (DateTime?)r["DataValidade"],
+                GtinEan = r["GtinEan"] == DBNull.Value ? "" : r["GtinEan"].ToString(),
+                Imagem = r["Imagem"] == DBNull.Value ? null : r["Imagem"].ToString(),
+                FornecedorID = r["FornecedorID"] == DBNull.Value ? null : (int?)Convert.ToInt32(r["FornecedorID"]),
+                Fornecedor = new FornecedorModel
+                {
+                    FornecedorID = r["FornecedorID"] == DBNull.Value ? 0 : Convert.ToInt32(r["FornecedorID"]),
+                    Nome = r["NomeFornecedor"] == DBNull.Value ? "" : r["NomeFornecedor"].ToString()
+                }
+            };
+        }
         // =========================
         // MAP (inalterado)
         // =========================
@@ -343,18 +337,7 @@ namespace GVC.Infra.Repository
             };
         }
 
-        private static List<ProdutoModel> MapearLista(DataTable dt)
-        {
-            var lista = new List<ProdutoModel>();
-            foreach (DataRow r in dt.Rows)
-                lista.Add(new ProdutoModel
-                {
-                    ProdutoID = Convert.ToInt32(r["ProdutoID"]),
-                    NomeProduto = r["NomeProduto"].ToString()
-                });
-
-            return lista;
-        }
+       
 
         // =========================
         // PARAMS (inalterado)
