@@ -48,10 +48,9 @@ namespace GVC.View
             // ⭐⭐ PASSO 1: Remover TODAS as colunas de navegação/objetos complexos ⭐⭐
             // Estas são as colunas que NÃO vêm do seu SQL direto
             string[] colunasParaRemover = {
-        "ItemVenda",
-        "MovimentacaoEstoques",  // Note o "s" no final - está no plural no seu model
-        "Fornecedor"              // Objeto complexo FornecedorModel
-    };
+            "ItemVenda",
+            "MovimentacaoEstoques",  // Note o "s" no final - está no plural no seu model
+            "Fornecedor" };       // Objeto complexo FornecedorModel
 
             foreach (var nome in colunasParaRemover)
             {
@@ -62,14 +61,14 @@ namespace GVC.View
             }
 
             // ⭐⭐ PASSO 2: Garantir que só as colunas do SELECT permaneçam ⭐⭐
-            // Estas são as colunas que vêm do seu SQL (SqlBase)
+            // Estas são as colunas que vêm do seu SQL (SqlBase) - ATUALIZADO
             var colunasDoSQL = new HashSet<string>
-    {
-        "ProdutoID", "NomeProduto", "Referencia", "PrecoCusto", "Lucro",
-        "PrecoDeVenda", "Estoque", "DataDeEntrada", "Status", "Situacao",
-        "Unidade", "Marca", "DataValidade", "GtinEan", "Imagem",
-        "FornecedorID", "NomeFornecedor", "EmpresaID"
-    };
+            {
+                "ProdutoID", "NomeProduto", "Referencia", "PrecoCusto", "Lucro",
+                "PrecoDeVenda", "Estoque", "DataDeEntrada", "Status", "Situacao",
+                "Unidade", "MarcaID", "NomeMarca", "DataValidade", "GtinEan", "Imagem",  // 🔹 ATUALIZADO
+                "FornecedorID", "NomeFornecedor", "EmpresaID"
+            };
 
             // Remover do final para o início para não bagunçar os índices
             for (int i = dgvProdutos.Columns.Count - 1; i >= 0; i--)
@@ -83,12 +82,13 @@ namespace GVC.View
 
             // ⭐⭐ PASSO 3: Ocultar colunas primeiro ⭐⭐
             string[] colunasParaOcultar = {
-        "ProdutoID",
-        "FornecedorID",
-        "DataDeEntrada",
-        "Imagem",
-        "EmpresaID"  // Se não quiser mostrar
-    };
+                "ProdutoID",
+                "FornecedorID",
+                "DataDeEntrada",
+                "Imagem",
+                "EmpresaID",
+                "MarcaID"  // 🔹 ADICIONE ESTA LINHA (novo campo)
+            };
 
             foreach (var nome in colunasParaOcultar)
             {
@@ -97,9 +97,6 @@ namespace GVC.View
                     dgvProdutos.Columns[nome].Visible = false;
                 }
             }
-
-            // ⭐⭐ PASSO 4: Reordenar colunas visíveis ⭐⭐
-            ReordenarColunas();
 
             // ⭐⭐ PASSO 5: Cabeçalhos ⭐⭐
             // Use Contains para evitar exceções
@@ -124,8 +121,9 @@ namespace GVC.View
             if (dgvProdutos.Columns.Contains("Referencia"))
                 dgvProdutos.Columns["Referencia"].HeaderText = "Referência";
 
-            if (dgvProdutos.Columns.Contains("Marca"))
-                dgvProdutos.Columns["Marca"].HeaderText = "Marca";
+            // 🔹 ALTERE ESTA LINHA (de "Marca" para "NomeMarca"):
+            if (dgvProdutos.Columns.Contains("NomeMarca"))
+                dgvProdutos.Columns["NomeMarca"].HeaderText = "Marca";
 
             if (dgvProdutos.Columns.Contains("Status"))
                 dgvProdutos.Columns["Status"].HeaderText = "Status";
@@ -139,29 +137,23 @@ namespace GVC.View
             if (dgvProdutos.Columns.Contains("GtinEan"))
                 dgvProdutos.Columns["GtinEan"].HeaderText = "Código EAN";
 
-            // ⭐⭐ IMPORTANTE: Configurar a coluna NomeFornecedor ⭐⭐
-            if (dgvProdutos.Columns.Contains("NomeFornecedor"))
-            {
-                dgvProdutos.Columns["NomeFornecedor"].HeaderText = "Fornecedor";
-                // NÃO configure DataPropertyName - já está correto
-            }
-
             // ⭐⭐ PASSO 6: Colunas fixas ⭐⭐
             var colunasFixas = new (string nome, int largura)[]
             {
-        ("NomeProduto", 400),
-        ("PrecoCusto", 80),
-        ("Lucro", 80),
-        ("PrecoDeVenda", 80),
-        ("Estoque", 80),
-        ("DataValidade", 100),
-        ("Status", 100),
-        ("Situacao", 100),
-        ("Unidade", 80),
-        ("GtinEan", 120),
-        ("NomeFornecedor", 200),
-        ("FornecedorID", 80)
-            };
+                ("NomeProduto", 400),
+                ("PrecoCusto", 80),
+                ("Lucro", 80),
+                ("PrecoDeVenda", 80),
+                ("Estoque", 80),
+                ("DataValidade", 100),
+                ("Status", 100),
+                ("Situacao", 100),
+                ("Unidade", 80),
+                ("GtinEan", 120),
+                ("NomeFornecedor", 200),
+                ("NomeMarca", 150),  // 🔹 ADICIONE ESTA LINHA (novo campo)
+                ("FornecedorID", 80)
+                        };
 
             foreach (var (nome, largura) in colunasFixas)
             {
@@ -175,7 +167,8 @@ namespace GVC.View
             }
 
             // ⭐⭐ PASSO 7: Colunas dinâmicas ⭐⭐
-            foreach (var nome in new[] { "Referencia", "Marca" })
+            // 🔹 REMOVA "Marca" daqui, pois agora é NomeMarca e está nas colunas fixas
+            foreach (var nome in new[] { "Referencia" })  // 🔹 REMOVIDO "Marca"
             {
                 if (dgvProdutos.Columns.Contains(nome))
                 {
@@ -210,31 +203,33 @@ namespace GVC.View
         }
 
         // ⭐⭐ Método ReordenarColunas ATUALIZADO ⭐⭐
+        // ⭐⭐ Método ReordenarColunas ATUALIZADO ⭐⭐
         private void ReordenarColunas()
         {
             // Ordem desejada das colunas (da esquerda para direita)
             // Apenas colunas que REALMENTE existem no DataGridView após a limpeza
             string[] ordemColunas =
             {
-        "ProdutoID",           // Oculto
-        "NomeProduto",         // Primeira coluna visível
-        "Referencia",
-        "PrecoCusto",
-        "Lucro",
-        "PrecoDeVenda",
-        "Estoque",
-        "DataDeEntrada",       // Oculto
-        "DataValidade",
-        "NomeFornecedor",      // Coluna do fornecedor
-        "Marca",
-        "Unidade",
-        "Status",
-        "Situacao",
-        "GtinEan",
-        "FornecedorID",        // Oculto
-        "Imagem",              // Oculto
-        "EmpresaID"            // Oculto
-    };
+                "ProdutoID",           // Oculto
+                "NomeProduto",         // Primeira coluna visível
+                "Referencia",
+                "PrecoCusto",
+                "Lucro",
+                "PrecoDeVenda",
+                "Estoque",
+                "DataDeEntrada",       // Oculto
+                "DataValidade",
+                "NomeFornecedor",      // Coluna do fornecedor
+                "NomeMarca",           // 🔹 ALTERADO de "Marca" para "NomeMarca"
+                "Unidade",
+                "Status",
+                "Situacao",
+                "GtinEan",
+                "MarcaID",             // 🔹 ADICIONADO (será oculto)
+                "FornecedorID",        // Oculto
+                "Imagem",              // Oculto
+                "EmpresaID"            // Oculto
+            };
 
             // Aplica a ordem apenas para colunas que existem
             int displayIndex = 0;
@@ -247,7 +242,6 @@ namespace GVC.View
                 }
             }
         }
-
 
         private void CarregaDados()
         {
@@ -288,7 +282,15 @@ namespace GVC.View
             frm.txtPrecoDeVenda.Text = produto.PrecoDeVenda.ToString("N2");
             frm.txtEstoque.Text = produto.Estoque.ToString();
             frm.cmbUnidade.Text = produto.Unidade ?? "";
-            frm.cmbMarca.Text = produto.Marca ?? "";
+
+            // Substitua por:
+            int marcaId = produto.MarcaID ?? 0;
+
+            // Primeiro, certifique-se que o combobox foi carregado
+            // O combobox já deve estar carregado no Load do FrmCadProdutos
+            // Então apenas selecione o item correto
+            frm.SelecionarMarcaPorId(marcaId);
+
             frm.txtDataValidade.Text = produto.DataValidade.HasValue ? produto.DataValidade.Value.ToString("dd/MM/yyyy") : "";
             frm.txtGtinEan.Text = produto.GtinEan ?? "";
             frm.txtFornecedor.Text = produto.Fornecedor?.Nome ?? "";

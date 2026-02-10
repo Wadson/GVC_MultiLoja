@@ -80,7 +80,7 @@ namespace GVC.Infra.Repository
                     NomeProduto,
                     Estoque,
                     Unidade,
-                    Marca
+                    MarcaID
                 FROM Produtos
                 WHERE Estoque <= @Limite
                   AND Status = 'Ativo'

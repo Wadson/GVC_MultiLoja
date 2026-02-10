@@ -293,7 +293,7 @@ namespace GVC
         private async void BuscarAtualizacaoSistema()
         {
             await GVC.Infra.Update.UpdateService.VerificarAtualizacaoAsync(false);
-        }       
+        }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
@@ -322,10 +322,10 @@ namespace GVC
             // Atualiza a label de usuário na barra de status
             string usuarioLogado = FrmLogin.UsuarioConectado;
             string nivelAcesso = FrmLogin.NivelAcesso;
-           
+
             lblTipoUsuarioo.Text = $"{nivelAcesso}";
 
-            lblUsuarioLogadoo.Text = Sessao.NomeUsuario;            
+            lblUsuarioLogadoo.Text = Sessao.NomeUsuario;
             lblEmpresa.Text = $"Empresa: {Sessao.EmpresaNome}";
 
             // Atualiza a data
@@ -497,6 +497,13 @@ namespace GVC
                 return;
 
             TrocarEmpresa(empresa.EmpresaID, empresa.NomeFantasia);
+        }
+
+        private void marcasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmManutMarca frm = new FrmManutMarca(StatusOperacao);
+            StatusOperacao = "NOVO";
+            frm.Show();
         }
     }
 }

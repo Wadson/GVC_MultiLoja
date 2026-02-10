@@ -76,6 +76,7 @@
             kryptonLabel5 = new Krypton.Toolkit.KryptonLabel();
             cmbUnidade = new Krypton.Toolkit.KryptonComboBox();
             cmbMarca = new Krypton.Toolkit.KryptonComboBox();
+            lblMarcaId = new Label();
             ((System.ComponentModel.ISupportInitialize)pbImagem).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
@@ -282,7 +283,7 @@
             txtReferencia.CharacterCasing = CharacterCasing.Upper;
             txtReferencia.Location = new Point(20, 154);
             txtReferencia.Name = "txtReferencia";
-            txtReferencia.Size = new Size(320, 24);
+            txtReferencia.Size = new Size(274, 24);
             txtReferencia.StateCommon.Back.Color1 = Color.White;
             txtReferencia.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtReferencia.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -1028,7 +1029,6 @@
             cmbMarca.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbMarca.DropDownWidth = 115;
             cmbMarca.IntegralHeight = false;
-            cmbMarca.Items.AddRange(new object[] { "NATURA", "HREBOS", "BOTICARIO", "BASIK", "INOVA", "GENERICO", "SAMSUNG", "LENOVO" });
             cmbMarca.Location = new Point(345, 154);
             cmbMarca.Name = "cmbMarca";
             cmbMarca.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
@@ -1062,12 +1062,26 @@
             cmbMarca.StateTracking.Item.Content.ShortText.Color2 = Color.White;
             cmbMarca.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
             cmbMarca.TabIndex = 1093;
-            cmbMarca.Text = "GENERICO";
+            cmbMarca.SelectedIndexChanged += cmbMarca_SelectedIndexChanged;
+            // 
+            // lblMarcaId
+            // 
+            lblMarcaId.Anchor = AnchorStyles.Top;
+            lblMarcaId.AutoSize = true;
+            lblMarcaId.BackColor = Color.Transparent;
+            lblMarcaId.Font = new Font("Microsoft Sans Serif", 9.25F);
+            lblMarcaId.ForeColor = Color.FromArgb(0, 76, 172);
+            lblMarcaId.Location = new Point(313, 160);
+            lblMarcaId.Name = "lblMarcaId";
+            lblMarcaId.Size = new Size(14, 16);
+            lblMarcaId.TabIndex = 1095;
+            lblMarcaId.Text = "0";
             // 
             // FrmCadProdutos
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(1008, 661);
+            Controls.Add(lblMarcaId);
             Controls.Add(cmbMarca);
             Controls.Add(cmbUnidade);
             Controls.Add(cmbSituacao);
@@ -1186,6 +1200,7 @@
         public Krypton.Toolkit.KryptonComboBox cmbStatus;
         public Krypton.Toolkit.KryptonComboBox cmbUnidade;
         public Krypton.Toolkit.KryptonComboBox cmbMarca;
+        private Label lblMarcaId;
         //private System.Windows.Forms.DateTimePicker dtpDataDeEntrada;
     }
 }

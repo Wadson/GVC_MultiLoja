@@ -16,7 +16,8 @@ public partial class ProdutoModel
     public string Status { get; set; } = null!;
     public string? Situacao { get; set; }
     public string? Unidade { get; set; }
-    public string? Marca { get; set; }
+    public int? MarcaID { get; set; }
+    public string NomeMarca { get; set; } // 🔹 nova propriedade
     public DateTime? DataValidade { get; set; }
     public string? GtinEan { get; set; }
     public string? Imagem { get; set; }    

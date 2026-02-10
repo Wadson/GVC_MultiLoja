@@ -102,6 +102,7 @@
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             cmbEmpresa = new Krypton.Toolkit.KryptonComboBox();
             label1 = new Label();
+            marcasToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -189,7 +190,7 @@
             // 
             // cadastrosToolStripMenuItem
             // 
-            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, produtosToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, empresasToolStripMenuItem, usuáriosToolStripMenuItem, testeToolStripMenuItem });
+            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, empresasToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, marcasToolStripMenuItem, produtosToolStripMenuItem, usuáriosToolStripMenuItem, testeToolStripMenuItem });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -796,6 +797,13 @@
             label1.TabIndex = 1070;
             label1.Text = "Empresa:";
             // 
+            // marcasToolStripMenuItem
+            // 
+            marcasToolStripMenuItem.Name = "marcasToolStripMenuItem";
+            marcasToolStripMenuItem.Size = new Size(188, 22);
+            marcasToolStripMenuItem.Text = "Marcas";
+            marcasToolStripMenuItem.Click += marcasToolStripMenuItem_Click;
+            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -913,5 +921,6 @@
         private Label label1;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         public Krypton.Toolkit.KryptonComboBox cmbEmpresa;
+        private ToolStripMenuItem marcasToolStripMenuItem;
     }
 }

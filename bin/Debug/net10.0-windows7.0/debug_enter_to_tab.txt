@@ -172,3 +172,5 @@
 2026-02-08 07:19:44 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
 2026-02-08 07:19:47 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
 2026-02-08 07:19:47 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonTextBox+InternalTextBox (Name=)
+2026-02-09 22:05:37 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonComboBox+InternalComboBox (Name=)
+2026-02-09 23:41:37 - Enter pressed - ActiveControl: Krypton.Toolkit.KryptonComboBox+InternalComboBox (Name=)

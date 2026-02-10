@@ -1,5 +1,7 @@
 using Dapper;
 using GVC.DTO;
+using GVC.Infra.Conexao;
+using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.Model.Enums;
 using Krypton.Toolkit;
@@ -26,7 +28,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
-using GVC.Infra.Conexao;
 
 namespace GVC.UTIL {
     public static class Utilitario
@@ -1427,6 +1428,49 @@ namespace GVC.UTIL {
                 cmb.SelectedValue = Sessao.EmpresaID;
             else
                 cmb.SelectedIndex = 0;
+        }
+        public static void CarregarMarca(KryptonComboBox cmb, bool filtrarPorSessao = true)
+        {
+            cmb.Items.Clear();
+
+            // Item padrão
+            cmb.Items.Add(new MarcaModel
+            {
+                MarcaID = 0,
+                NomeMarca = "Selecione a marca",
+                EmpresaID = 0
+            });
+
+            // Se filtrarPorSessao = true, filtra apenas marcas da empresa logada
+            int empresaId = filtrarPorSessao ? Sessao.EmpresaID : 0;
+
+            string sql = @"SELECT MarcaID, NomeMarca, EmpresaID 
+                   FROM Marca 
+                   WHERE (@EmpresaID = 0 OR EmpresaID = @EmpresaID)
+                   ORDER BY NomeMarca";
+
+            using var conn = Conexao.Conex();
+            using var cmd = new SqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@EmpresaID", empresaId);
+
+            conn.Open();
+            using var dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                cmb.Items.Add(new MarcaModel
+                {
+                    MarcaID = Convert.ToInt32(dr["MarcaID"]),
+                    NomeMarca = dr["NomeMarca"].ToString(),
+                    EmpresaID = Convert.ToInt32(dr["EmpresaID"])
+                });
+            }
+
+            cmb.DisplayMember = nameof(MarcaModel.NomeMarca);
+            cmb.ValueMember = nameof(MarcaModel.MarcaID);
+
+            cmb.SelectedIndex = 0;
         }
     }
 }

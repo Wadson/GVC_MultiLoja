@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             timer1 = new System.Windows.Forms.Timer(components);
-            dgvUsuarios = new Krypton.Toolkit.KryptonDataGridView();
+            dgvMarcas = new Krypton.Toolkit.KryptonDataGridView();
             btnSair = new Krypton.Toolkit.KryptonButton();
             btnExcluir = new Krypton.Toolkit.KryptonButton();
             btnNovo = new Krypton.Toolkit.KryptonButton();
@@ -51,7 +51,7 @@
             btnEstoque = new Krypton.Toolkit.KryptonButton();
             kryptonButton3 = new Krypton.Toolkit.KryptonButton();
             kryptonButton4 = new Krypton.Toolkit.KryptonButton();
-            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMarcas).BeginInit();
             kryptonStatusStrip1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
@@ -68,21 +68,21 @@
             timer1.Interval = 1000;
             timer1.Tick += timer1_Tick;
             // 
-            // dgvUsuarios
+            // dgvMarcas
             // 
-            dgvUsuarios.AllowUserToAddRows = false;
-            dgvUsuarios.AllowUserToDeleteRows = false;
-            dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUsuarios.Dock = DockStyle.Fill;
-            dgvUsuarios.Location = new Point(3, 73);
-            dgvUsuarios.MultiSelect = false;
-            dgvUsuarios.Name = "dgvUsuarios";
-            dgvUsuarios.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            dgvUsuarios.ReadOnly = true;
-            dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUsuarios.Size = new Size(998, 419);
-            dgvUsuarios.TabIndex = 597;
-            dgvUsuarios.CellFormatting += dataGridPesquisar_CellFormatting;
+            dgvMarcas.AllowUserToAddRows = false;
+            dgvMarcas.AllowUserToDeleteRows = false;
+            dgvMarcas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMarcas.Dock = DockStyle.Fill;
+            dgvMarcas.Location = new Point(3, 73);
+            dgvMarcas.MultiSelect = false;
+            dgvMarcas.Name = "dgvMarcas";
+            dgvMarcas.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
+            dgvMarcas.ReadOnly = true;
+            dgvMarcas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMarcas.Size = new Size(998, 419);
+            dgvMarcas.TabIndex = 597;
+            
             // 
             // btnSair
             // 
@@ -386,7 +386,7 @@
             tableLayoutPanel2.Controls.Add(kryptonPanel3, 0, 0);
             tableLayoutPanel2.Controls.Add(kryptonPanel5, 0, 1);
             tableLayoutPanel2.Controls.Add(kryptonPanel6, 0, 3);
-            tableLayoutPanel2.Controls.Add(dgvUsuarios, 0, 2);
+            tableLayoutPanel2.Controls.Add(dgvMarcas, 0, 2);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -421,7 +421,7 @@
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel2.TabIndex = 0;
-            kryptonLabel2.Values.Text = "MANUTENÇÃO DE USUÁRIOS";
+            kryptonLabel2.Values.Text = "MANUTENÇÃO DE MARCAS";
             // 
             // kryptonPanel5
             // 
@@ -745,22 +745,22 @@
             kryptonButton4.TabStop = false;
             kryptonButton4.Values.Text = "&Novo";
             // 
-            // FrmManutUsuario
+            // FrmManutMarca
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(1004, 557);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(kryptonStatusStrip1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
-            Name = "FrmManutUsuario";
+            Name = "FrmManutMarca";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Manutenção de Usuários";
-            Load += FrmManutUsuario_Load;
-            Shown += FrmManutUsuario_Shown;
-            ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();
+            Text = "Manutenção de Marcas";
+            Load += FrmManutMarca_Load;
+            Shown += FrmManutMarca_Shown;
+            ((System.ComponentModel.ISupportInitialize)dgvMarcas).EndInit();
             kryptonStatusStrip1.ResumeLayout(false);
             kryptonStatusStrip1.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
@@ -781,7 +781,7 @@
         #endregion
 
         private System.Windows.Forms.Timer timer1;
-        private Krypton.Toolkit.KryptonDataGridView dgvUsuarios;
+        private Krypton.Toolkit.KryptonDataGridView dgvMarcas;
         public Krypton.Toolkit.KryptonButton btnSair;
         public Krypton.Toolkit.KryptonButton btnExcluir;
         public Krypton.Toolkit.KryptonButton btnNovo;

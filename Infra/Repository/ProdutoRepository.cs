@@ -17,27 +17,30 @@ namespace GVC.Infra.Repository
         }
 
         private const string SqlBase = @"
-            SELECT
-                p.ProdutoID,
-                p.NomeProduto,
-                p.Referencia,
-                p.PrecoCusto,
-                p.Lucro,
-                p.PrecoDeVenda,
-                p.Estoque,
-                p.DataDeEntrada,
-                p.Status,
-                p.Situacao,
-                p.Unidade,
-                p.Marca,
-                p.DataValidade,
-                p.GtinEan,
-                p.Imagem,
-                p.FornecedorID,
-                ISNULL(f.Nome, '') AS NomeFornecedor
-            FROM Produtos p
-            LEFT JOIN Fornecedor f ON f.FornecedorID = p.FornecedorID
-            WHERE p.EmpresaID = @EmpresaID";
+    SELECT
+        p.ProdutoID,
+        p.NomeProduto,
+        p.Referencia,
+        p.PrecoCusto,
+        p.Lucro,
+        p.PrecoDeVenda,
+        p.Estoque,
+        p.DataDeEntrada,
+        p.Status,
+        p.Situacao,
+        p.Unidade,
+        p.MarcaID,
+        m.NomeMarca,  -- 🔹 agora traz o nome da marca
+        p.DataValidade,
+        p.GtinEan,
+        p.Imagem,
+        p.FornecedorID,
+        ISNULL(f.Nome, '') AS NomeFornecedor
+    FROM Produtos p
+    LEFT JOIN Fornecedor f ON f.FornecedorID = p.FornecedorID
+    LEFT JOIN Marca m ON m.MarcaID = p.MarcaID   -- 🔹 join com tabela Marca
+    WHERE p.EmpresaID = @EmpresaID";
+
 
         // =========================
         // AUXILIAR
@@ -83,17 +86,20 @@ namespace GVC.Infra.Repository
             var lista = new List<ProdutoModel>();
 
             using var cmd = CreateCommand(@"
-                SELECT TOP 100
-                    ProdutoID,
-                    NomeProduto,
-                    Referencia,
-                    PrecoDeVenda,
-                    Estoque,
-                    Unidade,
-                    Marca
-                FROM Produtos
-                WHERE EmpresaID = @EmpresaID
-                ORDER BY NomeProduto");
+    SELECT TOP 100
+        p.ProdutoID,
+        p.NomeProduto,
+        p.Referencia,
+        p.PrecoDeVenda,
+        p.Estoque,
+        p.Unidade,
+        p.MarcaID,
+        m.NomeMarca   -- 🔹 agora traz o nome da marca
+    FROM Produtos p
+    LEFT JOIN Marca m ON m.MarcaID = p.MarcaID
+    WHERE p.EmpresaID = @EmpresaID
+    ORDER BY p.NomeProduto");
+
 
             using var dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -157,13 +163,13 @@ namespace GVC.Infra.Repository
                 INSERT INTO Produtos (
                     NomeProduto, Referencia, PrecoCusto, Lucro, PrecoDeVenda,
                     Estoque, DataDeEntrada, Status, Situacao,
-                    Unidade, Marca, DataValidade, GtinEan, Imagem,
+                    Unidade, MarcaID, DataValidade, GtinEan, Imagem,
                     FornecedorID, EmpresaID
                 )
                 VALUES (
                     @NomeProduto, @Referencia, @PrecoCusto, @Lucro, @PrecoDeVenda,
                     @Estoque, @DataDeEntrada, @Status, @Situacao,
-                    @Unidade, @Marca, @DataValidade, @GtinEan, @Imagem,
+                    @Unidade, @MarcaID, @DataValidade, @GtinEan, @Imagem,
                     @FornecedorID, @EmpresaID
                 );
                 SELECT CAST(SCOPE_IDENTITY() AS BIGINT);";
@@ -190,7 +196,7 @@ namespace GVC.Infra.Repository
                     Status = @Status,
                     Situacao = @Situacao,
                     Unidade = @Unidade,
-                    Marca = @Marca,
+                    MarcaID = @MarcaID,
                     DataValidade = @DataValidade,
                     GtinEan = @GtinEan,
                     Imagem = @Imagem,
@@ -279,10 +285,17 @@ namespace GVC.Infra.Repository
                 Status = r["Status"] == DBNull.Value ? "" : r["Status"].ToString(),
                 Situacao = r["Situacao"] == DBNull.Value ? "" : r["Situacao"].ToString(),
                 Unidade = r["Unidade"] == DBNull.Value ? "" : r["Unidade"].ToString(),
-                Marca = r["Marca"] == DBNull.Value ? "" : r["Marca"].ToString(),
+
+                // 🔹 Marca
+                MarcaID = r["MarcaID"] == DBNull.Value ? 0 : Convert.ToInt32(r["MarcaID"]),
+                NomeMarca = r.Table.Columns.Contains("NomeMarca") && r["NomeMarca"] != DBNull.Value
+                    ? r["NomeMarca"].ToString()
+                    : string.Empty,
+
                 DataValidade = r["DataValidade"] == DBNull.Value ? null : (DateTime?)r["DataValidade"],
                 GtinEan = r["GtinEan"] == DBNull.Value ? "" : r["GtinEan"].ToString(),
                 Imagem = r["Imagem"] == DBNull.Value ? null : r["Imagem"].ToString(),
+
                 FornecedorID = r["FornecedorID"] == DBNull.Value ? null : (int?)Convert.ToInt32(r["FornecedorID"]),
                 Fornecedor = new FornecedorModel
                 {
@@ -291,6 +304,7 @@ namespace GVC.Infra.Repository
                 }
             };
         }
+
         // =========================
         // MAP (inalterado)
         // =========================
@@ -309,7 +323,9 @@ namespace GVC.Infra.Repository
                 Status = r["Status"] == DBNull.Value ? "" : r["Status"].ToString(),
                 Situacao = r["Situacao"] == DBNull.Value ? "" : r["Situacao"].ToString(),
                 Unidade = r["Unidade"] == DBNull.Value ? "" : r["Unidade"].ToString(),
-                Marca = r["Marca"] == DBNull.Value ? "" : r["Marca"].ToString(),
+                // 🔹 Marca
+                MarcaID = r["MarcaID"] == DBNull.Value ? 0 : Convert.ToInt32(r["MarcaID"]),
+                NomeMarca = r["NomeMarca"] == DBNull.Value ? "" : r["NomeMarca"].ToString(),
                 DataValidade = r["DataValidade"] == DBNull.Value ? null : (DateTime?)r["DataValidade"],
                 GtinEan = r["GtinEan"] == DBNull.Value ? "" : r["GtinEan"].ToString(),
                 Imagem = r["Imagem"] == DBNull.Value ? null : r["Imagem"].ToString(),
@@ -333,7 +349,7 @@ namespace GVC.Infra.Repository
                 PrecoDeVenda = Convert.ToDecimal(r["PrecoDeVenda"]),
                 Estoque = Convert.ToInt32(r["Estoque"]),
                 Unidade = r["Unidade"]?.ToString(),
-                Marca = r["Marca"]?.ToString()
+                MarcaID = Convert.ToInt32(r["MarcaID"])
             };
         }
 
@@ -353,7 +369,7 @@ namespace GVC.Infra.Repository
             cmd.Parameters.Add("@Status", SqlDbType.NVarChar).Value = (object?)p.Status ?? DBNull.Value;
             cmd.Parameters.Add("@Situacao", SqlDbType.NVarChar).Value = (object?)p.Situacao ?? DBNull.Value;
             cmd.Parameters.Add("@Unidade", SqlDbType.NVarChar).Value = (object?)p.Unidade ?? DBNull.Value;
-            cmd.Parameters.Add("@Marca", SqlDbType.NVarChar).Value = (object?)p.Marca ?? DBNull.Value;
+            cmd.Parameters.Add("@MarcaID", SqlDbType.NVarChar).Value = (object?)p.MarcaID ?? DBNull.Value;
             cmd.Parameters.Add("@DataValidade", SqlDbType.Date).Value = p.DataValidade.HasValue ? p.DataValidade.Value : DBNull.Value;
             cmd.Parameters.Add("@GtinEan", SqlDbType.NVarChar).Value = (object?)p.GtinEan ?? DBNull.Value;
             cmd.Parameters.Add("@Imagem", SqlDbType.VarChar).Value = (object?)p.Imagem ?? DBNull.Value;
