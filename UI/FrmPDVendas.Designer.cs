@@ -868,10 +868,7 @@
             Controls.Add(lblDesconto);
             Controls.Add(lblTotalLiquido);
             Controls.Add(tlpMain);
-            FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
-            MaximizeBox = false;
-            MinimizeBox = false;
             Name = "FrmPDVendas";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;

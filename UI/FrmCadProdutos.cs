@@ -103,37 +103,7 @@ using System.Drawing;
                 // Log silencioso ou mostra mensagem
                 Debug.WriteLine($"Erro ao selecionar marca: {ex.Message}");
             }
-        }
-        // No FrmCadProdutos.cs
-        //public void SelecionarMarcaPorId(int marcaId)
-        //{
-        //    try
-        //    {
-        //        if (marcaId <= 0)
-        //        {
-        //            cmbMarca.SelectedIndex = 0; // Seleciona "Selecione a marca"
-        //            return;
-        //        }
-
-        //        // Procura o MarcaID nos itens do combobox
-        //        foreach (MarcaModel item in cmbMarca.Items)
-        //        {
-        //            if (item.MarcaID == marcaId)
-        //            {
-        //                cmbMarca.SelectedItem = item;
-        //                return;
-        //            }
-        //        }
-
-        //        // Se não encontrou, seleciona o primeiro item
-        //        cmbMarca.SelectedIndex = 0;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Utilitario.Mensagens.Erro($"Erro ao selecionar marca: {ex.Message}");
-        //        cmbMarca.SelectedIndex = 0;
-        //    }
-        //}
+        }       
 
         private void FrmCadProdutos_Load(object sender, EventArgs e)
         {         
@@ -149,9 +119,6 @@ using System.Drawing;
             {
                 Utilitario.Mensagens.Erro($"Erro ao carregar marcas: {ex.Message}");
             }
-
-
-
 
             if (!ValidadorSessao.Validar(this))
                 return;

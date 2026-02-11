@@ -81,13 +81,26 @@ namespace GVC.BLL
                 throw new Exception($"Erro ao carregar Empresas: {ex.Message}", ex);
             }
         }
-     
+
         // Obtém a primeira empresa cadastrada no banco.       
         // <returns>Objeto EmpresaModel ou null se não houver empresa.</returns>
         public EmpresaModel ObterEmpresaAtual()
         {
-            return _empresaDal.ObterEmpresaAtual();
+            if (!Sessao.Logado)
+                throw new Exception("Sessão inválida.");
+
+            if (Sessao.EmpresaID <= 0)
+                throw new Exception("Empresa não definida na sessão.");
+
+            var empresa = _empresaDal.BuscarEmpresaPorId(Sessao.EmpresaID);
+
+            if (empresa == null)
+                throw new Exception("Empresa ativa não encontrada.");
+
+            return empresa;
         }
+
+
         // Obtém uma empresa específica pelo ID.        
         public EmpresaModel? ObterEmpresaPorId(int empresaId)
         {

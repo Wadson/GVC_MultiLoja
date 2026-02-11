@@ -180,10 +180,14 @@ namespace GVC.View
             dataGridPesquisar.PerformLayout();
         }
 
-        public new int ObterLinhaAtual()
+        public int ObterLinhaAtual()
         {
-            return LinhaAtual;
+            if (dataGridPesquisar.CurrentRow == null)
+                return -1;
+
+            return dataGridPesquisar.CurrentRow.Index;
         }
+
 
         public void ListarProduto()
         {
@@ -236,19 +240,20 @@ namespace GVC.View
                 }
 
                 if (dataGridPesquisar["ProdutoID", LinhaAtual]?.Value == null ||
-                    dataGridPesquisar["NomeProduto", LinhaAtual]?.Value == null ||
-                    dataGridPesquisar["Referencia", LinhaAtual]?.Value == null ||
-                    dataGridPesquisar["Estoque", LinhaAtual]?.Value == null ||
-                    dataGridPesquisar["PrecoDeVenda", LinhaAtual]?.Value == null)
+                     dataGridPesquisar["NomeProduto", LinhaAtual]?.Value == null ||
+                     dataGridPesquisar["Estoque", LinhaAtual]?.Value == null ||
+                     dataGridPesquisar["PrecoDeVenda", LinhaAtual]?.Value == null)
                 {
                     Utilitario.Mensagens.Aviso("Dados do produto inválidos.");
                     return;
                 }
 
+
                 // Preenche as propriedades públicas que o chamador vai ler
                 ProdutoID = Convert.ToInt32(dataGridPesquisar["ProdutoID", LinhaAtual].Value);
                 ProdutoSelecionado = dataGridPesquisar["NomeProduto", LinhaAtual].Value.ToString();
-                Referencia = dataGridPesquisar["Referencia", LinhaAtual].Value.ToString();
+                Referencia = dataGridPesquisar["Referencia", LinhaAtual]?.Value?.ToString() ?? "";
+
                 Estoque = Convert.ToDecimal(dataGridPesquisar["Estoque", LinhaAtual].Value);
                 PrecoUnitario = Convert.ToDecimal(dataGridPesquisar["PrecoDeVenda", LinhaAtual].Value);
 
