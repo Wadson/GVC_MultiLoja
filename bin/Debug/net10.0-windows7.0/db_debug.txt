@@ -1,4 +1,0 @@
-Server='NOTEBOOK-DELL\SQLEXPRESS'
-Database='bdgvc'
-User='gvc_userteste'
-Password='gvcuser@'
