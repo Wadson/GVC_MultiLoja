@@ -62,35 +62,14 @@
             btnGerar = new FontAwesome.Sharp.IconButton();
             btnConfirmar = new FontAwesome.Sharp.IconButton();
             panelParcelamento = new Krypton.Toolkit.KryptonPanel();
-            kryptonBorderEdge6 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge4 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge3 = new Krypton.Toolkit.KryptonBorderEdge();
             lblParcelamento = new Krypton.Toolkit.KryptonLabel();
-            kryptonBorderEdge1 = new Krypton.Toolkit.KryptonBorderEdge();
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
-            kryptonBorderEdge11 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge12 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge13 = new Krypton.Toolkit.KryptonBorderEdge();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
-            kryptonBorderEdge14 = new Krypton.Toolkit.KryptonBorderEdge();
             panelRecebimento = new Krypton.Toolkit.KryptonPanel();
-            kryptonBorderEdge2 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge10 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge15 = new Krypton.Toolkit.KryptonBorderEdge();
             kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
-            kryptonBorderEdge16 = new Krypton.Toolkit.KryptonBorderEdge();
             panelDatagrid = new Krypton.Toolkit.KryptonPanel();
-            kryptonBorderEdge5 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge7 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge8 = new Krypton.Toolkit.KryptonBorderEdge();
             kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
-            kryptonBorderEdge9 = new Krypton.Toolkit.KryptonBorderEdge();
-            panelObservacoes = new Krypton.Toolkit.KryptonPanel();
-            kryptonBorderEdge17 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge18 = new Krypton.Toolkit.KryptonBorderEdge();
-            kryptonBorderEdge19 = new Krypton.Toolkit.KryptonBorderEdge();
             lblObservacoes = new Krypton.Toolkit.KryptonLabel();
-            kryptonBorderEdge20 = new Krypton.Toolkit.KryptonBorderEdge();
             ((System.ComponentModel.ISupportInitialize)dgvParcelas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbFormaPagamento).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
@@ -109,8 +88,6 @@
             panelRecebimento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelDatagrid).BeginInit();
             panelDatagrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelObservacoes).BeginInit();
-            panelObservacoes.SuspendLayout();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -253,11 +230,11 @@
             // 
             txtObservacao.CharacterCasing = CharacterCasing.Upper;
             txtObservacao.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
-            txtObservacao.Location = new Point(9, 31);
+            txtObservacao.Location = new Point(16, 431);
             txtObservacao.Multiline = true;
             txtObservacao.Name = "txtObservacao";
             txtObservacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtObservacao.Size = new Size(593, 44);
+            txtObservacao.Size = new Size(447, 36);
             txtObservacao.StateActive.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtObservacao.StateActive.Border.Rounding = 2F;
             txtObservacao.StateActive.Border.Width = 1;
@@ -473,7 +450,7 @@
             btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelar.IconSize = 22;
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelar.Location = new Point(226, 562);
+            btnCancelar.Location = new Point(226, 472);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(120, 32);
             btnCancelar.TabIndex = 1111;
@@ -487,7 +464,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(486, 81);
+            pnlHeader.Size = new Size(486, 63);
             pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             pnlHeader.TabIndex = 1113;
@@ -504,9 +481,9 @@
             tlpTitulo.Location = new Point(0, 0);
             tlpTitulo.Name = "tlpTitulo";
             tlpTitulo.RowCount = 2;
-            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 59.0909081F));
-            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 40.9090919F));
-            tlpTitulo.Size = new Size(486, 81);
+            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 48.57143F));
+            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 51.42857F));
+            tlpTitulo.Size = new Size(486, 63);
             tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             tlpTitulo.TabIndex = 0;
@@ -519,9 +496,9 @@
             panelSubTitulo.Controls.Add(kryptonLabel8);
             panelSubTitulo.Controls.Add(kryptonLabel9);
             panelSubTitulo.Dock = DockStyle.Fill;
-            panelSubTitulo.Location = new Point(3, 50);
+            panelSubTitulo.Location = new Point(3, 33);
             panelSubTitulo.Name = "panelSubTitulo";
-            panelSubTitulo.Size = new Size(480, 28);
+            panelSubTitulo.Size = new Size(480, 27);
             panelSubTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             panelSubTitulo.TabIndex = 2;
             // 
@@ -594,7 +571,7 @@
             panelTitulo.Dock = DockStyle.Fill;
             panelTitulo.Location = new Point(3, 3);
             panelTitulo.Name = "panelTitulo";
-            panelTitulo.Size = new Size(480, 41);
+            panelTitulo.Size = new Size(480, 24);
             panelTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             panelTitulo.TabIndex = 1;
             // 
@@ -614,7 +591,7 @@
             // lblVendaNumero
             // 
             lblVendaNumero.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblVendaNumero.Location = new Point(377, 4);
+            lblVendaNumero.Location = new Point(428, 4);
             lblVendaNumero.Name = "lblVendaNumero";
             lblVendaNumero.Size = new Size(42, 27);
             lblVendaNumero.StateCommon.ShortText.Color1 = Color.White;
@@ -627,7 +604,7 @@
             // lblVendaN
             // 
             lblVendaN.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblVendaN.Location = new Point(290, 4);
+            lblVendaN.Location = new Point(341, 4);
             lblVendaN.Name = "lblVendaN";
             lblVendaN.Size = new Size(91, 27);
             lblVendaN.StateCommon.ShortText.Color1 = Color.White;
@@ -679,7 +656,7 @@
             btnConfirmar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnConfirmar.IconSize = 22;
             btnConfirmar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConfirmar.Location = new Point(350, 562);
+            btnConfirmar.Location = new Point(350, 472);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Padding = new Padding(10, 0, 10, 0);
             btnConfirmar.Size = new Size(120, 32);
@@ -691,53 +668,20 @@
             // 
             // panelParcelamento
             // 
-            panelParcelamento.Controls.Add(kryptonBorderEdge6);
-            panelParcelamento.Controls.Add(kryptonBorderEdge4);
-            panelParcelamento.Controls.Add(kryptonBorderEdge3);
+            panelParcelamento.Controls.Add(panelRecebimento);
             panelParcelamento.Controls.Add(lblParcelamento);
             panelParcelamento.Controls.Add(btnGerar);
             panelParcelamento.Controls.Add(lblNumParcelas);
-            panelParcelamento.Controls.Add(kryptonBorderEdge1);
             panelParcelamento.Controls.Add(dtpPrimeiraParcela);
             panelParcelamento.Controls.Add(lblPrimeiraParcela);
             panelParcelamento.Controls.Add(numIntervalo);
             panelParcelamento.Controls.Add(numParcelas);
             panelParcelamento.Controls.Add(lblIntervalo);
-            panelParcelamento.Location = new Point(8, 171);
+            panelParcelamento.Location = new Point(1, 128);
             panelParcelamento.Name = "panelParcelamento";
             panelParcelamento.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelParcelamento.Size = new Size(466, 115);
             panelParcelamento.TabIndex = 1127;
-            // 
-            // kryptonBorderEdge6
-            // 
-            kryptonBorderEdge6.Dock = DockStyle.Right;
-            kryptonBorderEdge6.Location = new Point(463, 21);
-            kryptonBorderEdge6.Name = "kryptonBorderEdge6";
-            kryptonBorderEdge6.Size = new Size(3, 93);
-            kryptonBorderEdge6.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge6.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge6.Text = "kryptonBorderEdge6";
-            // 
-            // kryptonBorderEdge4
-            // 
-            kryptonBorderEdge4.Dock = DockStyle.Top;
-            kryptonBorderEdge4.Location = new Point(3, 20);
-            kryptonBorderEdge4.Name = "kryptonBorderEdge4";
-            kryptonBorderEdge4.Size = new Size(463, 1);
-            kryptonBorderEdge4.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge4.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge4.Text = "kryptonBorderEdge4";
-            // 
-            // kryptonBorderEdge3
-            // 
-            kryptonBorderEdge3.Dock = DockStyle.Left;
-            kryptonBorderEdge3.Location = new Point(0, 20);
-            kryptonBorderEdge3.Name = "kryptonBorderEdge3";
-            kryptonBorderEdge3.Size = new Size(3, 94);
-            kryptonBorderEdge3.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge3.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge3.Text = "kryptonBorderEdge3";
             // 
             // lblParcelamento
             // 
@@ -749,59 +693,15 @@
             lblParcelamento.TabIndex = 1038;
             lblParcelamento.Values.Text = "Parcelamento";
             // 
-            // kryptonBorderEdge1
-            // 
-            kryptonBorderEdge1.Dock = DockStyle.Bottom;
-            kryptonBorderEdge1.Location = new Point(0, 114);
-            kryptonBorderEdge1.Name = "kryptonBorderEdge1";
-            kryptonBorderEdge1.Size = new Size(466, 1);
-            kryptonBorderEdge1.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge1.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge1.Text = "kryptonBorderEdge1";
-            // 
             // kryptonPanel1
             // 
-            kryptonPanel1.Controls.Add(kryptonBorderEdge11);
-            kryptonPanel1.Controls.Add(kryptonBorderEdge12);
-            kryptonPanel1.Controls.Add(kryptonBorderEdge13);
             kryptonPanel1.Controls.Add(kryptonLabel2);
             kryptonPanel1.Controls.Add(cmbFormaPagamento);
-            kryptonPanel1.Controls.Add(kryptonBorderEdge14);
-            kryptonPanel1.Location = new Point(5, 101);
+            kryptonPanel1.Location = new Point(5, 69);
             kryptonPanel1.Name = "kryptonPanel1";
             kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             kryptonPanel1.Size = new Size(469, 57);
             kryptonPanel1.TabIndex = 1132;
-            // 
-            // kryptonBorderEdge11
-            // 
-            kryptonBorderEdge11.Dock = DockStyle.Right;
-            kryptonBorderEdge11.Location = new Point(466, 21);
-            kryptonBorderEdge11.Name = "kryptonBorderEdge11";
-            kryptonBorderEdge11.Size = new Size(3, 35);
-            kryptonBorderEdge11.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge11.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge11.Text = "kryptonBorderEdge11";
-            // 
-            // kryptonBorderEdge12
-            // 
-            kryptonBorderEdge12.Dock = DockStyle.Top;
-            kryptonBorderEdge12.Location = new Point(3, 20);
-            kryptonBorderEdge12.Name = "kryptonBorderEdge12";
-            kryptonBorderEdge12.Size = new Size(466, 1);
-            kryptonBorderEdge12.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge12.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge12.Text = "kryptonBorderEdge12";
-            // 
-            // kryptonBorderEdge13
-            // 
-            kryptonBorderEdge13.Dock = DockStyle.Left;
-            kryptonBorderEdge13.Location = new Point(0, 20);
-            kryptonBorderEdge13.Name = "kryptonBorderEdge13";
-            kryptonBorderEdge13.Size = new Size(3, 36);
-            kryptonBorderEdge13.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge13.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge13.Text = "kryptonBorderEdge13";
             // 
             // kryptonLabel2
             // 
@@ -813,62 +713,18 @@
             kryptonLabel2.TabIndex = 1038;
             kryptonLabel2.Values.Text = "Forma de pagamento";
             // 
-            // kryptonBorderEdge14
-            // 
-            kryptonBorderEdge14.Dock = DockStyle.Bottom;
-            kryptonBorderEdge14.Location = new Point(0, 56);
-            kryptonBorderEdge14.Name = "kryptonBorderEdge14";
-            kryptonBorderEdge14.Size = new Size(469, 1);
-            kryptonBorderEdge14.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge14.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge14.Text = "kryptonBorderEdge14";
-            // 
             // panelRecebimento
             // 
-            panelRecebimento.Controls.Add(kryptonBorderEdge2);
-            panelRecebimento.Controls.Add(kryptonBorderEdge10);
-            panelRecebimento.Controls.Add(kryptonBorderEdge15);
             panelRecebimento.Controls.Add(kryptonLabel3);
             panelRecebimento.Controls.Add(txtValorRecebido);
-            panelRecebimento.Controls.Add(kryptonBorderEdge16);
             panelRecebimento.Controls.Add(lblValorRecebido);
             panelRecebimento.Controls.Add(txtTroco);
             panelRecebimento.Controls.Add(lblTroco);
-            panelRecebimento.Location = new Point(7, 172);
+            panelRecebimento.Location = new Point(2, 1);
             panelRecebimento.Name = "panelRecebimento";
             panelRecebimento.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            panelRecebimento.Size = new Size(469, 115);
+            panelRecebimento.Size = new Size(469, 114);
             panelRecebimento.TabIndex = 1133;
-            // 
-            // kryptonBorderEdge2
-            // 
-            kryptonBorderEdge2.Dock = DockStyle.Right;
-            kryptonBorderEdge2.Location = new Point(466, 21);
-            kryptonBorderEdge2.Name = "kryptonBorderEdge2";
-            kryptonBorderEdge2.Size = new Size(3, 93);
-            kryptonBorderEdge2.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge2.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge2.Text = "kryptonBorderEdge2";
-            // 
-            // kryptonBorderEdge10
-            // 
-            kryptonBorderEdge10.Dock = DockStyle.Top;
-            kryptonBorderEdge10.Location = new Point(3, 20);
-            kryptonBorderEdge10.Name = "kryptonBorderEdge10";
-            kryptonBorderEdge10.Size = new Size(466, 1);
-            kryptonBorderEdge10.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge10.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge10.Text = "kryptonBorderEdge10";
-            // 
-            // kryptonBorderEdge15
-            // 
-            kryptonBorderEdge15.Dock = DockStyle.Left;
-            kryptonBorderEdge15.Location = new Point(0, 20);
-            kryptonBorderEdge15.Name = "kryptonBorderEdge15";
-            kryptonBorderEdge15.Size = new Size(3, 94);
-            kryptonBorderEdge15.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge15.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge15.Text = "kryptonBorderEdge15";
             // 
             // kryptonLabel3
             // 
@@ -880,59 +736,15 @@
             kryptonLabel3.TabIndex = 1038;
             kryptonLabel3.Values.Text = "Recebimento";
             // 
-            // kryptonBorderEdge16
-            // 
-            kryptonBorderEdge16.Dock = DockStyle.Bottom;
-            kryptonBorderEdge16.Location = new Point(0, 114);
-            kryptonBorderEdge16.Name = "kryptonBorderEdge16";
-            kryptonBorderEdge16.Size = new Size(469, 1);
-            kryptonBorderEdge16.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge16.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge16.Text = "kryptonBorderEdge16";
-            // 
             // panelDatagrid
             // 
             panelDatagrid.Controls.Add(dgvParcelas);
-            panelDatagrid.Controls.Add(kryptonBorderEdge5);
-            panelDatagrid.Controls.Add(kryptonBorderEdge7);
-            panelDatagrid.Controls.Add(kryptonBorderEdge8);
             panelDatagrid.Controls.Add(kryptonLabel4);
-            panelDatagrid.Controls.Add(kryptonBorderEdge9);
-            panelDatagrid.Location = new Point(6, 292);
+            panelDatagrid.Location = new Point(6, 245);
             panelDatagrid.Name = "panelDatagrid";
             panelDatagrid.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
             panelDatagrid.Size = new Size(468, 160);
             panelDatagrid.TabIndex = 1134;
-            // 
-            // kryptonBorderEdge5
-            // 
-            kryptonBorderEdge5.Dock = DockStyle.Right;
-            kryptonBorderEdge5.Location = new Point(465, 21);
-            kryptonBorderEdge5.Name = "kryptonBorderEdge5";
-            kryptonBorderEdge5.Size = new Size(3, 138);
-            kryptonBorderEdge5.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge5.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge5.Text = "kryptonBorderEdge5";
-            // 
-            // kryptonBorderEdge7
-            // 
-            kryptonBorderEdge7.Dock = DockStyle.Top;
-            kryptonBorderEdge7.Location = new Point(3, 20);
-            kryptonBorderEdge7.Name = "kryptonBorderEdge7";
-            kryptonBorderEdge7.Size = new Size(465, 1);
-            kryptonBorderEdge7.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge7.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge7.Text = "kryptonBorderEdge7";
-            // 
-            // kryptonBorderEdge8
-            // 
-            kryptonBorderEdge8.Dock = DockStyle.Left;
-            kryptonBorderEdge8.Location = new Point(0, 20);
-            kryptonBorderEdge8.Name = "kryptonBorderEdge8";
-            kryptonBorderEdge8.Size = new Size(3, 139);
-            kryptonBorderEdge8.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge8.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge8.Text = "kryptonBorderEdge8";
             // 
             // kryptonLabel4
             // 
@@ -944,89 +756,24 @@
             kryptonLabel4.TabIndex = 1038;
             kryptonLabel4.Values.Text = "Parcelas geradas";
             // 
-            // kryptonBorderEdge9
-            // 
-            kryptonBorderEdge9.Dock = DockStyle.Bottom;
-            kryptonBorderEdge9.Location = new Point(0, 159);
-            kryptonBorderEdge9.Name = "kryptonBorderEdge9";
-            kryptonBorderEdge9.Size = new Size(468, 1);
-            kryptonBorderEdge9.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge9.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge9.Text = "kryptonBorderEdge9";
-            // 
-            // panelObservacoes
-            // 
-            panelObservacoes.Controls.Add(kryptonBorderEdge17);
-            panelObservacoes.Controls.Add(txtObservacao);
-            panelObservacoes.Controls.Add(kryptonBorderEdge18);
-            panelObservacoes.Controls.Add(kryptonBorderEdge19);
-            panelObservacoes.Controls.Add(lblObservacoes);
-            panelObservacoes.Controls.Add(kryptonBorderEdge20);
-            panelObservacoes.Location = new Point(5, 454);
-            panelObservacoes.Name = "panelObservacoes";
-            panelObservacoes.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            panelObservacoes.Size = new Size(469, 84);
-            panelObservacoes.TabIndex = 1135;
-            // 
-            // kryptonBorderEdge17
-            // 
-            kryptonBorderEdge17.Dock = DockStyle.Right;
-            kryptonBorderEdge17.Location = new Point(466, 21);
-            kryptonBorderEdge17.Name = "kryptonBorderEdge17";
-            kryptonBorderEdge17.Size = new Size(3, 62);
-            kryptonBorderEdge17.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge17.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge17.Text = "kryptonBorderEdge17";
-            // 
-            // kryptonBorderEdge18
-            // 
-            kryptonBorderEdge18.Dock = DockStyle.Top;
-            kryptonBorderEdge18.Location = new Point(3, 20);
-            kryptonBorderEdge18.Name = "kryptonBorderEdge18";
-            kryptonBorderEdge18.Size = new Size(466, 1);
-            kryptonBorderEdge18.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge18.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge18.Text = "kryptonBorderEdge18";
-            // 
-            // kryptonBorderEdge19
-            // 
-            kryptonBorderEdge19.Dock = DockStyle.Left;
-            kryptonBorderEdge19.Location = new Point(0, 20);
-            kryptonBorderEdge19.Name = "kryptonBorderEdge19";
-            kryptonBorderEdge19.Size = new Size(3, 63);
-            kryptonBorderEdge19.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge19.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge19.Text = "kryptonBorderEdge19";
-            // 
             // lblObservacoes
             // 
-            lblObservacoes.Dock = DockStyle.Top;
-            lblObservacoes.Location = new Point(0, 0);
+            lblObservacoes.Location = new Point(3, 407);
             lblObservacoes.Name = "lblObservacoes";
-            lblObservacoes.Size = new Size(469, 20);
+            lblObservacoes.Size = new Size(84, 20);
             lblObservacoes.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblObservacoes.TabIndex = 1038;
             lblObservacoes.Values.Text = "Observações";
-            // 
-            // kryptonBorderEdge20
-            // 
-            kryptonBorderEdge20.Dock = DockStyle.Bottom;
-            kryptonBorderEdge20.Location = new Point(0, 83);
-            kryptonBorderEdge20.Name = "kryptonBorderEdge20";
-            kryptonBorderEdge20.Size = new Size(469, 1);
-            kryptonBorderEdge20.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge20.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
-            kryptonBorderEdge20.Text = "kryptonBorderEdge20";
             // 
             // FrmSelecionarPagamento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(486, 603);
-            Controls.Add(panelObservacoes);
+            ClientSize = new Size(486, 513);
+            Controls.Add(txtObservacao);
+            Controls.Add(lblObservacoes);
             Controls.Add(panelDatagrid);
-            Controls.Add(panelRecebimento);
             Controls.Add(kryptonPanel1);
             Controls.Add(panelParcelamento);
             Controls.Add(btnConfirmar);
@@ -1069,10 +816,8 @@
             ((System.ComponentModel.ISupportInitialize)panelDatagrid).EndInit();
             panelDatagrid.ResumeLayout(false);
             panelDatagrid.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)panelObservacoes).EndInit();
-            panelObservacoes.ResumeLayout(false);
-            panelObservacoes.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -1116,34 +861,13 @@
         private Krypton.Toolkit.KryptonPanel panelSubTitulo;
         private Krypton.Toolkit.KryptonLabel kryptonLabel8;
         private Krypton.Toolkit.KryptonLabel kryptonLabel9;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge3;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge6;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge4;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge11;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge12;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge13;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge14;
         private Krypton.Toolkit.KryptonPanel panelRecebimento;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge2;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge10;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge15;
         private Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge16;
         private Krypton.Toolkit.KryptonPanel panelDatagrid;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge5;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge7;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge8;
         private Krypton.Toolkit.KryptonLabel kryptonLabel4;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge9;
-        private Krypton.Toolkit.KryptonPanel panelObservacoes;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge17;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge18;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge19;
         private Krypton.Toolkit.KryptonLabel lblObservacoes;
-        private Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge20;
         private Krypton.Toolkit.KryptonLabel kryptonLabel5;
     }
 }

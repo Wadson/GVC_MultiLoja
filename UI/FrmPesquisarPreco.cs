@@ -47,7 +47,7 @@ namespace GVC.View
         public FrmPesquisarPreco()
         {
             InitializeComponent();
-           
+
             txtPesquisar.Focus(); // Foca o campo para continuar digitando
 
             //Configurar o TextBox para capturar o evento KeyDown
@@ -59,123 +59,103 @@ namespace GVC.View
         }
         public void PersonalizarDataGridView()
         {
-            dataGridPesquisar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            // 🔹 Não gerar colunas automaticamente
+            dataGridPesquisar.AutoGenerateColumns = false;
+            dataGridPesquisar.Columns.Clear();
 
-            // 🔹 Oculta todas as colunas inicialmente
-            foreach (DataGridViewColumn col in dataGridPesquisar.Columns)
+            // 🔹 Código
+            dataGridPesquisar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                col.Visible = false;
-            }
+                HeaderText = "Código",
+                DataPropertyName = "ProdutoID",
+                Width = 70
+            });
 
-            // 🔹 Cabeçalhos bonitos + visibilidade
-            if (dataGridPesquisar.Columns["ProdutoID"] != null)
+            // 🔹 Referência
+            dataGridPesquisar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                dataGridPesquisar.Columns["ProdutoID"].HeaderText = "Código";
-                dataGridPesquisar.Columns["ProdutoID"].Visible = true;
-            }
+                HeaderText = "Referência",
+                DataPropertyName = "Referencia",
+                Width = 120
+            });
 
-            if (dataGridPesquisar.Columns["NomeProduto"] != null)
+            // 🔹 Produto (dinâmica)
+            dataGridPesquisar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                dataGridPesquisar.Columns["NomeProduto"].HeaderText = "Produto";
-                dataGridPesquisar.Columns["NomeProduto"].Visible = true;
-                dataGridPesquisar.Columns["NomeProduto"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Bold);
-            }
-
-            if (dataGridPesquisar.Columns["Referencia"] != null)
-            {
-                dataGridPesquisar.Columns["Referencia"].HeaderText = "Referência";
-                dataGridPesquisar.Columns["Referencia"].Visible = true;
-            }
-
-            if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
-            {
-                dataGridPesquisar.Columns["PrecoDeVenda"].HeaderText = "Preço Venda";
-                dataGridPesquisar.Columns["PrecoDeVenda"].Visible = true;
-            }
-
-            if (dataGridPesquisar.Columns["Estoque"] != null)
-            {
-                dataGridPesquisar.Columns["Estoque"].HeaderText = "Estoque";
-                dataGridPesquisar.Columns["Estoque"].Visible = true;
-                dataGridPesquisar.Columns["Estoque"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Bold);
-            }
-
-            if (dataGridPesquisar.Columns["Unidade"] != null)
-            {
-                dataGridPesquisar.Columns["Unidade"].HeaderText = "UN";
-                dataGridPesquisar.Columns["Unidade"].Visible = true;
-            }
-
-            if (dataGridPesquisar.Columns["Marca"] != null)
-            {
-                dataGridPesquisar.Columns["Marca"].HeaderText = "Marca";
-                dataGridPesquisar.Columns["Marca"].Visible = true;
-            }
-
-            // 🔹 Larguras fixas
-            var largurasFixas = new (string nome, int largura)[]
-            {
-        ("ProdutoID",     50),
-        ("NomeProduto", 450),
-        ("Referencia",   120),
-        ("PrecoDeVenda", 80),
-        ("Estoque",      60),
-        ("Unidade",      40),
-        ("Marca",       150)
-            };
-
-            dataGridPesquisar.AllowUserToResizeColumns = true;
-
-            foreach (var (nome, largura) in largurasFixas)
-            {
-                if (dataGridPesquisar.Columns[nome] != null)
+                HeaderText = "Produto",
+                DataPropertyName = "NomeProduto",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                MinimumWidth = 200,
+                FillWeight = 1,
+                DefaultCellStyle = new DataGridViewCellStyle
                 {
-                    var col = dataGridPesquisar.Columns[nome];
-                    col.Width = largura;
-                    col.Resizable = DataGridViewTriState.False;
-                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    Font = new Font("Segoe UI", 8f, FontStyle.Bold)
                 }
-            }
-            // 🔹 Configuração FINAL da coluna NomeProduto
-            if (dataGridPesquisar.Columns["NomeProduto"] != null)
+            });
+
+            // 🔹 Marca
+            dataGridPesquisar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                var col = dataGridPesquisar.Columns["NomeProduto"];               
-                // permite redimensionar com o mouse
-                col.Resizable = DataGridViewTriState.True;
-                // evita colapsar ao arrastar
-                col.MinimumWidth = 150;
-                col.ReadOnly = true;
-            }
+                HeaderText = "Marca",
+                DataPropertyName = "NomeMarca",
+                Width = 150
+            });
 
-            // 🔹 Estilo do cabeçalho
-            dataGridPesquisar.ColumnHeadersHeightSizeMode =  DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            // 🔹 Unidade
+            dataGridPesquisar.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "UN",
+                DataPropertyName = "Unidade",
+                Width = 40
+            });
 
+            // 🔹 Preço de Venda
+            dataGridPesquisar.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Preço Venda",
+                DataPropertyName = "PrecoDeVenda",
+                Width = 90,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Font = new Font("Arial", 8F, FontStyle.Bold),
+                    ForeColor = Color.DarkGreen,
+                    BackColor = Color.LightYellow,
+                    Format = "N2"
+                }
+            });
+
+            // 🔹 Estoque
+            dataGridPesquisar.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Estoque",
+                DataPropertyName = "Estoque",
+                Width = 80,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Font = new Font("Segoe UI", 8f, FontStyle.Bold),
+                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                }
+            });
+
+            // ======================================================
+            // 🔹 Ajustes gerais
+            // ======================================================
+            dataGridPesquisar.ColumnHeadersHeightSizeMode =
+                DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridPesquisar.ColumnHeadersHeight = 25;
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 9, FontStyle.Bold);
+            dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode =
+                DataGridViewTriState.False;
 
-            // 🔹 Remove cabeçalho de linhas
             dataGridPesquisar.RowHeadersVisible = false;
-            dataGridPesquisar.AdvancedRowHeadersBorderStyle.All = DataGridViewAdvancedCellBorderStyle.None;
+            dataGridPesquisar.AdvancedRowHeadersBorderStyle.All =
+                DataGridViewAdvancedCellBorderStyle.None;
 
-            // 🔹 Estilo especial para Preço e Estoque
-            if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
-            {
-                var col = dataGridPesquisar.Columns["PrecoDeVenda"];
-                col.DefaultCellStyle.Font =
-                    new Font("Arial", 8F, FontStyle.Bold);
-                col.DefaultCellStyle.ForeColor = Color.DarkGreen;
-                col.DefaultCellStyle.BackColor = Color.LightYellow;
-            }
+            dataGridPesquisar.DefaultCellStyle.Font =
+                new Font("Segoe UI", 8);
 
-            if (dataGridPesquisar.Columns["Estoque"] != null)
-            {
-                dataGridPesquisar.Columns["Estoque"].DefaultCellStyle.Alignment =
-                    DataGridViewContentAlignment.MiddleCenter;
-            }
-            dataGridPesquisar.DefaultCellStyle.Font = new Font("Segoe UI", 8);
-
-            dataGridPesquisar.PerformLayout();
+            dataGridPesquisar.ScrollBars = ScrollBars.Vertical;
         }
 
 
@@ -186,7 +166,7 @@ namespace GVC.View
 
         public void ListarProduto()
         {
-            ProdutosBLL  bll = new();
+            ProdutosBLL bll = new();
             dataGridPesquisar.DataSource = bll.ListarTodos();
             PersonalizarDataGridView();
         }
@@ -204,53 +184,26 @@ namespace GVC.View
             }
         }
 
-        private void PesquisarProduto()
+        private void PesquisarProduto(string termo)
         {
-            try
+            var bll = new ProdutosBLL();
+            var produtos = bll.BuscarPorNome(termo);
+
+            dataGridPesquisar.DataSource = produtos;
+            PersonalizarDataGridView();
+
+            if (produtos.Count == 0)
             {
-                string termo = txtPesquisar.Text.Trim();
-
-                // Verificação adicional
-                if (string.IsNullOrWhiteSpace(termo))
-                {
-                    dataGridPesquisar.DataSource = null;
-                    return;
-                }
-
-                var bll = new ProdutosBLL();
-                var produtos = bll.BuscarPorNome(termo);
-
-                // Vincular os dados ao DataGridView
-                dataGridPesquisar.DataSource = produtos;
-                PersonalizarDataGridView();
-
-                // Mostrar mensagem se não encontrou
-                if (produtos.Count == 0)
-                {
-                    // Opcional: mensagem amigável
-                    lblMensagem.Text = $"Nenhum produto encontrado para '{termo}'";
-                    lblMensagem.Visible = true;
-                    lblMensagem.ForeColor = Color.Red;
-                }
-                else
-                {
-                    lblMensagem.Visible = false;
-                }
+                lblMensagem.Text = $"Nenhum produto encontrado para '{termo}'";
+                lblMensagem.Visible = true;
+                lblMensagem.ForeColor = Color.Red;
             }
-            catch (Exception ex)
+            else
             {
-                // ⭐ TRATE ESPECIFICAMENTE A EXCEÇÃO "Nome do produto inválido"
-                if (ex.Message.Contains("Nome do produto inválido"))
-                {
-                    // Isso não deve mais acontecer com as verificações acima
-                    dataGridPesquisar.DataSource = null;
-                    return;
-                }
-
-                MessageBox.Show($"Erro ao pesquisar: {ex.Message}", "Erro",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblMensagem.Visible = false;
             }
         }
+
 
         private void dataGridPesquisar_KeyDown(object sender, KeyEventArgs e)
         {
@@ -307,25 +260,33 @@ namespace GVC.View
             {
                 string termo = txtPesquisar.Text.Trim();
 
-                // ⭐ IMPORTANTE: Se estiver vazio, limpe o grid ou mostre todos
+                // 🔥 Se limpou o textbox → carrega TODOS os produtos
                 if (string.IsNullOrWhiteSpace(termo))
                 {
-                    dataGridPesquisar.DataSource = null; // Limpa o grid
-                                                         // Ou: CarregarTodosProdutos();
+                    CarregarTodosProdutos();
+                    lblMensagem.Visible = false;
                     return;
                 }
 
-                // Só pesquisa se tiver pelo menos 2 caracteres (opcional)
+                // Opcional: só pesquisar com 2+ caracteres
                 if (termo.Length < 2)
                     return;
 
-                PesquisarProduto();
+                PesquisarProduto(termo);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro: {ex.Message}", "Erro",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void CarregarTodosProdutos()
+        {
+            var bll = new ProdutosBLL();
+            var produtos = bll.ListarTodos(); // 🔥 Crie este método se não existir
+
+            dataGridPesquisar.DataSource = produtos;
+            PersonalizarDataGridView();
         }
 
         private void txtPesquisar_KeyDown(object sender, KeyEventArgs e)
@@ -362,12 +323,47 @@ namespace GVC.View
             if (!string.IsNullOrEmpty(txtPesquisar.Text))
             {
                 txtPesquisar.Select(txtPesquisar.Text.Length, 0);
-            }           
+            }
         }
 
         private void dataGridPesquisar_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //SelecionarProduto();
+        }
+        private void MostrarDetalheProduto()
+        {
+            if (dataGridPesquisar.CurrentRow == null)
+                return;
+
+            var produto = dataGridPesquisar.CurrentRow.DataBoundItem;
+
+            if (produto == null)
+                return;
+
+            // 🔹 Cast para seu tipo real de produto
+            var p = (dynamic)produto;
+
+            decimal precoCusto = p.PrecoCusto;
+            decimal precoVenda = p.PrecoDeVenda;
+            string nomeProduto = p.NomeProduto;
+
+            var frm = new FrmDetalhePrecoProduto(
+                nomeProduto,
+                precoCusto,
+                precoVenda);
+
+            frm.ShowDialog(this);
+        }
+
+        private void FrmPesquisarPreco_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F2:
+                    MostrarDetalheProduto();
+                    e.Handled = true;
+                    break;
+            }
         }
     }
 }

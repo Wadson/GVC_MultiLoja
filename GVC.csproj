@@ -127,6 +127,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Settings.settings</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\FrmDetalhePrecoProduto.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="UI\FrmCadMarcas.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

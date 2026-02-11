@@ -19,18 +19,18 @@ namespace GVC.Infra.Repository
         private const string SqlBase = @"
     SELECT
         p.ProdutoID,
-        p.NomeProduto,
         p.Referencia,
+        p.NomeProduto,   
+        m.NomeMarca,  -- 🔹 agora traz o nome da marca
+        p.Unidade,
         p.PrecoCusto,
         p.Lucro,
         p.PrecoDeVenda,
         p.Estoque,
         p.DataDeEntrada,
         p.Status,
-        p.Situacao,
-        p.Unidade,
-        p.MarcaID,
-        m.NomeMarca,  -- 🔹 agora traz o nome da marca
+        p.Situacao,       
+        p.MarcaID,       
         p.DataValidade,
         p.GtinEan,
         p.Imagem,
@@ -313,19 +313,18 @@ namespace GVC.Infra.Repository
             return new ProdutoModel
             {
                 ProdutoID = Convert.ToInt32(r["ProdutoID"]),
-                NomeProduto = r["NomeProduto"].ToString(),
                 Referencia = r["Referencia"] == DBNull.Value ? null : r["Referencia"].ToString(),
+                NomeProduto = r["NomeProduto"].ToString(),
+                NomeMarca = r["NomeMarca"] == DBNull.Value ? "" : r["NomeMarca"].ToString(),
+                Unidade = r["Unidade"] == DBNull.Value ? "" : r["Unidade"].ToString(),
                 PrecoCusto = r["PrecoCusto"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoCusto"]),
                 Lucro = r["Lucro"] == DBNull.Value ? 0 : Convert.ToDecimal(r["Lucro"]),
                 PrecoDeVenda = r["PrecoDeVenda"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoDeVenda"]),
                 Estoque = r["Estoque"] == DBNull.Value ? 0 : Convert.ToInt32(r["Estoque"]),
                 DataDeEntrada = r["DataDeEntrada"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["DataDeEntrada"]),
                 Status = r["Status"] == DBNull.Value ? "" : r["Status"].ToString(),
-                Situacao = r["Situacao"] == DBNull.Value ? "" : r["Situacao"].ToString(),
-                Unidade = r["Unidade"] == DBNull.Value ? "" : r["Unidade"].ToString(),
-                // 🔹 Marca
-                MarcaID = r["MarcaID"] == DBNull.Value ? 0 : Convert.ToInt32(r["MarcaID"]),
-                NomeMarca = r["NomeMarca"] == DBNull.Value ? "" : r["NomeMarca"].ToString(),
+                Situacao = r["Situacao"] == DBNull.Value ? "" : r["Situacao"].ToString(),  
+                MarcaID = r["MarcaID"] == DBNull.Value ? 0 : Convert.ToInt32(r["MarcaID"]),               
                 DataValidade = r["DataValidade"] == DBNull.Value ? null : (DateTime?)r["DataValidade"],
                 GtinEan = r["GtinEan"] == DBNull.Value ? "" : r["GtinEan"].ToString(),
                 Imagem = r["Imagem"] == DBNull.Value ? null : r["Imagem"].ToString(),

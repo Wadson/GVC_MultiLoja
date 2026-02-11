@@ -254,7 +254,9 @@ namespace GVC.View
                 int proximaVendaID = new VendaRepository().ObterProximoNumeroVenda();
 
 
-                lblVendaID.Text = Utilitario.ZerosEsquerda(proximaVendaID, 4);
+                lblVendaID.Text = "Nº Venda: " +
+                    "" +
+                    ""+ Utilitario.ZerosEsquerda(proximaVendaID, 4);
                 lblDataVenda.Text = DateTime.Now.ToString("dd/MM/yyyy");
             }
             else if (_modo == ModoVenda.Edicao)

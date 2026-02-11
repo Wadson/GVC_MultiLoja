@@ -62,7 +62,7 @@
             dataGridPesquisar.ReadOnly = true;
             dataGridPesquisar.RowHeadersWidth = 25;
             dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPesquisar.Size = new Size(936, 332);
+            dataGridPesquisar.Size = new Size(940, 336);
             dataGridPesquisar.TabIndex = 599;
             dataGridPesquisar.TabStop = false;
             dataGridPesquisar.CellDoubleClick += dataGridPesquisar_CellDoubleClick;
@@ -113,7 +113,7 @@
             txtPesquisar.Margin = new Padding(5, 6, 5, 6);
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisar.Size = new Size(936, 24);
+            txtPesquisar.Size = new Size(933, 24);
             txtPesquisar.StateCommon.Back.Color1 = Color.LightGreen;
             txtPesquisar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPesquisar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -225,9 +225,8 @@
             Controls.Add(tlpTitulo);
             Controls.Add(txtPesquisar);
             Controls.Add(dataGridPesquisar);
-            FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            KeyPreview = true;
             Margin = new Padding(5, 3, 5, 3);
-            MinimizeBox = false;
             Name = "FrmPesquisarPreco";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
@@ -240,6 +239,7 @@
             Text = "Pesquisar Preços";
             Load += FrmLocalizarProduto_Load;
             Shown += FrmLocalizarProduto_Shown;
+            KeyDown += FrmPesquisarPreco_KeyDown;
             ((System.ComponentModel.ISupportInitialize)dataGridPesquisar).EndInit();
             tlpTitulo.ResumeLayout(false);
             tlpTitulo.PerformLayout();

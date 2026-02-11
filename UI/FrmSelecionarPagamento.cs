@@ -261,9 +261,6 @@ namespace GVC.View
 
         private void cmbFormaPagamento_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-
-
             if (cmbFormaPagamento.SelectedIndex < 0)
                 return;
 
@@ -282,15 +279,15 @@ namespace GVC.View
                 AtivarRecebimentoDinheiro();
 
                 _parcelasGeradas = new List<ParcelaModel>
-        {
-            new ParcelaModel
-            {
-                NumeroParcela = 1,
-                DataVencimento = DateTime.Now,
-                ValorParcela = _dto.Total,
-                Status = EnumStatusParcela.Pendente
-            }
-        };
+                {
+                    new ParcelaModel
+                    {
+                        NumeroParcela = 1,
+                        DataVencimento = DateTime.Now,
+                        ValorParcela = _dto.Total,
+                        Status = EnumStatusParcela.Pendente
+                    }
+                };
 
                 CarregarGridParcelas(_parcelasGeradas);
                 return;
@@ -304,17 +301,17 @@ namespace GVC.View
                 forma == EnumFormaPagamento.CartaoDebito)
             {
                 _parcelasGeradas = new List<ParcelaModel>
-        {
-            new ParcelaModel
-            {
-                NumeroParcela = 1,
-                DataVencimento = DateTime.Now,
-                ValorParcela = _dto.Total,
-                ValorRecebido = _dto.Total,
-                DataPagamento = DateTime.Now,
-                Status = EnumStatusParcela.Pago
-            }
-        };
+                {
+                    new ParcelaModel
+                    {
+                        NumeroParcela = 1,
+                        DataVencimento = DateTime.Now,
+                        ValorParcela = _dto.Total,
+                        ValorRecebido = _dto.Total,
+                        DataPagamento = DateTime.Now,
+                        Status = EnumStatusParcela.Pago
+                    }
+                };
 
                 CarregarGridParcelas(_parcelasGeradas);
                 return;
@@ -330,17 +327,15 @@ namespace GVC.View
                 AtivarParcelamento();
 
                 CarregarGridParcelas(new List<ParcelaModel>
-        {
-            new ParcelaModel
-            {
-                NumeroParcela = 1,
-                DataVencimento = DateTime.Now.AddDays(30),
-                ValorParcela = _dto.Total,
-                Status = EnumStatusParcela.Pendente
-            }
-        });
-            }
-        }
+                {
+                        new ParcelaModel
+                        {
+                            NumeroParcela = 1,
+                            DataVencimento = DateTime.Now.AddDays(30),
+                            ValorParcela = _dto.Total,
+                            Status = EnumStatusParcela.Pendente}});
+                        }
+                }
 
         
 
@@ -370,6 +365,7 @@ namespace GVC.View
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
+            
             // 🔹 Forma de pagamento (fonte única)
             var formaItem = cmbFormaPagamento.SelectedItem as Model.Enums.FormaPagamentoItem;
             if (formaItem == null || formaItem.FormaPgtoID == 0)
@@ -416,8 +412,6 @@ namespace GVC.View
             DialogResult = DialogResult.OK;
             Close();
         }
-
-
         private void txtValorRecebido_TextChanged(object sender, EventArgs e)
         {
             if (!decimal.TryParse(
