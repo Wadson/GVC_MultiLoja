@@ -44,6 +44,3 @@ TestResult.xml
 
 # Publicações
 publish/
-bin/
-obj/
-.vs/
