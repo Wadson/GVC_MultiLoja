@@ -463,7 +463,7 @@ using System.Drawing;
             // Desliga temporariamente o evento para evitar loop
             txtFornecedor.TextChanged -= txtFornecedor_TextChanged;
 
-            using (FrmLocalizarFornecedor frmLocalizarFornecedor = new FrmLocalizarFornecedor(this, FornecedorSelecionado))
+            using (FrmLocalizarFornecedor frmLocalizarFornecedor = new FrmLocalizarFornecedor(FornecedorSelecionado))
             {
                 frmLocalizarFornecedor.Owner = this;
                 frmLocalizarFornecedor.ShowDialog();
@@ -534,7 +534,8 @@ using System.Drawing;
                 bloqueiaPesquisa = true;
                 try
                 {
-                    using (var pesquisarFornecedor = new FrmLocalizarFornecedor(this, textoDigitado))
+                    using (var pesquisarFornecedor = new FrmLocalizarFornecedor(
+                        textoDigitado))
                     {
                         pesquisarFornecedor.Owner = this;
                         if (pesquisarFornecedor.ShowDialog() == DialogResult.OK)

@@ -505,5 +505,11 @@ namespace GVC
             StatusOperacao = "NOVO";
             frm.Show();
         }
+
+        private void entradaDeEstoqueNFeOuManualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmEntradaFiscal frm = new FrmEntradaFiscal();
+            frm.Show();
+        }
     }
 }

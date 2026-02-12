@@ -14,14 +14,16 @@ using System.Windows.Forms;
 
 namespace GVC.View
 {
-    public partial class FrmLocalizarProduto : KryptonForm
+    public partial class FrmLocalizarProdutos : KryptonForm
     {
         private string _ClienteID;
         protected int LinhaAtual = -1;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int ProdutoID { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public decimal PrecoUnitario { get; set; }
+        public decimal PrecoDeVenda { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public decimal PrecoCusto { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Unidade { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -39,7 +41,7 @@ namespace GVC.View
         }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]       
         private ProdutosBLL _produtosBLL;
-        public FrmLocalizarProduto( string textoDigitado)
+        public FrmLocalizarProdutos( string textoDigitado)
         {
             InitializeComponent();
            
@@ -81,7 +83,12 @@ namespace GVC.View
             {
                 dataGridPesquisar.Columns["Referencia"].HeaderText = "Referência";
                 dataGridPesquisar.Columns["Referencia"].Visible = true;
-            }         
+            }
+            if (dataGridPesquisar.Columns["PrecoCusto"] != null)
+            {
+                dataGridPesquisar.Columns["PrecoCusto"].HeaderText = "Preço de Custo";
+                dataGridPesquisar.Columns["PrecoCusto"].Visible = true;
+            }
             if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
             {
                 dataGridPesquisar.Columns["PrecoDeVenda"].HeaderText = "Preço Venda";
@@ -106,12 +113,13 @@ namespace GVC.View
             // 4. Colunas fixas (largura definida e não mudam)
             var colunasFixas = new (string nome, int largura)[]
             {
-        ("ProdutoID", 50),
-        ("Referencia", 120),
-        ("PrecoDeVenda", 80),
-        ("Estoque", 60),
-        ("Unidade", 60),
-        ("Marca", 150)
+                ("ProdutoID", 50),
+                ("Referencia", 120),
+                ("PrecoCusto",90),
+                ("PrecoDeVenda", 80),
+                ("Estoque", 60),
+                ("Unidade", 60),
+                ("Marca", 150)
             };
 
             dataGridPesquisar.AllowUserToResizeColumns = true;
@@ -158,11 +166,11 @@ namespace GVC.View
             dataGridPesquisar.RowHeadersWidth = 30;
 
             // 7. Estilo especial para Preço e Estoque
-            if (dataGridPesquisar.Columns["PrecoDeVenda"] != null)
+            if (dataGridPesquisar.Columns["PrecoCusto"] != null)
             {
-                dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new System.Drawing.Font("Arial", 10F, FontStyle.Regular);
-                dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.ForeColor = Color.DarkGreen;
-                dataGridPesquisar.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
+                dataGridPesquisar.Columns["PrecoCusto"].DefaultCellStyle.Font = new System.Drawing.Font("Arial", 10F, FontStyle.Regular);
+                dataGridPesquisar.Columns["PrecoCusto"].DefaultCellStyle.ForeColor = Color.DarkGreen;
+                dataGridPesquisar.Columns["PrecoCusto"].DefaultCellStyle.BackColor = Color.LightYellow;
             }
             if (dataGridPesquisar.Columns["Estoque"] != null)
             {
@@ -235,6 +243,7 @@ namespace GVC.View
                 if (dataGridPesquisar["ProdutoID", LinhaAtual]?.Value == null ||
                      dataGridPesquisar["NomeProduto", LinhaAtual]?.Value == null ||
                      dataGridPesquisar["Estoque", LinhaAtual]?.Value == null ||
+                     dataGridPesquisar["PrecoCusto", LinhaAtual]?.Value == null ||
                      dataGridPesquisar["PrecoDeVenda", LinhaAtual]?.Value == null)
                 {
                     Utilitario.Mensagens.Aviso("Dados do produto inválidos.");
@@ -246,9 +255,10 @@ namespace GVC.View
                 ProdutoID = Convert.ToInt32(dataGridPesquisar["ProdutoID", LinhaAtual].Value);
                 ProdutoSelecionado = dataGridPesquisar["NomeProduto", LinhaAtual].Value.ToString();
                 Referencia = dataGridPesquisar["Referencia", LinhaAtual]?.Value?.ToString() ?? "";
+                PrecoCusto = Convert.ToDecimal(dataGridPesquisar["PrecoCusto", LinhaAtual].Value);
 
                 Estoque = Convert.ToDecimal(dataGridPesquisar["Estoque", LinhaAtual].Value);
-                PrecoUnitario = Convert.ToDecimal(dataGridPesquisar["PrecoDeVenda", LinhaAtual].Value);
+                PrecoDeVenda = Convert.ToDecimal(dataGridPesquisar["PrecoDeVenda", LinhaAtual].Value);
 
                 // Retorna sucesso para o ShowDialog()
                 this.DialogResult = DialogResult.OK;

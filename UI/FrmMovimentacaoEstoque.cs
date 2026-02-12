@@ -197,7 +197,7 @@ namespace GVC.View
             if (string.IsNullOrEmpty(texto))
                 return;
 
-            using (var pesquisaProduto = new FrmLocalizarProduto(this, texto))
+            using (var pesquisaProduto = new FrmLocalizarProduto(texto))
             {
                 // Calcula posição logo abaixo do TextBox
                 var textBoxLocation = txtProdutoBuscar.PointToScreen(Point.Empty);

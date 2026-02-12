@@ -133,6 +133,9 @@
 	  <Compile Update="UI\FrmCadMarcas.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="UI\FrmLocalizarProdutos.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="UI\FrmManutMarca.cs">
 	    <SubType>Form</SubType>
 	  </Compile>

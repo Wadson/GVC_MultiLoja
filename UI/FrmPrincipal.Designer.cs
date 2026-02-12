@@ -38,10 +38,11 @@
             sairToolStripMenuItem = new ToolStripMenuItem();
             cadastrosToolStripMenuItem = new ToolStripMenuItem();
             clientesToolStripMenuItem = new ToolStripMenuItem();
-            produtosToolStripMenuItem = new ToolStripMenuItem();
+            empresasToolStripMenuItem = new ToolStripMenuItem();
             fornecedoresToolStripMenuItem = new ToolStripMenuItem();
             formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
-            empresasToolStripMenuItem = new ToolStripMenuItem();
+            marcasToolStripMenuItem = new ToolStripMenuItem();
+            produtosToolStripMenuItem = new ToolStripMenuItem();
             usuáriosToolStripMenuItem = new ToolStripMenuItem();
             testeToolStripMenuItem = new ToolStripMenuItem();
             estoqueToolStripMenuItem1 = new ToolStripMenuItem();
@@ -102,7 +103,6 @@
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             cmbEmpresa = new Krypton.Toolkit.KryptonComboBox();
             label1 = new Label();
-            marcasToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -202,12 +202,12 @@
             clientesToolStripMenuItem.Text = "Clientes";
             clientesToolStripMenuItem.Click += clientesToolStripMenuItem_Click;
             // 
-            // produtosToolStripMenuItem
+            // empresasToolStripMenuItem
             // 
-            produtosToolStripMenuItem.Name = "produtosToolStripMenuItem";
-            produtosToolStripMenuItem.Size = new Size(188, 22);
-            produtosToolStripMenuItem.Text = "Produtos";
-            produtosToolStripMenuItem.Click += produtosToolStripMenuItem_Click;
+            empresasToolStripMenuItem.Name = "empresasToolStripMenuItem";
+            empresasToolStripMenuItem.Size = new Size(188, 22);
+            empresasToolStripMenuItem.Text = "Empresas";
+            empresasToolStripMenuItem.Click += empresasToolStripMenuItem_Click;
             // 
             // fornecedoresToolStripMenuItem
             // 
@@ -222,12 +222,19 @@
             formaDePagamentoToolStripMenuItem.Size = new Size(188, 22);
             formaDePagamentoToolStripMenuItem.Text = "Forma de Pagamento";
             // 
-            // empresasToolStripMenuItem
+            // marcasToolStripMenuItem
             // 
-            empresasToolStripMenuItem.Name = "empresasToolStripMenuItem";
-            empresasToolStripMenuItem.Size = new Size(188, 22);
-            empresasToolStripMenuItem.Text = "Empresas";
-            empresasToolStripMenuItem.Click += empresasToolStripMenuItem_Click;
+            marcasToolStripMenuItem.Name = "marcasToolStripMenuItem";
+            marcasToolStripMenuItem.Size = new Size(188, 22);
+            marcasToolStripMenuItem.Text = "Marcas";
+            marcasToolStripMenuItem.Click += marcasToolStripMenuItem_Click;
+            // 
+            // produtosToolStripMenuItem
+            // 
+            produtosToolStripMenuItem.Name = "produtosToolStripMenuItem";
+            produtosToolStripMenuItem.Size = new Size(188, 22);
+            produtosToolStripMenuItem.Text = "Produtos";
+            produtosToolStripMenuItem.Click += produtosToolStripMenuItem_Click;
             // 
             // usuáriosToolStripMenuItem
             // 
@@ -255,6 +262,7 @@
             entradaDeEstoqueNFeOuManualToolStripMenuItem.Name = "entradaDeEstoqueNFeOuManualToolStripMenuItem";
             entradaDeEstoqueNFeOuManualToolStripMenuItem.Size = new Size(269, 22);
             entradaDeEstoqueNFeOuManualToolStripMenuItem.Text = "Entrada de Estoque(NFe ou Manual)";
+            entradaDeEstoqueNFeOuManualToolStripMenuItem.Click += entradaDeEstoqueNFeOuManualToolStripMenuItem_Click;
             // 
             // correçãoDeEstoqueToolStripMenuItem
             // 
@@ -796,13 +804,6 @@
             label1.Size = new Size(65, 16);
             label1.TabIndex = 1070;
             label1.Text = "Empresa:";
-            // 
-            // marcasToolStripMenuItem
-            // 
-            marcasToolStripMenuItem.Name = "marcasToolStripMenuItem";
-            marcasToolStripMenuItem.Size = new Size(188, 22);
-            marcasToolStripMenuItem.Text = "Marcas";
-            marcasToolStripMenuItem.Click += marcasToolStripMenuItem_Click;
             // 
             // FrmPrincipal
             // 

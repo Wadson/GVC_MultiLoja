@@ -24,7 +24,7 @@ namespace GVC.View
             // SALVA O TEXTO ATUAL ANTES DE PERDER O FOCO
             string textoDigitado = txtNomeProduto.Text;
 
-            using (var pesquisaProduto = new FrmLocalizarProduto(this, textoDigitado))
+            using (var pesquisaProduto = new FrmLocalizarProduto(textoDigitado))
             {
                 pesquisaProduto.Owner = this;
 

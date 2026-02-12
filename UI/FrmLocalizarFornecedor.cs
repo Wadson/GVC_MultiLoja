@@ -22,17 +22,15 @@ namespace GVC.View
         public string Cidade { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Estado { get; set; }
-
-        private Form _formChamador;
+       
         private bool recebendoTextoExterno = false;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FornecedorSelecionado { get; set; }
 
-        public FrmLocalizarFornecedor(Form formChamador, string textoDigitado)
+        public FrmLocalizarFornecedor(string textoDigitado)
         {
             InitializeComponent();
-            ConfigurarEventosTeclado();
-            _formChamador = formChamador;
+            ConfigurarEventosTeclado();           
 
             // Configura DataGridView
             dataGridPesquisar.SelectionChanged += dataGridPesquisar_SelectionChanged;
@@ -112,51 +110,41 @@ namespace GVC.View
         }
         public void PersonalizarDataGridView()
         {
-            // Função auxiliar para renomear somente se existir
-            void Renomear(string coluna, string titulo)
+            // Primeiro, oculta todas as colunas
+            foreach (DataGridViewColumn column in dataGridPesquisar.Columns)
             {
-                if (dataGridPesquisar.Columns.Contains(coluna))
-                    dataGridPesquisar.Columns[coluna].HeaderText = titulo;
+                column.Visible = false;
             }
 
-            // ✔ Ajustar cabeçalhos (somente colunas presentes no SELECT)
-            Renomear("FornecedorID", "Cód.Fornecedor");
-            Renomear("Nome", "Nome do Fornecedor");           
-            Renomear("Cnpj", "Cnpj");
-            Renomear("Telefone", "Telefone");
-            Renomear("Email", "E-mail");           
-            Renomear("Logradouro", "Logradouro");
-            Renomear("Numero", "Número");
-            Renomear("Bairro", "Bairro");
-            Renomear("Cep", "CEP");            
-            Renomear("CidadeID", "Cód. Cidade");
-            Renomear("Nome", "Nome da Cidade");
-            Renomear("Uf", "Uf");           
-            Renomear("NomeEstado", "Nome do Estado");
+            // Agora, deixa visíveis apenas as colunas desejadas
+            if (dataGridPesquisar.Columns.Contains("FornecedorID"))
+            {
+                dataGridPesquisar.Columns["FornecedorID"].Visible = true;
+                dataGridPesquisar.Columns["FornecedorID"].HeaderText = "Código";
+                dataGridPesquisar.Columns["FornecedorID"].Width = 80;
+            }
+
+            if (dataGridPesquisar.Columns.Contains("Nome"))
+            {
+                dataGridPesquisar.Columns["Nome"].Visible = true;
+                dataGridPesquisar.Columns["Nome"].HeaderText = "Nome";
+                dataGridPesquisar.Columns["Nome"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
 
             // ✔ Modo somente leitura
             dataGridPesquisar.ReadOnly = true;
 
-            // ✔ Ajuste automático de colunas
-            dataGridPesquisar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
             // ✔ Fundo amarelo claro
             dataGridPesquisar.DefaultCellStyle.BackColor = Color.LightYellow;
 
-            // ✔ Cabeçalhos mais elegantes
+            // ✔ Cabeçalhos centralizados
             dataGridPesquisar.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridPesquisar.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
             // ✔ Largura do cabeçalho da linha
             dataGridPesquisar.RowHeadersWidth = 10;
-
-            // ✔ Centralizar cabeçalhos e definir largura mínima
-            foreach (DataGridViewColumn column in dataGridPesquisar.Columns)
-            {
-                column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                column.MinimumWidth = 90;
-            }
         }
+
 
         public void ListarFornecedor()
         {
@@ -220,38 +208,26 @@ namespace GVC.View
 
             try
             {
-                // Obtém a linha atual selecionada na grid
                 linhaAtual = ObterLinhaAtual();
-                if (linhaAtual < 0 || linhaAtual >= dataGridPesquisar.Rows.Count)
+                if (linhaAtual < 0)
                 {
                     Utilitario.Mensagens.Aviso("Linha inválida.");
                     return;
                 }
 
-                if (dataGridPesquisar["FornecedorID", linhaAtual]?.Value == null ||                   
-                    dataGridPesquisar["Cnpj", linhaAtual]?.Value == null ||
-                    dataGridPesquisar["Telefone", linhaAtual]?.Value == null ||
+                if (dataGridPesquisar["FornecedorID", linhaAtual]?.Value == null ||
                     dataGridPesquisar["Nome", linhaAtual]?.Value == null)
                 {
                     Utilitario.Mensagens.Aviso("Dados do fornecedor inválidos.");
                     return;
                 }
+
                 FornecedorID = Convert.ToInt32(dataGridPesquisar["FornecedorID", linhaAtual].Value);
-                FornecedorSelecionado = dataGridPesquisar["Nome", linhaAtual].Value.ToString();               
-                Cnpj = dataGridPesquisar["Cnpj", linhaAtual].Value.ToString();
-                Telefone = dataGridPesquisar["Telefone", linhaAtual].Value.ToString();
+                FornecedorSelecionado = dataGridPesquisar["Nome", linhaAtual].Value.ToString();
+                Cnpj = dataGridPesquisar["Cnpj", linhaAtual]?.Value?.ToString() ?? "";
+                Telefone = dataGridPesquisar["Telefone", linhaAtual]?.Value?.ToString() ?? "";
 
-                if (this.Owner is FrmCadProdutos frmCadProdutos)
-                {
-                    frmCadProdutos.txtFornecedorID.Text = FornecedorID.ToString();
-                    frmCadProdutos.txtFornecedor.Text = FornecedorSelecionado;
-                }               
-                else
-                {
-                    Utilitario.Mensagens.Aviso("O formulário chamador não é reconhecido.");
-                }
-
-                this.DialogResult = DialogResult.OK; // Confirma que um fornecedor foi selecionado
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             finally
@@ -259,6 +235,7 @@ namespace GVC.View
                 isSelectingProduct = false;
             }
         }
+
         private void dataGridPesquisar_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridPesquisar.CurrentRow != null)
