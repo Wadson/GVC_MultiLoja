@@ -8,6 +8,8 @@ public partial class ProdutoModel
     public int ProdutoID { get; set; }
     public string NomeProduto { get; set; } = null!;
     public string? Referencia { get; set; }
+    // 🔑 Nova coluna adicionada
+    public decimal? PrecoCompra { get; set; }
     public decimal PrecoCusto { get; set; }
     public decimal Lucro { get; set; }
     public decimal PrecoDeVenda { get; set; }
@@ -24,8 +26,9 @@ public partial class ProdutoModel
     public int EmpresaID { get; set; }   
     public FornecedorModel? Fornecedor { get; set; }
     public int? FornecedorID { get; set; }
-    public string? NomeFornecedor => Fornecedor?.Nome;
-    
+    public string? NomeFornecedor { get; set; }
+
+
 
     public virtual ICollection<ItemVendaModel> ItemVenda { get; set; } = new List<ItemVendaModel>();
     public virtual ICollection<MovimentacaoEstoqueModel> MovimentacaoEstoques { get; set; } = new List<MovimentacaoEstoqueModel>();

@@ -1,4 +1,5 @@
-﻿using GVC.UTIL;
+﻿using GVC.Infra.Repository;
+using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace GVC.View
         private bool _ignorarEventosBusca = false;
         private bool _ignorandoBuscar = false;
         private int FornecedorID { get; set; }
-        private int ProdutoID { get; set; }
+        private int produtoID { get; set; }
         private string FornecedorSelecionado { get; set; }
         public FrmEntradaFiscal()
         {
@@ -29,6 +30,7 @@ namespace GVC.View
         {
             if (!ValidadorSessao.Validar(this))
                 return;
+            InicializarDatagridView();
         }
 
         private void btnVerControlesDoForm_Click(object sender, EventArgs e)
@@ -127,11 +129,11 @@ namespace GVC.View
                     _ignorandoBuscar = true;
                     try
                     {
-                        ProdutoID = pesquisaProduto.ProdutoID;
+                        produtoID = pesquisaProduto.ProdutoID;
 
                         txtProduto.Text = pesquisaProduto.ProdutoSelecionado;
-                        txtReferencia.Text = pesquisaProduto.Referencia  + "-" + ProdutoID;
-                        txtPrecoCusto.Text = pesquisaProduto.PrecoCusto
+                        txtReferencia.Text = pesquisaProduto.Referencia + "-" + produtoID;
+                        txtPrecoCompra.Text = pesquisaProduto.PrecoCusto
                             .ToString("F2");
                     }
                     finally
@@ -141,7 +143,185 @@ namespace GVC.View
                         // Aqui pode colocar próximo campo para focar, se necessário
                     }
                 }
-            }           
+            }
+        }
+
+        private void FrmEntradaFiscal_Shown(object sender, EventArgs e)
+        {
+            Utilitario.AplicarCorFocoNosTextBox(this);
+        }
+
+        private void FrmEntradaFiscal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                SendKeys.Send("{TAB}");
+            }
+        }
+
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            if (dgvItensDocumento.Rows.Count == 0)
+            {
+                MessageBox.Show("Nenhum item para confirmar.");
+                return;
+            }
+
+            try
+            {
+                using var repo = new EntradaFiscalRepository();
+
+                foreach (DataGridViewRow row in dgvItensDocumento.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    int produtoID = Convert.ToInt32(row.Cells["ProdutoID"].Value);
+                    int quantidade = Convert.ToInt32(row.Cells["Quantidade"].Value);
+                    decimal precoCompra = Convert.ToDecimal(row.Cells["PrecoCompra"].Value);
+                    decimal precoCusto = Convert.ToDecimal(row.Cells["PrecoCusto"].Value);
+
+                    repo.ConfirmarEntrada(
+                        produtoID,
+                        quantidade,
+                        precoCompra,
+                        precoCusto,
+                        cmbTipoEntrada.Text,
+                        txtNumeroDocumento.Text,
+                        "Entrada via formulário fiscal",
+                        Sessao.NomeUsuario ?? "Sistema"
+
+                    );
+                }
+
+                MessageBox.Show("Entrada confirmada com sucesso!");
+                dgvItensDocumento.Rows.Clear();
+                AtualizarTotais();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao confirmar entrada:\n" + ex.Message);
+            }
+        }
+        private void AtualizarTotais()
+        {
+            decimal totalNota = 0;
+            int totalItens = 0;
+
+            foreach (DataGridViewRow row in dgvItensDocumento.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                totalNota += Convert.ToDecimal(row.Cells["Total"].Value);
+                totalItens += Convert.ToInt32(row.Cells["Quantidade"].Value);
+            }
+
+            txtTotalDaNota.Text = totalNota.ToString("N2");
+            txtTotalItens.Text = totalItens.ToString();
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void InicializarDatagridView()
+        {
+            dgvItensDocumento.Columns.Clear();
+
+            dgvItensDocumento.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvItensDocumento.AllowUserToAddRows = false;
+
+            // 🔹 Coluna oculta
+            dgvItensDocumento.Columns.Add("ProdutoID", "ProdutoID");
+            dgvItensDocumento.Columns["ProdutoID"].Visible = false;
+
+            // 🔹 Produto (DINÂMICA)
+            var colProduto = new DataGridViewTextBoxColumn();
+            colProduto.Name = "Produto";
+            colProduto.HeaderText = "Produto";
+            colProduto.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // 🔥 AQUI É O SEGREDO
+            dgvItensDocumento.Columns.Add(colProduto);
+
+            // 🔹 Quantidade (fixa)
+            var colQuantidade = new DataGridViewTextBoxColumn();
+            colQuantidade.Name = "Quantidade";
+            colQuantidade.HeaderText = "Qtd";
+            colQuantidade.Width = 80;
+            colQuantidade.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvItensDocumento.Columns.Add(colQuantidade);
+
+            // 🔹 Preço Custo (fixa)
+            var colPrecoCusto = new DataGridViewTextBoxColumn();
+            colPrecoCusto.Name = "PrecoCusto";
+            colPrecoCusto.HeaderText = "Preço Custo";
+            colPrecoCusto.Width = 110;
+            colPrecoCusto.DefaultCellStyle.Format = "N2";
+            colPrecoCusto.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvItensDocumento.Columns.Add(colPrecoCusto);
+
+            // 🔹 Total (fixa)
+            var colTotal = new DataGridViewTextBoxColumn();
+            colTotal.Name = "Total";
+            colTotal.HeaderText = "Total";
+            colTotal.Width = 120;
+            colTotal.DefaultCellStyle.Format = "N2";
+            colTotal.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvItensDocumento.Columns.Add(colTotal);
+        }
+
+
+        //private void InicializarDatagridView()
+        //{
+        //    dgvItensDocumento.Columns.Add("ProdutoID", "ProdutoID");
+        //    dgvItensDocumento.Columns["ProdutoID"].Visible = false;
+
+        //    dgvItensDocumento.Columns.Add("Produto", "Produto");
+        //    dgvItensDocumento.Columns.Add("Quantidade", "Quantidade");
+        //    dgvItensDocumento.Columns.Add("PrecoCusto", "Preço Custo");
+        //    dgvItensDocumento.Columns.Add("Total", "Total");
+
+        //}
+        private void btnAdicionarItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQuantidade.Text) || string.IsNullOrEmpty(txtPrecoCusto.Text))
+            {
+                MessageBox.Show("Preencha quantidade e preço.");
+                return;
+            }
+
+            if (!int.TryParse(txtQuantidade.Text, out int quantidade))
+            {
+                MessageBox.Show("Quantidade inválida.");
+                return;
+            }
+
+            if (!decimal.TryParse(txtPrecoCusto.Text, out decimal precoCusto))
+            {
+                MessageBox.Show("Preço de custo inválido.");
+                return;
+            }
+
+            decimal total = quantidade * precoCusto;
+
+            dgvItensDocumento.Rows.Add(
+                produtoID, // precisa guardar ID oculto
+                txtProduto.Text,
+                quantidade,
+                precoCusto,
+                total
+            );
+
+            AtualizarTotais();
+        }
+
+        private void txtTotalDaNota_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

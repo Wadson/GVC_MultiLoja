@@ -1,0 +1,109 @@
+
+Como implementar a Entrada de Produtos e nesta mesma tela já atualizar a coluna "Estoque"
+da tabela "Produtos" e o Preço de Custo
+
+CREATE TABLE [dbo].[MovimentacaoEstoque](
+	[MovimentacaoID] [int] IDENTITY(1,1) NOT NULL,
+	[ProdutoID] [int] NOT NULL,
+	[TipoMovimentacao] [nvarchar](20) NOT NULL,
+	[Quantidade] [int] NOT NULL,
+	[EstoqueAnterior] [int] NOT NULL,
+	[EstoqueAtual] [int] NOT NULL,
+	[Origem] [nvarchar](30) NOT NULL,
+	[Documento] [nvarchar](50) NULL,
+	[Observacao] [nvarchar](255) NULL,
+	[DataMovimentacao] [datetime] NOT NULL,
+	[Usuario] [nvarchar](50) NULL,
+	[EmpresaID] [int] NOT NULL,
+
+
+CREATE TABLE [dbo].[Produtos](
+	[ProdutoID] [int] IDENTITY(1,1) NOT NULL,
+	[NomeProduto] [nvarchar](100) NOT NULL,
+	[Referencia] [nvarchar](15) NULL,
+    [PrecoCompra] [decimal](18, 2) NOT NULL,
+	[PrecoCusto] [decimal](18, 2) NOT NULL,
+	[Lucro] [decimal](18, 2) NOT NULL,
+	[PrecoDeVenda] [decimal](18, 2) NOT NULL,
+	[Estoque] [int] NOT NULL,
+	[DataDeEntrada] [datetime2](7) NOT NULL,
+	[Status] [nvarchar](20) NOT NULL,
+	[Situacao] [nvarchar](50) NULL,
+	[Unidade] [nvarchar](20) NULL,
+	[DataValidade] [datetime2](7) NULL,
+	[GtinEan] [nvarchar](20) NULL,
+	[Imagem] [nvarchar](255) NULL,
+	[FornecedorID] [int] NULL,
+	[EmpresaID] [int] NOT NULL,
+	[MarcaID] [int] NULL,
+
+No Formulário FrmEntradaFiscal tem os seguintes controles:
+
+
+IconButton - btnAdicionarItem
+
+KryptonLabel - lblSubTitulo
+KryptonLabel - lblTitulo
+KryptonLabel - lblRotuloDadosCadastrais
+Label - lblPrecoCusto
+Label - lblPrecoCompra
+Label - lblReferencia
+Label - lblProduto
+Label - lblTipoEntrada
+Label - lblQuantidade
+Label - lblFornecedorID
+Label - lblFornecedor
+Label - lblTotalDaNota
+Label - lblTotalItens
+Label - lblDataEmissao
+Label - lblNumDocumento
+Label - lblSerie
+Label - lblTipoDocumento
+
+IconButton - btnRemoverItem
+IconButton - btnConfirmar
+IconButton - btnVerControlesDoForm
+IconButton - btnSair
+IconButton - btnCancelar
+
+KryptonTextBox - txtReferencia
+KryptonTextBox - txtProduto
+KryptonTextBox - txtFornecedorID
+KryptonTextBox - txtQuantidade
+KryptonTextBox - txtFornecedor
+KryptonTextBox - txtPrecoCompra
+KryptonTextBox - txtPrecoCusto
+KryptonTextBox - txtTotalItens
+KryptonTextBox - txtTotalDaNota
+KryptonTextBox - txtSerie
+KryptonTextBox - txtNumeroDocumento
+
+KryptonComboBox - cmbTipoEntrada  = Entrada, Transferência, Devolução
+KryptonComboBox - cmbTipoDocumento = NF-e, NFC-e, Cupom Fiscal, Cupom Não Fiscal
+
+KryptonPanel - pnlHeader
+KryptonTableLayoutPanel - tlpTitulo
+GroupBox - grpTotais
+GroupBox - grpItens
+
+KryptonDataGridView - dgvItensDocumento
+KryptonDateTimePicker - dtpDataEmissao
+
+Sabendo que o PDV baixa Estoque na tabela "Produtos" coluna "Estoque"
+Então a entrada de Produtos deve somar a quantidade da tabela "Produtos" coluna "Estoque"
+
+
+
+1. Usuário digita Referência txtReferência → sistema busca produto Preenche txtProduto, txtPrecoCompra
+2. Usuário digita Quantidade e PrecoCusto (com despesas já inclusas manualmente)
+3. Sistema calcula Total = Qtd × PrecoCusto e insere no dgvItensDocumento
+4. Ao Confirmar:
+   ├─ Para cada item:
+   │  ├─ Busca produto atual (estoque + custo médio)
+   │  ├─ Calcula novo custo médio ponderado
+   │  ├─ Atualiza: Estoque (+Qtd), PrecoCusto (novo médio), (PrecoDeVenda será calculado manualmente)
+   │  └─ Grava movimentação com EstoqueAnterior/EstoqueAtual
+   └─ Commit transação → sucesso!
+
+
+   

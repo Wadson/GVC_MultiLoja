@@ -57,7 +57,7 @@ namespace GVC.DAL
 
         public void SalvarFornecedor(FornecedorModel fornecedor)
         {
-            if (FornecedorExiste(fornecedor.Nome, fornecedor.Cnpj))
+            if (FornecedorExiste(fornecedor.Fornecedor, fornecedor.Cnpj))
                 throw new InvalidOperationException("Fornecedor já cadastrado.");
 
             const string sql = @"
@@ -70,7 +70,7 @@ namespace GVC.DAL
 
             Connection.Execute(sql, new
             {
-                fornecedor.Nome,
+                fornecedor.Fornecedor,
                 fornecedor.Cnpj,
                 fornecedor.IE,
                 fornecedor.Telefone,
@@ -108,7 +108,7 @@ namespace GVC.DAL
             using var cmd = CreateCommand(sql);
 
             cmd.Parameters.AddWithValue("@FornecedorID", fornecedor.FornecedorID);
-            cmd.Parameters.AddWithValue("@Nome", fornecedor.Nome ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Nome", fornecedor.Fornecedor ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Cnpj", fornecedor.Cnpj ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@IE", fornecedor.IE ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Telefone", fornecedor.Telefone ?? (object)DBNull.Value);
@@ -203,7 +203,7 @@ namespace GVC.DAL
             return new FornecedorModel
             {
                 FornecedorID = Convert.ToInt32(dr["FornecedorID"]),
-                Nome = dr["Nome"].ToString(),
+                Fornecedor = dr["Nome"].ToString(),
                 Cnpj = dr["Cnpj"].ToString(),
                 Telefone = dr["Telefone"].ToString(),
                 Email = dr["Email"].ToString()
@@ -223,7 +223,7 @@ namespace GVC.DAL
             return new FornecedorModel
             {
                 FornecedorID = Convert.ToInt32(dr["FornecedorID"]),
-                Nome = dr["Nome"].ToString(),
+                Fornecedor = dr["Nome"].ToString(),
                 Cnpj = dr["Cnpj"].ToString(),
                 Telefone = dr["Telefone"].ToString()
             };
@@ -245,7 +245,7 @@ namespace GVC.DAL
                 lista.Add(new FornecedorModel
                 {
                     FornecedorID = Convert.ToInt32(dr["FornecedorID"]),
-                    Nome = dr["Nome"].ToString(),
+                    Fornecedor = dr["Nome"].ToString(),
                     Telefone = dr["Telefone"].ToString(),
                     Cnpj = dr["Cnpj"].ToString()
                 });

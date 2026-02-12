@@ -151,7 +151,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.BackColor = Color.FromArgb(8, 142, 254);
+            menuStrip1.BackColor = Color.FromArgb(183, 219, 255);
             menuStrip1.Font = new Font("Segoe UI", 9F);
             menuStrip1.Items.AddRange(new ToolStripItem[] { arquivoToolStripMenuItem, cadastrosToolStripMenuItem, estoqueToolStripMenuItem1, vendasToolStripMenuItem, financeiroToolStripMenuItem, relatóriosToolStripMenuItem, configuraçõesToolStripMenuItem, ajudaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
@@ -808,7 +808,7 @@
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb(250, 252, 252);
+            BackColor = Color.White;
             ClientSize = new Size(890, 430);
             Controls.Add(kryptonPanel1);
             Controls.Add(lblVersaoSistema);

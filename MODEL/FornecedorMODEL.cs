@@ -7,8 +7,7 @@ public partial class FornecedorModel
 {
     public int FornecedorID { get; set; }
 
-    public string Nome { get; set; } = null!;
-
+    public string Fornecedor { get; set; } = null!; // No Banco de Dados o nome da Coluna é: "Nome"
     public string? Cnpj { get; set; }
 
     public string?IE { get; set; }

@@ -274,7 +274,7 @@ namespace GVC.View
         {
             var fornecedor = new FornecedorModel();
 
-            fornecedor.Nome = txtNomeFornecedor.Text.Trim();
+            fornecedor.Fornecedor = txtNomeFornecedor.Text.Trim();
             fornecedor.Cnpj = Utilitario.ApenasNumeros(txtCnpj.Text);
             fornecedor.IE = txtIE.Text.Trim();
             fornecedor.Telefone = Utilitario.ApenasNumeros(txtTelefone.Text);
@@ -310,11 +310,11 @@ namespace GVC.View
         {
             FornecedorID = (int)fornecedor.FornecedorID;
             txtFornecedorID.Text = Utilitario.ZerosEsquerda((int)fornecedor.FornecedorID, 6);
-            txtNomeFornecedor.Text = fornecedor.Nome;
+            txtNomeFornecedor.Text = fornecedor.Fornecedor;
 
             txtTelefone.Text = fornecedor.Telefone;
             txtEmail.Text = fornecedor.Email;
-            txtCidade.Text = fornecedor.Nome ?? ""; // ← aqui tem um erro no seu código! deveria ser NomeCidade ou algo assim
+            txtCidade.Text = fornecedor.Fornecedor ?? ""; // ← aqui tem um erro no seu código! deveria ser NomeCidade ou algo assim
             txtLogradouro.Text = fornecedor.Logradouro;
             txtNumero.Text = fornecedor.Numero;
             txtBairro.Text = fornecedor.Bairro;

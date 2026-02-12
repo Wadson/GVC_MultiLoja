@@ -33,7 +33,7 @@ namespace GVC.BLL
                 var cnpjLimpo = LimparCnpj(fornecedor.Cnpj);
                 fornecedor.Cnpj = string.IsNullOrWhiteSpace(cnpjLimpo) ? null : cnpjLimpo;
 
-                if (_dal.FornecedorExiste(fornecedor.Nome, fornecedor.Cnpj))
+                if (_dal.FornecedorExiste(fornecedor.Fornecedor, fornecedor.Cnpj))
                     throw new Exception("Já existe um fornecedor cadastrado com este nome ou Cnpj.");
 
                 if (_dal.BuscarPorCnpj(fornecedor.Cnpj) != null)
@@ -162,7 +162,7 @@ namespace GVC.BLL
         {
             if (f == null) throw new ArgumentNullException(nameof(f));
 
-            if (string.IsNullOrWhiteSpace(f.Nome))
+            if (string.IsNullOrWhiteSpace(f.Fornecedor))
                 throw new Exception("Nome do fornecedor é obrigatório.");
 
             if (!string.IsNullOrWhiteSpace(f.Email) && !IsValidEmail(f.Email))

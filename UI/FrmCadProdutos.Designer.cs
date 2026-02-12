@@ -77,6 +77,11 @@
             cmbUnidade = new Krypton.Toolkit.KryptonComboBox();
             cmbMarca = new Krypton.Toolkit.KryptonComboBox();
             lblMarcaId = new Label();
+            txtPrecoCompra = new Krypton.Toolkit.KryptonTextBox();
+            lblPrecoCompra = new Label();
+            toolTip1 = new ToolTip(components);
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             ((System.ComponentModel.ISupportInitialize)pbImagem).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
@@ -85,6 +90,8 @@
             ((System.ComponentModel.ISupportInitialize)cmbStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbUnidade).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cmbMarca).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             SuspendLayout();
             // 
             // label21
@@ -130,7 +137,7 @@
             label27.BackColor = Color.Transparent;
             label27.Font = new Font("Microsoft Sans Serif", 9.25F);
             label27.ForeColor = Color.FromArgb(0, 76, 172);
-            label27.Location = new Point(21, 306);
+            label27.Location = new Point(214, 307);
             label27.Name = "label27";
             label27.Size = new Size(99, 16);
             label27.TabIndex = 240;
@@ -174,7 +181,7 @@
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Microsoft Sans Serif", 9.25F);
             label8.ForeColor = Color.FromArgb(0, 76, 172);
-            label8.Location = new Point(345, 306);
+            label8.Location = new Point(357, 307);
             label8.Name = "label8";
             label8.Size = new Size(40, 16);
             label8.TabIndex = 596;
@@ -186,7 +193,7 @@
             label9.BackColor = Color.Transparent;
             label9.Font = new Font("Microsoft Sans Serif", 9.25F);
             label9.ForeColor = Color.FromArgb(0, 76, 172);
-            label9.Location = new Point(676, 306);
+            label9.Location = new Point(523, 307);
             label9.Name = "label9";
             label9.Size = new Size(105, 16);
             label9.TabIndex = 598;
@@ -219,13 +226,13 @@
             txtEstoque.StateCommon.Content.Color1 = Color.Gray;
             txtEstoque.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtEstoque.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtEstoque.TabIndex = 8;
+            txtEstoque.TabIndex = 9;
             // 
             // txtPrecoDeVenda
             // 
-            txtPrecoDeVenda.Location = new Point(670, 325);
+            txtPrecoDeVenda.Location = new Point(517, 326);
             txtPrecoDeVenda.Name = "txtPrecoDeVenda";
-            txtPrecoDeVenda.Size = new Size(320, 24);
+            txtPrecoDeVenda.Size = new Size(476, 24);
             txtPrecoDeVenda.StateCommon.Back.Color1 = Color.White;
             txtPrecoDeVenda.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoDeVenda.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -236,14 +243,14 @@
             txtPrecoDeVenda.StateCommon.Content.Color1 = Color.Gray;
             txtPrecoDeVenda.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtPrecoDeVenda.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtPrecoDeVenda.TabIndex = 7;
+            txtPrecoDeVenda.TabIndex = 8;
             txtPrecoDeVenda.Leave += txtPrecoDeVenda_Leave;
             // 
             // txtLucro
             // 
-            txtLucro.Location = new Point(345, 325);
+            txtLucro.Location = new Point(351, 326);
             txtLucro.Name = "txtLucro";
-            txtLucro.Size = new Size(320, 24);
+            txtLucro.Size = new Size(160, 24);
             txtLucro.StateCommon.Back.Color1 = Color.White;
             txtLucro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtLucro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -254,15 +261,15 @@
             txtLucro.StateCommon.Content.Color1 = Color.Gray;
             txtLucro.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtLucro.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtLucro.TabIndex = 6;
+            txtLucro.TabIndex = 7;
             txtLucro.Enter += txtLucro_Enter;
             txtLucro.Leave += txtLucro_Leave;
             // 
             // txtPrecoCusto
             // 
-            txtPrecoCusto.Location = new Point(21, 325);
+            txtPrecoCusto.Location = new Point(184, 326);
             txtPrecoCusto.Name = "txtPrecoCusto";
-            txtPrecoCusto.Size = new Size(320, 24);
+            txtPrecoCusto.Size = new Size(161, 24);
             txtPrecoCusto.StateCommon.Back.Color1 = Color.White;
             txtPrecoCusto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoCusto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -273,7 +280,8 @@
             txtPrecoCusto.StateCommon.Content.Color1 = Color.Gray;
             txtPrecoCusto.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtPrecoCusto.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtPrecoCusto.TabIndex = 5;
+            txtPrecoCusto.TabIndex = 6;
+            toolTip1.SetToolTip(txtPrecoCusto, "Preço de Compra (NF + Impostos + Frete + Despesas = Preço de Custo)");
             txtPrecoCusto.Enter += txtPrecoCusto_Enter;
             txtPrecoCusto.Leave += txtPrecoCusto_Leave;
             // 
@@ -374,7 +382,7 @@
             txtGtinEan.StateCommon.Content.Color1 = Color.Gray;
             txtGtinEan.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtGtinEan.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtGtinEan.TabIndex = 9;
+            txtGtinEan.TabIndex = 10;
             // 
             // label2
             // 
@@ -559,7 +567,7 @@
             txtDataValidade.StateCommon.Content.Color1 = Color.Gray;
             txtDataValidade.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtDataValidade.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtDataValidade.TabIndex = 10;
+            txtDataValidade.TabIndex = 11;
             txtDataValidade.TextChanged += txtDataValidade_TextChanged;
             txtDataValidade.Leave += txtDataValidade_Leave;
             // 
@@ -723,7 +731,7 @@
             btnSalvar.StateTracking.Border.Rounding = 20F;
             btnSalvar.StateTracking.Border.Width = 1;
             btnSalvar.StateTracking.Content.ShortText.Color1 = Color.FromArgb(22, 121, 206);
-            btnSalvar.TabIndex = 11;
+            btnSalvar.TabIndex = 13;
             btnSalvar.Values.Text = "Salvar";
             btnSalvar.Click += btnSalvar_Click;
             // 
@@ -789,6 +797,7 @@
             btnNovo.StateTracking.Border.Width = 1;
             btnNovo.StateTracking.Content.ShortText.Color1 = Color.White;
             btnNovo.TabIndex = 12;
+            btnNovo.TabStop = false;
             btnNovo.Values.Text = "Novo";
             btnNovo.Click += btnNovo_Click;
             // 
@@ -1077,10 +1086,80 @@
             lblMarcaId.TabIndex = 1095;
             lblMarcaId.Text = "0";
             // 
+            // txtPrecoCompra
+            // 
+            txtPrecoCompra.Location = new Point(18, 326);
+            txtPrecoCompra.Name = "txtPrecoCompra";
+            txtPrecoCompra.Size = new Size(160, 24);
+            txtPrecoCompra.StateCommon.Back.Color1 = Color.White;
+            txtPrecoCompra.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
+            txtPrecoCompra.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            txtPrecoCompra.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtPrecoCompra.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            txtPrecoCompra.StateCommon.Border.Rounding = 8F;
+            txtPrecoCompra.StateCommon.Border.Width = 1;
+            txtPrecoCompra.StateCommon.Content.Color1 = Color.Gray;
+            txtPrecoCompra.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
+            txtPrecoCompra.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtPrecoCompra.TabIndex = 5;
+            // 
+            // lblPrecoCompra
+            // 
+            lblPrecoCompra.AutoSize = true;
+            lblPrecoCompra.BackColor = Color.Transparent;
+            lblPrecoCompra.Font = new Font("Microsoft Sans Serif", 9.25F);
+            lblPrecoCompra.ForeColor = Color.FromArgb(0, 76, 172);
+            lblPrecoCompra.Location = new Point(45, 307);
+            lblPrecoCompra.Name = "lblPrecoCompra";
+            lblPrecoCompra.Size = new Size(113, 16);
+            lblPrecoCompra.TabIndex = 1097;
+            lblPrecoCompra.Text = "Preco de Compra";
+            // 
+            // toolTip1
+            // 
+            toolTip1.IsBalloon = true;
+            toolTip1.ToolTipIcon = ToolTipIcon.Info;
+            toolTip1.ToolTipTitle = "Informação!";
+            // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.BackColor = Color.FromArgb(252, 252, 250);
+            iconPictureBox1.ForeColor = Color.FromArgb(192, 64, 0);
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Question;
+            iconPictureBox1.IconColor = Color.FromArgb(192, 64, 0);
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 20;
+            iconPictureBox1.Location = new Point(190, 303);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(20, 20);
+            iconPictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            iconPictureBox1.TabIndex = 1098;
+            iconPictureBox1.TabStop = false;
+            toolTip1.SetToolTip(iconPictureBox1, "Preço de Compra (NF + Impostos + Frete + Despesas = Preço de Custo)");
+            // 
+            // iconPictureBox2
+            // 
+            iconPictureBox2.BackColor = Color.FromArgb(252, 252, 250);
+            iconPictureBox2.ForeColor = Color.FromArgb(192, 64, 0);
+            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Question;
+            iconPictureBox2.IconColor = Color.FromArgb(192, 64, 0);
+            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox2.IconSize = 20;
+            iconPictureBox2.Location = new Point(22, 303);
+            iconPictureBox2.Name = "iconPictureBox2";
+            iconPictureBox2.Size = new Size(20, 20);
+            iconPictureBox2.TabIndex = 1099;
+            iconPictureBox2.TabStop = false;
+            toolTip1.SetToolTip(iconPictureBox2, "Preço de Nota Fiscal");
+            // 
             // FrmCadProdutos
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(1008, 661);
+            Controls.Add(iconPictureBox2);
+            Controls.Add(iconPictureBox1);
+            Controls.Add(txtPrecoCompra);
+            Controls.Add(lblPrecoCompra);
             Controls.Add(lblMarcaId);
             Controls.Add(cmbMarca);
             Controls.Add(cmbUnidade);
@@ -1147,6 +1226,8 @@
             ((System.ComponentModel.ISupportInitialize)cmbStatus).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbUnidade).EndInit();
             ((System.ComponentModel.ISupportInitialize)cmbMarca).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -1201,6 +1282,11 @@
         public Krypton.Toolkit.KryptonComboBox cmbUnidade;
         public Krypton.Toolkit.KryptonComboBox cmbMarca;
         private Label lblMarcaId;
+        public Krypton.Toolkit.KryptonTextBox txtPrecoCompra;
+        private Label lblPrecoCompra;
+        private ToolTip toolTip1;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
         //private System.Windows.Forms.DateTimePicker dtpDataDeEntrada;
     }
 }

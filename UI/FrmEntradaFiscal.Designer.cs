@@ -42,13 +42,15 @@
             grpItens = new GroupBox();
             dgvItensDocumento = new Krypton.Toolkit.KryptonDataGridView();
             grpTotais = new GroupBox();
-            btnAdicionarItem = new FontAwesome.Sharp.IconButton();
+            txtTotalDaNota = new Krypton.Toolkit.KryptonTextBox();
+            lblTotalDaNota = new Label();
             btnConfirmar = new FontAwesome.Sharp.IconButton();
-            btnRemoverItem = new FontAwesome.Sharp.IconButton();
             txtTotalItens = new Krypton.Toolkit.KryptonTextBox();
             lblTotalItens = new Label();
             btnSair = new FontAwesome.Sharp.IconButton();
             btnCancelar = new FontAwesome.Sharp.IconButton();
+            btnAdicionarItem = new FontAwesome.Sharp.IconButton();
+            btnRemoverItem = new FontAwesome.Sharp.IconButton();
             btnVerControlesDoForm = new FontAwesome.Sharp.IconButton();
             lblRotuloDadosCadastrais = new Krypton.Toolkit.KryptonLabel();
             pnlHeader = new Krypton.Toolkit.KryptonPanel();
@@ -65,6 +67,10 @@
             lblReferencia = new Label();
             txtProduto = new Krypton.Toolkit.KryptonTextBox();
             lblProduto = new Label();
+            txtPrecoCompra = new Krypton.Toolkit.KryptonTextBox();
+            lblPrecoCompra = new Label();
+            txtQuantidade = new Krypton.Toolkit.KryptonTextBox();
+            lblQuantidade = new Label();
             txtPrecoCusto = new Krypton.Toolkit.KryptonTextBox();
             lblPrecoCusto = new Label();
             ((System.ComponentModel.ISupportInitialize)cmbTipoDocumento).BeginInit();
@@ -136,12 +142,12 @@
             dtpDataEmissao.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             dtpDataEmissao.StateCommon.Border.Rounding = 6F;
             dtpDataEmissao.TabIndex = 1095;
+            dtpDataEmissao.TabStop = false;
             // 
             // txtSerie
             // 
             txtSerie.Location = new Point(231, 168);
             txtSerie.Name = "txtSerie";
-            txtSerie.ReadOnly = true;
             txtSerie.Size = new Size(190, 24);
             txtSerie.StateCommon.Back.Color1 = Color.White;
             txtSerie.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
@@ -153,8 +159,7 @@
             txtSerie.StateCommon.Content.Color1 = Color.Gray;
             txtSerie.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtSerie.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtSerie.TabIndex = 1094;
-            txtSerie.TabStop = false;
+            txtSerie.TabIndex = 2;
             txtSerie.TextAlign = HorizontalAlignment.Center;
             // 
             // lblSerie
@@ -183,8 +188,7 @@
             cmbTipoDocumento.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             cmbTipoDocumento.StateCommon.ComboBox.Border.Rounding = 6F;
             cmbTipoDocumento.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            cmbTipoDocumento.TabIndex = 1092;
-            cmbTipoDocumento.TabStop = false;
+            cmbTipoDocumento.TabIndex = 3;
             // 
             // lblTipoDocumento
             // 
@@ -201,7 +205,6 @@
             // 
             txtNumeroDocumento.Location = new Point(12, 168);
             txtNumeroDocumento.Name = "txtNumeroDocumento";
-            txtNumeroDocumento.ReadOnly = true;
             txtNumeroDocumento.Size = new Size(215, 24);
             txtNumeroDocumento.StateCommon.Back.Color1 = Color.White;
             txtNumeroDocumento.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
@@ -213,8 +216,7 @@
             txtNumeroDocumento.StateCommon.Content.Color1 = Color.Gray;
             txtNumeroDocumento.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtNumeroDocumento.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtNumeroDocumento.TabIndex = 1090;
-            txtNumeroDocumento.TabStop = false;
+            txtNumeroDocumento.TabIndex = 1;
             txtNumeroDocumento.TextAlign = HorizontalAlignment.Center;
             // 
             // lblNumDocumento
@@ -251,11 +253,13 @@
             // grpTotais
             // 
             grpTotais.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grpTotais.Controls.Add(btnAdicionarItem);
+            grpTotais.Controls.Add(txtTotalDaNota);
+            grpTotais.Controls.Add(lblTotalDaNota);
             grpTotais.Controls.Add(btnConfirmar);
-            grpTotais.Controls.Add(btnRemoverItem);
             grpTotais.Controls.Add(txtTotalItens);
             grpTotais.Controls.Add(lblTotalItens);
+            grpTotais.Controls.Add(btnSair);
+            grpTotais.Controls.Add(btnCancelar);
             grpTotais.Location = new Point(14, 472);
             grpTotais.Name = "grpTotais";
             grpTotais.Size = new Size(982, 70);
@@ -263,24 +267,38 @@
             grpTotais.TabStop = false;
             grpTotais.Text = "Totais";
             // 
-            // btnAdicionarItem
+            // txtTotalDaNota
             // 
-            btnAdicionarItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdicionarItem.BackColor = Color.FromArgb(76, 175, 80);
-            btnAdicionarItem.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
-            btnAdicionarItem.ForeColor = Color.White;
-            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.Add;
-            btnAdicionarItem.IconColor = Color.White;
-            btnAdicionarItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnAdicionarItem.IconSize = 28;
-            btnAdicionarItem.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdicionarItem.Location = new Point(493, 21);
-            btnAdicionarItem.Name = "btnAdicionarItem";
-            btnAdicionarItem.Padding = new Padding(10, 0, 10, 0);
-            btnAdicionarItem.Size = new Size(160, 38);
-            btnAdicionarItem.TabIndex = 1144;
-            btnAdicionarItem.Text = "       Adicionar Ìtem";
-            btnAdicionarItem.UseVisualStyleBackColor = false;
+            txtTotalDaNota.Location = new Point(125, 40);
+            txtTotalDaNota.Name = "txtTotalDaNota";
+            txtTotalDaNota.ReadOnly = true;
+            txtTotalDaNota.Size = new Size(169, 24);
+            txtTotalDaNota.StateCommon.Back.Color1 = Color.White;
+            txtTotalDaNota.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
+            txtTotalDaNota.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            txtTotalDaNota.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtTotalDaNota.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            txtTotalDaNota.StateCommon.Border.Rounding = 8F;
+            txtTotalDaNota.StateCommon.Border.Width = 1;
+            txtTotalDaNota.StateCommon.Content.Color1 = Color.Gray;
+            txtTotalDaNota.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
+            txtTotalDaNota.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtTotalDaNota.TabIndex = 1145;
+            txtTotalDaNota.TabStop = false;
+            txtTotalDaNota.TextAlign = HorizontalAlignment.Center;
+            txtTotalDaNota.TextChanged += txtTotalDaNota_TextChanged;
+            // 
+            // lblTotalDaNota
+            // 
+            lblTotalDaNota.AutoSize = true;
+            lblTotalDaNota.BackColor = Color.Transparent;
+            lblTotalDaNota.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalDaNota.ForeColor = Color.FromArgb(0, 76, 172);
+            lblTotalDaNota.Location = new Point(129, 21);
+            lblTotalDaNota.Name = "lblTotalDaNota";
+            lblTotalDaNota.Size = new Size(102, 16);
+            lblTotalDaNota.TabIndex = 1144;
+            lblTotalDaNota.Text = "Total da Nota";
             // 
             // btnConfirmar
             // 
@@ -293,33 +311,16 @@
             btnConfirmar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnConfirmar.IconSize = 28;
             btnConfirmar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnConfirmar.Location = new Point(653, 21);
+            btnConfirmar.Location = new Point(480, 21);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Padding = new Padding(10, 0, 10, 0);
             btnConfirmar.Size = new Size(160, 38);
             btnConfirmar.TabIndex = 1143;
+            btnConfirmar.TabStop = false;
             btnConfirmar.Text = "    Confirmar";
             btnConfirmar.TextAlign = ContentAlignment.MiddleRight;
             btnConfirmar.UseVisualStyleBackColor = false;
-            // 
-            // btnRemoverItem
-            // 
-            btnRemoverItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnRemoverItem.BackColor = Color.FromArgb(229, 57, 53);
-            btnRemoverItem.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
-            btnRemoverItem.ForeColor = Color.White;
-            btnRemoverItem.IconChar = FontAwesome.Sharp.IconChar.Subtract;
-            btnRemoverItem.IconColor = Color.White;
-            btnRemoverItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnRemoverItem.IconSize = 18;
-            btnRemoverItem.ImageAlign = ContentAlignment.MiddleLeft;
-            btnRemoverItem.Location = new Point(813, 21);
-            btnRemoverItem.Name = "btnRemoverItem";
-            btnRemoverItem.Padding = new Padding(10, 0, 10, 0);
-            btnRemoverItem.Size = new Size(160, 38);
-            btnRemoverItem.TabIndex = 1141;
-            btnRemoverItem.Text = "Excluir Ìtem";
-            btnRemoverItem.UseVisualStyleBackColor = false;
+            btnConfirmar.Click += btnConfirmar_Click;
             // 
             // txtTotalItens
             // 
@@ -364,13 +365,15 @@
             btnSair.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnSair.IconSize = 28;
             btnSair.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSair.Location = new Point(832, 548);
+            btnSair.Location = new Point(811, 21);
             btnSair.Name = "btnSair";
             btnSair.Padding = new Padding(10, 0, 10, 0);
             btnSair.Size = new Size(160, 38);
             btnSair.TabIndex = 1142;
+            btnSair.TabStop = false;
             btnSair.Text = "Sair";
             btnSair.UseVisualStyleBackColor = false;
+            btnSair.Click += btnSair_Click;
             // 
             // btnCancelar
             // 
@@ -383,12 +386,54 @@
             btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCancelar.IconSize = 28;
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelar.Location = new Point(667, 548);
+            btnCancelar.Location = new Point(646, 21);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(160, 38);
             btnCancelar.TabIndex = 1140;
+            btnCancelar.TabStop = false;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
+            // 
+            // btnAdicionarItem
+            // 
+            btnAdicionarItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdicionarItem.BackColor = Color.FromArgb(76, 175, 80);
+            btnAdicionarItem.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            btnAdicionarItem.ForeColor = Color.White;
+            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.Add;
+            btnAdicionarItem.IconColor = Color.White;
+            btnAdicionarItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAdicionarItem.IconSize = 28;
+            btnAdicionarItem.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAdicionarItem.Location = new Point(666, 253);
+            btnAdicionarItem.Name = "btnAdicionarItem";
+            btnAdicionarItem.Padding = new Padding(10, 0, 10, 0);
+            btnAdicionarItem.Size = new Size(160, 38);
+            btnAdicionarItem.TabIndex = 10;
+            btnAdicionarItem.Text = "       Adicionar Ìtem";
+            btnAdicionarItem.UseVisualStyleBackColor = false;
+            btnAdicionarItem.Click += btnAdicionarItem_Click;
+            // 
+            // btnRemoverItem
+            // 
+            btnRemoverItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRemoverItem.BackColor = Color.FromArgb(229, 57, 53);
+            btnRemoverItem.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            btnRemoverItem.ForeColor = Color.White;
+            btnRemoverItem.IconChar = FontAwesome.Sharp.IconChar.Subtract;
+            btnRemoverItem.IconColor = Color.White;
+            btnRemoverItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnRemoverItem.IconSize = 18;
+            btnRemoverItem.ImageAlign = ContentAlignment.MiddleLeft;
+            btnRemoverItem.Location = new Point(832, 253);
+            btnRemoverItem.Name = "btnRemoverItem";
+            btnRemoverItem.Padding = new Padding(10, 0, 10, 0);
+            btnRemoverItem.Size = new Size(160, 38);
+            btnRemoverItem.TabIndex = 1141;
+            btnRemoverItem.TabStop = false;
+            btnRemoverItem.Text = "Excluir Ìtem";
+            btnRemoverItem.UseVisualStyleBackColor = false;
             // 
             // btnVerControlesDoForm
             // 
@@ -514,7 +559,7 @@
             txtFornecedor.CharacterCasing = CharacterCasing.Upper;
             txtFornecedor.Location = new Point(231, 111);
             txtFornecedor.Name = "txtFornecedor";
-            txtFornecedor.Size = new Size(760, 24);
+            txtFornecedor.Size = new Size(774, 24);
             txtFornecedor.StateCommon.Back.Color1 = Color.White;
             txtFornecedor.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtFornecedor.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -525,7 +570,7 @@
             txtFornecedor.StateCommon.Content.Color1 = Color.Gray;
             txtFornecedor.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtFornecedor.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtFornecedor.TabIndex = 1132;
+            txtFornecedor.TabIndex = 0;
             txtFornecedor.TextChanged += txtFornecedor_TextChanged;
             // 
             // lblFornecedor
@@ -565,14 +610,12 @@
             cmbTipoEntrada.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             cmbTipoEntrada.StateCommon.ComboBox.Border.Rounding = 6F;
             cmbTipoEntrada.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            cmbTipoEntrada.TabIndex = 1137;
-            cmbTipoEntrada.TabStop = false;
+            cmbTipoEntrada.TabIndex = 4;
             // 
             // txtReferencia
             // 
             txtReferencia.Location = new Point(13, 223);
             txtReferencia.Name = "txtReferencia";
-            txtReferencia.ReadOnly = true;
             txtReferencia.Size = new Size(155, 24);
             txtReferencia.StateCommon.Back.Color1 = Color.White;
             txtReferencia.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
@@ -584,8 +627,7 @@
             txtReferencia.StateCommon.Content.Color1 = Color.Gray;
             txtReferencia.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtReferencia.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtReferencia.TabIndex = 1146;
-            txtReferencia.TabStop = false;
+            txtReferencia.TabIndex = 5;
             txtReferencia.TextAlign = HorizontalAlignment.Center;
             // 
             // lblReferencia
@@ -606,7 +648,7 @@
             txtProduto.CharacterCasing = CharacterCasing.Upper;
             txtProduto.Location = new Point(175, 223);
             txtProduto.Name = "txtProduto";
-            txtProduto.Size = new Size(691, 24);
+            txtProduto.Size = new Size(487, 24);
             txtProduto.StateCommon.Back.Color1 = Color.White;
             txtProduto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtProduto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -617,7 +659,7 @@
             txtProduto.StateCommon.Content.Color1 = Color.Gray;
             txtProduto.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtProduto.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtProduto.TabIndex = 1143;
+            txtProduto.TabIndex = 6;
             txtProduto.TextChanged += txtProduto_TextChanged;
             // 
             // lblProduto
@@ -632,12 +674,75 @@
             lblProduto.TabIndex = 1144;
             lblProduto.Text = "Produto";
             // 
+            // txtPrecoCompra
+            // 
+            txtPrecoCompra.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtPrecoCompra.Location = new Point(761, 223);
+            txtPrecoCompra.Name = "txtPrecoCompra";
+            txtPrecoCompra.Size = new Size(119, 24);
+            txtPrecoCompra.StateCommon.Back.Color1 = Color.White;
+            txtPrecoCompra.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
+            txtPrecoCompra.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            txtPrecoCompra.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtPrecoCompra.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            txtPrecoCompra.StateCommon.Border.Rounding = 8F;
+            txtPrecoCompra.StateCommon.Border.Width = 1;
+            txtPrecoCompra.StateCommon.Content.Color1 = Color.Gray;
+            txtPrecoCompra.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
+            txtPrecoCompra.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtPrecoCompra.TabIndex = 8;
+            txtPrecoCompra.TextAlign = HorizontalAlignment.Center;
+            // 
+            // lblPrecoCompra
+            // 
+            lblPrecoCompra.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblPrecoCompra.AutoSize = true;
+            lblPrecoCompra.BackColor = Color.Transparent;
+            lblPrecoCompra.Font = new Font("Microsoft Sans Serif", 9.75F);
+            lblPrecoCompra.ForeColor = Color.FromArgb(0, 76, 172);
+            lblPrecoCompra.Location = new Point(761, 204);
+            lblPrecoCompra.Name = "lblPrecoCompra";
+            lblPrecoCompra.Size = new Size(113, 16);
+            lblPrecoCompra.TabIndex = 1147;
+            lblPrecoCompra.Text = "Preço de Compra";
+            // 
+            // txtQuantidade
+            // 
+            txtQuantidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtQuantidade.Location = new Point(670, 223);
+            txtQuantidade.Name = "txtQuantidade";
+            txtQuantidade.Size = new Size(85, 24);
+            txtQuantidade.StateCommon.Back.Color1 = Color.White;
+            txtQuantidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
+            txtQuantidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            txtQuantidade.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtQuantidade.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            txtQuantidade.StateCommon.Border.Rounding = 8F;
+            txtQuantidade.StateCommon.Border.Width = 1;
+            txtQuantidade.StateCommon.Content.Color1 = Color.Gray;
+            txtQuantidade.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
+            txtQuantidade.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtQuantidade.TabIndex = 7;
+            txtQuantidade.TextAlign = HorizontalAlignment.Center;
+            // 
+            // lblQuantidade
+            // 
+            lblQuantidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblQuantidade.AutoSize = true;
+            lblQuantidade.BackColor = Color.Transparent;
+            lblQuantidade.Font = new Font("Microsoft Sans Serif", 9.75F);
+            lblQuantidade.ForeColor = Color.FromArgb(0, 76, 172);
+            lblQuantidade.Location = new Point(670, 204);
+            lblQuantidade.Name = "lblQuantidade";
+            lblQuantidade.Size = new Size(77, 16);
+            lblQuantidade.TabIndex = 1149;
+            lblQuantidade.Text = "Quantidade";
+            // 
             // txtPrecoCusto
             // 
             txtPrecoCusto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtPrecoCusto.Location = new Point(872, 223);
+            txtPrecoCusto.Location = new Point(886, 223);
             txtPrecoCusto.Name = "txtPrecoCusto";
-            txtPrecoCusto.ReadOnly = true;
             txtPrecoCusto.Size = new Size(119, 24);
             txtPrecoCusto.StateCommon.Back.Color1 = Color.White;
             txtPrecoCusto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
@@ -649,8 +754,7 @@
             txtPrecoCusto.StateCommon.Content.Color1 = Color.Gray;
             txtPrecoCusto.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
             txtPrecoCusto.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtPrecoCusto.TabIndex = 1148;
-            txtPrecoCusto.TabStop = false;
+            txtPrecoCusto.TabIndex = 9;
             txtPrecoCusto.TextAlign = HorizontalAlignment.Center;
             // 
             // lblPrecoCusto
@@ -660,11 +764,11 @@
             lblPrecoCusto.BackColor = Color.Transparent;
             lblPrecoCusto.Font = new Font("Microsoft Sans Serif", 9.75F);
             lblPrecoCusto.ForeColor = Color.FromArgb(0, 76, 172);
-            lblPrecoCusto.Location = new Point(872, 204);
+            lblPrecoCusto.Location = new Point(893, 204);
             lblPrecoCusto.Name = "lblPrecoCusto";
-            lblPrecoCusto.Size = new Size(113, 16);
-            lblPrecoCusto.TabIndex = 1147;
-            lblPrecoCusto.Text = "Preço de Compra";
+            lblPrecoCusto.Size = new Size(99, 16);
+            lblPrecoCusto.TabIndex = 1151;
+            lblPrecoCusto.Text = "Preço de Custo";
             // 
             // FrmEntradaFiscal
             // 
@@ -674,14 +778,18 @@
             ClientSize = new Size(1008, 615);
             Controls.Add(txtPrecoCusto);
             Controls.Add(lblPrecoCusto);
+            Controls.Add(txtQuantidade);
+            Controls.Add(lblQuantidade);
+            Controls.Add(btnAdicionarItem);
+            Controls.Add(txtPrecoCompra);
+            Controls.Add(lblPrecoCompra);
+            Controls.Add(btnRemoverItem);
             Controls.Add(txtReferencia);
             Controls.Add(lblReferencia);
             Controls.Add(txtProduto);
             Controls.Add(lblProduto);
             Controls.Add(lblTipoEntrada);
             Controls.Add(cmbTipoEntrada);
-            Controls.Add(btnSair);
-            Controls.Add(btnCancelar);
             Controls.Add(txtFornecedorID);
             Controls.Add(lblFornecedorID);
             Controls.Add(txtFornecedor);
@@ -699,8 +807,7 @@
             Controls.Add(lblSerie);
             Controls.Add(lblTipoDocumento);
             Controls.Add(cmbTipoDocumento);
-            MaximizeBox = false;
-            MinimizeBox = false;
+            KeyPreview = true;
             Name = "FrmEntradaFiscal";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
@@ -708,6 +815,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Entrada de Estoque - Nota Fiscal";
             Load += FrmEntradaFiscal_Load;
+            Shown += FrmEntradaFiscal_Shown;
+            KeyDown += FrmEntradaFiscal_KeyDown;
             ((System.ComponentModel.ISupportInitialize)cmbTipoDocumento).EndInit();
             grpItens.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvItensDocumento).EndInit();
@@ -759,6 +868,12 @@
         private Label lblReferencia;
         public Krypton.Toolkit.KryptonTextBox txtProduto;
         private Label lblProduto;
+        public Krypton.Toolkit.KryptonTextBox txtPrecoCompra;
+        private Label lblPrecoCompra;
+        public Krypton.Toolkit.KryptonTextBox txtTotalDaNota;
+        private Label lblTotalDaNota;
+        public Krypton.Toolkit.KryptonTextBox txtQuantidade;
+        private Label lblQuantidade;
         public Krypton.Toolkit.KryptonTextBox txtPrecoCusto;
         private Label lblPrecoCusto;
     }

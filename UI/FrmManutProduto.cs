@@ -48,9 +48,10 @@ namespace GVC.View
             // ⭐⭐ PASSO 1: Remover TODAS as colunas de navegação/objetos complexos ⭐⭐
             // Estas são as colunas que NÃO vêm do seu SQL direto
             string[] colunasParaRemover = {
+
             "ItemVenda",
-            "MovimentacaoEstoques",  // Note o "s" no final - está no plural no seu model
-            "Fornecedor" };       // Objeto complexo FornecedorModel
+            "MovimentacaoEstoques" };  
+
 
             foreach (var nome in colunasParaRemover)
             {
@@ -64,7 +65,7 @@ namespace GVC.View
             // Estas são as colunas que vêm do seu SQL (SqlBase) - ATUALIZADO
             var colunasDoSQL = new HashSet<string>
             {
-                "ProdutoID", "NomeProduto", "Referencia", "PrecoCusto", "Lucro",
+                "ProdutoID", "NomeProduto", "Referencia", "PrecoCompra", "PrecoCusto", "Lucro",
                 "PrecoDeVenda", "Estoque", "DataDeEntrada", "Status", "Situacao",
                 "Unidade", "MarcaID", "NomeMarca", "DataValidade", "GtinEan", "Imagem",  // 🔹 ATUALIZADO
                 "FornecedorID", "NomeFornecedor", "EmpresaID"
@@ -84,7 +85,11 @@ namespace GVC.View
             string[] colunasParaOcultar = {
                 "ProdutoID",
                 "FornecedorID",
+                "Status",
+                "Situacao",
                 "DataDeEntrada",
+                "GtinEan",
+                "DataValidade",
                 "Imagem",
                 "EmpresaID",
                 "MarcaID"  // 🔹 ADICIONE ESTA LINHA (novo campo)
@@ -102,6 +107,9 @@ namespace GVC.View
             // Use Contains para evitar exceções
             if (dgvProdutos.Columns.Contains("NomeProduto"))
                 dgvProdutos.Columns["NomeProduto"].HeaderText = "Nome Produto";
+
+            if (dgvProdutos.Columns.Contains("PrecoCompra"))
+                dgvProdutos.Columns["PrecoCompra"].HeaderText = "Preço de Compra";
 
             if (dgvProdutos.Columns.Contains("PrecoCusto"))
                 dgvProdutos.Columns["PrecoCusto"].HeaderText = "Preço Custo";
@@ -125,6 +133,9 @@ namespace GVC.View
             if (dgvProdutos.Columns.Contains("NomeMarca"))
                 dgvProdutos.Columns["NomeMarca"].HeaderText = "Marca";
 
+            if (dgvProdutos.Columns.Contains("NomeFornecedor"))
+                dgvProdutos.Columns["NomeFornecedor"].HeaderText = "Fornecedor";
+
             if (dgvProdutos.Columns.Contains("Status"))
                 dgvProdutos.Columns["Status"].HeaderText = "Status";
 
@@ -141,6 +152,7 @@ namespace GVC.View
             var colunasFixas = new (string nome, int largura)[]
             {
                 ("NomeProduto", 400),
+                ("PrecoCompra", 100),
                 ("PrecoCusto", 80),
                 ("Lucro", 80),
                 ("PrecoDeVenda", 80),
@@ -184,25 +196,41 @@ namespace GVC.View
             dgvProdutos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 8, FontStyle.Regular);
             dgvProdutos.RowHeadersWidth = 30;
 
-            // ⭐⭐ PASSO 9: Formatações especiais ⭐⭐
+            // Exibe e configura PrecoCompra
+            if (dgvProdutos
+                .Columns.Contains("PrecoCompra"))
+            {
+                var col = dgvProdutos.Columns["PrecoCompra"];
+                col.Visible = true;
+                col.HeaderText = "Preço de Compra";
+                col.DefaultCellStyle.BackColor = Color.LightBlue;   // azul claro
+                col.DefaultCellStyle.ForeColor = Color.Blue;
+            }
+
+            // Exibe e configura PrecoCusto
+            if (dgvProdutos.Columns.Contains("PrecoCusto"))
+            {
+                var col = dgvProdutos.Columns["PrecoCusto"];
+                col.Visible = true;
+                col.HeaderText = "Preço de Custo";
+                col.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // amarelo suave
+                col.DefaultCellStyle.ForeColor = Color.Red;
+            }
+
+            // Exibe e configura PrecoDeVenda
             if (dgvProdutos.Columns.Contains("PrecoDeVenda"))
             {
-                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.Font = new Font("Arial", 8F, FontStyle.Regular);
-                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.ForeColor = Color.DarkGreen;
-                dgvProdutos.Columns["PrecoDeVenda"].DefaultCellStyle.BackColor = Color.LightYellow;
+                var col = dgvProdutos.Columns["PrecoDeVenda"];
+                col.Visible = true;
+                col.HeaderText = "Preço de Venda";
+                col.DefaultCellStyle.BackColor = Color.LightGreen;  // verde claro
+                col.DefaultCellStyle.ForeColor = Color.Green
+                    ;
             }
-
-            if (dgvProdutos.Columns.Contains("Estoque"))
-            {
-                dgvProdutos.Columns["Estoque"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvProdutos.Columns["Estoque"].DefaultCellStyle.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
-            }
-
+           
             // ⭐⭐ PASSO 10: Atualizar grid ⭐⭐
             dgvProdutos.Refresh();
-        }
-
-        // ⭐⭐ Método ReordenarColunas ATUALIZADO ⭐⭐
+        }      
         // ⭐⭐ Método ReordenarColunas ATUALIZADO ⭐⭐
         private void ReordenarColunas()
         {
@@ -213,6 +241,7 @@ namespace GVC.View
                 "ProdutoID",           // Oculto
                 "NomeProduto",         // Primeira coluna visível
                 "Referencia",
+                "PrecoCompra",
                 "PrecoCusto",
                 "Lucro",
                 "PrecoDeVenda",
@@ -277,6 +306,7 @@ namespace GVC.View
             frm.txtProdutoID.Text = produto.ProdutoID.ToString();
             frm.txtReferencia.Text = produto.Referencia ?? "";
             frm.txtNomeProduto.Text = produto.NomeProduto;
+            frm.txtPrecoCompra.Text = produto.PrecoCompra.HasValue ? produto.PrecoCompra.Value.ToString("N2") : "";
             frm.txtPrecoCusto.Text = produto.PrecoCusto.ToString("N2");
             frm.txtLucro.Text = produto.Lucro.ToString("N2");
             frm.txtPrecoDeVenda.Text = produto.PrecoDeVenda.ToString("N2");
@@ -293,7 +323,7 @@ namespace GVC.View
 
             frm.txtDataValidade.Text = produto.DataValidade.HasValue ? produto.DataValidade.Value.ToString("dd/MM/yyyy") : "";
             frm.txtGtinEan.Text = produto.GtinEan ?? "";
-            frm.txtFornecedor.Text = produto.Fornecedor?.Nome ?? "";
+            frm.txtFornecedor.Text = produto.Fornecedor?.Fornecedor ?? "";
             frm.txtFornecedorID.Text = produto.FornecedorID.ToString();
             frm.cmbSituacao.Text = produto.Situacao ?? "";
             frm.cmbStatus.Text = produto.Status;

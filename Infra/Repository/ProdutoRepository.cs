@@ -23,6 +23,7 @@ namespace GVC.Infra.Repository
         p.NomeProduto,   
         m.NomeMarca,  -- 🔹 agora traz o nome da marca
         p.Unidade,
+        p.PrecoCompra,
         p.PrecoCusto,
         p.Lucro,
         p.PrecoDeVenda,
@@ -161,13 +162,13 @@ namespace GVC.Infra.Repository
         {
             const string sql = @"
                 INSERT INTO Produtos (
-                    NomeProduto, Referencia, PrecoCusto, Lucro, PrecoDeVenda,
+                    NomeProduto, Referencia, PrecoCompra, PrecoCusto, Lucro, PrecoDeVenda,
                     Estoque, DataDeEntrada, Status, Situacao,
                     Unidade, MarcaID, DataValidade, GtinEan, Imagem,
                     FornecedorID, EmpresaID
                 )
                 VALUES (
-                    @NomeProduto, @Referencia, @PrecoCusto, @Lucro, @PrecoDeVenda,
+                    @NomeProduto, @Referencia, @PrecoCompra, @PrecoCusto, @Lucro, @PrecoDeVenda,
                     @Estoque, @DataDeEntrada, @Status, @Situacao,
                     @Unidade, @MarcaID, @DataValidade, @GtinEan, @Imagem,
                     @FornecedorID, @EmpresaID
@@ -189,6 +190,7 @@ namespace GVC.Infra.Repository
                 UPDATE Produtos SET
                     NomeProduto = @NomeProduto,
                     Referencia = @Referencia,
+                    PrecoCompra = @PrecoCompra,
                     PrecoCusto = @PrecoCusto,
                     Lucro = @Lucro,
                     PrecoDeVenda = @PrecoDeVenda,
@@ -277,7 +279,8 @@ namespace GVC.Infra.Repository
                 ProdutoID = Convert.ToInt32(r["ProdutoID"]),
                 NomeProduto = r["NomeProduto"].ToString(),
                 Referencia = r["Referencia"] == DBNull.Value ? null : r["Referencia"].ToString(),
-                PrecoCusto = r["PrecoCusto"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoCusto"]),
+                PrecoCompra = r["PrecoCompra"] == DBNull.Value ? null : (decimal?)Convert.ToDecimal(r["PrecoCompra"]),
+                PrecoCusto =  r["PrecoCusto"]  == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoCusto"]),
                 Lucro = r["Lucro"] == DBNull.Value ? 0 : Convert.ToDecimal(r["Lucro"]),
                 PrecoDeVenda = r["PrecoDeVenda"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoDeVenda"]),
                 Estoque = r["Estoque"] == DBNull.Value ? 0 : Convert.ToInt32(r["Estoque"]),
@@ -300,7 +303,7 @@ namespace GVC.Infra.Repository
                 Fornecedor = new FornecedorModel
                 {
                     FornecedorID = r["FornecedorID"] == DBNull.Value ? 0 : Convert.ToInt32(r["FornecedorID"]),
-                    Nome = r["NomeFornecedor"] == DBNull.Value ? "" : r["NomeFornecedor"].ToString()
+                    Fornecedor = r["NomeFornecedor"] == DBNull.Value ? "" : r["NomeFornecedor"].ToString()
                 }
             };
         }
@@ -317,6 +320,7 @@ namespace GVC.Infra.Repository
                 NomeProduto = r["NomeProduto"].ToString(),
                 NomeMarca = r["NomeMarca"] == DBNull.Value ? "" : r["NomeMarca"].ToString(),
                 Unidade = r["Unidade"] == DBNull.Value ? "" : r["Unidade"].ToString(),
+                PrecoCompra = r["PrecoCompra"] == DBNull.Value ? null : (decimal?)Convert.ToDecimal(r["PrecoCompra"]),
                 PrecoCusto = r["PrecoCusto"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoCusto"]),
                 Lucro = r["Lucro"] == DBNull.Value ? 0 : Convert.ToDecimal(r["Lucro"]),
                 PrecoDeVenda = r["PrecoDeVenda"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoDeVenda"]),
@@ -329,11 +333,13 @@ namespace GVC.Infra.Repository
                 GtinEan = r["GtinEan"] == DBNull.Value ? "" : r["GtinEan"].ToString(),
                 Imagem = r["Imagem"] == DBNull.Value ? null : r["Imagem"].ToString(),
                 FornecedorID = r["FornecedorID"] == DBNull.Value ? null : (int?)Convert.ToInt32(r["FornecedorID"]),
-                Fornecedor = new FornecedorModel
-                {
-                    FornecedorID = r["FornecedorID"] == DBNull.Value ? 0 : Convert.ToInt32(r["FornecedorID"]),
-                    Nome = r["NomeFornecedor"] == DBNull.Value ? "" : r["NomeFornecedor"].ToString()  // Alterado aqui
-                }
+                NomeFornecedor = r["NomeFornecedor"] == DBNull.Value ? "" : r["NomeFornecedor"].ToString(),
+
+                //Fornecedor = new FornecedorModel
+                //{
+                //    FornecedorID = r["FornecedorID"] == DBNull.Value ? 0 : Convert.ToInt32(r["FornecedorID"]),
+                //    Fornecedor = r["NomeFornecedor"] == DBNull.Value ? "" : r["NomeFornecedor"].ToString()  // Alterado aqui
+                //}
             };
         }
 
@@ -361,6 +367,7 @@ namespace GVC.Infra.Repository
         {
             cmd.Parameters.Add("@NomeProduto", SqlDbType.NVarChar).Value = (object?)p.NomeProduto ?? DBNull.Value;
             cmd.Parameters.Add("@Referencia", SqlDbType.NVarChar).Value = (object?)p.Referencia ?? DBNull.Value;
+            cmd.Parameters.Add("@PrecoCompra", SqlDbType.Decimal).Value = p.PrecoCompra.HasValue ? p.PrecoCompra.Value : DBNull.Value;
             cmd.Parameters.Add("@PrecoCusto", SqlDbType.Decimal).Value = p.PrecoCusto;
             cmd.Parameters.Add("@Lucro", SqlDbType.Decimal).Value = p.Lucro;
             cmd.Parameters.Add("@PrecoDeVenda", SqlDbType.Decimal).Value = p.PrecoDeVenda;

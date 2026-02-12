@@ -40,6 +40,7 @@
             iconAcao = new FontAwesome.Sharp.IconPictureBox();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
             lblMensagem = new ToolStripStatusLabel();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)dataGridPesquisar).BeginInit();
             tlpTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
@@ -192,17 +193,17 @@
             iconAcao.IconChar = FontAwesome.Sharp.IconChar.Tags;
             iconAcao.IconColor = Color.White;
             iconAcao.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconAcao.IconSize = 42;
-            iconAcao.Location = new Point(366, 2);
+            iconAcao.IconSize = 41;
+            iconAcao.Location = new Point(366, -4);
             iconAcao.Name = "iconAcao";
-            iconAcao.Size = new Size(48, 42);
+            iconAcao.Size = new Size(48, 41);
             iconAcao.TabIndex = 1110;
             iconAcao.TabStop = false;
             // 
             // kryptonStatusStrip1
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblMensagem });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblMensagem, toolStripStatusLabel1 });
             kryptonStatusStrip1.Location = new Point(0, 439);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
@@ -217,6 +218,12 @@
             lblMensagem.Size = new Size(39, 17);
             lblMensagem.Text = "Status";
             // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(127, 17);
+            toolStripStatusLabel1.Text = "F2-Detalhe do Produto";
+            // 
             // FrmPesquisarPreco
             // 
             BackColor = Color.FromArgb(252, 252, 250);
@@ -227,6 +234,7 @@
             Controls.Add(dataGridPesquisar);
             KeyPreview = true;
             Margin = new Padding(5, 3, 5, 3);
+            MinimizeBox = false;
             Name = "FrmPesquisarPreco";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
@@ -237,6 +245,7 @@
             StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Text = "Pesquisar Preços";
+            WindowState = FormWindowState.Maximized;
             Load += FrmLocalizarProduto_Load;
             Shown += FrmLocalizarProduto_Shown;
             KeyDown += FrmPesquisarPreco_KeyDown;
@@ -265,5 +274,6 @@
         private FontAwesome.Sharp.IconPictureBox iconAcao;
         private Krypton.Toolkit.KryptonStatusStrip kryptonStatusStrip1;
         private ToolStripStatusLabel lblMensagem;
+        private ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

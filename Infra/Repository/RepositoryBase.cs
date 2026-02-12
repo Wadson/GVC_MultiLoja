@@ -27,7 +27,7 @@ namespace GVC.Infra.Repository
 
             // 🔒 MULTIEMPRESA CENTRALIZADO
             if (sql.Contains("@EmpresaID"))
-                cmd.Parameters.Add("@EmpresaID", SqlDbType.Int).Value = EmpresaID;
+                cmd.Parameters.Add("@EmpresaID", SqlDbType.Int).Value = EmpresaID;               
 
             return cmd;
         }

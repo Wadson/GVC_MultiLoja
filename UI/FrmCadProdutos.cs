@@ -202,6 +202,7 @@ using System.Drawing;
                 ProdutoID = produtoId,
                 NomeProduto = txtNomeProduto.Text,
                 Referencia = txtReferencia.Text,
+                PrecoCompra = string.IsNullOrWhiteSpace(txtPrecoCompra.Text) ? (decimal?)null : decimal.Parse(txtPrecoCompra.Text),
                 PrecoCusto = precoCusto,
                 Lucro = lucro,
                 PrecoDeVenda = precoDeVenda,
@@ -283,6 +284,7 @@ using System.Drawing;
                 {
                     ProdutoID = int.Parse(txtProdutoID.Text),
                     NomeProduto = txtNomeProduto.Text,
+                    PrecoCompra = string.IsNullOrWhiteSpace(txtPrecoCompra.Text) ? (decimal?)null : decimal.Parse(txtPrecoCompra.Text),
                     PrecoCusto = decimal.Parse(txtPrecoCusto.Text),
                     Lucro = decimal.Parse(txtLucro.Text),
                     PrecoDeVenda = decimal.Parse(txtPrecoDeVenda.Text),
@@ -308,7 +310,7 @@ using System.Drawing;
                     Fornecedor = new FornecedorModel
                     {
                         FornecedorID = string.IsNullOrWhiteSpace(txtFornecedorID.Text) ? 0 : Convert.ToInt32(txtFornecedorID.Text),
-                        Nome = txtFornecedor.Text
+                        Fornecedor = txtFornecedor.Text
                     },
 
                     // 🔹 Preenche também o FornecedorID direto (se precisar salvar no banco)
