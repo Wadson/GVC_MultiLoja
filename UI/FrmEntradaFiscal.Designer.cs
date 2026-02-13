@@ -258,6 +258,7 @@
             dgvItensDocumento.Size = new Size(976, 155);
             dgvItensDocumento.TabIndex = 500;
             dgvItensDocumento.TabStop = false;
+            dgvItensDocumento.CellContentClick += dgvItensDocumento_CellContentClick;
             // 
             // grpTotais
             // 

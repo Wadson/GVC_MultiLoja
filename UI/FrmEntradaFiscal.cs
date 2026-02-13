@@ -1,6 +1,8 @@
-﻿using GVC.Infra.Repository;
+﻿using GVC.Infra.Conexao;
+using GVC.Infra.Repository;
 using GVC.UTIL;
 using Krypton.Toolkit;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +28,8 @@ namespace GVC.View
         {
             InitializeComponent();
             this.KeyPreview = true; // Adicione esta linha
+            dgvItensDocumento.CellContentClick += dgvItensDocumento_CellContentClick;
+
         }
 
         private void FrmEntradaFiscal_Load(object sender, EventArgs e)
@@ -172,9 +176,14 @@ namespace GVC.View
                 return;
             }
 
+            using var connection = Conexao.Conex();
+            connection.Open();
+
+            using var transaction = connection.BeginTransaction();
+
             try
             {
-                using var repo = new EntradaFiscalRepository();
+                var repo = new EntradaFiscalRepository();
 
                 foreach (DataGridViewRow row in dgvItensDocumento.Rows)
                 {
@@ -193,10 +202,12 @@ namespace GVC.View
                         cmbTipoEntrada.Text,
                         txtNumeroDocumento.Text,
                         "Entrada via formulário fiscal",
-                        Sessao.NomeUsuario ?? "Sistema"
-
+                        Sessao.NomeUsuario ?? "Sistema",
+                        transaction   // 🔥 AGORA PASSA A TRANSACTION
                     );
                 }
+
+                transaction.Commit();
 
                 MessageBox.Show("Entrada confirmada com sucesso!");
                 dgvItensDocumento.Rows.Clear();
@@ -204,6 +215,7 @@ namespace GVC.View
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
                 MessageBox.Show("Erro ao confirmar entrada:\n" + ex.Message);
             }
         }
@@ -248,10 +260,10 @@ namespace GVC.View
             var colProduto = new DataGridViewTextBoxColumn();
             colProduto.Name = "Produto";
             colProduto.HeaderText = "Produto";
-            colProduto.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // 🔥 AQUI É O SEGREDO
+            colProduto.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgvItensDocumento.Columns.Add(colProduto);
 
-            // 🔹 Quantidade (fixa)
+            // 🔹 Quantidade
             var colQuantidade = new DataGridViewTextBoxColumn();
             colQuantidade.Name = "Quantidade";
             colQuantidade.HeaderText = "Qtd";
@@ -259,7 +271,17 @@ namespace GVC.View
             colQuantidade.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvItensDocumento.Columns.Add(colQuantidade);
 
-            // 🔹 Preço Custo (fixa)
+            // 🔹 Preço Compra
+            var colPrecoCompra = new DataGridViewTextBoxColumn();
+            colPrecoCompra.Name = "PrecoCompra";
+            colPrecoCompra.HeaderText = "Preço Compra";
+            colPrecoCompra.Width = 110;
+            colPrecoCompra.DefaultCellStyle.Format = "N2";
+            colPrecoCompra.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvItensDocumento.Columns.Add(colPrecoCompra);
+
+
+            // 🔹 Preço Custo
             var colPrecoCusto = new DataGridViewTextBoxColumn();
             colPrecoCusto.Name = "PrecoCusto";
             colPrecoCusto.HeaderText = "Preço Custo";
@@ -268,7 +290,7 @@ namespace GVC.View
             colPrecoCusto.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvItensDocumento.Columns.Add(colPrecoCusto);
 
-            // 🔹 Total (fixa)
+            // 🔹 Total
             var colTotal = new DataGridViewTextBoxColumn();
             colTotal.Name = "Total";
             colTotal.HeaderText = "Total";
@@ -276,43 +298,103 @@ namespace GVC.View
             colTotal.DefaultCellStyle.Format = "N2";
             colTotal.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvItensDocumento.Columns.Add(colTotal);
+
+            // 🔹 Coluna de Excluir (botão)
+            var colExcluir = new DataGridViewButtonColumn();
+            colExcluir.Name = "Excluir";
+            colExcluir.HeaderText = "Excluir";
+            colExcluir.Text = "X";
+            colExcluir.UseColumnTextForButtonValue = true;
+            colExcluir.Width = 60;
+            dgvItensDocumento.Columns.Add(colExcluir);
         }
+
         private void btnAdicionarItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtQuantidade.Text) || string.IsNullOrEmpty(txtPrecoCusto.Text))
+            if (string.IsNullOrWhiteSpace(txtQuantidade.Text) ||
+                string.IsNullOrWhiteSpace(txtPrecoCompra.Text) ||
+                string.IsNullOrWhiteSpace(txtPrecoCusto.Text))
             {
-                MessageBox.Show("Preencha quantidade e preço.");
+                MessageBox.Show("Preencha quantidade, preço de compra e preço de custo.");
                 return;
             }
 
-            if (!int.TryParse(txtQuantidade.Text, out int quantidade))
+            if (!int.TryParse(txtQuantidade.Text, out int quantidade) || quantidade <= 0)
             {
                 MessageBox.Show("Quantidade inválida.");
                 return;
             }
 
-            // Limpa e converte o valor para decimal
+            if (!decimal.TryParse(txtPrecoCompra.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal precoCompra))
+            {
+                MessageBox.Show("Preço de compra inválido.");
+                return;
+            }
+
             if (!decimal.TryParse(txtPrecoCusto.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal precoCusto))
             {
                 MessageBox.Show("Preço de custo inválido.");
                 return;
             }
 
-            decimal total = quantidade * precoCusto;
+            // 🔎 Verifica se o produto já existe no grid
+            var linhaExistente = dgvItensDocumento.Rows
+                .Cast<DataGridViewRow>()
+                .FirstOrDefault(row =>
+                    !row.IsNewRow &&
+                    row.Cells["ProdutoID"].Value != null &&
+                    Convert.ToInt32(row.Cells["ProdutoID"].Value) == produtoID);
 
-            // Adiciona no DataGridView apenas valores numéricos (sem formatação)
-            dgvItensDocumento.Rows.Add(
-                produtoID,          // ID oculto
-                txtProduto.Text,    // Nome do produto
-                quantidade,         // int
-                precoCusto,         // decimal puro
-                total               // decimal puro
-            );
+            if (linhaExistente != null)
+            {
+                // ✅ Produto já existe → soma quantidade
+                int quantidadeAtual = Convert.ToInt32(linhaExistente.Cells["Quantidade"].Value);
+                int novaQuantidade = quantidadeAtual + quantidade;
 
+                linhaExistente.Cells["Quantidade"].Value = novaQuantidade;
+
+                // 🔹 Mantém o preço já existente na linha
+                decimal precoCompraLinha = Convert.ToDecimal(linhaExistente.Cells["PrecoCompra"].Value);
+                decimal precoCustoLinha = Convert.ToDecimal(linhaExistente.Cells["PrecoCusto"].Value);
+
+                decimal total = novaQuantidade * precoCompraLinha;
+
+                linhaExistente.Cells["Total"].Value = total;
+
+                // ⚠ Se quiser atualizar o preço quando for diferente, descomente:
+                // linhaExistente.Cells["PrecoCompra"].Value = precoCompra;
+                // linhaExistente.Cells["PrecoCusto"].Value = precoCusto;
+            }
+            else
+            {
+                // ✅ Novo item
+                decimal total = quantidade * precoCompra;
+
+                dgvItensDocumento.Rows.Add(
+                    produtoID,
+                    txtProduto.Text,
+                    quantidade,
+                    precoCompra,
+                    precoCusto,
+                    total
+                );
+            }
+
+            LimparCamposItem();
             AtualizarTotais();
-            Utilitario.LimparCampos(this);
+            txtProduto.Focus();
+
         }
-             
+        private void LimparCamposItem()
+        {
+            txtProduto.Clear();
+            txtQuantidade.Clear();
+            txtPrecoCusto.Clear();
+            produtoID = 0;
+            txtQuantidade.Clear();
+            txtPrecoCusto.Clear();
+            txtPrecoCompra.Clear();
+        }   
 
         private void txtPrecoCusto_Enter(object sender, EventArgs e)
         {
@@ -343,6 +425,33 @@ namespace GVC.View
             if (decimal.TryParse(txtPrecoCompra.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal valor))
             {
                 txtPrecoCompra.Text = valor.ToString("C2");
+            }
+        }
+
+        private void dgvItensDocumento_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Proteção contra índices inválidos
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            // Protege contra índice maior que o número de linhas
+            if (e.RowIndex >= dgvItensDocumento.Rows.Count)
+                return;
+
+            if (dgvItensDocumento.Columns[e.ColumnIndex].Name == "Excluir")
+            {
+                // Confirmação antes de excluir (opcional)
+                DialogResult resultado = MessageBox.Show(
+                    "Deseja realmente excluir este item?",
+                    "Confirmar Exclusão",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    dgvItensDocumento.Rows.RemoveAt(e.RowIndex);
+                    AtualizarTotais();
+                }
             }
         }
     }
