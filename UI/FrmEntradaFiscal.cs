@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace GVC.View
         public FrmEntradaFiscal()
         {
             InitializeComponent();
+            this.KeyPreview = true; // Adicione esta linha
         }
 
         private void FrmEntradaFiscal_Load(object sender, EventArgs e)
@@ -31,6 +33,8 @@ namespace GVC.View
             if (!ValidadorSessao.Validar(this))
                 return;
             InicializarDatagridView();
+            cmbTipoDocumento.SelectedIndex = 2;
+            cmbTipoEntrada.SelectedIndex = 0;
         }
 
         private void btnVerControlesDoForm_Click(object sender, EventArgs e)
@@ -87,7 +91,6 @@ namespace GVC.View
                     try
                     {
                         FornecedorID = pesquisaFornecedor.FornecedorID;
-                        txtFornecedorID.Text = FornecedorID.ToString();
                         txtFornecedor.Text = pesquisaFornecedor.FornecedorSelecionado;
                     }
                     finally
@@ -96,6 +99,7 @@ namespace GVC.View
                     }
                 }
             }
+            txtProduto.Select();
 
         }
 
@@ -132,7 +136,6 @@ namespace GVC.View
                         produtoID = pesquisaProduto.ProdutoID;
 
                         txtProduto.Text = pesquisaProduto.ProdutoSelecionado;
-                        txtReferencia.Text = pesquisaProduto.Referencia + "-" + produtoID;
                         txtPrecoCompra.Text = pesquisaProduto.PrecoCusto
                             .ToString("F2");
                     }
@@ -144,6 +147,7 @@ namespace GVC.View
                     }
                 }
             }
+            txtQuantidade.Select();
         }
 
         private void FrmEntradaFiscal_Shown(object sender, EventArgs e)
@@ -216,8 +220,8 @@ namespace GVC.View
                 totalItens += Convert.ToInt32(row.Cells["Quantidade"].Value);
             }
 
-            txtTotalDaNota.Text = totalNota.ToString("N2");
-            txtTotalItens.Text = totalItens.ToString();
+            lblTotal.Text = totalNota.ToString("N2");
+            lblTotalItens.Text = totalItens.ToString();
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -273,19 +277,6 @@ namespace GVC.View
             colTotal.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvItensDocumento.Columns.Add(colTotal);
         }
-
-
-        //private void InicializarDatagridView()
-        //{
-        //    dgvItensDocumento.Columns.Add("ProdutoID", "ProdutoID");
-        //    dgvItensDocumento.Columns["ProdutoID"].Visible = false;
-
-        //    dgvItensDocumento.Columns.Add("Produto", "Produto");
-        //    dgvItensDocumento.Columns.Add("Quantidade", "Quantidade");
-        //    dgvItensDocumento.Columns.Add("PrecoCusto", "Preço Custo");
-        //    dgvItensDocumento.Columns.Add("Total", "Total");
-
-        //}
         private void btnAdicionarItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtQuantidade.Text) || string.IsNullOrEmpty(txtPrecoCusto.Text))
@@ -300,7 +291,8 @@ namespace GVC.View
                 return;
             }
 
-            if (!decimal.TryParse(txtPrecoCusto.Text, out decimal precoCusto))
+            // Limpa e converte o valor para decimal
+            if (!decimal.TryParse(txtPrecoCusto.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal precoCusto))
             {
                 MessageBox.Show("Preço de custo inválido.");
                 return;
@@ -308,20 +300,50 @@ namespace GVC.View
 
             decimal total = quantidade * precoCusto;
 
+            // Adiciona no DataGridView apenas valores numéricos (sem formatação)
             dgvItensDocumento.Rows.Add(
-                produtoID, // precisa guardar ID oculto
-                txtProduto.Text,
-                quantidade,
-                precoCusto,
-                total
+                produtoID,          // ID oculto
+                txtProduto.Text,    // Nome do produto
+                quantidade,         // int
+                precoCusto,         // decimal puro
+                total               // decimal puro
             );
 
             AtualizarTotais();
+            Utilitario.LimparCampos(this);
+        }
+             
+
+        private void txtPrecoCusto_Enter(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtPrecoCusto.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal valor))
+            {
+                txtPrecoCusto.Text = valor.ToString("N2"); // apenas número com 2 casas
+            }
         }
 
-        private void txtTotalDaNota_TextChanged(object sender, EventArgs e)
+        private void txtPrecoCusto_Leave(object sender, EventArgs e)
         {
+            if (decimal.TryParse(txtPrecoCusto.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal valor))
+            {
+                txtPrecoCusto.Text = valor.ToString("C2"); // formato monetário (R$ 0,00)
+            }
+        }
 
+        private void txtPrecoCompra_Enter(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtPrecoCompra.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal valor))
+            {
+                txtPrecoCompra.Text = valor.ToString("N2");
+            }
+        }
+
+        private void txtPrecoCompra_Leave(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtPrecoCompra.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal valor))
+            {
+                txtPrecoCompra.Text = valor.ToString("C2");
+            }
         }
     }
 }
