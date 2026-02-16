@@ -206,10 +206,18 @@ namespace GVC.MUI
                 Utilitario.Mensagens.Info("Login realizado com sucesso!");
 
                 // 🔥 SETA SESSÃO
+                var empresa = cmbEmpresa.SelectedItem as EmpresaDTO;
+
                 Sessao.UsuarioID = usuarioLogado.UsuarioID;
                 Sessao.NomeUsuario = usuarioLogado.NomeCompleto;
-                Sessao.EmpresaID = EmpresaID;
-                Sessao.EmpresaNome = cmbEmpresa.Text;
+                Sessao.EmpresaID = empresa.EmpresaID;
+                Sessao.EmpresaNome = empresa.NomeFantasia;
+                Sessao.FundoTela = empresa.FundoTela; // 🔥 ESSENCIAL
+
+
+                // 🔥 FUNDAMENTAL: DEFINE FUNDO DA EMPRESA
+                if (cmbEmpresa.SelectedItem is EmpresaDTO empresaSelecionada)
+                    Sessao.FundoTela = empresaSelecionada.FundoTela;
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -310,13 +318,6 @@ namespace GVC.MUI
             txtUsuario.Focus();
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
             this.Text = "Versão: " + version;
-
-            //Utilitario.CarregarEmpresa(cmbEmpresa);
-            //_carregandoEmpresas = false;
-            //txtUsuario.Focus();
-            //var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
-
-            //this.Text = "Versão: " + version;// Exibe AssemblyVersion
         }
 
         private void FrmLogin_Shown(object sender, EventArgs e)
@@ -336,6 +337,29 @@ namespace GVC.MUI
                 return;
 
             EmpresaID = empresa.EmpresaID;
+
+            // 📍 APLICA FUNDO NO LOGIN
+            AplicarFundoEmpresa(empresa.FundoTela);
         }
+        private void AplicarFundoEmpresa(string caminhoImagem)
+        {
+            if (string.IsNullOrWhiteSpace(caminhoImagem))
+                return;
+
+            if (!File.Exists(caminhoImagem))
+                return;
+
+            // Libera imagem anterior (evita travamento de arquivo)
+            //if (picBackground.Image != null)
+            //{
+            //    picBackground.Image.Dispose();
+            //    picBackground.Image = null;
+            //}
+
+            using var fs = new FileStream(caminhoImagem, FileMode.Open, FileAccess.Read);
+            //picBackground.Image = Image.FromStream(fs);
+            //picBackground.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
     }
 }

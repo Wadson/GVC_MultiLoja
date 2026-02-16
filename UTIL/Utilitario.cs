@@ -1403,7 +1403,7 @@ namespace GVC.UTIL {
                 NomeFantasia = "Selecione a empresa"
             });
 
-            string sql = @"SELECT EmpresaID, NomeFantasia FROM Empresa ORDER BY NomeFantasia";
+            string sql = @"SELECT EmpresaID, NomeFantasia, FundoTela FROM Empresa ORDER BY NomeFantasia";
 
             using var conn = Conexao.Conex();
             using var cmd = new SqlCommand(sql, conn);
@@ -1415,9 +1415,11 @@ namespace GVC.UTIL {
             {
                 cmb.Items.Add(new EmpresaDTO
                 {
-                    EmpresaID = Convert.ToInt32(dr["EmpresaID"]),
-                    NomeFantasia = dr["NomeFantasia"].ToString()
+                    EmpresaID = dr.GetInt32(dr.GetOrdinal("EmpresaID")),
+                    NomeFantasia = dr.GetString(dr.GetOrdinal("NomeFantasia")),
+                    FundoTela = dr["FundoTela"] != DBNull.Value ? dr["FundoTela"].ToString() : null
                 });
+
             }
 
             cmb.DisplayMember = nameof(EmpresaDTO.NomeFantasia);

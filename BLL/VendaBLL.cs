@@ -1,4 +1,5 @@
 ﻿using GVC.DTO;
+using GVC.Infra.Conexao;
 using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.Model.Enums;
@@ -141,12 +142,19 @@ namespace GVC.BLL
         }
         public void ExcluirVenda(int vendaId)
         {
-            if (_parcelaRepository.ExistePagamentoPorVenda(vendaId))
+            using var parcelaRepo = new ParcelaRepository();
+            using var vendaRepo = new VendaRepository();
+
+            if (parcelaRepo.ExistePagamentoPorVenda(vendaId))
                 throw new Exception("Não é possível excluir venda com pagamentos.");
 
-            _vendaRepository.Excluir(vendaId);
+            // ✅ Agora VendaRepository.Excluir faz TUDO (estoque + itens + parcelas + venda)
+            vendaRepo.Excluir(vendaId);
         }
-       
+
+
+
+
         public bool ExistePagamento(int vendaId)
         {
             return new ParcelaRepository().ExistePagamentoPorVenda(vendaId);

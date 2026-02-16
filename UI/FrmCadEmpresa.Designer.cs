@@ -90,37 +90,26 @@
             tlpTitulo = new Krypton.Toolkit.KryptonTableLayoutPanel();
             lblSubTitulo = new Krypton.Toolkit.KryptonLabel();
             lblTitulo = new Krypton.Toolkit.KryptonLabel();
-            kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
-            kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
-            kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
-            kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
-            kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
-            kryptonPanel5 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel5 = new Krypton.Toolkit.KryptonLabel();
+            picFundoPadrao = new PictureBox();
+            kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
+            txtEnderecoImagem = new Krypton.Toolkit.KryptonTextBox();
+            btnBuscarImagem = new FontAwesome.Sharp.IconButton();
             kryptonStatusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
             tlpTitulo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
-            kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
-            kryptonPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
-            kryptonPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
-            kryptonPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel5).BeginInit();
-            kryptonPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picFundoPadrao).BeginInit();
             SuspendLayout();
             // 
             // txtTelefone
             // 
-            txtTelefone.Location = new Point(10, 43);
+            txtTelefone.Location = new Point(18, 360);
             txtTelefone.Name = "txtTelefone";
-            txtTelefone.Size = new Size(165, 27);
+            txtTelefone.Size = new Size(132, 27);
             txtTelefone.StateCommon.Back.Color1 = Color.White;
             txtTelefone.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtTelefone.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -137,7 +126,7 @@
             // txtRazaoSocial
             // 
             txtRazaoSocial.CharacterCasing = CharacterCasing.Upper;
-            txtRazaoSocial.Location = new Point(104, 50);
+            txtRazaoSocial.Location = new Point(112, 108);
             txtRazaoSocial.Name = "txtRazaoSocial";
             txtRazaoSocial.Size = new Size(448, 27);
             txtRazaoSocial.StateCommon.Back.Color1 = Color.White;
@@ -154,7 +143,7 @@
             // 
             // txtEmpresaID
             // 
-            txtEmpresaID.Location = new Point(10, 50);
+            txtEmpresaID.Location = new Point(18, 108);
             txtEmpresaID.Name = "txtEmpresaID";
             txtEmpresaID.Size = new Size(90, 27);
             txtEmpresaID.StateCommon.Back.Color1 = Color.White;
@@ -173,9 +162,9 @@
             // txtEmail
             // 
             txtEmail.CharacterCasing = CharacterCasing.Lower;
-            txtEmail.Location = new Point(182, 43);
+            txtEmail.Location = new Point(154, 360);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(337, 27);
+            txtEmail.Size = new Size(249, 27);
             txtEmail.StateCommon.Back.Color1 = Color.White;
             txtEmail.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtEmail.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -193,7 +182,7 @@
             label10.AutoSize = true;
             label10.BackColor = Color.Transparent;
             label10.ForeColor = Color.FromArgb(0, 76, 172);
-            label10.Location = new Point(10, 30);
+            label10.Location = new Point(18, 88);
             label10.Name = "label10";
             label10.Size = new Size(49, 15);
             label10.TabIndex = 184;
@@ -205,7 +194,7 @@
             label11.BackColor = Color.Transparent;
             label11.Font = new Font("Microsoft Sans Serif", 9.25F);
             label11.ForeColor = Color.FromArgb(0, 76, 172);
-            label11.Location = new Point(104, 29);
+            label11.Location = new Point(112, 87);
             label11.Name = "label11";
             label11.Size = new Size(88, 16);
             label11.TabIndex = 183;
@@ -217,7 +206,7 @@
             label13.BackColor = Color.Transparent;
             label13.Font = new Font("Microsoft Sans Serif", 9.25F);
             label13.ForeColor = Color.FromArgb(0, 76, 172);
-            label13.Location = new Point(10, 23);
+            label13.Location = new Point(18, 340);
             label13.Name = "label13";
             label13.Size = new Size(61, 16);
             label13.TabIndex = 185;
@@ -229,7 +218,7 @@
             label18.BackColor = Color.Transparent;
             label18.Font = new Font("Microsoft Sans Serif", 9.25F);
             label18.ForeColor = Color.FromArgb(0, 76, 172);
-            label18.Location = new Point(182, 24);
+            label18.Location = new Point(154, 341);
             label18.Name = "label18";
             label18.Size = new Size(45, 16);
             label18.TabIndex = 183;
@@ -273,7 +262,7 @@
             // 
             // txtInscricaoMunicipal
             // 
-            txtInscricaoMunicipal.Location = new Point(444, 103);
+            txtInscricaoMunicipal.Location = new Point(452, 161);
             txtInscricaoMunicipal.Name = "txtInscricaoMunicipal";
             txtInscricaoMunicipal.Size = new Size(210, 27);
             txtInscricaoMunicipal.StateCommon.Back.Color1 = Color.White;
@@ -294,7 +283,7 @@
             lblOrgaoExpedidorRG.BackColor = Color.Transparent;
             lblOrgaoExpedidorRG.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblOrgaoExpedidorRG.ForeColor = Color.FromArgb(0, 76, 172);
-            lblOrgaoExpedidorRG.Location = new Point(443, 84);
+            lblOrgaoExpedidorRG.Location = new Point(451, 142);
             lblOrgaoExpedidorRG.Name = "lblOrgaoExpedidorRG";
             lblOrgaoExpedidorRG.Size = new Size(121, 16);
             lblOrgaoExpedidorRG.TabIndex = 1033;
@@ -306,7 +295,7 @@
             // 
             // txtCnpj
             // 
-            txtCnpj.Location = new Point(10, 103);
+            txtCnpj.Location = new Point(18, 161);
             txtCnpj.Name = "txtCnpj";
             txtCnpj.Size = new Size(210, 27);
             txtCnpj.StateCommon.Back.Color1 = Color.White;
@@ -328,7 +317,7 @@
             lblRotuloCnpj.BackColor = Color.Transparent;
             lblRotuloCnpj.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRotuloCnpj.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloCnpj.Location = new Point(10, 84);
+            lblRotuloCnpj.Location = new Point(21, 142);
             lblRotuloCnpj.Name = "lblRotuloCnpj";
             lblRotuloCnpj.Size = new Size(34, 16);
             lblRotuloCnpj.TabIndex = 1039;
@@ -336,7 +325,7 @@
             // 
             // txtInscricaoEstadual
             // 
-            txtInscricaoEstadual.Location = new Point(228, 103);
+            txtInscricaoEstadual.Location = new Point(236, 161);
             txtInscricaoEstadual.Name = "txtInscricaoEstadual";
             txtInscricaoEstadual.Size = new Size(210, 27);
             txtInscricaoEstadual.StateCommon.Back.Color1 = Color.White;
@@ -357,7 +346,7 @@
             lblRotuloIE.BackColor = Color.Transparent;
             lblRotuloIE.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRotuloIE.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloIE.Location = new Point(237, 84);
+            lblRotuloIE.Location = new Point(245, 142);
             lblRotuloIE.Name = "lblRotuloIE";
             lblRotuloIE.Size = new Size(140, 16);
             lblRotuloIE.TabIndex = 1041;
@@ -367,7 +356,7 @@
             // 
             txtNomeFantasia.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtNomeFantasia.CharacterCasing = CharacterCasing.Upper;
-            txtNomeFantasia.Location = new Point(560, 50);
+            txtNomeFantasia.Location = new Point(565, 108);
             txtNomeFantasia.Name = "txtNomeFantasia";
             txtNomeFantasia.Size = new Size(306, 27);
             txtNomeFantasia.StateCommon.Back.Color1 = Color.White;
@@ -388,7 +377,7 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Microsoft Sans Serif", 9.25F);
             label1.ForeColor = Color.FromArgb(0, 76, 172);
-            label1.Location = new Point(560, 29);
+            label1.Location = new Point(568, 87);
             label1.Name = "label1";
             label1.Size = new Size(99, 16);
             label1.TabIndex = 1044;
@@ -397,7 +386,7 @@
             // txtCnae
             // 
             txtCnae.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtCnae.Location = new Point(660, 103);
+            txtCnae.Location = new Point(665, 161);
             txtCnae.Name = "txtCnae";
             txtCnae.Size = new Size(206, 27);
             txtCnae.StateCommon.Back.Color1 = Color.White;
@@ -418,7 +407,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Microsoft Sans Serif", 9.25F);
             label2.ForeColor = Color.FromArgb(0, 76, 172);
-            label2.Location = new Point(663, 84);
+            label2.Location = new Point(671, 142);
             label2.Name = "label2";
             label2.Size = new Size(39, 16);
             label2.TabIndex = 1046;
@@ -430,7 +419,7 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Microsoft Sans Serif", 9.25F);
             label3.ForeColor = Color.FromArgb(0, 76, 172);
-            label3.Location = new Point(529, 24);
+            label3.Location = new Point(414, 341);
             label3.Name = "label3";
             label3.Size = new Size(30, 16);
             label3.TabIndex = 1048;
@@ -440,9 +429,9 @@
             // 
             txtSite.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtSite.CharacterCasing = CharacterCasing.Lower;
-            txtSite.Location = new Point(523, 43);
+            txtSite.Location = new Point(408, 360);
             txtSite.Name = "txtSite";
-            txtSite.Size = new Size(342, 27);
+            txtSite.Size = new Size(217, 27);
             txtSite.StateCommon.Back.Color1 = Color.White;
             txtSite.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtSite.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -458,9 +447,9 @@
             // txtResponsavel
             // 
             txtResponsavel.CharacterCasing = CharacterCasing.Upper;
-            txtResponsavel.Location = new Point(10, 42);
+            txtResponsavel.Location = new Point(631, 360);
             txtResponsavel.Name = "txtResponsavel";
-            txtResponsavel.Size = new Size(422, 27);
+            txtResponsavel.Size = new Size(240, 27);
             txtResponsavel.StateCommon.Back.Color1 = Color.White;
             txtResponsavel.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtResponsavel.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -479,7 +468,7 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Microsoft Sans Serif", 9.25F);
             label4.ForeColor = Color.FromArgb(0, 76, 172);
-            label4.Location = new Point(10, 23);
+            label4.Location = new Point(631, 341);
             label4.Name = "label4";
             label4.Size = new Size(147, 16);
             label4.TabIndex = 1050;
@@ -488,7 +477,7 @@
             // txtCertificadoDigital
             // 
             txtCertificadoDigital.CharacterCasing = CharacterCasing.Upper;
-            txtCertificadoDigital.Location = new Point(3, 41);
+            txtCertificadoDigital.Location = new Point(17, 513);
             txtCertificadoDigital.Name = "txtCertificadoDigital";
             txtCertificadoDigital.Size = new Size(279, 27);
             txtCertificadoDigital.StateCommon.Back.Color1 = Color.White;
@@ -510,7 +499,7 @@
             label6.BackColor = Color.Transparent;
             label6.Font = new Font("Microsoft Sans Serif", 9.25F);
             label6.ForeColor = Color.FromArgb(0, 76, 172);
-            label6.Location = new Point(3, 23);
+            label6.Location = new Point(17, 495);
             label6.Name = "label6";
             label6.Size = new Size(147, 16);
             label6.TabIndex = 1052;
@@ -519,7 +508,7 @@
             // btnBuscarEnderecoPorCep
             // 
             btnBuscarEnderecoPorCep.CornerRoundingRadius = 10F;
-            btnBuscarEnderecoPorCep.Location = new Point(146, 45);
+            btnBuscarEnderecoPorCep.Location = new Point(154, 234);
             btnBuscarEnderecoPorCep.Name = "btnBuscarEnderecoPorCep";
             btnBuscarEnderecoPorCep.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnBuscarEnderecoPorCep.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -577,7 +566,7 @@
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("Microsoft Sans Serif", 9.25F);
             label5.ForeColor = Color.FromArgb(0, 76, 172);
-            label5.Location = new Point(401, 81);
+            label5.Location = new Point(409, 267);
             label5.Name = "label5";
             label5.Size = new Size(51, 16);
             label5.TabIndex = 1070;
@@ -587,7 +576,7 @@
             // 
             txtUF.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtUF.CharacterCasing = CharacterCasing.Upper;
-            txtUF.Location = new Point(763, 100);
+            txtUF.Location = new Point(771, 286);
             txtUF.Name = "txtUF";
             txtUF.Size = new Size(102, 27);
             txtUF.StateCommon.Back.Color1 = Color.White;
@@ -607,7 +596,7 @@
             // 
             txtLogradouro.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtLogradouro.CharacterCasing = CharacterCasing.Upper;
-            txtLogradouro.Location = new Point(184, 46);
+            txtLogradouro.Location = new Point(192, 235);
             txtLogradouro.Name = "txtLogradouro";
             txtLogradouro.Size = new Size(573, 27);
             txtLogradouro.StateCommon.Back.Color1 = Color.White;
@@ -625,7 +614,7 @@
             // 
             // txtCep
             // 
-            txtCep.Location = new Point(10, 46);
+            txtCep.Location = new Point(18, 235);
             txtCep.Name = "txtCep";
             txtCep.Size = new Size(132, 27);
             txtCep.StateCommon.Back.Color1 = Color.White;
@@ -644,7 +633,7 @@
             // txtNumero
             // 
             txtNumero.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtNumero.Location = new Point(763, 47);
+            txtNumero.Location = new Point(771, 236);
             txtNumero.Name = "txtNumero";
             txtNumero.Size = new Size(100, 27);
             txtNumero.StateCommon.Back.Color1 = Color.White;
@@ -662,7 +651,7 @@
             // txtBairro
             // 
             txtBairro.CharacterCasing = CharacterCasing.Upper;
-            txtBairro.Location = new Point(10, 100);
+            txtBairro.Location = new Point(18, 286);
             txtBairro.Name = "txtBairro";
             txtBairro.Size = new Size(385, 27);
             txtBairro.StateCommon.Back.Color1 = Color.White;
@@ -682,7 +671,7 @@
             // 
             txtNomeCidade.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtNomeCidade.CharacterCasing = CharacterCasing.Upper;
-            txtNomeCidade.Location = new Point(401, 100);
+            txtNomeCidade.Location = new Point(409, 286);
             txtNomeCidade.Name = "txtNomeCidade";
             txtNomeCidade.Size = new Size(356, 27);
             txtNomeCidade.StateCommon.Back.Color1 = Color.White;
@@ -704,7 +693,7 @@
             label17.BackColor = Color.Transparent;
             label17.Font = new Font("Microsoft Sans Serif", 9.25F);
             label17.ForeColor = Color.FromArgb(0, 76, 172);
-            label17.Location = new Point(185, 25);
+            label17.Location = new Point(193, 214);
             label17.Name = "label17";
             label17.Size = new Size(77, 16);
             label17.TabIndex = 1065;
@@ -717,7 +706,7 @@
             label15.BackColor = Color.Transparent;
             label15.Font = new Font("Microsoft Sans Serif", 9.25F);
             label15.ForeColor = Color.FromArgb(0, 76, 172);
-            label15.Location = new Point(764, 23);
+            label15.Location = new Point(772, 212);
             label15.Name = "label15";
             label15.Size = new Size(55, 16);
             label15.TabIndex = 1067;
@@ -729,7 +718,7 @@
             label14.BackColor = Color.Transparent;
             label14.Font = new Font("Microsoft Sans Serif", 9.25F);
             label14.ForeColor = Color.FromArgb(0, 76, 172);
-            label14.Location = new Point(10, 80);
+            label14.Location = new Point(18, 266);
             label14.Name = "label14";
             label14.Size = new Size(43, 16);
             label14.TabIndex = 1068;
@@ -742,7 +731,7 @@
             label20.BackColor = Color.Transparent;
             label20.Font = new Font("Microsoft Sans Serif", 9.25F);
             label20.ForeColor = Color.FromArgb(0, 76, 172);
-            label20.Location = new Point(764, 85);
+            label20.Location = new Point(772, 271);
             label20.Name = "label20";
             label20.Size = new Size(20, 16);
             label20.TabIndex = 1066;
@@ -754,7 +743,7 @@
             label9.BackColor = Color.Transparent;
             label9.Font = new Font("Microsoft Sans Serif", 9.25F);
             label9.ForeColor = Color.FromArgb(0, 76, 172);
-            label9.Location = new Point(10, 25);
+            label9.Location = new Point(18, 214);
             label9.Name = "label9";
             label9.Size = new Size(32, 16);
             label9.TabIndex = 1069;
@@ -848,7 +837,7 @@
             // 
             btnLocalizarCertificado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnLocalizarCertificado.CornerRoundingRadius = 10F;
-            btnLocalizarCertificado.Location = new Point(290, 41);
+            btnLocalizarCertificado.Location = new Point(304, 513);
             btnLocalizarCertificado.Margin = new Padding(5, 3, 5, 3);
             btnLocalizarCertificado.Name = "btnLocalizarCertificado";
             btnLocalizarCertificado.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
@@ -1153,153 +1142,145 @@
             lblTitulo.TabIndex = 1091;
             lblTitulo.Values.Text = "Cadastro de Empresas";
             // 
-            // kryptonPanel1
-            // 
-            kryptonPanel1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            kryptonPanel1.Controls.Add(kryptonLabel1);
-            kryptonPanel1.Controls.Add(txtRazaoSocial);
-            kryptonPanel1.Controls.Add(txtEmpresaID);
-            kryptonPanel1.Controls.Add(label10);
-            kryptonPanel1.Controls.Add(label11);
-            kryptonPanel1.Controls.Add(txtNomeFantasia);
-            kryptonPanel1.Controls.Add(label1);
-            kryptonPanel1.Controls.Add(txtInscricaoMunicipal);
-            kryptonPanel1.Controls.Add(lblOrgaoExpedidorRG);
-            kryptonPanel1.Controls.Add(lblRotuloCnpj);
-            kryptonPanel1.Controls.Add(txtCnpj);
-            kryptonPanel1.Controls.Add(lblRotuloIE);
-            kryptonPanel1.Controls.Add(txtInscricaoEstadual);
-            kryptonPanel1.Controls.Add(label2);
-            kryptonPanel1.Controls.Add(txtCnae);
-            kryptonPanel1.Location = new Point(2, 53);
-            kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            kryptonPanel1.Size = new Size(875, 141);
-            kryptonPanel1.TabIndex = 1097;
-            // 
             // kryptonLabel1
             // 
-            kryptonLabel1.Dock = DockStyle.Top;
-            kryptonLabel1.Location = new Point(0, 0);
+            kryptonLabel1.Location = new Point(8, 58);
             kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(875, 20);
+            kryptonLabel1.Size = new Size(86, 20);
             kryptonLabel1.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel1.TabIndex = 1038;
             kryptonLabel1.Values.Text = "Identificação";
             // 
-            // kryptonPanel2
-            // 
-            kryptonPanel2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            kryptonPanel2.Controls.Add(kryptonLabel2);
-            kryptonPanel2.Controls.Add(txtUF);
-            kryptonPanel2.Controls.Add(txtLogradouro);
-            kryptonPanel2.Controls.Add(label20);
-            kryptonPanel2.Controls.Add(label9);
-            kryptonPanel2.Controls.Add(txtNomeCidade);
-            kryptonPanel2.Controls.Add(label17);
-            kryptonPanel2.Controls.Add(label5);
-            kryptonPanel2.Controls.Add(txtCep);
-            kryptonPanel2.Controls.Add(btnBuscarEnderecoPorCep);
-            kryptonPanel2.Controls.Add(txtBairro);
-            kryptonPanel2.Controls.Add(label14);
-            kryptonPanel2.Controls.Add(label15);
-            kryptonPanel2.Controls.Add(txtNumero);
-            kryptonPanel2.Location = new Point(3, 199);
-            kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            kryptonPanel2.Size = new Size(875, 137);
-            kryptonPanel2.TabIndex = 1098;
-            // 
             // kryptonLabel2
             // 
-            kryptonLabel2.Dock = DockStyle.Top;
-            kryptonLabel2.Location = new Point(0, 0);
+            kryptonLabel2.Location = new Point(8, 191);
             kryptonLabel2.Name = "kryptonLabel2";
-            kryptonLabel2.Size = new Size(875, 20);
+            kryptonLabel2.Size = new Size(64, 20);
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel2.TabIndex = 1038;
             kryptonLabel2.Values.Text = "Endereço";
             // 
-            // kryptonPanel3
-            // 
-            kryptonPanel3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            kryptonPanel3.Controls.Add(kryptonLabel3);
-            kryptonPanel3.Controls.Add(txtTelefone);
-            kryptonPanel3.Controls.Add(label13);
-            kryptonPanel3.Controls.Add(txtEmail);
-            kryptonPanel3.Controls.Add(label18);
-            kryptonPanel3.Controls.Add(txtSite);
-            kryptonPanel3.Controls.Add(label3);
-            kryptonPanel3.Location = new Point(3, 343);
-            kryptonPanel3.Name = "kryptonPanel3";
-            kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            kryptonPanel3.Size = new Size(875, 81);
-            kryptonPanel3.TabIndex = 1099;
-            // 
             // kryptonLabel3
             // 
-            kryptonLabel3.Dock = DockStyle.Top;
-            kryptonLabel3.Location = new Point(0, 0);
+            kryptonLabel3.Location = new Point(8, 317);
             kryptonLabel3.Name = "kryptonLabel3";
-            kryptonLabel3.Size = new Size(875, 20);
+            kryptonLabel3.Size = new Size(57, 20);
             kryptonLabel3.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel3.TabIndex = 1038;
             kryptonLabel3.Values.Text = "Contato";
             // 
-            // kryptonPanel4
-            // 
-            kryptonPanel4.Controls.Add(kryptonLabel4);
-            kryptonPanel4.Controls.Add(txtResponsavel);
-            kryptonPanel4.Controls.Add(label4);
-            kryptonPanel4.Location = new Point(5, 430);
-            kryptonPanel4.Name = "kryptonPanel4";
-            kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            kryptonPanel4.Size = new Size(435, 81);
-            kryptonPanel4.TabIndex = 1100;
-            // 
-            // kryptonLabel4
-            // 
-            kryptonLabel4.Dock = DockStyle.Top;
-            kryptonLabel4.Location = new Point(0, 0);
-            kryptonLabel4.Name = "kryptonLabel4";
-            kryptonLabel4.Size = new Size(435, 20);
-            kryptonLabel4.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel4.TabIndex = 1038;
-            kryptonLabel4.Values.Text = "Responsável";
-            // 
-            // kryptonPanel5
-            // 
-            kryptonPanel5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            kryptonPanel5.Controls.Add(kryptonLabel5);
-            kryptonPanel5.Controls.Add(label6);
-            kryptonPanel5.Controls.Add(txtCertificadoDigital);
-            kryptonPanel5.Controls.Add(btnLocalizarCertificado);
-            kryptonPanel5.Location = new Point(446, 430);
-            kryptonPanel5.Name = "kryptonPanel5";
-            kryptonPanel5.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            kryptonPanel5.Size = new Size(434, 81);
-            kryptonPanel5.TabIndex = 1101;
-            // 
             // kryptonLabel5
             // 
-            kryptonLabel5.Dock = DockStyle.Top;
-            kryptonLabel5.Location = new Point(0, 0);
+            kryptonLabel5.Location = new Point(10, 473);
             kryptonLabel5.Name = "kryptonLabel5";
-            kryptonLabel5.Size = new Size(434, 20);
+            kryptonLabel5.Size = new Size(116, 20);
             kryptonLabel5.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel5.TabIndex = 1038;
             kryptonLabel5.Values.Text = "Certificado Digital";
+            // 
+            // picFundoPadrao
+            // 
+            picFundoPadrao.Location = new Point(500, 393);
+            picFundoPadrao.Name = "picFundoPadrao";
+            picFundoPadrao.Size = new Size(371, 147);
+            picFundoPadrao.TabIndex = 1102;
+            picFundoPadrao.TabStop = false;
+            // 
+            // kryptonLabel4
+            // 
+            kryptonLabel4.Location = new Point(8, 400);
+            kryptonLabel4.Name = "kryptonLabel4";
+            kryptonLabel4.Size = new Size(128, 20);
+            kryptonLabel4.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel4.TabIndex = 1106;
+            kryptonLabel4.TabStop = false;
+            kryptonLabel4.Values.Text = "Imagem do Produto";
+            // 
+            // txtEnderecoImagem
+            // 
+            txtEnderecoImagem.Location = new Point(18, 423);
+            txtEnderecoImagem.Name = "txtEnderecoImagem";
+            txtEnderecoImagem.Size = new Size(442, 24);
+            txtEnderecoImagem.StateCommon.Back.Color1 = Color.White;
+            txtEnderecoImagem.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
+            txtEnderecoImagem.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            txtEnderecoImagem.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            txtEnderecoImagem.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            txtEnderecoImagem.StateCommon.Border.Rounding = 8F;
+            txtEnderecoImagem.StateCommon.Border.Width = 1;
+            txtEnderecoImagem.StateCommon.Content.Color1 = Color.Gray;
+            txtEnderecoImagem.StateCommon.Content.Font = new Font("Microsoft Sans Serif", 10.25F);
+            txtEnderecoImagem.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
+            txtEnderecoImagem.TabIndex = 1104;
+            txtEnderecoImagem.TabStop = false;
+            // 
+            // btnBuscarImagem
+            // 
+            btnBuscarImagem.BackColor = Color.Transparent;
+            btnBuscarImagem.FlatAppearance.BorderSize = 0;
+            btnBuscarImagem.FlatStyle = FlatStyle.Flat;
+            btnBuscarImagem.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnBuscarImagem.IconColor = Color.FromArgb(30, 136, 229);
+            btnBuscarImagem.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnBuscarImagem.IconSize = 32;
+            btnBuscarImagem.Location = new Point(469, 421);
+            btnBuscarImagem.Name = "btnBuscarImagem";
+            btnBuscarImagem.Size = new Size(25, 30);
+            btnBuscarImagem.TabIndex = 1141;
+            btnBuscarImagem.UseVisualStyleBackColor = false;
+            btnBuscarImagem.Click += btnBuscarImagem_Click;
             // 
             // FrmCadEmpresa
             // 
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(880, 657);
             ControlBox = false;
-            Controls.Add(kryptonPanel5);
-            Controls.Add(kryptonPanel4);
-            Controls.Add(kryptonPanel3);
-            Controls.Add(kryptonPanel2);
-            Controls.Add(kryptonPanel1);
+            Controls.Add(btnBuscarImagem);
+            Controls.Add(kryptonLabel4);
+            Controls.Add(txtEnderecoImagem);
+            Controls.Add(kryptonLabel1);
+            Controls.Add(kryptonLabel2);
+            Controls.Add(txtRazaoSocial);
+            Controls.Add(kryptonLabel3);
+            Controls.Add(txtEmpresaID);
+            Controls.Add(txtUF);
+            Controls.Add(label10);
+            Controls.Add(label6);
+            Controls.Add(label11);
+            Controls.Add(txtLogradouro);
+            Controls.Add(txtNomeFantasia);
+            Controls.Add(txtResponsavel);
+            Controls.Add(label1);
+            Controls.Add(label20);
+            Controls.Add(txtInscricaoMunicipal);
+            Controls.Add(kryptonLabel5);
+            Controls.Add(lblOrgaoExpedidorRG);
+            Controls.Add(label9);
+            Controls.Add(lblRotuloCnpj);
+            Controls.Add(label4);
+            Controls.Add(txtCnpj);
+            Controls.Add(txtNomeCidade);
+            Controls.Add(lblRotuloIE);
+            Controls.Add(txtCertificadoDigital);
+            Controls.Add(txtInscricaoEstadual);
+            Controls.Add(label2);
+            Controls.Add(label17);
+            Controls.Add(txtCnae);
+            Controls.Add(txtTelefone);
+            Controls.Add(label5);
+            Controls.Add(btnLocalizarCertificado);
+            Controls.Add(txtCep);
+            Controls.Add(label13);
+            Controls.Add(btnBuscarEnderecoPorCep);
+            Controls.Add(picFundoPadrao);
+            Controls.Add(txtBairro);
+            Controls.Add(label14);
+            Controls.Add(txtEmail);
+            Controls.Add(label15);
+            Controls.Add(label18);
+            Controls.Add(txtNumero);
+            Controls.Add(txtSite);
+            Controls.Add(label3);
             Controls.Add(pnlHeader);
             Controls.Add(btnSair);
             Controls.Add(btnSalvar);
@@ -1330,21 +1311,7 @@
             pnlHeader.ResumeLayout(false);
             tlpTitulo.ResumeLayout(false);
             tlpTitulo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();
-            kryptonPanel1.ResumeLayout(false);
-            kryptonPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
-            kryptonPanel2.ResumeLayout(false);
-            kryptonPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
-            kryptonPanel3.ResumeLayout(false);
-            kryptonPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
-            kryptonPanel4.ResumeLayout(false);
-            kryptonPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel5).EndInit();
-            kryptonPanel5.ResumeLayout(false);
-            kryptonPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picFundoPadrao).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -1419,15 +1386,13 @@
         private Krypton.Toolkit.KryptonTableLayoutPanel tlpTitulo;
         private Krypton.Toolkit.KryptonLabel lblSubTitulo;
         private Krypton.Toolkit.KryptonLabel lblTitulo;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel2;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel4;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel4;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel5;
         private Krypton.Toolkit.KryptonLabel kryptonLabel5;
+        private PictureBox picFundoPadrao;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel4;
+        public Krypton.Toolkit.KryptonTextBox txtEnderecoImagem;
+        private FontAwesome.Sharp.IconButton btnBuscarImagem;
     }
 }

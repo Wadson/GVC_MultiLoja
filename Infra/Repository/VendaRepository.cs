@@ -124,13 +124,13 @@ namespace GVC.Infra.Repository
         // ======================================================
         // 🔹 EXCLUIR VENDA
         // ======================================================
-        public void Excluir(int vendaID)
-        {
-            using var cmd = CreateCommand("DELETE FROM Venda WHERE VendaID = @id AND EmpresaID = @EmpresaID");
+        //public void Excluir(int vendaID)
+        //{
+        //    using var cmd = CreateCommand("DELETE FROM Venda WHERE VendaID = @id AND EmpresaID = @EmpresaID");
 
-            cmd.Parameters.AddWithValue("@id", vendaID);
-            cmd.ExecuteNonQuery();
-        }
+        //    cmd.Parameters.AddWithValue("@id", vendaID);
+        //    cmd.ExecuteNonQuery();
+        //}
 
         // ======================================================
         // 🔹 STATUS
@@ -461,7 +461,7 @@ namespace GVC.Infra.Repository
                 DevolverEstoque(vendaId, tran);
 
                 // 4️⃣ Cancelar parcelas
-                CancelarParcelasPorVenda(vendaId);
+                CancelarParcelasPorVenda(vendaId, tran);
 
                 // 5️⃣ Cancelar venda
                 AtualizarVendaCancelada(vendaId, motivo, tran);
@@ -571,6 +571,22 @@ namespace GVC.Infra.Repository
            AND EmpresaID = @EmpresaID";
 
             using var cmd = CreateCommand(sql);
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = (int)vendaId;
+
+            cmd.ExecuteNonQuery();
+        }
+        private void CancelarParcelasPorVenda(long vendaId, SqlTransaction tran)
+        {
+            const string sql = @"
+            UPDATE Parcela
+               SET Status = 'Cancelada',
+                   ValorRecebido = 0,
+                   DataPagamento = NULL
+             WHERE VendaID = @VendaID
+               AND EmpresaID = @EmpresaID;";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
             cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = (int)vendaId;
 
             cmd.ExecuteNonQuery();
@@ -753,6 +769,144 @@ namespace GVC.Infra.Repository
             cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
 
             cmd.ExecuteNonQuery();
+        }
+        //Abaixo métodos adicionados em 16/02/2026 para facilitar estorno/cancelamento de venda 
+        public List<(int ProdutoID, int Quantidade)> ObterItensParaEstorno(int vendaId, SqlTransaction tran)
+        {
+            const string sql = @"
+            SELECT ProdutoID, Quantidade
+            FROM ItemVenda
+            WHERE VendaID = @VendaID
+              AND EmpresaID = @EmpresaID;";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
+
+            using var dr = cmd.ExecuteReader();
+            var itens = new List<(int, int)>();
+
+            while (dr.Read())
+                itens.Add((dr.GetInt32(0), dr.GetInt32(1)));
+
+            return itens;
+        }
+        public void ReporEstoque(int produtoId, int quantidade, SqlTransaction tran)
+        {
+            const string sql = @"
+                UPDATE Produtos
+                SET Estoque = Estoque + @Qtd
+                WHERE ProdutoID = @ProdutoID
+                  AND EmpresaID = @EmpresaID;";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+
+            cmd.Parameters.Add("@ProdutoID", SqlDbType.Int).Value = produtoId;
+            cmd.Parameters.Add("@Qtd", SqlDbType.Int).Value = quantidade;
+
+            cmd.ExecuteNonQuery();
+        }
+        public void ExcluirItensPorVenda(int vendaId, SqlTransaction tran)
+        {
+            const string sql = @"
+            DELETE FROM ItemVenda
+            WHERE VendaID = @VendaID
+              AND EmpresaID = @EmpresaID;";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
+
+            cmd.ExecuteNonQuery();
+        }
+        //✅ 4) Excluir venda (transacional) com overload
+        public void Excluir(int vendaID)
+        {
+            using var tran = Connection.BeginTransaction();
+
+            try
+            {
+                // 1) DEVOLVE ESTOQUE (itens da venda)
+                const string sqlItens = @"
+            SELECT ProdutoID, Quantidade
+            FROM ItemVenda
+            WHERE VendaID = @VendaID
+              AND EmpresaID = @EmpresaID;";
+
+                var itens = new List<(int ProdutoID, int Quantidade)>();
+
+                using (var cmdItens = CreateCommand(sqlItens))
+                {
+                    cmdItens.Transaction = tran;
+                    cmdItens.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaID;
+
+                    using var dr = cmdItens.ExecuteReader();
+                    while (dr.Read())
+                        itens.Add((dr.GetInt32(0), dr.GetInt32(1)));
+                }
+
+                foreach (var it in itens)
+                {
+                    const string sqlRepor = @"
+                UPDATE Produtos
+                SET Estoque = Estoque + @Qtd
+                WHERE ProdutoID = @ProdutoID
+                  AND EmpresaID = @EmpresaID;";
+
+                    using var cmdRepor = CreateCommand(sqlRepor);
+                    cmdRepor.Transaction = tran;
+                    cmdRepor.Parameters.Add("@ProdutoID", SqlDbType.Int).Value = it.ProdutoID;
+                    cmdRepor.Parameters.Add("@Qtd", SqlDbType.Int).Value = it.Quantidade;
+                    cmdRepor.ExecuteNonQuery();
+                }
+
+                // 2) EXCLUI PAGAMENTOS PARCIAIS (por venda via parcelas)
+                // ✅ Usa o método que você já tem no ParcelaRepository (SEM duplicar SQL)
+                using (var parcelaRepo = new ParcelaRepository(Connection))
+                {
+                    parcelaRepo.ExcluirPagamentosParciaisPorVenda(vendaID, tran);
+                }
+
+                // 3) EXCLUI PARCELAS
+                using (var parcelaRepo = new ParcelaRepository(Connection))
+                {
+                    parcelaRepo.ExcluirParcelasPorVenda(vendaID, tran);
+                }
+
+                // 4) EXCLUI ITENS
+                const string sqlDelItens = @"
+                    DELETE FROM ItemVenda
+                    WHERE VendaID = @VendaID
+                      AND EmpresaID = @EmpresaID;";
+
+                using (var cmdDelItens = CreateCommand(sqlDelItens))
+                {
+                    cmdDelItens.Transaction = tran;
+                    cmdDelItens.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaID;
+                    cmdDelItens.ExecuteNonQuery();
+                }
+
+                // 5) EXCLUI VENDA
+                const string sqlDelVenda = @"
+                    DELETE FROM Venda
+                    WHERE VendaID = @VendaID
+                      AND EmpresaID = @EmpresaID;";
+
+                using (var cmdDelVenda = CreateCommand(sqlDelVenda))
+                {
+                    cmdDelVenda.Transaction = tran;
+                    cmdDelVenda.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaID;
+                    cmdDelVenda.ExecuteNonQuery();
+                }
+
+                tran.Commit();
+            }
+            catch
+            {
+                tran.Rollback();
+                throw;
+            }
         }
     }
 }

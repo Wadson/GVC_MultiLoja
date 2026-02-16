@@ -33,8 +33,7 @@ namespace GVC.View
         public int ClienteID { get; set; }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int CidadeID { get; set; }       
-        private bool isVendedor { get; set; }
-       
+             
 
         public FrmCadCliente()
         {
@@ -451,9 +450,7 @@ namespace GVC.View
                 int cidadeId2 = int.TryParse(row.Cells["CidadeID"].Value?.ToString(), out int cid2) ? cid2 : 0;                
                 txtNomeCidade.Text = Utilitario.BuscarNomeCidadePorId(cidadeId2);
 
-
-                txtUF.Text = Utilitario.BuscarUfPorCidadeId(cidadeId2);
-                chkIsVendedor.Checked = row.Cells["IsVendedor"].Value is bool b && b;
+                txtUF.Text = Utilitario.BuscarUfPorCidadeId(cidadeId2);               
 
                 // ========== 4. TIPO DE CLIENTE ==========
                 string tipoCliente = row.Cells["TipoCliente"].Value?.ToString() ?? "";
@@ -890,8 +887,7 @@ namespace GVC.View
 
             // Para alteração (será sobrescrito no AlterarRegistro, mas mantemos aqui para consistência)
             cliente.DataAtualizacao = DateTime.Now;
-            cliente.UsuarioAtualizacao = FrmLogin.UsuarioConectado;
-            cliente.IsVendedor = chkIsVendedor.Checked;
+            cliente.UsuarioAtualizacao = FrmLogin.UsuarioConectado;           
 
             return cliente;
         }

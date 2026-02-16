@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using GVC.DTO;
 using GVC.Model;
 using GVC.Model.Enums.GVC.Model.Enums;
 using GVC.Model.Extensions;
@@ -36,19 +37,19 @@ namespace GVC.Infra.Repository
             }
         }
         public void RegistrarPagamentoSeguro(
-    ParcelaModel parcela,
-    decimal valorPago,
-    DateTime dataPagamento,
-    int? formaPgtoId,
-    string? observacao,
-    SqlTransaction tran)
+            ParcelaModel parcela,
+            decimal valorPago,
+            DateTime dataPagamento,
+            int? formaPgtoId,
+            string? observacao,
+            SqlTransaction tran)
         {
             // 1) Histórico
             const string sqlInsert = @"
-        INSERT INTO PagamentosParciais
-            (ParcelaID, DataPagamento, FormaPgtoID, ValorPago, Observacao, EmpresaID)
-        VALUES
-            (@ParcelaID, @DataPagamento, @FormaPgtoID, @ValorPago, @Observacao, @EmpresaID);";
+                INSERT INTO PagamentosParciais
+                    (ParcelaID, DataPagamento, FormaPgtoID, ValorPago, Observacao, EmpresaID)
+                VALUES
+                    (@ParcelaID, @DataPagamento, @FormaPgtoID, @ValorPago, @Observacao, @EmpresaID);";
 
             using (var insert = CreateCommand(sqlInsert))
             {
@@ -65,13 +66,13 @@ namespace GVC.Infra.Repository
 
             // 2) Atualiza parcela (Status padronizado com ToDb)
             const string sqlUpdate = @"
-        UPDATE Parcela
-        SET
-            ValorRecebido = @ValorRecebido,
-            Status = @Status,
-            DataPagamento = @DataPagamento
-        WHERE ParcelaID = @ParcelaID
-          AND EmpresaID = @EmpresaID;";
+                UPDATE Parcela
+                SET
+                    ValorRecebido = @ValorRecebido,
+                    Status = @Status,
+                    DataPagamento = @DataPagamento
+                WHERE ParcelaID = @ParcelaID
+                  AND EmpresaID = @EmpresaID;";
 
             using (var update = CreateCommand(sqlUpdate))
             {
@@ -162,17 +163,17 @@ namespace GVC.Infra.Repository
         public void UpdateParcela(ParcelaModel parcela)
         {
             const string sql = @"
-        UPDATE Parcela SET
-            DataVencimento = @DataVencimento,
-            ValorParcela   = @ValorParcela,
-            ValorRecebido  = @ValorRecebido,
-            Status         = @Status,
-            DataPagamento  = @DataPagamento,
-            Juros          = @Juros,
-            Multa          = @Multa,
-            Observacao     = @Observacao
-        WHERE ParcelaID = @ParcelaID
-          AND EmpresaID = @EmpresaID;";
+                UPDATE Parcela SET
+                    DataVencimento = @DataVencimento,
+                    ValorParcela   = @ValorParcela,
+                    ValorRecebido  = @ValorRecebido,
+                    Status         = @Status,
+                    DataPagamento  = @DataPagamento,
+                    Juros          = @Juros,
+                    Multa          = @Multa,
+                    Observacao     = @Observacao
+                WHERE ParcelaID = @ParcelaID
+                  AND EmpresaID = @EmpresaID;";
 
             using var cmd = CreateCommand(sql);
 
@@ -357,11 +358,11 @@ namespace GVC.Infra.Repository
         public List<ParcelaModel> GetParcelas(long vendaId)
         {
             const string sql = @"
-    SELECT *
-    FROM Parcela
-    WHERE VendaID = @VendaID
-      AND EmpresaID = @EmpresaID
-    ORDER BY NumeroParcela";
+            SELECT *
+            FROM Parcela
+            WHERE VendaID = @VendaID
+              AND EmpresaID = @EmpresaID
+            ORDER BY NumeroParcela";
 
             using var cmd = CreateCommand(sql);
             cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = (int)vendaId;
@@ -378,11 +379,11 @@ namespace GVC.Infra.Repository
         public List<ParcelaModel> GetParcelas(long vendaId, SqlTransaction tran)
         {
             const string sql = @"
-        SELECT *
-        FROM Parcela
-        WHERE VendaID = @VendaID
-          AND EmpresaID = @EmpresaID
-        ORDER BY NumeroParcela";
+                SELECT *
+                FROM Parcela
+                WHERE VendaID = @VendaID
+                  AND EmpresaID = @EmpresaID
+                ORDER BY NumeroParcela";
 
             using var cmd = CreateCommand(sql);
             cmd.Transaction = tran; // ✅ ESSENCIAL
@@ -396,9 +397,6 @@ namespace GVC.Infra.Repository
 
             return lista;
         }
-
-
-
 
         public DataTable ListarParcelas()
         {
@@ -495,10 +493,10 @@ namespace GVC.Infra.Repository
         private IDbTransaction? Transaction;
 
         public void EstornarPagamento(
-    long parcelaId,
-    decimal valorEstorno,
-    DateTime dataEstorno,
-    string motivo)
+            long parcelaId,
+            decimal valorEstorno,
+            DateTime dataEstorno,
+            string motivo)
         {
             if (valorEstorno <= 0m)
                 throw new Exception("Valor de estorno inválido.");
@@ -539,10 +537,10 @@ namespace GVC.Infra.Repository
 
                 // 2) Histórico (estorno é ValorPago negativo)
                 const string sqlHist = @"
-            INSERT INTO PagamentosParciais
-                (ParcelaID, ValorPago, DataPagamento, Observacao, EmpresaID)
-            VALUES
-                (@ParcelaID, @ValorPago, @DataPagamento, @Observacao, @EmpresaID);";
+                    INSERT INTO PagamentosParciais
+                        (ParcelaID, ValorPago, DataPagamento, Observacao, EmpresaID)
+                    VALUES
+                        (@ParcelaID, @ValorPago, @DataPagamento, @Observacao, @EmpresaID);";
 
                 using (var cmdHist = CreateCommand(sqlHist))
                 {
@@ -581,12 +579,12 @@ namespace GVC.Infra.Repository
 
                 // 4) Atualiza parcela
                 const string sqlUpd = @"
-            UPDATE Parcela
-            SET ValorRecebido = @ValorRecebido,
-                Status = @Status,
-                DataPagamento = @DataPagamento
-            WHERE ParcelaID = @ParcelaID
-              AND EmpresaID = @EmpresaID;";
+                    UPDATE Parcela
+                    SET ValorRecebido = @ValorRecebido,
+                        Status = @Status,
+                        DataPagamento = @DataPagamento
+                    WHERE ParcelaID = @ParcelaID
+                      AND EmpresaID = @EmpresaID;";
 
                 using (var cmdUpd = CreateCommand(sqlUpd))
                 {
@@ -609,7 +607,60 @@ namespace GVC.Infra.Repository
                 throw;
             }
         }
+        public ParcelaDetalheDTO ObterDetalheParcela(long parcelaId)
+        {
+            const string sql = @"
+            SELECT
+                p.ParcelaID,
+                p.VendaID,
+                p.NumeroParcela,
+                c.Nome AS NomeCliente,
+                v.DataVenda,
+                p.DataVencimento,
+                p.ValorParcela,
+                ISNULL(p.ValorRecebido, 0) AS ValorRecebido,
+                (ISNULL(p.ValorParcela,0)
+                 + ISNULL(p.Juros,0)
+                 + ISNULL(p.Multa,0)
+                 - ISNULL(p.ValorRecebido,0)) AS Saldo,
+                p.Status
+            FROM Parcela p
+            INNER JOIN Venda v ON v.VendaID = p.VendaID
+            INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
+            WHERE p.ParcelaID = @ParcelaID
+              AND p.EmpresaID = @EmpresaID;";
 
+            return Connection.QueryFirstOrDefault<ParcelaDetalheDTO>( sql, new { ParcelaID = parcelaId, EmpresaID } );
+        }
+        //B) ParcelaRepository — adicionar 2 métodos (transacionais)
+        public void ExcluirParcelasPorVenda(int vendaId, SqlTransaction tran)
+        {
+            const string sql = @"
+            DELETE FROM Parcela
+            WHERE VendaID = @VendaID
+              AND EmpresaID = @EmpresaID;";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
+
+            cmd.ExecuteNonQuery();
+        }
+        public void ExcluirPagamentosParciaisPorVenda(int vendaId, SqlTransaction tran)
+        {
+            const string sql = @"
+            DELETE pp
+            FROM PagamentosParciais pp
+            INNER JOIN Parcela p ON p.ParcelaID = pp.ParcelaID
+            WHERE p.VendaID = @VendaID
+              AND p.EmpresaID = @EmpresaID;";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
+
+            cmd.ExecuteNonQuery();
+        }
 
     }
 }

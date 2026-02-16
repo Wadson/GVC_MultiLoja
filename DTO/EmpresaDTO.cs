@@ -9,6 +9,6 @@ namespace GVC.DTO
         public int EmpresaID { get; set; }
         public string NomeFantasia { get; set; }
 
-
+        public string? FundoTela { get; set; }
     }
 }

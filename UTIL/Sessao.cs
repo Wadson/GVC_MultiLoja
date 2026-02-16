@@ -9,6 +9,8 @@
         // 🔹 Empresa atual (multi-loja)
         public static int EmpresaID { get; set; }
         public static string EmpresaNome { get; set; }
+        public static string FundoTela { get; set; }
+
 
         // 🔹 Estado da sessão
         public static bool Logado =>

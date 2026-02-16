@@ -10,6 +10,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -298,6 +299,10 @@ namespace GVC
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             Utilitario.CarregarEmpresa(cmbEmpresa);
+
+            // 🔥 APLICA FUNDO DEFINIDO NO LOGIN
+            AplicarFundoEmpresa(Sessao.FundoTela);
+
             _carregandoEmpresas = false;
 
             BuscarAtualizacaoSistema();
@@ -305,7 +310,7 @@ namespace GVC
             BuscarPrimeiraEmpresaId();
             IniciarBackupAutomatico();
             AtualizaBarraStatus();
-            InicializarRelogio(); // ✅ inicia UMA vez
+            InicializarRelogio();
         }
         private void AtualizaBarraStatus()
         {
@@ -496,8 +501,30 @@ namespace GVC
             if (empresa.EmpresaID <= 0)
                 return;
 
-            TrocarEmpresa(empresa.EmpresaID, empresa.NomeFantasia);
+            // 🎨 SEMPRE aplica fundo (mesmo se for a mesma empresa)
+            AplicarFundoEmpresa(empresa.FundoTela);
+
+            // 🔁 Só troca empresa se for diferente
+            if (Sessao.EmpresaID != empresa.EmpresaID)
+            {
+                TrocarEmpresa(empresa.EmpresaID, empresa.NomeFantasia);
+                Sessao.FundoTela = empresa.FundoTela;
+            }         
+
         }
+        private void AplicarFundoEmpresa(string caminhoImagem)
+        {
+            if (string.IsNullOrWhiteSpace(caminhoImagem))
+                return;
+
+            if (!File.Exists(caminhoImagem))
+                return;
+
+            picBackground.Image?.Dispose();
+            picBackground.Image = Image.FromFile(caminhoImagem);
+            picBackground.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
 
         private void marcasToolStripMenuItem_Click(object sender, EventArgs e)
         {

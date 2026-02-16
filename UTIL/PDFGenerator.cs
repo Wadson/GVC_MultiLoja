@@ -678,6 +678,71 @@ namespace GVC.UTIL
                 });
             }).GeneratePdf(caminhoArquivo);
         }
+        // =========================
+        // NOVO: RECIBO DE PAGAMENTO EM LOTE (MOSTRA PARCELAS + PAGAMENTOS)
+        // =========================
+        public static void GerarReciboPagamentosLote(
+            ExtratoCliente extrato,
+            List<PagamentoExtratoModel> pagamentos,
+            DadosEmpresaPdf empresa,
+            string caminhoArquivo)
+        {
+            ValidarExtratoParcela(extrato);
+
+            if (pagamentos == null || pagamentos.Count == 0)
+                throw new Exception("Nenhum pagamento encontrado.");
+
+            CriarDocumentoBase(
+                empresa,
+                "RECIBO DE PAGAMENTO (LOTE)",
+                col =>
+                {
+                    AdicionarDadosCliente(col, extrato);
+
+                    col.Item().PaddingBottom(8).Text("Parcelas quitadas neste recebimento:").Bold();
+                    AdicionarTabelaParcelasQuitadas(col, extrato);
+
+                    col.Item().PaddingTop(12).PaddingBottom(8).Text("Pagamentos registrados:").Bold();
+                    AdicionarTabelaPagamentos(col, pagamentos);
+                    AdicionarTotalPagamentos(col, pagamentos);
+
+                    AdicionarAssinatura(col);
+                },
+                caminhoArquivo
+            );
+        }
+
+        // Tabela específica do lote (não depende daquela tabela de extrato que hoje está inconsistente)
+        private static void AdicionarTabelaParcelasQuitadas(ColumnDescriptor col, ExtratoCliente extrato)
+        {
+            col.Item().Table(table =>
+            {
+                table.ColumnsDefinition(c =>
+                {
+                    c.RelativeColumn();      // Venda
+                    c.RelativeColumn();      // Parcela
+                    c.RelativeColumn();      // Vencimento
+                    c.RelativeColumn();      // Valor
+                    c.RelativeColumn();      // Recebido
+                    c.RelativeColumn();      // Status
+                });
+
+                Header(table, "Venda", "Parcela", "Venc.", "Valor", "Recebido", "Status");
+
+                foreach (var item in extrato.ItensExtrato.OrderBy(i => i.VendaID).ThenBy(i => i.NumeroParcela))
+                {
+                    var statusSeguro = NormalizarStatus(item.Status);
+
+                    Row(table,
+                        item.VendaID,
+                        item.NumeroParcela,
+                        item.DataVencimento.ToString("dd/MM/yyyy"),
+                        item.ValorParcela.ToString("C2"),
+                        item.ValorRecebido.ToString("C2"),
+                        statusSeguro);
+                }
+            });
+        }
 
 
 

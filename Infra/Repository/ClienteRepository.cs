@@ -33,8 +33,7 @@ namespace GVC.Infra.Repository
                 c.DataAtualizacao,
                 c.UsuarioCriacao,
                 c.UsuarioAtualizacao,
-                c.CidadeID,
-                c.IsVendedor
+                c.CidadeID                
             FROM Clientes c
             WHERE c.EmpresaID = @EmpresaID";
 
@@ -91,15 +90,13 @@ namespace GVC.Infra.Repository
                     Nome, Cpf, RG, OrgaoExpedidorRG, Cnpj, IE, Telefone, Email,
                     CidadeID, Logradouro, Numero, Bairro, Cep, DataNascimento,
                     TipoCliente, Status, Observacoes, LimiteCredito,
-                    DataCriacao, UsuarioCriacao,
-                    IsVendedor, EmpresaID
+                    DataCriacao, UsuarioCriacao, EmpresaID
                 )
                 VALUES (
                     @Nome, @Cpf, @RG, @OrgaoExpedidorRG, @Cnpj, @IE, @Telefone, @Email,
                     @CidadeID, @Logradouro, @Numero, @Bairro, @Cep, @DataNascimento,
                     @TipoCliente, @Status, @Observacoes, @LimiteCredito,
-                    @DataCriacao, @UsuarioCriacao,
-                    @IsVendedor, @EmpresaID
+                    @DataCriacao, @UsuarioCriacao,  @EmpresaID
                 );
                 SELECT SCOPE_IDENTITY();";
 
@@ -135,8 +132,7 @@ namespace GVC.Infra.Repository
                     Observacoes = @Observacoes,
                     LimiteCredito = @LimiteCredito,
                     DataAtualizacao = @DataAtualizacao,
-                    UsuarioAtualizacao = @UsuarioAtualizacao,
-                    IsVendedor = @IsVendedor
+                    UsuarioAtualizacao = @UsuarioAtualizacao,                   
                 WHERE ClienteID = @ClienteID
                   AND EmpresaID = @EmpresaID";
 
@@ -166,10 +162,10 @@ namespace GVC.Infra.Repository
                 SqlBase + " AND c.Nome LIKE @Nome ORDER BY c.Nome",
                 new SqlParameter("@Nome", $"%{nome.Trim()}%"));
 
-        public DataTable PesquisarVendedores(string nome = "")
-            => ExecuteDataTable(
-                SqlBase + " AND c.IsVendedor = 1 AND c.Nome LIKE @Nome ORDER BY c.Nome",
-                new SqlParameter("@Nome", $"%{nome.Trim()}%"));
+        //public DataTable PesquisarVendedores(string nome = "")
+        //    => ExecuteDataTable(
+        //        SqlBase + " AND c.IsVendedor = 1 AND c.Nome LIKE @Nome ORDER BY c.Nome",
+        //        new SqlParameter("@Nome", $"%{nome.Trim()}%"));
 
 
 

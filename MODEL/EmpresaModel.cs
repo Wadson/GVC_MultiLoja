@@ -50,4 +50,6 @@ public partial class EmpresaModel
     public string? UsuarioAtualizacao { get; set; }
 
     public byte[]? Logo { get; set; }
+    // 🔥 NOVO
+    public string FundoTela { get; set; }
 }

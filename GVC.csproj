@@ -32,31 +32,8 @@
 
 	<ItemGroup>
 	  <None Remove="Infra\Conexao\appsettings.json" />
-	  <None Remove="Infra\Database\01_CreateDatabase.sql" />
-	  <None Remove="Infra\Database\02_Tables.sql" />
-	  <None Remove="Infra\Database\03_Functions.sql" />
-	  <None Remove="Infra\Database\04_Defaults.sql" />
-	  <None Remove="Infra\Database\05_ForeignKeys.sql" />
-	  <None Remove="Infra\Database\06_Checks.sql" />
-	  <None Remove="Infra\Database\07_Views.sql" />
-	  <None Remove="Infra\Database\08_Procedures.sql" />
-	  <None Remove="Infra\Database\09_Seed.sql" />
-	  <None Remove="Infra\Database\10_Carga_Estado.sql" />
-	  <None Remove="Infra\Database\11_Carga_Cidade.sql" />
-	  <None Remove="Infra\Database\ScriptCriacaoBanco.sql" />
-	  <None Remove="Infra\Database\Scripts\00_ScriptLog.sql" />
-	  <None Remove="Infra\Database\Scripts\Functions\fn_calcular_dias_atraso.sql" />
-	  <None Remove="Infra\Database\Scripts\Functions\fn_calcular_idade.sql" />
-	  <None Remove="Infra\Database\Scripts\Functions\fn_formatar_documento.sql" />
-	  <None Remove="Infra\Database\Scripts\Procedures\sp_backup_diario.sql" />
-	  <None Remove="Infra\Database\Scripts\Procedures\sp_gerar_parcelas.sql" />
-	  <None Remove="Infra\Database\Scripts\Procedures\sp_registrar_pagamento.sql" />
-	  <None Remove="Infra\Database\Scripts\Procedures\sp_registrar_venda.sql" />
-	  <None Remove="Infra\Database\Scripts\Procedures\sp_relatorio_vendas_periodo.sql" />
-	  <None Remove="Infra\Database\Scripts\Seed\01_FormaPagamento.sql" />
-	  <None Remove="Infra\Database\Scripts\Seed\02_Empresa.sql" />
-	  <None Remove="Infra\Database\Scripts\Seed\03_UsuarioAdmin.sql" />
-	  <None Remove="Infra\Database\Scripts\Seed\04_VersaoSistema.sql" />
+	  <None Remove="Resources\FundoEssenciaRadiante.png" />
+	  <None Remove="Resources\FundoiConnect.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -67,28 +44,11 @@
 	  <Content Include="Infra\Conexao\appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
-	  <EmbeddedResource Include="Infra\Database\Scripts\00_ScriptLog.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\01_Tables.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\02_Defaults.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\03_ForeignKeys.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\04_Checks.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Carga\Carga_Estado.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Carga\Carga_Cidade.sql" />
-	  <EmbeddedResource Include="Infra\Database\ScriptCriacaoBanco.sql">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Infra\Database\Scripts\Functions\fn_calcular_dias_atraso.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Functions\fn_calcular_idade.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Functions\fn_formatar_documento.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Procedures\sp_backup_diario.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Procedures\sp_gerar_parcelas.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Procedures\sp_registrar_pagamento.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Procedures\sp_registrar_venda.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Procedures\sp_relatorio_vendas_periodo.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Seed\01_FormaPagamento.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Seed\02_Empresa.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Seed\03_UsuarioAdmin.sql" />
-	  <EmbeddedResource Include="Infra\Database\Scripts\Seed\04_VersaoSistema.sql" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\FundoEssenciaRadiante.png" />
+	  <EmbeddedResource Include="Resources\FundoiConnect.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -217,9 +177,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Infra\Database\Scripts\ScriptCriacaoBanco.sql">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	  <None Update="Properties\Settings.settings">
 	    <Generator>SettingsSingleFileGenerator</Generator>
 	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -227,7 +184,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Infra\Database\Scripts\Views\" />
 	  <Folder Include="Relatorios\Extratos\" />
 	</ItemGroup>
 

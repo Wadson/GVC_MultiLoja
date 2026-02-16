@@ -43,8 +43,9 @@
             formaDePagamentoToolStripMenuItem = new ToolStripMenuItem();
             marcasToolStripMenuItem = new ToolStripMenuItem();
             produtosToolStripMenuItem = new ToolStripMenuItem();
-            usuáriosToolStripMenuItem = new ToolStripMenuItem();
             testeToolStripMenuItem = new ToolStripMenuItem();
+            usuáriosToolStripMenuItem = new ToolStripMenuItem();
+            vendedoresToolStripMenuItem = new ToolStripMenuItem();
             estoqueToolStripMenuItem1 = new ToolStripMenuItem();
             entradaDeEstoqueNFeOuManualToolStripMenuItem = new ToolStripMenuItem();
             correçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
@@ -95,7 +96,6 @@
             toolStripStatusLabel8 = new ToolStripStatusLabel();
             lblEmpresa = new ToolStripStatusLabel();
             picBackground = new PictureBox();
-            panelBackground = new Panel();
             kryptonContextMenu1 = new Krypton.Toolkit.KryptonContextMenu();
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
@@ -104,12 +104,10 @@
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             cmbEmpresa = new Krypton.Toolkit.KryptonComboBox();
             label1 = new Label();
-            vendedoresToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).BeginInit();
-            panelBackground.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbEmpresa).BeginInit();
@@ -238,6 +236,13 @@
             produtosToolStripMenuItem.Text = "Produtos";
             produtosToolStripMenuItem.Click += produtosToolStripMenuItem_Click;
             // 
+            // testeToolStripMenuItem
+            // 
+            testeToolStripMenuItem.Name = "testeToolStripMenuItem";
+            testeToolStripMenuItem.Size = new Size(188, 22);
+            testeToolStripMenuItem.Text = "Teste";
+            testeToolStripMenuItem.Click += testeToolStripMenuItem_Click;
+            // 
             // usuáriosToolStripMenuItem
             // 
             usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
@@ -245,12 +250,12 @@
             usuáriosToolStripMenuItem.Text = "Usuários";
             usuáriosToolStripMenuItem.Click += usuáriosToolStripMenuItem_Click;
             // 
-            // testeToolStripMenuItem
+            // vendedoresToolStripMenuItem
             // 
-            testeToolStripMenuItem.Name = "testeToolStripMenuItem";
-            testeToolStripMenuItem.Size = new Size(188, 22);
-            testeToolStripMenuItem.Text = "Teste";
-            testeToolStripMenuItem.Click += testeToolStripMenuItem_Click;
+            vendedoresToolStripMenuItem.Name = "vendedoresToolStripMenuItem";
+            vendedoresToolStripMenuItem.Size = new Size(188, 22);
+            vendedoresToolStripMenuItem.Text = "Vendedores";
+            vendedoresToolStripMenuItem.Click += vendedoresToolStripMenuItem_Click;
             // 
             // estoqueToolStripMenuItem1
             // 
@@ -618,7 +623,7 @@
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
             kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblEmpresa });
-            kryptonStatusStrip1.Location = new Point(0, 408);
+            kryptonStatusStrip1.Location = new Point(0, 442);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
             kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
@@ -690,22 +695,12 @@
             // 
             picBackground.Dock = DockStyle.Fill;
             picBackground.Enabled = false;
-            picBackground.Image = (Image)resources.GetObject("picBackground.Image");
-            picBackground.Location = new Point(0, 0);
+            picBackground.Location = new Point(0, 107);
             picBackground.Name = "picBackground";
-            picBackground.Size = new Size(318, 265);
+            picBackground.Size = new Size(890, 335);
             picBackground.SizeMode = PictureBoxSizeMode.Zoom;
             picBackground.TabIndex = 610;
             picBackground.TabStop = false;
-            // 
-            // panelBackground
-            // 
-            panelBackground.Anchor = AnchorStyles.None;
-            panelBackground.Controls.Add(picBackground);
-            panelBackground.Location = new Point(292, 118);
-            panelBackground.Name = "panelBackground";
-            panelBackground.Size = new Size(318, 265);
-            panelBackground.TabIndex = 611;
             // 
             // iconMenuItem1
             // 
@@ -732,8 +727,8 @@
             // 
             // lblVersaoSistema
             // 
-            lblVersaoSistema.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lblVersaoSistema.Location = new Point(634, 374);
+            lblVersaoSistema.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblVersaoSistema.Location = new Point(615, 58);
             lblVersaoSistema.Name = "lblVersaoSistema";
             lblVersaoSistema.Size = new Size(244, 20);
             lblVersaoSistema.TabIndex = 612;
@@ -743,6 +738,7 @@
             // 
             kryptonPanel1.Controls.Add(cmbEmpresa);
             kryptonPanel1.Controls.Add(label1);
+            kryptonPanel1.Controls.Add(lblVersaoSistema);
             kryptonPanel1.Controls.Add(toolStrip1);
             kryptonPanel1.Dock = DockStyle.Top;
             kryptonPanel1.Location = new Point(0, 24);
@@ -814,21 +810,13 @@
             label1.TabIndex = 1070;
             label1.Text = "Empresa:";
             // 
-            // vendedoresToolStripMenuItem
-            // 
-            vendedoresToolStripMenuItem.Name = "vendedoresToolStripMenuItem";
-            vendedoresToolStripMenuItem.Size = new Size(188, 22);
-            vendedoresToolStripMenuItem.Text = "Vendedores";
-            vendedoresToolStripMenuItem.Click += vendedoresToolStripMenuItem_Click;
-            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
-            ClientSize = new Size(890, 430);
+            ClientSize = new Size(890, 464);
+            Controls.Add(picBackground);
             Controls.Add(kryptonPanel1);
-            Controls.Add(lblVersaoSistema);
-            Controls.Add(panelBackground);
             Controls.Add(kryptonStatusStrip1);
             Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -853,7 +841,6 @@
             kryptonStatusStrip1.ResumeLayout(false);
             kryptonStatusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).EndInit();
-            panelBackground.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();
             kryptonPanel1.ResumeLayout(false);
             kryptonPanel1.PerformLayout();
@@ -905,7 +892,6 @@
         private ToolStripStatusLabel lblTipoUsuarioo;
         private ToolStripStatusLabel toolStripStatusLabel8;
         private PictureBox picBackground;
-        private Panel panelBackground;      
         private Krypton.Toolkit.KryptonContextMenu kryptonContextMenu1;
         private FontAwesome.Sharp.IconMenuItem iconMenuItem1;
         private ToolStripMenuItem produtosToolStripMenuItem1;

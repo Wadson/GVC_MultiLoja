@@ -16,6 +16,77 @@ public class ExtratoBLL
     private readonly ClienteRepository _clienteRepository = new();
 
     // ======================================================
+    // EXTRATO PARA RECIBO (LOTE - VÁRIAS PARCELAS)
+    // ======================================================
+    public ExtratoCliente ObterExtratoPorParcelas(List<long> parcelasIds, DateTime dataEmissao)
+    {
+        if (parcelasIds == null || parcelasIds.Count == 0)
+            throw new Exception("Nenhuma parcela informada para o extrato do lote.");
+
+        using var conn = Conexao.Conex();
+
+        var ids = parcelasIds.Select(x => (int)x).ToList();
+
+        // Busca itens do lote (somente as parcelas selecionadas)
+        var sql = @"
+        SELECT
+            v.ClienteID,
+            c.Nome AS NomeCliente,
+            p.VendaID,
+            p.ParcelaID,
+            p.NumeroParcela,
+            p.DataVencimento,
+            p.ValorParcela,
+            ISNULL(p.ValorRecebido, 0) AS ValorRecebido,
+            (p.ValorParcela + ISNULL(p.Juros,0) + ISNULL(p.Multa,0) - ISNULL(p.ValorRecebido,0)) AS Saldo,
+            p.Status
+        FROM Parcela p
+        INNER JOIN Venda v ON v.VendaID = p.VendaID
+        INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
+        WHERE p.ParcelaID IN @Ids
+        ORDER BY p.VendaID, p.NumeroParcela;";
+
+        var rows = conn.Query(sql, new { Ids = ids }).ToList();
+
+        if (rows == null || rows.Count == 0)
+            throw new Exception("Parcelas não encontradas para gerar o recibo do lote.");
+
+        // Segurança: lote deve ser de 1 único cliente (sua tela é por cliente)
+        var clienteIdsDistintos = rows.Select(r => (int)r.ClienteID).Distinct().ToList();
+        if (clienteIdsDistintos.Count > 1)
+            throw new Exception("Não é permitido gerar recibo de lote com parcelas de clientes diferentes.");
+
+        int clienteId = (int)rows[0].ClienteID;
+        string nomeCliente = (string)rows[0].NomeCliente;
+
+        var itens = rows.Select(r => new ItemExtrato
+        {
+            VendaID = (int)r.VendaID,
+            ParcelaID = (int)r.ParcelaID,
+            NumeroParcela = (int)r.NumeroParcela,
+            DataVencimento = (DateTime)r.DataVencimento,
+            ValorParcela = (decimal)r.ValorParcela,
+            ValorRecebido = (decimal)r.ValorRecebido,
+            Saldo = (decimal)r.Saldo,
+            Status = (string)r.Status
+        }).ToList();
+
+        // Totais do extrato (para o recibo, o importante é TotalPago do lote)
+        var extrato = new ExtratoCliente
+        {
+            ClienteID = clienteId,
+            NomeCliente = nomeCliente,
+            DataEmissao = dataEmissao,
+            ItensExtrato = itens,
+            TotalPago = itens.Sum(i => i.ValorRecebido), // no lote quitado, isso vira o total recebido
+            TotalDevendo = itens.Sum(i => i.Saldo),
+            SaldoAtual = itens.Sum(i => i.Saldo)
+        };
+
+        return extrato;
+    }
+
+    // ======================================================
     // EXTRATO POR VENDA (ANTIGO)
     // ======================================================
 

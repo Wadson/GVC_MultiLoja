@@ -34,7 +34,8 @@ namespace GVC.DAL
             EmpresaID,
             RazaoSocial,
             NomeFantasia,
-            Logo
+            Logo,
+            FundoTela
         FROM Empresa
         ORDER BY EmpresaID";
 
@@ -161,6 +162,7 @@ SELECT
     em.UsuarioCriacao,
     em.UsuarioAtualizacao,
     em.Logo
+    em.FundoTela
 FROM Empresa em";
 
 
@@ -261,7 +263,7 @@ FROM Empresa em";
                     Logradouro, Numero, Bairro, Cep, Cidade, UF,
                     Telefone, Email, Site,
                     Responsavel, CertificadoDigital,
-                    DataCriacao, UsuarioCriacao
+                    DataCriacao, UsuarioCriacao, FundoTela
                 )
                 VALUES (
                     @RazaoSocial, @NomeFantasia, @Cnpj,
@@ -269,7 +271,7 @@ FROM Empresa em";
                     @Logradouro, @Numero, @Bairro, @Cep, @Cidade, @Uf,
                     @Telefone, @Email, @Site,
                     @Responsavel, @CertificadoDigital,
-                    @DataCriacao, @UsuarioCriacao
+                    @DataCriacao, @UsuarioCriacao, @FundoTela
                 );
                 SELECT SCOPE_IDENTITY();";
 
@@ -294,6 +296,7 @@ FROM Empresa em";
             cmd.Parameters.Add("@CertificadoDigital", SqlDbType.VarChar, 300).Value = (object?)empresa.CertificadoDigital ?? DBNull.Value;
             cmd.Parameters.Add("@DataCriacao", SqlDbType.DateTime).Value = empresa.DataCriacao;
             cmd.Parameters.Add("@UsuarioCriacao", SqlDbType.VarChar, 100).Value = (object?)empresa.UsuarioCriacao ?? DBNull.Value;
+            cmd.Parameters.Add("@FundoTela", SqlDbType.VarChar, 300).Value = (object?)empresa.FundoTela ?? DBNull.Value;
 
             empresa.EmpresaID = Convert.ToInt32(cmd.ExecuteScalar());
         }
@@ -328,7 +331,8 @@ FROM Empresa em";
                 Responsavel = @Responsavel,
                 CertificadoDigital = @CertificadoDigital,
                 DataAtualizacao = GETDATE(),
-                UsuarioAtualizacao = @UsuarioAtualizacao");
+                UsuarioAtualizacao = @UsuarioAtualizacao,
+                FundoTela = @FundoTela");
 
             // 🔒 só atualiza a imagem se uma nova for enviada
             if (imagemNova != null && imagemNova.Length > 0)
@@ -358,7 +362,7 @@ FROM Empresa em";
                 cmd.Parameters.AddWithValue("@Responsavel", empresa.Responsavel ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@CertificadoDigital", empresa.CertificadoDigital ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@UsuarioAtualizacao", empresa.UsuarioAtualizacao ?? (object)DBNull.Value);
-
+                cmd.Parameters.AddWithValue("@FundoTela", empresa.FundoTela ?? (object)DBNull.Value);
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -479,6 +483,7 @@ FROM Empresa em";
                 UsuarioCriacao = reader["UsuarioCriacao"]?.ToString() ?? "",
                 UsuarioAtualizacao = reader["UsuarioAtualizacao"]?.ToString() ?? "",
                 Logo = reader["Logo"] != DBNull.Value ? (byte[])reader["Logo"] : null,
+                FundoTela = reader["FundoTela"] != DBNull.Value  ? reader["FundoTela"].ToString(): null
 
             };
         }

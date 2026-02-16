@@ -12,6 +12,8 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+
 
 namespace GVC.BLL
 {
@@ -237,44 +239,84 @@ namespace GVC.BLL
         // ==========================================================
         public ParcelaDetalheDTO ObterDetalheParcela(long parcelaId)
         {
-            using var conn = Conexao.Conex();
-
-            const string sql = @"
-                SELECT
-                    p.ParcelaID,
-                    p.VendaID,
-                    p.NumeroParcela,
-                    c.Nome AS NomeCliente,
-                    v.DataVenda,
-                    p.DataVencimento,
-                    p.ValorParcela,
-                    ISNULL(p.ValorRecebido, 0) AS ValorRecebido,
-                    (ISNULL(p.ValorParcela,0)
-                     + ISNULL(p.Juros,0)
-                     + ISNULL(p.Multa,0)
-                     - ISNULL(p.ValorRecebido,0)) AS Saldo,
-                    p.Status
-                FROM Parcela p
-                INNER JOIN Venda v ON v.VendaID = p.VendaID
-                INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
-                WHERE p.ParcelaID = @ParcelaID";
-
-            return conn.QueryFirstOrDefault<ParcelaDetalheDTO>(
-                sql,
-                new { ParcelaID = parcelaId }
-            );
+            // ✅ Agora tudo via RepositoryBase (multiempresa + conexão centralizada)
+            return _parcelaRepository.ObterDetalheParcela(parcelaId);
         }
-
-        // ==========================================================
-        // RECIBO
-        // ==========================================================
-        public void GerarReciboAutomatico(long parcelaId)
+       
+        public string? GerarReciboAutomatico(long parcelaId, bool perguntarAbrir = true)
         {
             var extratoBLL = new ExtratoBLL();
             var extrato = extratoBLL.ObterExtratoPorParcela(parcelaId);
 
             var pagamentoBLL = new PagamentoBLL();
             var pagamentos = pagamentoBLL.ListarPagamentosPorParcela(parcelaId);
+
+            if (pagamentos == null || pagamentos.Count == 0)
+                return null;
+
+            var empresaBLL = new EmpresaBll();
+            var empresa = empresaBLL.ObterDadosParaPdf();
+
+            string pasta = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "GVC",
+                "Recibos");
+
+            if (!Directory.Exists(pasta))
+                Directory.CreateDirectory(pasta);
+
+            // ✅ evita colisão (milissegundos)
+            string caminhoPdf = Path.Combine(
+                pasta,
+                $"Recibo_Parcela_{parcelaId}_{DateTime.Now:yyyyMMddHHmmssfff}.pdf");
+
+            PDFGenerator.GerarReciboPagamentos(
+                extrato,
+                pagamentos,
+                empresa,
+                caminhoPdf);
+
+            if (perguntarAbrir && Utilitario.Mensagens.Confirmacao(
+                "Recibo gerado automaticamente.\nDeseja abrir agora?"))
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = caminhoPdf,
+                    UseShellExecute = true
+                });
+            }
+
+            return caminhoPdf;
+        }
+
+        public void BaixarParcelasEmLote(
+         List<long> parcelasIds,
+         DateTime dataPagamento,
+         long formaPgtoId,
+         string? observacao = null)
+        {
+            if (parcelasIds == null || parcelasIds.Count == 0)
+                throw new Exception("Nenhuma parcela selecionada.");
+
+            _parcelaRepository.BaixarParcelasEmLote(
+                parcelasIds,
+                dataPagamento,
+                formaPgtoId,
+                observacao
+            );
+
+            // ✅ UM RECIBO ÚNICO DO LOTE
+            GerarReciboAutomaticoLote(parcelasIds, dataPagamento);
+        }
+
+       
+        public void GerarReciboAutomaticoLote(List<long> parcelasIds, DateTime dataPagamento)
+        {
+            var extratoBLL = new ExtratoBLL();
+            var extrato = extratoBLL.ObterExtratoPorParcelas(parcelasIds, DateTime.Now);
+
+            var pagamentoBLL = new PagamentoBLL();
+            var pagamentos = pagamentoBLL.ListarPagamentosPorParcelasLote(parcelasIds, dataPagamento);
 
             if (pagamentos == null || pagamentos.Count == 0)
                 return;
@@ -292,45 +334,12 @@ namespace GVC.BLL
 
             string caminhoPdf = Path.Combine(
                 pasta,
-                $"Recibo_Parcela_{parcelaId}_{DateTime.Now:yyyyMMddHHmmss}.pdf");
+                $"Recibo_Lote_{DateTime.Now:yyyyMMddHHmmssfff}.pdf");
 
-            PDFGenerator.GerarReciboPagamentos(
-                extrato,
-                pagamentos,
-                empresa,
-                caminhoPdf);
-
-            if (Utilitario.Mensagens.Confirmacao(
-                "Recibo gerado automaticamente.\nDeseja abrir agora?"))
-            {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = caminhoPdf,
-                    UseShellExecute = true
-                });
-            }
+            // ✅ Vamos usar um NOVO PDF que também mostra as parcelas quitadas
+            PDFGenerator.GerarReciboPagamentosLote(extrato, pagamentos, empresa, caminhoPdf);
         }
-        public void BaixarParcelasEmLote(
-           List<long> parcelasIds,
-           DateTime dataPagamento,
-           long formaPgtoId,
-           string? observacao = null)
-        {
-            if (parcelasIds == null || parcelasIds.Count == 0)
-                throw new Exception("Nenhuma parcela selecionada.");
 
-            _parcelaRepository.BaixarParcelasEmLote(
-                parcelasIds,
-                dataPagamento,
-                formaPgtoId,
-                observacao
-            );
 
-            // 🔥 Recibos fora da transação
-            foreach (var parcelaId in parcelasIds)
-            {
-                GerarReciboAutomatico(parcelaId);
-            }
-        }       
     }
 }

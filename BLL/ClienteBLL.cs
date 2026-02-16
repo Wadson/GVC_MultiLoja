@@ -71,10 +71,10 @@ namespace GVC.BLL
         }
         // No ClienteBLL.cs
 
-        public DataTable PesquisarVendedor(string nome)
-        {
-            return clienteRepository.PesquisarVendedores(nome);
-        }
+        //public DataTable PesquisarVendedor(string nome)
+        //{
+        //    return clienteRepository.PesquisarVendedores(nome);
+        //}
         // =========================
         // ALTERAR
         // =========================

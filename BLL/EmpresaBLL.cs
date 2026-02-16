@@ -121,9 +121,7 @@ namespace GVC.BLL
             }
         }
 
-        /// <summary>
-        /// Atualiza os dados de uma empresa existente
-        /// </summary>
+     
         public void Atualizar(EmpresaModel empresa)
         {
             ValidarEmpresa(empresa, isUpdate: true);

@@ -21,12 +21,9 @@ namespace GVC
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.DoEvents();
-
             // =============================
             // LOGIN
             // =============================
-
             using (var login = new FrmLogin())
             {
                 if (login.ShowDialog() != DialogResult.OK)
@@ -59,7 +56,7 @@ namespace GVC
                         UseShellExecute = true
                     });
 
-                    return; // encerra o sistema
+                    return;
                 }
             }
             catch
@@ -72,5 +69,6 @@ namespace GVC
             // =============================
             Application.Run(new FrmPrincipal());
         }
+
     }
 }

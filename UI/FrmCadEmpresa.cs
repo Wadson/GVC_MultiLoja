@@ -1,5 +1,6 @@
 ﻿using GVC.BLL;
 using GVC.DAL;
+using GVC.Infra.Helpers;
 using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
@@ -519,8 +520,10 @@ namespace GVC.View
 
                 DataCriacao = DateTime.Now,
                 DataAtualizacao = null,
-                UsuarioCriacao = FrmLogin.UsuarioConectado ?? "Sistema",
-                UsuarioAtualizacao = null,
+                UsuarioCriacao = FrmLogin.UsuarioConectado ?? "Sistema",   
+               
+                FundoTela = txtEnderecoImagem.Text?.Trim(),
+
             };
 
             if (StatusOperacao == "NOVO")
@@ -534,8 +537,8 @@ namespace GVC.View
             }
             if (StatusOperacao == "ALTERAR")
             {
-                empresa.DataCriacao = DateTime.Now;
-                empresa.UsuarioCriacao = FrmLogin.UsuarioConectado ?? "Sistema";
+               
+                empresa.UsuarioAtualizacao = FrmLogin.UsuarioConectado ?? "Sistema";
                 if (File.Exists(txtCertificadoDigital.Text))
                 {
                     empresa.CertificadoDigital = Utilitario.SalvarCertificado(txtCertificadoDigital.Text, empresa.EmpresaID);
@@ -563,7 +566,7 @@ namespace GVC.View
         {
             await BuscarEnderecoPorCep();
         }
-     
+
         private void FrmCadEmpresa_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
@@ -794,6 +797,39 @@ namespace GVC.View
         private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnBuscarImagem_Click(object sender, EventArgs e)
+        {
+            using var ofd = new OpenFileDialog
+            {
+                Title = "Selecione a imagem de fundo da empresa",
+                Filter = "Imagens (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg",
+                Multiselect = false
+            };
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
+
+            // 📍 LOCAL: FrmCadEmpresa.cs → btnBuscarImagem_Click
+            // 🔥 GARANTE PASTA
+            var pastaFundos = DiretorioFundoHelper.ObterDiretorioFundos();
+
+            // 🔥 NOME PADRONIZADO PELO ID DA EMPRESA
+            var nomeArquivo = $"fundo_empresa_{EmpresaID}.png";
+
+            // 🔥 CAMINHO FINAL
+            var destino = Path.Combine(pastaFundos, nomeArquivo);
+
+            // 🔥 COPIA / SOBRESCREVE
+            File.Copy(ofd.FileName, destino, overwrite: true);
+
+            // 🔥 EXIBE NO FORM
+            txtEnderecoImagem.Text = destino;
+
+            using var imgTemp = Image.FromFile(destino);
+            picFundoPadrao.Image = new Bitmap(imgTemp);
+            picFundoPadrao.SizeMode = PictureBoxSizeMode.StretchImage;
         }
     }
 }
