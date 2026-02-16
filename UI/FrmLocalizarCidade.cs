@@ -108,22 +108,8 @@ namespace GVC.View
         {
             CidadeDal dao = new CidadeDal();
 
-            if (rbtCodigo.Checked)
-            {
-                if (int.TryParse(txtPesquisar.Text, out int id))
-                {
-                    dataGridPesquisar.DataSource = dao.PesquisarPorCodigo(id);
-                }
-                else
-                {
-                    dataGridPesquisar.DataSource = null;
-                }
-            }
-            else
-            {
-                string nome = "%" + txtPesquisar.Text + "%";
-                dataGridPesquisar.DataSource = dao.PesquisarPorNome(nome);
-            }
+            string nome = "%" + txtPesquisar.Text + "%";
+            dataGridPesquisar.DataSource = dao.PesquisarPorNome(nome);
         }
         private void ConfigurarEventosTeclado()
         {
@@ -287,14 +273,7 @@ namespace GVC.View
             string nome = "%" + txtPesquisar.Text + "%";
             CidadeDal dao = new CidadeDal();
 
-            if (rbtCodigo.Checked)
-            {
-                dataGridPesquisar.DataSource = dao.PesquisarPorCodigo(nome);
-            }
-            else
-            {
-                dataGridPesquisar.DataSource = dao.PesquisarPorNome(nome);
-            }
+            dataGridPesquisar.DataSource = dao.PesquisarPorNome(nome);
         }
 
         private void btnSair_Click(object sender, EventArgs e)

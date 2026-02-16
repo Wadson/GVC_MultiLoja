@@ -20,6 +20,40 @@ namespace GVC.DTO
             _parcelamentoService = new ParcelamentoService();
         }
 
+        public void RegistrarPagamento(
+        ParcelaModel parcela,
+        decimal valorPago,
+        string formaPagamento)
+        {
+            if (parcela.Status == EnumStatusParcela.Cancelada)
+                throw new Exception("Não é possível pagar parcela cancelada.");
+
+            parcela.ValorRecebido = (parcela.ValorRecebido ?? 0m) + valorPago;
+
+            decimal totalParcela =
+                parcela.ValorParcela +
+                (parcela.Juros ?? 0m) +
+                (parcela.Multa ?? 0m);
+
+            if (parcela.ValorRecebido >= totalParcela - 0.01m)
+            {
+                parcela.Status = EnumStatusParcela.Pago;
+                parcela.DataPagamento ??= DateTime.Now;
+            }
+            else if (parcela.ValorRecebido > 0)
+            {
+                parcela.Status = EnumStatusParcela.ParcialmentePago;
+            }
+            else if (parcela.DataVencimento < DateTime.Today)
+            {
+                parcela.Status = EnumStatusParcela.Atrasada;
+            }
+            else
+            {
+                parcela.Status = EnumStatusParcela.Pendente;
+            }
+        }
+
         // ================================
         // 1️⃣ GERAÇÃO DE PARCELAS
         // ================================
@@ -192,6 +226,32 @@ namespace GVC.DTO
             DataPagamento = DateTime.Now,
             Status = EnumStatusParcela.Pago } };
         }
+        public void AtualizarStatusParcela(ParcelaModel parcela)
+        {
+            decimal total =
+                parcela.ValorParcela
+                + (parcela.Juros ?? 0m)
+                + (parcela.Multa ?? 0m);
+
+            decimal recebido = parcela.ValorRecebido ?? 0m;
+
+            if (recebido == 0)
+            {
+                parcela.Status = parcela.DataVencimento < DateTime.Today
+                    ? EnumStatusParcela.Atrasada
+                    : EnumStatusParcela.Pendente;
+            }
+            else if (recebido < total)
+            {
+                parcela.Status = EnumStatusParcela.ParcialmentePago;
+            }
+            else
+            {
+                parcela.Status = EnumStatusParcela.Pago;
+                parcela.DataPagamento ??= DateTime.Now;
+            }
+        }
+
     }
 
 }

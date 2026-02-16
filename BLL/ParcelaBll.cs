@@ -8,6 +8,7 @@ using GVC.Model.Enums;
 using GVC.Model.Enums.GVC.Model.Enums;
 using GVC.Model.Extensions;
 using GVC.UTIL;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace GVC.BLL
         private readonly VendaBLL _vendaBLL;
         private readonly PagamentoParcialDal _pagamentoParcialDal;
 
+        // ✅ CONSTRUTOR PADRÃO (não quebra forms existentes)
         public ParcelaBLL()
         {
             _parcelaRepository = new ParcelaRepository();
@@ -28,6 +30,36 @@ namespace GVC.BLL
             _vendaBLL = new VendaBLL();
             _pagamentoParcialDal = new PagamentoParcialDal();
         }
+
+        // ✅ CONSTRUTOR PARA TRANSAÇÃO ÚNICA
+        public ParcelaBLL(SqlConnection conn)
+        {
+            _parcelaRepository = new ParcelaRepository(conn);
+            _vendaRepository = new VendaRepository(conn);
+            _vendaBLL = new VendaBLL(conn);
+            _pagamentoParcialDal = new PagamentoParcialDal();
+        }
+        //Criado para calcular o status da parcela sem precisar usar Trigger no banco, o que causava lentidão 13/02/2026
+        public string CalcularStatusParcela(ParcelaModel p)
+        {
+            if (p.Status == EnumStatusParcela.Cancelada)
+                return "Cancelada";
+
+
+            var total = p.ValorParcela + (p.Juros ?? 0) + (p.Multa ?? 0);
+
+            if (p.ValorRecebido >= total - 0.01m)
+                return "Pago";
+
+            if (p.ValorRecebido > 0)
+                return "ParcialmentePago";
+
+            if (p.DataVencimento < DateTime.Today)
+                return "Atrasada";
+
+            return "Pendente";
+        }
+
         public int AtualizarParcelasAtrasadas()
         {
             using var repo = new ParcelaRepository();
@@ -44,7 +76,7 @@ namespace GVC.BLL
         // ==========================================================
         public void BaixarParcelaTotal(long parcelaId)
         {
-            var parcela = _parcelaRepository.BuscarPorId(parcelaId)
+            var parcela = _parcelaRepository.BuscarParcelaPorId(parcelaId)
                 ?? throw new Exception("Parcela não encontrada.");
 
             decimal totalDevido =
@@ -69,51 +101,84 @@ namespace GVC.BLL
         // BAIXA PARCIAL
         // ==========================================================
         public void BaixarParcelaParcial(
-            long parcelaId,
-            decimal valorPago,
-            int? formaPgtoId,
-            string? comprovante = null,
-            string? observacao = null)
+             long parcelaId,
+             decimal valorPago,
+             int? formaPgtoId,
+             string? comprovante = null,
+             string? observacao = null)
         {
             if (valorPago <= 0)
                 throw new Exception("O valor pago deve ser maior que zero.");
 
-            var parcela = _parcelaRepository.BuscarPorId(parcelaId)
+            var parcela = _parcelaRepository.BuscarParcelaPorId(parcelaId)
                 ?? throw new Exception("Parcela não encontrada.");
+
+            if (parcela.Status == EnumStatusParcela.Cancelada)
+                throw new Exception("Parcela cancelada não pode receber pagamento.");
 
             decimal totalDevido =
                 parcela.ValorParcela
                 + (parcela.Juros ?? 0m)
                 + (parcela.Multa ?? 0m);
 
-            decimal saldoAtual = totalDevido - (parcela.ValorRecebido ?? 0m);
+            decimal recebidoAtual = parcela.ValorRecebido ?? 0m;
+            decimal saldoAtual = totalDevido - recebidoAtual;
 
             valorPago = Math.Round(valorPago, 2, MidpointRounding.AwayFromZero);
 
             if (valorPago > saldoAtual)
                 throw new Exception("Valor pago maior que o saldo devido.");
 
-            string obsFinal = string.IsNullOrWhiteSpace(observacao)
-                ? "Baixa parcial"
-                : $"Baixa parcial – {observacao.Trim()}";
+            // 1) Atualiza o OBJETO em memória (status / data pagamento / valor recebido)
+            var financeiroService = new FinanceiroService();
+            financeiroService.RegistrarPagamento(parcela, valorPago, "Manual");
 
-            _pagamentoParcialDal.RegistrarPagamentoParcial(
-                parcelaId,
-                valorPago,
-                DateTime.Now,
-                formaPgtoId,
-                obsFinal
-            );
+            // 2) TUDO EM UMA TRANSAÇÃO ÚNICA (Pagamento + Parcela + Venda)
+            using var conn = Conexao.Conex();
+            conn.Open();
+            using var tran = conn.BeginTransaction();
 
+            try
+            {
+                using var parcelaRepo = new ParcelaRepository(conn);
+                using var vendaRepo = new VendaRepository(conn);
+
+                // 2.1) Salva pagamento + atualiza parcela na MESMA transação
+                parcelaRepo.RegistrarPagamentoSeguro(
+                    parcela,
+                    valorPago,
+                    parcela.DataPagamento ?? DateTime.Now,
+                    formaPgtoId,
+                    observacao,
+                    tran);
+
+                // 2.2) Recalcula status com leitura dentro da transação ✅
+                var parcelasVendaBanco = parcelaRepo.GetParcelas(parcela.VendaID, tran);
+                var statusVendaCalculado = _vendaBLL.CalcularStatusVendaPorParcelas(parcelasVendaBanco);
+
+                // 2.3) Atualiza venda na mesma transação
+                vendaRepo.AtualizarStatusVenda(parcela.VendaID, statusVendaCalculado, tran);
+
+                tran.Commit();
+            }
+            catch
+            {
+                tran.Rollback();
+                throw;
+            }
+
+            // 3) Recibo fora da transação (não influencia integridade)
             GerarReciboAutomatico(parcelaId);
         }
+
+
 
         // ==========================================================
         // ALTERAR STATUS
         // ==========================================================
         public void AlterarStatus(long parcelaId, EnumStatusParcela novoStatus)
         {
-            var parcela = _parcelaRepository.BuscarPorId(parcelaId)
+            var parcela = _parcelaRepository.BuscarParcelaPorId(parcelaId)
                 ?? throw new Exception("Parcela não encontrada.");
 
             parcela.Status = novoStatus;
@@ -139,7 +204,7 @@ namespace GVC.BLL
             if (valorEstorno <= 0)
                 throw new Exception("Valor de estorno inválido.");
 
-            var parcela = _parcelaRepository.BuscarPorId(parcelaId)
+            var parcela = _parcelaRepository.BuscarParcelaPorId(parcelaId)
                 ?? throw new Exception("Parcela não encontrada.");
 
             if (valorEstorno > (parcela.ValorRecebido ?? 0m))
@@ -154,9 +219,9 @@ namespace GVC.BLL
 
             var parcelasVenda = _parcelaRepository.GetParcelas(parcela.VendaID);
             var statusVenda = _vendaBLL.CalcularStatusVendaPorParcelas(parcelasVenda);
+            EnumStatusVenda statusEnum = statusVenda;
 
-            var statusEnum =
-                (EnumStatusVenda)Enum.Parse(typeof(EnumStatusVenda), statusVenda);
+
 
             if (statusEnum == EnumStatusVenda.Aberta &&
                 parcelasVenda.All(p => (p.ValorRecebido ?? 0m) == 0m))

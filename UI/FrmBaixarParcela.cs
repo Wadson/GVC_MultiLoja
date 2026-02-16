@@ -20,6 +20,40 @@ namespace GVC.View
 {
     public partial class FrmBaixarParcela : KryptonForm
     {
+        // Evita loop quando a gente reescreve o TextBox dentro do TextChanged
+        private bool _atualizandoValorRecebido = false;
+
+        private decimal ParseMoedaBR(string? texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return 0m;
+
+            // Remove símbolo e espaços (mantém separadores pt-BR)
+            texto = texto.Replace("R$", "").Trim();
+
+            // Aceita "1.234,56" no pt-BR
+            if (decimal.TryParse(texto, NumberStyles.Any, _culturaBR, out var v))
+                return v;
+
+            return 0m;
+        }
+
+        // Limite máximo permitido para digitação/pagamento
+        private decimal ObterLimitePagamento()
+        {
+            // lblSaldo já está sendo usado como "Saldo Atual" (de 1 ou várias)
+            var saldoAtual = ParseMoedaBR(lblSaldo.Text);
+
+            // Regra: se for 1 parcela -> limite é o saldo dela
+            // se forem várias -> limite é o saldo total (que também está no lblSaldo e em _saldoTotal)
+            if (_parcelasIds.Count <= 1)
+                return saldoAtual;
+
+            // usa o maior entre o que está na tela e o campo (_saldoTotal) por segurança
+            return Math.Max(saldoAtual, _saldoTotal);
+        }
+
+
         // Cultura brasileira fixa
         private readonly CultureInfo _culturaBR = new CultureInfo("pt-BR");
         private List<int> _parcelasIds = new();
@@ -200,33 +234,35 @@ namespace GVC.View
         }
         private void txtValorRecebido_TextChanged(object sender, EventArgs e)
         {
-            string textoSaldo = lblSaldo.Text
-         .Replace("R$", "")
-         .Replace(".", "")
-         .Replace(",", ".")
-         .Trim();
+            if (_atualizandoValorRecebido) return;
 
-            string textoRecebido = txtValorRecebido.Text
-                .Replace("R$", "")
-                .Replace(".", "")
-                .Replace(",", ".")
-                .Trim();
-
-            if (!decimal.TryParse(textoSaldo, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal saldoAtual))
-                return;
-
-            if (!decimal.TryParse(textoRecebido, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorRecebido))
+            try
             {
-                txtNovoSaldo.Text = saldoAtual.ToString("C2", _culturaBR);
-                return;
+                _atualizandoValorRecebido = true;
+
+                decimal limite = ObterLimitePagamento();
+                decimal valorRecebido = ParseMoedaBR(txtValorRecebido.Text);
+
+                // Se digitou acima do permitido, trava (clampa)
+                if (valorRecebido > limite)
+                {
+                    valorRecebido = limite;
+
+                    // Mantém formato numérico (sem R$) para evitar problemas de parse
+                    txtValorRecebido.Text = valorRecebido.ToString("N2", _culturaBR);
+                    txtValorRecebido.SelectionStart = txtValorRecebido.Text.Length;
+                }
+
+                // Novo saldo = limite - recebido (nunca negativo)
+                decimal novoSaldo = limite - valorRecebido;
+                if (novoSaldo < 0m) novoSaldo = 0m;
+
+                txtNovoSaldo.Text = novoSaldo.ToString("C2", _culturaBR);
             }
-
-            decimal novoSaldo = saldoAtual - valorRecebido;
-
-            if (novoSaldo < 0)
-                novoSaldo = saldoAtual;
-
-            txtNovoSaldo.Text = novoSaldo.ToString("C2", _culturaBR);
+            finally
+            {
+                _atualizandoValorRecebido = false;
+            }
         }
         private void btnListarControlesDoForm_Click(object sender, EventArgs e)
         {
@@ -262,17 +298,19 @@ namespace GVC.View
                 return;
             }
 
-            // Limpa possíveis caracteres indesejados
             string textoLimpo = txtValorRecebido.Text
                 .Replace("R$", "")
-
                 .Replace(" ", "")
                 .Trim();
 
             if (decimal.TryParse(textoLimpo, NumberStyles.Any, _culturaBR, out decimal valor))
             {
-                // Formata como 1.000,00 (sem R$ para evitar problema no parse)
-                txtValorRecebido.Text = valor.ToString("N");
+                // ✅ trava no limite também no Leave (caso colaram um valor)
+                decimal limite = ObterLimitePagamento();
+                if (valor > limite) valor = limite;
+                if (valor < 0m) valor = 0m;
+
+                txtValorRecebido.Text = valor.ToString("N2", _culturaBR);
             }
             else
             {
@@ -341,39 +379,51 @@ namespace GVC.View
                 return;
             }
 
+            decimal limite = ObterLimitePagamento();
 
-            string textoParcela = lblSaldo.Text
-                            .Replace("R$", "")
-                            .Replace(".", "")
-                            .Replace(",", ".")
-                            .Trim();
-
-            if (!decimal.TryParse(textoParcela, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorParcela))
+            if (valorBaixa > limite)
             {
-                Utilitario.Mensagens.Aviso("Valor da parcela inválido.");
+                Utilitario.Mensagens.Aviso("O valor pago não pode ser maior que o saldo devido.");
                 return;
             }
 
-            if (valorBaixa > valorParcela)
+            if (_parcelasIds.Count > 1)
             {
-                Utilitario.Mensagens.Aviso("O valor pago não pode ser maior que o valor da parcela.");
-                return;
+                // Baixa em lote quita tudo -> valor deve ser exatamente o total
+                if (valorBaixa != limite)
+                {
+                    Utilitario.Mensagens.Aviso(
+                        $"Baixa em lote é quitação total. Informe exatamente o total: {limite.ToString("C2", _culturaBR)}");
+                    return;
+                }
             }
 
-            // 🔹 OBSERVAÇÃO VEM DO FORM
             string? observacao = string.IsNullOrWhiteSpace(txtObservacao.Text)
-                ? null : txtObservacao.Text.Trim();
+                ? null
+                : txtObservacao.Text.Trim();
 
             if (_parcelasIds.Count == 1)
             {
-                parcelaBLL.BaixarParcelaParcial(_parcelasIds[0], valorBaixa, FormaPgtoIDSelecionada.Value, observacao);
+                parcelaBLL.BaixarParcelaParcial(
+                    _parcelasIds[0],
+                    valorBaixa,
+                    FormaPgtoIDSelecionada.Value,
+                    comprovante: null,
+                    observacao: observacao
+                );
             }
             else
             {
                 var parcelasLong = _parcelasIds.Select(id => (long)id).ToList();
 
-                parcelaBLL.BaixarParcelasEmLote(parcelasLong, DateTime.Now, FormaPgtoIDSelecionada.Value);
+                parcelaBLL.BaixarParcelasEmLote(
+                    parcelasLong,
+                    DateTime.Now,
+                    FormaPgtoIDSelecionada.Value,
+                    observacao
+                );
             }
+
             DialogResult = DialogResult.OK;
             Close();
         }

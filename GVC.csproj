@@ -127,6 +127,15 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Settings.settings</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\FrmBaseDaBase.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="UI\FrmCadVendedor.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="UI\FrmHistoricoProduto.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="UI\FrmDetalhePrecoProduto.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
@@ -134,6 +143,9 @@
 	    <SubType>Form</SubType>
 	  </Compile>
 	  <Compile Update="UI\FrmLocalizarProdutos.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="UI\FrmManutVendedor.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
 	  <Compile Update="UI\FrmManutMarca.cs">
@@ -216,6 +228,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Infra\Database\Scripts\Views\" />
+	  <Folder Include="Relatorios\Extratos\" />
 	</ItemGroup>
 
 </Project>

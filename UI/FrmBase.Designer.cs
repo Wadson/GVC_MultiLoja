@@ -674,12 +674,13 @@
             // 
             // iconAcao
             // 
+            iconAcao.Anchor = AnchorStyles.Top;
             iconAcao.BackColor = Color.Transparent;
             iconAcao.IconChar = FontAwesome.Sharp.IconChar.Upload;
             iconAcao.IconColor = Color.White;
             iconAcao.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconAcao.IconSize = 28;
-            iconAcao.Location = new Point(274, 5);
+            iconAcao.Location = new Point(236, 5);
             iconAcao.Name = "iconAcao";
             iconAcao.Size = new Size(28, 28);
             iconAcao.TabIndex = 1110;
@@ -723,7 +724,7 @@
             lblSubTitulo.Size = new Size(717, 14);
             lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
-            lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12F);
             lblSubTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblSubTitulo.TabIndex = 0;
             lblSubTitulo.Values.Text = "Controle, consulta e acompanhamento de vendas";
@@ -741,7 +742,8 @@
             // 
             // lblTitulo
             // 
-            lblTitulo.Location = new Point(308, 3);
+            lblTitulo.Anchor = AnchorStyles.Top;
+            lblTitulo.Location = new Point(270, 3);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(227, 27);
             lblTitulo.StateCommon.ShortText.Color1 = Color.White;

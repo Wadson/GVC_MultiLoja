@@ -341,6 +341,7 @@ namespace GVC.View
             if (dtpFinal.Enabled)
                 dataFinal = dtpFinal.Value.Date;
 
+            AtualizarParcelasAtrasadasNoBanco();
             // 🔑 4️⃣ Chamada ao DAL
             var lista = dal.ListarContasAReceber(
                 tipoPesquisa,
@@ -357,8 +358,7 @@ namespace GVC.View
             // 🔑 6️⃣ Atualizações auxiliares
             AtualizarResumo(lista);
             AtualizarResumoGeral(lista);
-            AtualizarTotalSelecionado();
-            AtualizarParcelasAtrasadasNoBanco();
+            AtualizarTotalSelecionado();            
         }
 
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
@@ -604,9 +604,7 @@ namespace GVC.View
             try
             {
                 var bll = new ParcelaBLL();
-                int qtd = bll.AtualizarParcelasAtrasadas();
-
-                Debug.WriteLine($"Parcelas atrasadas atualizadas: {qtd}");
+                int qtd = bll.AtualizarParcelasAtrasadas();               
             }
             catch (Exception ex)
             {
@@ -1000,10 +998,6 @@ namespace GVC.View
             // =========================
             CarregarContasAReceber();
         }
-
-
-
-
         private void AtualizarEstadoBotoesFinanceiros()
         {
             // Estado padrão
@@ -1047,7 +1041,6 @@ namespace GVC.View
             btnEstornar.Enabled =
                 parcela.ValorRecebido > 0;
         }
-
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
             CarregarContasAReceber();
@@ -1130,19 +1123,25 @@ namespace GVC.View
 
             if (!selecionadas.Any())
             {
-                Utilitario.Mensagens.Aviso(
-                    "Por favor, selecione ao menos uma parcela.");
+                Utilitario.Mensagens.Aviso( "Por favor, selecione ao menos uma parcela.");
                 return;
             }
 
             // 🔒 BLOQUEIO: nenhuma parcela pode estar PAGA
             var parcelaPaga = selecionadas.FirstOrDefault(p =>
-                p.StatusParcela.ToEnumStatusParcela() == EnumStatusParcela.Pago);
+            {
+                var statusStr = (p.StatusParcela ?? "").Trim();
+                if (string.IsNullOrWhiteSpace(statusStr)) return false;
+
+                // força normalização
+                var statusEnum = statusStr.ToEnumStatusParcela();
+                return statusEnum == EnumStatusParcela.Pago;
+            });
+
 
             if (parcelaPaga != null)
             {
-                Utilitario.Mensagens.Aviso(
-                    "Esta parcela já está quitada e não pode mais ser alterada.");
+                Utilitario.Mensagens.Aviso("Esta parcela já está quitada e não pode mais ser alterada.");
                 return;
             }
 
@@ -1151,7 +1150,7 @@ namespace GVC.View
             // =========================
             var selecionadasDto = selecionadas.ToList();
 
-            decimal totalParcelas = selecionadas.Sum(p => p.ValorParcela);
+            decimal totalDevido = selecionadas.Sum(p => p.ValorParcela);
             decimal totalRecebido = selecionadas.Sum(p => p.ValorRecebido);
             decimal saldoTotal = selecionadas.Sum(p => p.Saldo);
             string nomeCliente = selecionadas[0].NomeCliente ?? string.Empty;
@@ -1162,7 +1161,7 @@ namespace GVC.View
             frm.CarregarDados(
                 selecionadasDto,
                 nomeCliente,
-                totalParcelas,
+                totalDevido,
                 totalRecebido,
                 saldoTotal
             );

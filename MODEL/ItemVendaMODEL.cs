@@ -51,12 +51,12 @@ public partial class ItemVendaModel
         }
     }
 
-   
+
 
     public decimal Subtotal
     {
         get => subtotal;
-        private set
+        internal set
         {
             if (subtotal != value)
             {
@@ -65,6 +65,8 @@ public partial class ItemVendaModel
             }
         }
     }
+
+
     public decimal? DescontoItem
     {
         get => descontoItem;

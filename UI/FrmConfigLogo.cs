@@ -36,7 +36,9 @@ namespace GVC.View
         {
             try
             {
-                var empresas = EmpresaDal.ListarEmpresasSimples();
+                using var dal = new EmpresaDal();
+                var empresas = dal.ListarEmpresasSimples();
+
 
                 if (empresas == null || empresas.Count == 0)
                 {
@@ -112,7 +114,10 @@ namespace GVC.View
                     return;
                 }
 
-                var logoBytes = EmpresaDal.ObterImagem(_empresaId);
+
+                using var dal = new EmpresaDal();
+                var logoBytes = dal.ObterImagem(_empresaId);
+
                 picLogo.Image?.Dispose();
 
                 if (logoBytes != null && logoBytes.Length > 0)
@@ -266,7 +271,9 @@ namespace GVC.View
             this.Cursor = Cursors.WaitCursor;
             try
             {
-                EmpresaDal.AtualizarLogo(_empresaId, _logoBytesNovos);
+                using var dal = new EmpresaDal();
+                dal.AtualizarLogo(_empresaId, _logoBytesNovos);
+
                 Mensagens.Info("Logo atualizada com sucesso!");
 
                 _logoAlterada = false;

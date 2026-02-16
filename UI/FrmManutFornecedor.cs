@@ -255,23 +255,23 @@ namespace GVC.View
         {
             string texto = txtPesquisa.Text.Trim();
 
-            FormaPagamentoDal dao = new FormaPagamentoDal();
+            FornecedorBll bll = new FornecedorBll();
             DataTable dt;
 
             if (string.IsNullOrEmpty(texto))
             {
                 // Lista todos os registros se não houver texto
-                dt = dao.ListaFormaPgto();
+                dt = bll.PesquisarPorNome(texto);
             }
             else if (int.TryParse(texto, out int id))
             {
                 // Se for número → pesquisa por código
-                dt = dao.PesquisarPorCodigo(id);
+                dt = bll.PesquisarPorCodigo(id);
             }
             else
             {
                 // Caso contrário → pesquisa por nome
-                dt = dao.PesquisarPorNome(texto);
+                dt = bll.PesquisarPorNome(texto);
             }
 
             dgvFornecedor.DataSource = dt ?? new DataTable();

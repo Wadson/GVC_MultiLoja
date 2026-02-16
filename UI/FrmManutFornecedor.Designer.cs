@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmManutFornecedor));
             timer1 = new System.Windows.Forms.Timer(components);
             dgvFornecedor = new Krypton.Toolkit.KryptonDataGridView();
             txtPesquisa = new Krypton.Toolkit.KryptonTextBox();
@@ -38,24 +39,32 @@
             btnNovo = new Krypton.Toolkit.KryptonButton();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
             tableLayoutPanel1 = new TableLayoutPanel();
-            kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
-            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
             pictureBox1 = new PictureBox();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
             statusStrip1 = new StatusStrip();
             lblTotalRegistros = new ToolStripStatusLabel();
+            pnlHeader = new Krypton.Toolkit.KryptonPanel();
+            tlpTitulo = new Krypton.Toolkit.KryptonTableLayoutPanel();
+            lblSubTitulo = new Krypton.Toolkit.KryptonLabel();
+            kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
+            lblTitulo = new Krypton.Toolkit.KryptonLabel();
+            iconAcao = new FontAwesome.Sharp.IconPictureBox();
             ((System.ComponentModel.ISupportInitialize)dgvFornecedor).BeginInit();
             tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
-            kryptonPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
             kryptonPanel4.SuspendLayout();
             statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
+            pnlHeader.SuspendLayout();
+            tlpTitulo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
+            kryptonPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconAcao).BeginInit();
             SuspendLayout();
             // 
             // timer1
@@ -69,13 +78,13 @@
             dgvFornecedor.AllowUserToDeleteRows = false;
             dgvFornecedor.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvFornecedor.Dock = DockStyle.Fill;
-            dgvFornecedor.Location = new Point(4, 73);
+            dgvFornecedor.Location = new Point(4, 104);
             dgvFornecedor.Margin = new Padding(4, 3, 4, 3);
             dgvFornecedor.MultiSelect = false;
             dgvFornecedor.Name = "dgvFornecedor";
             dgvFornecedor.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvFornecedor.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvFornecedor.Size = new Size(999, 420);
+            dgvFornecedor.Size = new Size(999, 389);
             dgvFornecedor.TabIndex = 597;
             dgvFornecedor.CellFormatting += dataGridPesquisar_CellFormatting;
             // 
@@ -361,43 +370,19 @@
             tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(kryptonPanel2, 0, 0);
+            tableLayoutPanel1.Controls.Add(pnlHeader, 0, 0);
             tableLayoutPanel1.Controls.Add(kryptonPanel3, 0, 1);
             tableLayoutPanel1.Controls.Add(kryptonPanel4, 0, 3);
             tableLayoutPanel1.Controls.Add(dgvFornecedor, 0, 2);
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 66F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel1.Size = new Size(1007, 536);
             tableLayoutPanel1.TabIndex = 625;
-            // 
-            // kryptonPanel2
-            // 
-            kryptonPanel2.Controls.Add(kryptonLabel1);
-            kryptonPanel2.Dock = DockStyle.Fill;
-            kryptonPanel2.Location = new Point(3, 3);
-            kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
-            kryptonPanel2.Size = new Size(1001, 29);
-            kryptonPanel2.StateCommon.ColorStyle = Krypton.Toolkit.PaletteColorStyle.Dashed;
-            kryptonPanel2.TabIndex = 0;
-            // 
-            // kryptonLabel1
-            // 
-            kryptonLabel1.Dock = DockStyle.Fill;
-            kryptonLabel1.Location = new Point(0, 0);
-            kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(1001, 29);
-            kryptonLabel1.StateCommon.ShortText.Color1 = Color.White;
-            kryptonLabel1.StateCommon.ShortText.Color2 = Color.White;
-            kryptonLabel1.StateCommon.ShortText.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel1.TabIndex = 0;
-            kryptonLabel1.Values.Text = "MANUTENÇÃO DE FORNECEDOR";
             // 
             // kryptonPanel3
             // 
@@ -405,7 +390,7 @@
             kryptonPanel3.Controls.Add(kryptonLabel2);
             kryptonPanel3.Controls.Add(txtPesquisa);
             kryptonPanel3.Dock = DockStyle.Fill;
-            kryptonPanel3.Location = new Point(3, 38);
+            kryptonPanel3.Location = new Point(3, 69);
             kryptonPanel3.Name = "kryptonPanel3";
             kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
             kryptonPanel3.Size = new Size(1001, 29);
@@ -458,6 +443,87 @@
             lblTotalRegistros.Size = new Size(84, 17);
             lblTotalRegistros.Text = "Total Registros";
             // 
+            // pnlHeader
+            // 
+            pnlHeader.Controls.Add(tlpTitulo);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(3, 3);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(1001, 60);
+            pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
+            pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
+            pnlHeader.TabIndex = 1113;
+            // 
+            // tlpTitulo
+            // 
+            tlpTitulo.BackgroundImage = (Image)resources.GetObject("tlpTitulo.BackgroundImage");
+            tlpTitulo.BackgroundImageLayout = ImageLayout.None;
+            tlpTitulo.ColumnCount = 1;
+            tlpTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlpTitulo.Controls.Add(lblSubTitulo, 0, 1);
+            tlpTitulo.Controls.Add(kryptonPanel1, 0, 0);
+            tlpTitulo.Dock = DockStyle.Fill;
+            tlpTitulo.Location = new Point(0, 0);
+            tlpTitulo.Name = "tlpTitulo";
+            tlpTitulo.RowCount = 2;
+            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 67.7419357F));
+            tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 32.2580643F));
+            tlpTitulo.Size = new Size(1001, 60);
+            tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
+            tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
+            tlpTitulo.TabIndex = 0;
+            // 
+            // lblSubTitulo
+            // 
+            lblSubTitulo.Dock = DockStyle.Fill;
+            lblSubTitulo.Location = new Point(3, 43);
+            lblSubTitulo.Name = "lblSubTitulo";
+            lblSubTitulo.Size = new Size(995, 14);
+            lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
+            lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
+            lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12F);
+            lblSubTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            lblSubTitulo.TabIndex = 0;
+            lblSubTitulo.Values.Text = "Consulte, Cadastre e Edite Fornecedores";
+            // 
+            // kryptonPanel1
+            // 
+            kryptonPanel1.Controls.Add(lblTitulo);
+            kryptonPanel1.Controls.Add(iconAcao);
+            kryptonPanel1.Dock = DockStyle.Fill;
+            kryptonPanel1.Location = new Point(3, 3);
+            kryptonPanel1.Name = "kryptonPanel1";
+            kryptonPanel1.Size = new Size(995, 34);
+            kryptonPanel1.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
+            kryptonPanel1.TabIndex = 1;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.Anchor = AnchorStyles.Top;
+            lblTitulo.Location = new Point(396, 6);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(255, 27);
+            lblTitulo.StateCommon.ShortText.Color1 = Color.White;
+            lblTitulo.StateCommon.ShortText.Color2 = Color.White;
+            lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            lblTitulo.TabIndex = 1091;
+            lblTitulo.Values.Text = "Manutenção de Fornecedores";
+            // 
+            // iconAcao
+            // 
+            iconAcao.Anchor = AnchorStyles.Top;
+            iconAcao.BackColor = Color.Transparent;
+            iconAcao.IconChar = FontAwesome.Sharp.IconChar.Truck;
+            iconAcao.IconColor = Color.White;
+            iconAcao.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconAcao.IconSize = 48;
+            iconAcao.Location = new Point(337, -6);
+            iconAcao.Name = "iconAcao";
+            iconAcao.Size = new Size(53, 42);
+            iconAcao.TabIndex = 1110;
+            iconAcao.TabStop = false;
+            // 
             // FrmManutFornecedor
             // 
             BackColor = Color.FromArgb(252, 252, 250);
@@ -477,12 +543,10 @@
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção de Fornecedor";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutFornecedor_Load;
             ((System.ComponentModel.ISupportInitialize)dgvFornecedor).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
-            kryptonPanel2.ResumeLayout(false);
-            kryptonPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
@@ -491,6 +555,14 @@
             kryptonPanel4.ResumeLayout(false);
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
+            pnlHeader.ResumeLayout(false);
+            tlpTitulo.ResumeLayout(false);
+            tlpTitulo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();
+            kryptonPanel1.ResumeLayout(false);
+            kryptonPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconAcao).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -507,13 +579,17 @@
         public Krypton.Toolkit.KryptonButton btnNovo;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
         private TableLayoutPanel tableLayoutPanel1;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel2;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
         private PictureBox pictureBox1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel lblTotalRegistros;
+        private Krypton.Toolkit.KryptonPanel pnlHeader;
+        private Krypton.Toolkit.KryptonTableLayoutPanel tlpTitulo;
+        private Krypton.Toolkit.KryptonLabel lblSubTitulo;
+        private Krypton.Toolkit.KryptonPanel kryptonPanel1;
+        private Krypton.Toolkit.KryptonLabel lblTitulo;
+        private FontAwesome.Sharp.IconPictureBox iconAcao;
     }
 }

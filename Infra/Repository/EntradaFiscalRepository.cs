@@ -15,6 +15,7 @@ namespace GVC.Infra.Repository
             string documento,
             string observacao,
             string usuario,
+            int fornecedorId,
             SqlTransaction transaction)
         {
             if (transaction == null)
@@ -83,7 +84,7 @@ namespace GVC.Infra.Repository
                 cmdUpdate.Parameters["@PrecoCusto"].Precision = 18;
                 cmdUpdate.Parameters["@PrecoCusto"].Scale = 4;
 
-                cmdUpdate.Parameters.Add("@ProdutoID", SqlDbType.Int).Value = produtoID;
+                cmdUpdate.Parameters.Add("@ProdutoID", SqlDbType.Int).Value = produtoID;                
                 cmdUpdate.Parameters.Add("@EmpresaID", SqlDbType.Int).Value = EmpresaID;
 
                 cmdUpdate.ExecuteNonQuery();
@@ -91,35 +92,38 @@ namespace GVC.Infra.Repository
 
             // 5️⃣ Inserir movimentação de estoque
             using (var cmdInsert = new SqlCommand(@"
-                INSERT INTO MovimentacaoEstoque
-                (ProdutoID,
-                 TipoMovimentacao,
-                 Quantidade,
-                 EstoqueAnterior,
-                 EstoqueAtual,
-                 PrecoCompra,
-                 PrecoCustoEntrada,
-                 Origem,
-                 Documento,
-                 Observacao,
-                 DataMovimentacao,
-                 Usuario,
-                 EmpresaID)
-                VALUES
-                (@ProdutoID,
-                 @TipoMovimentacao,
-                 @Quantidade,
-                 @EstoqueAnterior,
-                 @EstoqueAtual,
-                 @PrecoCompra,
-                 @PrecoCustoEntrada,
-                 @Origem,
-                 @Documento,
-                 @Observacao,
-                 GETDATE(),
-                 @Usuario,
-                 @EmpresaID)",
-                connection, transaction))
+                    INSERT INTO MovimentacaoEstoque
+                    (ProdutoID,
+                     TipoMovimentacao,
+                     Quantidade,
+                     EstoqueAnterior,
+                     EstoqueAtual,
+                     PrecoCompra,
+                     PrecoCustoEntrada,
+                     Origem,
+                     Documento,
+                     Observacao,
+                     DataMovimentacao,
+                     Usuario,
+                     FornecedorID,
+                     EmpresaID)
+                    VALUES
+                    (@ProdutoID,
+                     @TipoMovimentacao,
+                     @Quantidade,
+                     @EstoqueAnterior,
+                     @EstoqueAtual,
+                     @PrecoCompra,
+                     @PrecoCustoEntrada,
+                     @Origem,
+                     @Documento,
+                     @Observacao,
+                     GETDATE(),
+                     @Usuario,
+                     @FornecedorID,   -- ✅ AGORA CORRETO
+                     @EmpresaID)",
+                     connection, transaction))
+
             {
                 cmdInsert.Parameters.Add("@ProdutoID", SqlDbType.Int).Value = produtoID;
                 cmdInsert.Parameters.Add("@TipoMovimentacao", SqlDbType.VarChar, 50).Value = tipoMovimentacao;
@@ -139,10 +143,90 @@ namespace GVC.Infra.Repository
                 cmdInsert.Parameters.Add("@Documento", SqlDbType.VarChar, 100).Value = documento ?? string.Empty;
                 cmdInsert.Parameters.Add("@Observacao", SqlDbType.VarChar, 255).Value = observacao ?? string.Empty;
                 cmdInsert.Parameters.Add("@Usuario", SqlDbType.VarChar, 100).Value = usuario ?? string.Empty;
+                cmdInsert.Parameters.Add("@FornecedorID", SqlDbType.Int).Value = fornecedorId;
                 cmdInsert.Parameters.Add("@EmpresaID", SqlDbType.Int).Value = EmpresaID;
 
                 cmdInsert.ExecuteNonQuery();
             }
         }
+        public void ConfirmarEntradaCompleta(
+            List<(int ProdutoID, int Quantidade, decimal PrecoCompra, decimal PrecoCusto, int FornecedorID)> itens,
+            string tipoMovimentacao,
+            string documento,
+            string observacao,
+            string usuario)
+        {
+            using var transaction = Connection.BeginTransaction();
+
+            try
+            {
+                foreach (var item in itens)
+                {
+                    ConfirmarEntrada(
+                        item.ProdutoID,
+                        item.Quantidade,
+                        item.PrecoCompra,
+                        item.PrecoCusto,
+                        tipoMovimentacao,
+                        documento,
+                        observacao,
+                        usuario,
+                        item.FornecedorID, // ✅ CORRETO
+                        transaction
+                    );
+                }
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
+        public DataTable BuscarHistoricoProduto(
+            int produtoId,
+            DateTime dataInicial,
+            DateTime dataFinal,
+            string tipoMovimentacao)
+        {
+            using var cmd = new SqlCommand(@"
+                        SELECT 
+                            m.DataMovimentacao,
+                            m.TipoMovimentacao,
+                            m.Quantidade,
+                            m.EstoqueAnterior,
+                            m.EstoqueAtual,
+                            m.PrecoCompra,
+                            m.PrecoCustoEntrada,
+                            m.Documento,
+                            m.Usuario,
+                            f.Nome AS Fornecedor
+                        FROM MovimentacaoEstoque m
+                        LEFT JOIN Fornecedor
+                        f ON f.FornecedorID = m.FornecedorID
+                        WHERE m.ProdutoID = @ProdutoID
+                        AND m.EmpresaID = @EmpresaID
+                        AND m.DataMovimentacao BETWEEN @DataInicial AND @DataFinal
+                        AND (@TipoMovimentacao = 'TODOS' OR m.TipoMovimentacao = @TipoMovimentacao)
+                        ORDER BY m.DataMovimentacao DESC",
+                Connection);
+
+            cmd.Parameters.AddWithValue("@ProdutoID", produtoId);
+            cmd.Parameters.AddWithValue("@EmpresaID", EmpresaID);
+            cmd.Parameters.AddWithValue("@DataInicial", dataInicial);
+            cmd.Parameters.AddWithValue("@DataFinal", dataFinal);
+            cmd.Parameters.AddWithValue("@TipoMovimentacao", tipoMovimentacao);
+
+            using var adapter = new SqlDataAdapter(cmd);
+            var dt = new DataTable();
+            adapter.Fill(dt);
+
+            return dt;
+        }
+
+
+
+
     }
 }

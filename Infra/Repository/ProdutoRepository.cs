@@ -8,6 +8,21 @@ namespace GVC.Infra.Repository
 {
     public class ProdutoRepository : RepositoryBase
     {
+        public void AtualizarEstoque(long produtoId, decimal novoEstoque)
+        {
+            var cmd = CreateCommand(@"
+                UPDATE Produto
+                SET Estoque = @Estoque
+                WHERE ProdutoID = @ProdutoID
+                  AND EmpresaID = @EmpresaID
+            ");
+
+            cmd.Parameters.AddWithValue("@ProdutoID", produtoId);
+            cmd.Parameters.AddWithValue("@Estoque", novoEstoque);
+
+            cmd.ExecuteNonQuery();
+        }
+
         public int ObterProximoNumeroProdutoID()
         {
             const string sql = @"  SELECT ISNULL(MAX(ProdutoID), 0) + 1  FROM Produto WHERE EmpresaID = @EmpresaID";
@@ -87,19 +102,19 @@ namespace GVC.Infra.Repository
             var lista = new List<ProdutoModel>();
 
             using var cmd = CreateCommand(@"
-    SELECT TOP 100
-        p.ProdutoID,
-        p.NomeProduto,
-        p.Referencia,
-        p.PrecoDeVenda,
-        p.Estoque,
-        p.Unidade,
-        p.MarcaID,
-        m.NomeMarca   -- 🔹 agora traz o nome da marca
-    FROM Produtos p
-    LEFT JOIN Marca m ON m.MarcaID = p.MarcaID
-    WHERE p.EmpresaID = @EmpresaID
-    ORDER BY p.NomeProduto");
+            SELECT TOP 100
+                p.ProdutoID,
+                p.NomeProduto,
+                p.Referencia,
+                p.PrecoDeVenda,
+                p.Estoque,
+                p.Unidade,
+                p.MarcaID,
+                m.NomeMarca   -- 🔹 agora traz o nome da marca
+            FROM Produtos p
+            LEFT JOIN Marca m ON m.MarcaID = p.MarcaID
+            WHERE p.EmpresaID = @EmpresaID
+            ORDER BY p.NomeProduto");
 
 
             using var dr = cmd.ExecuteReader();
@@ -231,7 +246,7 @@ namespace GVC.Infra.Repository
         // PESQUISAS
         // =========================
         public List<ProdutoModel> PesquisarProdutoPorNome(string nome)
-            => MapearLista( ExecuteDataTable( SqlBase + " AND p.NomeProduto LIKE @Nome ORDER BY p.NomeProduto", new SqlParameter("@Nome", $"%{nome}%")));
+            => MapearLista(ExecuteDataTable(SqlBase + " AND p.NomeProduto LIKE @Nome ORDER BY p.NomeProduto", new SqlParameter("@Nome", $"%{nome}%")));
 
         public List<ProdutoModel> PesquisarProdutoPorCodigo(string codigo)
             => MapearLista(
@@ -267,12 +282,12 @@ namespace GVC.Infra.Repository
             var lista = new List<ProdutoModel>();
             foreach (DataRow r in dt.Rows)
             {
-                lista.Add(Mapear(r));
+                lista.Add(MapearComDataRow(r));
             }
             return lista;
         }
 
-        private static ProdutoModel Mapear(DataRow r)
+        private static ProdutoModel MapearComDataRow(DataRow r)
         {
             return new ProdutoModel
             {
@@ -280,7 +295,7 @@ namespace GVC.Infra.Repository
                 NomeProduto = r["NomeProduto"].ToString(),
                 Referencia = r["Referencia"] == DBNull.Value ? null : r["Referencia"].ToString(),
                 PrecoCompra = r["PrecoCompra"] == DBNull.Value ? null : (decimal?)Convert.ToDecimal(r["PrecoCompra"]),
-                PrecoCusto =  r["PrecoCusto"]  == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoCusto"]),
+                PrecoCusto = r["PrecoCusto"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoCusto"]),
                 Lucro = r["Lucro"] == DBNull.Value ? 0 : Convert.ToDecimal(r["Lucro"]),
                 PrecoDeVenda = r["PrecoDeVenda"] == DBNull.Value ? 0 : Convert.ToDecimal(r["PrecoDeVenda"]),
                 Estoque = r["Estoque"] == DBNull.Value ? 0 : Convert.ToInt32(r["Estoque"]),
@@ -327,8 +342,8 @@ namespace GVC.Infra.Repository
                 Estoque = r["Estoque"] == DBNull.Value ? 0 : Convert.ToInt32(r["Estoque"]),
                 DataDeEntrada = r["DataDeEntrada"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(r["DataDeEntrada"]),
                 Status = r["Status"] == DBNull.Value ? "" : r["Status"].ToString(),
-                Situacao = r["Situacao"] == DBNull.Value ? "" : r["Situacao"].ToString(),  
-                MarcaID = r["MarcaID"] == DBNull.Value ? 0 : Convert.ToInt32(r["MarcaID"]),               
+                Situacao = r["Situacao"] == DBNull.Value ? "" : r["Situacao"].ToString(),
+                MarcaID = r["MarcaID"] == DBNull.Value ? 0 : Convert.ToInt32(r["MarcaID"]),
                 DataValidade = r["DataValidade"] == DBNull.Value ? null : (DateTime?)r["DataValidade"],
                 GtinEan = r["GtinEan"] == DBNull.Value ? "" : r["GtinEan"].ToString(),
                 Imagem = r["Imagem"] == DBNull.Value ? null : r["Imagem"].ToString(),
@@ -358,7 +373,7 @@ namespace GVC.Infra.Repository
             };
         }
 
-       
+
 
         // =========================
         // PARAMS (inalterado)

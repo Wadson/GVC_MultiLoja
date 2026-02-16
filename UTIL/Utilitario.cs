@@ -1342,7 +1342,7 @@ namespace GVC.UTIL {
         {
             txt.Enter += (s, e) =>
             {
-                txt.StateCommon.Back.Color1 = Color.LightGreen;
+                txt.StateCommon.Back.Color1 = Color.LightCyan;//.LightBlue;
             };
 
             txt.Leave += (s, e) =>

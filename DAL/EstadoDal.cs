@@ -52,8 +52,7 @@ namespace GVC.DAL
             using var conn = Conexao.Conex();
             conn.Execute(sql, new { EstadoID = EstadoID });
         }
-        // Ou se preferir passar o objeto inteiro:
-        public void Excluir(EstadoModel estado) => Excluir(estado.EstadoID);
+     
         // ================== PESQUISAR POR NOME ==================
         public DataTable PesquisarPorNome(string nome)
         {

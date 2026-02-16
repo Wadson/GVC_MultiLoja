@@ -43,13 +43,14 @@ namespace GVC.BLL
             try
             {
                 estadoDal = new EstadoDal();
-                estadoDal.Excluir(estado);
+                estadoDal.Excluir(estado.EstadoID); // passa o ID, não o objeto
             }
             catch (Exception erro)
             {
                 throw erro;
             }
         }
+
 
         public void Atualizar(EstadoModel estado)
         {

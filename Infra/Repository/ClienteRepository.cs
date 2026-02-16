@@ -7,6 +7,7 @@ namespace GVC.Infra.Repository
 {
     public class ClienteRepository : RepositoryBase
     {
+
         private const string SqlBase = @"
             SELECT
                 c.ClienteID,
@@ -44,8 +45,7 @@ namespace GVC.Infra.Repository
         {
             using var cmd = CreateCommand(sql);
 
-            if (parameters?.Length > 0)
-                cmd.Parameters.AddRange(parameters);
+            if (parameters?.Length > 0) cmd.Parameters.AddRange(parameters);
 
             using var da = new SqlDataAdapter(cmd);
             var dt = new DataTable();
@@ -56,11 +56,8 @@ namespace GVC.Infra.Repository
         // =========================
         // LISTAR
         // =========================
-        public DataTable ListarClientes()
-            => ExecuteDataTable(SqlBase + " ORDER BY c.Nome");
-
-        public DataTable ListarVendedores()
-            => ExecuteDataTable(SqlBase + " AND c.IsVendedor = 1 ORDER BY c.Nome");
+        public DataTable ListarClientes() => ExecuteDataTable(SqlBase + " ORDER BY c.Nome");
+        public DataTable ListarVendedores() => ExecuteDataTable(SqlBase + " AND c.IsVendedor = 1 ORDER BY c.Nome");
 
         // =========================
         // EXISTE
@@ -77,6 +74,7 @@ namespace GVC.Infra.Repository
                   )";
 
             using var cmd = CreateCommand(sql);
+
             cmd.Parameters.Add("@Nome", SqlDbType.NVarChar).Value = (object?)nome ?? DBNull.Value;
             cmd.Parameters.Add("@Cpf", SqlDbType.NVarChar).Value = (object?)cpf ?? DBNull.Value;
 
@@ -164,8 +162,7 @@ namespace GVC.Infra.Repository
         // =========================
         // PESQUISAS
         // =========================
-        public DataTable PesquisarPorNome(string nome)
-            => ExecuteDataTable(
+        public DataTable PesquisarPorNome(string nome)  => ExecuteDataTable(
                 SqlBase + " AND c.Nome LIKE @Nome ORDER BY c.Nome",
                 new SqlParameter("@Nome", $"%{nome.Trim()}%"));
 
@@ -174,14 +171,10 @@ namespace GVC.Infra.Repository
                 SqlBase + " AND c.IsVendedor = 1 AND c.Nome LIKE @Nome ORDER BY c.Nome",
                 new SqlParameter("@Nome", $"%{nome.Trim()}%"));
 
-        //public ClienteModel? BuscarPorId(int id)
-        //{
-        //    using var cmd = CreateCommand(SqlBase + " AND c.ClienteID = @ID");
-        //    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = id;
 
-        //    using var dr = cmd.ExecuteReader();
-        //    return dr.Read() ? Mapear(dr) : null;
-        //}
+
+
+
         public ClienteModel BuscarPorId(int clienteId)
         {
             const string sql = @"

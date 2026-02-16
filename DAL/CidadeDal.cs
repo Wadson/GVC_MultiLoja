@@ -141,61 +141,6 @@ namespace GVC.DAL
             }
         }
 
-        public DataTable PesquisarPorCodigo(int codigo)
-        {
-            string sql = SqlBase + " WHERE CidadeID = @CidadeID";
-            var dt = new DataTable();
-            using (var conn = Conexao.Conex())
-            using (var cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.AddWithValue("@CidadeID", codigo);
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
-                {
-                    dt.Load(reader);
-                }
-            }
-            return dt;
-        }
-
-        public DataTable PesquisarPorCodigo(string nome)
-        {
-            var conn = Conexao.Conex();
-            try
-            {
-                DataTable dt = new DataTable();
-
-                string sqlconn = @"SELECT TOP 30 Cidade.CidadeID, Cidade.Nome, Cidade.EstadoID, Estado.Uf
-                                   FROM Cidade 
-                                   INNER JOIN Estado ON Cidade.EstadoID = Estado.EstadoID 
-                                   WHERE CidadeID LIKE @CidadeID";
-
-                using (SqlCommand cmd = new SqlCommand(sqlconn, conn))
-                {
-                    cmd.Parameters.AddWithValue("@CidadeID", "%" + nome + "%");
-                    conn.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        dt.Load(reader);
-                    }
-                }
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                Utilitario.Mensagens.Aviso("Erro ao executar a pesquisa: " + ex.Message);
-                return null;
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-                conn.Dispose();
-            }
-        }
-
         public DataTable PesquisarGeral()
         {
             var conn = Conexao.Conex();

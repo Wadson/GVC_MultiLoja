@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using GVC.Infra.Repository;
 using GVC.Model;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,17 @@ namespace GVC.DAL
 {
     internal class PagamentoParcialDal : RepositoryBase
     {
+
+        public decimal SomarPagamentos(int parcelaId, SqlConnection conn, SqlTransaction tran)
+        {
+            using var cmd = new SqlCommand(@"  SELECT ISNULL(SUM(ValorPago), 0)
+                FROM PagamentosParciais  WHERE ParcelaID = @ParcelaID ", conn, tran);
+
+            cmd.Parameters.AddWithValue("@ParcelaID", parcelaId);
+
+            return Convert.ToDecimal(cmd.ExecuteScalar());
+        }
+
         public void InserirPagamentoParcial(PagamentosParcialModel pagamento)
         {
             const string sql = @"

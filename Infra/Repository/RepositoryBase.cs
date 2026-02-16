@@ -12,6 +12,9 @@ namespace GVC.Infra.Repository
 
         protected int EmpresaID => Sessao.EmpresaID;
 
+        private readonly bool _externalConnection;
+
+        // 🔹 CONSTRUTOR LEGADO (continua funcionando)
         protected RepositoryBase()
         {
             if (!Sessao.Logado)
@@ -19,6 +22,17 @@ namespace GVC.Infra.Repository
 
             Connection = Conexao.Conexao.Conex();
             Connection.Open();
+            _externalConnection = false;
+        }
+
+        // 🔹 NOVO CONSTRUTOR (para uso transacional)
+        protected RepositoryBase(SqlConnection connection)
+        {
+            if (!Sessao.Logado)
+                throw new Exception("Sessão inválida. Empresa não definida.");
+
+            Connection = connection ?? throw new ArgumentNullException(nameof(connection));
+            _externalConnection = true;
         }
 
         protected SqlCommand CreateCommand(string sql)
@@ -27,15 +41,19 @@ namespace GVC.Infra.Repository
 
             // 🔒 MULTIEMPRESA CENTRALIZADO
             if (sql.Contains("@EmpresaID"))
-                cmd.Parameters.Add("@EmpresaID", SqlDbType.Int).Value = EmpresaID;               
+                cmd.Parameters.Add("@EmpresaID", SqlDbType.Int).Value = EmpresaID;
 
             return cmd;
         }
 
         public void Dispose()
         {
-            if (Connection?.State == ConnectionState.Open)
+            // Só fecha conexão se for interna
+            if (!_externalConnection &&
+                Connection?.State == ConnectionState.Open)
+            {
                 Connection.Close();
+            }
         }
     }
 }

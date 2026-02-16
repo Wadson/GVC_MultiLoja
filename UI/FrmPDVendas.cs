@@ -5,6 +5,7 @@ using GVC.Infra.Conexao;
 using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.Model.Enums;
+using GVC.Service;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using Microsoft.Data;
@@ -26,6 +27,7 @@ namespace GVC.View
 {
     public partial class FrmPDVendas : KryptonForm
     {
+       
         private readonly ModoVenda _modo;
         private readonly int _vendaId;
         public int VendaID { get; private set; }
@@ -33,6 +35,8 @@ namespace GVC.View
         private bool _ignorarEventosBusca = false;
         private bool _ignorandoBuscar = false;
         private bool _aguardandoPagamento = false;
+
+
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int VendedorID { get; set; }
@@ -59,7 +63,7 @@ namespace GVC.View
         // Modelos e Serviços
         // ----------------------
         private VendaModel venda = new VendaModel();
-        private readonly VendaService _vendaService = new VendaService();
+       
 
         // ----------------------
         // Interface
@@ -97,8 +101,7 @@ namespace GVC.View
             this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
             this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 18);
         }
-
-        // ACIMA NOVA IMPLEMENTAÇÃO DE COMBOBOX
+      
         public FrmPDVendas(int vendaId) // MODO EDIÇÃO
         {
             InitializeComponent();
@@ -108,7 +111,6 @@ namespace GVC.View
 
             InicializarFormulario();
         }
-
         private void InicializarFormulario()
         {
             this.Text = "Frente de Caixa";
@@ -191,11 +193,6 @@ namespace GVC.View
             }
         }
 
-
-        // Chame este método sempre que adicionar ou remover um item do grid
-
-
-        // Captura F12 para abrir tela de finalização
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (_aguardandoPagamento)
@@ -525,7 +522,8 @@ namespace GVC.View
                     VendedorID = VendedorID,
                     DataVenda = DateTime.Now,
                     ValorTotal = _valorTotal,
-                    Desconto = _desconto
+                    Desconto = _desconto,
+                    Observacoes = txtObservacoes.Text
                 },
                 Itens = _itensBinding.ToList(),
                 Total = _valorTotal
@@ -1143,17 +1141,13 @@ namespace GVC.View
             {
                 if (item.Quantidade + qtd > estoqueAtual)
                 {
-                    Utilitario.Mensagens.Aviso(
-                        $"Quantidade total excede o estoque ({estoqueAtual})."
-                    );
+                    Utilitario.Mensagens.Aviso( $"Quantidade total excede o estoque ({estoqueAtual}).");
                     return;
                 }
 
                 item.Quantidade += qtd; // Subtotal será recalculado automaticamente
                 // ✅ CORREÇÃO 2: força atualização do DataGrid
-
                 _itensBindingSource.ResetBindings(false);
-
             }
             else
             {

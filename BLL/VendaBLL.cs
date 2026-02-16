@@ -4,6 +4,7 @@ using GVC.Model;
 using GVC.Model.Enums;
 using GVC.Model.Enums.GVC.Model.Enums;
 using GVC.Model.Extensions;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,7 @@ namespace GVC.BLL
         private readonly ItemVendaRepository _itemRepository;
         private readonly ProdutoRepository _produtoRepository;
 
-        // =========================================
-        // CONSTRUTOR
-        // =========================================
+        // ✅ CONSTRUTOR PADRÃO (NÃO QUEBRA O SISTEMA)
         public VendaBLL()
         {
             _vendaRepository = new VendaRepository();
@@ -27,6 +26,46 @@ namespace GVC.BLL
             _itemRepository = new ItemVendaRepository();
             _produtoRepository = new ProdutoRepository();
         }
+
+        // ✅ OVERLOAD PARA USO EM TRANSAÇÕES/CONEXÃO EXTERNA (ERP)
+        public VendaBLL(SqlConnection conn)
+        {
+            _vendaRepository = new VendaRepository(conn);
+            _parcelaRepository = new ParcelaRepository(conn);
+            _itemRepository = new ItemVendaRepository(); // (se quiser, dá pra criar overload também)
+            _produtoRepository = new ProdutoRepository();
+        }
+        public void AtualizarStatusVenda(int vendaId, SqlConnection conn, SqlTransaction tran)
+        { 
+        }
+
+        public EnumStatusVenda CalcularStatusVendaPorParcelas(IEnumerable<ParcelaModel> parcelas)
+        {
+            if (parcelas == null || !parcelas.Any())
+                return EnumStatusVenda.Aberta;
+
+            bool todasPagas = parcelas.All(p =>
+                (p.ValorRecebido ?? 0) >=
+                (p.ValorParcela + (p.Juros ?? 0) + (p.Multa ?? 0))
+            );
+
+            if (todasPagas)
+                return EnumStatusVenda.Concluida;
+
+            bool algumaPaga = parcelas.Any(p => (p.ValorRecebido ?? 0) > 0);
+
+            if (algumaPaga)
+                return EnumStatusVenda.Aberta;
+
+            return EnumStatusVenda.AguardandoPagamento;
+        }
+
+        private void CalcularSubtotal(ItemVendaModel item)
+        {
+            var desconto = item.DescontoItem ?? 0m;
+            item.Subtotal = (item.Quantidade * item.PrecoUnitario) - desconto;
+        }
+
         public ClienteModel BuscarClienteVenda(int clienteId)
         {
             if (clienteId <= 0)
@@ -35,26 +74,7 @@ namespace GVC.BLL
             using var repo = new ClienteRepository();
             return repo.BuscarPorId(clienteId);
         }
-        public string CalcularStatusVendaPorParcelas(IEnumerable<ParcelaModel> parcelas)
-        {
-            if (parcelas == null || !parcelas.Any())
-                return EnumStatusVenda.Aberta.ToDb();
-
-            bool todasPagas = parcelas.All(p =>
-                (p.ValorRecebido ?? 0) >=
-                (p.ValorParcela + (p.Juros ?? 0) + (p.Multa ?? 0))
-            );
-
-            if (todasPagas)
-                return EnumStatusVenda.Concluida.ToDb();
-
-            bool algumaPaga = parcelas.Any(p => (p.ValorRecebido ?? 0) > 0);
-
-            if (algumaPaga)
-                return EnumStatusVenda.Aberta.ToDb();
-
-            return EnumStatusVenda.AguardandoPagamento.ToDb();
-        }
+       
         // =========================================
         // STATUS DA VENDA
         // =========================================
@@ -79,7 +99,7 @@ namespace GVC.BLL
             VendaModel venda,
             List<ItemVendaModel> itens,
             List<ParcelaModel>? parcelas = null)
-        {
+         {
             if (venda == null)
                 throw new ArgumentNullException(nameof(venda));
 
@@ -100,7 +120,10 @@ namespace GVC.BLL
                     throw new Exception("Preço inválido.");
 
                 item.DescontoItem = Math.Max(0m, item.DescontoItem ?? 0m);
-                item.AtualizarSubtotal();
+                //item.AtualizarSubtotal();
+                //item.Subtotal = (item.Quantidade * item.PrecoUnitario) - (item.DescontoItem ?? 0m);
+                CalcularSubtotal(item);
+
             }
 
             venda.ValorTotal = Math.Max(0m, itens.Sum(i => i.Subtotal) - venda.Desconto.Value);
@@ -113,16 +136,9 @@ namespace GVC.BLL
                 var financeiro = new FinanceiroService();
                 financeiro.ProcessarFinanceiroVenda(venda, parcelas);
             }
-
-            // =========================
-            // PERSISTÊNCIA
-            // =========================
+         
             return _vendaRepository.AddVendaCompleta(venda, itens, parcelas);
         }
-
-        // =========================================
-        // EXCLUSÃO (LÓGICA)
-        // =========================================
         public void ExcluirVenda(int vendaId)
         {
             if (_parcelaRepository.ExistePagamentoPorVenda(vendaId))
@@ -130,13 +146,11 @@ namespace GVC.BLL
 
             _vendaRepository.Excluir(vendaId);
         }
+       
         public bool ExistePagamento(int vendaId)
         {
             return new ParcelaRepository().ExistePagamentoPorVenda(vendaId);
-        }
-        // =========================================
-        // CANCELAMENTO
-        // =========================================
+        }     
         public void CancelarVenda(int vendaId, string motivo)
         {
             if (string.IsNullOrWhiteSpace(motivo))
@@ -144,10 +158,6 @@ namespace GVC.BLL
 
             _vendaRepository.CancelarVenda(vendaId, motivo);
         }
-
-        // =========================================
-        // ALTERAÇÃO
-        // =========================================
         public void AtualizarVendaCompleta(
             VendaModel venda,
             List<ItemVendaModel> itens,
@@ -165,10 +175,7 @@ namespace GVC.BLL
 
             _vendaRepository.AtualizarVendaCompleta(venda, itens, parcelas);
         }
-
-        // =========================================
-        // CONSULTAS
-        // =========================================
+       
         public VendaModel ObterVendaPorId(int vendaId)
         {
             return _vendaRepository.ObterPorId(vendaId);
@@ -182,6 +189,6 @@ namespace GVC.BLL
         public bool PodeAlterarVenda(int vendaId)
         {
             return !_parcelaRepository.ExistePagamentoPorVenda(vendaId);
-        }
+        }        
     }
 }

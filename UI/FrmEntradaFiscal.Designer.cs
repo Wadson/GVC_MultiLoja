@@ -669,7 +669,7 @@
             txtProduto.CharacterCasing = CharacterCasing.Upper;
             txtProduto.Location = new Point(17, 223);
             txtProduto.Name = "txtProduto";
-            txtProduto.Size = new Size(647, 24);
+            txtProduto.Size = new Size(616, 24);
             txtProduto.StateCommon.Back.Color1 = Color.White;
             txtProduto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtProduto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -698,7 +698,7 @@
             // txtPrecoCompra
             // 
             txtPrecoCompra.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtPrecoCompra.Location = new Point(761, 223);
+            txtPrecoCompra.Location = new Point(741, 223);
             txtPrecoCompra.Name = "txtPrecoCompra";
             txtPrecoCompra.Size = new Size(119, 24);
             txtPrecoCompra.StateCommon.Back.Color1 = Color.White;
@@ -723,7 +723,7 @@
             lblPrecoCompra.BackColor = Color.Transparent;
             lblPrecoCompra.Font = new Font("Microsoft Sans Serif", 9.75F);
             lblPrecoCompra.ForeColor = Color.FromArgb(0, 76, 172);
-            lblPrecoCompra.Location = new Point(761, 204);
+            lblPrecoCompra.Location = new Point(741, 204);
             lblPrecoCompra.Name = "lblPrecoCompra";
             lblPrecoCompra.Size = new Size(113, 16);
             lblPrecoCompra.TabIndex = 1147;
@@ -732,9 +732,9 @@
             // txtQuantidade
             // 
             txtQuantidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtQuantidade.Location = new Point(670, 223);
+            txtQuantidade.Location = new Point(637, 223);
             txtQuantidade.Name = "txtQuantidade";
-            txtQuantidade.Size = new Size(85, 24);
+            txtQuantidade.Size = new Size(98, 24);
             txtQuantidade.StateCommon.Back.Color1 = Color.White;
             txtQuantidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtQuantidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -755,7 +755,7 @@
             lblQuantidade.BackColor = Color.Transparent;
             lblQuantidade.Font = new Font("Microsoft Sans Serif", 9.75F);
             lblQuantidade.ForeColor = Color.FromArgb(0, 76, 172);
-            lblQuantidade.Location = new Point(670, 204);
+            lblQuantidade.Location = new Point(648, 204);
             lblQuantidade.Name = "lblQuantidade";
             lblQuantidade.Size = new Size(77, 16);
             lblQuantidade.TabIndex = 1149;
@@ -764,7 +764,7 @@
             // txtPrecoCusto
             // 
             txtPrecoCusto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtPrecoCusto.Location = new Point(886, 223);
+            txtPrecoCusto.Location = new Point(866, 223);
             txtPrecoCusto.Name = "txtPrecoCusto";
             txtPrecoCusto.Size = new Size(119, 24);
             txtPrecoCusto.StateCommon.Back.Color1 = Color.White;
@@ -789,7 +789,7 @@
             lblPrecoCusto.BackColor = Color.Transparent;
             lblPrecoCusto.Font = new Font("Microsoft Sans Serif", 9.75F);
             lblPrecoCusto.ForeColor = Color.FromArgb(0, 76, 172);
-            lblPrecoCusto.Location = new Point(893, 204);
+            lblPrecoCusto.Location = new Point(873, 204);
             lblPrecoCusto.Name = "lblPrecoCusto";
             lblPrecoCusto.Size = new Size(99, 16);
             lblPrecoCusto.TabIndex = 1151;
@@ -835,6 +835,7 @@
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Entrada de Estoque - Nota Fiscal";
+            WindowState = FormWindowState.Maximized;
             Load += FrmEntradaFiscal_Load;
             Shown += FrmEntradaFiscal_Shown;
             KeyDown += FrmEntradaFiscal_KeyDown;

@@ -8,6 +8,7 @@ namespace GVC.Infra.Repository
 {
     public class ItemVendaRepository : RepositoryBase
     {
+
         // 1. ADICIONAR ITEM NA VENDA
         public void AddItemVenda(ItemVendaModel itemVenda)
         {

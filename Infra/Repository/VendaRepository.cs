@@ -12,6 +12,12 @@ namespace GVC.Infra.Repository
 {
     public class VendaRepository : RepositoryBase
     {
+        // ✅ mantém o padrão (usa conexão interna do RepositoryBase)
+        public VendaRepository() : base() { }
+
+        // ✅ permite usar conexão externa + transação única
+        public VendaRepository(SqlConnection connection) : base(connection) { }
+      
         public int ObterProximoNumeroVenda()
         {
             const string sql = @"  SELECT ISNULL(MAX(VendaID), 0) + 1  FROM Venda WHERE EmpresaID = @EmpresaID";
@@ -50,18 +56,18 @@ namespace GVC.Infra.Repository
                 throw;
             }
         }
-        private void InserirParcelas(
-     int vendaId,
-     List<ParcelaModel> parcelas,
-     SqlTransaction tran)
+        public void InserirParcelas(
+         int vendaId,
+         List<ParcelaModel> parcelas,
+         SqlTransaction tran)
         {
             const string sql = @"
-        INSERT INTO Parcela
-        (VendaID, NumeroParcela, DataVencimento, ValorParcela,
-         ValorRecebido, Status, DataPagamento, Juros, Multa, Observacao, EmpresaID)
-        VALUES
-        (@VendaID, @NumeroParcela, @DataVencimento, @ValorParcela,
-         @ValorRecebido, @Status, @DataPagamento, @Juros, @Multa, @Observacao, @EmpresaID)";
+            INSERT INTO Parcela
+            (VendaID, NumeroParcela, DataVencimento, ValorParcela,
+             ValorRecebido, Status, DataPagamento, Juros, Multa, Observacao, EmpresaID)
+            VALUES
+            (@VendaID, @NumeroParcela, @DataVencimento, @ValorParcela,
+             @ValorRecebido, @Status, @DataPagamento, @Juros, @Multa, @Observacao, @EmpresaID)";
 
             foreach (var p in parcelas)
             {
@@ -72,22 +78,17 @@ namespace GVC.Infra.Repository
                 cmd.Parameters.Add("@NumeroParcela", SqlDbType.Int).Value = p.NumeroParcela;
                 cmd.Parameters.Add("@DataVencimento", SqlDbType.Date).Value = p.DataVencimento;
                 cmd.Parameters.Add("@ValorParcela", SqlDbType.Decimal).Value = p.ValorParcela;
-                cmd.Parameters.Add("@ValorRecebido", SqlDbType.Decimal).Value =
-                    (object?)p.ValorRecebido ?? DBNull.Value;
+                cmd.Parameters.Add("@ValorRecebido", SqlDbType.Decimal).Value = (object?)p.ValorRecebido ?? DBNull.Value;
                 cmd.Parameters.Add("@Status", SqlDbType.NVarChar).Value = p.Status.ToDb();
-                cmd.Parameters.Add("@DataPagamento", SqlDbType.Date).Value =
-                    (object?)p.DataPagamento ?? DBNull.Value;
-                cmd.Parameters.Add("@Juros", SqlDbType.Decimal).Value =
-                    (object?)p.Juros ?? DBNull.Value;
-                cmd.Parameters.Add("@Multa", SqlDbType.Decimal).Value =
-                    (object?)p.Multa ?? DBNull.Value;
-                cmd.Parameters.Add("@Observacao", SqlDbType.NVarChar).Value =
-                    (object?)p.Observacao ?? DBNull.Value;
+                cmd.Parameters.Add("@DataPagamento", SqlDbType.Date).Value = (object?)p.DataPagamento ?? DBNull.Value;
+                cmd.Parameters.Add("@Juros", SqlDbType.Decimal).Value = (object?)p.Juros ?? DBNull.Value;
+                cmd.Parameters.Add("@Multa", SqlDbType.Decimal).Value = (object?)p.Multa ?? DBNull.Value;
+                cmd.Parameters.Add("@Observacao", SqlDbType.NVarChar).Value =  (object?)p.Observacao ?? DBNull.Value;
 
                 cmd.ExecuteNonQuery();
             }
         }
-               
+
         // ======================================================
         // 🔹 UPDATE VENDA
         // ======================================================
@@ -125,8 +126,7 @@ namespace GVC.Infra.Repository
         // ======================================================
         public void Excluir(int vendaID)
         {
-            using var cmd = CreateCommand(
-                "DELETE FROM Venda WHERE VendaID = @id AND EmpresaID = @EmpresaID");
+            using var cmd = CreateCommand("DELETE FROM Venda WHERE VendaID = @id AND EmpresaID = @EmpresaID");
 
             cmd.Parameters.AddWithValue("@id", vendaID);
             cmd.ExecuteNonQuery();
@@ -199,47 +199,58 @@ namespace GVC.Infra.Repository
         // ======================================================
         // 🔧 AUXILIARES PRIVADOS
         // ======================================================
-        private int InserirVenda(VendaModel venda, SqlTransaction tran)
+        public int InserirVenda(VendaModel venda, SqlTransaction tran)
         {
-            using var cmd = new SqlCommand(@"
-                INSERT INTO Venda
-                (DataVenda, ClienteID, ValorTotal, FormaPgtoID,
-                 Desconto, Observacoes, StatusVenda, VendedorID, EmpresaID)
-                VALUES
-                (@DataVenda, @ClienteID, @ValorTotal, @FormaPgtoID,
-                 @Desconto, @Observacoes, @StatusVenda, @VendedorID, @EmpresaID);
-                SELECT CAST(SCOPE_IDENTITY() AS INT);",
-                Connection, tran);
+            const string sql = @"
+        INSERT INTO Venda
+        (DataVenda, ClienteID, ValorTotal, FormaPgtoID,
+         Desconto, Observacoes, StatusVenda, VendedorID, EmpresaID)
+        VALUES
+        (@DataVenda, @ClienteID, @ValorTotal, @FormaPgtoID,
+         @Desconto, @Observacoes, @StatusVenda, @VendedorID, @EmpresaID);
+        SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
 
             cmd.Parameters.AddWithValue("@DataVenda", venda.DataVenda);
             cmd.Parameters.AddWithValue("@ClienteID", venda.ClienteID);
             cmd.Parameters.AddWithValue("@ValorTotal", venda.ValorTotal);
-            cmd.Parameters.AddWithValue("@FormaPgtoID", venda.FormaPgtoID ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@Desconto", venda.Desconto ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@Observacoes", (object?)venda.Observacoes ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("@StatusVenda", venda.StatusVenda.ToDb());
-            cmd.Parameters.AddWithValue("@VendedorID", venda.VendedorID);
-            cmd.Parameters.AddWithValue("@EmpresaID", EmpresaID);
+            cmd.Parameters.AddWithValue("@FormaPgtoID",
+                venda.FormaPgtoID ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Desconto",
+                venda.Desconto ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("@Observacoes",
+                (object?)venda.Observacoes ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@StatusVenda",
+                venda.StatusVenda.ToDb());
+            cmd.Parameters.AddWithValue("@VendedorID",
+                venda.VendedorID ?? (object)DBNull.Value);
+
+            // 🔒 @EmpresaID já é injetado automaticamente pelo CreateCommand
 
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
-        private void InserirItensEBaixarEstoque(
-            int vendaId,
-            List<ItemVendaModel> itens,
-            SqlTransaction tran)
+
+        public void InserirItensEBaixarEstoque(
+     int vendaId,
+     List<ItemVendaModel> itens,
+     SqlTransaction tran)
         {
+            const string sql = @"
+        INSERT INTO ItemVenda
+        (VendaID, ProdutoID, Quantidade, PrecoUnitario, Subtotal, DescontoItem, EmpresaID)
+        VALUES
+        (@VendaID, @ProdutoID, @Quantidade, @PrecoUnitario, @Subtotal, @DescontoItem, @EmpresaID)";
+
             foreach (var item in itens)
             {
                 item.VendaID = vendaId;
                 item.AtualizarSubtotal();
 
-                using var cmd = new SqlCommand(@"
-                    INSERT INTO ItemVenda
-                    (VendaID, ProdutoID, Quantidade, PrecoUnitario, Subtotal, DescontoItem)
-                    VALUES
-                    (@VendaID, @ProdutoID, @Quantidade, @PrecoUnitario, @Subtotal, @DescontoItem)",
-                    Connection, tran);
+                using var cmd = CreateCommand(sql);
+                cmd.Transaction = tran;
 
                 cmd.Parameters.AddWithValue("@VendaID", vendaId);
                 cmd.Parameters.AddWithValue("@ProdutoID", item.ProdutoID);
@@ -249,11 +260,16 @@ namespace GVC.Infra.Repository
                 cmd.Parameters.AddWithValue("@DescontoItem",
                     item.DescontoItem ?? (object)DBNull.Value);
 
+                // 🔒 @EmpresaID já é injetado automaticamente pelo CreateCommand
+
                 cmd.ExecuteNonQuery();
 
+                // Mantém mesma regra original de baixa de estoque
                 AjustarEstoque(item.ProdutoID, item.Quantidade, false, tran);
             }
         }
+
+
 
         private void AjustarEstoque(
             int produtoId,
@@ -262,13 +278,19 @@ namespace GVC.Infra.Repository
             SqlTransaction tran)
         {
             string sql = somar
-                ? "UPDATE Produtos SET Estoque = Estoque + @Qtd WHERE ProdutoID = @ProdutoID"
+                ? @"UPDATE Produtos
+           SET Estoque = Estoque + @Qtd
+           WHERE ProdutoID = @ProdutoID
+             AND EmpresaID = @EmpresaID"
                 : @"UPDATE Produtos
-                    SET Estoque = Estoque - @Qtd
-                    WHERE ProdutoID = @ProdutoID
-                      AND Estoque >= @Qtd";
+           SET Estoque = Estoque - @Qtd
+           WHERE ProdutoID = @ProdutoID
+             AND EmpresaID = @EmpresaID
+             AND Estoque >= @Qtd";
 
-            using var cmd = new SqlCommand(sql, Connection, tran);
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+
             cmd.Parameters.AddWithValue("@ProdutoID", produtoId);
             cmd.Parameters.AddWithValue("@Qtd", quantidade);
 
@@ -278,6 +300,37 @@ namespace GVC.Infra.Repository
             if (somar)
                 cmd.ExecuteNonQuery();
         }
+
+        private void AjustarEstoque(
+            int produtoId,
+            int quantidade,
+            SqlTransaction tran,
+            bool somar)
+        {
+            string sql = somar
+                ? @"UPDATE Produtos
+           SET Estoque = Estoque + @Qtd
+           WHERE ProdutoID = @ProdutoID
+             AND EmpresaID = @EmpresaID"
+                : @"UPDATE Produtos
+           SET Estoque = Estoque - @Qtd
+           WHERE ProdutoID = @ProdutoID
+             AND EmpresaID = @EmpresaID
+             AND Estoque >= @Qtd";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+
+            cmd.Parameters.Add("@ProdutoID", SqlDbType.Int).Value = produtoId;
+            cmd.Parameters.Add("@Qtd", SqlDbType.Int).Value = quantidade;
+
+            if (!somar && cmd.ExecuteNonQuery() == 0)
+                throw new Exception($"Estoque insuficiente para o produto {produtoId}");
+
+            if (somar)
+                cmd.ExecuteNonQuery();
+        }
+
 
         private static void BlindarStatusVenda(
             VendaModel venda,
@@ -315,9 +368,13 @@ namespace GVC.Infra.Repository
         {
             var lista = new List<ItemVendaModel>();
 
-            using var cmd = CreateCommand(
-                "SELECT * FROM ItemVenda WHERE VendaID = @VendaID");
+            const string sql = @"
+            SELECT *
+            FROM ItemVenda
+            WHERE VendaID = @VendaID
+          AND EmpresaID = @EmpresaID";
 
+            using var cmd = CreateCommand(sql);
             cmd.Parameters.AddWithValue("@VendaID", vendaId);
 
             using var dr = cmd.ExecuteReader();
@@ -335,13 +392,18 @@ namespace GVC.Infra.Repository
             return lista;
         }
 
+
         private List<ParcelaModel> BuscarParcelas(int vendaId)
         {
             var lista = new List<ParcelaModel>();
 
-            using var cmd = CreateCommand(
-                "SELECT * FROM Parcela WHERE VendaID = @VendaID");
+            const string sql = @"
+        SELECT *
+        FROM Parcela
+        WHERE VendaID = @VendaID
+          AND EmpresaID = @EmpresaID";
 
+            using var cmd = CreateCommand(sql);
             cmd.Parameters.AddWithValue("@VendaID", vendaId);
 
             using var dr = cmd.ExecuteReader();
@@ -359,6 +421,22 @@ namespace GVC.Infra.Repository
 
             return lista;
         }
+        public void AtualizarStatusVenda(int vendaId, EnumStatusVenda status, SqlTransaction tran)
+        {
+            using var cmd = CreateCommand(@"
+            UPDATE Venda
+            SET StatusVenda = @Status
+            WHERE VendaID = @VendaID
+              AND EmpresaID = @EmpresaID");
+
+            cmd.Transaction = tran;
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
+            cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 20).Value = status.ToDb();
+
+            if (cmd.ExecuteNonQuery() == 0)
+                throw new Exception("Falha ao atualizar status da venda (não encontrada).");
+        }
+
         //cancelar venda - verificar se existe venda, verificar se existe parcela paga, devolver estoque, cancelar parcelas, cancelar venda
         public void CancelarVenda(int vendaId, string motivo)
         {
@@ -383,7 +461,7 @@ namespace GVC.Infra.Repository
                 DevolverEstoque(vendaId, tran);
 
                 // 4️⃣ Cancelar parcelas
-                CancelarParcelas(vendaId, motivo, tran);
+                CancelarParcelasPorVenda(vendaId);
 
                 // 5️⃣ Cancelar venda
                 AtualizarVendaCancelada(vendaId, motivo, tran);
@@ -402,45 +480,58 @@ namespace GVC.Infra.Repository
         SELECT VendaID, StatusVenda
         FROM Venda
         WHERE VendaID = @VendaID
-          AND EmpresaID = @EmpresaID";
+          AND EmpresaID = @EmpresaID;";
 
-            using var cmd = new SqlCommand(sql, Connection, tran);
-            cmd.Parameters.AddWithValue("@VendaID", vendaId);
-            cmd.Parameters.AddWithValue("@EmpresaID", EmpresaID);
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
 
             using var dr = cmd.ExecuteReader();
             if (!dr.Read())
                 return null;
 
+            var statusString = dr["StatusVenda"]?.ToString();
+            if (string.IsNullOrWhiteSpace(statusString))
+                throw new InvalidOperationException($"StatusVenda inválido para a venda {vendaId}.");
+
             return new VendaModel
             {
-                VendaID = vendaId,
-                StatusVenda = dr.GetString("StatusVenda").ToEnumStatusVenda()
+                VendaID = Convert.ToInt32(dr["VendaID"]),
+                StatusVenda = statusString.ToEnumStatusVenda()
             };
         }
+
+
+
         private bool ExisteParcelaPaga(int vendaId, SqlTransaction tran)
         {
             const string sql = @"
-        SELECT 1
+        SELECT TOP 1 1
         FROM Parcela
         WHERE VendaID = @VendaID
           AND EmpresaID = @EmpresaID
-          AND Status = 'Pago'";
+          AND ISNULL(ValorRecebido, 0) > 0";
 
-            using var cmd = new SqlCommand(sql, Connection, tran);
-            cmd.Parameters.AddWithValue("@VendaID", vendaId);
-            cmd.Parameters.AddWithValue("@EmpresaID", EmpresaID);
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
 
             return cmd.ExecuteScalar() != null;
         }
+
+
         private void DevolverEstoque(int vendaId, SqlTransaction tran)
         {
             const string sqlItens = @"
         SELECT ProdutoID, Quantidade
         FROM ItemVenda
-        WHERE VendaID = @VendaID";
+        WHERE VendaID = @VendaID
+          AND EmpresaID = @EmpresaID";
 
-            using var cmdItens = new SqlCommand(sqlItens, Connection, tran);
+            using var cmdItens = CreateCommand(sqlItens);
+            cmdItens.Transaction = tran;
+
+
             cmdItens.Parameters.AddWithValue("@VendaID", vendaId);
 
             using var dr = cmdItens.ExecuteReader();
@@ -453,37 +544,38 @@ namespace GVC.Infra.Repository
 
             foreach (var item in itens)
             {
-                using var cmd = new SqlCommand(@"
+                const string sql = @"
             UPDATE Produtos
             SET Estoque = Estoque + @Qtd
-            WHERE ProdutoID = @ProdutoID", Connection, tran);
+            WHERE ProdutoID = @ProdutoID
+              AND EmpresaID = @EmpresaID";
+
+                using var cmd = CreateCommand(sql);
+                cmd.Transaction = tran;
 
                 cmd.Parameters.AddWithValue("@ProdutoID", item.ProdutoID);
                 cmd.Parameters.AddWithValue("@Qtd", item.Quantidade);
+
                 cmd.ExecuteNonQuery();
             }
         }
-        private void CancelarParcelas(int vendaId, string motivo, SqlTransaction tran)
+
+        public void CancelarParcelasPorVenda(long vendaId)
         {
             const string sql = @"
         UPDATE Parcela
-        SET Status = 'Cancelada',
-            Observacao =
-                CASE
-                    WHEN Observacao IS NULL OR Observacao = ''
-                        THEN @Motivo
-                    ELSE Observacao + CHAR(13) + CHAR(10) + @Motivo
-                END
-        WHERE VendaID = @VendaID
-          AND EmpresaID = @EmpresaID";
+           SET Status = 'Cancelada',
+               ValorRecebido = 0,
+               DataPagamento = NULL
+         WHERE VendaID = @VendaID
+           AND EmpresaID = @EmpresaID";
 
-            using var cmd = new SqlCommand(sql, Connection, tran);
-            cmd.Parameters.AddWithValue("@VendaID", vendaId);
-            cmd.Parameters.AddWithValue("@EmpresaID", EmpresaID);
-            cmd.Parameters.AddWithValue("@Motivo", motivo);
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = (int)vendaId;
 
             cmd.ExecuteNonQuery();
         }
+
         private void AtualizarVendaCancelada(int vendaId, string motivo, SqlTransaction tran)
         {
             const string sql = @"
@@ -498,88 +590,16 @@ namespace GVC.Infra.Repository
         WHERE VendaID = @VendaID
           AND EmpresaID = @EmpresaID";
 
-            using var cmd = new SqlCommand(sql, Connection, tran);
+            using var cmd = CreateCommand(sql);
+            cmd.Transaction = tran;
+
             cmd.Parameters.AddWithValue("@VendaID", vendaId);
-            cmd.Parameters.AddWithValue("@EmpresaID", EmpresaID);
             cmd.Parameters.AddWithValue("@Motivo", motivo);
 
             cmd.ExecuteNonQuery();
         }
         //ACIMA TUDO FAZ PARTE DE CANCELAR VENDA-----------------------------
 
-        //public void CancelarVenda(int vendaId, string motivo)
-        //{
-        //    const string sqlVenda = @"
-        //UPDATE Venda
-        //SET StatusVenda = 'Cancelada',
-        //    Observacoes =
-        //        CASE 
-        //            WHEN Observacoes IS NULL OR Observacoes = ''
-        //                THEN @Motivo
-        //            ELSE Observacoes + CHAR(13) + CHAR(10) + @Motivo
-        //        END
-        //WHERE VendaID = @VendaID
-        //  AND EmpresaID = @EmpresaID";
-
-        //    const string sqlItens = @"
-        //SELECT ProdutoID, Quantidade
-        //FROM ItemVenda
-        //WHERE VendaID = @VendaID";
-
-        //    const string sqlDevolverEstoque = @"
-        //UPDATE Produtos
-        //SET Estoque = Estoque + @Qtd
-        //WHERE ProdutoID = @ProdutoID";
-
-        //    using var tran = Connection.BeginTransaction();
-
-        //    try
-        //    {
-        //        // 🔹 1) Buscar itens para devolver estoque
-        //        var itens = new List<(int ProdutoID, int Quantidade)>();
-
-        //        using (var cmd = CreateCommand(sqlItens))
-        //        {
-        //            cmd.Transaction = tran;
-        //            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
-
-        //            using var dr = cmd.ExecuteReader();
-        //            while (dr.Read())
-        //            {
-        //                itens.Add((
-        //                    dr.GetInt32("ProdutoID"),
-        //                    dr.GetInt32("Quantidade")
-        //                ));
-        //            }
-        //        }
-
-        //        // 🔹 2) Devolver estoque
-        //        foreach (var item in itens)
-        //        {
-        //            using var cmd = CreateCommand(sqlDevolverEstoque);
-        //            cmd.Transaction = tran;
-        //            cmd.Parameters.Add("@ProdutoID", SqlDbType.Int).Value = item.ProdutoID;
-        //            cmd.Parameters.Add("@Qtd", SqlDbType.Int).Value = item.Quantidade;
-        //            cmd.ExecuteNonQuery();
-        //        }
-
-        //        // 🔹 3) Cancelar venda
-        //        using (var cmd = CreateCommand(sqlVenda))
-        //        {
-        //            cmd.Transaction = tran;
-        //            cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
-        //            cmd.Parameters.Add("@Motivo", SqlDbType.NVarChar).Value = motivo;
-        //            cmd.ExecuteNonQuery();
-        //        }
-
-        //        tran.Commit();
-        //    }
-        //    catch
-        //    {
-        //        tran.Rollback();
-        //        throw;
-        //    }
-        //}
         public void AtualizarVendaCompleta(
      VendaModel venda,
      List<ItemVendaModel> itens,
@@ -664,7 +684,8 @@ namespace GVC.Infra.Repository
             const string sql = @"
         SELECT ProdutoID, Quantidade
         FROM ItemVenda
-        WHERE VendaID = @VendaID";
+        WHERE VendaID = @VendaID
+          AND EmpresaID = @EmpresaID";
 
             using var cmd = CreateCommand(sql);
             cmd.Transaction = tran;
@@ -684,34 +705,8 @@ namespace GVC.Infra.Repository
 
             return lista;
         }
-        private void AjustarEstoque(
-            int produtoId,
-            int quantidade,
-            SqlTransaction tran,
-            bool somar)
-        {
-            string sql = somar
-                ? @"UPDATE Produtos
-            SET Estoque = Estoque + @Qtd
-            WHERE ProdutoID = @ProdutoID"
-                : @"UPDATE Produtos
-            SET Estoque = Estoque - @Qtd
-            WHERE ProdutoID = @ProdutoID
-              AND Estoque >= @Qtd";
 
-            using var cmd = CreateCommand(sql);
-            cmd.Transaction = tran;
-
-            cmd.Parameters.Add("@ProdutoID", SqlDbType.Int).Value = produtoId;
-            cmd.Parameters.Add("@Qtd", SqlDbType.Int).Value = quantidade;
-
-            if (!somar && cmd.ExecuteNonQuery() == 0)
-                throw new Exception($"Estoque insuficiente para o produto {produtoId}");
-
-            if (somar)
-                cmd.ExecuteNonQuery();
-        }
-        private void InserirItem(ItemVendaModel item, SqlTransaction tran)
+        public void InserirItem(ItemVendaModel item, SqlTransaction tran)
         {
             const string sql = @"
         INSERT INTO ItemVenda
@@ -734,24 +729,30 @@ namespace GVC.Infra.Repository
         }
         private void ExcluirItens(int vendaId, SqlTransaction tran)
         {
-            const string sql = "DELETE FROM ItemVenda WHERE VendaID = @VendaID";
+            const string sql = @"
+        DELETE FROM ItemVenda
+        WHERE VendaID = @VendaID
+          AND EmpresaID = @EmpresaID";
 
             using var cmd = CreateCommand(sql);
             cmd.Transaction = tran;
             cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
+
             cmd.ExecuteNonQuery();
         }
-
 
         private void ExcluirParcelas(int vendaId, SqlTransaction tran)
         {
-            const string sql = "DELETE FROM Parcela WHERE VendaID = @VendaID";
+            const string sql = @"
+        DELETE FROM Parcela
+        WHERE VendaID = @VendaID
+          AND EmpresaID = @EmpresaID";
 
             using var cmd = CreateCommand(sql);
             cmd.Transaction = tran;
             cmd.Parameters.Add("@VendaID", SqlDbType.Int).Value = vendaId;
+
             cmd.ExecuteNonQuery();
         }
-
     }
 }

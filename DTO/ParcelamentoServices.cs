@@ -11,24 +11,73 @@ namespace GVC.DTO
 {
     public class ParcelamentoService
     {
+        //public ParcelamentoResult Gerar(ParcelamentoRequest request)
+        //{
+        //    Validar(request);
+
+        //    var parcelas = new List<ParcelaModel>();
+
+        //    decimal valorBase = Math.Round(
+        //        request.ValorTotal / request.QuantidadeParcelas, 2);
+
+        //    decimal diferenca = request.ValorTotal -
+        //                       (valorBase * request.QuantidadeParcelas);
+
+        //    for (int i = 1; i <= request.QuantidadeParcelas; i++)
+        //    {
+        //        decimal valor = valorBase;
+
+        //        if (i == request.QuantidadeParcelas)
+        //            valor += diferenca;
+
+        //        parcelas.Add(new ParcelaModel
+        //        {
+        //            NumeroParcela = i,
+        //            DataVencimento = request.DataPrimeiroVencimento
+        //                .AddDays(request.IntervaloDias * (i - 1)),
+        //            ValorParcela = valor,
+        //            ValorRecebido = request.PagamentoAVista ? valor : 0m,
+        //            Saldo = request.PagamentoAVista ? 0m : valor,
+        //            Status = request.PagamentoAVista ? EnumStatusParcela.Pago : EnumStatusParcela.Pendente
+        //        });
+        //    }
+
+        //    return new ParcelamentoResult
+        //    {
+        //        Parcelas = parcelas
+        //    };
+        //}
         public ParcelamentoResult Gerar(ParcelamentoRequest request)
         {
             Validar(request);
 
             var parcelas = new List<ParcelaModel>();
 
-            decimal valorBase = Math.Round(
-                request.ValorTotal / request.QuantidadeParcelas, 2);
+            int quantidade = request.QuantidadeParcelas;
+            decimal valorTotal = request.ValorTotal;
 
-            decimal diferenca = request.ValorTotal -
-                               (valorBase * request.QuantidadeParcelas);
+            // Converte para inteiro (remove centavos)
+            int valorTotalInteiro = (int)Math.Floor(valorTotal);
 
-            for (int i = 1; i <= request.QuantidadeParcelas; i++)
+            // Calcula o valor base inteiro
+            int valorBase = valorTotalInteiro / quantidade;
+
+            // Calcula o resto que vai para a última parcela
+            int resto = valorTotalInteiro % quantidade;
+
+            // Ajusta: as primeiras 'resto' parcelas recebem 1 a mais
+            for (int i = 1; i <= quantidade; i++)
             {
-                decimal valor = valorBase;
+                decimal valor;
 
-                if (i == request.QuantidadeParcelas)
-                    valor += diferenca;
+                if (i <= resto)
+                {
+                    valor = valorBase + 1;
+                }
+                else
+                {
+                    valor = valorBase;
+                }
 
                 parcelas.Add(new ParcelaModel
                 {
@@ -47,7 +96,6 @@ namespace GVC.DTO
                 Parcelas = parcelas
             };
         }
-
         private void Validar(ParcelamentoRequest request)
         {
             if (request.ValorTotal <= 0)

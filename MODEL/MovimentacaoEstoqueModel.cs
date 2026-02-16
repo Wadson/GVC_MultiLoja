@@ -23,10 +23,16 @@ public partial class MovimentacaoEstoqueModel
 
     public string? Observacao { get; set; }
 
-    public DateTime DataMovimentacao { get; set; }
+   
 
     public string? Usuario { get; set; }
     public int EmpresaID { get; set; }
 
     public virtual ProdutoModel Produto { get; set; } = null!;
+    //DataMovimentacao, PrecoCompra, PrecoCustoEntrada, FornecedorID
+    public DateTime DataMovimentacao { get; set; }
+    public decimal? PrecoCompra { get; set; }
+    public decimal? PrecoCustoEntrada { get; set; }
+    public int? FornecedorID { get; set; }
+
 }

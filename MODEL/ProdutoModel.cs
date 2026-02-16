@@ -28,8 +28,7 @@ public partial class ProdutoModel
     public int? FornecedorID { get; set; }
     public string? NomeFornecedor { get; set; }
 
-
-
+   
     public virtual ICollection<ItemVendaModel> ItemVenda { get; set; } = new List<ItemVendaModel>();
     public virtual ICollection<MovimentacaoEstoqueModel> MovimentacaoEstoques { get; set; } = new List<MovimentacaoEstoqueModel>();
 }

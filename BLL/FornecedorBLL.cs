@@ -89,7 +89,6 @@ namespace GVC.BLL
             }
         }
 
-        public void Excluir(FornecedorModel fornecedor) => Excluir((int)fornecedor.FornecedorID);
 
         public DataTable PesquisarPorNome(string nome)
         {

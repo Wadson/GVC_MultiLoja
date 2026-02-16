@@ -176,38 +176,34 @@ namespace GVC.View
                 return;
             }
 
-            using var connection = Conexao.Conex();
-            connection.Open();
-
-            using var transaction = connection.BeginTransaction();
-
             try
             {
-                var repo = new EntradaFiscalRepository();
+                using var repo = new EntradaFiscalRepository();
+
+                var listaItens = new List<(int, int, decimal, decimal, int)>();
+
 
                 foreach (DataGridViewRow row in dgvItensDocumento.Rows)
                 {
                     if (row.IsNewRow) continue;
 
-                    int produtoID = Convert.ToInt32(row.Cells["ProdutoID"].Value);
-                    int quantidade = Convert.ToInt32(row.Cells["Quantidade"].Value);
-                    decimal precoCompra = Convert.ToDecimal(row.Cells["PrecoCompra"].Value);
-                    decimal precoCusto = Convert.ToDecimal(row.Cells["PrecoCusto"].Value);
-
-                    repo.ConfirmarEntrada(
-                        produtoID,
-                        quantidade,
-                        precoCompra,
-                        precoCusto,
-                        cmbTipoEntrada.Text,
-                        txtNumeroDocumento.Text,
-                        "Entrada via formulário fiscal",
-                        Sessao.NomeUsuario ?? "Sistema",
-                        transaction   // 🔥 AGORA PASSA A TRANSACTION
-                    );
+                    listaItens.Add((
+                        Convert.ToInt32(row.Cells["ProdutoID"].Value),
+                        Convert.ToInt32(row.Cells["Quantidade"].Value),
+                        Convert.ToDecimal(row.Cells["PrecoCompra"].Value),
+                        Convert.ToDecimal(row.Cells["PrecoCusto"].Value),
+                        FornecedorID // ✅ vem do form
+                    ));
                 }
 
-                transaction.Commit();
+
+                repo.ConfirmarEntradaCompleta(
+                    listaItens,
+                    cmbTipoEntrada.Text,
+                    txtNumeroDocumento.Text,
+                    "Entrada via formulário fiscal",
+                    Sessao.NomeUsuario ?? "Sistema"
+                );
 
                 MessageBox.Show("Entrada confirmada com sucesso!");
                 dgvItensDocumento.Rows.Clear();
@@ -215,7 +211,6 @@ namespace GVC.View
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
                 MessageBox.Show("Erro ao confirmar entrada:\n" + ex.Message);
             }
         }

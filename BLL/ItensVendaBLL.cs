@@ -7,6 +7,12 @@ namespace GVC.BLL
 {
     internal class ItensVendaBLL
     {
+        public decimal CalcularSubtotal(ItemVendaModel item)
+        {
+            var subtotal = (item.Quantidade * item.PrecoUnitario) - (item.DescontoItem ?? 0);
+            return subtotal < 0 ? 0 : subtotal;
+        }
+
         public void Salvar(ItemVendaModel item)
         {
             using var repo = new ItemVendaRepository();

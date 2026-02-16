@@ -69,6 +69,8 @@ namespace GVC.BLL
 
             return clienteRepository.PesquisarPorNome(nome);
         }
+        // No ClienteBLL.cs
+
         public DataTable PesquisarVendedor(string nome)
         {
             return clienteRepository.PesquisarVendedores(nome);

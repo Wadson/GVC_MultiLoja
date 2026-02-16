@@ -73,7 +73,8 @@ namespace GVC.View
 
             string destino = Utilitario.SalvarCertificado(_caminhoCertificado, _empresaId);
 
-            EmpresaDal.AtualizarCertificado(_empresaId, destino);
+            using var dal = new EmpresaDal();
+            dal.AtualizarCertificado(_empresaId, destino);
 
             Utilitario.Mensagens.Info("Certificado salvo com sucesso.");
             Close();

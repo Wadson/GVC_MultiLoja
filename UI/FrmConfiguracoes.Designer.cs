@@ -43,6 +43,8 @@
             icbtnCertificadoDigital = new FontAwesome.Sharp.IconButton();
             icbtnDadosFiscais = new FontAwesome.Sharp.IconButton();
             icbtnSair = new FontAwesome.Sharp.IconButton();
+            btnListarMetodosGeral = new FontAwesome.Sharp.IconButton();
+            btnListarEstruturaPastasProjeto = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
             tlpTitulo.SuspendLayout();
@@ -160,7 +162,7 @@
             icbtnBackup.IconChar = FontAwesome.Sharp.IconChar.Database;
             icbtnBackup.IconColor = Color.FromArgb(30, 136, 229);
             icbtnBackup.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icbtnBackup.IconSize = 22;
+            icbtnBackup.IconSize = 38;
             icbtnBackup.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnBackup.Location = new Point(89, 118);
             icbtnBackup.Name = "icbtnBackup";
@@ -180,7 +182,7 @@
             icbConvertScript.IconChar = FontAwesome.Sharp.IconChar.Server;
             icbConvertScript.IconColor = Color.FromArgb(30, 136, 229);
             icbConvertScript.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icbConvertScript.IconSize = 22;
+            icbConvertScript.IconSize = 38;
             icbConvertScript.ImageAlign = ContentAlignment.MiddleLeft;
             icbConvertScript.Location = new Point(295, 118);
             icbConvertScript.Name = "icbConvertScript";
@@ -200,7 +202,7 @@
             icbtnModeloUi.IconChar = FontAwesome.Sharp.IconChar.Paintbrush;
             icbtnModeloUi.IconColor = Color.FromArgb(30, 136, 229);
             icbtnModeloUi.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icbtnModeloUi.IconSize = 22;
+            icbtnModeloUi.IconSize = 38;
             icbtnModeloUi.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnModeloUi.Location = new Point(89, 170);
             icbtnModeloUi.Name = "icbtnModeloUi";
@@ -219,7 +221,7 @@
             icbtnLogo.IconChar = FontAwesome.Sharp.IconChar.Image;
             icbtnLogo.IconColor = Color.FromArgb(30, 136, 229);
             icbtnLogo.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icbtnLogo.IconSize = 22;
+            icbtnLogo.IconSize = 38;
             icbtnLogo.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnLogo.Location = new Point(295, 170);
             icbtnLogo.Name = "icbtnLogo";
@@ -239,7 +241,7 @@
             icbtnCertificadoDigital.IconChar = FontAwesome.Sharp.IconChar.Key;
             icbtnCertificadoDigital.IconColor = Color.FromArgb(30, 136, 229);
             icbtnCertificadoDigital.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icbtnCertificadoDigital.IconSize = 22;
+            icbtnCertificadoDigital.IconSize = 38;
             icbtnCertificadoDigital.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnCertificadoDigital.Location = new Point(89, 222);
             icbtnCertificadoDigital.Name = "icbtnCertificadoDigital";
@@ -259,7 +261,7 @@
             icbtnDadosFiscais.IconChar = FontAwesome.Sharp.IconChar.FileInvoice;
             icbtnDadosFiscais.IconColor = Color.FromArgb(30, 136, 229);
             icbtnDadosFiscais.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            icbtnDadosFiscais.IconSize = 22;
+            icbtnDadosFiscais.IconSize = 38;
             icbtnDadosFiscais.ImageAlign = ContentAlignment.MiddleLeft;
             icbtnDadosFiscais.Location = new Point(295, 222);
             icbtnDadosFiscais.Name = "icbtnDadosFiscais";
@@ -294,11 +296,53 @@
             icbtnSair.UseVisualStyleBackColor = false;
             icbtnSair.Click += icbtnSair_Click;
             // 
+            // btnListarMetodosGeral
+            // 
+            btnListarMetodosGeral.Cursor = Cursors.Hand;
+            btnListarMetodosGeral.FlatStyle = FlatStyle.Flat;
+            btnListarMetodosGeral.ForeColor = Color.FromArgb(55, 71, 79);
+            btnListarMetodosGeral.IconChar = FontAwesome.Sharp.IconChar.FileInvoice;
+            btnListarMetodosGeral.IconColor = Color.FromArgb(30, 136, 229);
+            btnListarMetodosGeral.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnListarMetodosGeral.IconSize = 38;
+            btnListarMetodosGeral.ImageAlign = ContentAlignment.MiddleLeft;
+            btnListarMetodosGeral.Location = new Point(295, 274);
+            btnListarMetodosGeral.Name = "btnListarMetodosGeral";
+            btnListarMetodosGeral.Size = new Size(200, 46);
+            btnListarMetodosGeral.TabIndex = 1105;
+            btnListarMetodosGeral.Text = "Listar Todos os Métodos";
+            btnListarMetodosGeral.TextAlign = ContentAlignment.MiddleRight;
+            btnListarMetodosGeral.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnListarMetodosGeral.UseVisualStyleBackColor = true;
+            btnListarMetodosGeral.Click += btnListarMetodosGeral_Click;
+            // 
+            // btnListarEstruturaPastasProjeto
+            // 
+            btnListarEstruturaPastasProjeto.Cursor = Cursors.Hand;
+            btnListarEstruturaPastasProjeto.FlatStyle = FlatStyle.Flat;
+            btnListarEstruturaPastasProjeto.ForeColor = Color.FromArgb(55, 71, 79);
+            btnListarEstruturaPastasProjeto.IconChar = FontAwesome.Sharp.IconChar.FolderTree;
+            btnListarEstruturaPastasProjeto.IconColor = Color.FromArgb(30, 136, 229);
+            btnListarEstruturaPastasProjeto.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnListarEstruturaPastasProjeto.IconSize = 38;
+            btnListarEstruturaPastasProjeto.ImageAlign = ContentAlignment.MiddleLeft;
+            btnListarEstruturaPastasProjeto.Location = new Point(89, 274);
+            btnListarEstruturaPastasProjeto.Name = "btnListarEstruturaPastasProjeto";
+            btnListarEstruturaPastasProjeto.Size = new Size(200, 46);
+            btnListarEstruturaPastasProjeto.TabIndex = 1106;
+            btnListarEstruturaPastasProjeto.Text = "Listar Estrutura de  Pastas";
+            btnListarEstruturaPastasProjeto.TextAlign = ContentAlignment.MiddleRight;
+            btnListarEstruturaPastasProjeto.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnListarEstruturaPastasProjeto.UseVisualStyleBackColor = true;
+            btnListarEstruturaPastasProjeto.Click += btnListarEstruturaPastasProjeto_Click;
+            // 
             // FrmConfiguracoes
             // 
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(577, 414);
             ControlBox = false;
+            Controls.Add(btnListarEstruturaPastasProjeto);
+            Controls.Add(btnListarMetodosGeral);
             Controls.Add(icbtnSair);
             Controls.Add(icbtnDadosFiscais);
             Controls.Add(icbtnCertificadoDigital);
@@ -345,5 +389,7 @@
         private FontAwesome.Sharp.IconButton icbtnCertificadoDigital;
         private FontAwesome.Sharp.IconButton icbtnDadosFiscais;
         private FontAwesome.Sharp.IconButton icbtnSair;
+        private FontAwesome.Sharp.IconButton btnListarMetodosGeral;
+        private FontAwesome.Sharp.IconButton btnListarEstruturaPastasProjeto;
     }
 }

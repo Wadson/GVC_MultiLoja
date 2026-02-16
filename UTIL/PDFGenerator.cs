@@ -572,63 +572,6 @@ namespace GVC.UTIL
             .GeneratePdf(caminhoArquivo);
         }
 
-
-      //  public static void GerarRelatorioLucroProduto(
-      //IEnumerable<RelatorioLucroProdutoDTO> dados,
-      //DadosEmpresaPdf empresa,
-      //string caminhoArquivo)
-      //  {
-      //      Document.Create(container =>
-      //      {
-      //          container.Page(page =>
-      //          {
-      //              page.Size(PageSizes.A4);
-      //              page.Margin(40);
-
-      //              page.Content().Column(col =>
-      //              {
-      //                  col.Item().AlignCenter().Text(empresa.NomeEmpresa)
-      //                      .FontSize(16).Bold();
-
-      //                  col.Item().PaddingVertical(10)
-      //                      .AlignCenter().Text("Relatório de Lucro por Produto")
-      //                      .FontSize(14).Bold();
-
-      //                  col.Item().LineHorizontal(1);
-
-      //                  col.Item().Table(table =>
-      //                  {
-      //                      table.ColumnsDefinition(c =>
-      //                      {
-      //                          c.RelativeColumn();     // Produto
-      //                          c.ConstantColumn(60);   // Qtde
-      //                          c.ConstantColumn(80);   // Custo
-      //                          c.ConstantColumn(80);   // Venda
-      //                          c.ConstantColumn(80);   // Lucro
-      //                      });
-
-      //                      Header(table,
-      //                          "Produto",
-      //                          "Qtd",
-      //                          "Custo",
-      //                          "Venda",
-      //                          "Lucro");
-
-      //                      foreach (var p in dados)
-      //                      {
-      //                          Row(table,
-      //                              p.Produto,
-      //                              p.QuantidadeVendida,
-      //                              p.CustoTotal.ToString("C2"),
-      //                              p.VendaTotal.ToString("C2"),
-      //                              p.LucroTotal.ToString("C2"));
-      //                      }
-      //                  });
-      //              });
-      //          });
-      //      })
-      //      .GeneratePdf(caminhoArquivo);
-      //  }
         public static void GerarRelatorioProdutosEstoque(
     IEnumerable<RelatorioProdutoEstoqueDTO> dados,
     DadosEmpresaPdf empresa,

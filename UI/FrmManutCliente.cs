@@ -27,7 +27,7 @@ namespace GVC.View
             var bll = new ClienteBLL();
             dgvCliente.DataSource = bll.Listar();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotal(lblTotalRegistros, dgvCliente);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvCliente);
         }
         public void HabilitarTimer(bool habilitar)
         {
@@ -273,19 +273,52 @@ namespace GVC.View
             ListarCliente();
             timer1.Enabled = false;
         }
+        private void AtualizarMensagemStatus(string textoPesquisa)
+        {
+            int totalRegistros = dgvCliente.Rows.Count;
+
+            if (string.IsNullOrEmpty(textoPesquisa))
+            {
+                lblStatus.Text = "Exibindo todos os registros";
+                lblStatus.ForeColor = Color.Black; // Cor padrão
+            }
+            else if (totalRegistros > 0)
+            {
+                lblStatus.Text = $"Encontrados {totalRegistros} cliente(s) com '{textoPesquisa}'";
+                lblStatus.ForeColor = Color.Green;
+            }
+            else
+            {
+                lblStatus.Text = $"Nenhum cliente encontrado com '{textoPesquisa}'";
+                lblStatus.ForeColor = Color.Red;
+            }
+        }
+
+        private void LimparPesquisa()
+        {
+            txtPesquisa.Text = string.Empty;
+            // O TextChanged vai ser chamado automaticamente
+        }
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
             string texto = txtPesquisa.Text.Trim();
 
             var bll = new ClienteBLL();
 
+            // Carrega os dados
             dgvCliente.DataSource = string.IsNullOrEmpty(texto)
                 ? bll.Listar()
                 : bll.PesquisarPorNome(texto);
 
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotal(lblTotalRegistros, dgvCliente);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvCliente);
+
+            // Atualiza a mensagem de status
+            AtualizarMensagemStatus(texto);
+
         }
+
+
 
         private void FrmManutCliente_Load(object sender, EventArgs e)
         {

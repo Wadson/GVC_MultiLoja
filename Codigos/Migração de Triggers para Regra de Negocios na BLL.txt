@@ -1,0 +1,263 @@
+
+
+🎯 OBJETIVO
+
+Migrar regras de negócio que estão nas triggers para:
+
+BLL (regra de negócio)
+
+Serviços transacionais
+
+Validações antes do commit
+
+Sem perder integridade.
+
+📌 PASSO 1 — CLASSIFICAR AS TRIGGERS
+
+Antes de remover qualquer coisa, dividimos em 3 tipos:
+
+🔴 Tipo A — Regra de Negócio (deve sair do banco)
+
+tr_calcular_subtotal_itemvenda
+
+tr_atualiza_apos_pagamento_parcial
+
+tr_atualiza_status_parcela
+
+tr_atualiza_status_venda
+
+tr_atualiza_ultima_compra_cliente
+
+👉 Essas devem ir para o código.
+
+🟡 Tipo B — Validação
+
+tr_valida_valor_recebido
+
+tr_valida_validade_produto
+
+👉 Essas devem virar:
+
+Validação no BLL
+
+Ou CHECK CONSTRAINT
+
+🟢 Tipo C — Regra estrutural simples
+
+tr_atualiza_status_por_estoque
+
+Essa pode virar regra dentro do EstoqueBLL.
+
+🚨 REGRA DE OURO
+
+NUNCA remova trigger antes de:
+
+Criar regra equivalente no código
+
+Testar em ambiente isolado
+
+Garantir que todos os fluxos usam BLL
+
+🔥 ESTRATÉGIA SEGURA (MIGRAÇÃO EM 4 FASES)
+🟦 FASE 1 — Centralizar tudo na BLL
+
+Antes de apagar trigger, você precisa garantir:
+
+❗ Nenhuma tela atualiza banco direto
+
+Tudo deve passar por:
+
+VendaBLL
+
+PagamentoBLL
+
+EstoqueBLL
+
+FinanceiroBLL
+
+Se alguma tela usa DAL direto → você precisa corrigir isso primeiro.
+
+🟦 FASE 2 — Reproduzir a lógica da trigger no código
+
+Exemplo:
+
+🔹 tr_calcular_subtotal_itemvenda
+
+Em vez de trigger:
+
+Criar no ItemVendaBLL:
+
+public decimal CalcularSubtotal(ItemVendaModel item)
+{
+    var subtotal = (item.Quantidade * item.PrecoUnitario) - (item.DescontoItem ?? 0);
+    return subtotal < 0 ? 0 : subtotal;
+}
+
+
+E antes de salvar:
+
+item.Subtotal = CalcularSubtotal(item);
+
+🔹 tr_atualiza_apos_pagamento_parcial
+
+Em vez de somar incrementalmente:
+
+No PagamentoBLL:
+
+public void RecalcularValorRecebido(int parcelaId, SqlConnection conn, SqlTransaction tran)
+{
+    var totalPago = _pagamentoDAL.SomarPagamentos(parcelaId, conn, tran);
+    _parcelaDAL.AtualizarValorRecebido(parcelaId, totalPago, conn, tran);
+}
+
+
+Muito mais seguro.
+
+🔹 tr_atualiza_status_parcela
+
+Virar método:
+
+public string CalcularStatusParcela(ParcelaModel p)
+{
+    if (p.Status == "Cancelada")
+        return "Cancelada";
+
+    var total = p.ValorParcela + (p.Juros ?? 0) + (p.Multa ?? 0);
+
+    if (p.ValorRecebido >= total - 0.01m)
+        return "Pago";
+
+    if (p.ValorRecebido > 0)
+        return "ParcialmentePago";
+
+    if (p.DataVencimento < DateTime.Today)
+        return "Atrasada";
+
+    return "Pendente";
+}
+
+🔹 tr_atualiza_status_venda
+
+Criar método no VendaBLL:
+
+public void AtualizarStatusVenda(int vendaId, SqlConnection conn, SqlTransaction tran)
+
+
+E recalcular baseado nas parcelas.
+
+🟦 FASE 3 — DESABILITAR, NÃO APAGAR
+
+Quando tudo estiver funcionando via código:
+
+DISABLE TRIGGER tr_nome ON Tabela;
+
+
+Nunca delete primeiro.
+
+Deixe desabilitada por 1 mês.
+
+Se nada quebrar → aí sim pode dropar.
+
+🟦 FASE 4 — TESTES DE INTEGRIDADE
+
+Depois de desabilitar:
+
+Criar venda
+
+Fazer pagamento parcial
+
+Quitar venda
+
+Cancelar parcela
+
+Ajustar estoque
+
+Inserir produto vencido
+
+Se tudo continuar consistente → você venceu.
+
+🧠 POR QUE ISSO É MAIS SEGURO?
+
+Porque:
+
+Trigger:
+
+Executa ocultamente
+
+Ordem não garantida
+
+Difícil debugar
+
+Pode gerar efeito colateral
+
+Código:
+
+Controle explícito
+
+Debugável
+
+Testável
+
+Transação controlada
+
+Legível
+
+ERP profissional evita trigger de regra de negócio.
+
+Trigger deve ser usada só para:
+
+Auditoria
+
+Log
+
+Bloqueio estrutural crítico
+
+⚠ IMPORTANTE
+
+Antes de remover triggers:
+
+Pergunta crucial:
+
+❓ Existe alguma integração externa que insere direto no banco?
+
+Se existir:
+
+Você PRECISA manter alguma proteção no banco
+
+Ou criar Stored Procedures obrigatórias
+
+📌 RESUMO ESTRATÉGICO
+
+Mapear todas regras
+
+Criar equivalente na BLL
+
+Garantir tudo passa por BLL
+
+Desabilitar trigger
+
+Testar
+
+Só depois remover
+
+🎯 Minha recomendação para começar
+
+Comece por essa ordem:
+
+1️⃣ tr_calcular_subtotal_itemvenda
+2️⃣ tr_atualiza_ultima_compra_cliente
+3️⃣ tr_valida_validade_produto
+4️⃣ tr_atualiza_status_por_estoque
+5️⃣ Pagamentos e Parcelas por último (são mais críticos)
+
+
+Desabilitamos a triger
+DISABLE TRIGGER tr_calcular_subtotal_itemvenda ON ItemVenda;
+
+📌 Status atual das 5 triggers
+
+1️⃣ tr_calcular_subtotal_itemvenda → ✅ MIGRADA
+2️⃣ tr_atualiza_ultima_compra_cliente → 🔜 próxima
+3️⃣ tr_valida_validade_produto → 🔜
+4️⃣ tr_atualiza_status_por_estoque → 🔜
+5️⃣ Pagamentos e Parcelas → 🔥 mais crítica

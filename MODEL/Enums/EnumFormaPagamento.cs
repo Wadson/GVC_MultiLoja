@@ -94,14 +94,23 @@ namespace GVC.Model.Enums
         {
             get
             {
-                var nome = NomeFormaPagamento.ToUpper();
+                string nome = (NomeFormaPagamento ?? "").Trim().ToUpperInvariant();
+
+                // remove acentos (rápido e seguro)
+                nome = nome
+                    .Replace("Á", "A").Replace("À", "A").Replace("Â", "A").Replace("Ã", "A")
+                    .Replace("É", "E").Replace("Ê", "E")
+                    .Replace("Í", "I")
+                    .Replace("Ó", "O").Replace("Ô", "O").Replace("Õ", "O")
+                    .Replace("Ú", "U")
+                    .Replace("Ç", "C");
 
                 if (nome.Contains("DINHEIRO")) return EnumFormaPagamento.Dinheiro;
                 if (nome.Contains("PIX")) return EnumFormaPagamento.Pix;
                 if (nome.Contains("TRANSFER")) return EnumFormaPagamento.Transferencia;
-                if (nome.Contains("DÉBITO")) return EnumFormaPagamento.CartaoDebito;
-                if (nome.Contains("CRÉDITO")) return EnumFormaPagamento.CartaoCredito;
-                if (nome.Contains("CREDIÁRIO")) return EnumFormaPagamento.Crediario;
+                if (nome.Contains("DEBITO")) return EnumFormaPagamento.CartaoDebito;
+                if (nome.Contains("CREDITO")) return EnumFormaPagamento.CartaoCredito;
+                if (nome.Contains("CREDIARIO")) return EnumFormaPagamento.Crediario;
                 if (nome.Contains("CHEQUE")) return EnumFormaPagamento.Cheque;
                 if (nome.Contains("BOLETO")) return EnumFormaPagamento.Boleto;
 

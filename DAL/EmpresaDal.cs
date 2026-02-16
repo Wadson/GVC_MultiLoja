@@ -7,177 +7,183 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using GVC.Infra.Conexao;
+using GVC.Infra.Repository;
 
 namespace GVC.DAL
 {
-    internal class EmpresaDal
+    internal class EmpresaDal:RepositoryBase
     {
-        public EmpresaModel BuscarEmpresaPrincipal()
-        {
-            const string sql = "SELECT TOP 1 * FROM Empresa";
 
-            using var conn = Conexao.Conex();
-            return conn.QueryFirstOrDefault<EmpresaModel>(sql);
+        public EmpresaModel? BuscarEmpresaPrincipal()
+        {
+            const string sql = @"SELECT TOP 1 * FROM Empresa";
+
+            using var cmd = CreateCommand(sql);
+
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+                return MapEmpresa(reader);
+
+            return null;
         }
-        public EmpresaModel ObterEmpresaAtual()
+
+        public EmpresaModel? ObterEmpresaAtual()
         {
             const string sql = @"
-            SELECT TOP 1
-                EmpresaID,
-                RazaoSocial,
-                NomeFantasia,
-                Logo
-            FROM Empresa
-            ORDER BY EmpresaID";
+        SELECT TOP 1
+            EmpresaID,
+            RazaoSocial,
+            NomeFantasia,
+            Logo
+        FROM Empresa
+        ORDER BY EmpresaID";
 
-            using var conn = Conexao.Conex();
-            return conn.QueryFirstOrDefault<EmpresaModel>(sql);
+            using var cmd = CreateCommand(sql);
+
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+                return MapEmpresa(reader);
+
+            return null;
         }
-        public static List<EmpresaSimples> ListarEmpresasSimples()
+
+        public List<EmpresaSimples> ListarEmpresasSimples()
         {
             var lista = new List<EmpresaSimples>();
 
-            using var conn = Conexao.Conex();
-            using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT EmpresaID, NomeFantasia, RazaoSocial FROM Empresa ORDER BY NomeFantasia";
+            const string sql = @"
+        SELECT EmpresaID, NomeFantasia, RazaoSocial
+        FROM Empresa
+        ORDER BY NomeFantasia";
 
-            conn.Open();
+            using var cmd = CreateCommand(sql);
             using var reader = cmd.ExecuteReader();
+
             while (reader.Read())
             {
-                string nomeExibido = reader.GetStringOrNull("NomeFantasia") ?? reader.GetString("RazaoSocial");
+                string nomeExibido =
+                    reader.GetStringOrNull("NomeFantasia")
+                    ?? reader.GetString(reader.GetOrdinal("RazaoSocial"));
 
                 lista.Add(new EmpresaSimples
                 {
-                    EmpresaID = reader.GetInt32("EmpresaID"),
+                    EmpresaID = reader.GetInt32(reader.GetOrdinal("EmpresaID")),
                     NomeFantasia = nomeExibido
                 });
             }
 
             return lista;
         }
-        public static byte[] ObterImagem(int empresaId)
+
+        public byte[]? ObterImagem(int empresaId)
         {
-            using var conn = Conexao.Conex();
-            using var cmd = conn.CreateCommand();
+            const string sql = @"
+        SELECT Logo
+        FROM Empresa
+        WHERE EmpresaID = @Id";
 
-            cmd.CommandText = @"
-                SELECT Logo 
-                FROM Empresa 
-                WHERE EmpresaID = @id";
-            cmd.Parameters.AddWithValue("@id", empresaId);
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = empresaId;
 
-            conn.Open();
-            return cmd.ExecuteScalar() as byte[];
+            var result = cmd.ExecuteScalar();
+            return result as byte[];
         }
 
-        public static void AtualizarLogo(int empresaId, byte[] logo)
+
+        public void AtualizarLogo(int empresaId, byte[]? logo)
         {
             if (empresaId <= 0)
                 throw new ArgumentException("ID da empresa inválido.");
 
-            using var conn = Conexao.Conex();
-            using var cmd = conn.CreateCommand();
+            const string sql = @"
+        UPDATE Empresa
+        SET Logo = @Logo,
+            DataAtualizacao = GETDATE()
+        WHERE EmpresaID = @Id";
 
-            cmd.CommandText = @"
-UPDATE Empresa
-SET Logo = @Logo,
-    DataAtualizacao = GETDATE()
-WHERE EmpresaID = @EmpresaID";
+            using var cmd = CreateCommand(sql);
 
-            cmd.Parameters.AddWithValue("@EmpresaID", empresaId);
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = empresaId;
 
             var logoParam = cmd.Parameters.Add("@Logo", SqlDbType.VarBinary, -1);
+            logoParam.Value = (object?)logo ?? DBNull.Value;
 
-            // ✔ Se logo for null → remove
-            // ✔ Se logo tiver bytes → salva
-            logoParam.Value = (object)logo ?? DBNull.Value;
-
-            conn.Open();
             int afetadas = cmd.ExecuteNonQuery();
 
             if (afetadas == 0)
                 Utilitario.Mensagens.Aviso(
-                    "Nenhuma empresa encontrada com esse ID. Logo não foi atualizada."
-                );
+                    "Nenhuma empresa encontrada com esse ID. Logo não foi atualizada.");
         }
 
 
-        public static void AtualizarCertificado(int empresaId, string caminho)
+
+        public void AtualizarCertificado(int empresaId, string? caminho)
         {
             if (empresaId <= 0)
                 throw new ArgumentException("ID da empresa inválido.");
 
-            using var conn = Conexao.Conex();
-            using var cmd = conn.CreateCommand();
+                const string sql = @"
+            UPDATE Empresa
+            SET CertificadoDigital = @Certificado,
+                DataAtualizacao = GETDATE()
+            WHERE EmpresaID = @Id";
 
-            cmd.CommandText = @"
-                UPDATE Empresa
-                SET CertificadoDigital = @Certificado,
-                    DataAtualizacao = GETDATE()
-                WHERE EmpresaID = @EmpresaID";
-            cmd.Parameters.AddWithValue("@EmpresaID", empresaId);
-            cmd.Parameters.AddWithValue("@Certificado", (object)caminho ?? DBNull.Value);
+            using var cmd = CreateCommand(sql);
 
-            conn.Open();
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = empresaId;
+            cmd.Parameters.Add("@Certificado", SqlDbType.VarChar, 300) .Value = (object?)caminho ?? DBNull.Value;
             cmd.ExecuteNonQuery();
         }
 
+
         private const string SqlBase = @"
-    SELECT
-        c.ClienteID,
-        c.Nome,
-        c.Cpf,
-        c.RG,
-        c.OrgaoExpedidorRG,
-        c.Cnpj,
-        c.IE,
-        c.Telefone,
-        c.Email,
-        c.Logradouro,
-        c.Numero,
-        c.Bairro,
-        c.Cep,
-        c.DataNascimento,
-        c.TipoCliente,
-        c.Status,
-        c.Observacoes,
-        c.DataUltimaCompra,
-        c.LimiteCredito,
-        c.DataCriacao,
-        c.DataAtualizacao,
-        c.UsuarioCriacao,
-        c.UsuarioAtualizacao,
-        c.CidadeID,
-        c.IsVendedor,
-        ci.Nome AS NomeCidade,
-        e.Uf AS Estado,
-        em.EmpresaID
-    FROM Clientes c
-    LEFT JOIN Cidade ci ON ci.CidadeID = c.CidadeID
-    LEFT JOIN Estado e ON e.EstadoID = ci.EstadoID
-    LEFT JOIN Empresa em ON em.EmpresaID = c.EmpresaID";
+SELECT
+    em.EmpresaID,
+    em.RazaoSocial,
+    em.NomeFantasia,
+    em.CNPJ,
+    em.InscricaoEstadual,
+    em.InscricaoMunicipal,
+    em.CNAE,
+    em.Logradouro,
+    em.Numero,
+    em.Bairro,
+    em.Cep,
+    em.Cidade,
+    em.UF,
+    em.Telefone,
+    em.Email,
+    em.Site,
+    em.Responsavel,
+    em.CertificadoDigital,
+    em.DataCriacao,
+    em.DataAtualizacao,
+    em.UsuarioCriacao,
+    em.UsuarioAtualizacao,
+    em.Logo
+FROM Empresa em";
+
 
         // Método auxiliar para executar SQL e retornar DataTable
-        private DataTable ExecuteReaderToDataTable(string sql, params SqlParameter[] parameters)
+        private DataTable ExecuteReaderToDataTable(
+     string sql,
+     params SqlParameter[] parameters)
         {
             var dt = new DataTable();
-            using (var conn = Conexao.Conex())
-            using (var cmd = new SqlCommand(sql, conn))
-            {
-                if (parameters != null && parameters.Length > 0)
-                    cmd.Parameters.AddRange(parameters);
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
-                {
-                    dt.Load(reader);
-                }
-            }
+
+            using var cmd = CreateCommand(sql);
+
+            if (parameters != null && parameters.Length > 0)
+                cmd.Parameters.AddRange(parameters);
+
+            using var reader = cmd.ExecuteReader();
+            dt.Load(reader);
+
             return dt;
         }
+
         public DataTable ListarEmpresas()
         {
-            // Consulta SQL completa
             const string sql = @"
         SELECT
             EmpresaID,
@@ -205,24 +211,16 @@ WHERE EmpresaID = @EmpresaID";
         FROM Empresa
         ORDER BY RazaoSocial";
 
-            // Cria o DataTable que será retornado
-            DataTable dt = new DataTable();
+            var dt = new DataTable();
 
-            // Exemplo de uso com SqlConnection (SQL Server)
-            using (SqlConnection conn = Conexao.Conex())
-            {
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
-                {
-                    conn.Open();
+            using var cmd = CreateCommand(sql);
+            using var reader = cmd.ExecuteReader();
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        dt.Load(reader);
-                    }
-                }
-            }
+            dt.Load(reader);
+
             return dt;
         }
+
         public bool EmpresaExiste(string? razaoSocial, string? cnpj)
         {
             const string sql = @"
@@ -230,34 +228,44 @@ WHERE EmpresaID = @EmpresaID";
                 FROM Empresa
                 WHERE (RazaoSocial = @RazaoSocial OR Cnpj = @Cnpj)";
 
-            using (var conn = Conexao.Conex())
-            using (var cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.AddWithValue("@RazaoSocial", string.IsNullOrWhiteSpace(razaoSocial) ? (object)DBNull.Value : razaoSocial);
-                cmd.Parameters.AddWithValue("@Cnpj", string.IsNullOrWhiteSpace(cnpj) ? (object)DBNull.Value : cnpj);
-                conn.Open();
-                var result = cmd.ExecuteScalar();
-                return result != null;
-            }
+            using var cmd = CreateCommand(sql);
+
+            cmd.Parameters.Add("@RazaoSocial", SqlDbType.VarChar, 200)
+                .Value = string.IsNullOrWhiteSpace(razaoSocial)
+                    ? DBNull.Value
+                    : razaoSocial;
+
+            cmd.Parameters.Add("@Cnpj", SqlDbType.VarChar, 20)
+                .Value = string.IsNullOrWhiteSpace(cnpj)
+                    ? DBNull.Value
+                    : cnpj;
+
+            var result = cmd.ExecuteScalar();
+            return result != null;
         }
+
 
         public void SalvarEmpresa(EmpresaModel empresa)
         {
-            if (empresa == null) throw new ArgumentNullException(nameof(empresa));
+            if (empresa == null)
+                throw new ArgumentNullException(nameof(empresa));
 
-            if (EmpresaExiste(empresa.RazaoSocial, empresa.CNAE))
-                throw new InvalidOperationException("Já existe uma empresa com esta Razão Social ou Cnpj.");
+            if (EmpresaExiste(empresa.RazaoSocial, empresa.CNPJ))
+                throw new InvalidOperationException(
+                    "Já existe uma empresa com esta Razão Social ou CNPJ.");
 
             const string sql = @"
                 INSERT INTO Empresa (
-                    RazaoSocial, NomeFantasia, CNPJ, InscricaoEstadual, InscricaoMunicipal, CNAE,
+                    RazaoSocial, NomeFantasia, CNPJ,
+                    InscricaoEstadual, InscricaoMunicipal, CNAE,
                     Logradouro, Numero, Bairro, Cep, Cidade, UF,
                     Telefone, Email, Site,
                     Responsavel, CertificadoDigital,
                     DataCriacao, UsuarioCriacao
                 )
                 VALUES (
-                    @RazaoSocial, @NomeFantasia, @Cnpj, @InscricaoEstadual, @InscricaoMunicipal, @Cnae,
+                    @RazaoSocial, @NomeFantasia, @Cnpj,
+                    @InscricaoEstadual, @InscricaoMunicipal, @Cnae,
                     @Logradouro, @Numero, @Bairro, @Cep, @Cidade, @Uf,
                     @Telefone, @Email, @Site,
                     @Responsavel, @CertificadoDigital,
@@ -265,38 +273,33 @@ WHERE EmpresaID = @EmpresaID";
                 );
                 SELECT SCOPE_IDENTITY();";
 
-            using (var conn = Conexao.Conex())
-            using (var cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.AddWithValue("@RazaoSocial", empresa.RazaoSocial ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@NomeFantasia", empresa.NomeFantasia ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Cnpj", empresa.CNPJ ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@InscricaoEstadual", empresa.InscricaoEstadual ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@InscricaoMunicipal", empresa.InscricaoMunicipal ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Cnae", empresa.CNAE ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Logradouro", empresa.Logradouro ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Numero", empresa.Numero ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Bairro", empresa.Bairro ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Cep", empresa.Cep ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Cidade", empresa.Cidade ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Uf", empresa.UF ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Telefone", empresa.Telefone ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Email", empresa.Email ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Site", empresa.Site ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Responsavel", empresa.Responsavel ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@CertificadoDigital", empresa.CertificadoDigital ?? (object)DBNull.Value);              
-                cmd.Parameters.AddWithValue("@DataCriacao", empresa.DataCriacao);
-                cmd.Parameters.AddWithValue("@UsuarioCriacao", empresa.UsuarioCriacao ?? (object)DBNull.Value);               
+            using var cmd = CreateCommand(sql);
 
-                conn.Open();
-                empresa.EmpresaID = Convert.ToInt32(cmd.ExecuteScalar());
-            }
+            cmd.Parameters.Add("@RazaoSocial", SqlDbType.VarChar, 200).Value = (object?)empresa.RazaoSocial ?? DBNull.Value;
+            cmd.Parameters.Add("@NomeFantasia", SqlDbType.VarChar, 200).Value = (object?)empresa.NomeFantasia ?? DBNull.Value;
+            cmd.Parameters.Add("@Cnpj", SqlDbType.VarChar, 20).Value = (object?)empresa.CNPJ ?? DBNull.Value;
+            cmd.Parameters.Add("@InscricaoEstadual", SqlDbType.VarChar, 50).Value = (object?)empresa.InscricaoEstadual ?? DBNull.Value;
+            cmd.Parameters.Add("@InscricaoMunicipal", SqlDbType.VarChar, 50).Value = (object?)empresa.InscricaoMunicipal ?? DBNull.Value;
+            cmd.Parameters.Add("@Cnae", SqlDbType.VarChar, 20).Value = (object?)empresa.CNAE ?? DBNull.Value;
+            cmd.Parameters.Add("@Logradouro", SqlDbType.VarChar, 200).Value = (object?)empresa.Logradouro ?? DBNull.Value;
+            cmd.Parameters.Add("@Numero", SqlDbType.VarChar, 20).Value = (object?)empresa.Numero ?? DBNull.Value;
+            cmd.Parameters.Add("@Bairro", SqlDbType.VarChar, 100).Value = (object?)empresa.Bairro ?? DBNull.Value;
+            cmd.Parameters.Add("@Cep", SqlDbType.VarChar, 20).Value = (object?)empresa.Cep ?? DBNull.Value;
+            cmd.Parameters.Add("@Cidade", SqlDbType.VarChar, 100).Value = (object?)empresa.Cidade ?? DBNull.Value;
+            cmd.Parameters.Add("@Uf", SqlDbType.VarChar, 2).Value = (object?)empresa.UF ?? DBNull.Value;
+            cmd.Parameters.Add("@Telefone", SqlDbType.VarChar, 20).Value = (object?)empresa.Telefone ?? DBNull.Value;
+            cmd.Parameters.Add("@Email", SqlDbType.VarChar, 150).Value = (object?)empresa.Email ?? DBNull.Value;
+            cmd.Parameters.Add("@Site", SqlDbType.VarChar, 150).Value = (object?)empresa.Site ?? DBNull.Value;
+            cmd.Parameters.Add("@Responsavel", SqlDbType.VarChar, 150).Value = (object?)empresa.Responsavel ?? DBNull.Value;
+            cmd.Parameters.Add("@CertificadoDigital", SqlDbType.VarChar, 300).Value = (object?)empresa.CertificadoDigital ?? DBNull.Value;
+            cmd.Parameters.Add("@DataCriacao", SqlDbType.DateTime).Value = empresa.DataCriacao;
+            cmd.Parameters.Add("@UsuarioCriacao", SqlDbType.VarChar, 100).Value = (object?)empresa.UsuarioCriacao ?? DBNull.Value;
+
+            empresa.EmpresaID = Convert.ToInt32(cmd.ExecuteScalar());
         }
+
         // 🔹 Mantém compatibilidade com TODOS os forms antigos
-        public void Atualizar(EmpresaModel empresa)
-        {
-            Atualizar(empresa, null);
-        }
+      
         public void Atualizar(EmpresaModel empresa, byte[]? imagemNova)
         {
             if (empresa == null)
@@ -306,26 +309,26 @@ WHERE EmpresaID = @EmpresaID";
                 throw new ArgumentException("ID da empresa inválido para atualização");
 
             var sql = new StringBuilder(@"
-        UPDATE Empresa SET
-            RazaoSocial = @RazaoSocial,
-            NomeFantasia = @NomeFantasia,
-            CNPJ = @Cnpj,
-            InscricaoEstadual = @InscricaoEstadual,
-            InscricaoMunicipal = @InscricaoMunicipal,
-            CNAE = @Cnae,
-            Logradouro = @Logradouro,
-            Numero = @Numero,
-            Bairro = @Bairro,
-            Cep = @Cep,
-            Cidade = @Cidade,
-            UF = @Uf,
-            Telefone = @Telefone,
-            Email = @Email,
-            Site = @Site,
-            Responsavel = @Responsavel,
-            CertificadoDigital = @CertificadoDigital,
-            DataAtualizacao = GETDATE(),
-            UsuarioAtualizacao = @UsuarioAtualizacao");
+            UPDATE Empresa SET
+                RazaoSocial = @RazaoSocial,
+                NomeFantasia = @NomeFantasia,
+                CNPJ = @Cnpj,
+                InscricaoEstadual = @InscricaoEstadual,
+                InscricaoMunicipal = @InscricaoMunicipal,
+                CNAE = @Cnae,
+                Logradouro = @Logradouro,
+                Numero = @Numero,
+                Bairro = @Bairro,
+                Cep = @Cep,
+                Cidade = @Cidade,
+                UF = @Uf,
+                Telefone = @Telefone,
+                Email = @Email,
+                Site = @Site,
+                Responsavel = @Responsavel,
+                CertificadoDigital = @CertificadoDigital,
+                DataAtualizacao = GETDATE(),
+                UsuarioAtualizacao = @UsuarioAtualizacao");
 
             // 🔒 só atualiza a imagem se uma nova for enviada
             if (imagemNova != null && imagemNova.Length > 0)
@@ -373,7 +376,7 @@ WHERE EmpresaID = @EmpresaID";
             }
         }
 
-        public void ExcluirEmpresa(EmpresaModel empresa) => ExcluirEmpresa(empresa.EmpresaID);
+      
 
         public DataTable PesquisarPorNome(string nome)
         {
@@ -433,22 +436,20 @@ WHERE EmpresaID = @EmpresaID";
 
         public EmpresaModel? BuscarEmpresaPorId(int empresaID)
         {
-            string sql = SqlBase + " WHERE e.EmpresaID = @Id";
-            using (var conn = Conexao.Conex())
-            using (var cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.AddWithValue("@Id", empresaID);
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        return MapEmpresa(reader);
-                    }
-                }
-            }
+            const string sql = SqlBase + " WHERE em.EmpresaID = @Id";
+
+            using var cmd = CreateCommand(sql);
+
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = empresaID;
+
+            using var reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                return MapEmpresa(reader);
+
             return null;
         }
+
 
         // Método auxiliar para mapear EmpresaModel a partir de SqlDataReader
         private EmpresaModel MapEmpresa(SqlDataReader reader)
@@ -476,7 +477,9 @@ WHERE EmpresaID = @EmpresaID";
                 DataCriacao = reader["DataCriacao"] != DBNull.Value ? reader.GetDateTime(reader.GetOrdinal("DataCriacao")) : DateTime.MinValue,
                 DataAtualizacao = reader["DataAtualizacao"] != DBNull.Value ? (DateTime?)reader.GetDateTime(reader.GetOrdinal("DataAtualizacao")) : null,
                 UsuarioCriacao = reader["UsuarioCriacao"]?.ToString() ?? "",
-                UsuarioAtualizacao = reader["UsuarioAtualizacao"]?.ToString() ?? "",               
+                UsuarioAtualizacao = reader["UsuarioAtualizacao"]?.ToString() ?? "",
+                Logo = reader["Logo"] != DBNull.Value ? (byte[])reader["Logo"] : null,
+
             };
         }
         public static string ObterCaminhoCertificado(int empresaId)

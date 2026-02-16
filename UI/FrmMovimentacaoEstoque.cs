@@ -167,7 +167,8 @@ namespace GVC.View
                     Origem = cmbOrigem.Text,
                     Documento = null, // pode ligar depois
                     Observacao = txtObservacao.Text,
-                    Usuario = Environment.UserName
+                    Usuario = Sessao.NomeUsuario ?? Environment.UserName
+
                 };
 
                 new EstoqueBLL().MovimentarEstoque(mov);

@@ -511,5 +511,18 @@ namespace GVC
             FrmEntradaFiscal frm = new FrmEntradaFiscal();
             frm.Show();
         }
+
+        private void históricoDoProdutoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmHistoricoProduto frm = new FrmHistoricoProduto();
+            frm.Show();
+        }
+
+        private void vendedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmManutVendedor frm = new FrmManutVendedor(StatusOperacao);
+            StatusOperacao = "NOVO";
+            frm.Show();
+        }
     }
 }

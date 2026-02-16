@@ -4,6 +4,7 @@ using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
 using System.ComponentModel;
+using System.Data;
 using System.Security.Cryptography.Xml;
 using System.Windows.Forms;
 
@@ -21,13 +22,13 @@ namespace GVC.View
         private bool recebendoTextoExterno = false;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string VendedorSelecionado { get; set; }
-        private readonly ClienteBLL _bll;
+        private readonly VendedorBLL _bll;
 
         public FrmLocalizarVendedor(Form formChamador, string textoDigitado)
         {
             InitializeComponent();
 
-            _bll = new ClienteBLL();
+            _bll = new VendedorBLL();
             ConfigurarEventosTeclado();
             _formChamador = formChamador;
 
@@ -105,21 +106,21 @@ namespace GVC.View
             }
 
             // 3. Cabeçalhos bonitos
-            if (dataGridPesquisar.Columns["ClienteID"] != null)
+            if (dataGridPesquisar.Columns["VendedorID"] != null)
             {
-                dataGridPesquisar.Columns["ClienteID"].HeaderText = "Código";
-                dataGridPesquisar.Columns["ClienteID"].Visible = true;
+                dataGridPesquisar.Columns["VendedorID"].HeaderText = "Código";
+                dataGridPesquisar.Columns["VendedorID"].Visible = true;
             }
             if (dataGridPesquisar.Columns["Nome"] != null)
             {
-                dataGridPesquisar.Columns["Nome"].HeaderText = "Cliente";
+                dataGridPesquisar.Columns["Nome"].HeaderText = "Vendedor";
                 dataGridPesquisar.Columns["Nome"].Visible = true;
             }         
 
             // 4. Colunas fixas (largura definida e não mudam)
             var colunasFixas = new (string nome, int largura)[]
             {
-        ("ClienteID", 50),      
+        ("VendedorID", 50),      
             };
 
             foreach (var (nome, largura) in colunasFixas)
@@ -197,7 +198,7 @@ namespace GVC.View
         }
         public void ListarVendedor()
         {
-            dataGridPesquisar.DataSource = _bll.ListarVendedores();
+            dataGridPesquisar.DataSource = _bll.ListarTodos();
             PersonalizarDataGridView();
         }
         private void FrmLocalizarVendedor_Load(object sender, EventArgs e)
@@ -215,14 +216,15 @@ namespace GVC.View
                 txtPesquisar.Select(txtPesquisar.Text.Length, 0);
             }
         }
-
         private void PesquisarVendedor()
         {
             string textoPesquisa = txtPesquisar.Text.Trim();
 
             // 🔹 Pesquisa apenas por nome
             dataGridPesquisar.DataSource = _bll.PesquisarVendedor(textoPesquisa);
-        }
+
+            // Sem filtros manuais, sem DataView, sem nada
+        }       
 
         private void btnSair_Click(object sender, EventArgs e)
         {
@@ -251,7 +253,7 @@ namespace GVC.View
                     return;
                 }
 
-                var vendedorIdValue = dataGridPesquisar["ClienteID", linhaAtual]?.Value;
+                var vendedorIdValue = dataGridPesquisar["VendedorID", linhaAtual]?.Value;
                 var nomeValue = dataGridPesquisar["Nome", linhaAtual]?.Value;
 
                 if (vendedorIdValue == null || nomeValue == null)
@@ -273,9 +275,6 @@ namespace GVC.View
                 isSelectingProduct = false;
             }
         }
-
-
-
         private void dataGridPesquisar_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridPesquisar.CurrentRow != null)
@@ -435,12 +434,7 @@ namespace GVC.View
                         this.Close();
                     }
                     e.Handled = true;
-                    break;
-
-                    // Adicione outras teclas aqui, se precisar
-                    // case Keys.Enter:
-                    //     ...
-                    //     break;
+                    break;                                       
             }
 
         }

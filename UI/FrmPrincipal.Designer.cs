@@ -49,6 +49,7 @@
             entradaDeEstoqueNFeOuManualToolStripMenuItem = new ToolStripMenuItem();
             correçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
             consultarMovimentaçãoDeEstoqueToolStripMenuItem = new ToolStripMenuItem();
+            históricoDoProdutoToolStripMenuItem = new ToolStripMenuItem();
             vendasToolStripMenuItem = new ToolStripMenuItem();
             pDVToolStripMenuItem = new ToolStripMenuItem();
             orçamentosToolStripMenuItem = new ToolStripMenuItem();
@@ -103,6 +104,7 @@
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             cmbEmpresa = new Krypton.Toolkit.KryptonComboBox();
             label1 = new Label();
+            vendedoresToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -190,7 +192,7 @@
             // 
             // cadastrosToolStripMenuItem
             // 
-            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, empresasToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, marcasToolStripMenuItem, produtosToolStripMenuItem, usuáriosToolStripMenuItem, testeToolStripMenuItem });
+            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, empresasToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, marcasToolStripMenuItem, produtosToolStripMenuItem, testeToolStripMenuItem, usuáriosToolStripMenuItem, vendedoresToolStripMenuItem });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -252,7 +254,7 @@
             // 
             // estoqueToolStripMenuItem1
             // 
-            estoqueToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { entradaDeEstoqueNFeOuManualToolStripMenuItem, correçãoDeEstoqueToolStripMenuItem, consultarMovimentaçãoDeEstoqueToolStripMenuItem });
+            estoqueToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { entradaDeEstoqueNFeOuManualToolStripMenuItem, correçãoDeEstoqueToolStripMenuItem, consultarMovimentaçãoDeEstoqueToolStripMenuItem, históricoDoProdutoToolStripMenuItem });
             estoqueToolStripMenuItem1.Name = "estoqueToolStripMenuItem1";
             estoqueToolStripMenuItem1.Size = new Size(61, 20);
             estoqueToolStripMenuItem1.Text = "Estoque";
@@ -277,6 +279,13 @@
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Size = new Size(269, 22);
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Text = "Consultar Movimentação de Estoque";
             consultarMovimentaçãoDeEstoqueToolStripMenuItem.Click += consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click;
+            // 
+            // históricoDoProdutoToolStripMenuItem
+            // 
+            históricoDoProdutoToolStripMenuItem.Name = "históricoDoProdutoToolStripMenuItem";
+            históricoDoProdutoToolStripMenuItem.Size = new Size(269, 22);
+            históricoDoProdutoToolStripMenuItem.Text = "Histórico do Produto";
+            históricoDoProdutoToolStripMenuItem.Click += históricoDoProdutoToolStripMenuItem_Click;
             // 
             // vendasToolStripMenuItem
             // 
@@ -805,6 +814,13 @@
             label1.TabIndex = 1070;
             label1.Text = "Empresa:";
             // 
+            // vendedoresToolStripMenuItem
+            // 
+            vendedoresToolStripMenuItem.Name = "vendedoresToolStripMenuItem";
+            vendedoresToolStripMenuItem.Size = new Size(188, 22);
+            vendedoresToolStripMenuItem.Text = "Vendedores";
+            vendedoresToolStripMenuItem.Click += vendedoresToolStripMenuItem_Click;
+            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -923,5 +939,7 @@
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         public Krypton.Toolkit.KryptonComboBox cmbEmpresa;
         private ToolStripMenuItem marcasToolStripMenuItem;
+        private ToolStripMenuItem históricoDoProdutoToolStripMenuItem;
+        private ToolStripMenuItem vendedoresToolStripMenuItem;
     }
 }

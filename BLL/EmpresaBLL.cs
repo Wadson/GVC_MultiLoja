@@ -133,7 +133,7 @@ namespace GVC.BLL
 
             try
             {
-                _empresaDal.Atualizar(empresa);
+                _empresaDal.Atualizar(empresa, null);
             }
             catch (Exception ex)
             {
