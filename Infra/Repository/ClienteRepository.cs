@@ -9,33 +9,36 @@ namespace GVC.Infra.Repository
     {
 
         private const string SqlBase = @"
-            SELECT
-                c.ClienteID,
-                c.Nome,
-                c.Cpf,
-                c.RG,
-                c.OrgaoExpedidorRG,
-                c.Cnpj,
-                c.IE,
-                c.Telefone,
-                c.Email,
-                c.Logradouro,
-                c.Numero,
-                c.Bairro,
-                c.Cep,
-                c.DataNascimento,
-                c.TipoCliente,
-                c.Status,
-                c.Observacoes,
-                c.DataUltimaCompra,
-                c.LimiteCredito,
-                c.DataCriacao,
-                c.DataAtualizacao,
-                c.UsuarioCriacao,
-                c.UsuarioAtualizacao,
-                c.CidadeID                
-            FROM Clientes c
-            WHERE c.EmpresaID = @EmpresaID";
+    SELECT
+        c.ClienteID,
+        c.Nome,
+        c.Cpf,
+        c.RG,
+        c.OrgaoExpedidorRG,
+        c.Cnpj,
+        c.IE,
+        c.Telefone,
+        c.Email,
+        c.Logradouro,
+        c.Numero,
+        c.Bairro,
+        c.Cep,
+        c.DataNascimento,
+        c.TipoCliente,
+        c.Status,
+        c.Observacoes,
+        c.DataUltimaCompra,
+        c.LimiteCredito,
+        c.DataCriacao,
+        c.DataAtualizacao,
+        c.UsuarioCriacao,
+        c.UsuarioAtualizacao,
+        c.CidadeID,
+        ci.Nome AS CidadeNome
+    FROM Clientes c
+    LEFT JOIN Cidade ci ON c.CidadeID = ci.CidadeID
+    WHERE c.EmpresaID = @EmpresaID";
+
 
         // =========================
         // AUXILIAR
@@ -55,8 +58,7 @@ namespace GVC.Infra.Repository
         // =========================
         // LISTAR
         // =========================
-        public DataTable ListarClientes() => ExecuteDataTable(SqlBase + " ORDER BY c.Nome");
-        public DataTable ListarVendedores() => ExecuteDataTable(SqlBase + " AND c.IsVendedor = 1 ORDER BY c.Nome");
+        public DataTable ListarClientes() => ExecuteDataTable(SqlBase + " ORDER BY c.Nome");        
 
         // =========================
         // EXISTE
@@ -132,8 +134,8 @@ namespace GVC.Infra.Repository
                     Observacoes = @Observacoes,
                     LimiteCredito = @LimiteCredito,
                     DataAtualizacao = @DataAtualizacao,
-                    UsuarioAtualizacao = @UsuarioAtualizacao,                   
-                WHERE ClienteID = @ClienteID
+                    UsuarioAtualizacao = @UsuarioAtualizacao                 
+                  WHERE ClienteID = @ClienteID
                   AND EmpresaID = @EmpresaID";
 
             using var cmd = CreateCommand(sql);
@@ -149,9 +151,9 @@ namespace GVC.Infra.Repository
         public void Excluir(int clienteId)
         {
             using var cmd = CreateCommand(
-                "DELETE FROM Clientes WHERE ClienteID = @ID AND EmpresaID = @EmpresaID");
+                "DELETE FROM Clientes WHERE ClienteID = @ClienteID AND EmpresaID = @EmpresaID");
 
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = clienteId;
+            cmd.Parameters.Add("@ClienteID", SqlDbType.Int).Value = clienteId;
             cmd.ExecuteNonQuery();
         }
 
@@ -161,15 +163,6 @@ namespace GVC.Infra.Repository
         public DataTable PesquisarPorNome(string nome)  => ExecuteDataTable(
                 SqlBase + " AND c.Nome LIKE @Nome ORDER BY c.Nome",
                 new SqlParameter("@Nome", $"%{nome.Trim()}%"));
-
-        //public DataTable PesquisarVendedores(string nome = "")
-        //    => ExecuteDataTable(
-        //        SqlBase + " AND c.IsVendedor = 1 AND c.Nome LIKE @Nome ORDER BY c.Nome",
-        //        new SqlParameter("@Nome", $"%{nome.Trim()}%"));
-
-
-
-
 
         public ClienteModel BuscarPorId(int clienteId)
         {
@@ -194,6 +187,98 @@ namespace GVC.Infra.Repository
                 Nome = dr.GetString(dr.GetOrdinal("Nome"))
             };
         }
+
+        // =========================
+        // ESTATÍSTICAS DO CLIENTE
+        // =========================
+        // =========================
+        // ESTATÍSTICAS DO CLIENTE - CORRIGIDAS
+        // =========================
+
+        public int ObterTotalVendas(int clienteId, int empresaID)
+        {
+            string sql = @"
+        SELECT COUNT(*) 
+        FROM Venda 
+        WHERE ClienteID = @ClienteID 
+          AND EmpresaID = @EmpresaID";
+
+            using (var cmd = CreateCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                // @EmpresaID já é adicionado pelo CreateCommand
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        public decimal ObterTotalCompras(int clienteId, int empresaID)
+        {
+            string sql = @"
+        SELECT ISNULL(SUM(ValorTotal), 0)
+        FROM Venda 
+        WHERE ClienteID = @ClienteID 
+          AND EmpresaID = @EmpresaID";
+
+            using (var cmd = CreateCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                return Convert.ToDecimal(cmd.ExecuteScalar());
+            }
+        }
+
+        public int ObterTotalParcelas(int clienteId)
+        {
+            string sql = @"
+        SELECT COUNT(*)
+        FROM Parcela p
+        INNER JOIN Venda v ON p.VendaID = v.VendaID
+        WHERE v.ClienteID = @ClienteID
+          AND v.EmpresaID = @EmpresaID";
+
+            using (var cmd = CreateCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        public int ObterParcelasPendentes(int clienteId)
+        {
+            string sql = @"
+        SELECT COUNT(*)
+        FROM Parcela p
+        INNER JOIN Venda v ON p.VendaID = v.VendaID
+        WHERE v.ClienteID = @ClienteID
+          AND v.EmpresaID = @EmpresaID
+          AND p.Status IN ('Pendente', 'ParcialmentePago', 'Atrasada')";
+
+            using (var cmd = CreateCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        public decimal ObterValorPendente(int clienteId)
+        {
+            string sql = @"
+        SELECT ISNULL(SUM(
+            p.ValorParcela + ISNULL(p.Juros, 0) + ISNULL(p.Multa, 0) - ISNULL(p.ValorRecebido, 0)
+        ), 0)
+        FROM Parcela p
+        INNER JOIN Venda v ON p.VendaID = v.VendaID
+        WHERE v.ClienteID = @ClienteID
+          AND v.EmpresaID = @EmpresaID
+          AND p.Status IN ('Pendente', 'ParcialmentePago', 'Atrasada')";
+
+            using (var cmd = CreateCommand(sql))
+            {
+                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                return Convert.ToDecimal(cmd.ExecuteScalar());
+            }
+        }
+       
+
         // =========================
         // MAP
         // =========================
@@ -223,8 +308,8 @@ namespace GVC.Infra.Repository
                 DataCriacao = Convert.ToDateTime(r["DataCriacao"]),
                 DataAtualizacao = r["DataAtualizacao"] as DateTime?,
                 UsuarioCriacao = r["UsuarioCriacao"] as string,
-                UsuarioAtualizacao = r["UsuarioAtualizacao"] as string,
-                IsVendedor = Convert.ToBoolean(r["IsVendedor"])
+                UsuarioAtualizacao = r["UsuarioAtualizacao"] as string
+                
             };
         }
 
@@ -253,7 +338,7 @@ namespace GVC.Infra.Repository
             cmd.Parameters.Add("@Status", SqlDbType.Int).Value = c.Status;
             cmd.Parameters.Add("@Observacoes", SqlDbType.NVarChar).Value = (object?)c.Observacoes ?? DBNull.Value;
             cmd.Parameters.Add("@LimiteCredito", SqlDbType.Decimal).Value = c.LimiteCredito;
-            cmd.Parameters.Add("@IsVendedor", SqlDbType.Bit).Value = c.IsVendedor ?? false;
+           
 
             if (isInsert)
             {

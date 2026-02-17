@@ -302,6 +302,8 @@
             dgvVendas.Size = new Size(878, 260);
             dgvVendas.TabIndex = 1042;
             dgvVendas.TabStop = false;
+            dgvVendas.CellDoubleClick += dgvVendas_CellDoubleClick;
+            dgvVendas.CellFormatting += dgvVendas_CellFormatting;
             // 
             // pnlHeader
             // 

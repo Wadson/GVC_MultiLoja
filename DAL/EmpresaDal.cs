@@ -161,7 +161,7 @@ SELECT
     em.DataAtualizacao,
     em.UsuarioCriacao,
     em.UsuarioAtualizacao,
-    em.Logo
+    em.Logo, 
     em.FundoTela
 FROM Empresa em";
 

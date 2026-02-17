@@ -26,9 +26,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace GVC.View
 {
     public partial class FrmPDVendas : KryptonForm
-    {
-       
-        private readonly ModoVenda _modo;
+    {       
         private readonly int _vendaId;
         public int VendaID { get; private set; }
         private bool _clienteFoiSelecionado = false;
@@ -89,10 +87,6 @@ namespace GVC.View
         public FrmPDVendas()// NOVA VENDA
         {
             InitializeComponent();
-
-            _modo = ModoVenda.Nova;
-            _vendaId = 0;
-
             InicializarFormulario(); // <<< OBRIGATÓRIO
 
             dgvItensVenda.CellEndEdit += dgvItensVenda_CellEndEdit;
@@ -100,17 +94,8 @@ namespace GVC.View
             this.StateCommon.Header.Content.ShortText.Color1 = Color.Red;
             this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
             this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 18);
-        }
-      
-        public FrmPDVendas(int vendaId) // MODO EDIÇÃO
-        {
-            InitializeComponent();
-
-            _modo = ModoVenda.Edicao;
-            _vendaId = vendaId;
-
-            InicializarFormulario();
-        }
+        }     
+       
         private void InicializarFormulario()
         {
             this.Text = "Frente de Caixa";
@@ -245,24 +230,13 @@ namespace GVC.View
             _itensBindingSource.DataSource = _itensBinding;
             dgvItensVenda.DataSource = _itensBindingSource;
 
-            // 3. Configurações iniciais para nova venda
-            if (_modo == ModoVenda.Nova)
-            {
-                int proximaVendaID = new VendaRepository().ObterProximoNumeroVenda();
+            int proximaVendaID = new VendaRepository().ObterProximoNumeroVenda();
 
 
-                lblVendaID.Text = "Nº Venda: " +
-                    "" +
-                    ""+ Utilitario.ZerosEsquerda(proximaVendaID, 4);
-                lblDataVenda.Text = DateTime.Now.ToString("dd/MM/yyyy");
-            }
-            else if (_modo == ModoVenda.Edicao)
-            {
-                // CarregarVenda(); // descomente quando implementar
-                AjustarCamposEdicao();
-                this.Text = $"Alterando Venda Nº {_vendaId}";
-                // btnFinalizarVenda.Text = "Salvar Alterações";
-            }
+            lblVendaID.Text = "Nº Venda: " +
+                "" +
+                "" + Utilitario.ZerosEsquerda(proximaVendaID, 4);
+            lblDataVenda.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
             // Garante o foco no campo de busca de cliente
             if (txtClienteBuscar.CanFocus)

@@ -9,6 +9,8 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Data;
+using System.Data;
 
 namespace GVC.BLL
 {
@@ -39,7 +41,7 @@ namespace GVC.BLL
         public void AtualizarStatusVenda(int vendaId, SqlConnection conn, SqlTransaction tran)
         { 
         }
-
+       
         public EnumStatusVenda CalcularStatusVendaPorParcelas(IEnumerable<ParcelaModel> parcelas)
         {
             if (parcelas == null || !parcelas.Any())
@@ -140,18 +142,17 @@ namespace GVC.BLL
          
             return _vendaRepository.AddVendaCompleta(venda, itens, parcelas);
         }
-        public void ExcluirVenda(int vendaId)
+     
+        public DadosExclusaoVenda ObterDadosParaExclusao(int vendaId)
         {
-            using var parcelaRepo = new ParcelaRepository();
-            using var vendaRepo = new VendaRepository();
-
-            if (parcelaRepo.ExistePagamentoPorVenda(vendaId))
-                throw new Exception("Não é possível excluir venda com pagamentos.");
-
-            // ✅ Agora VendaRepository.Excluir faz TUDO (estoque + itens + parcelas + venda)
-            vendaRepo.Excluir(vendaId);
+            using var repo = new VendaRepository();
+            return repo.ObterDadosParaExclusao(vendaId);
         }
-
+        public void ExcluirVendaCompleta(int vendaId)
+        {
+            using var repo = new VendaRepository();
+            repo.Excluir(vendaId); // Seu método atual que já faz tudo
+        }
 
 
 
@@ -197,6 +198,19 @@ namespace GVC.BLL
         public bool PodeAlterarVenda(int vendaId)
         {
             return !_parcelaRepository.ExistePagamentoPorVenda(vendaId);
-        }        
+        }
+        public DataTable ListarVendasParaGrid(
+        long? vendaId,
+        string? clienteNome,
+        DateTime dataInicio,
+        DateTime dataFim)
+        {
+            return _vendaRepository.ListarVendasParaGrid(vendaId, clienteNome, dataInicio, dataFim);
+        }
+        public VendaVisualizacaoDTO ObterVendaParaVisualizacao(int vendaId)
+        {
+            using var repo = new VendaRepository();
+            return repo.ObterVendaParaVisualizacao(vendaId);
+        }
     }
 }

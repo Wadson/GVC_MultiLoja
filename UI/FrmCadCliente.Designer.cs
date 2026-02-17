@@ -82,8 +82,7 @@
             txtCnpj = new Krypton.Toolkit.KryptonTextBox();
             lblRotuloCnpj = new Label();
             txtIE = new Krypton.Toolkit.KryptonTextBox();
-            lblRotuloIE = new Label();
-            chkIsVendedor = new CheckBox();
+            lblRotuloIE = new Label();            
             btnSalvar = new Krypton.Toolkit.KryptonButton();
             btnNovo = new Krypton.Toolkit.KryptonButton();
             btnSair = new Krypton.Toolkit.KryptonButton();
@@ -821,20 +820,8 @@
             lblRotuloIE.TabIndex = 1041;
             lblRotuloIE.Text = "IE (Inscrição Estadual)";
             lblRotuloIE.Visible = false;
-            // 
-            // chkIsVendedor
-            // 
-            chkIsVendedor.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            chkIsVendedor.AutoSize = true;
-            chkIsVendedor.BackColor = Color.Transparent;
-            chkIsVendedor.Font = new Font("Segoe UI", 10F);
-            chkIsVendedor.Location = new Point(935, 109);
-            chkIsVendedor.Name = "chkIsVendedor";
-            chkIsVendedor.Size = new Size(50, 23);
-            chkIsVendedor.TabIndex = 200;
-            chkIsVendedor.TabStop = false;
-            chkIsVendedor.Text = "Sim";
-            chkIsVendedor.UseVisualStyleBackColor = false;
+          
+           
             // 
             // btnSalvar
             // 
@@ -1268,9 +1255,7 @@
             Controls.Add(lblEVendedor);
             Controls.Add(txtEmail);
             Controls.Add(lblRG);
-            Controls.Add(lblRotuloTelefone);
-            Controls.Add(chkIsVendedor);
-            Controls.Add(lblRotuloEmail);
+            Controls.Add(lblRotuloTelefone);            
             Controls.Add(txtRg);
             Controls.Add(txtTelefone);
             Controls.Add(txtClienteID);

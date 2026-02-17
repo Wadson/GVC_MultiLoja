@@ -764,13 +764,224 @@ namespace GVC.View
                     Utilitario.Mensagens.Aviso("Erro inesperado: " + ex.Message);
             }
         }
-
-        public void ExcluirRegistro()
+        private void ExcluirRegistro()
         {
-            if (MessageBox.Show($"Deseja realmente excluir o cliente:\n\n{txtNomeCliente.Text}?",
-                "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            try
             {
-                try
+                // =============================================
+                // PASSO 1: Buscar estatísticas do cliente
+                // =============================================
+                var cliente = _clienteBll.BuscarPorId(ClienteID);
+
+                if (cliente == null)
+                {
+                    Utilitario.Mensagens.Erro("Cliente não encontrado!");
+                    return;
+                }
+
+                // Buscar dados de vendas e parcelas
+                int totalVendas = _clienteBll.ObterTotalVendas(ClienteID, Sessao.EmpresaID);
+                decimal totalCompras = _clienteBll.ObterTotalCompras(ClienteID, Sessao.EmpresaID);
+                int totalParcelas = _clienteBll.ObterTotalParcelas(ClienteID);
+                int parcelasPendentes = _clienteBll.ObterParcelasPendentes(ClienteID);
+                decimal valorPendente = _clienteBll.ObterValorPendente(ClienteID);
+
+                // =============================================
+                // PASSO 2: Construir mensagem detalhada
+                // =============================================
+                string mensagem = $@"
+                ╔══════════════════════════════════════════════╗
+                ║        CONFIRMAÇÃO DE EXCLUSÃO              ║
+                ╚══════════════════════════════════════════════╝
+
+                📋 DADOS DO CLIENTE:
+                   ID: {cliente.ClienteID}
+                   Nome: {cliente.Nome}
+                   CPF/CNPJ: {(!string.IsNullOrEmpty(cliente.Cpf) ?
+                               Convert.ToUInt64(cliente.Cpf).ToString(@"000\.000\.000\-00") :
+                               (!string.IsNullOrEmpty(cliente.Cnpj) ?
+                                   Convert.ToUInt64(cliente.Cnpj).ToString(@"00\.000\.000\/0000\-00") : "N/A"))}
+
+                📊 ESTATÍSTICAS:
+                   → Vendas realizadas: {totalVendas:N0}
+                   → Total em compras: {totalCompras:C2}
+                   → Total de parcelas: {totalParcelas:N0}
+                   → Parcelas pendentes: {parcelasPendentes:N0}
+                   → Valor pendente: {valorPendente:C2}
+
+                {(parcelasPendentes > 0 ?
+                        @"⚠️  ATENÇÃO: Cliente possui parcelas em aberto!
+                   A exclusão cancelará todas as parcelas pendentes.
+                " : "")}
+                📌 ITENS QUE SERÃO EXCLUÍDOS:
+                   • Cadastro do cliente
+                   • Todas as vendas (com itens)
+                   • Todas as parcelas geradas
+                   • Todos os pagamentos parciais
+
+                ⚠️  ESTA AÇÃO É IRREVERSÍVEL!
+
+                Para confirmar, digite o nome do cliente abaixo:
+                {cliente.Nome}";
+
+                // =============================================
+                // PASSO 3: Formulário de confirmação
+                // =============================================
+                Form confirmForm = new Form
+                {
+                    Text = "🔴 EXCLUSÃO DE CLIENTE",
+                    Size = new Size(600, 600),
+                    StartPosition = FormStartPosition.CenterParent,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    MaximizeBox = false,
+                    MinimizeBox = false,
+                    BackColor = Color.White
+                };
+
+                TableLayoutPanel layout = new TableLayoutPanel
+                {
+                    Dock = DockStyle.Fill,
+                    Padding = new Padding(20),
+                    RowCount = 5,
+                    ColumnCount = 1,
+                    BackColor = Color.White
+                };
+
+                // RichTextBox para mostrar a mensagem formatada
+                RichTextBox txtMensagem = new RichTextBox
+                {
+                    Text = mensagem,
+                    ReadOnly = true,
+                    BorderStyle = BorderStyle.None,
+                    BackColor = Color.FromArgb(245, 245, 245),
+                    Font = new Font("Consolas", 10),
+                    Height = 400,
+                    Dock = DockStyle.Fill
+                };
+
+                // Campo de confirmação
+                Label lblInstrucao = new Label
+                {
+                    Text = "Digite o nome do cliente para confirmar:",
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 9, FontStyle.Bold)
+                };
+
+                KryptonTextBox txtConfirmacao = new KryptonTextBox
+                {
+                    Width = 300,
+                    Font = new Font("Segoe UI", 10),
+                    TextAlign = HorizontalAlignment.Center
+                };
+
+                // Painel de botões
+                FlowLayoutPanel btnPanel = new FlowLayoutPanel
+                {
+                    FlowDirection = FlowDirection.RightToLeft,
+                    Dock = DockStyle.Fill,
+                    Height = 50,
+                    BackColor = Color.White
+                };
+
+                // Ajuste: KryptonButton não possui propriedade FlatStyle.
+                // Substituímos configurações inválidas por propriedades do StateCommon
+                KryptonButton btnConfirmar = new KryptonButton
+                {
+                    Text = "🗑️  CONFIRMAR EXCLUSÃO",
+                    Enabled = false,
+                    Width = 200,
+                    Height = 40,
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold)
+                };
+                // Cor de fundo e texto via StateCommon (Krypton)
+                btnConfirmar.StateCommon.Back.Color1 = Color.FromArgb(192, 0, 0);
+                btnConfirmar.StateCommon.Back.ColorStyle = PaletteColorStyle.Solid;
+                btnConfirmar.StateCommon.Content.ShortText.Color1 = Color.White;
+                btnConfirmar.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+                KryptonButton btnCancelar = new KryptonButton
+                {
+                    Text = "❌  CANCELAR",
+                    Width = 150,
+                    Height = 40,
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                    DialogResult = DialogResult.Cancel
+                };
+                btnCancelar.StateCommon.Back.Color1 = Color.FromArgb(64, 64, 64);
+                btnCancelar.StateCommon.Back.ColorStyle = PaletteColorStyle.Solid;
+                btnCancelar.StateCommon.Content.ShortText.Color1 = Color.White;
+                btnCancelar.StateCommon.Content.ShortText.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+                // Eventos
+                txtConfirmacao.TextChanged += (s, e) =>
+                {
+                    btnConfirmar.Enabled = txtConfirmacao.Text.Trim().Equals(cliente.Nome, StringComparison.CurrentCultureIgnoreCase);
+                };
+
+                btnConfirmar.Click += (s, e) =>
+                {
+                    confirmForm.DialogResult = DialogResult.Yes;
+                    confirmForm.Close();
+                };
+
+                btnPanel.Controls.Add(btnConfirmar);
+                btnPanel.Controls.Add(btnCancelar);
+
+                layout.Controls.Add(txtMensagem, 0, 0);
+                layout.Controls.Add(lblInstrucao, 0, 1);
+                layout.Controls.Add(txtConfirmacao, 0, 2);
+                layout.Controls.Add(new Panel { Height = 10 }, 0, 3);
+                layout.Controls.Add(btnPanel, 0, 4);
+
+                confirmForm.Controls.Add(layout);
+
+                // =============================================
+                // PASSO 4: Processar exclusão
+                // =============================================
+                if (confirmForm.ShowDialog(this) == DialogResult.Yes)
+                {
+                    btnSalvar.Enabled = false;
+                    btnNovo.Enabled = false;
+                    Cursor = Cursors.WaitCursor;
+
+                    try
+                    {
+                        _clienteBll.Excluir(ClienteID);
+
+                        string resumo = $@"
+                    ✅ CLIENTE EXCLUÍDO COM SUCESSO!
+
+                    📊 Resumo da exclusão:
+                    • {totalVendas} venda(s) excluída(s)
+                    • {totalParcelas} parcela(s) excluída(s)
+                    • Total movimentado: {totalCompras:C2}";
+
+                        Utilitario.Mensagens.Info(resumo);
+
+                        AtualizarManutencao();
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Utilitario.Mensagens.Erro($"Erro ao excluir: {ex.Message}");
+                    }
+                    finally
+                    {
+                        Cursor = Cursors.Default;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Utilitario.Mensagens.Erro($"Erro ao preparar exclusão: {ex.Message}");
+            }
+        }
+        public void ExcluirRegistroAntigo()
+        {
+            try
+            {
+                if (MessageBox.Show($"Deseja realmente excluir o cliente:\n\n{txtNomeCliente.Text}?",
+                    "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _clienteBll.Excluir(ClienteID);
                     Utilitario.Mensagens.Aviso("Cliente excluído com sucesso!");
@@ -779,10 +990,10 @@ namespace GVC.View
 
                     this.Close();
                 }
-                catch (Exception ex)
-                {
-                    Utilitario.Mensagens.Erro("Erro ao excluir: " + ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                Utilitario.Mensagens.Erro("Erro ao excluir: " + ex.Message);
             }
         }
         private ClienteModel MontarObjetoCliente()

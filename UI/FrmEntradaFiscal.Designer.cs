@@ -42,16 +42,12 @@
             grpItens = new GroupBox();
             dgvItensDocumento = new Krypton.Toolkit.KryptonDataGridView();
             grpTotais = new GroupBox();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            tableLayoutPanel2 = new TableLayoutPanel();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             lblTotalItens = new Krypton.Toolkit.KryptonLabel();
-            tableLayoutPanel3 = new TableLayoutPanel();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             kryptonLabel7 = new Krypton.Toolkit.KryptonLabel();
             lblTotal = new Krypton.Toolkit.KryptonLabel();
-            lblTota = new Label();
             btnConfirmar = new FontAwesome.Sharp.IconButton();
             btnSair = new FontAwesome.Sharp.IconButton();
             btnCancelar = new FontAwesome.Sharp.IconButton();
@@ -79,10 +75,7 @@
             grpItens.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItensDocumento).BeginInit();
             grpTotais.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
-            tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
@@ -263,8 +256,12 @@
             // grpTotais
             // 
             grpTotais.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grpTotais.Controls.Add(tableLayoutPanel1);
-            grpTotais.Controls.Add(lblTota);
+            grpTotais.Controls.Add(iconPictureBox1);
+            grpTotais.Controls.Add(iconPictureBox2);
+            grpTotais.Controls.Add(kryptonLabel1);
+            grpTotais.Controls.Add(lblTotalItens);
+            grpTotais.Controls.Add(kryptonLabel7);
+            grpTotais.Controls.Add(lblTotal);
             grpTotais.Controls.Add(btnConfirmar);
             grpTotais.Controls.Add(btnSair);
             grpTotais.Controls.Add(btnCancelar);
@@ -274,145 +271,77 @@
             grpTotais.TabIndex = 2;
             grpTotais.TabStop = false;
             // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.0198021F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.9801979F));
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 0);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel3, 1, 0);
-            tableLayoutPanel1.Location = new Point(8, 14);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.4352331F));
-            tableLayoutPanel1.Size = new Size(244, 68);
-            tableLayoutPanel1.TabIndex = 1201;
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 44F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Controls.Add(iconPictureBox1, 0, 0);
-            tableLayoutPanel2.Controls.Add(kryptonLabel1, 1, 0);
-            tableLayoutPanel2.Controls.Add(lblTotalItens, 0, 1);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 3);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 2;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(111, 62);
-            tableLayoutPanel2.TabIndex = 0;
-            // 
             // iconPictureBox1
             // 
             iconPictureBox1.BackColor = Color.White;
-            iconPictureBox1.Dock = DockStyle.Fill;
             iconPictureBox1.ForeColor = Color.IndianRed;
             iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.ListDots;
             iconPictureBox1.IconColor = Color.IndianRed;
             iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 26;
-            iconPictureBox1.Location = new Point(3, 3);
+            iconPictureBox1.IconSize = 36;
+            iconPictureBox1.Location = new Point(6, 22);
             iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(38, 26);
+            iconPictureBox1.Size = new Size(36, 36);
             iconPictureBox1.TabIndex = 0;
             iconPictureBox1.TabStop = false;
             // 
             // kryptonLabel1
             // 
-            kryptonLabel1.Dock = DockStyle.Fill;
-            kryptonLabel1.Location = new Point(47, 3);
+            kryptonLabel1.Location = new Point(45, 22);
             kryptonLabel1.Name = "kryptonLabel1";
             kryptonLabel1.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Black;
-            kryptonLabel1.Size = new Size(61, 26);
+            kryptonLabel1.Size = new Size(50, 26);
             kryptonLabel1.StateCommon.ShortText.Color1 = Color.IndianRed;
             kryptonLabel1.StateCommon.ShortText.Font = new Font("Segoe UI", 12F);
             kryptonLabel1.TabIndex = 3;
-            kryptonLabel1.Values.Text = "Itens";
+            kryptonLabel1.Values.Text = "Itens:";
             // 
             // lblTotalItens
             // 
-            tableLayoutPanel2.SetColumnSpan(lblTotalItens, 2);
-            lblTotalItens.Dock = DockStyle.Top;
-            lblTotalItens.Location = new Point(3, 35);
+            lblTotalItens.Location = new Point(99, 22);
             lblTotalItens.Name = "lblTotalItens";
             lblTotalItens.PaletteMode = Krypton.Toolkit.PaletteMode.Office365SilverLightMode;
-            lblTotalItens.Size = new Size(105, 24);
+            lblTotalItens.Size = new Size(21, 26);
             lblTotalItens.StateCommon.ShortText.Color1 = Color.IndianRed;
             lblTotalItens.StateCommon.ShortText.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold);
             lblTotalItens.TabIndex = 3;
             lblTotalItens.Values.Text = "0";
             // 
-            // tableLayoutPanel3
-            // 
-            tableLayoutPanel3.ColumnCount = 2;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 45F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Controls.Add(iconPictureBox2, 0, 0);
-            tableLayoutPanel3.Controls.Add(kryptonLabel7, 1, 0);
-            tableLayoutPanel3.Controls.Add(lblTotal, 0, 1);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(120, 3);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 33F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(121, 62);
-            tableLayoutPanel3.TabIndex = 1;
-            // 
             // iconPictureBox2
             // 
             iconPictureBox2.BackColor = Color.White;
-            iconPictureBox2.Dock = DockStyle.Fill;
             iconPictureBox2.ForeColor = Color.ForestGreen;
             iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.MoneyBills;
             iconPictureBox2.IconColor = Color.ForestGreen;
             iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox2.IconSize = 27;
-            iconPictureBox2.Location = new Point(3, 3);
+            iconPictureBox2.IconSize = 36;
+            iconPictureBox2.Location = new Point(6, 60);
             iconPictureBox2.Name = "iconPictureBox2";
-            iconPictureBox2.Size = new Size(39, 27);
+            iconPictureBox2.Size = new Size(36, 36);
             iconPictureBox2.TabIndex = 0;
             iconPictureBox2.TabStop = false;
             // 
             // kryptonLabel7
             // 
-            kryptonLabel7.Dock = DockStyle.Fill;
-            kryptonLabel7.Location = new Point(48, 3);
+            kryptonLabel7.Location = new Point(46, 60);
             kryptonLabel7.Name = "kryptonLabel7";
             kryptonLabel7.PaletteMode = Krypton.Toolkit.PaletteMode.Office365Black;
-            kryptonLabel7.Size = new Size(70, 27);
+            kryptonLabel7.Size = new Size(52, 26);
             kryptonLabel7.StateCommon.ShortText.Color1 = Color.ForestGreen;
             kryptonLabel7.StateCommon.ShortText.Font = new Font("Segoe UI", 12F);
             kryptonLabel7.TabIndex = 3;
-            kryptonLabel7.Values.Text = "Total";
+            kryptonLabel7.Values.Text = "Total:";
             // 
             // lblTotal
             // 
-            tableLayoutPanel3.SetColumnSpan(lblTotal, 2);
-            lblTotal.Dock = DockStyle.Top;
-            lblTotal.Location = new Point(3, 36);
+            lblTotal.Location = new Point(97, 60);
             lblTotal.Name = "lblTotal";
             lblTotal.PaletteMode = Krypton.Toolkit.PaletteMode.Office365SilverLightMode;
-            lblTotal.Size = new Size(115, 23);
+            lblTotal.Size = new Size(68, 26);
             lblTotal.StateCommon.ShortText.Color1 = Color.ForestGreen;
             lblTotal.StateCommon.ShortText.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold);
             lblTotal.TabIndex = 3;
             lblTotal.Values.Text = "R$ 0,00";
-            // 
-            // lblTota
-            // 
-            lblTota.AutoSize = true;
-            lblTota.BackColor = Color.Transparent;
-            lblTota.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTota.ForeColor = Color.FromArgb(0, 76, 172);
-            lblTota.Location = new Point(140, 21);
-            lblTota.Name = "lblTota";
-            lblTota.Size = new Size(43, 16);
-            lblTota.TabIndex = 1144;
-            lblTota.Text = "Total";
             // 
             // btnConfirmar
             // 
@@ -844,12 +773,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvItensDocumento).EndInit();
             grpTotais.ResumeLayout(false);
             grpTotais.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
-            tableLayoutPanel3.ResumeLayout(false);
-            tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();
             pnlHeader.ResumeLayout(false);
@@ -893,19 +817,13 @@
         private Label lblProduto;
         public Krypton.Toolkit.KryptonTextBox txtPrecoCompra;
         private Label lblPrecoCompra;
-        
-        private Label lblTota;
         public Krypton.Toolkit.KryptonTextBox txtQuantidade;
         private Label lblQuantidade;
         public Krypton.Toolkit.KryptonTextBox txtPrecoCusto;
         private Label lblPrecoCusto;
-      
-        private TableLayoutPanel tableLayoutPanel1;
-        private TableLayoutPanel tableLayoutPanel3;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
         private Krypton.Toolkit.KryptonLabel kryptonLabel7;
         private Krypton.Toolkit.KryptonLabel lblTotal;
-        private TableLayoutPanel tableLayoutPanel2;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private Krypton.Toolkit.KryptonLabel lblTotalItens;

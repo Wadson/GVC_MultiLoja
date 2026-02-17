@@ -290,6 +290,7 @@ namespace GVC.View
 
                 HabilitarTimer(true);
                 frm.ShowDialog();
+
                 return;
             }
 
@@ -323,8 +324,13 @@ namespace GVC.View
 
             frm.txtDataValidade.Text = produto.DataValidade.HasValue ? produto.DataValidade.Value.ToString("dd/MM/yyyy") : "";
             frm.txtGtinEan.Text = produto.GtinEan ?? "";
-            frm.txtFornecedor.Text = produto.Fornecedor?.Fornecedor ?? "";
-            frm.txtFornecedorID.Text = produto.FornecedorID.ToString();
+            //frm.txtFornecedor.Text = produto.Fornecedor?.Fornecedor ?? "";
+            //frm.txtFornecedorID.Text = produto.FornecedorID.ToString();
+
+            // No método CarregaDados()
+            frm.txtFornecedor.Text = produto.NomeFornecedor ?? "";  // ← Use NomeFornecedor
+            frm.txtFornecedorID.Text = produto.FornecedorID?.ToString() ?? "0";
+
             frm.cmbSituacao.Text = produto.Situacao ?? "";
             frm.cmbStatus.Text = produto.Status;
 
@@ -378,11 +384,8 @@ namespace GVC.View
                 frm.cmbStatus.Enabled = false;
                 frm.btnLocalizarImagem.Enabled = false;
             }
-
             frm.ShowDialog();
         }
-
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             ListarProduto();

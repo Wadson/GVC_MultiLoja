@@ -53,7 +53,7 @@ public partial class ClienteModel
 
     public string? OrgaoExpedidorRG { get; set; }
 
-    public bool? IsVendedor { get; set; }
+   
     public int EmpresaID { get; set; }
 
     public virtual CidadeModel? Cidade { get; set; }

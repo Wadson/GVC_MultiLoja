@@ -62,8 +62,8 @@ namespace GVC.View
             if (dgvCliente.Columns["UsuarioCriacao"] != null) dgvCliente.Columns["UsuarioCriacao"].HeaderText = "Usuário Criação";
             if (dgvCliente.Columns["UsuarioAtualizacao"] != null) dgvCliente.Columns["UsuarioAtualizacao"].HeaderText = "Usuário Atualização";
             if (dgvCliente.Columns["NomeCidade"] != null) dgvCliente.Columns["NomeCidade"].HeaderText = "Cidade";
-            if (dgvCliente.Columns["Estado"] != null) dgvCliente.Columns["Estado"].HeaderText = "Uf";
-            if (dgvCliente.Columns["IsVendedor"] != null) dgvCliente.Columns["IsVendedor"].HeaderText = "Vendedor";
+            if (dgvCliente.Columns["CidadeID"] != null) dgvCliente.Columns["CidadeID"].HeaderText = "CidadeID";
+            if (dgvCliente.Columns["Estado"] != null) dgvCliente.Columns["Estado"].HeaderText = "Uf";            
             dgvCliente.Columns["Nome"].DefaultCellStyle.Font = new Font("Segoe UI", 8f, FontStyle.Regular);
 
 
@@ -92,10 +92,11 @@ namespace GVC.View
                 ("DataCriacao",   130),
                 ("DataAtualizacao",130),
                 ("UsuarioCriacao",150),
-                ("UsuarioAtualizacao",150),
+                ("UsuarioAtualizacao",150),               
+                ("CidadeID",       80),
                 ("NomeCidade",    200),
-                ("Estado",         60),
-                ("IsVendedor", 70)
+                ("Estado",         60)
+                
             };
             dgvCliente.AllowUserToResizeColumns = true;
 

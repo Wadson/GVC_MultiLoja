@@ -69,15 +69,7 @@ namespace GVC.BLL
 
             return clienteRepository.PesquisarPorNome(nome);
         }
-        // No ClienteBLL.cs
-
-        //public DataTable PesquisarVendedor(string nome)
-        //{
-        //    return clienteRepository.PesquisarVendedores(nome);
-        //}
-        // =========================
-        // ALTERAR
-        // =========================
+       
         public void Alterar(ClienteModel cliente)
         {
             if (cliente.ClienteID <= 0)
@@ -205,5 +197,52 @@ namespace GVC.BLL
                 return false;
             }
         }
+        // =========================
+        // ESTATÍSTICAS DO CLIENTE
+        // =========================
+
+        public int ObterTotalVendas(int clienteId, int empresaID)
+        {
+            if (clienteId <= 0)
+                return 0;
+
+            using var repo = new ClienteRepository();
+            return repo.ObterTotalVendas(clienteId, empresaID);
+        }
+        public int ObterTotalCompras(int clienteId, int empresaID)
+        {
+            if (clienteId <= 0)
+                return 0;
+
+            using var repo = new ClienteRepository();
+            return (int)repo.ObterTotalCompras(clienteId, empresaID);
+        }
+        public int ObterTotalParcelas(int clienteId)
+        {
+            if (clienteId <= 0)
+                return 0;
+
+            using var repo = new ClienteRepository();
+            return repo.ObterTotalParcelas(clienteId);
+        }
+
+        public int ObterParcelasPendentes(int clienteId)
+        {
+            if (clienteId <= 0)
+                return 0;
+
+            using var repo = new ClienteRepository();
+            return repo.ObterParcelasPendentes(clienteId);
+        }
+
+        public decimal ObterValorPendente(int clienteId)
+        {
+            if (clienteId <= 0)
+                return 0;
+
+            using var repo = new ClienteRepository();
+            return repo.ObterValorPendente(clienteId);
+        }      
+
     }
 }

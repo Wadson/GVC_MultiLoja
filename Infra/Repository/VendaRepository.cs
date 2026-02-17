@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using static GVC.BLL.VendaBLL;
+using GVC.DTO;
 
 namespace GVC.Infra.Repository
 {
@@ -17,7 +19,7 @@ namespace GVC.Infra.Repository
 
         // ✅ permite usar conexão externa + transação única
         public VendaRepository(SqlConnection connection) : base(connection) { }
-      
+
         public int ObterProximoNumeroVenda()
         {
             const string sql = @"  SELECT ISNULL(MAX(VendaID), 0) + 1  FROM Venda WHERE EmpresaID = @EmpresaID";
@@ -83,7 +85,7 @@ namespace GVC.Infra.Repository
                 cmd.Parameters.Add("@DataPagamento", SqlDbType.Date).Value = (object?)p.DataPagamento ?? DBNull.Value;
                 cmd.Parameters.Add("@Juros", SqlDbType.Decimal).Value = (object?)p.Juros ?? DBNull.Value;
                 cmd.Parameters.Add("@Multa", SqlDbType.Decimal).Value = (object?)p.Multa ?? DBNull.Value;
-                cmd.Parameters.Add("@Observacao", SqlDbType.NVarChar).Value =  (object?)p.Observacao ?? DBNull.Value;
+                cmd.Parameters.Add("@Observacao", SqlDbType.NVarChar).Value = (object?)p.Observacao ?? DBNull.Value;
 
                 cmd.ExecuteNonQuery();
             }
@@ -120,17 +122,6 @@ namespace GVC.Infra.Repository
 
             cmd.ExecuteNonQuery();
         }
-
-        // ======================================================
-        // 🔹 EXCLUIR VENDA
-        // ======================================================
-        //public void Excluir(int vendaID)
-        //{
-        //    using var cmd = CreateCommand("DELETE FROM Venda WHERE VendaID = @id AND EmpresaID = @EmpresaID");
-
-        //    cmd.Parameters.AddWithValue("@id", vendaID);
-        //    cmd.ExecuteNonQuery();
-        //}
 
         // ======================================================
         // 🔹 STATUS
@@ -908,5 +899,231 @@ namespace GVC.Infra.Repository
                 throw;
             }
         }
+
+
+
+        public DadosExclusaoVenda ObterDadosParaExclusao(int vendaId)
+        {
+            const string sql = @"
+                SELECT 
+                    v.VendaID,
+                    v.DataVenda,
+                    v.ValorTotal,
+                    c.Nome AS ClienteNome,
+                    c.ClienteID,
+                   (SELECT COUNT(*)
+                       FROM ItemVenda
+                      WHERE VendaID = v.VendaID
+                        AND EmpresaID = v.EmpresaID) AS QuantidadeItens,
+
+                    (SELECT COUNT(*)
+                       FROM Parcela
+                      WHERE VendaID = v.VendaID
+                        AND EmpresaID = v.EmpresaID) AS QuantidadeParcelas,
+
+                    (SELECT COUNT(*)
+                       FROM Parcela
+                      WHERE VendaID = v.VendaID
+                        AND EmpresaID = v.EmpresaID
+                        AND ISNULL(ValorRecebido, 0) > 0) AS ParcelasPagas,
+
+                    (SELECT ISNULL(SUM(ValorRecebido), 0)
+                       FROM Parcela
+                      WHERE VendaID = v.VendaID
+                        AND EmpresaID = v.EmpresaID) AS TotalPago,
+
+                    STUFF(( SELECT ', ' + p.NomeProduto
+                        FROM ItemVenda iv
+                        INNER JOIN Produtos p ON iv.ProdutoID = p.ProdutoID
+                        WHERE iv.VendaID = v.VendaID
+                        AND iv.EmpresaID = v.EmpresaID
+
+                        FOR XML PATH('')
+                    ), 1, 2, '') AS Produtos
+                FROM Venda v
+                INNER JOIN Clientes c ON v.ClienteID = c.ClienteID
+                WHERE v.VendaID = @VendaID
+                  AND v.EmpresaID = @EmpresaID";
+
+            using var cmd = CreateCommand(sql);
+            cmd.Parameters.AddWithValue("@VendaID", vendaId);
+
+            using var dr = cmd.ExecuteReader();
+            if (!dr.Read())
+                throw new Exception("Venda não encontrada.");
+
+            return new DadosExclusaoVenda
+            {
+                VendaID = Convert.ToInt32(dr["VendaID"]),
+                ClienteID = Convert.ToInt32(dr["ClienteID"]),
+                ClienteNome = dr["ClienteNome"].ToString(),
+                DataVenda = Convert.ToDateTime(dr["DataVenda"]),
+                ValorTotal = Convert.ToDecimal(dr["ValorTotal"]),
+                QuantidadeItens = Convert.ToInt32(dr["QuantidadeItens"]),
+                QuantidadeParcelas = Convert.ToInt32(dr["QuantidadeParcelas"]),
+                TemParcelasPagas = Convert.ToInt32(dr["ParcelasPagas"]) > 0,
+                TotalPago = Convert.ToDecimal(dr["TotalPago"]),
+                Produtos = dr["Produtos"]?.ToString()?.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList() ?? new List<string>()
+            };
+        }
+
+        public DataTable ListarVendasParaGrid(
+            long? vendaId,
+            string? clienteNome,
+            DateTime dataInicio,
+            DateTime dataFim)
+        {
+            string sql = @"
+                SELECT
+                    v.VendaID,
+                    c.Nome AS Cliente,
+                    v.DataVenda,
+                    v.ValorTotal,
+                    v.Desconto,
+                    v.StatusVenda
+                FROM Venda v
+                INNER JOIN Clientes c
+                    ON c.ClienteID = v.ClienteID
+                   AND c.EmpresaID = v.EmpresaID
+                WHERE v.EmpresaID = @EmpresaID
+                  AND v.DataVenda >= @DataInicio
+                  AND v.DataVenda <  @DataFim
+                ";
+
+            if (vendaId.HasValue)
+                sql += " AND v.VendaID = @VendaID";
+
+            if (!string.IsNullOrWhiteSpace(clienteNome))
+                sql += " AND c.Nome LIKE @Cliente";
+
+            using var cmd = CreateCommand(sql);
+
+            cmd.Parameters.Add("@DataInicio", SqlDbType.DateTime2).Value = dataInicio.Date;
+            cmd.Parameters.Add("@DataFim", SqlDbType.DateTime2).Value = dataFim.Date;
+
+            if (vendaId.HasValue)
+                cmd.Parameters.Add("@VendaID", SqlDbType.BigInt).Value = vendaId.Value;
+
+            if (!string.IsNullOrWhiteSpace(clienteNome))
+                cmd.Parameters.Add("@Cliente", SqlDbType.NVarChar, 100).Value = $"%{clienteNome.Trim()}%";
+
+            var dt = new DataTable();
+            using var da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+
+            return dt;
+        }
+        public VendaVisualizacaoDTO ObterVendaParaVisualizacao(int vendaId)
+        {
+            // 1) Cabeçalho + Cliente
+            const string sqlVenda = @"
+SELECT
+    v.VendaID,
+    v.DataVenda,
+    v.ValorTotal,
+    ISNULL(v.Desconto, 0) AS Desconto,
+    v.StatusVenda,
+    c.ClienteID,
+    c.Nome AS ClienteNome
+FROM Venda v
+INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
+WHERE v.VendaID = @VendaID
+  AND v.EmpresaID = @EmpresaID;";
+
+            using var cmdVenda = CreateCommand(sqlVenda);
+            cmdVenda.Parameters.AddWithValue("@VendaID", vendaId);
+
+            using var drVenda = cmdVenda.ExecuteReader();
+            if (!drVenda.Read())
+                throw new Exception("Venda não encontrada.");
+
+            var dto = new VendaVisualizacaoDTO
+            {
+                VendaID = Convert.ToInt32(drVenda["VendaID"]),
+                DataVenda = Convert.ToDateTime(drVenda["DataVenda"]),
+                ValorTotal = Convert.ToDecimal(drVenda["ValorTotal"]),
+                Desconto = Convert.ToDecimal(drVenda["Desconto"]),
+                StatusVenda = drVenda["StatusVenda"]?.ToString() ?? "",
+                ClienteID = Convert.ToInt32(drVenda["ClienteID"]),
+                ClienteNome = drVenda["ClienteNome"]?.ToString() ?? ""
+            };
+
+            drVenda.Close();
+
+            // 2) Itens com NomeProduto (JOIN Produtos) + filtro Empresa
+            const string sqlItens = @"
+SELECT
+    iv.ProdutoID,
+    p.NomeProduto,
+    iv.Quantidade,
+    iv.PrecoUnitario,
+    iv.Subtotal,
+    ISNULL(iv.DescontoItem, 0) AS DescontoItem
+FROM ItemVenda iv
+INNER JOIN Produtos p ON p.ProdutoID = iv.ProdutoID
+WHERE iv.VendaID = @VendaID
+  AND iv.EmpresaID = @EmpresaID
+  AND p.EmpresaID = @EmpresaID
+ORDER BY p.NomeProduto;";
+
+            using (var cmdItens = CreateCommand(sqlItens))
+            {
+                cmdItens.Parameters.AddWithValue("@VendaID", vendaId);
+                using var dr = cmdItens.ExecuteReader();
+                while (dr.Read())
+                {
+                    dto.Itens.Add(new VendaItemVisualizacaoDTO
+                    {
+                        ProdutoID = dr.GetInt32(dr.GetOrdinal("ProdutoID")),
+                        NomeProduto = dr["NomeProduto"]?.ToString() ?? "",
+                        Quantidade = dr.GetInt32(dr.GetOrdinal("Quantidade")),
+                        PrecoUnitario = dr.GetDecimal(dr.GetOrdinal("PrecoUnitario")),
+                        Subtotal = dr.GetDecimal(dr.GetOrdinal("Subtotal")),
+                        DescontoItem = dr.GetDecimal(dr.GetOrdinal("DescontoItem"))
+                    });
+                }
+            }
+
+            // 3) Parcelas completas + filtro Empresa
+            const string sqlParcelas = @"
+            SELECT
+                ParcelaID,
+                NumeroParcela,
+                DataVencimento,
+                ValorParcela,
+                ISNULL(Juros, 0) AS Juros,
+                ISNULL(Multa, 0) AS Multa,
+                ISNULL(ValorRecebido, 0) AS ValorRecebido,
+                Status,
+                DataPagamento
+            FROM Parcela
+            WHERE VendaID = @VendaID
+              AND EmpresaID = @EmpresaID
+            ORDER BY NumeroParcela;";
+
+            using (var cmdParc = CreateCommand(sqlParcelas))
+            {
+                cmdParc.Parameters.AddWithValue("@VendaID", vendaId);
+                using var dr = cmdParc.ExecuteReader();
+                while (dr.Read())
+                {
+                    dto.Parcelas.Add(new VendaParcelaVisualizacaoDTO
+                    {
+                        ParcelaID = dr.GetInt32(dr.GetOrdinal("ParcelaID")),
+                        NumeroParcela = dr.GetInt32(dr.GetOrdinal("NumeroParcela")),
+                        DataVencimento = Convert.ToDateTime(dr["DataVencimento"]),
+                        ValorParcela = Convert.ToDecimal(dr["ValorParcela"]),
+                        Juros = Convert.ToDecimal(dr["Juros"]),
+                        Multa = Convert.ToDecimal(dr["Multa"]),
+                        ValorRecebido = Convert.ToDecimal(dr["ValorRecebido"]),
+                        Status = dr["Status"]?.ToString() ?? "",
+                        DataPagamento = dr["DataPagamento"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(dr["DataPagamento"])
+                    });
+                }
+            }
+
+            return dto;
+        }
+
     }
 }
