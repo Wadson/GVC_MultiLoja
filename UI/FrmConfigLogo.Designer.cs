@@ -379,6 +379,7 @@
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Configurar Logo da Empresa";
             Load += FrmConfigLogo_Load;

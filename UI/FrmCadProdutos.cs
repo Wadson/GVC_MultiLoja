@@ -226,10 +226,7 @@ using System.Drawing;
                 produtosbll.Inserir(produto);
                 Utilitario.Mensagens.Info("Produto salvo com sucesso!");
 
-                Utilitario.LimparCampos(this);
-
-                cmbStatus.SelectedIndex = 1;
-                cmbSituacao.SelectedIndex = 0;
+                Utilitario.LimparCampos(this);               
                 txtNomeProduto.Focus();
 
                 int novoCodigo = Utilitario.ProximoId(QueryProdutos);
@@ -245,6 +242,8 @@ using System.Drawing;
             {
                 Utilitario.Mensagens.Aviso(ex.Message);
             }
+            cmbStatus.SelectedIndex = 1;
+            cmbSituacao.SelectedIndex = 0;
         }
         public void Excluir()
         {

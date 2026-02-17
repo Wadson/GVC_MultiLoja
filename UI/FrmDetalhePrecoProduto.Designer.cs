@@ -60,6 +60,7 @@
             lblCusto = new Krypton.Toolkit.KryptonLabel();
             iconPictureBox5 = new FontAwesome.Sharp.IconPictureBox();
             btnSair = new FontAwesome.Sharp.IconButton();
+            btnCalcular = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)iconAcao).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
@@ -512,6 +513,26 @@
             btnSair.TabStop = false;
             btnSair.Text = "Sair";
             btnSair.UseVisualStyleBackColor = false;
+            btnSair.Click += btnSair_Click;
+            // 
+            // btnCalcular
+            // 
+            btnCalcular.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCalcular.Font = new Font("Poppins Medium", 8.25F, FontStyle.Bold);
+            btnCalcular.IconChar = FontAwesome.Sharp.IconChar.Calculator;
+            btnCalcular.IconColor = Color.IndianRed;
+            btnCalcular.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnCalcular.IconSize = 25;
+            btnCalcular.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCalcular.Location = new Point(11, 255);
+            btnCalcular.Name = "btnCalcular";
+            btnCalcular.Padding = new Padding(10, 0, 10, 0);
+            btnCalcular.Size = new Size(227, 30);
+            btnCalcular.TabIndex = 1128;
+            btnCalcular.TabStop = false;
+            btnCalcular.Text = "Calculadora de preço";
+            btnCalcular.UseVisualStyleBackColor = false;
+            btnCalcular.Click += btnCalcular_Click;
             // 
             // FrmDetalhePrecoProduto
             // 
@@ -519,6 +540,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(831, 295);
+            Controls.Add(btnCalcular);
             Controls.Add(btnSair);
             Controls.Add(iconPictureBox5);
             Controls.Add(tableLayoutPanel1);
@@ -597,5 +619,6 @@
         private Krypton.Toolkit.KryptonLabel lblMargem;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox5;
         private FontAwesome.Sharp.IconButton btnSair;
+        private FontAwesome.Sharp.IconButton btnCalcular;
     }
 }

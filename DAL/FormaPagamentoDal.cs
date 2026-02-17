@@ -108,7 +108,7 @@ namespace GVC.DAL
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao executar a pesquisa: " + ex.Message);
+                Utilitario.Mensagens.Erro("Erro ao executar a pesquisa: " + ex.Message);
                 return null;
             }
             finally
@@ -157,7 +157,7 @@ namespace GVC.DAL
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao executar a pesquisa: " + ex.Message);
+                Utilitario.Mensagens.Erro("Erro ao executar a pesquisa: " + ex.Message);
                 return null;
             }
             finally
@@ -187,7 +187,7 @@ namespace GVC.DAL
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao listar formas de pagamento: " + ex.Message);
+                Utilitario.Mensagens.Erro("Erro ao listar formas de pagamento: " + ex.Message);
                 return null;
             }
             finally

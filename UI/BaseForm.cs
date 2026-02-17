@@ -14,11 +14,7 @@ namespace GVC.View
             // 🔒 Validação mínima de sessão
             if (!Sessao.Logado)
             {
-                MessageBox.Show(
-                    "Sessão inválida. Faça login novamente.",
-                    "Sessão expirada",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                Utilitario.Mensagens.Aviso("Sessão expirada, inválida. Faça login novamente");
 
                 Close();
                 return;
@@ -27,11 +23,8 @@ namespace GVC.View
             // 🔒 Validação de empresa
             if (Sessao.EmpresaID <= 0)
             {
-                MessageBox.Show(
-                    "Nenhuma empresa selecionada.",
-                    "Empresa não definida",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                Utilitario.Mensagens.Info(
+                    "Empresa não definida, Nenhuma empresa selecionada.");
 
                 Close();
                 return;

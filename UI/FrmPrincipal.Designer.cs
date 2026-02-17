@@ -83,8 +83,10 @@
             btnPesquisarPrecos = new FontAwesome.Sharp.IconToolStripButton();
             btnFerramentas = new FontAwesome.Sharp.IconToolStripButton();
             btnRelatorios = new FontAwesome.Sharp.IconToolStripButton();
-            btnSair = new FontAwesome.Sharp.IconToolStripButton();
+            toolStripLabel1 = new ToolStripLabel();
+            cmbEmpresaToolStrip = new ToolStripComboBox();
             kryptonStatusStrip1 = new Krypton.Toolkit.KryptonStatusStrip();
+            lblVersaoSistema = new ToolStripStatusLabel();
             lblEstacao = new ToolStripStatusLabel();
             toolStripStatusLabel4 = new ToolStripStatusLabel();
             lblData = new ToolStripStatusLabel();
@@ -100,17 +102,13 @@
             iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
             iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
-            lblVersaoSistema = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
-            cmbEmpresa = new Krypton.Toolkit.KryptonComboBox();
-            label1 = new Label();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBackground).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)cmbEmpresa).BeginInit();
             SuspendLayout();
             // 
             // kryptonPalette1
@@ -151,7 +149,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.BackColor = Color.FromArgb(183, 219, 255);
+            menuStrip1.BackColor = Color.FromArgb(6, 174, 244);
             menuStrip1.Font = new Font("Segoe UI", 9F);
             menuStrip1.Items.AddRange(new ToolStripItem[] { arquivoToolStripMenuItem, cadastrosToolStripMenuItem, estoqueToolStripMenuItem1, vendasToolStripMenuItem, financeiroToolStripMenuItem, relatóriosToolStripMenuItem, configuraçõesToolStripMenuItem, ajudaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
@@ -432,11 +430,11 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.BackColor = Color.FromArgb(6, 174, 244);
+            toolStrip1.BackColor = Color.FromArgb(230, 240, 250);
             toolStrip1.Font = new Font("Segoe UI", 9F);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(32, 32);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuario, btnCliente, btnFornecedor, btnProdutos, btnVendas, btnContasReceber, btnCorrecaoEstoque, btnPesquisarPrecos, btnFerramentas, btnRelatorios, btnSair });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnUsuario, btnCliente, btnFornecedor, btnProdutos, btnVendas, btnContasReceber, btnCorrecaoEstoque, btnPesquisarPrecos, btnFerramentas, btnRelatorios, toolStripLabel1, cmbEmpresaToolStrip });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.RenderMode = ToolStripRenderMode.Professional;
@@ -447,9 +445,9 @@
             // btnUsuario
             // 
             btnUsuario.AutoSize = false;
-            btnUsuario.ForeColor = Color.WhiteSmoke;
+            btnUsuario.ForeColor = Color.DodgerBlue;
             btnUsuario.IconChar = FontAwesome.Sharp.IconChar.User;
-            btnUsuario.IconColor = Color.White;
+            btnUsuario.IconColor = Color.DodgerBlue;
             btnUsuario.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnUsuario.IconSize = 64;
             btnUsuario.ImageTransparentColor = Color.Magenta;
@@ -462,9 +460,9 @@
             // btnCliente
             // 
             btnCliente.AutoSize = false;
-            btnCliente.ForeColor = Color.WhiteSmoke;
+            btnCliente.ForeColor = Color.ForestGreen;
             btnCliente.IconChar = FontAwesome.Sharp.IconChar.Users;
-            btnCliente.IconColor = Color.White;
+            btnCliente.IconColor = Color.ForestGreen;
             btnCliente.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCliente.IconSize = 64;
             btnCliente.ImageTransparentColor = Color.Magenta;
@@ -477,9 +475,9 @@
             // btnFornecedor
             // 
             btnFornecedor.AutoSize = false;
-            btnFornecedor.ForeColor = Color.WhiteSmoke;
+            btnFornecedor.ForeColor = Color.DarkOrange;
             btnFornecedor.IconChar = FontAwesome.Sharp.IconChar.Truck;
-            btnFornecedor.IconColor = Color.White;
+            btnFornecedor.IconColor = Color.DarkOrange;
             btnFornecedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFornecedor.IconSize = 64;
             btnFornecedor.ImageTransparentColor = Color.Magenta;
@@ -493,9 +491,9 @@
             // btnProdutos
             // 
             btnProdutos.AutoSize = false;
-            btnProdutos.ForeColor = Color.WhiteSmoke;
+            btnProdutos.ForeColor = Color.MediumPurple;
             btnProdutos.IconChar = FontAwesome.Sharp.IconChar.Box;
-            btnProdutos.IconColor = Color.White;
+            btnProdutos.IconColor = Color.MediumPurple;
             btnProdutos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnProdutos.ImageTransparentColor = Color.Magenta;
             btnProdutos.Name = "btnProdutos";
@@ -508,9 +506,9 @@
             // btnVendas
             // 
             btnVendas.AutoSize = false;
-            btnVendas.ForeColor = Color.WhiteSmoke;
+            btnVendas.ForeColor = Color.Crimson;
             btnVendas.IconChar = FontAwesome.Sharp.IconChar.CartShopping;
-            btnVendas.IconColor = Color.White;
+            btnVendas.IconColor = Color.Crimson;
             btnVendas.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnVendas.IconSize = 64;
             btnVendas.ImageTransparentColor = Color.Magenta;
@@ -524,9 +522,9 @@
             // btnContasReceber
             // 
             btnContasReceber.AutoSize = false;
-            btnContasReceber.ForeColor = Color.WhiteSmoke;
+            btnContasReceber.ForeColor = Color.LimeGreen;
             btnContasReceber.IconChar = FontAwesome.Sharp.IconChar.Coins;
-            btnContasReceber.IconColor = Color.White;
+            btnContasReceber.IconColor = Color.LimeGreen;
             btnContasReceber.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnContasReceber.IconSize = 64;
             btnContasReceber.ImageTransparentColor = Color.Magenta;
@@ -540,9 +538,9 @@
             // btnCorrecaoEstoque
             // 
             btnCorrecaoEstoque.AutoSize = false;
-            btnCorrecaoEstoque.ForeColor = Color.WhiteSmoke;
+            btnCorrecaoEstoque.ForeColor = Color.DimGray;
             btnCorrecaoEstoque.IconChar = FontAwesome.Sharp.IconChar.ListAlt;
-            btnCorrecaoEstoque.IconColor = Color.White;
+            btnCorrecaoEstoque.IconColor = Color.DimGray;
             btnCorrecaoEstoque.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnCorrecaoEstoque.IconSize = 64;
             btnCorrecaoEstoque.ImageTransparentColor = Color.Magenta;
@@ -557,9 +555,9 @@
             // btnPesquisarPrecos
             // 
             btnPesquisarPrecos.AutoSize = false;
-            btnPesquisarPrecos.ForeColor = Color.WhiteSmoke;
+            btnPesquisarPrecos.ForeColor = Color.DeepSkyBlue;
             btnPesquisarPrecos.IconChar = FontAwesome.Sharp.IconChar.Tags;
-            btnPesquisarPrecos.IconColor = Color.White;
+            btnPesquisarPrecos.IconColor = Color.DeepSkyBlue;
             btnPesquisarPrecos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPesquisarPrecos.IconSize = 64;
             btnPesquisarPrecos.ImageTransparentColor = Color.Magenta;
@@ -573,9 +571,9 @@
             // btnFerramentas
             // 
             btnFerramentas.AutoSize = false;
-            btnFerramentas.ForeColor = Color.WhiteSmoke;
+            btnFerramentas.ForeColor = Color.SlateGray;
             btnFerramentas.IconChar = FontAwesome.Sharp.IconChar.Cogs;
-            btnFerramentas.IconColor = Color.White;
+            btnFerramentas.IconColor = Color.SlateGray;
             btnFerramentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnFerramentas.IconSize = 64;
             btnFerramentas.ImageTransparentColor = Color.Magenta;
@@ -589,9 +587,9 @@
             // btnRelatorios
             // 
             btnRelatorios.AutoSize = false;
-            btnRelatorios.ForeColor = Color.WhiteSmoke;
+            btnRelatorios.ForeColor = Color.SaddleBrown;
             btnRelatorios.IconChar = FontAwesome.Sharp.IconChar.ChartLine;
-            btnRelatorios.IconColor = Color.White;
+            btnRelatorios.IconColor = Color.SaddleBrown;
             btnRelatorios.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnRelatorios.IconSize = 64;
             btnRelatorios.ImageTransparentColor = Color.Magenta;
@@ -602,34 +600,37 @@
             btnRelatorios.TextImageRelation = TextImageRelation.ImageAboveText;
             btnRelatorios.Click += btnRelatorios_Click;
             // 
-            // btnSair
+            // toolStripLabel1
             // 
-            btnSair.Alignment = ToolStripItemAlignment.Right;
-            btnSair.AutoSize = false;
-            btnSair.ForeColor = Color.WhiteSmoke;
-            btnSair.IconChar = FontAwesome.Sharp.IconChar.SignOutAlt;
-            btnSair.IconColor = Color.White;
-            btnSair.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnSair.IconSize = 64;
-            btnSair.ImageTransparentColor = Color.Magenta;
-            btnSair.Name = "btnSair";
-            btnSair.Size = new Size(63, 51);
-            btnSair.Text = "Sair";
-            btnSair.TextAlign = ContentAlignment.BottomCenter;
-            btnSair.TextImageRelation = TextImageRelation.ImageAboveText;
-            btnSair.Click += btnSair_Click;
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.Size = new Size(55, 51);
+            toolStripLabel1.Text = "Empresa:";
+            // 
+            // cmbEmpresaToolStrip
+            // 
+            cmbEmpresaToolStrip.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbEmpresaToolStrip.FlatStyle = FlatStyle.Standard;
+            cmbEmpresaToolStrip.Name = "cmbEmpresaToolStrip";
+            cmbEmpresaToolStrip.Size = new Size(121, 54);
+            cmbEmpresaToolStrip.SelectedIndexChanged += cmbEmpresaToolStrip_SelectedIndexChanged;
             // 
             // kryptonStatusStrip1
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
-            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblEmpresa });
+            kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblVersaoSistema, lblEstacao, toolStripStatusLabel4, lblData, lblHoraAtual, toolStripStatusLabel5, lblUsuarioLogadoo, toolStripStatusLabel6, lblTipoUsuarioo, toolStripStatusLabel8, lblEmpresa });
             kryptonStatusStrip1.Location = new Point(0, 442);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
-            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+            kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
             kryptonStatusStrip1.Size = new Size(890, 22);
             kryptonStatusStrip1.TabIndex = 609;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
+            // 
+            // lblVersaoSistema
+            // 
+            lblVersaoSistema.Name = "lblVersaoSistema";
+            lblVersaoSistema.Size = new Size(224, 17);
+            lblVersaoSistema.Text = "SGVendas • Versão 1.0.0 • © 2026 WR Soft";
             // 
             // lblEstacao
             // 
@@ -695,9 +696,9 @@
             // 
             picBackground.Dock = DockStyle.Fill;
             picBackground.Enabled = false;
-            picBackground.Location = new Point(0, 107);
+            picBackground.Location = new Point(0, 81);
             picBackground.Name = "picBackground";
-            picBackground.Size = new Size(890, 335);
+            picBackground.Size = new Size(890, 361);
             picBackground.SizeMode = PictureBoxSizeMode.Zoom;
             picBackground.TabIndex = 610;
             picBackground.TabStop = false;
@@ -725,90 +726,16 @@
             iconToolStripButton1.Size = new Size(23, 23);
             iconToolStripButton1.Text = "iconToolStripButton1";
             // 
-            // lblVersaoSistema
-            // 
-            lblVersaoSistema.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblVersaoSistema.Location = new Point(615, 58);
-            lblVersaoSistema.Name = "lblVersaoSistema";
-            lblVersaoSistema.Size = new Size(244, 20);
-            lblVersaoSistema.TabIndex = 612;
-            lblVersaoSistema.Values.Text = "SGVendas • Versão 1.0.0 • © 2026 WR Soft";
-            // 
             // kryptonPanel1
             // 
-            kryptonPanel1.Controls.Add(cmbEmpresa);
-            kryptonPanel1.Controls.Add(label1);
-            kryptonPanel1.Controls.Add(lblVersaoSistema);
             kryptonPanel1.Controls.Add(toolStrip1);
             kryptonPanel1.Dock = DockStyle.Top;
             kryptonPanel1.Location = new Point(0, 24);
             kryptonPanel1.Name = "kryptonPanel1";
-            kryptonPanel1.Size = new Size(890, 83);
+            kryptonPanel1.Size = new Size(890, 57);
             kryptonPanel1.StateCommon.Color1 = Color.FromArgb(6, 174, 244);
             kryptonPanel1.StateCommon.Color2 = Color.FromArgb(6, 174, 244);
             kryptonPanel1.TabIndex = 613;
-            // 
-            // cmbEmpresa
-            // 
-            cmbEmpresa.CornerRoundingRadius = 6F;
-            cmbEmpresa.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbEmpresa.DropDownWidth = 115;
-            cmbEmpresa.IntegralHeight = false;
-            cmbEmpresa.Items.AddRange(new object[] { "Física", "Jurídica", "Operador", "Administrador", "Consumidor Final" });
-            cmbEmpresa.Location = new Point(67, 56);
-            cmbEmpresa.Name = "cmbEmpresa";
-            cmbEmpresa.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbEmpresa.Size = new Size(190, 25);
-            cmbEmpresa.StateActive.ComboBox.Back.Color1 = Color.White;
-            cmbEmpresa.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateActive.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbEmpresa.StateActive.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateActive.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbEmpresa.StateCommon.ComboBox.Back.Color1 = Color.White;
-            cmbEmpresa.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbEmpresa.StateCommon.ComboBox.Border.Rounding = 6F;
-            cmbEmpresa.StateCommon.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateCommon.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbEmpresa.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            cmbEmpresa.StateCommon.Item.Content.ShortText.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateCommon.Item.Content.ShortText.Color2 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateDisabled.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateNormal.ComboBox.Back.Color1 = Color.White;
-            cmbEmpresa.StateNormal.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateNormal.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateNormal.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbEmpresa.StateNormal.ComboBox.Content.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateNormal.ComboBox.Content.Font = new Font("Segoe UI", 9F);
-            cmbEmpresa.StateNormal.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateNormal.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateNormal.Item.Content.ShortText.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateNormal.Item.Content.ShortText.Color2 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateTracking.Item.Back.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateTracking.Item.Back.Color2 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateTracking.Item.Border.Color1 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateTracking.Item.Border.Color2 = Color.FromArgb(30, 136, 229);
-            cmbEmpresa.StateTracking.Item.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            cmbEmpresa.StateTracking.Item.Content.ShortText.Color1 = Color.White;
-            cmbEmpresa.StateTracking.Item.Content.ShortText.Color2 = Color.White;
-            cmbEmpresa.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
-            cmbEmpresa.TabIndex = 1071;
-            cmbEmpresa.TabStop = false;
-            cmbEmpresa.SelectedIndexChanged += cmbEmpresa_SelectedIndexChanged;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Microsoft Sans Serif", 9.25F);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(3, 58);
-            label1.Name = "label1";
-            label1.Size = new Size(65, 16);
-            label1.TabIndex = 1070;
-            label1.Text = "Empresa:";
             // 
             // FrmPrincipal
             // 
@@ -844,7 +771,6 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();
             kryptonPanel1.ResumeLayout(false);
             kryptonPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)cmbEmpresa).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -914,18 +840,17 @@
         private FontAwesome.Sharp.IconToolStripButton btnPesquisarPrecos;
         private FontAwesome.Sharp.IconToolStripButton btnFerramentas;
         private FontAwesome.Sharp.IconToolStripButton btnRelatorios;
-        private FontAwesome.Sharp.IconToolStripButton btnSair;
         private FontAwesome.Sharp.IconToolStripButton btnProdutos;
         private ToolStripMenuItem testeToolStripMenuItem;
         private ToolStripMenuItem verificarAtualizaçãoToolStripMenuItem;
-        private Krypton.Toolkit.KryptonLabel lblVersaoSistema;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private ToolStripStatusLabel lblEmpresa;
-        private Label label1;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        public Krypton.Toolkit.KryptonComboBox cmbEmpresa;
         private ToolStripMenuItem marcasToolStripMenuItem;
         private ToolStripMenuItem históricoDoProdutoToolStripMenuItem;
         private ToolStripMenuItem vendedoresToolStripMenuItem;
+        private ToolStripLabel toolStripLabel1;
+        private ToolStripComboBox cmbEmpresaToolStrip;
+        private ToolStripStatusLabel lblVersaoSistema;
     }
 }

@@ -274,21 +274,23 @@ namespace GVC.View
         {
             var fornecedor = new FornecedorModel();
 
-            fornecedor.Fornecedor = txtNomeFornecedor.Text.Trim();
-            fornecedor.Cnpj = Utilitario.ApenasNumeros(txtCnpj.Text);
-            fornecedor.IE = txtIE.Text.Trim();
-            fornecedor.Telefone = Utilitario.ApenasNumeros(txtTelefone.Text);
-            fornecedor.Email = txtEmail.Text.Trim();
+            fornecedor.Fornecedor = txtNomeFornecedor.Text.Trim();             
+            fornecedor.Cnpj = string.IsNullOrWhiteSpace(txtCnpj.Text)? null : Utilitario.ApenasNumeros(txtCnpj.Text);
+            fornecedor.IE = string.IsNullOrWhiteSpace(txtIE.Text)  ? null : txtIE.Text.Trim();
+            fornecedor.Telefone = string.IsNullOrWhiteSpace(txtTelefone.Text) ? null  : Utilitario.ApenasNumeros(txtTelefone.Text);
+            fornecedor.Email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim();
             if (int.TryParse(txtFornecedorID.Text, out int id)) fornecedor.FornecedorID = id;
             fornecedor.CidadeID = CidadeID;
-            fornecedor.Logradouro = txtLogradouro.Text.Trim();
-            fornecedor.Numero = txtNumero.Text.Trim();
-            fornecedor.Bairro = txtBairro.Text.Trim();
-            fornecedor.Cep = Utilitario.ApenasNumeros(txtCep.Text);
-            fornecedor.Observacoes = txtObservacoes.Text.Trim();
+            fornecedor.Logradouro = string.IsNullOrWhiteSpace(txtLogradouro.Text) ? null : txtLogradouro.Text.Trim();
+            fornecedor.Numero = string.IsNullOrWhiteSpace(txtNumero.Text) ? null : txtNumero.Text.Trim();
+            fornecedor.Bairro = string.IsNullOrWhiteSpace(txtBairro.Text) ? null : txtBairro.Text.Trim();
+            fornecedor.Cep = string.IsNullOrWhiteSpace(txtCep.Text) ? null: Utilitario.ApenasNumeros(txtCep.Text);
+            fornecedor.Observacoes = string.IsNullOrWhiteSpace(txtObservacoes.Text) ? null : txtObservacoes.Text.Trim();
             fornecedor.DataCriacao = DateTime.Now;
+
             return fornecedor;
         }
+
 
         private void AbrirFrmLocalizarCidadeDinamico()
         {

@@ -770,6 +770,8 @@
             Controls.Add(kryptonStatusStrip1);
             KeyPreview = true;
             Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmCadUser";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
@@ -780,6 +782,7 @@
             StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Text = "Cadastro de Usuário";
+            WindowState = FormWindowState.Maximized;
             Load += FrmCadUser_Load;
             Shown += FrmCadUser_Shown;
             KeyDown += FrmCadUser_KeyDown;

@@ -401,6 +401,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmDashboard";
+            WindowState = FormWindowState.Maximized;
             Load += FrmDashboard_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTopProdutos).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvEstoqueBaixo).EndInit();

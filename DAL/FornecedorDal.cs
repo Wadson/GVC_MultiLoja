@@ -70,7 +70,7 @@ namespace GVC.DAL
 
             Connection.Execute(sql, new
             {
-                fornecedor.Fornecedor,
+                Nome = fornecedor.Fornecedor,  // ✅ Correto: mapeia Fornecedor para Nome
                 fornecedor.Cnpj,
                 fornecedor.IE,
                 fornecedor.Telefone,
@@ -80,30 +80,30 @@ namespace GVC.DAL
                 fornecedor.Numero,
                 fornecedor.Bairro,
                 fornecedor.Cep,
-                fornecedor.DataCriacao,
+                DataCriacao = fornecedor.DataCriacao ?? DateTime.Now, // ✅ Valor padrão
                 fornecedor.Observacoes,
-                EmpresaID
+                EmpresaID  // ✅ Vem da propriedade da RepositoryBase
             });
         }
-       
+
         public void Atualizar(FornecedorModel fornecedor)
         {
             const string sql = @"
-    UPDATE Fornecedor SET
-        Nome = @Nome,
-        Cnpj = @Cnpj,
-        IE = @IE,
-        Telefone = @Telefone,
-        Email = @Email,
-        CidadeID = @CidadeID,
-        Logradouro = @Logradouro,
-        Numero = @Numero,
-        Bairro = @Bairro,
-        Cep = @Cep,
-        Observacoes = @Observacoes,
-        DataCriacao = @DataCriacao
-    WHERE FornecedorID = @FornecedorID
-      AND EmpresaID = @EmpresaID";
+                UPDATE Fornecedor SET
+                    Nome = @Nome,
+                    Cnpj = @Cnpj,
+                    IE = @IE,
+                    Telefone = @Telefone,
+                    Email = @Email,
+                    CidadeID = @CidadeID,
+                    Logradouro = @Logradouro,
+                    Numero = @Numero,
+                    Bairro = @Bairro,
+                    Cep = @Cep,
+                    Observacoes = @Observacoes,
+                    DataCriacao = @DataCriacao
+                WHERE FornecedorID = @FornecedorID
+                  AND EmpresaID = @EmpresaID";
 
             using var cmd = CreateCommand(sql);
 

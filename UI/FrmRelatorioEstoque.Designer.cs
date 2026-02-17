@@ -481,6 +481,7 @@
             btnListarControlesDoForm.TabIndex = 1092;
             btnListarControlesDoForm.TabStop = false;
             btnListarControlesDoForm.Values.Text = "Listar Controles";
+            btnListarControlesDoForm.Click += btnListarControlesDoForm_Click;
             // 
             // btnSair
             // 
@@ -600,12 +601,16 @@
             BackColor = Color.FromArgb(252, 252, 250);
             ClientSize = new Size(971, 523);
             Controls.Add(tableLayoutPanel1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmRelatorioEstoque";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Relatorio Estoque";
+            WindowState = FormWindowState.Maximized;
             Load += FrmRelatorioEstoque_Load;
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();

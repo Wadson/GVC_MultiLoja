@@ -615,10 +615,13 @@
             Controls.Add(kryptonStatusStrip1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(5, 3, 5, 3);
+            MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmManutProduto";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
+            ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;

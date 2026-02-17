@@ -33,7 +33,9 @@ namespace GVC
         public FrmPrincipal()
         {
             InitializeComponent();
-            cmbEmpresa.SelectedIndexChanged += cmbEmpresa_SelectedIndexChanged;
+          
+            // 🔥 Conecte o evento AQUI (ou no designer)
+            cmbEmpresaToolStrip.SelectedIndexChanged += cmbEmpresaToolStrip_SelectedIndexChanged;
 
             StatusOperacao = "";
         }
@@ -71,12 +73,12 @@ namespace GVC
         }
         private void SelecionarEmpresaAtualNoCombo()
         {
-            foreach (var item in cmbEmpresa.Items)
+            foreach (var item in cmbEmpresaToolStrip.Items)
             {
                 if (item is EmpresaDTO empresa &&
                     empresa.EmpresaID == Sessao.EmpresaID)
                 {
-                    cmbEmpresa.SelectedItem = item;
+                    cmbEmpresaToolStrip.SelectedItem = item;
                     break;
                 }
             }
@@ -251,8 +253,8 @@ namespace GVC
                         cmd.ExecuteNonQuery();
                     }
                     File.WriteAllText(
-    Path.Combine(PastaBackupAutomatica, "backup.ok"),
-    DateTime.Now.ToString());
+                    Path.Combine(PastaBackupAutomatica, "backup.ok"),
+                    DateTime.Now.ToString());
 
                 }
             }
@@ -298,13 +300,16 @@ namespace GVC
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            Utilitario.CarregarEmpresa(cmbEmpresa);
+            _carregandoEmpresas = true;
 
-            // 🔥 APLICA FUNDO DEFINIDO NO LOGIN
-            AplicarFundoEmpresa(Sessao.FundoTela);
-
+            Utilitario.CarregarEmpresaToolStrip(cmbEmpresaToolStrip);
+            ConfigurarComboEmpresaOwnerDraw(); // 🔥 aqui
             _carregandoEmpresas = false;
+            cmbEmpresaToolStrip.Width = 380;
+            cmbEmpresaToolStrip.ComboBox.TabStop = false;
 
+
+            AplicarFundoEmpresa(Sessao.FundoTela);
             BuscarAtualizacaoSistema();
             AtualizarTituloFormulario();
             BuscarPrimeiraEmpresaId();
@@ -432,11 +437,6 @@ namespace GVC
             frm.Show();
         }
 
-        private void btnSair_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void consultarMovimentaçãoDeEstoqueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmConsultaMovimentacaoEstoque frm = new FrmConsultaMovimentacaoEstoque();
@@ -491,26 +491,7 @@ namespace GVC
         }
 
         private void cmbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_carregandoEmpresas)
-                return;
-
-            if (cmbEmpresa.SelectedItem is not EmpresaDTO empresa)
-                return;
-
-            if (empresa.EmpresaID <= 0)
-                return;
-
-            // 🎨 SEMPRE aplica fundo (mesmo se for a mesma empresa)
-            AplicarFundoEmpresa(empresa.FundoTela);
-
-            // 🔁 Só troca empresa se for diferente
-            if (Sessao.EmpresaID != empresa.EmpresaID)
-            {
-                TrocarEmpresa(empresa.EmpresaID, empresa.NomeFantasia);
-                Sessao.FundoTela = empresa.FundoTela;
-            }         
-
+        {  
         }
         private void AplicarFundoEmpresa(string caminhoImagem)
         {
@@ -551,5 +532,60 @@ namespace GVC
             StatusOperacao = "NOVO";
             frm.Show();
         }
+
+        private void cmbEmpresaToolStrip_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_carregandoEmpresas)
+                return;
+
+            if (sender is not ToolStripComboBox toolStripCombo)
+                return;
+
+            if (toolStripCombo.SelectedItem is not EmpresaDTO empresa)
+                return;
+
+            if (empresa.EmpresaID <= 0)
+                return;
+
+            // 🎨 Aplica fundo
+            AplicarFundoEmpresa(empresa.FundoTela);
+
+            if (Sessao.EmpresaID != empresa.EmpresaID)
+            {
+                TrocarEmpresa(empresa.EmpresaID, empresa.NomeFantasia);
+                Sessao.FundoTela = empresa.FundoTela;
+            }
+            cmbEmpresaToolStrip.ComboBox.BackColor = Color.LightYellow;            
+        }
+        private void ConfigurarComboEmpresaOwnerDraw()
+        {
+            var combo = cmbEmpresaToolStrip.ComboBox;
+
+            combo.DrawMode = DrawMode.OwnerDrawFixed;
+            combo.DrawItem -= ComboEmpresa_DrawItem; // evita duplicação
+            combo.DrawItem += ComboEmpresa_DrawItem;
+        }
+        private void ComboEmpresa_DrawItem(object? sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0)
+                return;
+
+            var combo = (ComboBox)sender!;
+            var item = (EmpresaDTO)combo.Items[e.Index];
+
+            e.DrawBackground();
+
+            bool empresaAtiva = item.EmpresaID == Sessao.EmpresaID;
+
+            var fonte = empresaAtiva ? new Font(combo.Font, FontStyle.Bold) : combo.Font;
+
+            var corTexto = empresaAtiva ? Color.DarkGreen : Color.Black;
+
+            TextRenderer.DrawText(e.Graphics, item.NomeFantasia, fonte,  e.Bounds, corTexto,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
+
+            e.DrawFocusRectangle();
+        }
+
     }
 }

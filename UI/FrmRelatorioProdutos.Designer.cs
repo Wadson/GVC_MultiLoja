@@ -1179,6 +1179,8 @@
             Controls.Add(pnlResumo);
             Controls.Add(panelDataGrid);
             Controls.Add(pnlFiltros);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmRelatorioProdutos";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;

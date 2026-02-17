@@ -566,8 +566,10 @@
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Consulta Movimentacao deEstoque";
+            WindowState = FormWindowState.Maximized;
             Load += FrmConsultaMovimentacaoEstoque_Load;
             ((System.ComponentModel.ISupportInitialize)dgvMovimentacoes).EndInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).EndInit();

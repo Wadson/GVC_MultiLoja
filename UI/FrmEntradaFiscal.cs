@@ -53,7 +53,7 @@ namespace GVC.View
                 }
             }
 
-            MessageBox.Show("Lista de controles salva em: " + caminhoArquivo);
+            Utilitario.Mensagens.Info("Lista de controles salva em: " + caminhoArquivo);
         }
         private void ListarControleRecursivo(Control ctrl, StreamWriter sw)
         {
@@ -172,7 +172,7 @@ namespace GVC.View
         {
             if (dgvItensDocumento.Rows.Count == 0)
             {
-                MessageBox.Show("Nenhum item para confirmar.");
+                Utilitario.Mensagens.Info("Nenhum item para confirmar.");
                 return;
             }
 
@@ -205,13 +205,13 @@ namespace GVC.View
                     Sessao.NomeUsuario ?? "Sistema"
                 );
 
-                MessageBox.Show("Entrada confirmada com sucesso!");
+                Utilitario.Mensagens.Confirmacao("Entrada confirmada com sucesso!");
                 dgvItensDocumento.Rows.Clear();
                 AtualizarTotais();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao confirmar entrada:\n" + ex.Message);
+                Utilitario.Mensagens.Erro("Erro ao confirmar entrada:\n" + ex.Message);
             }
         }
         private void AtualizarTotais()
@@ -310,25 +310,25 @@ namespace GVC.View
                 string.IsNullOrWhiteSpace(txtPrecoCompra.Text) ||
                 string.IsNullOrWhiteSpace(txtPrecoCusto.Text))
             {
-                MessageBox.Show("Preencha quantidade, preço de compra e preço de custo.");
+                Utilitario.Mensagens.Aviso("Preencha quantidade, preço de compra e preço de custo.");
                 return;
             }
 
             if (!int.TryParse(txtQuantidade.Text, out int quantidade) || quantidade <= 0)
             {
-                MessageBox.Show("Quantidade inválida.");
+                Utilitario.Mensagens.Erro("Quantidade inválida.");
                 return;
             }
 
             if (!decimal.TryParse(txtPrecoCompra.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal precoCompra))
             {
-                MessageBox.Show("Preço de compra inválido.");
+                Utilitario.Mensagens.Info("Preço de compra inválido.");
                 return;
             }
 
             if (!decimal.TryParse(txtPrecoCusto.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal precoCusto))
             {
-                MessageBox.Show("Preço de custo inválido.");
+                Utilitario.Mensagens.Erro("Preço de custo inválido.");
                 return;
             }
 

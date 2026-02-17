@@ -227,7 +227,11 @@ namespace GVC.View
                 HeaderText = "Valor Parcela",
                 Width = 100,
                 ValueType = typeof(decimal),
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", Alignment = DataGridViewContentAlignment.MiddleRight }
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
 
             dgvContasAReceber.Columns.Add(new DataGridViewTextBoxColumn
@@ -236,16 +240,25 @@ namespace GVC.View
                 HeaderText = "Recebido",
                 Width = 100,
                 ValueType = typeof(decimal),
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", Alignment = DataGridViewContentAlignment.MiddleRight }
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
 
+            // Coluna SALDO - será destacada
             dgvContasAReceber.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Saldo",
                 HeaderText = "Saldo",
                 Width = 100,
                 ValueType = typeof(decimal),
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2", Alignment = DataGridViewContentAlignment.MiddleRight }
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "C2",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
 
             dgvContasAReceber.Columns.Add(new DataGridViewTextBoxColumn
@@ -283,7 +296,6 @@ namespace GVC.View
             dgvContasAReceber.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvContasAReceber.MultiSelect = false;
             dgvContasAReceber.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-
             dgvContasAReceber.ReadOnly = false; // libera edição no grid inteiro
 
             foreach (DataGridViewColumn col in dgvContasAReceber.Columns)
@@ -292,7 +304,7 @@ namespace GVC.View
                     col.ReadOnly = true;
             }
 
-            // >>> Configurações visuais adicionadas <<<
+            // Configurações visuais
             dgvContasAReceber.EnableHeadersVisualStyles = false;
             dgvContasAReceber.ColumnHeadersDefaultCellStyle.BackColor = ThemeERP.AzulPrimario;
             dgvContasAReceber.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -300,6 +312,35 @@ namespace GVC.View
             dgvContasAReceber.DefaultCellStyle.Font = new Font("Segoe UI", 10f);
             dgvContasAReceber.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 247, 250);
             dgvContasAReceber.BorderStyle = BorderStyle.None;
+
+            // ========== DESTAQUE DA COLUNA SALDO ==========
+
+            // Destacar cabeçalho da coluna Saldo
+            if (dgvContasAReceber.Columns["Saldo"] != null)
+            {
+                var colunaSaldo = dgvContasAReceber.Columns["Saldo"];
+
+                // Personalizar cabeçalho
+                colunaSaldo.HeaderCell.Style.BackColor = Color.FromArgb(255, 193, 7); // Amarelo ouro
+                colunaSaldo.HeaderCell.Style.ForeColor = Color.Black;
+                colunaSaldo.HeaderCell.Style.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
+                colunaSaldo.HeaderText = "💰 SALDO A PAGAR";
+            }
+
+
+        }
+
+        // Classe estática com cores padrão de mercado (adicione fora da sua classe, 
+        // em um arquivo separado ou no final do arquivo)
+        public static class CoresMercado
+        {
+            public static Color SaldoDevedor => Color.FromArgb(198, 40, 40); // Vermelho vibrante
+            public static Color SaldoDevedorFundo => Color.FromArgb(255, 235, 238); // Rosa muito claro
+
+            public static Color SaldoCredor => Color.FromArgb(46, 125, 50); // Verde
+            public static Color SaldoCredorFundo => Color.FromArgb(232, 245, 233); // Verde claro
+
+            public static Color SaldoZero => Color.FromArgb(97, 97, 97); // Cinza
         }
 
         private List<ContaAReceberDTO> ObterParcelasSelecionadas()
@@ -358,7 +399,7 @@ namespace GVC.View
             // 🔑 6️⃣ Atualizações auxiliares
             AtualizarResumo(lista);
             AtualizarResumoGeral(lista);
-            AtualizarTotalSelecionado();            
+            AtualizarTotalSelecionado();
         }
 
         private void AtualizarResumo(IEnumerable<ContaAReceberDTO> dados)
@@ -446,7 +487,7 @@ namespace GVC.View
             if (e.ColumnIndex >= 0 && dgvContasAReceber.Columns[e.ColumnIndex].Name == "Selecionar")
             {
                 AtualizarTotalSelecionado();
-                AtualizarEstadoBotoesFinanceiros(); // 🔥 AQUI
+                AtualizarEstadoBotoesFinanceiros();
             }
 
             // Proteger índices inválidos
@@ -469,7 +510,7 @@ namespace GVC.View
                 }
             }
 
-            // 2) Colunas monetárias: formatar como moeda e alinhar à direita
+            // 2) Colunas monetárias: formatar como moeda
             else if (coluna == "ValorParcela" ||
                      coluna == "ValorRecebido" ||
                      coluna == "Saldo" ||
@@ -478,26 +519,34 @@ namespace GVC.View
             {
                 if (e.Value != null && decimal.TryParse(e.Value.ToString(), NumberStyles.Any, CultureInfo.CurrentCulture, out decimal valor))
                 {
-                    e.Value = valor.ToString("C2"); // Ex: R$ 1.000,00
+                    e.Value = valor.ToString("C2");
                     e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    e.CellStyle.Font = new Font(dgvContasAReceber.Font, FontStyle.Regular); // padrão
+                    e.CellStyle.Font = new Font(dgvContasAReceber.Font, FontStyle.Regular);
                     e.FormattingApplied = true;
 
-                    // Cores específicas apenas para a coluna Saldo
+                    // ========== DESTAQUE ESPECIAL PARA COLUNA SALDO ==========
                     if (coluna == "Saldo")
                     {
-                        if (valor < 0m)
+                        // Aplica cores conforme o valor usando CoresMercado
+                        if (valor > 0)
                         {
-                            e.CellStyle.ForeColor = Color.Red;
+                            e.CellStyle.ForeColor = CoresMercado.SaldoDevedor;
                             e.CellStyle.Font = new Font(dgvContasAReceber.Font, FontStyle.Bold);
+                            e.CellStyle.BackColor = CoresMercado.SaldoDevedorFundo;
+
+                            // ToolTip via CellToolTipTextNeeded (precisa de evento separado)
                         }
-                        else if (valor == 0m)
+                        else if (valor < 0)
                         {
-                            e.CellStyle.ForeColor = Color.Gray;
+                            e.CellStyle.ForeColor = CoresMercado.SaldoCredor;
+                            e.CellStyle.Font = new Font(dgvContasAReceber.Font, FontStyle.Bold);
+                            e.CellStyle.BackColor = CoresMercado.SaldoCredorFundo;
                         }
-                        else
+                        else // valor == 0
                         {
-                            e.CellStyle.ForeColor = Color.Black; // ou ForestGreen se preferir positivo destacado
+                            e.CellStyle.ForeColor = CoresMercado.SaldoZero;
+                            e.CellStyle.Font = new Font(dgvContasAReceber.Font, FontStyle.Regular);
+                            e.CellStyle.BackColor = Color.White;
                         }
                     }
                 }
@@ -534,7 +583,6 @@ namespace GVC.View
                         e.CellStyle.Font = new Font(dgvContasAReceber.Font, FontStyle.Strikeout);
                         break;
 
-                    // Adicione outros status se necessário (Renegociada, Em Cobrança, etc.)
                     default:
                         e.CellStyle.ForeColor = Color.Black;
                         break;
@@ -604,7 +652,7 @@ namespace GVC.View
             try
             {
                 var bll = new ParcelaBLL();
-                int qtd = bll.AtualizarParcelasAtrasadas();               
+                int qtd = bll.AtualizarParcelasAtrasadas();
             }
             catch (Exception ex)
             {
@@ -1123,7 +1171,7 @@ namespace GVC.View
 
             if (!selecionadas.Any())
             {
-                Utilitario.Mensagens.Aviso( "Por favor, selecione ao menos uma parcela.");
+                Utilitario.Mensagens.Aviso("Por favor, selecione ao menos uma parcela.");
                 return;
             }
 
@@ -1521,6 +1569,30 @@ namespace GVC.View
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
                 CarregarContasAReceber();
+            }
+        }
+
+        private void dgvContasAReceber_CellToolTipTextNeeded(object sender, DataGridViewCellToolTipTextNeededEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
+            {
+                var coluna = dgvContasAReceber.Columns[e.ColumnIndex].DataPropertyName;
+
+                if (coluna == "Saldo")
+                {
+                    var valor = dgvContasAReceber.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                    if (valor != null && valor != DBNull.Value)
+                    {
+                        decimal saldo = Convert.ToDecimal(valor);
+
+                        if (saldo > 0)
+                            e.ToolTipText = "💰 Valor em aberto";
+                        else if (saldo < 0)
+                            e.ToolTipText = "💚 Crédito a favor do cliente";
+                        else
+                            e.ToolTipText = "✅ Quitado";
+                    }
+                }
             }
         }
     }

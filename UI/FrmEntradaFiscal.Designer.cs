@@ -43,9 +43,9 @@
             dgvItensDocumento = new Krypton.Toolkit.KryptonDataGridView();
             grpTotais = new GroupBox();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             lblTotalItens = new Krypton.Toolkit.KryptonLabel();
-            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
             kryptonLabel7 = new Krypton.Toolkit.KryptonLabel();
             lblTotal = new Krypton.Toolkit.KryptonLabel();
             btnConfirmar = new FontAwesome.Sharp.IconButton();
@@ -285,6 +285,20 @@
             iconPictureBox1.TabIndex = 0;
             iconPictureBox1.TabStop = false;
             // 
+            // iconPictureBox2
+            // 
+            iconPictureBox2.BackColor = Color.White;
+            iconPictureBox2.ForeColor = Color.ForestGreen;
+            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.MoneyBills;
+            iconPictureBox2.IconColor = Color.ForestGreen;
+            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox2.IconSize = 36;
+            iconPictureBox2.Location = new Point(6, 60);
+            iconPictureBox2.Name = "iconPictureBox2";
+            iconPictureBox2.Size = new Size(36, 36);
+            iconPictureBox2.TabIndex = 0;
+            iconPictureBox2.TabStop = false;
+            // 
             // kryptonLabel1
             // 
             kryptonLabel1.Location = new Point(45, 22);
@@ -306,20 +320,6 @@
             lblTotalItens.StateCommon.ShortText.Font = new Font("Segoe UI Semibold", 12.25F, FontStyle.Bold);
             lblTotalItens.TabIndex = 3;
             lblTotalItens.Values.Text = "0";
-            // 
-            // iconPictureBox2
-            // 
-            iconPictureBox2.BackColor = Color.White;
-            iconPictureBox2.ForeColor = Color.ForestGreen;
-            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.MoneyBills;
-            iconPictureBox2.IconColor = Color.ForestGreen;
-            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox2.IconSize = 36;
-            iconPictureBox2.Location = new Point(6, 60);
-            iconPictureBox2.Name = "iconPictureBox2";
-            iconPictureBox2.Size = new Size(36, 36);
-            iconPictureBox2.TabIndex = 0;
-            iconPictureBox2.TabStop = false;
             // 
             // kryptonLabel7
             // 
@@ -530,7 +530,7 @@
             lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitulo.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             lblTitulo.TabIndex = 1091;
-            lblTitulo.Values.Text = "Cadastro de Produtos";
+            lblTitulo.Values.Text = "Entrada de Estoque  Via Nota Fiscal";
             // 
             // txtFornecedor
             // 
@@ -758,10 +758,13 @@
             Controls.Add(lblTipoDocumento);
             Controls.Add(cmbTipoDocumento);
             KeyPreview = true;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmEntradaFiscal";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Entrada de Estoque - Nota Fiscal";
             WindowState = FormWindowState.Maximized;

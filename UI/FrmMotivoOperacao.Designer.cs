@@ -249,9 +249,9 @@
             // kryptonBorderEdge6
             // 
             kryptonBorderEdge6.Dock = DockStyle.Right;
-            kryptonBorderEdge6.Location = new Point(478, 21);
+            kryptonBorderEdge6.Location = new Point(480, 21);
             kryptonBorderEdge6.Name = "kryptonBorderEdge6";
-            kryptonBorderEdge6.Size = new Size(3, 125);
+            kryptonBorderEdge6.Size = new Size(1, 125);
             kryptonBorderEdge6.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge6.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge6.Text = "kryptonBorderEdge6";
@@ -259,9 +259,9 @@
             // kryptonBorderEdge4
             // 
             kryptonBorderEdge4.Dock = DockStyle.Top;
-            kryptonBorderEdge4.Location = new Point(3, 20);
+            kryptonBorderEdge4.Location = new Point(1, 20);
             kryptonBorderEdge4.Name = "kryptonBorderEdge4";
-            kryptonBorderEdge4.Size = new Size(478, 1);
+            kryptonBorderEdge4.Size = new Size(480, 1);
             kryptonBorderEdge4.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge4.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge4.Text = "kryptonBorderEdge4";
@@ -271,7 +271,7 @@
             kryptonBorderEdge3.Dock = DockStyle.Left;
             kryptonBorderEdge3.Location = new Point(0, 20);
             kryptonBorderEdge3.Name = "kryptonBorderEdge3";
-            kryptonBorderEdge3.Size = new Size(3, 126);
+            kryptonBorderEdge3.Size = new Size(1, 126);
             kryptonBorderEdge3.StateCommon.Color1 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge3.StateCommon.Color2 = Color.FromArgb(8, 142, 254);
             kryptonBorderEdge3.Text = "kryptonBorderEdge3";
@@ -313,6 +313,7 @@
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Instrução";
             Load += FrmMotivoOperacao_Load;

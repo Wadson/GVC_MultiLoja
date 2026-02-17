@@ -225,6 +225,8 @@
             Controls.Add(panelHeader);
             Controls.Add(flowLayoutPanel4);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmItensVenda";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;

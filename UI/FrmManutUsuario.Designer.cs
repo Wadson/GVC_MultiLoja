@@ -752,12 +752,16 @@
             Controls.Add(tableLayoutPanel2);
             Controls.Add(kryptonStatusStrip1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmManutUsuario";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Manutenção de Usuários";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutUsuario_Load;
             Shown += FrmManutUsuario_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvUsuarios).EndInit();

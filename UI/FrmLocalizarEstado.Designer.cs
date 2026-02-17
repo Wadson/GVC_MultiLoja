@@ -232,6 +232,8 @@
             Controls.Add(btnSai);
             Controls.Add(dataGridPesquisar);
             Margin = new Padding(5, 3, 5, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmLocalizarEstado";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;

@@ -1187,10 +1187,13 @@
             Controls.Add(lblRotCidade);
             Controls.Add(txtUF);
             KeyPreview = true;
+            MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmCadVendedor";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
+            ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
@@ -1198,6 +1201,7 @@
             StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Text = "Cadastro de Vendedores";
+            WindowState = FormWindowState.Maximized;
             Load += FrmCadVendedor_Load;
             Shown += FrmCadVendedor_Shown;
             KeyDown += FrmCadVendedor_KeyDown;

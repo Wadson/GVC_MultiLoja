@@ -432,6 +432,8 @@
             Controls.Add(kryptonStatusStrip1);
             KeyPreview = true;
             Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmCadMarcas";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;

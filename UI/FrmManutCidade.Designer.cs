@@ -471,10 +471,13 @@
             Controls.Add(kryptonStatusStrip2);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(5, 3, 5, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmManutCidade";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção de Cidade";

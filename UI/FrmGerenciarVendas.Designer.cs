@@ -639,10 +639,13 @@
             Controls.Add(pnlHeader);
             Controls.Add(dgvVendas);
             Controls.Add(kryptonStatusStrip1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmGerenciarVendas";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             Text = "Gerenciar Vendas";
             WindowState = FormWindowState.Maximized;
             Load += FrmGerenciarVendas_Load;

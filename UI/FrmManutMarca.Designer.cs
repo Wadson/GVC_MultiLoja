@@ -82,7 +82,6 @@
             dgvMarcas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvMarcas.Size = new Size(998, 419);
             dgvMarcas.TabIndex = 597;
-            
             // 
             // btnSair
             // 
@@ -752,12 +751,16 @@
             Controls.Add(tableLayoutPanel2);
             Controls.Add(kryptonStatusStrip1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmManutMarca";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Manutenção de Marcas";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutMarca_Load;
             Shown += FrmManutMarca_Shown;
             ((System.ComponentModel.ISupportInitialize)dgvMarcas).EndInit();

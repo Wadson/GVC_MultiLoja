@@ -1431,6 +1431,62 @@ namespace GVC.UTIL {
             else
                 cmb.SelectedIndex = 0;
         }
+        public static void CarregarEmpresaToolStrip(ToolStripComboBox cmb)
+        {           
+
+            try
+            {
+                var comboBox = cmb.ComboBox;
+
+                comboBox.Items.Clear();
+                comboBox.DisplayMember = nameof(EmpresaDTO.NomeFantasia);
+                comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                // Item padrão
+                comboBox.Items.Add(new EmpresaDTO
+                {
+                    EmpresaID = 0,
+                    NomeFantasia = "Selecione a empresa"
+                });
+
+                string sql = @"SELECT EmpresaID, NomeFantasia, FundoTela FROM Empresa ORDER BY NomeFantasia";
+
+                using var conn = Conexao.Conex();
+                using var cmd = new SqlCommand(sql, conn);
+
+                conn.Open();
+                using var dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    comboBox.Items.Add(new EmpresaDTO
+                    {
+                        EmpresaID = dr.GetInt32(dr.GetOrdinal("EmpresaID")),
+                        NomeFantasia = dr.GetString(dr.GetOrdinal("NomeFantasia")),
+                        FundoTela = dr["FundoTela"] != DBNull.Value ? dr["FundoTela"].ToString() : null
+                    });
+                }
+
+                // Seleciona pela sessão
+                if (Sessao.EmpresaID > 0)
+                {
+                    foreach (EmpresaDTO item in comboBox.Items)
+                    {
+                        if (item.EmpresaID == Sessao.EmpresaID)
+                        {
+                            comboBox.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+
+                if (comboBox.SelectedIndex == -1)
+                    comboBox.SelectedIndex = 0;
+            }
+            finally
+            {                
+            }
+        }
         public static void CarregarMarca(KryptonComboBox cmb, bool filtrarPorSessao = true)
         {
             cmb.Items.Clear();

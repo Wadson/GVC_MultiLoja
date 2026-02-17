@@ -8,12 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GVC.Infra.Conexao;
-using GVC.Infra.Repository;
+using GVC.Infra.Repository; 
 
 public class ExtratoBLL
 {
-    private readonly ExtratoDal _extratoDal = new();
+    private readonly ExtratoRepository _extratoRepository = new();
     private readonly ClienteRepository _clienteRepository = new();
+
 
     // ======================================================
     // EXTRATO PARA RECIBO (LOTE - VÁRIAS PARCELAS)
@@ -23,68 +24,44 @@ public class ExtratoBLL
         if (parcelasIds == null || parcelasIds.Count == 0)
             throw new Exception("Nenhuma parcela informada para o extrato do lote.");
 
-        using var conn = Conexao.Conex();
-
         var ids = parcelasIds.Select(x => (int)x).ToList();
 
-        // Busca itens do lote (somente as parcelas selecionadas)
-        var sql = @"
-        SELECT
-            v.ClienteID,
-            c.Nome AS NomeCliente,
-            p.VendaID,
-            p.ParcelaID,
-            p.NumeroParcela,
-            p.DataVencimento,
-            p.ValorParcela,
-            ISNULL(p.ValorRecebido, 0) AS ValorRecebido,
-            (p.ValorParcela + ISNULL(p.Juros,0) + ISNULL(p.Multa,0) - ISNULL(p.ValorRecebido,0)) AS Saldo,
-            p.Status
-        FROM Parcela p
-        INNER JOIN Venda v ON v.VendaID = p.VendaID
-        INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
-        WHERE p.ParcelaID IN @Ids
-        ORDER BY p.VendaID, p.NumeroParcela;";
-
-        var rows = conn.Query(sql, new { Ids = ids }).ToList();
+        var rows = _extratoRepository.ObterExtratoPorParcelas(ids);
 
         if (rows == null || rows.Count == 0)
             throw new Exception("Parcelas não encontradas para gerar o recibo do lote.");
 
-        // Segurança: lote deve ser de 1 único cliente (sua tela é por cliente)
-        var clienteIdsDistintos = rows.Select(r => (int)r.ClienteID).Distinct().ToList();
+        var clienteIdsDistintos = rows.Select(r => r.ClienteID).Distinct().ToList();
         if (clienteIdsDistintos.Count > 1)
             throw new Exception("Não é permitido gerar recibo de lote com parcelas de clientes diferentes.");
 
-        int clienteId = (int)rows[0].ClienteID;
-        string nomeCliente = (string)rows[0].NomeCliente;
+        int clienteId = rows[0].ClienteID;
+        string nomeCliente = rows[0].NomeCliente;
 
         var itens = rows.Select(r => new ItemExtrato
         {
-            VendaID = (int)r.VendaID,
-            ParcelaID = (int)r.ParcelaID,
-            NumeroParcela = (int)r.NumeroParcela,
-            DataVencimento = (DateTime)r.DataVencimento,
-            ValorParcela = (decimal)r.ValorParcela,
-            ValorRecebido = (decimal)r.ValorRecebido,
-            Saldo = (decimal)r.Saldo,
-            Status = (string)r.Status
+            VendaID = r.VendaID,
+            ParcelaID = r.ParcelaID,
+            NumeroParcela = r.NumeroParcela,
+            DataVencimento = r.DataVencimento,
+            ValorParcela = r.ValorParcela,
+            ValorRecebido = r.ValorRecebido,
+            Saldo = r.Saldo,
+            Status = r.Status
         }).ToList();
 
-        // Totais do extrato (para o recibo, o importante é TotalPago do lote)
-        var extrato = new ExtratoCliente
+        return new ExtratoCliente
         {
             ClienteID = clienteId,
             NomeCliente = nomeCliente,
             DataEmissao = dataEmissao,
             ItensExtrato = itens,
-            TotalPago = itens.Sum(i => i.ValorRecebido), // no lote quitado, isso vira o total recebido
+            TotalPago = itens.Sum(i => i.ValorRecebido),
             TotalDevendo = itens.Sum(i => i.Saldo),
             SaldoAtual = itens.Sum(i => i.Saldo)
         };
-
-        return extrato;
     }
+
 
     // ======================================================
     // EXTRATO POR VENDA (ANTIGO)
@@ -147,19 +124,14 @@ public class ExtratoBLL
     // ======================================================
     public ExtratoCliente ObterExtratoClientePorVenda(long vendaId, bool detalhado)
     {
-        using var conn = Conexao.Conex();
-
-        int? clienteId = conn.ExecuteScalar<int?>(@"
-            SELECT ClienteID
-            FROM Venda
-            WHERE VendaID = @id",
-            new { id = vendaId });
+        int? clienteId = _extratoRepository.ObterClienteIdPorVenda(vendaId);
 
         if (clienteId == null)
             throw new Exception("Venda não encontrada.");
 
         return ObterExtratoCliente(clienteId.Value, detalhado);
     }
+
 
     // ======================================================
     // EXTRATO RESUMIDO / SIMPLES (ANTIGO)
@@ -169,7 +141,21 @@ public class ExtratoBLL
         var cliente = _clienteRepository.BuscarPorId(clienteId)
             ?? throw new Exception("Cliente não encontrado.");
 
-        var parcelas = _extratoDal.ObterExtratoResumido(clienteId);
+        var parcelas = _extratoRepository.ObterExtratoResumido(clienteId);
+
+        if (parcelas == null || parcelas.Count == 0)
+        {
+            return new ExtratoCliente
+            {
+                ClienteID = cliente.ClienteID,
+                NomeCliente = cliente.Nome,
+                DataEmissao = DateTime.Now,
+                ItensExtrato = new List<ItemExtrato>(),
+                TotalPago = 0m,
+                TotalDevendo = 0m,
+                SaldoAtual = 0m
+            };
+        }
 
         var itens = parcelas.Select(p => new ItemExtrato
         {
@@ -180,7 +166,9 @@ public class ExtratoBLL
             ValorParcela = p.ValorParcela,
             ValorRecebido = p.ValorRecebido,
             Saldo = p.Saldo,
-            Status = p.Status
+
+            // ✅ AQUI É A CORREÇÃO
+            Status = p.StatusParcela
         }).ToList();
 
         var extrato = new ExtratoCliente
@@ -191,9 +179,11 @@ public class ExtratoBLL
             ItensExtrato = itens
         };
 
+        // Evita duplicidade caso venha repetido
         var parcelasUnicas = itens
             .GroupBy(i => i.ParcelaID)
-            .Select(g => g.First());
+            .Select(g => g.First())
+            .ToList();
 
         extrato.TotalPago = parcelasUnicas.Sum(p => p.ValorRecebido);
         extrato.TotalDevendo = parcelasUnicas.Sum(p => p.Saldo);
@@ -202,13 +192,14 @@ public class ExtratoBLL
         return extrato;
     }
 
+
     // ======================================================
     // EXTRATO DETALHADO PROFISSIONAL (NOVO)
     // ======================================================
     public List<ParcelaExtratoDetalhado> ObterExtratoDetalhado(int clienteId)
     {
-        var parcelas = _extratoDal.ObterParcelas(clienteId);
-        var pagamentos = _extratoDal.ObterPagamentosPorCliente(clienteId); // ✅ CORRETO
+        var parcelas = _extratoRepository.ObterParcelasDetalhado(clienteId);
+        var pagamentos = _extratoRepository.ObterPagamentosPorCliente(clienteId);
 
         foreach (var parcela in parcelas)
         {
@@ -226,26 +217,20 @@ public class ExtratoBLL
         return parcelas;
     }
 
+
     // ======================================================
     // EXTRATO PARA RECIBO (PARCELA ESPECÍFICA)
     // ======================================================
     public ExtratoCliente ObterExtratoPorParcela(long parcelaId)
     {
-        using var conn = Conexao.Conex();
-
-        int? clienteId = conn.ExecuteScalar<int?>(@"
-        SELECT v.ClienteID
-        FROM Parcela p
-        INNER JOIN Venda v ON v.VendaID = p.VendaID
-        WHERE p.ParcelaID = @id",
-            new { id = parcelaId });
+        int? clienteId = _extratoRepository.ObterClienteIdPorParcela(parcelaId);
 
         if (clienteId == null)
             throw new Exception("Parcela não vinculada a cliente.");
 
-        // 🔹 Recibo SEMPRE usa extrato resumido
         return ObterExtratoCliente(clienteId.Value, false);
     }
+
 
 
     // ======================================================
@@ -253,59 +238,37 @@ public class ExtratoBLL
     // ======================================================
     public List<PagamentoExtratoModel> ObterReciboPorParcela(long parcelaId)
     {
-        return _extratoDal.ObterPagamentosPorParcela(parcelaId);
+        return _extratoRepository.ObterPagamentosPorParcela(parcelaId);
     }
+
     // ======================================================
     // RELATÓRIO CONTAS A RECEBER (FORM DEDICADO)
     // ======================================================
     public List<ExtratoCliente> ObterRelatorioContasReceber(
-      int? clienteId,
-      DateTime dataInicio,
-      DateTime dataFim,
-      List<EnumStatusParcela> statusSelecionados)
+        int? clienteId,
+        DateTime dataInicio,
+        DateTime dataFim,
+        List<EnumStatusParcela> statusSelecionados)
     {
-        using var conn = Conexao.Conex();
+        if (statusSelecionados == null || statusSelecionados.Count == 0)
+            return new List<ExtratoCliente>();
 
         var statusStrings = statusSelecionados
             .Select(s => s.ToString())
             .ToList();
 
-        var parcelas = conn.Query<ContaAReceberDTO>(@"
-    SELECT
-        p.ParcelaID,
-        p.VendaID,
-        v.ClienteID,
-        c.Nome AS NomeCliente,
-        p.DataVencimento,
-        p.ValorParcela,
-        p.ValorRecebido,
-        (p.ValorParcela - p.ValorRecebido) AS Saldo,
-        p.Status AS StatusParcela
-    FROM Parcela p
-    INNER JOIN Venda v ON v.VendaID = p.VendaID
-    INNER JOIN Clientes c ON c.ClienteID = v.ClienteID
-    WHERE
-        (@clienteId IS NULL OR v.ClienteID = @clienteId)
-        AND p.Status IN @status
-        AND (
-            (p.Status = 'Pago' AND p.DataPagamento BETWEEN @inicio AND @fim)
-            OR (p.Status = 'Atrasada' AND p.DataVencimento BETWEEN @inicio AND @fim)
-            OR (p.Status IN ('Pendente', 'ParcialmentePago'))
-        )
-    ORDER BY c.Nome, p.DataVencimento",
-    new
-    {
-        clienteId,
-        inicio = dataInicio,
-        fim = dataFim,
-        status = statusStrings
-    }).ToList();
+        // ✅ Busca no repository (já filtra EmpresaID lá dentro)
+        var parcelas = _extratoRepository.ObterRelatorioContasReceber(
+            clienteId,
+            dataInicio,
+            dataFim,
+            statusStrings
+        );
 
-
-        if (!parcelas.Any())
+        if (parcelas == null || !parcelas.Any())
             return new List<ExtratoCliente>();
 
-        // 🔹 AGRUPAMENTO FINAL (SEM FILTRAR STATUS!)
+        // 🔹 AGRUPAMENTO FINAL (SEM FILTRAR STATUS! Só calcula totais)
         var extratos = parcelas
             .GroupBy(p => new { p.ClienteID, p.NomeCliente })
             .Select(g =>

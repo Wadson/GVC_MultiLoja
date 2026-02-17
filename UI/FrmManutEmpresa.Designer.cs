@@ -472,6 +472,8 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             KeyPreview = true;
             Margin = new Padding(5, 3, 5, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmManutEmpresa";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
@@ -481,6 +483,7 @@
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção e Empresa";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutEmpresa_Load;
             ((System.ComponentModel.ISupportInitialize)dgvEmpresa).EndInit();
             tableLayoutPanel1.ResumeLayout(false);

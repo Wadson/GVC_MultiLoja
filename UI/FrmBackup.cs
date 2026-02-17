@@ -321,12 +321,7 @@ ALTER DATABASE [{NomeBanco}] SET MULTI_USER;";
 
             if (string.IsNullOrWhiteSpace(caminho))
             {
-                MessageBox.Show(
-                    "Informe o caminho do backup.",
-                    "Atenção",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                Utilitario.Mensagens.Info("Atenção! Informe o caminho do backup.");
                 return;
             }
 

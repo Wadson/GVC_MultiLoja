@@ -19,7 +19,6 @@ namespace GVC.Infra.Repository
         {
             if (!Sessao.Logado)
                 throw new Exception("Sessão inválida. Empresa não definida.");
-
             Connection = Conexao.Conexao.Conex();
             Connection.Open();
             _externalConnection = false;
@@ -30,7 +29,6 @@ namespace GVC.Infra.Repository
         {
             if (!Sessao.Logado)
                 throw new Exception("Sessão inválida. Empresa não definida.");
-
             Connection = connection ?? throw new ArgumentNullException(nameof(connection));
             _externalConnection = true;
         }
@@ -38,11 +36,9 @@ namespace GVC.Infra.Repository
         protected SqlCommand CreateCommand(string sql)
         {
             var cmd = new SqlCommand(sql, Connection);
-
             // 🔒 MULTIEMPRESA CENTRALIZADO
             if (sql.Contains("@EmpresaID"))
                 cmd.Parameters.Add("@EmpresaID", SqlDbType.Int).Value = EmpresaID;
-
             return cmd;
         }
 

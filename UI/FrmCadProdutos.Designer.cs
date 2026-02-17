@@ -731,7 +731,7 @@
             btnSalvar.StateTracking.Border.Rounding = 20F;
             btnSalvar.StateTracking.Border.Width = 1;
             btnSalvar.StateTracking.Content.ShortText.Color1 = Color.FromArgb(22, 121, 206);
-            btnSalvar.TabIndex = 13;
+            btnSalvar.TabIndex = 12;
             btnSalvar.Values.Text = "Salvar";
             btnSalvar.Click += btnSalvar_Click;
             // 
@@ -1070,7 +1070,7 @@
             cmbMarca.StateTracking.Item.Content.ShortText.Color1 = Color.White;
             cmbMarca.StateTracking.Item.Content.ShortText.Color2 = Color.White;
             cmbMarca.StateTracking.Item.Content.ShortText.Font = new Font("Segoe UI", 9F);
-            cmbMarca.TabIndex = 1093;
+            cmbMarca.TabIndex = 2;
             cmbMarca.SelectedIndexChanged += cmbMarca_SelectedIndexChanged;
             // 
             // lblMarcaId
@@ -1214,6 +1214,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Produtos";
+            WindowState = FormWindowState.Maximized;
             Load += FrmCadProdutos_Load;
             Shown += FrmCadProdutos_Shown;
             KeyDown += FrmCadProdutos_KeyDown;

@@ -561,9 +561,9 @@
             btnAdicionarItem.ImageAlign = ContentAlignment.MiddleLeft;
             btnAdicionarItem.Location = new Point(454, 99);
             btnAdicionarItem.Name = "btnAdicionarItem";
-            btnAdicionarItem.Size = new Size(161, 35);
+            btnAdicionarItem.Size = new Size(101, 35);
             btnAdicionarItem.TabIndex = 5;
-            btnAdicionarItem.Text = "Adicionar ítem";
+            btnAdicionarItem.Text = "       Adicionar";
             btnAdicionarItem.UseVisualStyleBackColor = false;
             btnAdicionarItem.Click += btnAdicionarItem_Click_1;
             // 
@@ -849,9 +849,12 @@
             Controls.Add(tlpMain);
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmPDVendas";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
+            ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PDV-Ponto de Vendas";

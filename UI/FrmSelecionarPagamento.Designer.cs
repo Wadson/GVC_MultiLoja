@@ -811,6 +811,7 @@
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             StateCommon.Border.Color1 = Color.FromArgb(8, 148, 252);
             StateCommon.Border.Color2 = Color.FromArgb(8, 148, 252);

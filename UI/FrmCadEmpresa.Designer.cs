@@ -446,6 +446,7 @@
             // 
             // txtResponsavel
             // 
+            txtResponsavel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtResponsavel.CharacterCasing = CharacterCasing.Upper;
             txtResponsavel.Location = new Point(631, 360);
             txtResponsavel.Name = "txtResponsavel";
@@ -753,11 +754,11 @@
             // 
             kryptonStatusStrip1.Font = new Font("Segoe UI", 9F);
             kryptonStatusStrip1.Items.AddRange(new ToolStripItem[] { lblUsuarioCriacao, toolStripStatusLabel2, lblDataCriacao, toolStripStatusLabel4, lblDataUtimaCompra, toolStripStatusLabel1, lblUsuarioAtualizacao, toolStripStatusLabel3, lblDataAtualizacao, lblStatus, toolStripStatusLabel5 });
-            kryptonStatusStrip1.Location = new Point(0, 635);
+            kryptonStatusStrip1.Location = new Point(0, 627);
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
             kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            kryptonStatusStrip1.Size = new Size(880, 22);
+            kryptonStatusStrip1.Size = new Size(872, 22);
             kryptonStatusStrip1.TabIndex = 1079;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
@@ -835,7 +836,6 @@
             // 
             // btnLocalizarCertificado
             // 
-            btnLocalizarCertificado.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnLocalizarCertificado.CornerRoundingRadius = 10F;
             btnLocalizarCertificado.Location = new Point(304, 513);
             btnLocalizarCertificado.Margin = new Padding(5, 3, 5, 3);
@@ -1092,7 +1092,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(880, 47);
+            pnlHeader.Size = new Size(872, 47);
             pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             pnlHeader.TabIndex = 1094;
@@ -1111,7 +1111,7 @@
             tlpTitulo.RowCount = 2;
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 48.57143F));
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 51.42857F));
-            tlpTitulo.Size = new Size(880, 47);
+            tlpTitulo.Size = new Size(872, 47);
             tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             tlpTitulo.TabIndex = 0;
@@ -1121,7 +1121,7 @@
             lblSubTitulo.Dock = DockStyle.Fill;
             lblSubTitulo.Location = new Point(3, 25);
             lblSubTitulo.Name = "lblSubTitulo";
-            lblSubTitulo.Size = new Size(874, 19);
+            lblSubTitulo.Size = new Size(866, 19);
             lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -1134,7 +1134,7 @@
             lblTitulo.Dock = DockStyle.Fill;
             lblTitulo.Location = new Point(3, 3);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(874, 16);
+            lblTitulo.Size = new Size(866, 16);
             lblTitulo.StateCommon.ShortText.Color1 = Color.White;
             lblTitulo.StateCommon.ShortText.Color2 = Color.White;
             lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -1233,7 +1233,7 @@
             // FrmCadEmpresa
             // 
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(880, 657);
+            ClientSize = new Size(872, 649);
             ControlBox = false;
             Controls.Add(btnBuscarImagem);
             Controls.Add(kryptonLabel4);
@@ -1294,6 +1294,8 @@
             Name = "FrmCadEmpresa";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
+            ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
@@ -1301,6 +1303,7 @@
             StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             Text = "Cadastro da Empresa";
+            WindowState = FormWindowState.Maximized;
             FormClosing += FrmCadEmpresa_FormClosing;
             Load += FrmCadEmpresa_Load;
             Shown += FrmCadEmpresa_Shown;

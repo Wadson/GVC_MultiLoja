@@ -1,16 +1,16 @@
-﻿namespace GVC.View
+﻿namespace GVC.UTIL
 {
-    partial class FrmLocalizarProdutos
+    partial class FrmCalculadoraDePreco
     {
         /// <summary>
-        /// Variável de designer necessária.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpar os recursos que estão sendo usados.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true se for necessário descartar os recursos gerenciados; caso contrário, false.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,41 +20,17 @@
             base.Dispose(disposing);
         }
 
-        #region Código gerado pelo Windows Form Designer
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Método necessário para suporte ao Designer - não modifique 
-        /// o conteúdo deste método com o editor de código.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            dataGridPesquisar = new Krypton.Toolkit.KryptonDataGridView();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
-            txtPesquisar = new Krypton.Toolkit.KryptonTextBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridPesquisar).BeginInit();
             SuspendLayout();
-            // 
-            // dataGridPesquisar
-            // 
-            dataGridPesquisar.AllowUserToAddRows = false;
-            dataGridPesquisar.AllowUserToDeleteRows = false;
-            dataGridPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridPesquisar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPesquisar.Location = new Point(5, 28);
-            dataGridPesquisar.Margin = new Padding(4, 3, 4, 3);
-            dataGridPesquisar.MultiSelect = false;
-            dataGridPesquisar.Name = "dataGridPesquisar";
-            dataGridPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            dataGridPesquisar.ReadOnly = true;
-            dataGridPesquisar.RowHeadersWidth = 25;
-            dataGridPesquisar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPesquisar.Size = new Size(817, 266);
-            dataGridPesquisar.TabIndex = 599;
-            dataGridPesquisar.TabStop = false;
-            dataGridPesquisar.CellDoubleClick += dataGridPesquisar_CellDoubleClick;
-            dataGridPesquisar.SelectionChanged += dataGridPesquisar_SelectionChanged;
-            dataGridPesquisar.KeyDown += dataGridPesquisar_KeyDown;
             // 
             // kryptonPalette1
             // 
@@ -92,61 +68,30 @@
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.ButtonEdgeInset = 10;
             kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new Padding(10, -1, -1, -1);
             // 
-            // txtPesquisar
+            // FrmCalculadoraPreco
             // 
-            txtPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtPesquisar.CharacterCasing = CharacterCasing.Upper;
-            txtPesquisar.Location = new Point(5, 1);
-            txtPesquisar.Margin = new Padding(5, 6, 5, 6);
-            txtPesquisar.Name = "txtPesquisar";
-            txtPesquisar.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueDarkMode;
-            txtPesquisar.Size = new Size(816, 24);
-            txtPesquisar.StateCommon.Back.Color1 = Color.FromArgb(10, 148, 254);
-            txtPesquisar.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
-            txtPesquisar.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            txtPesquisar.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            txtPesquisar.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            txtPesquisar.StateCommon.Border.Rounding = 1F;
-            txtPesquisar.StateCommon.Border.Width = 1;
-            txtPesquisar.StateCommon.Content.Color1 = Color.White;
-            txtPesquisar.StateCommon.Content.Font = new Font("Segoe UI", 12.25F);
-            txtPesquisar.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
-            txtPesquisar.TabIndex = 0;
-            txtPesquisar.TextChanged += txtPesquisar_TextChanged;
-            txtPesquisar.KeyDown += txtPesquisar_KeyDown;
-            // 
-            // FrmLocalizarProdutos
-            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(832, 301);
-            Controls.Add(txtPesquisar);
-            Controls.Add(dataGridPesquisar);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(5, 3, 5, 3);
+            ClientSize = new Size(573, 418);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FrmLocalizarProdutos";
+            Name = "FrmCalculadoraPreco";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
-            StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            Text = "Localizar Produto...";
-            FormClosing += FrmLocalizarProduto_FormClosing;
-            Load += FrmLocalizarProduto_Load;
-            Shown += FrmLocalizarProduto_Shown;
-            ((System.ComponentModel.ISupportInitialize)dataGridPesquisar).EndInit();
+            StateActive.Border.Color1 = Color.FromArgb(8, 142, 254);
+            StateActive.Border.Color2 = Color.FromArgb(8, 142, 254);
+            StateActive.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            Text = "Detalhe Financeiro do Produto";
+            Load += FrmCalculadoraDePreco_Load;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Krypton.Toolkit.KryptonDataGridView dataGridPesquisar;
         private Krypton.Toolkit.KryptonPalette kryptonPalette1;
-        public Krypton.Toolkit.KryptonTextBox txtPesquisar;
     }
 }

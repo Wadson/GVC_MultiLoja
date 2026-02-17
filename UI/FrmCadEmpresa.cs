@@ -599,7 +599,7 @@ namespace GVC.View
             if (!string.IsNullOrWhiteSpace(txtCnpj.Text) && !Utilitario.ValidarCNPJ(txtCnpj.Text))
             {
                 txtCnpj.StateCommon.Border.Color1 = Color.Crimson;
-                MessageBox.Show("Cnpj inválido.");
+                Utilitario.Mensagens.Erro("Cnpj inválido.");
                 txtCnpj.Focus();
             }
         }
@@ -707,8 +707,7 @@ namespace GVC.View
             if (numeros.Length != 10 && numeros.Length != 11)
             {
                 txtTelefone.StateCommon.Border.Color1 = Color.Crimson;
-                MessageBox.Show("Telefone deve conter 10 ou 11 dígitos.", "Telefone inválido",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Utilitario.Mensagens.Erro("Telefone inválido, Telefone deve conter 10 ou 11 dígitos");
                 txtTelefone.Focus();
                 return;
             }

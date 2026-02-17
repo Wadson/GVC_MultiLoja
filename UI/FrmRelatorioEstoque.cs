@@ -115,7 +115,7 @@ namespace GVC.View
                 return;
 
             // Configura colunas e estilos
-            ConfigurarGridEstoque();            
+            ConfigurarGridEstoque();
             var bll = new RelatorioEstoqueBLL();
 
             decimal totalCusto, totalVenda, totalLucro;
@@ -150,6 +150,11 @@ namespace GVC.View
         private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnListarControlesDoForm_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

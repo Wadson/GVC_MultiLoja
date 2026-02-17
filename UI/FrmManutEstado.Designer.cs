@@ -469,13 +469,17 @@
             Controls.Add(kryptonStatusStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(5, 3, 5, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmManutEstado";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;
             Text = "Manutenção de Estados";
+            WindowState = FormWindowState.Maximized;
             Load += FrmManutUsuario_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPesquisar).EndInit();
             kryptonStatusStrip1.ResumeLayout(false);

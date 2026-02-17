@@ -90,7 +90,7 @@
             dgvVendedores.ReadOnly = true;
             dgvVendedores.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvVendedores.Size = new Size(1000, 379);
-            dgvVendedores.TabIndex = 597;            
+            dgvVendedores.TabIndex = 597;
             dgvVendedores.CellFormatting += dgvVendedores_CellFormatting;
             // 
             // txtPesquisa
@@ -463,7 +463,7 @@
             iconAcao.IconChar = FontAwesome.Sharp.IconChar.User;
             iconAcao.IconColor = Color.White;
             iconAcao.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconAcao.IconSize = 46;
+            iconAcao.IconSize = 48;
             iconAcao.Location = new Point(351, -1);
             iconAcao.Name = "iconAcao";
             iconAcao.Size = new Size(48, 48);
@@ -563,10 +563,13 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             KeyPreview = true;
             Margin = new Padding(5, 3, 5, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmManutVendedor";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
             ShowIcon = false;
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             StateCommon.Back.Color1 = Color.White;
             StateCommon.Back.Color2 = Color.White;

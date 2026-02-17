@@ -234,6 +234,7 @@
             Controls.Add(dataGridPesquisar);
             KeyPreview = true;
             Margin = new Padding(5, 3, 5, 3);
+            MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmPesquisarPreco";
             Palette = kryptonPalette1;

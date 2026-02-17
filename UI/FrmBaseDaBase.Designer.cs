@@ -204,9 +204,13 @@
             Controls.Add(btnSair);
             Controls.Add(pnlHeader);
             KeyPreview = true;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmBaseDaBase";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
+            ShowIcon = false;
+            ShowInTaskbar = false;
             StateActive.Border.Color1 = Color.FromArgb(8, 142, 254);
             StateActive.Border.Color2 = Color.FromArgb(8, 142, 254);
             StateActive.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
