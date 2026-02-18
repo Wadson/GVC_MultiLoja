@@ -218,6 +218,7 @@
             // 
             // dgvMovimentacoes
             // 
+            dgvMovimentacoes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvMovimentacoes.Location = new Point(0, 249);
             dgvMovimentacoes.Name = "dgvMovimentacoes";
             dgvMovimentacoes.Size = new Size(877, 239);

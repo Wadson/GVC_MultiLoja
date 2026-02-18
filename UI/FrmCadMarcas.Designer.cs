@@ -91,10 +91,10 @@
             // 
             txtNomeMarca.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtNomeMarca.CharacterCasing = CharacterCasing.Upper;
-            txtNomeMarca.Location = new Point(85, 141);
+            txtNomeMarca.Location = new Point(74, 141);
             txtNomeMarca.Margin = new Padding(4, 3, 4, 3);
             txtNomeMarca.Name = "txtNomeMarca";
-            txtNomeMarca.Size = new Size(742, 24);
+            txtNomeMarca.Size = new Size(507, 24);
             txtNomeMarca.StateCommon.Back.Color1 = Color.White;
             txtNomeMarca.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNomeMarca.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -121,7 +121,7 @@
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
             kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            kryptonStatusStrip1.Size = new Size(834, 22);
+            kryptonStatusStrip1.Size = new Size(588, 22);
             kryptonStatusStrip1.TabIndex = 1032;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
@@ -129,7 +129,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 20F;
-            btnSair.Location = new Point(727, 220);
+            btnSair.Location = new Point(481, 220);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -195,7 +195,7 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.CornerRoundingRadius = 20F;
-            btnSalvar.Location = new Point(443, 220);
+            btnSalvar.Location = new Point(270, 220);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -208,7 +208,7 @@
             btnSalvar.OverrideDefault.Border.Rounding = 20F;
             btnSalvar.OverrideDefault.Border.Width = 1;
             btnSalvar.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnSalvar.Size = new Size(172, 30);
+            btnSalvar.Size = new Size(99, 30);
             btnSalvar.StateCommon.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.StateCommon.Back.Color2 = Color.FromArgb(8, 142, 254);
             btnSalvar.StateCommon.Back.ColorAngle = 45F;
@@ -261,7 +261,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 20F;
-            btnNovo.Location = new Point(621, 220);
+            btnNovo.Location = new Point(375, 220);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -328,7 +328,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(834, 47);
+            pnlHeader.Size = new Size(588, 47);
             pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             pnlHeader.TabIndex = 1093;
@@ -347,7 +347,7 @@
             tlpTitulo.RowCount = 2;
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 48.57143F));
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 51.42857F));
-            tlpTitulo.Size = new Size(834, 47);
+            tlpTitulo.Size = new Size(588, 47);
             tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             tlpTitulo.TabIndex = 0;
@@ -357,7 +357,7 @@
             lblSubTitulo.Dock = DockStyle.Fill;
             lblSubTitulo.Location = new Point(3, 25);
             lblSubTitulo.Name = "lblSubTitulo";
-            lblSubTitulo.Size = new Size(828, 19);
+            lblSubTitulo.Size = new Size(582, 19);
             lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -370,7 +370,7 @@
             lblTitulo.Dock = DockStyle.Fill;
             lblTitulo.Location = new Point(3, 3);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(828, 16);
+            lblTitulo.Size = new Size(582, 16);
             lblTitulo.StateCommon.ShortText.Color1 = Color.White;
             lblTitulo.StateCommon.ShortText.Color2 = Color.White;
             lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -389,7 +389,7 @@
             // 
             // kryptonLabel4
             // 
-            kryptonLabel4.Location = new Point(86, 117);
+            kryptonLabel4.Location = new Point(75, 117);
             kryptonLabel4.Name = "kryptonLabel4";
             kryptonLabel4.Size = new Size(81, 20);
             kryptonLabel4.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -419,7 +419,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(250, 252, 252);
-            ClientSize = new Size(834, 275);
+            ClientSize = new Size(588, 275);
             Controls.Add(lblMarcaId);
             Controls.Add(kryptonLabel5);
             Controls.Add(kryptonLabel4);

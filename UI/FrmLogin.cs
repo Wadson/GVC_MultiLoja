@@ -40,7 +40,7 @@ namespace GVC.MUI
             iconPictureBoxUser.IconChar = IconChar.User;
             iconPictureBoxUser.Visible = false;
             iconPictureBoxUser.IconColor = Color.Blue; // já define azul para quando for ativado
-            panel1.BackColor = Color.White;
+            pnDestaqueUsuario.BackColor = Color.White;
             txtUsuario.ForeColor = Color.White;
             txtUsuario.StateCommon.Back.Color1 = Color.White;
 
@@ -48,7 +48,7 @@ namespace GVC.MUI
             iconPictureBoxPassword.IconChar = IconChar.UnlockKeyhole;
             iconPictureBoxPassword.Visible = false;
             iconPictureBoxPassword.IconColor = Color.Blue;
-            panel3.BackColor = Color.White;
+            pnDestaqueSenha.BackColor = Color.White;
             txtSenha.ForeColor = Color.White;
             txtSenha.StateCommon.Back.Color1 = Color.White;
         }
@@ -248,23 +248,27 @@ namespace GVC.MUI
         }
         private void txtUsuario_Enter(object sender, EventArgs e)
         {
-            iconPictureBoxUser.Visible = true;
-            panel1.BackColor = Color.White;
+            iconPictureBoxUser.Visible = true; 
+            pnDestaqueUsuario.Visible = true; 
+            pnDestaqueUsuario.BackColor = Color.FromArgb(0, 120, 254);
         }
         private void txtUsuario_Leave(object sender, EventArgs e)
         {
-            iconPictureBoxUser.Visible = false;
-            panel1.BackColor = Color.White;
+
+            iconPictureBoxUser.Visible = false; 
+            pnDestaqueUsuario.Visible = false;
         }
         private void txtSenha_Enter(object sender, EventArgs e)
         {
             iconPictureBoxPassword.Visible = true;
-            panel3.BackColor = Color.White;
+            pnDestaqueSenha.Visible = true; 
+            pnDestaqueSenha.BackColor = Color.FromArgb(0, 120, 254);
         }
         private void txtSenha_Leave(object sender, EventArgs e)
-        {
-            iconPictureBoxPassword.Visible = false;
-            panel3.BackColor = Color.White;
+        {          
+
+            iconPictureBoxPassword.Visible = false; 
+            pnDestaqueSenha.Visible = false;
         }
         private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
         {

@@ -103,10 +103,10 @@ using System.Drawing;
                 // Log silencioso ou mostra mensagem
                 Debug.WriteLine($"Erro ao selecionar marca: {ex.Message}");
             }
-        }       
+        }
 
         private void FrmCadProdutos_Load(object sender, EventArgs e)
-        {         
+        {
 
             try
             {
@@ -226,7 +226,7 @@ using System.Drawing;
                 produtosbll.Inserir(produto);
                 Utilitario.Mensagens.Info("Produto salvo com sucesso!");
 
-                Utilitario.LimparCampos(this);               
+                Utilitario.LimparCampos(this);
                 txtNomeProduto.Focus();
 
                 int novoCodigo = Utilitario.ProximoId(QueryProdutos);
@@ -397,7 +397,7 @@ using System.Drawing;
         {
             Utilitario.AplicarCorFocoNosTextBox(this);
         }
-        private void btnLocalizarImagem_Click(object sender, EventArgs e)
+        private void LocalizarImagem()
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -614,8 +614,13 @@ using System.Drawing;
                 string nomeMarca = marcaSelecionada.NomeMarca;
 
                 // Exemplo de uso
-                lblMarcaId.Text = marcaId.ToString();               
+                lblMarcaId.Text = marcaId.ToString();
             }
+        }
+
+        private void btnLocalizarImagem_Click(object sender, EventArgs e)
+        {
+            LocalizarImagem();
         }
     }
 }

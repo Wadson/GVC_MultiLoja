@@ -32,8 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             lblEsqueciSenha = new Label();
             btnCancelar = new Krypton.Toolkit.KryptonButton();
-            panel3 = new Panel();
-            panel1 = new Panel();
+            pnDestaqueSenha = new Panel();
+            pnDestaqueUsuario = new Panel();
             btnLogin = new Krypton.Toolkit.KryptonButton();
             label18 = new Label();
             txtUsuario = new Krypton.Toolkit.KryptonTextBox();
@@ -56,7 +56,7 @@
             lblEsqueciSenha.Anchor = AnchorStyles.Bottom;
             lblEsqueciSenha.AutoSize = true;
             lblEsqueciSenha.ForeColor = Color.FromArgb(8, 142, 254);
-            lblEsqueciSenha.Location = new Point(164, 312);
+            lblEsqueciSenha.Location = new Point(164, 363);
             lblEsqueciSenha.Name = "lblEsqueciSenha";
             lblEsqueciSenha.Size = new Size(91, 15);
             lblEsqueciSenha.TabIndex = 10;
@@ -67,7 +67,7 @@
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom;
             btnCancelar.CornerRoundingRadius = 20F;
-            btnCancelar.Location = new Point(157, 259);
+            btnCancelar.Location = new Point(157, 310);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnCancelar.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -118,27 +118,29 @@
             btnCancelar.Values.Text = "&Cancelar";
             btnCancelar.Click += btnCancelar_Click;
             // 
-            // panel3
+            // pnDestaqueSenha
             // 
-            panel3.BackColor = Color.White;
-            panel3.Location = new Point(37, 189);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(230, 2);
-            panel3.TabIndex = 15;
+            pnDestaqueSenha.BackColor = Color.FromArgb(0, 120, 254);
+            pnDestaqueSenha.Location = new Point(37, 220);
+            pnDestaqueSenha.Name = "pnDestaqueSenha";
+            pnDestaqueSenha.Size = new Size(230, 2);
+            pnDestaqueSenha.TabIndex = 15;
+            pnDestaqueSenha.Visible = false;
             // 
-            // panel1
+            // pnDestaqueUsuario
             // 
-            panel1.BackColor = Color.White;
-            panel1.Location = new Point(37, 124);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(230, 2);
-            panel1.TabIndex = 17;
+            pnDestaqueUsuario.BackColor = Color.FromArgb(0, 120, 254);
+            pnDestaqueUsuario.Location = new Point(37, 155);
+            pnDestaqueUsuario.Name = "pnDestaqueUsuario";
+            pnDestaqueUsuario.Size = new Size(230, 2);
+            pnDestaqueUsuario.TabIndex = 17;
+            pnDestaqueUsuario.Visible = false;
             // 
             // btnLogin
             // 
             btnLogin.Anchor = AnchorStyles.Bottom;
             btnLogin.CornerRoundingRadius = 20F;
-            btnLogin.Location = new Point(25, 259);
+            btnLogin.Location = new Point(25, 310);
             btnLogin.Name = "btnLogin";
             btnLogin.OverrideDefault.Back.Color1 = Color.FromArgb(8, 142, 254);
             btnLogin.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -207,8 +209,8 @@
             // 
             label18.AutoSize = true;
             label18.Font = new Font("Microsoft Sans Serif", 9.25F);
-            label18.ForeColor = Color.FromArgb(8, 142, 254);
-            label18.Location = new Point(30, 69);
+            label18.ForeColor = Color.FromArgb(0, 120, 254);
+            label18.Location = new Point(30, 100);
             label18.Name = "label18";
             label18.Size = new Size(54, 16);
             label18.TabIndex = 185;
@@ -216,7 +218,7 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(28, 87);
+            txtUsuario.Location = new Point(28, 118);
             txtUsuario.MaxLength = 14;
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(249, 33);
@@ -238,7 +240,7 @@
             // txtSenha
             // 
             txtSenha.CharacterCasing = CharacterCasing.Lower;
-            txtSenha.Location = new Point(28, 152);
+            txtSenha.Location = new Point(28, 183);
             txtSenha.MaxLength = 100;
             txtSenha.Name = "txtSenha";
             txtSenha.PasswordChar = '*';
@@ -262,8 +264,8 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 9.25F);
-            label1.ForeColor = Color.FromArgb(8, 142, 254);
-            label1.Location = new Point(30, 135);
+            label1.ForeColor = Color.FromArgb(0, 120, 254);
+            label1.Location = new Point(30, 166);
             label1.Name = "label1";
             label1.Size = new Size(46, 16);
             label1.TabIndex = 186;
@@ -272,9 +274,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(111, 2);
+            pictureBox1.Location = new Point(94, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(64, 72);
+            pictureBox1.Size = new Size(85, 93);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 187;
             pictureBox1.TabStop = false;
@@ -282,12 +284,12 @@
             // iconPictureBoxUser
             // 
             iconPictureBoxUser.BackColor = Color.Transparent;
-            iconPictureBoxUser.ForeColor = Color.FromArgb(30, 136, 229);
+            iconPictureBoxUser.ForeColor = Color.FromArgb(0, 120, 254);
             iconPictureBoxUser.IconChar = FontAwesome.Sharp.IconChar.User;
-            iconPictureBoxUser.IconColor = Color.FromArgb(30, 136, 229);
+            iconPictureBoxUser.IconColor = Color.FromArgb(0, 120, 254);
             iconPictureBoxUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBoxUser.IconSize = 28;
-            iconPictureBoxUser.Location = new Point(0, 89);
+            iconPictureBoxUser.Location = new Point(0, 120);
             iconPictureBoxUser.Name = "iconPictureBoxUser";
             iconPictureBoxUser.Size = new Size(28, 28);
             iconPictureBoxUser.TabIndex = 1125;
@@ -297,12 +299,12 @@
             // iconPictureBoxPassword
             // 
             iconPictureBoxPassword.BackColor = Color.Transparent;
-            iconPictureBoxPassword.ForeColor = Color.FromArgb(30, 136, 229);
+            iconPictureBoxPassword.ForeColor = Color.FromArgb(0, 120, 254);
             iconPictureBoxPassword.IconChar = FontAwesome.Sharp.IconChar.UnlockKeyhole;
-            iconPictureBoxPassword.IconColor = Color.FromArgb(30, 136, 229);
+            iconPictureBoxPassword.IconColor = Color.FromArgb(0, 120, 254);
             iconPictureBoxPassword.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBoxPassword.IconSize = 28;
-            iconPictureBoxPassword.Location = new Point(-1, 154);
+            iconPictureBoxPassword.Location = new Point(-1, 185);
             iconPictureBoxPassword.Name = "iconPictureBoxPassword";
             iconPictureBoxPassword.Size = new Size(28, 28);
             iconPictureBoxPassword.TabIndex = 1126;
@@ -352,7 +354,7 @@
             cmbEmpresa.DropDownWidth = 115;
             cmbEmpresa.IntegralHeight = false;
             cmbEmpresa.Items.AddRange(new object[] { "Física", "Jurídica", "Operador", "Administrador", "Consumidor Final" });
-            cmbEmpresa.Location = new Point(30, 222);
+            cmbEmpresa.Location = new Point(30, 259);
             cmbEmpresa.Name = "cmbEmpresa";
             cmbEmpresa.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             cmbEmpresa.Size = new Size(247, 25);
@@ -400,8 +402,8 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Microsoft Sans Serif", 9.25F);
-            label2.ForeColor = Color.FromArgb(8, 142, 254);
-            label2.Location = new Point(31, 204);
+            label2.ForeColor = Color.FromArgb(0, 120, 254);
+            label2.Location = new Point(31, 241);
             label2.Name = "label2";
             label2.Size = new Size(65, 16);
             label2.TabIndex = 1127;
@@ -409,8 +411,8 @@
             // 
             // FrmLogin
             // 
-            BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(284, 328);
+            BackColor = Color.White;
+            ClientSize = new Size(284, 379);
             Controls.Add(cmbEmpresa);
             Controls.Add(label2);
             Controls.Add(iconPictureBoxPassword);
@@ -422,11 +424,10 @@
             Controls.Add(txtUsuario);
             Controls.Add(btnLogin);
             Controls.Add(btnCancelar);
-            Controls.Add(panel1);
+            Controls.Add(pnDestaqueUsuario);
             Controls.Add(lblEsqueciSenha);
-            Controls.Add(panel3);
-            ForeColor = Color.FromArgb(252, 252, 250);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Controls.Add(pnDestaqueSenha);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -461,8 +462,8 @@
         #endregion
         private System.Windows.Forms.Label lblEsqueciSenha;
         private Krypton.Toolkit.KryptonButton btnCancelar;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnDestaqueSenha;
+        private System.Windows.Forms.Panel pnDestaqueUsuario;
         private Krypton.Toolkit.KryptonButton btnLogin;
         private Label label18;
         public Krypton.Toolkit.KryptonTextBox txtUsuario;

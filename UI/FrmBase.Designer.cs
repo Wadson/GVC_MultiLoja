@@ -970,7 +970,7 @@
             btnPesquisar.IconChar = FontAwesome.Sharp.IconChar.Search;
             btnPesquisar.IconColor = Color.FromArgb(30, 136, 229);
             btnPesquisar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnPesquisar.IconSize = 32;
+            btnPesquisar.IconSize = 30;
             btnPesquisar.Location = new Point(653, 71);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.Size = new Size(25, 25);

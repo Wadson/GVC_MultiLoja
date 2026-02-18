@@ -54,7 +54,6 @@
             label6 = new Label();
             label7 = new Label();
             label12 = new Label();
-            btnLocalizarImagem = new Krypton.Toolkit.KryptonButton();
             txtEnderecoImagem = new Krypton.Toolkit.KryptonTextBox();
             label10 = new Label();
             txtDataValidade = new Krypton.Toolkit.KryptonTextBox();
@@ -82,6 +81,7 @@
             toolTip1 = new ToolTip(components);
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            btnLocalizarImagem = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)pbImagem).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
             pnlHeader.SuspendLayout();
@@ -96,12 +96,11 @@
             // 
             // label21
             // 
-            label21.Anchor = AnchorStyles.Top;
             label21.AutoSize = true;
             label21.BackColor = Color.Transparent;
             label21.Font = new Font("Microsoft Sans Serif", 9.25F);
             label21.ForeColor = Color.FromArgb(0, 76, 172);
-            label21.Location = new Point(20, 133);
+            label21.Location = new Point(20, 132);
             label21.Name = "label21";
             label21.Size = new Size(73, 16);
             label21.TabIndex = 236;
@@ -215,7 +214,7 @@
             // 
             txtEstoque.Location = new Point(21, 374);
             txtEstoque.Name = "txtEstoque";
-            txtEstoque.Size = new Size(320, 24);
+            txtEstoque.Size = new Size(157, 24);
             txtEstoque.StateCommon.Back.Color1 = Color.White;
             txtEstoque.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtEstoque.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -230,9 +229,10 @@
             // 
             // txtPrecoDeVenda
             // 
+            txtPrecoDeVenda.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtPrecoDeVenda.Location = new Point(517, 326);
             txtPrecoDeVenda.Name = "txtPrecoDeVenda";
-            txtPrecoDeVenda.Size = new Size(476, 24);
+            txtPrecoDeVenda.Size = new Size(334, 24);
             txtPrecoDeVenda.StateCommon.Back.Color1 = Color.White;
             txtPrecoDeVenda.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtPrecoDeVenda.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -287,11 +287,10 @@
             // 
             // txtReferencia
             // 
-            txtReferencia.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtReferencia.CharacterCasing = CharacterCasing.Upper;
-            txtReferencia.Location = new Point(20, 154);
+            txtReferencia.Location = new Point(20, 153);
             txtReferencia.Name = "txtReferencia";
-            txtReferencia.Size = new Size(274, 24);
+            txtReferencia.Size = new Size(137, 24);
             txtReferencia.StateCommon.Back.Color1 = Color.White;
             txtReferencia.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtReferencia.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -310,7 +309,7 @@
             txtNomeProduto.CharacterCasing = CharacterCasing.Upper;
             txtNomeProduto.Location = new Point(98, 105);
             txtNomeProduto.Name = "txtNomeProduto";
-            txtNomeProduto.Size = new Size(895, 24);
+            txtNomeProduto.Size = new Size(753, 24);
             txtNomeProduto.StateCommon.Back.Color1 = Color.White;
             txtNomeProduto.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNomeProduto.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -361,17 +360,18 @@
             // 
             // pbImagem
             // 
-            pbImagem.Location = new Point(878, 484);
+            pbImagem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pbImagem.Location = new Point(737, 484);
             pbImagem.Name = "pbImagem";
-            pbImagem.Size = new Size(118, 87);
+            pbImagem.Size = new Size(118, 111);
             pbImagem.TabIndex = 610;
             pbImagem.TabStop = false;
             // 
             // txtGtinEan
             // 
-            txtGtinEan.Location = new Point(345, 374);
+            txtGtinEan.Location = new Point(184, 374);
             txtGtinEan.Name = "txtGtinEan";
-            txtGtinEan.Size = new Size(320, 24);
+            txtGtinEan.Size = new Size(161, 24);
             txtGtinEan.StateCommon.Back.Color1 = Color.White;
             txtGtinEan.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtGtinEan.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -390,7 +390,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Microsoft Sans Serif", 9.25F);
             label2.ForeColor = Color.FromArgb(0, 76, 172);
-            label2.Location = new Point(345, 355);
+            label2.Location = new Point(184, 355);
             label2.Name = "label2";
             label2.Size = new Size(71, 16);
             label2.TabIndex = 612;
@@ -402,7 +402,7 @@
             txtFornecedor.CharacterCasing = CharacterCasing.Upper;
             txtFornecedor.Location = new Point(115, 243);
             txtFornecedor.Name = "txtFornecedor";
-            txtFornecedor.Size = new Size(878, 24);
+            txtFornecedor.Size = new Size(736, 24);
             txtFornecedor.StateCommon.Back.Color1 = Color.White;
             txtFornecedor.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtFornecedor.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -434,7 +434,7 @@
             label6.BackColor = Color.Transparent;
             label6.Font = new Font("Microsoft Sans Serif", 9.25F);
             label6.ForeColor = Color.FromArgb(0, 76, 172);
-            label6.Location = new Point(674, 353);
+            label6.Location = new Point(355, 353);
             label6.Name = "label6";
             label6.Size = new Size(91, 16);
             label6.TabIndex = 626;
@@ -442,12 +442,11 @@
             // 
             // label7
             // 
-            label7.Anchor = AnchorStyles.Top;
             label7.AutoSize = true;
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Microsoft Sans Serif", 9.25F);
             label7.ForeColor = Color.FromArgb(0, 76, 172);
-            label7.Location = new Point(345, 135);
+            label7.Location = new Point(201, 132);
             label7.Name = "label7";
             label7.Size = new Size(45, 16);
             label7.TabIndex = 624;
@@ -455,78 +454,24 @@
             // 
             // label12
             // 
-            label12.Anchor = AnchorStyles.Top;
+            label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label12.AutoSize = true;
             label12.BackColor = Color.Transparent;
             label12.Font = new Font("Microsoft Sans Serif", 9.25F);
             label12.ForeColor = Color.FromArgb(0, 76, 172);
-            label12.Location = new Point(670, 135);
+            label12.Location = new Point(645, 134);
             label12.Name = "label12";
             label12.Size = new Size(59, 16);
             label12.TabIndex = 620;
             label12.Text = "Unidade";
             // 
-            // btnLocalizarImagem
-            // 
-            btnLocalizarImagem.CornerRoundingRadius = 10F;
-            btnLocalizarImagem.Location = new Point(840, 536);
-            btnLocalizarImagem.Name = "btnLocalizarImagem";
-            btnLocalizarImagem.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnLocalizarImagem.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnLocalizarImagem.OverrideDefault.Back.ColorAngle = 45F;
-            btnLocalizarImagem.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
-            btnLocalizarImagem.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizarImagem.OverrideDefault.Border.ColorAngle = 45F;
-            btnLocalizarImagem.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizarImagem.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizarImagem.OverrideDefault.Border.Rounding = 20F;
-            btnLocalizarImagem.OverrideDefault.Border.Width = 1;
-            btnLocalizarImagem.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            btnLocalizarImagem.Size = new Size(30, 29);
-            btnLocalizarImagem.StateCommon.Back.Color1 = Color.FromArgb(250, 252, 252);
-            btnLocalizarImagem.StateCommon.Back.Color2 = Color.FromArgb(250, 252, 252);
-            btnLocalizarImagem.StateCommon.Back.ColorAngle = 45F;
-            btnLocalizarImagem.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnLocalizarImagem.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizarImagem.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizarImagem.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizarImagem.StateCommon.Border.Rounding = 10F;
-            btnLocalizarImagem.StateCommon.Border.Width = 1;
-            btnLocalizarImagem.StateCommon.Content.ShortText.Color1 = Color.FromArgb(8, 142, 254);
-            btnLocalizarImagem.StateCommon.Content.ShortText.Color2 = Color.White;
-            btnLocalizarImagem.StateCommon.Content.ShortText.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLocalizarImagem.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
-            btnLocalizarImagem.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
-            btnLocalizarImagem.StatePressed.Back.ColorAngle = 135F;
-            btnLocalizarImagem.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
-            btnLocalizarImagem.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
-            btnLocalizarImagem.StatePressed.Border.ColorAngle = 135F;
-            btnLocalizarImagem.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizarImagem.StatePressed.Border.Rounding = 20F;
-            btnLocalizarImagem.StatePressed.Border.Width = 1;
-            btnLocalizarImagem.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
-            btnLocalizarImagem.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
-            btnLocalizarImagem.StateTracking.Back.ColorAngle = 45F;
-            btnLocalizarImagem.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
-            btnLocalizarImagem.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
-            btnLocalizarImagem.StateTracking.Border.ColorAngle = 45F;
-            btnLocalizarImagem.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
-            btnLocalizarImagem.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            btnLocalizarImagem.StateTracking.Border.Rounding = 20F;
-            btnLocalizarImagem.StateTracking.Border.Width = 1;
-            btnLocalizarImagem.StateTracking.Content.ShortText.Color1 = Color.White;
-            btnLocalizarImagem.TabIndex = 133;
-            btnLocalizarImagem.TabStop = false;
-            btnLocalizarImagem.Values.Image = Properties.Resources.Pesquisar;
-            btnLocalizarImagem.Values.Text = "";
-            btnLocalizarImagem.Click += btnLocalizarImagem_Click;
-            // 
             // txtEnderecoImagem
             // 
+            txtEnderecoImagem.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtEnderecoImagem.CharacterCasing = CharacterCasing.Upper;
-            txtEnderecoImagem.Location = new Point(18, 539);
+            txtEnderecoImagem.Location = new Point(20, 571);
             txtEnderecoImagem.Name = "txtEnderecoImagem";
-            txtEnderecoImagem.Size = new Size(817, 24);
+            txtEnderecoImagem.Size = new Size(676, 24);
             txtEnderecoImagem.StateCommon.Back.Color1 = Color.White;
             txtEnderecoImagem.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtEnderecoImagem.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -542,11 +487,12 @@
             // 
             // label10
             // 
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.BackColor = Color.Transparent;
             label10.Font = new Font("Microsoft Sans Serif", 9.25F);
             label10.ForeColor = Color.FromArgb(0, 76, 172);
-            label10.Location = new Point(509, 434);
+            label10.Location = new Point(437, 434);
             label10.Name = "label10";
             label10.Size = new Size(60, 16);
             label10.TabIndex = 1025;
@@ -554,9 +500,10 @@
             // 
             // txtDataValidade
             // 
-            txtDataValidade.Location = new Point(670, 374);
+            txtDataValidade.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtDataValidade.Location = new Point(351, 374);
             txtDataValidade.Name = "txtDataValidade";
-            txtDataValidade.Size = new Size(323, 24);
+            txtDataValidade.Size = new Size(500, 24);
             txtDataValidade.StateCommon.Back.Color1 = Color.White;
             txtDataValidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtDataValidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -607,7 +554,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 20F;
-            btnSair.Location = new Point(893, 626);
+            btnSair.Location = new Point(751, 626);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -673,7 +620,7 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.CornerRoundingRadius = 20F;
-            btnSalvar.Location = new Point(681, 626);
+            btnSalvar.Location = new Point(539, 626);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -739,7 +686,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 20F;
-            btnNovo.Location = new Point(787, 626);
+            btnNovo.Location = new Point(645, 626);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -807,7 +754,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1008, 47);
+            pnlHeader.Size = new Size(866, 47);
             pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             pnlHeader.TabIndex = 1092;
@@ -826,7 +773,7 @@
             tlpTitulo.RowCount = 2;
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 48.57143F));
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 51.42857F));
-            tlpTitulo.Size = new Size(1008, 47);
+            tlpTitulo.Size = new Size(866, 47);
             tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             tlpTitulo.TabIndex = 0;
@@ -836,7 +783,7 @@
             lblSubTitulo.Dock = DockStyle.Fill;
             lblSubTitulo.Location = new Point(3, 25);
             lblSubTitulo.Name = "lblSubTitulo";
-            lblSubTitulo.Size = new Size(1002, 19);
+            lblSubTitulo.Size = new Size(860, 19);
             lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -849,7 +796,7 @@
             lblTitulo.Dock = DockStyle.Fill;
             lblTitulo.Location = new Point(3, 3);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(1002, 16);
+            lblTitulo.Size = new Size(860, 16);
             lblTitulo.StateCommon.ShortText.Color1 = Color.White;
             lblTitulo.StateCommon.ShortText.Color2 = Color.White;
             lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -868,7 +815,7 @@
             // 
             // kryptonLabel2
             // 
-            kryptonLabel2.Location = new Point(2, 198);
+            kryptonLabel2.Location = new Point(18, 198);
             kryptonLabel2.Name = "kryptonLabel2";
             kryptonLabel2.Size = new Size(76, 20);
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -878,7 +825,7 @@
             // 
             // kryptonLabel3
             // 
-            kryptonLabel3.Location = new Point(2, 282);
+            kryptonLabel3.Location = new Point(21, 276);
             kryptonLabel3.Name = "kryptonLabel3";
             kryptonLabel3.Size = new Size(103, 20);
             kryptonLabel3.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -888,15 +835,16 @@
             // 
             // cmbSituacao
             // 
+            cmbSituacao.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbSituacao.CornerRoundingRadius = 6F;
             cmbSituacao.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSituacao.DropDownWidth = 115;
             cmbSituacao.IntegralHeight = false;
             cmbSituacao.Items.AddRange(new object[] { "Ativo", "Inativo" });
-            cmbSituacao.Location = new Point(509, 453);
+            cmbSituacao.Location = new Point(435, 453);
             cmbSituacao.Name = "cmbSituacao";
             cmbSituacao.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbSituacao.Size = new Size(487, 25);
+            cmbSituacao.Size = new Size(416, 25);
             cmbSituacao.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
             cmbSituacao.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
             cmbSituacao.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
@@ -930,6 +878,7 @@
             // 
             // cmbStatus
             // 
+            cmbStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cmbStatus.CornerRoundingRadius = 6F;
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.DropDownWidth = 115;
@@ -938,7 +887,7 @@
             cmbStatus.Location = new Point(18, 454);
             cmbStatus.Name = "cmbStatus";
             cmbStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbStatus.Size = new Size(487, 25);
+            cmbStatus.Size = new Size(411, 25);
             cmbStatus.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
             cmbStatus.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
             cmbStatus.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
@@ -972,7 +921,7 @@
             // 
             // kryptonLabel4
             // 
-            kryptonLabel4.Location = new Point(2, 410);
+            kryptonLabel4.Location = new Point(15, 410);
             kryptonLabel4.Name = "kryptonLabel4";
             kryptonLabel4.Size = new Size(110, 20);
             kryptonLabel4.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -982,7 +931,7 @@
             // 
             // kryptonLabel5
             // 
-            kryptonLabel5.Location = new Point(6, 511);
+            kryptonLabel5.Location = new Point(20, 543);
             kryptonLabel5.Name = "kryptonLabel5";
             kryptonLabel5.Size = new Size(128, 20);
             kryptonLabel5.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -992,15 +941,16 @@
             // 
             // cmbUnidade
             // 
+            cmbUnidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cmbUnidade.CornerRoundingRadius = 6F;
             cmbUnidade.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbUnidade.DropDownWidth = 115;
             cmbUnidade.IntegralHeight = false;
             cmbUnidade.Items.AddRange(new object[] { "UN", "CX", "PC", "KG", "GR", "MT", "" });
-            cmbUnidade.Location = new Point(671, 153);
+            cmbUnidade.Location = new Point(645, 153);
             cmbUnidade.Name = "cmbUnidade";
             cmbUnidade.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbUnidade.Size = new Size(322, 25);
+            cmbUnidade.Size = new Size(206, 25);
             cmbUnidade.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
             cmbUnidade.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
             cmbUnidade.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
@@ -1034,14 +984,15 @@
             // 
             // cmbMarca
             // 
+            cmbMarca.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cmbMarca.CornerRoundingRadius = 6F;
             cmbMarca.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbMarca.DropDownWidth = 115;
             cmbMarca.IntegralHeight = false;
-            cmbMarca.Location = new Point(345, 154);
+            cmbMarca.Location = new Point(203, 153);
             cmbMarca.Name = "cmbMarca";
             cmbMarca.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            cmbMarca.Size = new Size(322, 25);
+            cmbMarca.Size = new Size(436, 25);
             cmbMarca.StateActive.ComboBox.Back.Color1 = Color.FromArgb(30, 136, 229);
             cmbMarca.StateActive.ComboBox.Border.Color1 = Color.FromArgb(30, 136, 229);
             cmbMarca.StateActive.ComboBox.Border.Color2 = Color.FromArgb(30, 136, 229);
@@ -1075,12 +1026,11 @@
             // 
             // lblMarcaId
             // 
-            lblMarcaId.Anchor = AnchorStyles.Top;
             lblMarcaId.AutoSize = true;
             lblMarcaId.BackColor = Color.Transparent;
             lblMarcaId.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblMarcaId.ForeColor = Color.FromArgb(0, 76, 172);
-            lblMarcaId.Location = new Point(313, 160);
+            lblMarcaId.Location = new Point(170, 157);
             lblMarcaId.Name = "lblMarcaId";
             lblMarcaId.Size = new Size(14, 16);
             lblMarcaId.TabIndex = 1095;
@@ -1152,10 +1102,28 @@
             iconPictureBox2.TabStop = false;
             toolTip1.SetToolTip(iconPictureBox2, "Preço de Nota Fiscal");
             // 
+            // btnLocalizarImagem
+            // 
+            btnLocalizarImagem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnLocalizarImagem.BackColor = Color.Transparent;
+            btnLocalizarImagem.FlatAppearance.BorderSize = 0;
+            btnLocalizarImagem.FlatStyle = FlatStyle.Flat;
+            btnLocalizarImagem.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnLocalizarImagem.IconColor = Color.FromArgb(30, 136, 229);
+            btnLocalizarImagem.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnLocalizarImagem.IconSize = 30;
+            btnLocalizarImagem.Location = new Point(702, 572);
+            btnLocalizarImagem.Name = "btnLocalizarImagem";
+            btnLocalizarImagem.Size = new Size(25, 25);
+            btnLocalizarImagem.TabIndex = 1141;
+            btnLocalizarImagem.UseVisualStyleBackColor = false;
+            btnLocalizarImagem.Click += btnLocalizarImagem_Click;
+            // 
             // FrmCadProdutos
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(1008, 661);
+            ClientSize = new Size(866, 661);
+            Controls.Add(btnLocalizarImagem);
             Controls.Add(iconPictureBox2);
             Controls.Add(iconPictureBox1);
             Controls.Add(txtPrecoCompra);
@@ -1177,7 +1145,6 @@
             Controls.Add(btnSair);
             Controls.Add(btnSalvar);
             Controls.Add(btnNovo);
-            Controls.Add(btnLocalizarImagem);
             Controls.Add(label10);
             Controls.Add(label6);
             Controls.Add(label7);
@@ -1203,14 +1170,12 @@
             Controls.Add(label8);
             Controls.Add(label9);
             Controls.Add(txtEstoque);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmCadProdutos";
             Palette = kryptonPalette1;
             PaletteMode = Krypton.Toolkit.PaletteMode.Custom;
-            ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Produtos";
@@ -1259,7 +1224,6 @@
         private Label label6;        
         private Label label7;
         private Label label12;
-        public Krypton.Toolkit.KryptonButton btnLocalizarImagem;
         public Krypton.Toolkit.KryptonTextBox txtEnderecoImagem;
         private Label label10;
         public Krypton.Toolkit.KryptonTextBox txtDataValidade;        
@@ -1288,6 +1252,7 @@
         private ToolTip toolTip1;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
+        public FontAwesome.Sharp.IconButton btnLocalizarImagem;
         //private System.Windows.Forms.DateTimePicker dtpDataDeEntrada;
     }
 }

@@ -274,17 +274,17 @@ namespace GVC.View
         {
             var fornecedor = new FornecedorModel();
 
-            fornecedor.Fornecedor = txtNomeFornecedor.Text.Trim();             
-            fornecedor.Cnpj = string.IsNullOrWhiteSpace(txtCnpj.Text)? null : Utilitario.ApenasNumeros(txtCnpj.Text);
-            fornecedor.IE = string.IsNullOrWhiteSpace(txtIE.Text)  ? null : txtIE.Text.Trim();
-            fornecedor.Telefone = string.IsNullOrWhiteSpace(txtTelefone.Text) ? null  : Utilitario.ApenasNumeros(txtTelefone.Text);
+            fornecedor.Fornecedor = txtNomeFornecedor.Text.Trim();
+            fornecedor.Cnpj = string.IsNullOrWhiteSpace(txtCnpj.Text) ? null : Utilitario.ApenasNumeros(txtCnpj.Text);
+            fornecedor.IE = string.IsNullOrWhiteSpace(txtIE.Text) ? null : txtIE.Text.Trim();
+            fornecedor.Telefone = string.IsNullOrWhiteSpace(txtTelefone.Text) ? null : Utilitario.ApenasNumeros(txtTelefone.Text);
             fornecedor.Email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim();
             if (int.TryParse(txtFornecedorID.Text, out int id)) fornecedor.FornecedorID = id;
             fornecedor.CidadeID = CidadeID;
             fornecedor.Logradouro = string.IsNullOrWhiteSpace(txtLogradouro.Text) ? null : txtLogradouro.Text.Trim();
             fornecedor.Numero = string.IsNullOrWhiteSpace(txtNumero.Text) ? null : txtNumero.Text.Trim();
             fornecedor.Bairro = string.IsNullOrWhiteSpace(txtBairro.Text) ? null : txtBairro.Text.Trim();
-            fornecedor.Cep = string.IsNullOrWhiteSpace(txtCep.Text) ? null: Utilitario.ApenasNumeros(txtCep.Text);
+            fornecedor.Cep = string.IsNullOrWhiteSpace(txtCep.Text) ? null : Utilitario.ApenasNumeros(txtCep.Text);
             fornecedor.Observacoes = string.IsNullOrWhiteSpace(txtObservacoes.Text) ? null : txtObservacoes.Text.Trim();
             fornecedor.DataCriacao = DateTime.Now;
 
@@ -327,11 +327,6 @@ namespace GVC.View
 
             txtIE.Text = fornecedor.IE;
             txtObservacoes.Text = fornecedor.Observacoes;
-        }
-
-        private void btnLocalizar_Click(object sender, EventArgs e)
-        {
-            AbrirFrmLocalizarCidadeDinamico();
         }
 
         private void LimparCampos() => Utilitario.LimparCampos(this);
@@ -672,11 +667,6 @@ namespace GVC.View
             }
         }
 
-        private async void btnBuscarEnderecoPorCep_Click(object sender, EventArgs e)
-        {
-            await BuscarEnderecoPorCep();
-        }
-
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (StatusOperacao == "NOVO")
@@ -697,6 +687,16 @@ namespace GVC.View
         private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private async void btnBuscarEnderecoPorCep_Click(object sender, EventArgs e)
+        {
+            await BuscarEnderecoPorCep();
+        }
+
+        private void btnLocalizarCidade_Click(object sender, EventArgs e)
+        {
+            AbrirFrmLocalizarCidadeDinamico();
         }
     }
 }

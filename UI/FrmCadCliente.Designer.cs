@@ -98,6 +98,7 @@
             btnPesquisarCep = new FontAwesome.Sharp.IconButton();
             lblEndereco = new Krypton.Toolkit.KryptonLabel();
             lblObservacao = new Krypton.Toolkit.KryptonLabel();
+            label1 = new Label();
             kryptonStatusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbStatus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
@@ -112,7 +113,7 @@
             txtLogradouro.CharacterCasing = CharacterCasing.Upper;
             txtLogradouro.Location = new Point(265, 381);
             txtLogradouro.Name = "txtLogradouro";
-            txtLogradouro.Size = new Size(747, 27);
+            txtLogradouro.Size = new Size(585, 27);
             txtLogradouro.StateCommon.Back.Color1 = Color.White;
             txtLogradouro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtLogradouro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -150,7 +151,7 @@
             txtNomeCliente.CharacterCasing = CharacterCasing.Upper;
             txtNomeCliente.Location = new Point(148, 104);
             txtNomeCliente.Name = "txtNomeCliente";
-            txtNomeCliente.Size = new Size(727, 27);
+            txtNomeCliente.Size = new Size(576, 27);
             txtNomeCliente.StateCommon.Back.Color1 = Color.White;
             txtNomeCliente.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNomeCliente.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -166,7 +167,7 @@
             // txtClienteID
             // 
             txtClienteID.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtClienteID.Location = new Point(892, 104);
+            txtClienteID.Location = new Point(730, 104);
             txtClienteID.Name = "txtClienteID";
             txtClienteID.ReadOnly = true;
             txtClienteID.Size = new Size(118, 27);
@@ -189,7 +190,7 @@
             txtNomeCidade.CharacterCasing = CharacterCasing.Upper;
             txtNomeCidade.Location = new Point(15, 481);
             txtNomeCidade.Name = "txtNomeCidade";
-            txtNomeCidade.Size = new Size(827, 27);
+            txtNomeCidade.Size = new Size(665, 27);
             txtNomeCidade.StateCommon.Back.Color1 = Color.White;
             txtNomeCidade.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtNomeCidade.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -210,7 +211,7 @@
             txtEmail.CharacterCasing = CharacterCasing.Lower;
             txtEmail.Location = new Point(15, 296);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(997, 27);
+            txtEmail.Size = new Size(835, 27);
             txtEmail.StateCommon.Back.Color1 = Color.White;
             txtEmail.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtEmail.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -229,7 +230,7 @@
             txtBairro.CharacterCasing = CharacterCasing.Upper;
             txtBairro.Location = new Point(265, 431);
             txtBairro.Name = "txtBairro";
-            txtBairro.Size = new Size(747, 27);
+            txtBairro.Size = new Size(585, 27);
             txtBairro.StateCommon.Back.Color1 = Color.White;
             txtBairro.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtBairro.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -266,7 +267,7 @@
             lblRotuloCodigo.AutoSize = true;
             lblRotuloCodigo.BackColor = Color.Transparent;
             lblRotuloCodigo.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloCodigo.Location = new Point(896, 86);
+            lblRotuloCodigo.Location = new Point(734, 86);
             lblRotuloCodigo.Name = "lblRotuloCodigo";
             lblRotuloCodigo.Size = new Size(49, 15);
             lblRotuloCodigo.TabIndex = 184;
@@ -291,7 +292,7 @@
             lblCpf.BackColor = Color.Transparent;
             lblCpf.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblCpf.ForeColor = Color.FromArgb(0, 76, 172);
-            lblCpf.Location = new Point(476, 136);
+            lblCpf.Location = new Point(310, 137);
             lblCpf.Name = "lblCpf";
             lblCpf.Size = new Size(33, 16);
             lblCpf.TabIndex = 186;
@@ -361,7 +362,7 @@
             // 
             txtUF.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtUF.CharacterCasing = CharacterCasing.Upper;
-            txtUF.Location = new Point(882, 480);
+            txtUF.Location = new Point(720, 480);
             txtUF.Name = "txtUF";
             txtUF.Size = new Size(130, 27);
             txtUF.StateCommon.Back.Color1 = Color.White;
@@ -384,7 +385,7 @@
             lblUf.BackColor = Color.Transparent;
             lblUf.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblUf.ForeColor = Color.FromArgb(0, 76, 172);
-            lblUf.Location = new Point(883, 461);
+            lblUf.Location = new Point(721, 461);
             lblUf.Name = "lblUf";
             lblUf.Size = new Size(20, 16);
             lblUf.TabIndex = 183;
@@ -452,7 +453,7 @@
             txtObservacoes.Location = new Point(15, 550);
             txtObservacoes.Multiline = true;
             txtObservacoes.Name = "txtObservacoes";
-            txtObservacoes.Size = new Size(997, 49);
+            txtObservacoes.Size = new Size(835, 49);
             txtObservacoes.StateCommon.Back.Color1 = Color.White;
             txtObservacoes.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtObservacoes.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -483,7 +484,7 @@
             txtLimiteCredito.CharacterCasing = CharacterCasing.Upper;
             txtLimiteCredito.Location = new Point(425, 243);
             txtLimiteCredito.Name = "txtLimiteCredito";
-            txtLimiteCredito.Size = new Size(585, 27);
+            txtLimiteCredito.Size = new Size(423, 27);
             txtLimiteCredito.StateCommon.Back.Color1 = Color.White;
             txtLimiteCredito.StateCommon.Border.Color1 = Color.FromArgb(8, 142, 254);
             txtLimiteCredito.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
@@ -506,7 +507,7 @@
             kryptonStatusStrip1.Name = "kryptonStatusStrip1";
             kryptonStatusStrip1.ProgressBars = null;
             kryptonStatusStrip1.RenderMode = ToolStripRenderMode.Professional;
-            kryptonStatusStrip1.Size = new Size(1026, 22);
+            kryptonStatusStrip1.Size = new Size(864, 22);
             kryptonStatusStrip1.TabIndex = 1027;
             kryptonStatusStrip1.Text = "kryptonStatusStrip1";
             // 
@@ -587,14 +588,14 @@
             // 
             lblStatus.ForeColor = Color.FromArgb(0, 76, 172);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(39, 17);
+            lblStatus.Size = new Size(39, 15);
             lblStatus.Text = "Status";
             // 
             // txtCpf
             // 
             txtCpf.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtCpf.CharacterCasing = CharacterCasing.Upper;
-            txtCpf.Location = new Point(472, 156);
+            txtCpf.Location = new Point(312, 156);
             txtCpf.Name = "txtCpf";
             txtCpf.Size = new Size(180, 27);
             txtCpf.StateCommon.Back.Color1 = Color.White;
@@ -648,7 +649,7 @@
             // txtRg
             // 
             txtRg.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtRg.Location = new Point(656, 156);
+            txtRg.Location = new Point(496, 155);
             txtRg.Name = "txtRg";
             txtRg.Size = new Size(180, 27);
             txtRg.StateCommon.Back.Color1 = Color.White;
@@ -670,7 +671,7 @@
             lblRG.BackColor = Color.Transparent;
             lblRG.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRG.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRG.Location = new Point(659, 137);
+            lblRG.Location = new Point(501, 137);
             lblRG.Name = "lblRG";
             lblRG.Size = new Size(124, 16);
             lblRG.TabIndex = 1031;
@@ -679,7 +680,7 @@
             // txtOrgaoExpedidorRG
             // 
             txtOrgaoExpedidorRG.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtOrgaoExpedidorRG.Location = new Point(841, 155);
+            txtOrgaoExpedidorRG.Location = new Point(679, 155);
             txtOrgaoExpedidorRG.Name = "txtOrgaoExpedidorRG";
             txtOrgaoExpedidorRG.Size = new Size(169, 27);
             txtOrgaoExpedidorRG.StateCommon.Back.Color1 = Color.White;
@@ -701,7 +702,7 @@
             lblOrgaoExpedidorRG.BackColor = Color.Transparent;
             lblOrgaoExpedidorRG.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblOrgaoExpedidorRG.ForeColor = Color.FromArgb(0, 76, 172);
-            lblOrgaoExpedidorRG.Location = new Point(843, 136);
+            lblOrgaoExpedidorRG.Location = new Point(681, 136);
             lblOrgaoExpedidorRG.Name = "lblOrgaoExpedidorRG";
             lblOrgaoExpedidorRG.Size = new Size(133, 16);
             lblOrgaoExpedidorRG.TabIndex = 1033;
@@ -728,7 +729,7 @@
             cmbStatus.Items.AddRange(new object[] { "Ativo", "Inativo" });
             cmbStatus.Location = new Point(15, 155);
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(454, 27);
+            cmbStatus.Size = new Size(292, 27);
             cmbStatus.StateCommon.ComboBox.Border.Color1 = Color.FromArgb(8, 142, 254);
             cmbStatus.StateCommon.ComboBox.Border.Color2 = Color.FromArgb(8, 142, 254);
             cmbStatus.StateCommon.ComboBox.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
@@ -757,7 +758,7 @@
             // txtCnpj
             // 
             txtCnpj.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtCnpj.Location = new Point(464, 156);
+            txtCnpj.Location = new Point(312, 156);
             txtCnpj.Name = "txtCnpj";
             txtCnpj.Size = new Size(180, 27);
             txtCnpj.StateCommon.Back.Color1 = Color.White;
@@ -780,7 +781,7 @@
             lblRotuloCnpj.BackColor = Color.Transparent;
             lblRotuloCnpj.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRotuloCnpj.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloCnpj.Location = new Point(468, 137);
+            lblRotuloCnpj.Location = new Point(310, 137);
             lblRotuloCnpj.Name = "lblRotuloCnpj";
             lblRotuloCnpj.Size = new Size(42, 16);
             lblRotuloCnpj.TabIndex = 1039;
@@ -790,7 +791,7 @@
             // txtIE
             // 
             txtIE.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtIE.Location = new Point(648, 156);
+            txtIE.Location = new Point(496, 155);
             txtIE.Name = "txtIE";
             txtIE.Size = new Size(180, 27);
             txtIE.StateCommon.Back.Color1 = Color.White;
@@ -813,7 +814,7 @@
             lblRotuloIE.BackColor = Color.Transparent;
             lblRotuloIE.Font = new Font("Microsoft Sans Serif", 9.25F);
             lblRotuloIE.ForeColor = Color.FromArgb(0, 76, 172);
-            lblRotuloIE.Location = new Point(651, 137);
+            lblRotuloIE.Location = new Point(493, 137);
             lblRotuloIE.Name = "lblRotuloIE";
             lblRotuloIE.Size = new Size(140, 16);
             lblRotuloIE.TabIndex = 1041;
@@ -824,7 +825,7 @@
             // 
             btnSalvar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSalvar.CornerRoundingRadius = 20F;
-            btnSalvar.Location = new Point(700, 619);
+            btnSalvar.Location = new Point(538, 619);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
             btnSalvar.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -890,7 +891,7 @@
             // 
             btnNovo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNovo.CornerRoundingRadius = 20F;
-            btnNovo.Location = new Point(806, 619);
+            btnNovo.Location = new Point(644, 619);
             btnNovo.Name = "btnNovo";
             btnNovo.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnNovo.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -955,7 +956,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 20F;
-            btnSair.Location = new Point(912, 619);
+            btnSair.Location = new Point(750, 619);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(250, 252, 252);
             btnSair.OverrideDefault.Back.Color2 = Color.FromArgb(250, 252, 252);
@@ -1022,7 +1023,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1026, 47);
+            pnlHeader.Size = new Size(864, 47);
             pnlHeader.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             pnlHeader.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             pnlHeader.TabIndex = 1091;
@@ -1041,7 +1042,7 @@
             tlpTitulo.RowCount = 2;
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 48.57143F));
             tlpTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 51.42857F));
-            tlpTitulo.Size = new Size(1026, 47);
+            tlpTitulo.Size = new Size(864, 47);
             tlpTitulo.StateCommon.Color1 = Color.FromArgb(30, 136, 229);
             tlpTitulo.StateCommon.Color2 = Color.FromArgb(30, 136, 229);
             tlpTitulo.TabIndex = 0;
@@ -1051,7 +1052,7 @@
             lblSubTitulo.Dock = DockStyle.Fill;
             lblSubTitulo.Location = new Point(3, 25);
             lblSubTitulo.Name = "lblSubTitulo";
-            lblSubTitulo.Size = new Size(1020, 19);
+            lblSubTitulo.Size = new Size(858, 19);
             lblSubTitulo.StateCommon.ShortText.Color1 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Color2 = Color.WhiteSmoke;
             lblSubTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -1064,7 +1065,7 @@
             lblTitulo.Dock = DockStyle.Fill;
             lblTitulo.Location = new Point(3, 3);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(1020, 16);
+            lblTitulo.Size = new Size(858, 16);
             lblTitulo.StateCommon.ShortText.Color1 = Color.White;
             lblTitulo.StateCommon.ShortText.Color2 = Color.White;
             lblTitulo.StateCommon.ShortText.Font = new Font("Segoe UI", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -1182,7 +1183,7 @@
             btnLocalizarCidade.IconColor = Color.FromArgb(30, 136, 229);
             btnLocalizarCidade.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLocalizarCidade.IconSize = 30;
-            btnLocalizarCidade.Location = new Point(850, 480);
+            btnLocalizarCidade.Location = new Point(688, 480);
             btnLocalizarCidade.Name = "btnLocalizarCidade";
             btnLocalizarCidade.Size = new Size(25, 25);
             btnLocalizarCidade.TabIndex = 1040;
@@ -1198,7 +1199,7 @@
             btnPesquisarCep.IconColor = Color.FromArgb(30, 136, 229);
             btnPesquisarCep.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnPesquisarCep.IconSize = 30;
-            btnPesquisarCep.Location = new Point(221, 381);
+            btnPesquisarCep.Location = new Point(228, 381);
             btnPesquisarCep.Name = "btnPesquisarCep";
             btnPesquisarCep.Size = new Size(25, 25);
             btnPesquisarCep.TabIndex = 9;
@@ -1225,10 +1226,23 @@
             lblObservacao.TabStop = false;
             lblObservacao.Values.Text = "Observação";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Microsoft Sans Serif", 9.25F);
+            label1.ForeColor = Color.FromArgb(0, 76, 172);
+            label1.Location = new Point(20, 277);
+            label1.Name = "label1";
+            label1.Size = new Size(45, 16);
+            label1.TabIndex = 1092;
+            label1.Text = "E-Mail";
+            // 
             // FrmCadCliente
             // 
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(1026, 677);
+            ClientSize = new Size(864, 677);
+            Controls.Add(label1);
             Controls.Add(cmbTipoPessoa);
             Controls.Add(dtpDataNascimento);
             Controls.Add(txtOrgaoExpedidorRG);
@@ -1383,5 +1397,6 @@
         public Krypton.Toolkit.KryptonComboBox cmbTipoPessoa;
         private FontAwesome.Sharp.IconButton btnPesquisarCep;
         private FontAwesome.Sharp.IconButton btnLocalizarCidade;
+        private Label label1;
     }
 }

@@ -66,7 +66,7 @@
             // btnGerarToken
             // 
             btnGerarToken.CornerRoundingRadius = 20F;
-            btnGerarToken.Location = new Point(140, 256);
+            btnGerarToken.Location = new Point(143, 324);
             btnGerarToken.Name = "btnGerarToken";
             btnGerarToken.OverrideDefault.Back.Color1 = Color.FromArgb(8, 142, 254);
             btnGerarToken.OverrideDefault.Back.Color2 = Color.FromArgb(8, 142, 254);
@@ -671,7 +671,7 @@
             painelRecuperacao.Dock = DockStyle.Fill;
             painelRecuperacao.Location = new Point(0, 0);
             painelRecuperacao.Name = "painelRecuperacao";
-            painelRecuperacao.Size = new Size(284, 334);
+            painelRecuperacao.Size = new Size(284, 379);
             painelRecuperacao.TabIndex = 1023;
             // 
             // painelRedefinir
@@ -687,13 +687,13 @@
             painelRedefinir.Dock = DockStyle.Fill;
             painelRedefinir.Location = new Point(0, 0);
             painelRedefinir.Name = "painelRedefinir";
-            painelRedefinir.Size = new Size(284, 334);
+            painelRedefinir.Size = new Size(284, 379);
             painelRedefinir.TabIndex = 1024;
             // 
             // FrmRecuperarSenhaOffline
             // 
             BackColor = Color.FromArgb(252, 252, 250);
-            ClientSize = new Size(284, 334);
+            ClientSize = new Size(284, 379);
             Controls.Add(painelRecuperacao);
             Controls.Add(painelRedefinir);
             FormBorderStyle = FormBorderStyle.FixedSingle;
