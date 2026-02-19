@@ -305,7 +305,7 @@ namespace GVC.Infra.Repository
                 Unidade = r["Unidade"] == DBNull.Value ? "" : r["Unidade"].ToString(),
 
                 // 🔹 Marca
-                MarcaID = r["MarcaID"] == DBNull.Value ? 0 : Convert.ToInt32(r["MarcaID"]),
+                MarcaID = r["MarcaID"] == DBNull.Value ? null : (int?)Convert.ToInt32(r["MarcaID"]),
                 NomeMarca = r.Table.Columns.Contains("NomeMarca") && r["NomeMarca"] != DBNull.Value
                     ? r["NomeMarca"].ToString()
                     : string.Empty,
@@ -314,7 +314,11 @@ namespace GVC.Infra.Repository
                 GtinEan = r["GtinEan"] == DBNull.Value ? "" : r["GtinEan"].ToString(),
                 Imagem = r["Imagem"] == DBNull.Value ? null : r["Imagem"].ToString(),
 
+
                 FornecedorID = r["FornecedorID"] == DBNull.Value ? null : (int?)Convert.ToInt32(r["FornecedorID"]),
+                NomeFornecedor = r["NomeFornecedor"] == DBNull.Value ? "" : r["NomeFornecedor"].ToString(), // ✅ AQUI
+
+                // opcional: se você ainda usa o objeto Fornecedor em algum lugar, pode manter
                 Fornecedor = new FornecedorModel
                 {
                     FornecedorID = r["FornecedorID"] == DBNull.Value ? 0 : Convert.ToInt32(r["FornecedorID"]),

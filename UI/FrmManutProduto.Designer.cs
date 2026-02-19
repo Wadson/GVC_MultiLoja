@@ -95,6 +95,7 @@
             dgvProdutos.StateCommon.HeaderColumn.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             dgvProdutos.TabIndex = 597;
             dgvProdutos.TabStop = false;
+            dgvProdutos.KeyDown += dgvProdutos_KeyDown;
             // 
             // btnEstoque
             // 
@@ -414,6 +415,7 @@
             txtPesquisa.StateCommon.Content.Padding = new Padding(10, 0, 10, 0);
             txtPesquisa.TabIndex = 0;
             txtPesquisa.TextChanged += txtPesquisa_TextChanged;
+            txtPesquisa.KeyDown += txtPesquisa_KeyDown;
             // 
             // kryptonPalette1
             // 

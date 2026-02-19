@@ -12,6 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
@@ -24,10 +25,13 @@ namespace GVC.View
     {
         private new string StatusOperacao;
         private readonly ProdutosBLL _produtosBll = new ProdutosBLL();
-
+        private int linhaAtual = -1;
+        private int ProdutoiD;
+        private string NomeProduto;
+        private decimal PrecoCusto;
         public FrmManutProduto(string statusOperacao)
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
 
         public void HabilitarTimer(bool habilitar)
@@ -50,7 +54,7 @@ namespace GVC.View
             string[] colunasParaRemover = {
 
             "ItemVenda",
-            "MovimentacaoEstoques" };  
+            "MovimentacaoEstoques" };
 
 
             foreach (var nome in colunasParaRemover)
@@ -227,10 +231,10 @@ namespace GVC.View
                 col.DefaultCellStyle.ForeColor = Color.Green
                     ;
             }
-           
+
             // ⭐⭐ PASSO 10: Atualizar grid ⭐⭐
             dgvProdutos.Refresh();
-        }      
+        }
         // ⭐⭐ Método ReordenarColunas ATUALIZADO ⭐⭐
         private void ReordenarColunas()
         {
@@ -328,7 +332,7 @@ namespace GVC.View
             //frm.txtFornecedorID.Text = produto.FornecedorID.ToString();
 
             // No método CarregaDados()
-            frm.txtFornecedor.Text = produto.NomeFornecedor ?? "";  // ← Use NomeFornecedor
+            frm.txtFornecedor.Text = produto.NomeFornecedor ?? "";  // ← Use NomeFornecedor            
             frm.txtFornecedorID.Text = produto.FornecedorID?.ToString() ?? "0";
 
             frm.cmbSituacao.Text = produto.Situacao ?? "";
@@ -349,7 +353,7 @@ namespace GVC.View
             }
 
             if (StatusOperacao == "ALTERAR")
-            {               
+            {
                 frm.btnSalvar.Text = "&Alterar";
                 frm.btnNovo.Enabled = false;
                 // Personalização do título
@@ -359,7 +363,7 @@ namespace GVC.View
                 frm.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 8);
             }
             else if (StatusOperacao == "EXCLUSÃO")
-            {                
+            {
                 frm.btnSalvar.Text = "&Excluir";
 
                 // Personalização do título
@@ -482,7 +486,7 @@ namespace GVC.View
                 lblMensagemStatus.ForeColor = cor;
                 lblMensagemStatus.Visible = true;
             }
-        }       
+        }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
@@ -514,7 +518,7 @@ namespace GVC.View
 
         private void btnEstoque_Click(object sender, EventArgs e)
         {
-           FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
+            FrmMovimentacaoEstoque frm = new FrmMovimentacaoEstoque();
             frm.ShowDialog();
         }
 
@@ -522,5 +526,112 @@ namespace GVC.View
         {
             this.Close();
         }
+
+        private void txtPesquisa_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Down:
+                    // Tecla para baixo: move foco para o DataGridView
+                    if (dgvProdutos.Rows.Count > 0)
+                    {
+                        dgvProdutos.Focus();
+
+                        // Seleciona a primeira linha se nenhuma estiver selecionada
+                        if (dgvProdutos.CurrentRow == null && dgvProdutos.Rows.Count > 0)
+                        {
+                            dgvProdutos.Rows[0].Selected = true;
+                            dgvProdutos.CurrentCell = dgvProdutos.Rows[0].Cells[0];
+                        }
+                    }
+                    e.Handled = true;
+                    break;
+
+                case Keys.Enter:
+                    // Enter no campo de pesquisa: seleciona primeiro resultado
+                    if (dgvProdutos.Rows.Count > 0)
+                    {
+                        dgvProdutos.Focus();
+                        dgvProdutos.Rows[0].Selected = true;
+                        dgvProdutos.CurrentCell = dgvProdutos.Rows[0].Cells[0];
+                        SelecionarProduto(); // Chama seu método existente
+                    }
+                    e.Handled = true;
+                    break;
+
+                case Keys.Escape:
+                    this.Close();
+                    e.Handled = true;
+                    break;
+            }
+        }
+
+        private void dgvProdutos_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    // Enter no DataGridView: seleciona cliente
+                    SelecionarProduto(); // Chama seu método existente
+                    e.Handled = true;
+                    break;
+
+                case Keys.Up:
+                    // Tecla para cima na primeira linha: volta para o txtPesquisa
+                    if (dgvProdutos.CurrentRow != null &&
+                        dgvProdutos.CurrentRow.Index == 0)
+                    {
+                        txtPesquisa.Focus();
+                        e.Handled = true;
+                    }
+                    break;
+
+                case Keys.Down:
+                    // Tecla para baixo na última linha: não faz nada especial
+                    // O próprio DataGridView já trata a navegação
+                    e.Handled = false; // Permite o comportamento padrão
+                    break;
+
+                case Keys.Escape:
+                    this.Close();
+                    e.Handled = true;
+                    break;
+            }
+        }
+        private void SelecionarProduto()
+        {
+            try
+            {
+                // Obtém a linha atual selecionada na grid
+                linhaAtual = dgvProdutos.CurrentRow?.Index ?? -1;
+                if (linhaAtual < 0 || linhaAtual >= dgvProdutos.Rows.Count)
+                {
+                    Utilitario.Mensagens.Aviso("Linha inválida.");
+                    return;
+                }
+
+                if (dgvProdutos["ProdutoID", linhaAtual]?.Value == null ||
+                    dgvProdutos["NomeProduto", linhaAtual]?.Value == null ||
+                    dgvProdutos["PrecoCusto", linhaAtual]?.Value == null)
+                {
+                    Utilitario.Mensagens.Aviso("Dados do cliente inválidos.");
+                    return;
+                }
+
+                // Preenche as propriedades públicas que o chamador vai ler
+                ProdutoiD = Convert.ToInt32(dgvProdutos["ProdutoID", linhaAtual].Value);
+                NomeProduto = dgvProdutos["NomeProduto", linhaAtual].Value.ToString();
+                PrecoCusto = Convert.ToDecimal(dgvProdutos["PrecoCusto", linhaAtual].Value);
+
+                // Retorna sucesso para o ShowDialog()
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Utilitario.Mensagens.Aviso("Erro ao selecionar cliente: " + ex.Message);
+            }
+        }
+
     }
 }
