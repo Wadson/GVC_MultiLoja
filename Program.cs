@@ -5,6 +5,11 @@ using QuestPDF.Infrastructure;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+// =============================
+// TESTE DE CONEXÃO SQL (TEMPORÁRIO)
+// =============================
+using Microsoft.Data.SqlClient;
+using GVC.Infra.Conexao;
 
 namespace GVC
 {
@@ -29,6 +34,58 @@ namespace GVC
                 if (login.ShowDialog() != DialogResult.OK)
                     return;
             }
+
+
+
+
+            // =============================
+            // TESTE DE CONEXÃO SQL (TEMPORÁRIO)
+            // Coloque isso APENAS para pegar o erro exato no cliente.
+            // Depois que resolver, pode remover este bloco.
+            // =============================
+            try
+            {
+                using var conn = Conexao.Conex();
+                conn.Open();
+
+                MessageBox.Show(
+                    "✅ Conexão com o SQL Server OK!",
+                    "Teste de Conexão",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(
+                    $"❌ SQL ERROR {ex.Number}\n\n{ex.Message}",
+                    "Falha na Conexão SQL",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return; // evita abrir o sistema com banco inacessível
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.ToString(),
+                    "Erro Geral",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+            // =============================
+
+
+
+
+
+
+
+
+
+
+
 
             // =============================
             // VERIFICAÇÃO DE ATUALIZAÇÃO

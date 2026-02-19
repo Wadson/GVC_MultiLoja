@@ -1197,13 +1197,13 @@
             // kryptonLabel4
             // 
             kryptonLabel4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            kryptonLabel4.Location = new Point(511, 376);
+            kryptonLabel4.Location = new Point(511, 375);
             kryptonLabel4.Name = "kryptonLabel4";
-            kryptonLabel4.Size = new Size(128, 20);
+            kryptonLabel4.Size = new Size(224, 20);
             kryptonLabel4.StateCommon.ShortText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel4.TabIndex = 1106;
             kryptonLabel4.TabStop = false;
-            kryptonLabel4.Values.Text = "Imagem do Produto";
+            kryptonLabel4.Values.Text = "Selecionar Imagem de Fundo da Tela";
             // 
             // txtEnderecoImagem
             // 

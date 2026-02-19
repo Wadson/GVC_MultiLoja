@@ -19,9 +19,5 @@ namespace GVC.Infra.Conexao
             }
         }
     }
-    public enum ModoVenda
-    {
-        Nova = 1,
-        Edicao = 2
-    }
+  
 }
