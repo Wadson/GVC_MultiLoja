@@ -10,6 +10,7 @@
         public static int EmpresaID { get; set; }
         public static string EmpresaNome { get; set; }
         public static string FundoTela { get; set; }
+        public static Image LogoEmpresa { get; set; }
 
 
         // 🔹 Estado da sessão
@@ -23,6 +24,8 @@
             NomeUsuario = null;
             EmpresaID = 0;
             EmpresaNome = null;
+            LogoEmpresa?.Dispose();
+            LogoEmpresa = null;
         }
     }
 }

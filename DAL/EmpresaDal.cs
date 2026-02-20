@@ -26,7 +26,33 @@ namespace GVC.DAL
 
             return null;
         }
+        public byte[] ObterLogoEmpresaAtualBytes()
+        {
+            const string sql = @"
+            SELECT Logo
+            FROM Empresa
+            WHERE EmpresaID = @EmpresaID";
 
+            using var cmd = CreateCommand(sql);
+
+            var result = cmd.ExecuteScalar();
+
+            if (result == null || result == DBNull.Value)
+                return null;
+
+            return (byte[])result;
+        }
+
+        public Image ObterLogoEmpresaAtualImage()
+        {
+            var bytes = ObterLogoEmpresaAtualBytes();
+            if (bytes == null || bytes.Length == 0)
+                return null;
+
+            using var ms = new MemoryStream(bytes);
+            using var imgTemp = Image.FromStream(ms);
+            return (Image)imgTemp.Clone(); // ✅ evita stream preso
+        }
         public EmpresaModel? ObterEmpresaAtual()
         {
             const string sql = @"

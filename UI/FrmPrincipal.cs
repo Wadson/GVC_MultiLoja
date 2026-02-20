@@ -30,6 +30,7 @@ namespace GVC
         private int _empresaId;
         private string PastaBackupAutomatica => @"C:\BackupsGVC";
         private bool _carregandoEmpresas = true;
+        private bool _trocandoEmpresa = false;
         public FrmPrincipal()
         {
             InitializeComponent();
@@ -498,15 +499,25 @@ namespace GVC
         }
         private void AplicarFundoEmpresa(string caminhoImagem)
         {
-            if (string.IsNullOrWhiteSpace(caminhoImagem))
+            if (string.IsNullOrWhiteSpace(caminhoImagem) || !File.Exists(caminhoImagem))
+            {
+                picBackground.Image?.Dispose();
+                picBackground.Image = null;
                 return;
-
-            if (!File.Exists(caminhoImagem))
-                return;
+            }
 
             picBackground.Image?.Dispose();
             picBackground.Image = Image.FromFile(caminhoImagem);
             picBackground.SizeMode = PictureBoxSizeMode.StretchImage;
+            //if (string.IsNullOrWhiteSpace(caminhoImagem))
+            //    return;
+
+            //if (!File.Exists(caminhoImagem))
+            //    return;
+
+            //picBackground.Image?.Dispose();
+            //picBackground.Image = Image.FromFile(caminhoImagem);
+            //picBackground.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
 
@@ -538,7 +549,7 @@ namespace GVC
 
         private void cmbEmpresaToolStrip_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_carregandoEmpresas)
+            if (_carregandoEmpresas || _trocandoEmpresa)
                 return;
 
             if (sender is not ToolStripComboBox toolStripCombo)
@@ -550,15 +561,51 @@ namespace GVC
             if (empresa.EmpresaID <= 0)
                 return;
 
-            // 🎨 Aplica fundo
-            AplicarFundoEmpresa(empresa.FundoTela);
+            // ✅ se não mudou, não faz nada
+            if (Sessao.EmpresaID == empresa.EmpresaID)
+                return;
 
-            if (Sessao.EmpresaID != empresa.EmpresaID)
+            _trocandoEmpresa = true;
+            try
             {
+                // 🔄 troca empresa primeiro
                 TrocarEmpresa(empresa.EmpresaID, empresa.NomeFantasia);
+
+                // 🎨 atualiza fundo na sessão + aplica
                 Sessao.FundoTela = empresa.FundoTela;
+                AplicarFundoEmpresa(Sessao.FundoTela);
+
+                // ✅ limpa cache da logo (pro PDV carregar a correta)
+                Sessao.LogoEmpresa?.Dispose();
+                Sessao.LogoEmpresa = null;
+
+                cmbEmpresaToolStrip.ComboBox.BackColor = Color.LightYellow;
             }
-            cmbEmpresaToolStrip.ComboBox.BackColor = Color.LightYellow;            
+            finally
+            {
+                _trocandoEmpresa = false;
+            }
+            //if (_carregandoEmpresas)
+            //    return;
+
+            //if (sender is not ToolStripComboBox toolStripCombo)
+            //    return;
+
+            //if (toolStripCombo.SelectedItem is not EmpresaDTO empresa)
+            //    return;
+
+            //if (empresa.EmpresaID <= 0)
+            //    return;
+
+            //// 🎨 Aplica fundo
+            //AplicarFundoEmpresa(empresa.FundoTela);
+
+            //if (Sessao.EmpresaID != empresa.EmpresaID)
+            //{
+            //    TrocarEmpresa(empresa.EmpresaID, empresa.NomeFantasia);
+            //    Sessao.FundoTela = empresa.FundoTela;
+            //}
+            //cmbEmpresaToolStrip.ComboBox.BackColor = Color.LightYellow;            
         }
         private void ConfigurarComboEmpresaOwnerDraw()
         {

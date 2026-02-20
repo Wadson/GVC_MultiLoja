@@ -41,9 +41,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Infra\Conexao\appsettings.json">
+	  <EmbeddedResource Include="Infra\Conexao\appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>

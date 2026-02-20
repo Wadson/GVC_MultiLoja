@@ -1,2 +1,27 @@
 Compilar pelo Power Shel
 dotnet publish -c Release -r win-x64 --self-contained true
+
+
+
+
+// Verificar o usuário
+
+USE bdgvc;
+SELECT dp.name, sp.name AS login_name
+FROM sys.database_principals dp
+LEFT JOIN sys.server_principals sp
+    ON dp.sid = sp.sid
+WHERE dp.name = 'gvc_userteste';
+
+Recriar o usuario
+
+USE bdgvc;
+
+-- Remove qualquer usuário quebrado com esse nome
+DROP USER IF EXISTS gvc_userteste;
+
+-- Cria o usuário vinculado ao login
+CREATE USER gvc_userteste FOR LOGIN gvc_userteste;
+
+-- Dá permissões (exemplo: acesso total)
+ALTER ROLE db_owner ADD MEMBER gvc_userteste;

@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,14 +27,20 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace GVC.View
 {
     public partial class FrmPDV : KryptonForm
-    {       
+    {
         private readonly int _vendaId;
         public int VendaID { get; private set; }
         private bool _clienteFoiSelecionado = false;
         private bool _ignorarEventosBusca = false;
         private bool _ignorandoBuscar = false;
         private bool _aguardandoPagamento = false;
+        private bool _modoEdicao = false;
+        private ItemVendaModel _itemEmEdicao = null;
+        private bool _ignorarEventosCalculo = false;
 
+        private decimal _ultimoPrecoBruto = 0;
+        private decimal _ultimoDesconto = 0;
+        private decimal _ultimoPrecoLiquido = 0;
 
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -61,7 +68,6 @@ namespace GVC.View
         // Modelos e Serviços
         // ----------------------
         private VendaModel venda = new VendaModel();
-       
 
         // ----------------------
         // Interface
@@ -70,7 +76,6 @@ namespace GVC.View
         private bool formularioPesquisaAberto = false;
 
         private readonly string QueryVenda = "SELECT MAX(VendaID) FROM Venda";
-
 
         private enum EstadoVenda
         {
@@ -82,8 +87,6 @@ namespace GVC.View
             Finalizada            // Venda gravada com sucesso
         }
         private EstadoVenda _estadoVenda = EstadoVenda.Inicial;
-
-
         public FrmPDV()// NOVA VENDA
         {
             InitializeComponent();
@@ -94,8 +97,175 @@ namespace GVC.View
             this.StateCommon.Header.Content.ShortText.Color1 = Color.Red;
             this.StateCommon.Header.Content.ShortText.Color2 = Color.White;
             this.StateCommon.Header.Content.ShortText.Font = new Font("Segoe UI", 18);
-        }     
+        }
+
+        private int ParseInt(string texto)
+        {
+            if (int.TryParse(texto?.Trim(), out int valor))
+                return valor;
+
+            return 0;
+        }
+        private void SairModoEdicao()
+        {
+            _modoEdicao = false;
+            _itemEmEdicao = null;
+
+            btnAdicionarItem.Text = "Adicionar";
+            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
+
+            LimparCamposProduto();
+        }
+        private void EntrarModoEdicao(ItemVendaModel item)
+        {
+            _modoEdicao = true;
+            _itemEmEdicao = item;
+
+            btnAdicionarItem.Text = "Alterar";
+            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.Edit; // ou Save
+        }
+        private static decimal ParseDecimalPtBr(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return 0m;
+
+            texto = texto.Trim();
+
+            if (decimal.TryParse(texto, NumberStyles.Number, new CultureInfo("pt-BR"), out var v))
+                return v;
+
+            if (decimal.TryParse(texto, NumberStyles.Number, CultureInfo.InvariantCulture, out v))
+                return v;
+
+            return 0m;
+        }
+
+        private static int ParseIntSafe(string texto)
+        {
+            if (int.TryParse(texto?.Trim(), out var v))
+                return v;
+            return 0;
+        }
+        /// <summary>
+        /// Lê os campos e devolve valores normalizados (sem escrever nos TextBox).
+        /// Regra: desconto unitário (R$) e subtotal = qtd * (preco - desconto).
+        /// </summary>
+        private void ObterValoresItem(out int qtd, out decimal precoBruto, out decimal descontoUnit,
+                                     out decimal precoLiquido, out decimal subtotal)
+        {
+            qtd = ParseIntSafe(txtQuantidade.Text);
+            if (qtd <= 0) qtd = 1;
+
+            precoBruto = ParseDecimalPtBr(txtPrecoUnitario.Text);
+            if (precoBruto < 0) precoBruto = 0m;
+
+            descontoUnit = ParseDecimalPtBr(txtDesconto.Text);
+            if (descontoUnit < 0) descontoUnit = 0m;
+
+            // desconto unitário não pode passar do preço
+            if (descontoUnit > precoBruto)
+                descontoUnit = precoBruto;
+
+            precoLiquido = precoBruto - descontoUnit;
+            subtotal = qtd * precoLiquido;
+        }
+
+        /// <summary>
+        /// Atualiza somente o SubTotal (não mexe em Preço/Desconto/Quantidade para não gerar loop).
+        /// </summary>
+        private void AtualizarSubtotalSomente()
+        {
+            if (_ignorarEventosCalculo) return;
+
+            _ignorarEventosCalculo = true;
+            try
+            {
+                ObterValoresItem(out var qtd, out var precoBruto, out var descontoUnit,
+                                 out var precoLiquido, out var subtotal);
+
+                txtSubTotal.Text = subtotal.ToString("N2");
+            }
+            finally
+            {
+                _ignorarEventosCalculo = false;
+            }
+        }
+
+        /// <summary>
+        /// Normaliza um TextBox monetário (N2) sem disparar loop.
+        /// </summary>
+        private void NormalizarMoeda(KryptonTextBox txt)
+        {
+            if (txt == null) return;
+
+            if (_ignorarEventosCalculo) return;
+
+            _ignorarEventosCalculo = true;
+            try
+            {
+                decimal v = ParseDecimalPtBr(txt.Text);
+                if (v < 0) v = 0m;
+                txt.Text = v.ToString("N2");
+            }
+            finally
+            {
+                _ignorarEventosCalculo = false;
+            }
+        }
+
+        /// <summary>
+        /// Normaliza quantidade (>=1).
+        /// </summary>
+        private void NormalizarQuantidade()
+        {
+            if (_ignorarEventosCalculo) return;
+
+            _ignorarEventosCalculo = true;
+            try
+            {
+                int qtd = ParseIntSafe(txtQuantidade.Text);
+                if (qtd <= 0) qtd = 1;
+                txtQuantidade.Text = qtd.ToString();
+            }
+            finally
+            {
+                _ignorarEventosCalculo = false;
+            }
+        }
+
+        /// <summary>
+        /// Ao selecionar um produto: preenche os campos padrão e calcula subtotal.
+        /// </summary>
+        private void PreencherCamposItemSelecionado(decimal precoVenda)
+        {
+            _ignorarEventosCalculo = true;
+            try
+            {
+                txtQuantidade.Text = "1";
+                txtPrecoUnitario.Text = precoVenda.ToString("N2");
+                txtDesconto.Text = "0,00";
+                txtSubTotal.Text = "0,00";
+            }
+            finally
+            {
+                _ignorarEventosCalculo = false;
+            }
+
+            AtualizarSubtotalSomente();
+        }
+
+
+
        
+
+
+
+
+
+
+
+
+
         private void InicializarFormulario()
         {
             this.Text = "Frente de Caixa";
@@ -369,12 +539,6 @@ namespace GVC.View
             dgvItensVenda.DefaultCellStyle.SelectionForeColor = Color.Black;
         }
 
-
-
-        private void btnAdicionarItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void AtualizarTotais()
         {
             if (_itensBinding == null || _itensBinding.Count == 0)
@@ -404,6 +568,8 @@ namespace GVC.View
             txtProdutoBuscar.Clear();
             txtQuantidade.Clear();
             txtPrecoUnitario.Clear();
+            txtDesconto.Text = "0,00";
+            txtSubTotal.Text = "0,00";
         }
 
         private void LimparFormulario()
@@ -442,12 +608,6 @@ namespace GVC.View
             txtClienteBuscar.Focus();
 
         }
-
-        private void txtDesconto_Leave(object sender, EventArgs e)
-        {
-            AtualizarTotais();
-        }
-
 
         private bool ValidarEstoqueAntesFinalizar()
         {
@@ -561,6 +721,7 @@ namespace GVC.View
                 if (ctrl is KryptonTextBox kryptonTxt)
                     Utilitario.AplicarCorFoco(kryptonTxt);
             }
+            CarregarLogoEmpresa();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -766,9 +927,16 @@ namespace GVC.View
                     {
                         ProdutoID = pesquisaProduto.ProdutoID;
                         txtProdutoBuscar.Text = pesquisaProduto.ProdutoSelecionado;
-                        txtPrecoUnitario.Text = pesquisaProduto.PrecoUnitario.ToString("N2");
-                        txtQuantidade.Text = "1";
-                        Utilitario.FormatarMoeda(txtPrecoUnitario);
+
+                        PreencherCamposItemSelecionado(pesquisaProduto.PrecoUnitario);
+
+                        txtQuantidade.Focus();
+                        txtQuantidade.SelectAll();
+                        //ProdutoID = pesquisaProduto.ProdutoID;
+                        //txtProdutoBuscar.Text = pesquisaProduto.ProdutoSelecionado;
+                        //txtPrecoUnitario.Text = pesquisaProduto.PrecoUnitario.ToString("N2");
+                        //txtQuantidade.Text = "1";
+                        //Utilitario.FormatarMoeda(txtPrecoUnitario);
                     }
                     finally
                     {
@@ -1079,7 +1247,7 @@ namespace GVC.View
             FinalizarVenda();
         }
 
-        private void btnAdicionarItem_Click_1(object sender, EventArgs e)
+        private void btnAdicionarItem_Click(object sender, EventArgs e)
         {
             if (ProdutoID <= 0)
             {
@@ -1087,11 +1255,29 @@ namespace GVC.View
                 return;
             }
 
-            if (!int.TryParse(txtQuantidade.Text, out int qtd) || qtd <= 0)
-                return;
+            ObterValoresItem(out int qtd, out decimal precoBruto, out decimal descontoUnit,
+                             out decimal precoLiquidoUnit, out _);
 
-            if (!decimal.TryParse(txtPrecoUnitario.Text, out decimal preco))
+            if (qtd <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Quantidade inválida.");
                 return;
+            }
+
+            if (precoBruto <= 0)
+            {
+                Utilitario.Mensagens.Aviso("Preço unitário inválido.");
+                return;
+            }
+
+            // desconto unitário já foi limitado em ObterValoresItem, mas se quiser mensagem:
+            if (descontoUnit > precoBruto)
+            {
+                Utilitario.Mensagens.Aviso("Desconto unitário não pode ser maior que o preço unitário.");
+                txtDesconto.Focus();
+                txtDesconto.SelectAll();
+                return;
+            }
 
             int estoqueAtual = new EstoqueDAL().ObterEstoqueAtualizado(ProdutoID);
 
@@ -1101,11 +1287,29 @@ namespace GVC.View
                 return;
             }
 
+            if (_modoEdicao && _itemEmEdicao != null)
+            {
+                // ✅ estoque para edição: devolve a quantidade antiga ao "disponível"
+                int disponivelParaEdicao = estoqueAtual + _itemEmEdicao.Quantidade;
+                if (qtd > disponivelParaEdicao)
+                {
+                    Utilitario.Mensagens.Aviso($"Estoque insuficiente. Disponível: {disponivelParaEdicao}");
+                    return;
+                }
+
+                _itemEmEdicao.Quantidade = qtd;
+                _itemEmEdicao.PrecoUnitario = precoLiquidoUnit;
+
+                _itensBindingSource.ResetBindings(false);
+                AtualizarTotais();
+                SairModoEdicao();
+                return;
+            }
+
+            // ADICIONAR
             if (qtd > estoqueAtual)
             {
-                Utilitario.Mensagens.Aviso(
-                    $"Estoque insuficiente. Disponível: {estoqueAtual}"
-                );
+                Utilitario.Mensagens.Aviso($"Estoque insuficiente. Disponível: {estoqueAtual}");
                 return;
             }
 
@@ -1115,12 +1319,12 @@ namespace GVC.View
             {
                 if (item.Quantidade + qtd > estoqueAtual)
                 {
-                    Utilitario.Mensagens.Aviso( $"Quantidade total excede o estoque ({estoqueAtual}).");
+                    Utilitario.Mensagens.Aviso($"Quantidade total excede o estoque ({estoqueAtual}).");
                     return;
                 }
 
-                item.Quantidade += qtd; // Subtotal será recalculado automaticamente
-                // ✅ CORREÇÃO 2: força atualização do DataGrid
+                item.Quantidade += qtd;
+                item.PrecoUnitario = precoLiquidoUnit;
                 _itensBindingSource.ResetBindings(false);
             }
             else
@@ -1130,22 +1334,186 @@ namespace GVC.View
                     VendaID = venda.VendaID,
                     ProdutoID = ProdutoID,
                     Quantidade = qtd,
-                    PrecoUnitario = preco,
+                    PrecoUnitario = precoLiquidoUnit,
                     EstoqueAtual = estoqueAtual,
                     ProdutoDescricao = txtProdutoBuscar.Text
                 });
             }
 
-
             AtualizarTotais();
-            // 🔥 AQUI: Volta o foco para buscar o próximo produto
-            LimparCamposProduto(); // já zera ProdutoID e limpa os textos
+            LimparCamposProduto();
 
-            // Garante que o campo esteja habilitado (deve estar, pois já tem itens ou vendedor)
             if (txtProdutoBuscar.CanFocus)
             {
                 txtProdutoBuscar.Focus();
-                txtProdutoBuscar.SelectAll(); // seleciona tudo para digitar por cima rapidamente
+                txtProdutoBuscar.SelectAll();
+            }
+        }
+        private void CarregarLogoEmpresa()
+        {
+            try
+            {
+                // ✅ Se já estiver em cache (opcional), só aplica
+                if (Sessao.LogoEmpresa != null)
+                {
+                    picLogoMarca.Image?.Dispose();
+                    picLogoMarca.Image = (Image)Sessao.LogoEmpresa.Clone();
+                    picLogoMarca.SizeMode = PictureBoxSizeMode.Zoom;
+                    return;
+                }
+
+                using var dal = new EmpresaDal();
+                var logo = dal.ObterLogoEmpresaAtualImage();
+
+                // ✅ cache opcional
+                Sessao.LogoEmpresa?.Dispose();
+                Sessao.LogoEmpresa = logo;
+
+                picLogoMarca.Image?.Dispose();
+                picLogoMarca.Image = logo != null ? (Image)logo.Clone() : null;
+                picLogoMarca.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            catch
+            {
+                // não derruba o PDV por causa de logo
+                picLogoMarca.Image = null;
+            }
+        }
+
+
+
+        private void txtQuantidade_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtPrecoUnitario_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtPrecoUnitario_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPrecoUnitario.Text))
+                txtPrecoUnitario.Text = "0,00";
+
+            NormalizarMoeda(txtPrecoUnitario);
+            AtualizarSubtotalSomente();
+        }
+
+        private void dgvItensVenda_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            if (dgvItensVenda.Rows[e.RowIndex].DataBoundItem is not ItemVendaModel item)
+                return;
+
+            _ignorarEventosCalculo = true;
+            try
+            {
+                ProdutoID = item.ProdutoID;
+                txtProdutoBuscar.Text = item.ProdutoDescricao;
+
+                txtQuantidade.Text = item.Quantidade.ToString();
+
+                // aqui seu item já está com preço líquido no grid.
+                // então carregamos como "preço unitário" e desconto zerado
+                txtPrecoUnitario.Text = item.PrecoUnitario.ToString("N2");
+                txtDesconto.Text = "0,00";
+
+                txtSubTotal.Text = "0,00";
+            }
+            finally
+            {
+                _ignorarEventosCalculo = false;
+            }
+
+            AtualizarSubtotalSomente();
+            EntrarModoEdicao(item);
+
+            txtQuantidade.Focus();
+            txtQuantidade.SelectAll();
+        }
+
+        private void txtQuantidade_Leave(object sender, EventArgs e)
+        {
+            NormalizarQuantidade();
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtDesconto_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtDesconto.Text))
+                txtDesconto.Text = "0,00";
+
+            NormalizarMoeda(txtDesconto);
+
+            // garante desconto <= preço após normalizar
+            ObterValoresItem(out _, out var preco, out var desc, out _, out _);
+            if (desc > preco)
+            {
+                txtDesconto.Text = preco.ToString("N2");
+                Utilitario.Mensagens.Aviso("Desconto ajustado para o valor máximo permitido.");
+            }
+
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtPrecoUnitario_Validating(object sender, CancelEventArgs e)
+        {
+            decimal preco = ParseDecimalPtBr(txtPrecoUnitario.Text);
+
+            if (preco < 0)
+            {
+                Utilitario.Mensagens.Aviso("Preço unitário não pode ser negativo.");
+                e.Cancel = true;
+                txtPrecoUnitario.Focus();
+                txtPrecoUnitario.SelectAll();
+            }
+            else if (preco > 999999.99m)
+            {
+                if (Utilitario.Mensagens.Pergunta("Preço muito alto. Deseja continuar?") != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                    txtPrecoUnitario.Focus();
+                    txtPrecoUnitario.SelectAll();
+                }
+            }
+        }
+
+        private void txtPrecoUnitario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permite: dígitos, vírgula, backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            // Permite apenas uma vírgula
+            if (e.KeyChar == ',' && txtPrecoUnitario.Text.Contains(','))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDesconto_TextChanged_1(object sender, EventArgs e)
+        {
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtDesconto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permite: dígitos, vírgula, backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            // Permite apenas uma vírgula
+            if (e.KeyChar == ',' && txtDesconto.Text.Contains(','))
+            {
+                e.Handled = true;
             }
         }
     }

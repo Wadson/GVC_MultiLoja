@@ -67,13 +67,13 @@
             lblTotal = new Label();
             txtTotalItens = new Label();
             lblTotalItens = new Label();
-            btnAdicionarItem = new FontAwesome.Sharp.IconButton();
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             flowLayoutPanel3 = new FlowLayoutPanel();
             lblDescont = new Label();
             txtDesconto = new Krypton.Toolkit.KryptonTextBox();
             lblSubtotal = new Label();
             txtSubTotal = new Krypton.Toolkit.KryptonTextBox();
+            btnAdicionarItem = new FontAwesome.Sharp.IconButton();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
             picLogoMarca = new PictureBox();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
@@ -220,7 +220,11 @@
             txtPrecoUnitario.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtPrecoUnitario.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtPrecoUnitario.TabIndex = 4;
+            txtPrecoUnitario.TextChanged += txtPrecoUnitario_TextChanged;
             txtPrecoUnitario.KeyDown += txtPrecoUnitario_KeyDown;
+            txtPrecoUnitario.KeyPress += txtPrecoUnitario_KeyPress;
+            txtPrecoUnitario.Leave += txtPrecoUnitario_Leave;
+            txtPrecoUnitario.Validating += txtPrecoUnitario_Validating;
             // 
             // lblPreco
             // 
@@ -292,7 +296,9 @@
             txtQuantidade.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtQuantidade.TabIndex = 3;
             txtQuantidade.TextAlign = HorizontalAlignment.Center;
+            txtQuantidade.TextChanged += txtQuantidade_TextChanged;
             txtQuantidade.KeyDown += txtQuantidade_KeyDown;
+            txtQuantidade.Leave += txtQuantidade_Leave;
             // 
             // lblRotuloSubTotal
             // 
@@ -399,14 +405,15 @@
             // 
             dgvItensVenda.Dock = DockStyle.Fill;
             dgvItensVenda.HideOuterBorders = true;
-            dgvItensVenda.Location = new Point(4, 145);
+            dgvItensVenda.Location = new Point(4, 180);
             dgvItensVenda.Name = "dgvItensVenda";
             dgvItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvItensVenda.RowHeadersWidth = 23;
-            dgvItensVenda.Size = new Size(616, 284);
+            dgvItensVenda.Size = new Size(616, 249);
             dgvItensVenda.TabIndex = 1051;
             dgvItensVenda.TabStop = false;
             dgvItensVenda.CellContentClick += dgvItensVenda_CellContentClick;
+            dgvItensVenda.CellDoubleClick += dgvItensVenda_CellDoubleClick;
             dgvItensVenda.CellEndEdit += dgvItensVenda_CellEndEdit;
             // 
             // tlpMain
@@ -426,7 +433,7 @@
             tlpMain.Name = "tlpMain";
             tlpMain.RowCount = 4;
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
-            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 103F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 138F));
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
@@ -563,7 +570,7 @@
             pnlDadosVenda_pnlProdutosEntrada.Location = new Point(4, 41);
             pnlDadosVenda_pnlProdutosEntrada.Name = "pnlDadosVenda_pnlProdutosEntrada";
             pnlDadosVenda_pnlProdutosEntrada.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            pnlDadosVenda_pnlProdutosEntrada.Size = new Size(616, 97);
+            pnlDadosVenda_pnlProdutosEntrada.Size = new Size(616, 132);
             pnlDadosVenda_pnlProdutosEntrada.TabIndex = 1043;
             // 
             // kryptonLabel8
@@ -674,27 +681,10 @@
             lblTotalItens.Text = "Total Itens:";
             lblTotalItens.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // btnAdicionarItem
-            // 
-            btnAdicionarItem.BackColor = Color.FromArgb(76, 175, 80);
-            btnAdicionarItem.ForeColor = Color.WhiteSmoke;
-            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.CartPlus;
-            btnAdicionarItem.IconColor = Color.White;
-            btnAdicionarItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnAdicionarItem.IconSize = 28;
-            btnAdicionarItem.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdicionarItem.Location = new Point(3, 234);
-            btnAdicionarItem.Name = "btnAdicionarItem";
-            btnAdicionarItem.Size = new Size(175, 39);
-            btnAdicionarItem.TabIndex = 5;
-            btnAdicionarItem.Text = "       Adicionar Ítem";
-            btnAdicionarItem.UseVisualStyleBackColor = false;
-            btnAdicionarItem.Click += btnAdicionarItem_Click_1;
-            // 
             // kryptonPanel1
             // 
             kryptonPanel1.Controls.Add(flowLayoutPanel3);
-            kryptonPanel1.Location = new Point(627, 145);
+            kryptonPanel1.Location = new Point(627, 180);
             kryptonPanel1.Name = "kryptonPanel1";
             tlpMain.SetRowSpan(kryptonPanel1, 2);
             kryptonPanel1.Size = new Size(181, 272);
@@ -725,9 +715,9 @@
             lblDescont.ForeColor = Color.Red;
             lblDescont.Location = new Point(3, 112);
             lblDescont.Name = "lblDescont";
-            lblDescont.Size = new Size(76, 17);
+            lblDescont.Size = new Size(88, 17);
             lblDescont.TabIndex = 648;
-            lblDescont.Text = "Desconto - ";
+            lblDescont.Text = "Desconto ( - )";
             // 
             // txtDesconto
             // 
@@ -750,6 +740,9 @@
             txtDesconto.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtDesconto.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtDesconto.TabIndex = 647;
+            txtDesconto.TextChanged += txtDesconto_TextChanged_1;
+            txtDesconto.KeyPress += txtDesconto_KeyPress;
+            txtDesconto.Leave += txtDesconto_Leave;
             // 
             // lblSubtotal
             // 
@@ -785,6 +778,23 @@
             txtSubTotal.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtSubTotal.TabIndex = 649;
             // 
+            // btnAdicionarItem
+            // 
+            btnAdicionarItem.BackColor = Color.FromArgb(76, 175, 80);
+            btnAdicionarItem.ForeColor = Color.WhiteSmoke;
+            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.CartPlus;
+            btnAdicionarItem.IconColor = Color.White;
+            btnAdicionarItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnAdicionarItem.IconSize = 28;
+            btnAdicionarItem.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAdicionarItem.Location = new Point(3, 234);
+            btnAdicionarItem.Name = "btnAdicionarItem";
+            btnAdicionarItem.Size = new Size(175, 39);
+            btnAdicionarItem.TabIndex = 5;
+            btnAdicionarItem.Text = "       Adicionar Ítem";
+            btnAdicionarItem.UseVisualStyleBackColor = false;
+            btnAdicionarItem.Click += btnAdicionarItem_Click;
+            // 
             // kryptonPanel2
             // 
             kryptonPanel2.Controls.Add(picLogoMarca);
@@ -792,14 +802,17 @@
             kryptonPanel2.Location = new Point(627, 41);
             kryptonPanel2.Name = "kryptonPanel2";
             kryptonPanel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007White;
-            kryptonPanel2.Size = new Size(181, 97);
+            kryptonPanel2.Size = new Size(181, 132);
             kryptonPanel2.TabIndex = 1115;
             // 
             // picLogoMarca
             // 
-            picLogoMarca.Location = new Point(40, 0);
+            picLogoMarca.BackColor = Color.Transparent;
+            picLogoMarca.Dock = DockStyle.Fill;
+            picLogoMarca.Location = new Point(0, 0);
             picLogoMarca.Name = "picLogoMarca";
-            picLogoMarca.Size = new Size(100, 97);
+            picLogoMarca.Size = new Size(181, 132);
+            picLogoMarca.SizeMode = PictureBoxSizeMode.StretchImage;
             picLogoMarca.TabIndex = 1115;
             picLogoMarca.TabStop = false;
             // 
@@ -931,7 +944,7 @@
             txtObservacoes.Multiline = true;
             txtObservacoes.Name = "txtObservacoes";
             txtObservacoes.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
-            txtObservacoes.Size = new Size(798, 44);
+            txtObservacoes.Size = new Size(610, 44);
             txtObservacoes.StateActive.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
             txtObservacoes.StateActive.Border.Rounding = 2F;
             txtObservacoes.StateActive.Border.Width = 1;
