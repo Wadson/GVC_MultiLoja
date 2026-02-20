@@ -38,6 +38,11 @@ namespace GVC
 
 
 
+
+
+
+
+
             // =============================
             // TESTE DE CONEXÃO SQL (TEMPORÁRIO)
             // Coloque isso APENAS para pegar o erro exato no cliente.

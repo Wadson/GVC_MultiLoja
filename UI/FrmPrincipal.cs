@@ -409,8 +409,11 @@ namespace GVC
 
         private void btnVendas_Click(object sender, EventArgs e)
         {
-            FrmPDVendas frm = new FrmPDVendas();
+            //FrmPDVendas frm = new FrmPDVendas();
+            //frm.Show();
+            FrmPDV frm = new FrmPDV();
             frm.Show();
+
         }
 
         private void btnContasReceber_Click(object sender, EventArgs e)
