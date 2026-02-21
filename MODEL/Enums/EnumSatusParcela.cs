@@ -6,24 +6,21 @@ using System.Threading.Tasks;
 
 namespace GVC.Model.Enums
 {
-    namespace GVC.Model.Enums
+    public enum EnumStatusParcela
     {
-        public enum EnumStatusParcela
-        {
-            Pendente,
-            ParcialmentePago,
-            Pago,
-            Atrasada,
-            Cancelada
-        }
+        Pendente,
+        ParcialmentePago,
+        Pago,
+        Atrasada,
+        Cancelada
+    }
 
-        public enum EnumStatusVenda
-        {
-            Aberta,
-            AguardandoPagamento,
-            Concluida,
-            Cancelada,
-            Suspensa
-        }
+    public enum EnumStatusVenda
+    {
+        Aberta,
+        AguardandoPagamento,
+        Concluida,
+        Cancelada,
+        Suspensa
     }
 }

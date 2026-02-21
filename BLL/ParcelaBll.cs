@@ -5,7 +5,6 @@ using GVC.Infra.Conexao;
 using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.Model.Enums;
-using GVC.Model.Enums.GVC.Model.Enums;
 using GVC.Model.Extensions;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;

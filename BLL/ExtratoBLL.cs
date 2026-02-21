@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using GVC.DAL;
 using GVC.Model;
-using GVC.Model.Enums.GVC.Model.Enums;
+using GVC.Model.Enums;
 using GVC.Model.Extensions;
 using GVC.UTIL;
 using System;
@@ -240,24 +240,25 @@ public class ExtratoBLL
     {
         return _extratoRepository.ObterPagamentosPorParcela(parcelaId);
     }
-
+   
     // ======================================================
     // RELATÓRIO CONTAS A RECEBER (FORM DEDICADO)
     // ======================================================
     public List<ExtratoCliente> ObterRelatorioContasReceber(
-        int? clienteId,
-        DateTime dataInicio,
-        DateTime dataFim,
-        List<EnumStatusParcela> statusSelecionados)
+     int? clienteId,
+     DateTime dataInicio,
+     DateTime dataFim,
+     List<EnumStatusParcela> statusSelecionados)
     {
         if (statusSelecionados == null || statusSelecionados.Count == 0)
             return new List<ExtratoCliente>();
 
-        var statusStrings = statusSelecionados
-            .Select(s => s.ToString())
+        var emissao = DateTime.Now;
+
+        var statusStrings = statusSelecionados.Select(MapearStatusParcelaParaBanco)
+            .Distinct()
             .ToList();
 
-        // ✅ Busca no repository (já filtra EmpresaID lá dentro)
         var parcelas = _extratoRepository.ObterRelatorioContasReceber(
             clienteId,
             dataInicio,
@@ -268,7 +269,6 @@ public class ExtratoBLL
         if (parcelas == null || !parcelas.Any())
             return new List<ExtratoCliente>();
 
-        // 🔹 AGRUPAMENTO FINAL (SEM FILTRAR STATUS! Só calcula totais)
         var extratos = parcelas
             .GroupBy(p => new { p.ClienteID, p.NomeCliente })
             .Select(g =>
@@ -291,17 +291,16 @@ public class ExtratoBLL
                 {
                     ClienteID = g.Key.ClienteID,
                     NomeCliente = g.Key.NomeCliente,
-                    DataEmissao = DateTime.Now,
+                    DataEmissao = emissao,
                     ItensExtrato = itens,
 
-                    // 🔥 TOTAIS CORRETOS
                     TotalPago = itens
-                        .Where(i => i.Status == EnumStatusParcela.Pago.ToString())
-                        .Sum(i => i.ValorRecebido),
+                    .Where(i => ParseStatusParcela(i.Status) == EnumStatusParcela.Pago)
+                    .Sum(i => i.ValorRecebido),
 
-                    TotalDevendo = itens
-                        .Where(i => i.Status != EnumStatusParcela.Pago.ToString())
-                        .Sum(i => i.Saldo),
+                                    TotalDevendo = itens
+                    .Where(i => ParseStatusParcela(i.Status) != EnumStatusParcela.Pago)
+                    .Sum(i => i.Saldo),
 
                     SaldoAtual = itens.Sum(i => i.Saldo)
                 };
@@ -311,11 +310,35 @@ public class ExtratoBLL
 
         return extratos;
     }
+    private static EnumStatusParcela? ParseStatusParcela(string? statusDb)
+    {
+        if (string.IsNullOrWhiteSpace(statusDb))
+            return null;
 
+        var s = statusDb.Trim().ToUpperInvariant();
 
+        return s switch
+        {
+            "PENDENTE" => EnumStatusParcela.Pendente,
+            "EM ABERTO" => EnumStatusParcela.Pendente,
 
+            "PAGO" => EnumStatusParcela.Pago,
+            "PAGA" => EnumStatusParcela.Pago,
 
-    private static string MapStatusParcelaBanco(EnumStatusParcela status)
+            "ATRASADA" => EnumStatusParcela.Atrasada,
+
+            "CANCELADA" => EnumStatusParcela.Cancelada,
+
+            "PARCIALMENTEPAGO" => EnumStatusParcela.ParcialmentePago,
+            "PARCIALMENTE PAGO" => EnumStatusParcela.ParcialmentePago,
+            "PARCIALMENTEPAGA" => EnumStatusParcela.ParcialmentePago,
+            "PARCIALMENTE PAGA" => EnumStatusParcela.ParcialmentePago,
+
+            _ => null
+        };
+    }
+
+    private static string MapearStatusParcelaParaBanco(EnumStatusParcela status)
     {
         return status switch
         {
@@ -324,7 +347,25 @@ public class ExtratoBLL
             EnumStatusParcela.Pago => "Pago",
             EnumStatusParcela.Atrasada => "Atrasada",
             EnumStatusParcela.Cancelada => "Cancelada",
-            _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
+            _ => "Pendente"
+        };
+    }
+
+    private static string NormalizarStatus(string statusDb)
+    {
+        return statusDb?.Trim().ToUpperInvariant() switch
+        {
+            "PAGA" => "Pago",
+            "PAGO" => "Pago",
+            "EM ABERTO" => "Pendente",
+            "PENDENTE" => "Pendente",
+            "PARCIALMENTEPAGA" => "ParcialmentePago",
+            "PARCIALMENTE PAGA" => "ParcialmentePago",
+            "PARCIALMENTEPAGO" => "ParcialmentePago",
+            "PARCIALMENTE PAGO" => "ParcialmentePago",
+            "ATRASADA" => "Atrasada",
+            "CANCELADA" => "Cancelada",
+            _ => statusDb?.Trim() ?? ""
         };
     }
 

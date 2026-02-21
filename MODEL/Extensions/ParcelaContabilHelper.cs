@@ -1,10 +1,10 @@
-﻿using GVC.Model.Enums.GVC.Model.Enums;
+﻿using GVC.Model.Enums;
 using GVC.Model.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GVC.MODEL.Extensions
+namespace GVC.Model.Extensions
 {
     public static class ParcelaContabilHelper
     {

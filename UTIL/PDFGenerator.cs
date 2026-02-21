@@ -124,24 +124,11 @@ namespace GVC.UTIL
             });
         }
 
-       
-
-
-
-
-
-
-
-
-
-
-
-
 
         public static void GerarRelatorioContasPorCliente(
-    List<ExtratoCliente> extratos,
-    DadosEmpresaPdf empresa,
-    string caminhoArquivo)
+            List<ExtratoCliente> extratos,
+            DadosEmpresaPdf empresa,
+            string caminhoArquivo)
         {
 
         }

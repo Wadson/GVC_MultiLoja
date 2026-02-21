@@ -13,13 +13,18 @@ namespace GVC.BLL
     public class EmpresaBll
     {
         private readonly EmpresaDal _empresaDal = new EmpresaDal();
+        
 
         public DadosEmpresaPdf ObterDadosParaPdf()
         {
-            var empresa = _empresaDal.BuscarEmpresaPrincipal();
+            if (!Sessao.Logado || Sessao.EmpresaID <= 0)
+                throw new Exception("Sessão inválida. Empresa não definida.");
+
+            // 🔥 AQUI: pega a empresa da sessão (empresa logada)
+            var empresa = _empresaDal.BuscarEmpresaPorId(Sessao.EmpresaID);
 
             if (empresa == null)
-                throw new Exception("Empresa não cadastrada.");
+                throw new Exception("Empresa ativa não encontrada.");
 
             return new DadosEmpresaPdf
             {
@@ -29,7 +34,7 @@ namespace GVC.BLL
 
                 Logo = empresa.Logo
             };
-        }       
+        }
         public List<EmpresaModel> ObterTodas()
         {
             var lista = new List<EmpresaModel>();
@@ -64,11 +69,7 @@ namespace GVC.BLL
         public EmpresaModel? BuscarPorId(int empresaId)
         {
             return _empresaDal.BuscarEmpresaPorId(empresaId);
-        }
-        public EmpresaBll()
-        {
-            _empresaDal = new EmpresaDal();
-        }
+        }       
 
         public DataTable Listar()
         {

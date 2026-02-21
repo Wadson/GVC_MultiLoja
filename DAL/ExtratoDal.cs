@@ -77,7 +77,7 @@ namespace GVC.DAL
         INNER JOIN Venda v ON v.VendaID = pc.VendaID
         WHERE v.ClienteID = @ClienteID AND pc.EmpresaID = @EmpresaID
         ORDER BY pg.DataPagamento",
-                new { ClienteID = clienteId }
+                new { ClienteID = clienteId, EmpresaID }
             ).ToList();
         }
 
@@ -88,7 +88,7 @@ namespace GVC.DAL
                   FROM PagamentosParciais
                   WHERE ParcelaID = @ParcelaID AND EmpresaID = @EmpresaID
                   ORDER BY DataPagamento",
-                new { ParcelaID = parcelaId }
+                new { ParcelaID = parcelaId, EmpresaID}
             ).ToList();
         }
     }

@@ -1,8 +1,7 @@
 ﻿using Dapper;
 using GVC.Infra.Repository;
 using GVC.Model;
-using GVC.Model.Enums;
-using GVC.Model.Enums.GVC.Model.Enums;
+using GVC.Model.Enums; 
 using GVC.UTIL;
 using System;
 using System.Collections.Generic;

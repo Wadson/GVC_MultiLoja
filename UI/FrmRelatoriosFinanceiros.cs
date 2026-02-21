@@ -1,7 +1,7 @@
 ﻿using GVC.BLL;
 using GVC.DAL;
 using GVC.Model;
-using GVC.Model.Enums.GVC.Model.Enums;
+using GVC.Model.Enums;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
