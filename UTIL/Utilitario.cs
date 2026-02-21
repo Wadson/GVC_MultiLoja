@@ -37,6 +37,20 @@ namespace GVC.UTIL {
         //📌 Exemplo de classe utilitária
         public static class Mensagens
         {
+            public static class ImagemUtil
+            {
+                // Carrega a imagem sem manter o arquivo bloqueado
+                public static Image CarregarSemLock(string caminho)
+                {
+                    using var fs = new FileStream(caminho, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using var ms = new MemoryStream();
+                    fs.CopyTo(ms);
+                    ms.Position = 0;
+
+                    using var imgTemp = Image.FromStream(ms);
+                    return (Image)imgTemp.Clone();
+                }
+            }
             public static bool Confirmacao(string mensagem)
             {
                 var result = MessageBox.Show(

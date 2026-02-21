@@ -739,7 +739,7 @@
             txtDesconto.StateCommon.Content.Padding = new Padding(2);
             txtDesconto.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtDesconto.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
-            txtDesconto.TabIndex = 647;
+            txtDesconto.TabIndex = 5;
             txtDesconto.TextChanged += txtDesconto_TextChanged_1;
             txtDesconto.KeyPress += txtDesconto_KeyPress;
             txtDesconto.Leave += txtDesconto_Leave;
@@ -777,6 +777,7 @@
             txtSubTotal.StateDisabled.Content.Font = new Font("Segoe UI", 9.75F);
             txtSubTotal.StateNormal.Content.Font = new Font("Segoe UI", 9.75F);
             txtSubTotal.TabIndex = 649;
+            txtSubTotal.TabStop = false;
             // 
             // btnAdicionarItem
             // 
@@ -790,7 +791,7 @@
             btnAdicionarItem.Location = new Point(3, 234);
             btnAdicionarItem.Name = "btnAdicionarItem";
             btnAdicionarItem.Size = new Size(175, 39);
-            btnAdicionarItem.TabIndex = 5;
+            btnAdicionarItem.TabIndex = 6;
             btnAdicionarItem.Text = "       Adicionar Ítem";
             btnAdicionarItem.UseVisualStyleBackColor = false;
             btnAdicionarItem.Click += btnAdicionarItem_Click;

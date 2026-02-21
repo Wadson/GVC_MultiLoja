@@ -1,6 +1,7 @@
 ﻿using GVC.BLL;
 using GVC.DTO;
 using GVC.Infra.Conexao;
+using GVC.Infra.Helpers;
 using GVC.Model;
 using GVC.MUI;
 using GVC.UTIL;
@@ -17,6 +18,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Timers;
 using System.Windows.Forms;
+using static GVC.UTIL.Utilitario.Mensagens;
 
 namespace GVC
 {
@@ -499,27 +501,42 @@ namespace GVC
         }
         private void AplicarFundoEmpresa(string caminhoImagem)
         {
-            if (string.IsNullOrWhiteSpace(caminhoImagem) || !File.Exists(caminhoImagem))
+            // ✅ Se não tem caminho, tenta o padrão
+            string fundo = caminhoImagem;
+
+            // Se fundo não existe ou é inválido, cai no padrão
+            if (string.IsNullOrWhiteSpace(fundo) || !File.Exists(fundo))
+            {
+                var padrao = DiretorioFundoHelper.ObterFundoPadrao();
+                fundo = File.Exists(padrao) ? padrao : null;
+            }
+
+            // Se nem o padrão existe, limpa
+            if (string.IsNullOrWhiteSpace(fundo) || !File.Exists(fundo))
             {
                 picBackground.Image?.Dispose();
                 picBackground.Image = null;
                 return;
             }
 
+            // ✅ Carrega sem travar o arquivo (se você já fez o ImagemUtil)
             picBackground.Image?.Dispose();
-            picBackground.Image = Image.FromFile(caminhoImagem);
+            picBackground.Image = ImagemUtil.CarregarSemLock(fundo);
             picBackground.SizeMode = PictureBoxSizeMode.StretchImage;
-            //if (string.IsNullOrWhiteSpace(caminhoImagem))
-            //    return;
-
-            //if (!File.Exists(caminhoImagem))
-            //    return;
-
-            //picBackground.Image?.Dispose();
-            //picBackground.Image = Image.FromFile(caminhoImagem);
-            //picBackground.SizeMode = PictureBoxSizeMode.StretchImage;
         }
+        //private void AplicarFundoEmpresa(string caminhoImagem)
+        //{
+        //    if (string.IsNullOrWhiteSpace(caminhoImagem) || !File.Exists(caminhoImagem))
+        //    {
+        //        picBackground.Image?.Dispose();
+        //        picBackground.Image = null;
+        //        return;
+        //    }
 
+        //    picBackground.Image?.Dispose();
+        //    picBackground.Image = ImagemUtil.CarregarSemLock(caminhoImagem);
+        //    picBackground.SizeMode = PictureBoxSizeMode.StretchImage;
+        //}
 
         private void marcasToolStripMenuItem_Click(object sender, EventArgs e)
         {

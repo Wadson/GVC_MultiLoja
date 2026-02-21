@@ -713,15 +713,32 @@ namespace GVC.View
             p.PrecoDeVenda.ToString("C2")
             };
         }
-
-        private void FrmPDV_Shown(object sender, EventArgs e)
+        private void AplicarCorNosTextBoxes(Control.ControlCollection controls)
         {
-            foreach (Control ctrl in this.Controls)
+            foreach (Control ctrl in controls)
             {
                 if (ctrl is KryptonTextBox kryptonTxt)
+                {
                     Utilitario.AplicarCorFoco(kryptonTxt);
+                }
+                else if (ctrl.HasChildren)
+                {
+                    AplicarCorNosTextBoxes(ctrl.Controls); // chamada recursiva
+                }
             }
+        }
+        private void FrmPDV_Shown(object sender, EventArgs e)
+        {
+            AplicarCorNosTextBoxes(this.Controls);
+            
             CarregarLogoEmpresa();
+
+            //foreach (Control ctrl in this.Controls)
+            //{
+            //    if (ctrl is KryptonTextBox kryptonTxt)
+            //        Utilitario.AplicarCorFoco(kryptonTxt);
+            //}
+            //CarregarLogoEmpresa();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -1413,11 +1430,9 @@ namespace GVC.View
             try
             {
                 ProdutoID = item.ProdutoID;
-                txtProdutoBuscar.Text = item.ProdutoDescricao;
 
                 txtQuantidade.Text = item.Quantidade.ToString();
-
-                // aqui seu item já está com preço líquido no grid.
+                
                 // então carregamos como "preço unitário" e desconto zerado
                 txtPrecoUnitario.Text = item.PrecoUnitario.ToString("N2");
                 txtDesconto.Text = "0,00";

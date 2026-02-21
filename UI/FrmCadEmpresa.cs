@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static GVC.UTIL.BrasilApiCepResponse;
+using static GVC.UTIL.Utilitario.Mensagens;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GVC.View
@@ -521,10 +522,10 @@ namespace GVC.View
                 DataCriacao = DateTime.Now,
                 DataAtualizacao = null,
                 UsuarioCriacao = FrmLogin.UsuarioConectado ?? "Sistema",   
-               
-                FundoTela = txtEnderecoImagem.Text?.Trim(),
-
             };
+            // 🔥 AQUI ENTRA A VALIDAÇÃO DO FUNDO
+                var fundo = txtEnderecoImagem.Text?.Trim();
+                empresa.FundoTela = (!string.IsNullOrWhiteSpace(fundo) && File.Exists(fundo)) ? fundo: null;
 
             if (StatusOperacao == "NOVO")
             {
@@ -544,6 +545,21 @@ namespace GVC.View
                     empresa.CertificadoDigital = Utilitario.SalvarCertificado(txtCertificadoDigital.Text, empresa.EmpresaID);
                 }
 
+            }           
+            // ✅ só aceita se existir E estiver dentro da pasta oficial Fundos
+            if (!string.IsNullOrWhiteSpace(fundo) &&
+                File.Exists(fundo) &&
+                DiretorioFundoHelper.EstaDentroDaPastaFundos(fundo))
+            {
+                empresa.FundoTela = fundo;
+            }
+            else
+            {
+                empresa.FundoTela = null;
+
+                // Opcional: se o usuário digitou algo inválido, avisa
+                if (!string.IsNullOrWhiteSpace(fundo))
+                    Utilitario.Mensagens.Aviso("A imagem de fundo deve estar salva na pasta oficial de Fundos do sistema.");
             }
 
             return empresa;
@@ -810,24 +826,77 @@ namespace GVC.View
             if (ofd.ShowDialog() != DialogResult.OK)
                 return;
 
-            // 📍 LOCAL: FrmCadEmpresa.cs → btnBuscarImagem_Click
-            // 🔥 GARANTE PASTA
             var pastaFundos = DiretorioFundoHelper.ObterDiretorioFundos();
-
-            // 🔥 NOME PADRONIZADO PELO ID DA EMPRESA
             var nomeArquivo = $"fundo_empresa_{EmpresaID}.png";
-
-            // 🔥 CAMINHO FINAL
             var destino = Path.Combine(pastaFundos, nomeArquivo);
 
-            // 🔥 COPIA / SOBRESCREVE
-            File.Copy(ofd.FileName, destino, overwrite: true);
+            // ✅ 1) Libera a imagem atual do PictureBox (para não travar o arquivo)
+            if (picFundoPadrao.Image != null)
+            {
+                var old = picFundoPadrao.Image;
+                picFundoPadrao.Image = null;
+                old.Dispose();
+            }
 
-            // 🔥 EXIBE NO FORM
+            // ✅ 2) Copia para um arquivo temporário primeiro
+            var temp = destino + ".tmp";
+
+            // lê o arquivo original sem lock e grava no temp
+            using (var input = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var output = new FileStream(temp, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                input.CopyTo(output);
+                output.Flush(true);
+            }
+
+            // ✅ 3) Troca atômica (quando possível)
+            // Se destino existir, File.Replace tenta substituir de forma segura
+            try
+            {
+                if (File.Exists(destino))
+                {
+                    // backup opcional: destino + ".bak"
+                    File.Replace(temp, destino, null);
+                }
+                else
+                {
+                    File.Move(temp, destino);
+                }
+            }
+            catch (IOException)
+            {
+                // ✅ 4) Fallback: tenta mover/sobrescrever com retry curto
+                // (caso algum processo ainda esteja segurando)
+                const int tentativas = 8;
+                for (int i = 0; i < tentativas; i++)
+                {
+                    try
+                    {
+                        if (File.Exists(destino))
+                            File.Delete(destino);
+
+                        File.Move(temp, destino);
+                        break;
+                    }
+                    catch (IOException)
+                    {
+                        System.Threading.Thread.Sleep(120);
+                        if (i == tentativas - 1)
+                            throw; // re-lança se não conseguiu
+                    }
+                }
+            }
+            finally
+            {
+                // se sobrar temp por qualquer motivo, tenta remover
+                try { if (File.Exists(temp)) File.Delete(temp); } catch { }
+            }
+
+            // ✅ 5) Atualiza textbox
             txtEnderecoImagem.Text = destino;
 
-            using var imgTemp = Image.FromFile(destino);
-            picFundoPadrao.Image = new Bitmap(imgTemp);
+            // ✅ 6) Carrega imagem SEM LOCK no arquivo
+            picFundoPadrao.Image = ImagemUtil.CarregarSemLock(destino);
             picFundoPadrao.SizeMode = PictureBoxSizeMode.StretchImage;
         }
     }
