@@ -18,16 +18,14 @@ namespace GVC.Infra.Update
 
     public static class UpdateService
     {
-        private const string VERSION_URL =
-            "https://raw.githubusercontent.com/Wadson/GVC/main/version.json";
+        private const string VERSION_URL = "https://raw.githubusercontent.com/Wadson/GVC/main/version.json";
 
         public static async Task VerificarAtualizacaoAsync(bool mostrarMensagemSeAtualizado)
         {
             try
             {
-                var versaoAtual = Assembly.GetExecutingAssembly()
-                                          .GetName()
-                                          .Version;
+                var versaoAtual = Assembly.GetEntryAssembly()?.GetName().Version
+                 ?? Assembly.GetExecutingAssembly().GetName().Version;
 
                 var info = await ObterVersaoServidorAsync();
                 if (info == null)

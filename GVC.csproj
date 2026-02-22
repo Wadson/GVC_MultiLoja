@@ -8,7 +8,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<ApplicationIcon>Resources\Icons\icon.ico</ApplicationIcon>
+		<ApplicationIcon>Resources\G.ico</ApplicationIcon>
 		<StartupObject>GVC.Program</StartupObject>
 		<!-- Versões -->
 		
@@ -37,7 +37,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Resources\Icons\icon.ico" />
+	  <Content Include="Resources\G.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

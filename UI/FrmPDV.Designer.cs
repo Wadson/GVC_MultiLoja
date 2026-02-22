@@ -407,7 +407,6 @@
             dgvItensVenda.HideOuterBorders = true;
             dgvItensVenda.Location = new Point(4, 180);
             dgvItensVenda.Name = "dgvItensVenda";
-            dgvItensVenda.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvItensVenda.RowHeadersWidth = 23;
             dgvItensVenda.Size = new Size(616, 249);
             dgvItensVenda.TabIndex = 1051;
@@ -939,7 +938,6 @@
             // txtObservacoes
             // 
             txtObservacoes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtObservacoes.CharacterCasing = CharacterCasing.Upper;
             txtObservacoes.InputControlStyle = Krypton.Toolkit.InputControlStyle.Custom1;
             txtObservacoes.Location = new Point(10, 499);
             txtObservacoes.Multiline = true;

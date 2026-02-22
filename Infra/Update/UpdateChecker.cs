@@ -19,8 +19,7 @@ public static class UpdateChecker
             var info = JsonSerializer.Deserialize<UpdateInfo>(json);
             if (info == null) return null;
 
-            var versaoAtual =
-                Assembly.GetExecutingAssembly().GetName().Version;
+            var versaoAtual = Assembly.GetEntryAssembly()?.GetName().Version ?? Assembly.GetExecutingAssembly().GetName().Version;
 
             var versaoOnline = new Version(info.versao);
 

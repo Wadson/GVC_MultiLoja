@@ -126,7 +126,6 @@
             // txtRazaoSocial
             // 
             txtRazaoSocial.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtRazaoSocial.CharacterCasing = CharacterCasing.Upper;
             txtRazaoSocial.Location = new Point(92, 94);
             txtRazaoSocial.Name = "txtRazaoSocial";
             txtRazaoSocial.Size = new Size(423, 27);
@@ -357,7 +356,6 @@
             // txtNomeFantasia
             // 
             txtNomeFantasia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtNomeFantasia.CharacterCasing = CharacterCasing.Upper;
             txtNomeFantasia.Location = new Point(521, 94);
             txtNomeFantasia.Name = "txtNomeFantasia";
             txtNomeFantasia.Size = new Size(313, 27);
@@ -431,7 +429,6 @@
             // txtSite
             // 
             txtSite.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtSite.CharacterCasing = CharacterCasing.Lower;
             txtSite.Location = new Point(619, 338);
             txtSite.Name = "txtSite";
             txtSite.Size = new Size(217, 27);
@@ -450,7 +447,6 @@
             // txtResponsavel
             // 
             txtResponsavel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtResponsavel.CharacterCasing = CharacterCasing.Upper;
             txtResponsavel.Location = new Point(14, 396);
             txtResponsavel.Name = "txtResponsavel";
             txtResponsavel.Size = new Size(491, 27);
@@ -481,7 +477,6 @@
             // txtCertificadoDigital
             // 
             txtCertificadoDigital.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtCertificadoDigital.CharacterCasing = CharacterCasing.Upper;
             txtCertificadoDigital.Location = new Point(14, 473);
             txtCertificadoDigital.Name = "txtCertificadoDigital";
             txtCertificadoDigital.Size = new Size(341, 27);
@@ -581,7 +576,6 @@
             // txtUF
             // 
             txtUF.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtUF.CharacterCasing = CharacterCasing.Upper;
             txtUF.Location = new Point(734, 266);
             txtUF.Name = "txtUF";
             txtUF.Size = new Size(102, 27);
@@ -601,7 +595,6 @@
             // txtLogradouro
             // 
             txtLogradouro.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtLogradouro.CharacterCasing = CharacterCasing.Upper;
             txtLogradouro.Location = new Point(185, 218);
             txtLogradouro.Name = "txtLogradouro";
             txtLogradouro.Size = new Size(543, 27);
@@ -657,7 +650,6 @@
             // txtBairro
             // 
             txtBairro.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtBairro.CharacterCasing = CharacterCasing.Upper;
             txtBairro.Location = new Point(11, 266);
             txtBairro.Name = "txtBairro";
             txtBairro.Size = new Size(446, 27);
@@ -677,7 +669,6 @@
             // txtNomeCidade
             // 
             txtNomeCidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtNomeCidade.CharacterCasing = CharacterCasing.Upper;
             txtNomeCidade.Location = new Point(463, 266);
             txtNomeCidade.Name = "txtNomeCidade";
             txtNomeCidade.Size = new Size(265, 27);

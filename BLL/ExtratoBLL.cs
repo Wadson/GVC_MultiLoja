@@ -240,22 +240,23 @@ public class ExtratoBLL
     {
         return _extratoRepository.ObterPagamentosPorParcela(parcelaId);
     }
-   
+
     // ======================================================
     // RELATÓRIO CONTAS A RECEBER (FORM DEDICADO)
     // ======================================================
     public List<ExtratoCliente> ObterRelatorioContasReceber(
-     int? clienteId,
-     DateTime dataInicio,
-     DateTime dataFim,
-     List<EnumStatusParcela> statusSelecionados)
+        int? clienteId,
+        DateTime dataInicio,
+        DateTime dataFim,
+        List<EnumStatusParcela> statusSelecionados)
     {
         if (statusSelecionados == null || statusSelecionados.Count == 0)
             return new List<ExtratoCliente>();
 
         var emissao = DateTime.Now;
 
-        var statusStrings = statusSelecionados.Select(MapearStatusParcelaParaBanco)
+        var statusStrings = statusSelecionados
+            .Select(MapearStatusParcelaParaBanco)
             .Distinct()
             .ToList();
 
@@ -263,8 +264,7 @@ public class ExtratoBLL
             clienteId,
             dataInicio,
             dataFim,
-            statusStrings
-        );
+            statusStrings);
 
         if (parcelas == null || !parcelas.Any())
             return new List<ExtratoCliente>();
@@ -287,28 +287,22 @@ public class ExtratoBLL
                     })
                     .ToList();
 
-                return new ExtratoCliente
+                var extrato = new ExtratoCliente
                 {
                     ClienteID = g.Key.ClienteID,
                     NomeCliente = g.Key.NomeCliente,
                     DataEmissao = emissao,
-                    ItensExtrato = itens,
-
-                    TotalPago = itens
-                    .Where(i => ParseStatusParcela(i.Status) == EnumStatusParcela.Pago)
-                    .Sum(i => i.ValorRecebido),
-
-                                    TotalDevendo = itens
-                    .Where(i => ParseStatusParcela(i.Status) != EnumStatusParcela.Pago)
-                    .Sum(i => i.Saldo),
-
-                    SaldoAtual = itens.Sum(i => i.Saldo)
+                    ItensExtrato = itens
                 };
+
+                CalcularTotaisExtrato(extrato);
+
+                return extrato; // ✅ FALTAVA ISSO
             })
             .OrderBy(e => e.NomeCliente)
             .ToList();
 
-        return extratos;
+        return extratos; // ✅ AQUI era extrato
     }
     private static EnumStatusParcela? ParseStatusParcela(string? statusDb)
     {
@@ -411,7 +405,39 @@ public class ExtratoBLL
             .OrderBy(e => e.NomeCliente)
             .ToList();
     }
+    private static void CalcularTotaisExtrato(ExtratoCliente extrato)
+    {
+        if (extrato == null)
+            throw new ArgumentNullException(nameof(extrato));
 
+        extrato.ItensExtrato ??= new List<ItemExtrato>();
+
+        // Normaliza status e garante números seguros
+        foreach (var i in extrato.ItensExtrato)
+        {
+            i.Status = (i.Status ?? "").Trim();
+
+            if (i.ValorRecebido < 0) i.ValorRecebido = 0;
+            if (i.Saldo < 0) i.Saldo = 0;
+        }
+
+        bool IsPago(ItemExtrato i) =>
+            string.Equals(i.Status, "Pago", StringComparison.OrdinalIgnoreCase);
+
+        extrato.TotalPago = extrato.ItensExtrato
+            .Where(IsPago)
+            .Sum(i => i.ValorRecebido);
+
+        extrato.TotalDevendo = extrato.ItensExtrato
+            .Where(i => !IsPago(i))
+            .Sum(i => i.Saldo);
+
+        extrato.SaldoAtual = extrato.ItensExtrato.Sum(i => i.Saldo);
+
+        // (Opcional) padroniza data
+        if (extrato.DataEmissao == default)
+            extrato.DataEmissao = DateTime.Now;
+    }
     // ======================================================
     // RELATÓRIO CONTAS PAGAS POR CLIENTE
     // ======================================================

@@ -207,33 +207,33 @@ ORDER BY DataPagamento;";
             List<string> statusStrings)
         {
             const string sql = @"
-SELECT
-    p.ParcelaID,
-    p.VendaID,
-    v.ClienteID,
-    c.Nome AS NomeCliente,
-    p.DataVencimento,
-    p.ValorParcela,
-    ISNULL(p.ValorRecebido,0) AS ValorRecebido,
-    (p.ValorParcela + ISNULL(p.Juros,0) + ISNULL(p.Multa,0) - ISNULL(p.ValorRecebido,0)) AS Saldo,
-    p.Status AS StatusParcela
-FROM Parcela p
-INNER JOIN Venda v 
-    ON v.VendaID = p.VendaID
-   AND v.EmpresaID = p.EmpresaID
-INNER JOIN Clientes c 
-    ON c.ClienteID = v.ClienteID
-   AND c.EmpresaID = v.EmpresaID
-WHERE
-    p.EmpresaID = @EmpresaID
-    AND (@ClienteID IS NULL OR v.ClienteID = @ClienteID)
-    AND p.Status IN @Status
-    AND (
-        (p.Status = 'Pago' AND p.DataPagamento BETWEEN @Inicio AND @Fim)
-        OR (p.Status = 'Atrasada' AND p.DataVencimento BETWEEN @Inicio AND @Fim)
-        OR (p.Status IN ('Pendente', 'ParcialmentePago'))
-    )
-ORDER BY c.Nome, p.DataVencimento;";
+                SELECT
+                    p.ParcelaID,
+                    p.VendaID,
+                    v.ClienteID,
+                    c.Nome AS NomeCliente,
+                    p.DataVencimento,
+                    p.ValorParcela,
+                    ISNULL(p.ValorRecebido,0) AS ValorRecebido,
+                    (p.ValorParcela + ISNULL(p.Juros,0) + ISNULL(p.Multa,0) - ISNULL(p.ValorRecebido,0)) AS Saldo,
+                    p.Status AS StatusParcela
+                FROM Parcela p
+                INNER JOIN Venda v 
+                    ON v.VendaID = p.VendaID
+                   AND v.EmpresaID = p.EmpresaID
+                INNER JOIN Clientes c 
+                    ON c.ClienteID = v.ClienteID
+                   AND c.EmpresaID = v.EmpresaID
+                WHERE
+                    p.EmpresaID = @EmpresaID
+                    AND (@ClienteID IS NULL OR v.ClienteID = @ClienteID)
+                    AND p.Status IN @Status
+                    AND (
+                        (p.Status = 'Pago' AND p.DataPagamento BETWEEN @Inicio AND @Fim)
+                        OR (p.Status = 'Atrasada' AND p.DataVencimento BETWEEN @Inicio AND @Fim)
+                        OR (p.Status IN ('Pendente', 'ParcialmentePago'))
+                    )
+                ORDER BY c.Nome, p.DataVencimento;";
 
             return Connection.Query<ContaAReceberDTO>(sql, new
             {
