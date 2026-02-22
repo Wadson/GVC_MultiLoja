@@ -46,11 +46,13 @@
             lblTitulo = new Krypton.Toolkit.KryptonLabel();
             iconAcao = new FontAwesome.Sharp.IconPictureBox();
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
-            pictureBox1 = new PictureBox();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
             statusStrip1 = new StatusStrip();
-            lblTotalRegistros = new ToolStripStatusLabel();
+            lblTotalBanco = new ToolStripStatusLabel();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            lblStatus = new ToolStripStatusLabel();
+            btnPesquisar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvFornecedor).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pnlHeader).BeginInit();
@@ -61,7 +63,6 @@
             ((System.ComponentModel.ISupportInitialize)iconAcao).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
             kryptonPanel4.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -467,7 +468,7 @@
             // 
             // kryptonPanel3
             // 
-            kryptonPanel3.Controls.Add(pictureBox1);
+            kryptonPanel3.Controls.Add(btnPesquisar);
             kryptonPanel3.Controls.Add(kryptonLabel2);
             kryptonPanel3.Controls.Add(txtPesquisa);
             kryptonPanel3.Dock = DockStyle.Fill;
@@ -476,16 +477,6 @@
             kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
             kryptonPanel3.Size = new Size(1001, 29);
             kryptonPanel3.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.Pesquisar;
-            pictureBox1.Location = new Point(64, 1);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(25, 25);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 625;
-            pictureBox1.TabStop = false;
             // 
             // kryptonLabel2
             // 
@@ -510,7 +501,7 @@
             // 
             // statusStrip1
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { lblTotalRegistros });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { lblTotalBanco, toolStripStatusLabel1, lblStatus });
             statusStrip1.Location = new Point(0, 539);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.RenderMode = ToolStripRenderMode.Professional;
@@ -518,11 +509,38 @@
             statusStrip1.TabIndex = 626;
             statusStrip1.Text = "statusStrip1";
             // 
-            // lblTotalRegistros
+            // lblTotalBanco
             // 
-            lblTotalRegistros.Name = "lblTotalRegistros";
-            lblTotalRegistros.Size = new Size(84, 17);
-            lblTotalRegistros.Text = "Total Registros";
+            lblTotalBanco.Name = "lblTotalBanco";
+            lblTotalBanco.Size = new Size(84, 17);
+            lblTotalBanco.Text = "Total Registros";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(16, 17);
+            toolStripStatusLabel1.Text = " | ";
+            // 
+            // lblStatus
+            // 
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(52, 17);
+            lblStatus.Text = "lblStatus";
+            // 
+            // btnPesquisar
+            // 
+            btnPesquisar.BackColor = Color.Transparent;
+            btnPesquisar.FlatAppearance.BorderSize = 0;
+            btnPesquisar.FlatStyle = FlatStyle.Flat;
+            btnPesquisar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnPesquisar.IconColor = Color.FromArgb(30, 136, 229);
+            btnPesquisar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnPesquisar.IconSize = 30;
+            btnPesquisar.Location = new Point(64, 1);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.Size = new Size(25, 25);
+            btnPesquisar.TabIndex = 1141;
+            btnPesquisar.UseVisualStyleBackColor = false;
             // 
             // FrmManutFornecedor
             // 
@@ -560,7 +578,6 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
             kryptonPanel4.ResumeLayout(false);
             statusStrip1.ResumeLayout(false);
@@ -583,15 +600,17 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
-        private PictureBox pictureBox1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private StatusStrip statusStrip1;
-        private ToolStripStatusLabel lblTotalRegistros;
+        private ToolStripStatusLabel lblTotalBanco;
         private Krypton.Toolkit.KryptonPanel pnlHeader;
         private Krypton.Toolkit.KryptonTableLayoutPanel tlpTitulo;
         private Krypton.Toolkit.KryptonLabel lblSubTitulo;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private Krypton.Toolkit.KryptonLabel lblTitulo;
         private FontAwesome.Sharp.IconPictureBox iconAcao;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel lblStatus;
+        private FontAwesome.Sharp.IconButton btnPesquisar;
     }
 }

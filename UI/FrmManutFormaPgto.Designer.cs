@@ -40,18 +40,17 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
-            pictureBox1 = new PictureBox();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
             timer2 = new System.Windows.Forms.Timer(components);
             statusStrip1 = new StatusStrip();
             lblTotalRegistros = new ToolStripStatusLabel();
+            btnPesquisar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvFormaPgto).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
             kryptonPanel4.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -387,7 +386,7 @@
             // 
             // kryptonPanel3
             // 
-            kryptonPanel3.Controls.Add(pictureBox1);
+            kryptonPanel3.Controls.Add(btnPesquisar);
             kryptonPanel3.Controls.Add(kryptonLabel2);
             kryptonPanel3.Controls.Add(txtPesquisa);
             kryptonPanel3.Dock = DockStyle.Fill;
@@ -396,16 +395,6 @@
             kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
             kryptonPanel3.Size = new Size(998, 29);
             kryptonPanel3.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.Pesquisar;
-            pictureBox1.Location = new Point(60, 1);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(25, 25);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 623;
-            pictureBox1.TabStop = false;
             // 
             // kryptonLabel2
             // 
@@ -448,6 +437,21 @@
             lblTotalRegistros.Size = new Size(100, 17);
             lblTotalRegistros.Text = "Total de Registros";
             // 
+            // btnPesquisar
+            // 
+            btnPesquisar.BackColor = Color.Transparent;
+            btnPesquisar.FlatAppearance.BorderSize = 0;
+            btnPesquisar.FlatStyle = FlatStyle.Flat;
+            btnPesquisar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnPesquisar.IconColor = Color.FromArgb(30, 136, 229);
+            btnPesquisar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnPesquisar.IconSize = 30;
+            btnPesquisar.Location = new Point(62, 1);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.Size = new Size(25, 25);
+            btnPesquisar.TabIndex = 1141;
+            btnPesquisar.UseVisualStyleBackColor = false;
+            // 
             // FrmManutFormaPgto
             // 
             BackColor = Color.FromArgb(252, 252, 250);
@@ -476,7 +480,6 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
             kryptonPanel4.ResumeLayout(false);
             statusStrip1.ResumeLayout(false);
@@ -501,9 +504,9 @@
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
         private System.Windows.Forms.Timer timer2;
-        private PictureBox pictureBox1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel lblTotalRegistros;
+        private FontAwesome.Sharp.IconButton btnPesquisar;
     }
 }

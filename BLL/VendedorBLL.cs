@@ -1,10 +1,11 @@
 ﻿// GVC.BLL\VendedorBLL.cs
 
-using System;
-using System.Data;
+using GVC.DAL;
 using GVC.DOMAIN.Models;
 using GVC.Infra.Repository;
 using GVC.UTIL;
+using System;
+using System.Data;
 
 namespace GVC.BLL
 {
@@ -15,6 +16,10 @@ namespace GVC.BLL
         public VendedorBLL()
         {
             _repository = new VendedorRepository();
+        }
+        public int ContarTotal()
+        {
+            return _repository.ContarTotal();
         }
 
         public DataTable ListarTodos()

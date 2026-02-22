@@ -13,7 +13,13 @@ namespace GVC.DAL
 {
     internal class EmpresaDal:RepositoryBase
     {
+        public int ContarTotal()
+        {
+            var cmd = CreateCommand(@"SELECT COUNT(*) FROM Empresa");
+            cmd.ExecuteNonQuery();
 
+            return Convert.ToInt32(cmd.ExecuteScalar());
+        }
         public EmpresaModel? BuscarEmpresaPrincipal()
         {
             const string sql = @"SELECT TOP 1 * FROM Empresa";
@@ -410,7 +416,7 @@ FROM Empresa em";
 
         public DataTable PesquisarPorNome(string nome)
         {
-            const string sql = SqlBase + " WHERE e.RazaoSocial LIKE @Nome ORDER BY e.RazaoSocial";
+            const string sql = SqlBase + " WHERE em.RazaoSocial LIKE @Nome ORDER BY em.RazaoSocial";
             return ExecuteReaderToDataTable(sql,
                 new SqlParameter("@Nome", $"%{nome?.Trim()}%"));
         }

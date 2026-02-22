@@ -1,4 +1,6 @@
 ﻿using GVC.BLL;
+using GVC.Helpers;
+using GVC.Infra.Repository;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
@@ -13,8 +15,8 @@ namespace GVC.View
     public partial class FrmManutVendedor : KryptonForm
     {
         private string StatusOperacao;
-        private readonly VendedorBLL _bll;
-
+        private readonly VendedorBLL _bll;       
+        private int _totalRegistrosBanco;
         public FrmManutVendedor(string statusOperacao)
         {
             this.StatusOperacao = statusOperacao;
@@ -26,7 +28,7 @@ namespace GVC.View
         {
             dgvVendedores.DataSource = _bll.ListarTodos();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvVendedores);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalBanco, dgvVendedores);
         }
 
         public void HabilitarTimer(bool habilitar)
@@ -334,16 +336,30 @@ namespace GVC.View
         {
             string texto = txtPesquisa.Text.Trim();
 
-            // Carrega os dados
-            dgvVendedores.DataSource = string.IsNullOrEmpty(texto)
-                ? _bll.ListarTodos()
-                : _bll.PesquisarVendedor(texto);
+            try
+            {
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    // ✅ quando limpa, volta a listar tudo
+                    ListarVendedores();
+                    PersonalizarDataGridView();
 
-            PersonalizarDataGridView();
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvVendedores);
+                    StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                    StatusBarPadrao.MensagemPesquisa(lblStatus, dgvVendedores, "vendedor", "");
+                    return;
+                }
 
-            // Atualiza a mensagem de status
-            AtualizarMensagemStatus(texto);
+                dgvVendedores.DataSource = _bll.PesquisarVendedor(texto);
+                PersonalizarDataGridView();
+
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.MensagemPesquisa(lblStatus, dgvVendedores, "vendedor", texto);
+            }
+            catch (Exception ex)
+            {
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.Mensagem(lblStatus, $"Erro na pesquisa: {ex.Message}", StatusTipo.Erro);
+            }
         }
 
         private void FrmManutVendedor_Load(object sender, EventArgs e)
@@ -352,8 +368,19 @@ namespace GVC.View
                 return;
 
             timer1.Enabled = false;
+
             ListarVendedores();
+            PersonalizarDataGridView();
+
             dgvVendedores.CellFormatting += dgvVendedores_CellFormatting;
+            var bll = new VendedorBLL();
+
+            // Total do banco (uma vez)
+            _totalRegistrosBanco = bll.ContarTotal(); // criar se não existir
+
+            // ✅ StatusStrip (2 labels)
+            StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+            StatusBarPadrao.MensagemPesquisa(lblStatus, dgvVendedores, "vendedor", txtPesquisa.Text);
         }
 
         private void btnSair_Click(object sender, EventArgs e)

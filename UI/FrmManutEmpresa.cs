@@ -1,5 +1,5 @@
-﻿using GVC.BLL;
-using GVC.DAL;
+﻿using GVC.BLL; 
+using GVC.Helpers;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
@@ -18,6 +18,7 @@ namespace GVC.View
     {
         private bool _gridConfigurado = false; //Faz parte da configuração do grid
         private readonly EmpresaBll _empresaBll = new EmpresaBll();
+        private int _totalRegistrosBanco;
         public FrmManutEmpresa(string statusOperacao)
         {           
             InitializeComponent();
@@ -37,7 +38,7 @@ namespace GVC.View
                 _gridConfigurado = true;
             }
 
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvEmpresa);            
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalBanco, dgvEmpresa);            
         }
         private void ConfigurarColunaFill(string coluna, int larguraMinima, int peso)
         {
@@ -186,21 +187,40 @@ namespace GVC.View
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
-            string textoPesquisa = txtPesquisa.Text.Trim();
+            string texto = txtPesquisa.Text.Trim();
 
-            if (string.IsNullOrEmpty(textoPesquisa))
+            try
             {
-                dgvEmpresa.DataSource = null; // ou pode chamar um método ListarUsuarios()
-                Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvEmpresa);
-                return;
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    // ✅ Quando limpa, volta a listar (não deixa vazio)
+                    ListarEmpresa();
+                    PersonalizarDataGridView();
+
+                    StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                    StatusBarPadrao.MensagemPesquisa(lblStatus, dgvEmpresa, "empresa", "");
+                    return;
+                }
+
+                // ⚠️ Você estava usando UsuarioDal num form de Empresa.
+                // Troque para EmpresaDal (ou o DAL correto do seu formulário).
+                var bll = new EmpresaBll();
+
+                // Se seu método usa LIKE, mantenha o %.
+                string nome = "%" + texto.ToLower() + "%";
+
+                dgvEmpresa.DataSource = bll.PesquisarPorNome(nome);
+
+                PersonalizarDataGridView();
+
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.MensagemPesquisa(lblStatus, dgvEmpresa, "empresa", texto);
             }
-
-            UsuarioDal dao = new UsuarioDal();
-            string nome = "%" + textoPesquisa.ToLower() + "%";
-            dgvEmpresa.DataSource = dao.PesquisarPorNome(nome);
-
-            PersonalizarDataGridView();
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvEmpresa);
+            catch (Exception ex)
+            {
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.Mensagem(lblStatus, $"Erro na pesquisa: {ex.Message}", StatusTipo.Erro);
+            }
         }
 
         private void FrmManutEmpresa_Load(object sender, EventArgs e)
@@ -209,6 +229,13 @@ namespace GVC.View
                 return;
 
             ListarEmpresa();
+            PersonalizarDataGridView();
+
+            // 🔹 Total real do banco (uma vez)
+            _totalRegistrosBanco = new EmpresaBll().ContarTotal(); // criar se não existir
+
+            StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+            StatusBarPadrao.MensagemPesquisa(lblStatus, dgvEmpresa, "empresa", txtPesquisa.Text);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

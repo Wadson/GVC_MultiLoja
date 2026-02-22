@@ -1,24 +1,25 @@
-﻿using Krypton.Toolkit;
-using GVC.BLL;
-using GVC.DAL;
+﻿using GVC.BLL;
+using GVC.Helpers;
+using GVC.UTIL;
 using GVC.View;
+using Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Security.Policy;
 using System.Text;
 using System.Windows.Forms;
-using System.Drawing.Text;
-using GVC.UTIL;
 
 namespace GVC
 {
     public partial class FrmManutUsuario : KryptonForm
     {
         private string StatusOperacao { get; set; }
+        private int _totalRegistrosBanco;
         public FrmManutUsuario(string statusOperacao)
         {
             InitializeComponent();
@@ -103,7 +104,15 @@ namespace GVC
                 return;
 
             ListaUsuario();
+            PersonalizarDataGridView();
+
             dgvUsuarios.CellFormatting += dataGridPesquisar_CellFormatting;
+
+            // Total do banco (uma vez)
+            _totalRegistrosBanco = new UsuarioBLL().ContarTotal(); // criar se não existir
+
+            StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+            StatusBarPadrao.MensagemPesquisa(lblStatus, dgvUsuarios, "usuário", txtPesquisa.Text);
         }
 
         public void PersonalizarDataGridView()
@@ -201,7 +210,6 @@ namespace GVC
             UsuarioBLL usuariosBll = new UsuarioBLL();
             dgvUsuarios.DataSource = usuariosBll.Listar();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvUsuarios);
         }
 
         public void HabilitarTimer(bool habilitar)
@@ -215,35 +223,38 @@ namespace GVC
             timer1.Enabled = false;
         }
 
-        private void rbtDescricao_CheckedChanged(object sender, EventArgs e)
-        {
-            txtPesquisa.Text = "";
-            txtPesquisa.Focus();
-        }
-
-        private void rbtCodigo_CheckedChanged(object sender, EventArgs e)
-        {
-            txtPesquisa.Text = "";
-            txtPesquisa.Focus();
-        }
-
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
-            string textoPesquisa = txtPesquisa.Text.Trim();
+            string texto = txtPesquisa.Text.Trim();
 
-            if (string.IsNullOrEmpty(textoPesquisa))
+            try
             {
-                dgvUsuarios.DataSource = null; // ou pode chamar um método ListarUsuarios()
-                Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvUsuarios);
-                return;
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    // ✅ quando limpar, volta a listar tudo
+                    ListaUsuario();
+                    PersonalizarDataGridView();
+
+                    StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                    StatusBarPadrao.MensagemPesquisa(lblStatus, dgvUsuarios, "usuário", "");
+                    return;
+                }
+
+                var dao = new UsuarioBLL();
+                string nome = "%" + texto.ToLower() + "%";
+
+                dgvUsuarios.DataSource = dao.PesquisarPorNome(nome);
+
+                PersonalizarDataGridView();
+
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.MensagemPesquisa(lblStatus, dgvUsuarios, "usuário", texto);
             }
-
-            UsuarioDal dao = new UsuarioDal();
-            string nome = "%" + textoPesquisa.ToLower() + "%";
-            dgvUsuarios.DataSource = dao.PesquisarPorNome(nome);
-
-            PersonalizarDataGridView();
-            Utilitario.AtualizarTotalKrypton(toolStripStatusLabelTotalRegistros, dgvUsuarios);
+            catch (Exception ex)
+            {
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.Mensagem(lblStatus, $"Erro na pesquisa: {ex.Message}", StatusTipo.Erro);
+            }
         }
 
         private void btnNovo_Click(object sender, EventArgs e)

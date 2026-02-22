@@ -103,6 +103,7 @@
             timerBackupAtomatico = new System.Windows.Forms.Timer(components);
             iconToolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
+            modeloToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             kryptonStatusStrip1.SuspendLayout();
@@ -188,7 +189,7 @@
             // 
             // cadastrosToolStripMenuItem
             // 
-            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, empresasToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, marcasToolStripMenuItem, produtosToolStripMenuItem, testeToolStripMenuItem, usuáriosToolStripMenuItem, vendedoresToolStripMenuItem });
+            cadastrosToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clientesToolStripMenuItem, empresasToolStripMenuItem, fornecedoresToolStripMenuItem, formaDePagamentoToolStripMenuItem, marcasToolStripMenuItem, produtosToolStripMenuItem, testeToolStripMenuItem, usuáriosToolStripMenuItem, vendedoresToolStripMenuItem, modeloToolStripMenuItem });
             cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             cadastrosToolStripMenuItem.Size = new Size(71, 20);
             cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -737,6 +738,13 @@
             kryptonPanel1.StateCommon.Color2 = Color.FromArgb(6, 174, 244);
             kryptonPanel1.TabIndex = 613;
             // 
+            // modeloToolStripMenuItem
+            // 
+            modeloToolStripMenuItem.Name = "modeloToolStripMenuItem";
+            modeloToolStripMenuItem.Size = new Size(188, 22);
+            modeloToolStripMenuItem.Text = "Modelo";
+            modeloToolStripMenuItem.Click += modeloToolStripMenuItem_Click;
+            // 
             // FrmPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -852,5 +860,6 @@
         private ToolStripLabel toolStripLabel1;
         private ToolStripComboBox cmbEmpresaToolStrip;
         private ToolStripStatusLabel lblVersaoSistema;
+        private ToolStripMenuItem modeloToolStripMenuItem;
     }
 }

@@ -6,6 +6,12 @@ namespace GVC.Infra.Repository
 {
     public class MarcaDal : RepositoryBase
     {
+        public int ContarTotal()
+        {
+            const string sql = @" SELECT COUNT(*) FROM Marca WHERE EmpresaID = @EmpresaID";
+            using var cmd = CreateCommand(sql);
+            return (int)cmd.ExecuteScalar();
+        }
         public void Inserir(MarcaModel marca)
         {
             const string sql = @"

@@ -43,9 +43,9 @@
             kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
-            pictureBox1 = new PictureBox();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
+            btnPesquisar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvPesquisar).BeginInit();
             kryptonStatusStrip1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -53,7 +53,6 @@
             kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
             kryptonPanel4.SuspendLayout();
             SuspendLayout();
@@ -420,7 +419,7 @@
             // 
             // kryptonPanel3
             // 
-            kryptonPanel3.Controls.Add(pictureBox1);
+            kryptonPanel3.Controls.Add(btnPesquisar);
             kryptonPanel3.Controls.Add(kryptonLabel2);
             kryptonPanel3.Controls.Add(txtPesquisar);
             kryptonPanel3.Dock = DockStyle.Fill;
@@ -429,16 +428,6 @@
             kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
             kryptonPanel3.Size = new Size(1002, 29);
             kryptonPanel3.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.Pesquisar;
-            pictureBox1.Location = new Point(61, 2);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(25, 25);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 623;
-            pictureBox1.TabStop = false;
             // 
             // kryptonLabel2
             // 
@@ -460,6 +449,21 @@
             kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueLightMode;
             kryptonPanel4.Size = new Size(1002, 34);
             kryptonPanel4.TabIndex = 2;
+            // 
+            // btnPesquisar
+            // 
+            btnPesquisar.BackColor = Color.Transparent;
+            btnPesquisar.FlatAppearance.BorderSize = 0;
+            btnPesquisar.FlatStyle = FlatStyle.Flat;
+            btnPesquisar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnPesquisar.IconColor = Color.FromArgb(30, 136, 229);
+            btnPesquisar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnPesquisar.IconSize = 30;
+            btnPesquisar.Location = new Point(57, 3);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.Size = new Size(25, 25);
+            btnPesquisar.TabIndex = 1141;
+            btnPesquisar.UseVisualStyleBackColor = false;
             // 
             // FrmManutEstado
             // 
@@ -491,7 +495,6 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
             kryptonPanel4.ResumeLayout(false);
             ResumeLayout(false);
@@ -517,7 +520,7 @@
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
-        private PictureBox pictureBox1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        private FontAwesome.Sharp.IconButton btnPesquisar;
     }
 }

@@ -36,7 +36,7 @@ namespace GVC
         public FrmPrincipal()
         {
             InitializeComponent();
-          
+
             // 🔥 Conecte o evento AQUI (ou no designer)
             cmbEmpresaToolStrip.SelectedIndexChanged += cmbEmpresaToolStrip_SelectedIndexChanged;
 
@@ -497,7 +497,7 @@ namespace GVC
         }
 
         private void cmbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
-        {  
+        {
         }
         private void AplicarFundoEmpresa(string caminhoImagem)
         {
@@ -648,11 +648,16 @@ namespace GVC
 
             var corTexto = empresaAtiva ? Color.DarkGreen : Color.Black;
 
-            TextRenderer.DrawText(e.Graphics, item.NomeFantasia, fonte,  e.Bounds, corTexto,
+            TextRenderer.DrawText(e.Graphics, item.NomeFantasia, fonte, e.Bounds, corTexto,
                 TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
 
             e.DrawFocusRectangle();
         }
 
+        private void modeloToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmModelo frm = new FrmModelo();
+            frm.ShowDialog();
+        }
     }
 }

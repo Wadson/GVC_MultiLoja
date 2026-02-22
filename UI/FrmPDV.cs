@@ -112,7 +112,6 @@ namespace GVC.View
             _itemEmEdicao = null;
 
             btnAdicionarItem.Text = "Adicionar";
-            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
 
             LimparCamposProduto();
         }
@@ -122,7 +121,6 @@ namespace GVC.View
             _itemEmEdicao = item;
 
             btnAdicionarItem.Text = "Alterar";
-            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.Edit; // ou Save
         }
         private static decimal ParseDecimalPtBr(string texto)
         {
@@ -256,7 +254,7 @@ namespace GVC.View
 
 
 
-       
+
 
 
 
@@ -730,7 +728,7 @@ namespace GVC.View
         private void FrmPDV_Shown(object sender, EventArgs e)
         {
             AplicarCorNosTextBoxes(this.Controls);
-            
+
             CarregarLogoEmpresa();
 
             //foreach (Control ctrl in this.Controls)
@@ -1264,6 +1262,172 @@ namespace GVC.View
             FinalizarVenda();
         }
 
+        private void CarregarLogoEmpresa()
+        {
+            try
+            {
+                // ✅ Se já estiver em cache (opcional), só aplica
+                if (Sessao.LogoEmpresa != null)
+                {
+                    picLogoMarca.Image?.Dispose();
+                    picLogoMarca.Image = (Image)Sessao.LogoEmpresa.Clone();
+                    picLogoMarca.SizeMode = PictureBoxSizeMode.Zoom;
+                    return;
+                }
+
+                using var dal = new EmpresaDal();
+                var logo = dal.ObterLogoEmpresaAtualImage();
+
+                // ✅ cache opcional
+                Sessao.LogoEmpresa?.Dispose();
+                Sessao.LogoEmpresa = logo;
+
+                picLogoMarca.Image?.Dispose();
+                picLogoMarca.Image = logo != null ? (Image)logo.Clone() : null;
+                picLogoMarca.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            catch
+            {
+                // não derruba o PDV por causa de logo
+                picLogoMarca.Image = null;
+            }
+        }
+
+
+
+        private void txtQuantidade_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtPrecoUnitario_TextChanged(object sender, EventArgs e)
+        {
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtPrecoUnitario_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPrecoUnitario.Text))
+                txtPrecoUnitario.Text = "0,00";
+
+            NormalizarMoeda(txtPrecoUnitario);
+            AtualizarSubtotalSomente();
+        }
+
+        private void dgvItensVenda_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            if (dgvItensVenda.Rows[e.RowIndex].DataBoundItem is not ItemVendaModel item)
+                return;
+
+            _ignorarEventosCalculo = true;
+            try
+            {
+                ProdutoID = item.ProdutoID;
+
+                txtQuantidade.Text = item.Quantidade.ToString();
+
+                // então carregamos como "preço unitário" e desconto zerado
+                txtPrecoUnitario.Text = item.PrecoUnitario.ToString("N2");
+                txtDesconto.Text = "0,00";
+
+                txtSubTotal.Text = "0,00";
+            }
+            finally
+            {
+                _ignorarEventosCalculo = false;
+            }
+
+            AtualizarSubtotalSomente();
+            EntrarModoEdicao(item);
+
+            txtQuantidade.Focus();
+            txtQuantidade.SelectAll();
+        }
+
+        private void txtQuantidade_Leave(object sender, EventArgs e)
+        {
+            NormalizarQuantidade();
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtDesconto_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtDesconto.Text))
+                txtDesconto.Text = "0,00";
+
+            NormalizarMoeda(txtDesconto);
+
+            // garante desconto <= preço após normalizar
+            ObterValoresItem(out _, out var preco, out var desc, out _, out _);
+            if (desc > preco)
+            {
+                txtDesconto.Text = preco.ToString("N2");
+                Utilitario.Mensagens.Aviso("Desconto ajustado para o valor máximo permitido.");
+            }
+
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtPrecoUnitario_Validating(object sender, CancelEventArgs e)
+        {
+            decimal preco = ParseDecimalPtBr(txtPrecoUnitario.Text);
+
+            if (preco < 0)
+            {
+                Utilitario.Mensagens.Aviso("Preço unitário não pode ser negativo.");
+                e.Cancel = true;
+                txtPrecoUnitario.Focus();
+                txtPrecoUnitario.SelectAll();
+            }
+            else if (preco > 999999.99m)
+            {
+                if (Utilitario.Mensagens.Pergunta("Preço muito alto. Deseja continuar?") != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                    txtPrecoUnitario.Focus();
+                    txtPrecoUnitario.SelectAll();
+                }
+            }
+        }
+
+        private void txtPrecoUnitario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permite: dígitos, vírgula, backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            // Permite apenas uma vírgula
+            if (e.KeyChar == ',' && txtPrecoUnitario.Text.Contains(','))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDesconto_TextChanged_1(object sender, EventArgs e)
+        {
+            AtualizarSubtotalSomente();
+        }
+
+        private void txtDesconto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permite: dígitos, vírgula, backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            // Permite apenas uma vírgula
+            if (e.KeyChar == ',' && txtDesconto.Text.Contains(','))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void btnAdicionarItem_Click(object sender, EventArgs e)
         {
             if (ProdutoID <= 0)
@@ -1364,171 +1528,6 @@ namespace GVC.View
             {
                 txtProdutoBuscar.Focus();
                 txtProdutoBuscar.SelectAll();
-            }
-        }
-        private void CarregarLogoEmpresa()
-        {
-            try
-            {
-                // ✅ Se já estiver em cache (opcional), só aplica
-                if (Sessao.LogoEmpresa != null)
-                {
-                    picLogoMarca.Image?.Dispose();
-                    picLogoMarca.Image = (Image)Sessao.LogoEmpresa.Clone();
-                    picLogoMarca.SizeMode = PictureBoxSizeMode.Zoom;
-                    return;
-                }
-
-                using var dal = new EmpresaDal();
-                var logo = dal.ObterLogoEmpresaAtualImage();
-
-                // ✅ cache opcional
-                Sessao.LogoEmpresa?.Dispose();
-                Sessao.LogoEmpresa = logo;
-
-                picLogoMarca.Image?.Dispose();
-                picLogoMarca.Image = logo != null ? (Image)logo.Clone() : null;
-                picLogoMarca.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-            catch
-            {
-                // não derruba o PDV por causa de logo
-                picLogoMarca.Image = null;
-            }
-        }
-
-
-
-        private void txtQuantidade_TextChanged(object sender, EventArgs e)
-        {
-            AtualizarSubtotalSomente();
-        }
-
-        private void txtPrecoUnitario_TextChanged(object sender, EventArgs e)
-        {
-            AtualizarSubtotalSomente();
-        }
-
-        private void txtPrecoUnitario_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtPrecoUnitario.Text))
-                txtPrecoUnitario.Text = "0,00";
-
-            NormalizarMoeda(txtPrecoUnitario);
-            AtualizarSubtotalSomente();
-        }
-
-        private void dgvItensVenda_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
-
-            if (dgvItensVenda.Rows[e.RowIndex].DataBoundItem is not ItemVendaModel item)
-                return;
-
-            _ignorarEventosCalculo = true;
-            try
-            {
-                ProdutoID = item.ProdutoID;
-
-                txtQuantidade.Text = item.Quantidade.ToString();
-                
-                // então carregamos como "preço unitário" e desconto zerado
-                txtPrecoUnitario.Text = item.PrecoUnitario.ToString("N2");
-                txtDesconto.Text = "0,00";
-
-                txtSubTotal.Text = "0,00";
-            }
-            finally
-            {
-                _ignorarEventosCalculo = false;
-            }
-
-            AtualizarSubtotalSomente();
-            EntrarModoEdicao(item);
-
-            txtQuantidade.Focus();
-            txtQuantidade.SelectAll();
-        }
-
-        private void txtQuantidade_Leave(object sender, EventArgs e)
-        {
-            NormalizarQuantidade();
-            AtualizarSubtotalSomente();
-        }
-
-        private void txtDesconto_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtDesconto.Text))
-                txtDesconto.Text = "0,00";
-
-            NormalizarMoeda(txtDesconto);
-
-            // garante desconto <= preço após normalizar
-            ObterValoresItem(out _, out var preco, out var desc, out _, out _);
-            if (desc > preco)
-            {
-                txtDesconto.Text = preco.ToString("N2");
-                Utilitario.Mensagens.Aviso("Desconto ajustado para o valor máximo permitido.");
-            }
-
-            AtualizarSubtotalSomente();
-        }
-
-        private void txtPrecoUnitario_Validating(object sender, CancelEventArgs e)
-        {
-            decimal preco = ParseDecimalPtBr(txtPrecoUnitario.Text);
-
-            if (preco < 0)
-            {
-                Utilitario.Mensagens.Aviso("Preço unitário não pode ser negativo.");
-                e.Cancel = true;
-                txtPrecoUnitario.Focus();
-                txtPrecoUnitario.SelectAll();
-            }
-            else if (preco > 999999.99m)
-            {
-                if (Utilitario.Mensagens.Pergunta("Preço muito alto. Deseja continuar?") != DialogResult.Yes)
-                {
-                    e.Cancel = true;
-                    txtPrecoUnitario.Focus();
-                    txtPrecoUnitario.SelectAll();
-                }
-            }
-        }
-
-        private void txtPrecoUnitario_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Permite: dígitos, vírgula, backspace
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
-            {
-                e.Handled = true;
-            }
-
-            // Permite apenas uma vírgula
-            if (e.KeyChar == ',' && txtPrecoUnitario.Text.Contains(','))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtDesconto_TextChanged_1(object sender, EventArgs e)
-        {
-            AtualizarSubtotalSomente();
-        }
-
-        private void txtDesconto_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Permite: dígitos, vírgula, backspace
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
-            {
-                e.Handled = true;
-            }
-
-            // Permite apenas uma vírgula
-            if (e.KeyChar == ',' && txtDesconto.Text.Contains(','))
-            {
-                e.Handled = true;
             }
         }
     }

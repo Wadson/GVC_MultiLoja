@@ -1,15 +1,23 @@
-﻿using GVC.Model;
-using GVC.UTIL;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Data;
-using System.Windows.Forms;
 using GVC.Infra.Conexao;
+using GVC.Model;
+using System.Windows.Forms;
+using GVC.Infra.Repository;
 
 namespace GVC.DAL
 {
-    internal class UsuarioDal
+    internal class UsuarioDal:RepositoryBase
     {
+        public int ContarTotal()
+        {
+            const string sql = @"SELECT COUNT(*) FROM Usuarios";
+            using var cmd = CreateCommand(sql);
+            return Convert.ToInt32(cmd.ExecuteScalar());
+        }
+
         public DataTable ListaUsuario()
         {
             var conn = Conexao.Conex();
@@ -126,30 +134,32 @@ namespace GVC.DAL
 
         public DataTable PesquisarPorNome(string nome)
         {
-            var conn = Conexao.Conex();
-            try
-            {
-                var sqlconn = "SELECT UsuarioID, NomeCompleto, Cpf, DataNascimento, Email, NomeUsuario, TipoUsuario, Senha, DataCriacao FROM Usuarios WHERE NomeUsuario LIKE @NomeUsuario";
-                var cmd = new SqlCommand(sqlconn, conn);
-                cmd.Parameters.AddWithValue("@NomeUsuario", "%" + nome + "%");
+            using var conn = Conexao.Conex();
 
-                conn.Open();
-                var reader = cmd.ExecuteReader();
+            var sql = @"SELECT 
+                    UsuarioID, 
+                    NomeCompleto, 
+                    Cpf, 
+                    DataNascimento, 
+                    Email, 
+                    NomeUsuario, 
+                    TipoUsuario, 
+                    Senha, 
+                    DataCriacao 
+                FROM Usuarios 
+                WHERE NomeUsuario LIKE @NomeUsuario";
 
-                var dt = new DataTable();
-                dt.Load(reader);
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@NomeUsuario", "%" + nome + "%");
 
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao executar a pesquisa: " + ex.Message);
-                return null;
-            }
-            finally
-            {
-                conn.Close();
-            }
+            conn.Open();
+
+            using var reader = cmd.ExecuteReader();
+
+            var dt = new DataTable();
+            dt.Load(reader);
+
+            return dt;
         }
 
         public DataTable PesquisarPorCodigo(int nome)

@@ -12,6 +12,10 @@ namespace GVC.BLL
     {
         private readonly FornecedorDal _dal = new FornecedorDal();
 
+        public int ContarTotal()
+        {
+            return _dal.ContarTotal();
+        }
         public DataTable Listar()
         {
             try

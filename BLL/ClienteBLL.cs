@@ -18,6 +18,10 @@ namespace GVC.BLL
         {
             clienteRepository = new ClienteRepository();
         }
+        public int ContarTotal()
+        {
+            return clienteRepository.ContarTotal();
+        }
         public DataTable Listar()
         {
             using var repo = new ClienteRepository();

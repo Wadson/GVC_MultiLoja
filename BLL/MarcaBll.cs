@@ -7,6 +7,11 @@ namespace GVC.BLL
 {
     public class MarcaBll
     {
+        private readonly MarcaDal _dal = new MarcaDal();
+        public int ContarTotal()
+        {
+            return _dal.ContarTotal();
+        }
         public List<MarcaModel> Listar(string filtro = "")
         {
             using var repo = new MarcaDal();

@@ -1,6 +1,6 @@
 ﻿using GVC.BLL;
-using GVC.DAL;
-using GVC.DAL;
+using GVC.Helpers;
+using GVC.Infra.Helpers;
 using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.UTIL;
@@ -29,6 +29,7 @@ namespace GVC.View
         private int ProdutoiD;
         private string NomeProduto;
         private decimal PrecoCusto;
+        private int _totalRegistrosBanco;
         public FrmManutProduto(string statusOperacao)
         {
             InitializeComponent();
@@ -43,7 +44,7 @@ namespace GVC.View
             ProdutosBLL objetoBll = new ProdutosBLL();
             dgvProdutos.DataSource = objetoBll.ListarTodos();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotalKrypton(lblMensagemStatus, dgvProdutos);
+            Utilitario.AtualizarTotalKrypton(lblStatus, dgvProdutos);
         }
         public void PersonalizarDataGridView()
         {
@@ -401,9 +402,15 @@ namespace GVC.View
             if (!ValidadorSessao.Validar(this))
                 return;
 
-            ListarProduto();
-        }
+            ListarProduto();           
+            PersonalizarDataGridView();
 
+            _totalRegistrosBanco = new ProdutosBLL().ContarTotal();
+
+            StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+            StatusBarPadrao.MensagemPesquisa(lblStatus, dgvProdutos, "produto", txtPesquisa.Text);
+        }
+       
         private void dataGridPesquisar_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if ((dgvProdutos.Columns[e.ColumnIndex].Name == "PrecoCusto" || dgvProdutos.Columns[e.ColumnIndex].Name == "PrecoVenda") && e.Value != null)
@@ -429,65 +436,35 @@ namespace GVC.View
         {
             string texto = txtPesquisa.Text.Trim();
 
-            if (string.IsNullOrEmpty(texto))
-            {
-                ListarProduto();
-                AtualizarStatusBar("Mostrando todos os produtos", Color.Blue); // Cor azul para lista completa
-                return;
-            }
-
             try
             {
-                var produtoRepository = new ProdutoRepository();
-                List<ProdutoModel> lista = produtoRepository.PesquisarProdutoPorNome(texto);
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    ListarProduto();
+                    PersonalizarDataGridView();
 
-                dgvProdutos.DataSource = lista ?? new List<ProdutoModel>();
+                    StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                    StatusBarPadrao.MensagemPesquisa(lblStatus, dgvProdutos, "produto", "");
+                    return;
+                }
+
+                var repo = new ProdutosBLL();
+                var lista = repo.PesquisarProdutoPorNome(texto) ?? new List<ProdutoModel>();
+
+                dgvProdutos.DataSource = lista;
                 PersonalizarDataGridView();
 
-                // Atualizar contagem
-                int totalRegistros = lista?.Count ?? 0;
-                Utilitario.AtualizarTotalToolStatusStrip(lblMensagemStatus, dgvProdutos);
-
-                // Atualizar barra de status com cor apropriada
-                if (totalRegistros == 0)
-                {
-                    AtualizarStatusBar($"Nenhum produto encontrado para '{texto}'", Color.Red);
-                }
-                else
-                {
-                    AtualizarStatusBar($"{totalRegistros} produto(s) encontrado(s) para '{texto}'", Color.Green);
-                }
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.MensagemPesquisa(lblStatus, dgvProdutos, "produto", texto);
             }
             catch (Exception ex)
             {
-                AtualizarStatusBar($"Erro na pesquisa: {ex.Message}", Color.DarkRed);
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.Mensagem(lblStatus, $"Erro na pesquisa: {ex.Message}", StatusTipo.Erro);
             }
         }
 
-        // Método para atualizar a barra de status
-        private void AtualizarStatusBar(string mensagem, Color cor)
-        {
-            // Assumindo que você tem um StatusStrip com uma ToolStripStatusLabel
-            if (kryptonStatusStrip1 != null && kryptonStatusStrip1.Items.Count > 0)
-            {
-                // Exemplo se você tiver um ToolStripStatusLabel chamado lblStatus
-                if (kryptonStatusStrip1.Items[0] is ToolStripStatusLabel lblStatus)
-                {
-                    lblStatus.Text = mensagem;
-                    lblStatus.ForeColor = cor;
-                    lblStatus.Font = new Font("Segoe UI", 9, FontStyle.Regular);
-                }
-            }
-
-            // Alternativa: se você estiver usando um Label comum
-            if (lblMensagemStatus != null)
-            {
-                lblMensagemStatus.Text = mensagem;
-                lblMensagemStatus.ForeColor = cor;
-                lblMensagemStatus.Visible = true;
-            }
-        }
-
+      
         private void btnNovo_Click(object sender, EventArgs e)
         {
             StatusOperacao = "NOVO";
@@ -572,7 +549,7 @@ namespace GVC.View
             {
                 case Keys.Enter:
                     // Enter no DataGridView: seleciona cliente
-                    SelecionarProduto(); // Chama seu método existente
+                    CarregaDados(); // Chama seu método existente
                     e.Handled = true;
                     break;
 

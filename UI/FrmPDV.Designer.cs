@@ -73,7 +73,7 @@
             txtDesconto = new Krypton.Toolkit.KryptonTextBox();
             lblSubtotal = new Label();
             txtSubTotal = new Krypton.Toolkit.KryptonTextBox();
-            btnAdicionarItem = new FontAwesome.Sharp.IconButton();
+            btnAdicionarItem = new Krypton.Toolkit.KryptonButton();
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
             picLogoMarca = new PictureBox();
             kryptonPalette1 = new Krypton.Toolkit.KryptonPalette(components);
@@ -780,19 +780,71 @@
             // 
             // btnAdicionarItem
             // 
-            btnAdicionarItem.BackColor = Color.FromArgb(76, 175, 80);
-            btnAdicionarItem.ForeColor = Color.WhiteSmoke;
-            btnAdicionarItem.IconChar = FontAwesome.Sharp.IconChar.CartPlus;
-            btnAdicionarItem.IconColor = Color.White;
-            btnAdicionarItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnAdicionarItem.IconSize = 28;
-            btnAdicionarItem.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAdicionarItem.CornerRoundingRadius = 1F;
             btnAdicionarItem.Location = new Point(3, 234);
             btnAdicionarItem.Name = "btnAdicionarItem";
-            btnAdicionarItem.Size = new Size(175, 39);
-            btnAdicionarItem.TabIndex = 6;
-            btnAdicionarItem.Text = "       Adicionar Ítem";
-            btnAdicionarItem.UseVisualStyleBackColor = false;
+            btnAdicionarItem.OverrideDefault.Back.Color1 = Color.FromArgb(22, 121, 206);
+            btnAdicionarItem.OverrideDefault.Back.Color2 = Color.FromArgb(22, 121, 206);
+            btnAdicionarItem.OverrideDefault.Back.ColorAngle = 45F;
+            btnAdicionarItem.OverrideDefault.Border.Color1 = Color.FromArgb(8, 142, 254);
+            btnAdicionarItem.OverrideDefault.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnAdicionarItem.OverrideDefault.Border.ColorAngle = 45F;
+            btnAdicionarItem.OverrideDefault.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnAdicionarItem.OverrideDefault.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnAdicionarItem.OverrideDefault.Border.Rounding = 1F;
+            btnAdicionarItem.OverrideDefault.Border.Width = 1;
+            btnAdicionarItem.OverrideDefault.Content.ShortText.Color1 = Color.White;
+            btnAdicionarItem.OverrideFocus.Back.Color1 = Color.FromArgb(22, 121, 206);
+            btnAdicionarItem.OverrideFocus.Content.ShortText.Color1 = Color.White;
+            btnAdicionarItem.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            btnAdicionarItem.Size = new Size(172, 35);
+            btnAdicionarItem.StateCommon.Back.Color1 = Color.FromArgb(1, 200, 19);
+            btnAdicionarItem.StateCommon.Back.Color2 = Color.FromArgb(1, 200, 19);
+            btnAdicionarItem.StateCommon.Back.ColorAngle = 45F;
+            btnAdicionarItem.StateCommon.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnAdicionarItem.StateCommon.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnAdicionarItem.StateCommon.Border.ColorAngle = 45F;
+            btnAdicionarItem.StateCommon.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnAdicionarItem.StateCommon.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnAdicionarItem.StateCommon.Border.Rounding = 1F;
+            btnAdicionarItem.StateCommon.Border.Width = 1;
+            btnAdicionarItem.StateCommon.Content.ShortText.Color1 = Color.White;
+            btnAdicionarItem.StateCommon.Content.ShortText.Font = new Font("Poppins Medium", 9.75F, FontStyle.Bold);
+            btnAdicionarItem.StateDisabled.Back.Color1 = Color.FromArgb(22, 121, 206);
+            btnAdicionarItem.StateDisabled.Content.ShortText.Color1 = Color.White;
+            btnAdicionarItem.StateNormal.Back.Color1 = Color.FromArgb(1, 200, 19);
+            btnAdicionarItem.StateNormal.Back.Color2 = Color.FromArgb(1, 200, 19);
+            btnAdicionarItem.StateNormal.Back.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnAdicionarItem.StateNormal.Border.Color1 = Color.FromArgb(20, 145, 198);
+            btnAdicionarItem.StateNormal.Border.Color2 = Color.FromArgb(22, 121, 206);
+            btnAdicionarItem.StateNormal.Border.ColorAngle = 45F;
+            btnAdicionarItem.StateNormal.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnAdicionarItem.StateNormal.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnAdicionarItem.StateNormal.Border.Rounding = 1F;
+            btnAdicionarItem.StateNormal.Border.Width = 1;
+            btnAdicionarItem.StatePressed.Back.Color1 = Color.FromArgb(20, 145, 198);
+            btnAdicionarItem.StatePressed.Back.Color2 = Color.FromArgb(22, 121, 206);
+            btnAdicionarItem.StatePressed.Back.ColorAngle = 135F;
+            btnAdicionarItem.StatePressed.Border.Color1 = Color.FromArgb(20, 145, 198);
+            btnAdicionarItem.StatePressed.Border.Color2 = Color.FromArgb(22, 121, 206);
+            btnAdicionarItem.StatePressed.Border.ColorAngle = 135F;
+            btnAdicionarItem.StatePressed.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnAdicionarItem.StatePressed.Border.Rounding = 1F;
+            btnAdicionarItem.StatePressed.Border.Width = 1;
+            btnAdicionarItem.StatePressed.Content.ShortText.Color1 = Color.White;
+            btnAdicionarItem.StateTracking.Back.Color1 = Color.FromArgb(8, 142, 254);
+            btnAdicionarItem.StateTracking.Back.Color2 = Color.FromArgb(6, 174, 244);
+            btnAdicionarItem.StateTracking.Back.ColorAngle = 45F;
+            btnAdicionarItem.StateTracking.Border.Color1 = Color.FromArgb(6, 174, 244);
+            btnAdicionarItem.StateTracking.Border.Color2 = Color.FromArgb(8, 142, 254);
+            btnAdicionarItem.StateTracking.Border.ColorAngle = 45F;
+            btnAdicionarItem.StateTracking.Border.DrawBorders = Krypton.Toolkit.PaletteDrawBorders.Top | Krypton.Toolkit.PaletteDrawBorders.Bottom | Krypton.Toolkit.PaletteDrawBorders.Left | Krypton.Toolkit.PaletteDrawBorders.Right;
+            btnAdicionarItem.StateTracking.Border.GraphicsHint = Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnAdicionarItem.StateTracking.Border.Rounding = 1F;
+            btnAdicionarItem.StateTracking.Border.Width = 1;
+            btnAdicionarItem.StateTracking.Content.ShortText.Color1 = Color.White;
+            btnAdicionarItem.TabIndex = 1054;
+            btnAdicionarItem.Values.Text = "Adicionar Ìtem";
             btnAdicionarItem.Click += btnAdicionarItem_Click;
             // 
             // kryptonPanel2
@@ -1075,7 +1127,6 @@
         private Krypton.Toolkit.KryptonLabel kryptonLabel7;
         private Krypton.Toolkit.KryptonLabel kryptonLabel4;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
-        private FontAwesome.Sharp.IconButton btnAdicionarItem;
         private Krypton.Toolkit.KryptonPanel panelTitulo;
         private Krypton.Toolkit.KryptonTableLayoutPanel kryptonTableLayoutPanel1;
         private Krypton.Toolkit.KryptonLabel lblTitulo;
@@ -1089,5 +1140,6 @@
         public Krypton.Toolkit.KryptonTextBox txtSubTotal;
         private PictureBox picLogoMarca;
         private Krypton.Toolkit.KryptonPanel kryptonPanel2;
+        public Krypton.Toolkit.KryptonButton btnAdicionarItem;
     }
 }

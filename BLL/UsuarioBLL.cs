@@ -16,8 +16,12 @@ namespace GVC.BLL
 {
     internal class UsuarioBLL
     {
-        UsuarioDal usuariodal = null;
-
+          UsuarioDal usuariodal = null;
+        //private readonly UsuarioDal usuariodal;
+        public int ContarTotal()
+        {
+            return new UsuarioDal().ContarTotal();
+        }
         public string ObterSenhaHashPorId(int usuarioId)
         {
             string sql = "SELECT Senha FROM Usuarios WHERE UsuarioID = @id";
@@ -33,19 +37,29 @@ namespace GVC.BLL
             }
 
         }
-        public DataTable Listar()
+        public DataTable PesquisarPorNome(string nome)
         {
-            DataTable dtable = new DataTable();
             try
             {
-                usuariodal = new UsuarioDal();
-                dtable = usuariodal.ListaUsuario();
+                usuariodal ??= new UsuarioDal();   // ✅ garante instância sem mexer no resto
+                return usuariodal.PesquisarPorNome(nome);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao pesquisar usuário: " + ex.Message);
+            }
+        }
+        public DataTable Listar()
+        {
+            try
+            {
+                usuariodal ??= new UsuarioDal();
+                return usuariodal.ListaUsuario();
             }
             catch (Exception erro)
             {
-                throw erro;
+                throw;
             }
-            return dtable;
         }
 
         public void Salvar(UsuarioModel usuarios)

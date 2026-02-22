@@ -1,5 +1,6 @@
-﻿using GVC.BLL;
-using GVC.DAL;
+﻿using GVC.BLL; 
+using GVC.Helpers;
+using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.UTIL;
 using GVC.View;
@@ -20,6 +21,7 @@ namespace GVC
     public partial class FrmManutMarca : KryptonForm
     {
         private string StatusOperacao { get; set; }
+        private int _totalRegistrosBanco;
         public FrmManutMarca(string statusOperacao)
         {
             InitializeComponent();
@@ -148,7 +150,31 @@ namespace GVC
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
-            ListaMarcas(txtPesquisa.Text.Trim());
+            string texto = txtPesquisa.Text.Trim();
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    ListaMarcas();
+                    ConfigurarGrid(); // se existir
+
+                    StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                    StatusBarPadrao.MensagemPesquisa(lblStatus, dgvMarcas, "marca", "");
+                    return;
+                }
+
+                ListaMarcas(texto);
+                ConfigurarGrid(); // se existir
+
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.MensagemPesquisa(lblStatus, dgvMarcas, "marca", texto);
+            }
+            catch (Exception ex)
+            {
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.Mensagem(lblStatus, $"Erro na pesquisa: {ex.Message}", StatusTipo.Erro);
+            }
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
@@ -216,7 +242,17 @@ namespace GVC
                 return;
 
             ConfigurarGrid();
+
+            // carrega lista completa
             ListaMarcas();
+            ConfigurarGrid(); // se você tiver; se não tiver, pode remover
+
+            // total do banco (uma vez)
+            var bll = new MarcaBll(); 
+            _totalRegistrosBanco = bll.ContarTotal(); // criar se não existir
+
+            StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+            StatusBarPadrao.MensagemPesquisa(lblStatus, dgvMarcas, "marca", txtPesquisa.Text); // ajuste dgvMarca
         }
 
         private void FrmManutMarca_Shown(object sender, EventArgs e)

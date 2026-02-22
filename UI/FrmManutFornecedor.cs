@@ -1,5 +1,5 @@
 ﻿using GVC.BLL;
-using GVC.DAL;
+using GVC.Helpers;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
@@ -16,7 +16,7 @@ namespace GVC.View
     public partial class FrmManutFornecedor : KryptonForm
     {
         private string StatusOperacao;
-
+        private int _totalRegistrosBanco;
         public FrmManutFornecedor(string statusOperacao)
         {
             this.StatusOperacao = statusOperacao;
@@ -27,7 +27,7 @@ namespace GVC.View
             FornecedorBll objetoBll = new FornecedorBll();
             dgvFornecedor.DataSource = objetoBll.Listar();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvFornecedor);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalBanco, dgvFornecedor);
         }
         public void HabilitarTimer(bool habilitar)
         {
@@ -254,28 +254,39 @@ namespace GVC.View
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
             string texto = txtPesquisa.Text.Trim();
+            var bll = new FornecedorBll();
 
-            FornecedorBll bll = new FornecedorBll();
-            DataTable dt;
+            try
+            {
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    // ✅ quando limpar, volta a lista completa
+                    ListarFornecedor();
+                    PersonalizarDataGridView();
 
-            if (string.IsNullOrEmpty(texto))
-            {
-                // Lista todos os registros se não houver texto
-                dt = bll.PesquisarPorNome(texto);
-            }
-            else if (int.TryParse(texto, out int id))
-            {
-                // Se for número → pesquisa por código
-                dt = bll.PesquisarPorCodigo(id);
-            }
-            else
-            {
-                // Caso contrário → pesquisa por nome
-                dt = bll.PesquisarPorNome(texto);
-            }
+                    StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                    StatusBarPadrao.MensagemPesquisa(lblStatus, dgvFornecedor, "fornecedor", "");
+                    return;
+                }
 
-            dgvFornecedor.DataSource = dt ?? new DataTable();
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvFornecedor);
+                DataTable dt;
+
+                if (int.TryParse(texto, out int id))
+                    dt = bll.PesquisarPorCodigo(id);
+                else
+                    dt = bll.PesquisarPorNome(texto);
+
+                dgvFornecedor.DataSource = dt ?? new DataTable();
+                PersonalizarDataGridView();
+
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.MensagemPesquisa(lblStatus, dgvFornecedor, "fornecedor", texto);
+            }
+            catch (Exception ex)
+            {
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.Mensagem(lblStatus, $"Erro na pesquisa: {ex.Message}", StatusTipo.Erro);
+            }
         }
 
         private void FrmManutFornecedor_Load(object sender, EventArgs e)
@@ -283,21 +294,19 @@ namespace GVC.View
             if (!ValidadorSessao.Validar(this))
                 return;
 
-            ListarFornecedor();           
+            ListarFornecedor();
+            PersonalizarDataGridView();
+
             dgvFornecedor.CellFormatting += dataGridPesquisar_CellFormatting;
+
+            // Total real do banco (uma vez)
+            var bll = new FornecedorBll();
+            _totalRegistrosBanco = bll.ContarTotal(); // criar se não existir
+
+            StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+            StatusBarPadrao.MensagemPesquisa(lblStatus, dgvFornecedor, "fornecedor", txtPesquisa.Text);
         }
 
-        private void rbtCodigo_CheckedChanged(object sender, EventArgs e)
-        {
-            txtPesquisa.Text = "";
-            txtPesquisa.Focus();
-        }
-        private void rbtDescricao_CheckedChanged(object sender, EventArgs e)
-        {
-            txtPesquisa.Text = "";
-            txtPesquisa.Focus();
-        }
-       
         private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();

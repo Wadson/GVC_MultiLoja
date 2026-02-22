@@ -14,9 +14,24 @@ namespace GVC.BLL
             _repository = new ProdutoRepository();
         }
 
+        public int ContarTotal()
+        {
+            return _repository.ContarTotal();
+        }
         // =========================
         // LISTAR
         // =========================
+        public List<ProdutoModel> PesquisarProdutoPorNome(string nome)
+        {
+            try
+            {
+                return _repository.PesquisarProdutoPorNome(nome);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao pesquisar produto: " + ex.Message);
+            }
+        }
         public List<ProdutoModel> ListarTodos()
         {
             try

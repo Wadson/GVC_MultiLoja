@@ -1,5 +1,6 @@
-﻿using GVC.BLL;
-using GVC.DAL;
+﻿using GVC.BLL; 
+using GVC.Helpers;
+using GVC.Infra.Repository;
 using GVC.UTIL;
 using Krypton.Toolkit;
 using System;
@@ -16,7 +17,7 @@ namespace GVC.View
     public partial class FrmManutCliente : KryptonForm
     {
         private string StatusOperacao;
-
+        private int _totalRegistrosBanco;
         public FrmManutCliente(string statusOperacao)
         {
             this.StatusOperacao = statusOperacao;
@@ -27,7 +28,7 @@ namespace GVC.View
             var bll = new ClienteBLL();
             dgvCliente.DataSource = bll.Listar();
             PersonalizarDataGridView();
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvCliente);
+            Utilitario.AtualizarTotalToolStatusStrip(lblTotalBanco, dgvCliente);
         }
         public void HabilitarTimer(bool habilitar)
         {
@@ -303,20 +304,31 @@ namespace GVC.View
         private void txtPesquisa_TextChanged(object sender, EventArgs e)
         {
             string texto = txtPesquisa.Text.Trim();
-
             var bll = new ClienteBLL();
 
-            // Carrega os dados
-            dgvCliente.DataSource = string.IsNullOrEmpty(texto)
-                ? bll.Listar()
-                : bll.PesquisarPorNome(texto);
+            try
+            {
+                if (string.IsNullOrWhiteSpace(texto))
+                {
+                    dgvCliente.DataSource = bll.Listar();
+                    PersonalizarDataGridView();
 
-            PersonalizarDataGridView();
-            Utilitario.AtualizarTotalToolStatusStrip(lblTotalRegistros, dgvCliente);
+                    StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                    StatusBarPadrao.MensagemPesquisa(lblStatus, dgvCliente, "cliente", "");
+                    return;
+                }
 
-            // Atualiza a mensagem de status
-            AtualizarMensagemStatus(texto);
+                dgvCliente.DataSource = bll.PesquisarPorNome(texto);
+                PersonalizarDataGridView();
 
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.MensagemPesquisa(lblStatus, dgvCliente, "cliente", texto);
+            }
+            catch (Exception ex)
+            {
+                StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+                StatusBarPadrao.Mensagem(lblStatus, $"Erro na pesquisa: {ex.Message}", StatusTipo.Erro);
+            }
         }
 
 
@@ -329,6 +341,14 @@ namespace GVC.View
             timer1.Enabled = false; // 🔴 IMPORTANTE
             ListarCliente();
             dgvCliente.CellFormatting += dataGridPesquisar_CellFormatting;
+
+            PersonalizarDataGridView();
+
+            // total real do banco (uma vez)
+            _totalRegistrosBanco = new ClienteBLL().ContarTotal();           
+
+            StatusBarPadrao.AtualizarTotalBanco(lblTotalBanco, _totalRegistrosBanco);
+            StatusBarPadrao.MensagemPesquisa(lblStatus, dgvCliente, "cliente", txtPesquisa.Text);
         }
 
         private void rbtCodigo_CheckedChanged(object sender, EventArgs e)

@@ -8,6 +8,15 @@ namespace GVC.Infra.Repository
 {
     public class ProdutoRepository : RepositoryBase
     {
+        public int ContarTotal()
+        {
+            var cmd = CreateCommand(@"SELECT COUNT(*) FROM Produtos WHERE EmpresaID = @EmpresaID");            
+            cmd.ExecuteNonQuery();
+           
+            return Convert.ToInt32(cmd.ExecuteScalar());
+        }
+
+
         public void AtualizarEstoque(long produtoId, decimal novoEstoque)
         {
             var cmd = CreateCommand(@"

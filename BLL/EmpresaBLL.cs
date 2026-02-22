@@ -1,4 +1,6 @@
 ﻿using GVC.DAL;
+using GVC.Infra.Conexao;
+using GVC.Infra.Repository;
 using GVC.Model;
 using GVC.UTIL;
 using Microsoft.Data.SqlClient;
@@ -6,15 +8,28 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using GVC.Infra.Conexao;
 
 namespace GVC.BLL
 {
     public class EmpresaBll
     {
         private readonly EmpresaDal _empresaDal = new EmpresaDal();
-        
 
+        public int ContarTotal()
+        {
+            return _empresaDal.ContarTotal();
+        }
+        public DataTable PesquisarPorNome(string nome)
+        {
+            try
+            {
+                return _empresaDal.PesquisarPorNome(nome);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao pesquisar empresa: " + ex.Message);
+            }
+        }
         public DadosEmpresaPdf ObterDadosParaPdf()
         {
             if (!Sessao.Logado || Sessao.EmpresaID <= 0)

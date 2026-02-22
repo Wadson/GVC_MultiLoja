@@ -22,13 +22,6 @@ namespace GVC
         [STAThread]
         static void Main()
         {
-            var exePath = Application.ExecutablePath;
-            var verExe = Assembly.GetEntryAssembly()?.GetName().Version;
-            MessageBox.Show($"Rodando de:\n{exePath}\nVersão:\n{verExe}","Informação!", MessageBoxButtons.OK);
-
-
-
-
             QuestPDF.Settings.License = LicenseType.Community;
 
             Application.EnableVisualStyles();

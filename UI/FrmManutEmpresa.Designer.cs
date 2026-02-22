@@ -41,19 +41,20 @@
             kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
-            pictureBox1 = new PictureBox();
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
             timer2 = new System.Windows.Forms.Timer(components);
-            lblTotalRegistros = new ToolStripStatusLabel();
             statusStrip1 = new StatusStrip();
+            lblTotalBanco = new ToolStripStatusLabel();
+            toolStripStatusLabel2 = new ToolStripStatusLabel();
+            lblStatus = new ToolStripStatusLabel();
+            btnPesquisar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvEmpresa).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
             kryptonPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
             kryptonPanel4.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -77,7 +78,7 @@
             dgvEmpresa.PaletteMode = Krypton.Toolkit.PaletteMode.Office365BlueDarkMode;
             dgvEmpresa.ReadOnly = true;
             dgvEmpresa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEmpresa.Size = new Size(1000, 423);
+            dgvEmpresa.Size = new Size(1000, 420);
             dgvEmpresa.TabIndex = 597;
             dgvEmpresa.CellFormatting += dgvEmpresa_CellFormatting;
             // 
@@ -107,7 +108,7 @@
             // 
             btnSair.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSair.CornerRoundingRadius = 10F;
-            btnSair.Location = new Point(918, 2);
+            btnSair.Location = new Point(918, -20);
             btnSair.Margin = new Padding(5, 3, 5, 3);
             btnSair.Name = "btnSair";
             btnSair.OverrideDefault.Back.Color1 = Color.FromArgb(6, 174, 244);
@@ -360,21 +361,22 @@
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(kryptonPanel2, 0, 0);
             tableLayoutPanel1.Controls.Add(kryptonPanel3, 0, 1);
             tableLayoutPanel1.Controls.Add(kryptonPanel4, 0, 3);
             tableLayoutPanel1.Controls.Add(dgvEmpresa, 0, 2);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 4;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 62F));
-            tableLayoutPanel1.Size = new Size(1008, 561);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(1008, 536);
             tableLayoutPanel1.TabIndex = 625;
             // 
             // kryptonPanel2
@@ -403,7 +405,7 @@
             // 
             // kryptonPanel3
             // 
-            kryptonPanel3.Controls.Add(pictureBox1);
+            kryptonPanel3.Controls.Add(btnPesquisar);
             kryptonPanel3.Controls.Add(kryptonLabel2);
             kryptonPanel3.Controls.Add(txtPesquisa);
             kryptonPanel3.Dock = DockStyle.Fill;
@@ -412,16 +414,6 @@
             kryptonPanel3.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
             kryptonPanel3.Size = new Size(1002, 29);
             kryptonPanel3.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.Pesquisar;
-            pictureBox1.Location = new Point(66, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(25, 25);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox1.TabIndex = 621;
-            pictureBox1.TabStop = false;
             // 
             // kryptonLabel2
             // 
@@ -438,30 +430,57 @@
             kryptonPanel4.Controls.Add(btnSair);
             kryptonPanel4.Controls.Add(btnNovo);
             kryptonPanel4.Dock = DockStyle.Fill;
-            kryptonPanel4.Location = new Point(3, 502);
+            kryptonPanel4.Location = new Point(3, 499);
             kryptonPanel4.Name = "kryptonPanel4";
             kryptonPanel4.PaletteMode = Krypton.Toolkit.PaletteMode.Office365White;
-            kryptonPanel4.Size = new Size(1002, 56);
+            kryptonPanel4.Size = new Size(1002, 34);
             kryptonPanel4.TabIndex = 2;
             // 
             // timer2
             // 
             timer2.Interval = 1000;
             // 
-            // lblTotalRegistros
-            // 
-            lblTotalRegistros.Name = "lblTotalRegistros";
-            lblTotalRegistros.Size = new Size(94, 17);
-            lblTotalRegistros.Text = "lblTotalRegistros";
-            // 
             // statusStrip1
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { lblTotalRegistros });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { lblTotalBanco, toolStripStatusLabel2, lblStatus });
             statusStrip1.Location = new Point(0, 539);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(1008, 22);
-            statusStrip1.TabIndex = 626;
+            statusStrip1.TabIndex = 627;
             statusStrip1.Text = "statusStrip1";
+            // 
+            // lblTotalBanco
+            // 
+            lblTotalBanco.Name = "lblTotalBanco";
+            lblTotalBanco.Size = new Size(79, 17);
+            lblTotalBanco.Text = "lblTotalBanco";
+            // 
+            // toolStripStatusLabel2
+            // 
+            toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            toolStripStatusLabel2.Size = new Size(16, 17);
+            toolStripStatusLabel2.Text = " | ";
+            // 
+            // lblStatus
+            // 
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(39, 17);
+            lblStatus.Text = "Status";
+            // 
+            // btnPesquisar
+            // 
+            btnPesquisar.BackColor = Color.Transparent;
+            btnPesquisar.FlatAppearance.BorderSize = 0;
+            btnPesquisar.FlatStyle = FlatStyle.Flat;
+            btnPesquisar.IconChar = FontAwesome.Sharp.IconChar.Search;
+            btnPesquisar.IconColor = Color.FromArgb(30, 136, 229);
+            btnPesquisar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnPesquisar.IconSize = 30;
+            btnPesquisar.Location = new Point(68, 3);
+            btnPesquisar.Name = "btnPesquisar";
+            btnPesquisar.Size = new Size(25, 25);
+            btnPesquisar.TabIndex = 1141;
+            btnPesquisar.UseVisualStyleBackColor = false;
             // 
             // FrmManutEmpresa
             // 
@@ -493,7 +512,6 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
             kryptonPanel4.ResumeLayout(false);
             statusStrip1.ResumeLayout(false);
@@ -519,9 +537,11 @@
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
         private System.Windows.Forms.Timer timer2;
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private PictureBox pictureBox1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private ToolStripStatusLabel lblTotalRegistros;
         private StatusStrip statusStrip1;
+        private ToolStripStatusLabel lblTotalBanco;
+        private ToolStripStatusLabel toolStripStatusLabel2;
+        private ToolStripStatusLabel lblStatus;
+        private FontAwesome.Sharp.IconButton btnPesquisar;
     }
 }

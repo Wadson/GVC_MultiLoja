@@ -10,6 +10,14 @@ namespace GVC.Infra.Repository
 {
     public class VendedorRepository : RepositoryBase
     {
+
+        public int ContarTotal()
+        {
+            var cmd = CreateCommand(@"SELECT COUNT(*) FROM Vendedores WHERE EmpresaID = @EmpresaID");
+            cmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(cmd.ExecuteScalar());
+        }
         private const string SqlBase = @"
             SELECT 
             v.VendedorID,

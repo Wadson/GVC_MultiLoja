@@ -12,6 +12,13 @@ namespace GVC.DAL
 {
     internal class FornecedorDal : RepositoryBase
     {
+        public int ContarTotal()
+        {
+            var cmd = CreateCommand(@"SELECT COUNT(*) FROM Fornecedor WHERE EmpresaID = @EmpresaID");
+            cmd.ExecuteNonQuery();
+
+            return Convert.ToInt32(cmd.ExecuteScalar());
+        }
         private const string SqlBase = @"
         SELECT
             f.FornecedorID,
